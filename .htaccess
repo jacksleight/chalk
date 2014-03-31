@@ -1,0 +1,9 @@
+# Rewrite Rules
+
+RewriteEngine On
+RewriteRule (.*) public/$1 [L]
+
+# Configuration
+
+Options -Indexes
+Options -MultiViews

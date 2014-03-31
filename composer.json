@@ -1,0 +1,17 @@
+{
+  "require": {
+    "doctrine/orm": "2.4.*",
+    "swiftmailer/swiftmailer": "5.1.*",
+    "jacksleight/coast": "dev-master"
+  },
+  "autoload": {
+    "psr-0": {
+      "Js": "vendor/js/lib",
+      "App": "lib",
+      "App\\Proxy": "data/proxies"
+    },
+    "psr-4": {
+      "App\\Controller\\": "controllers/"
+    }
+  }
+}

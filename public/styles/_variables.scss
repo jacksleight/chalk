@@ -1,0 +1,52 @@
+/* Fonts */
+
+$font-family:			'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family-monospace:	Consolas, 'Courier New', Courier, monospace;
+$font-size:				16px;
+$font-scale:			1.15;
+$line-height:			1.5;
+$line-height-tight:		$line-height - 0.2;
+
+/* Colors */
+
+$color-primary:			#00aeef;
+
+$color-positive:		#0cf8b7;
+$color-negative:		#f21847;
+$color-highlight:		#ffff00;
+
+$color-foreground:		tint(black, 20%);
+$color-quiet:			tint($color-foreground, 60%);
+$color-loud:			shade($color-foreground, 20%);
+
+$color-background:		white;
+$color-shade:			tint(black, 95%);
+$color-divide:			tint(black, 85%);
+
+/* Sizes */
+
+$spacing:				$font-size;
+$gutter:				20px;
+$radius:				3px;
+
+/* Transitions */
+
+$speed:					0.2s;
+
+/* Widths & Heights */
+
+$width-1:				percentage(1 / 12);
+$width-2:				$width-1 * 2;
+$width-3:				$width-1 * 3;
+$width-4:				$width-1 * 4;
+$width-5:				$width-1 * 5;
+$width-6:				$width-1 * 6;
+$width-7:				$width-1 * 7;
+$width-8:				$width-1 * 8;
+$width-9:				$width-1 * 9;
+$width-10:				$width-1 * 10;
+$width-11:				$width-1 * 11;
+$width-12:				$width-1 * 12;
+
+$width-gr-s:			38%;
+$width-gr-l:			62%;

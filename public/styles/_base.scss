@@ -1,0 +1,682 @@
+/* General */
+
+* {
+	@include box-sizing(border-box); 
+}	
+html {
+	@include experimental(text-size-adjust, 100%);
+	font-size: $font-size;
+	line-height: $line-height;
+	font-family: $font-family;
+	color: $color-foreground; 
+}
+
+/* Header */
+
+#{headers(1, 6)} { 
+	font-weight: normal;
+	color: $color-loud;
+	margin: $spacing 0 0 0;
+}
+h1 { 
+	@include font-size(6);
+}
+h2 { 
+	@include font-size(5);
+}
+h3 { 
+	@include font-size(4);
+}
+h4 { 
+	@include font-size(3);
+}
+h5 { 
+	@include font-size(2);
+}
+h6 { 
+	@include font-size(1);
+}
+
+/* Paragraph */
+
+p { 
+	margin: $spacing 0 0 0;
+	&.summary { 
+		@include font-size(1);
+	}
+	&.details { 
+		color: $color-quiet;
+		margin-top: 0;
+	}
+}
+
+/* List */
+
+ul, ol { 
+	margin: $spacing 0 0 0;
+	padding: 0;
+	ul, ol { 
+		margin-top: 0;
+	}
+	li { 
+		margin: 0 0 0 $gutter;
+	}
+}
+ul { 
+	list-style: disc;
+	ul { 
+		list-style: circle;
+		ul { 
+			list-style: square;
+		}
+	}
+}
+ol { 
+	list-style: decimal;
+	ol { 
+		list-style: lower-alpha;
+		ol { 
+			list-style: lower-roman;
+		}
+	}
+}
+dl { 
+	margin: $spacing 0 0 0;
+	dt { 
+		font-weight: bold;
+		float: left;
+		width: (100px - $gutter);
+	}
+	dd { 
+		margin-left: 100px;
+	}
+}
+
+/* Link */
+
+a { 
+	@include link-colors(
+		$color-primary,
+		shade($color-primary, 10%),
+		shade($color-primary, 10%),
+		$color-primary,
+		shade($color-primary, 10%)
+	);
+	@include transition(all $speed ease);
+	text-decoration: underline;
+}
+
+/* Emphasised & Marked */
+
+em, i { 
+	font-style: oblique;
+}
+strong, b { 
+	font-weight: bold;
+}
+mark { 
+	background-color: $color-highlight;
+	@include border-radius(2px);
+}
+
+/* Quote */
+
+blockquote { 
+	font-style: oblique;
+	margin: $spacing 0 0 0;
+	padding: 0 $gutter;
+	border-left: 1px solid $color-divide;
+	@include flush;
+}
+q { 
+	quotes: '\201C' '\201D' '\2018' '\2019';
+	&:before { 
+		content: open-quote;
+	}
+	&:after { 
+		content: close-quote;
+	}
+}
+
+/* Preformatted & Code */
+
+pre, code { 
+	font-family: $font-family-monospace;
+	@include font-size;
+	@include border-radius($radius);
+}
+pre { 
+	margin: $spacing 0 0 0; padding: $gutter;
+	@include experimental(tab-size, 4);
+	background: $color-shade;
+}
+code { 
+	padding: 0 0.2em;
+}
+pre code { 
+	padding: 0;
+}
+
+/* Abbreviation */
+
+abbr { 
+	border-bottom: 1px dotted;
+	cursor: help;
+}
+
+/* Superscript & Subscript */
+
+sup { 
+	vertical-align: super;
+	vertical-align: 5px;
+}
+sub { 
+	vertical-align: sub;
+	vertical-align: -3px;
+}
+
+/* Deleted & Inserted */
+
+del, strike { 
+	text-decoration: line-through;
+}
+ins, u { 
+	text-decoration: underline;
+}
+
+/* Note & Error */
+
+small { 
+	color: $color-quiet;
+	font-size: inherit;
+}
+.error { 
+	color: $color-negative;
+}
+
+/* Rule */
+
+hr { 
+	margin: $spacing 0;
+	border: 0;
+	border-top: 1px solid $color-divide;
+}
+
+/* Image */
+
+img, svg { 
+	display: inline-block;
+	vertical-align: middle;
+}
+img {
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+}
+svg {
+	max-height: 100%;
+}
+.image {
+	margin: $spacing 0 0 0;
+	img, svg {
+		display: block;
+	}
+	img {
+		width: 100%;
+		height: auto;
+	}
+}
+
+/* Audio */
+
+audio {
+	display: inline-block;
+	vertical-align: middle;
+}
+.audio {
+	margin: $spacing 0 0 0;
+	audio, object, .audio-message {
+		display: block;
+		width: 100%;
+	}
+	.audio-message {
+		background: $color-shade;
+		text-align: center;
+		padding: $gutter;
+	}
+}
+
+/* Video */
+
+video {
+	display: inline-block;
+	vertical-align: middle;
+}
+.video {
+	margin: $spacing 0 0 0;
+	position: relative;
+	video, object, .video-message {
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.video-message {
+		background: $color-shade;
+		@include vertically-center(span);
+		span {
+			text-align: center;
+			padding: $gutter;
+		}
+	}
+	.ratio {
+		display: block !important;
+	}
+}
+
+/* Figures */
+
+figure { 
+	margin: $spacing 0 0 0;
+	@include flush;
+	figcaption { 
+		@include font-size(-1);
+		font-style: oblique;
+		text-align: right;
+		margin: $spacing * 0.5 0 0 0;
+		display: block;
+	}
+	&.quote {
+		figcaption:before {
+			content: '— ';
+		}
+	}
+}
+
+/* Table */
+
+$table-border: 1px solid $color-divide;
+$table-border-light: 1px solid $color-shade;
+
+table { 
+	width: 100%;
+	margin: $spacing 0 0 0;
+	border-spacing: 0;
+	border: $table-border;
+	@include border-radius($radius);
+	tr {
+		th, td {
+			border-top: $table-border-light;
+			border-left: $table-border-light;
+			&:first-child {
+				border-left: 0;
+			}
+		}
+		&:first-child {
+			th, td {
+				border-top: 0;
+			}
+		}
+	}
+	thead {
+		tr:last-child {
+			th, td {
+				border-bottom: $table-border;
+			}
+		}
+	}
+	tfoot {
+		tr:first-child {
+			th, td {
+				border-top: $table-border;
+			}
+		}
+	}
+	th, td { 
+		vertical-align: top;
+		padding: 4px 8px;
+	}
+	th { 
+		font-weight: bold;
+		text-align: left;
+		color: $color-loud;
+	}
+	tbody {
+		th, td { 
+			@include transition(all $speed ease);
+		}
+		tr:hover { 
+			th, td { 
+				background: $color-shade;
+			}
+		}
+	}
+	caption { 
+		@include font-size(-1);
+		font-style: oblique;
+		text-align: right;
+		margin: $spacing * 0.5 0 0 0;
+		caption-side: bottom;
+	}
+}
+
+/* Input */
+
+/* Because line-height on form elements is ignored by Firefox, using padding-top/bottom
+   creates height inconsistencies, therefore we leave padding at 0px and explictly set
+   the height, to ensure height and vertical-alignment consistency. Text is vertically
+   aligned in the center automatically by the browser (except selects in Firefox) */
+$input-border-width:	1px;
+$input-padding: 		4px;
+$input-height:			round($font-size * $line-height)
+						+ ($input-padding * 2)
+						+ ($input-border-width * 2);
+
+input,
+select,
+textarea,
+button,
+a.button { 
+	@include transition(all $speed ease);
+}
+
+input[type=date],
+input[type=datetime],
+input[type=datetime-local],
+input[type=email],
+input[type=month],
+input[type=number],
+input[type=password],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=time],
+input[type=url],
+input[type=week],
+textarea,
+select { 
+	@include font-size(0);
+	font-family: $font-family;
+	color: $color-foreground;
+	text-align: left;
+	height: $input-height;
+	line-height: $input-height - ($input-border-width * 2);
+	vertical-align: baseline;
+	width: $width-12;
+	margin: 0;
+	padding: 0 $input-padding + 3px;
+	background-color: white;
+	border: $input-border-width solid;
+	border-color: 
+		tint(gray, 60%)
+		tint(gray, 70%)
+		tint(gray, 70%)
+		tint(gray, 60%);
+	@include border-radius($radius);
+	outline: 0;
+	-webkit-appearance: none;
+	&[disabled] {
+		background-color: $color-shade;
+	}
+	&:focus:invalid {
+		border-color: $color-negative;
+		@include box-shadow(tint($color-negative, 20%) 0 0 6px 0);
+	}
+	@include placeholder {
+		color: $color-quiet;
+	}
+}
+input[type=radio],
+input[type=checkbox] { 
+	vertical-align: 1px;
+}
+
+select { 
+	width: auto;
+	optgroup {
+		@include font-size(0);
+		font-family: $font-family;
+		font-style: normal;
+		font-weight: normal;
+		color: $color-quiet;
+		text-indent: 3px;
+		option {
+			color: $color-foreground;
+		}
+	}
+	padding-right: 0;
+	/* Include an arrow icon for WebKit */
+	@media (-webkit-min-device-pixel-ratio: 0) {
+		@include image-raster(select-arrow);
+		background-position: 100% 50%;
+		background-repeat: no-repeat;
+		padding-right: 22px;
+	}
+	/* Fix Firefox not vertically centering text */
+	@media (min--moz-device-pixel-ratio: 0) {
+		/* Replicate the problem line-height value from the default CSS, in case
+		   it's changed in future, to avoid knock-on effects from this fix */
+		line-height: normal !important;
+		padding: $input-padding + 1px;
+	}
+}
+textarea { 
+	min-height: 200px;
+	height: 300px;
+	display: block;
+	overflow: auto;
+	resize: vertical;
+	line-height: $line-height;
+	padding-top: $input-padding;
+	padding-bottom: $input-padding;
+}
+
+input[type=reset],
+input[type=submit],
+input[type=button],
+button,
+a.button { 
+	font-family: $font-family;
+	font-weight: bold;
+	@include font-size;
+	height: $input-height;
+	line-height: $input-height - ($input-border-width * 2);
+	vertical-align: baseline;
+	width: auto;
+	padding: 0 $input-padding + 9px;
+	margin: 0;
+	color: $color-foreground;
+	text-shadow: white 0 1px 1px;
+	@include background-with-css2-fallback(linear-gradient(top, color-stops(
+		tint(gray, 80%),
+		tint(gray, 70%)
+	)), tint(gray, 80%));
+	border: $input-border-width solid;
+	border-color:
+		tint(gray, 60%)
+		tint(gray, 50%)
+		tint(gray, 50%)
+		tint(gray, 60%);
+	@include border-radius($radius);
+	outline: 0;
+	cursor: pointer;
+	text-decoration: none;
+	-webkit-appearance: none;
+	&:hover { 
+		@include background-with-css2-fallback(linear-gradient(top, color-stops(
+			tint(gray, 70%),
+			tint(gray, 60%)
+		)), tint(gray, 70%));
+		border-color:
+			tint(gray, 50%)
+			tint(gray, 40%)
+			tint(gray, 40%)
+			tint(gray, 50%);
+		color: $color-foreground;
+	}
+	&:active { 
+		@include background-with-css2-fallback(linear-gradient(top, color-stops(
+			tint(gray, 60%),
+			tint(gray, 70%)
+		)), tint(gray, 60%));
+		border-color:
+			tint(gray, 40%)
+			tint(gray, 50%)
+			tint(gray, 50%)
+			tint(gray, 40%);
+		@include box-shadow(inset rgba(0, 0, 0, 0.25) 0 1px 2px 0);
+	}
+}
+a.button { 
+	display: inline-block;
+}
+
+input[type=date],
+input[type=datetime],
+input[type=datetime-local],
+input[type=email],
+input[type=month],
+input[type=number],
+input[type=password],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=time],
+input[type=url],
+input[type=week],
+textarea,
+select,
+input[type=reset],
+input[type=submit],
+input[type=button],
+button,
+a.button { 
+	&:focus {
+		border-color: $color-primary;
+		@include box-shadow(tint($color-primary, 20%) 0 0 6px 0);
+	}
+}
+
+input,
+select,
+select option,
+select optgroup,
+textarea,
+button,
+a.button {
+	&[disabled], &.disabled {
+		@include experimental(user-select, none);
+		pointer-events: none;
+		cursor: default;
+		color: $color-quiet;
+		opacity: 0.75;
+	}
+}
+
+::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+::-webkit-search-decoration,
+::-webkit-search-cancel-button {
+	-webkit-appearance: none;
+}
+::-ms-clear {
+	display: none;
+}
+
+/* Form */
+
+form { 
+	margin: $spacing 0 0 0;
+	padding: 0;
+	@include flush;
+}
+fieldset { 
+	margin: $spacing 0 0 0;
+	padding: 0;
+	@include flush; 
+	border: 0;
+}
+legend { 
+	display: none;
+}
+
+.form-item { 
+	margin: $spacing 0 0 0;
+	+ .form-item {
+		margin-top: round($spacing * 0.5);
+	}
+	> label {
+		color: $color-loud;
+		display: block;
+	}
+	> div { 
+		margin: round($spacing  * 0.25) 0 0 0;
+		p { 
+			@include font-size(-1);
+			margin-top: round($spacing  * 0.25);
+			line-height: $line-height-tight;
+			& + p {
+				margin-top: 0;
+			}
+		}
+		label{ 
+			padding-right: 0.5em;
+		}
+	}
+	&.required {
+		> label:after {
+			content: '✱';
+			color: tint($color-quiet, 30%);
+			margin-left: 0.25em;
+		}
+	}
+	@include media(960px) {
+		$label-width: 160px;
+		clear: both;
+		> label { 
+			float: left;
+			width: ($label-width - $gutter);
+			margin: $input-padding + $input-border-width 0 0 0;
+			text-align: right;
+			&.shallow { 
+				margin-top: 0;
+			}
+		}
+		> div { 
+			margin-left: $label-width;
+		}
+		&.required {
+			> label:before {
+				content: '✱';
+				color: tint($color-quiet, 70%);
+				margin-right: 0.25em;
+			}
+			> label:after {
+				content: none;
+			}
+		}
+	}
+}
+
+/* Links */
+
+.links {
+	ul {
+		@include no-bullets;
+		@include collapse-whitespace(li);
+		li {
+			margin-left: round($gutter * 0.5);
+			padding-left: round($gutter * 0.5);
+			border-left: 1px solid;
+			@include inline-block(top);
+			&:first-child {
+				margin-left: 0;
+				padding-left: 0;	
+				border-left: 0;
+			}	
+		}
+	}
+}
