@@ -4,7 +4,7 @@
 <div class="outer">
 	<header class="header" role="banner"><div class="wrap">
 		<a href="<?= $this->url() ?>" class="logo">
-			Foundation
+			Ayre
 		</a>
 		<nav class="links" role="navigation">
 			<?= $this->render('nav', ['items' => [

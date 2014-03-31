@@ -1,5 +1,5 @@
 <?php
-class App extends \Coast\App
+class Ayre extends \Coast\App
 {
 	public function isDebug()
 	{

@@ -9,13 +9,13 @@ return [
 		'host'		=> 'localhost',
 		'user'		=> 'root',
 		'password'	=> 'password',
-		'dbname'	=> '',
+		'dbname'	=> '_ayre',
 	],
 	'memcached' => [
 		'host'		=> 'localhost',
 		'port'		=> 11211,
 	],
 	'url' => [
-		'base' 		=> '/',
+		'base' 		=> '/_ayre/',
 	],
 ];
