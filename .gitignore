@@ -2,6 +2,8 @@ config/config.php
 data/
 vendor/*/*/doc/
 vendor/*/*/docs/
+vendor/*/*/example/
+vendor/*/*/examples/
 vendor/*/*/notes/
 vendor/*/*/test-suite/
 vendor/*/*/tests/
