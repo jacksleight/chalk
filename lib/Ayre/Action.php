@@ -39,17 +39,18 @@ class Action extends Model
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
-    protected $createDate;
+    protected $actionDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Ayre\User")
+     * @ORM\ManyToOne(targetEntity="Ayre\User", inversedBy="actions")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      * @Gedmo\Blameable(on="create")
      */
-    protected $createUser;
+    protected $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="Ayre\Item", inversedBy="actions")
-     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
 	protected $item;
 }

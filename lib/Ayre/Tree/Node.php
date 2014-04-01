@@ -7,6 +7,7 @@
 namespace Ayre\Tree;
 
 use Ayre,
+    Ayre\Behaviour,
 	Coast\Model,
 	Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM,
@@ -16,8 +17,10 @@ use Ayre,
  * @ORM\Entity
  * @Gedmo\Tree(type="materializedPath")
 */
-class Node extends Model
+class Node extends Model implements Behaviour\Trackable
 {
+    use Behaviour\Trackable\Implementation;
+
 	/**
      * @ORM\Id
      * @ORM\Column(type="integer")

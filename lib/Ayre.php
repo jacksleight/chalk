@@ -3,6 +3,11 @@ use Coast\App;
 
 class Ayre extends App
 {
+	const STATUS_DRAFT		= 'draft';
+	const STATUS_PENDING	= 'pending';
+	const STATUS_PUBLISHED	= 'published';
+	const STATUS_ARCHIVED	= 'archived';
+
 	public static $instance;
 	protected $_mimeTypeMap;
 	protected $_itemTypes = array();

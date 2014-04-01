@@ -7,6 +7,7 @@
 namespace Ayre;
 
 use Ayre,
+    Ayre\Behaviour,
     Coast\Model,
 	Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM,
@@ -14,15 +15,14 @@ use Ayre,
 
 /**
  * @ORM\Entity
- * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="class", type="string")
 */
-abstract class Item extends Model
+abstract class Item extends Model implements Behaviour\Trackable, Behaviour\Versionable, Behaviour\Publishable
 {
-	const STATUS_DRAFT		= 'draft';
-	const STATUS_PENDING	= 'pending';
-	const STATUS_PUBLISHED	= 'published';
-	const STATUS_ARCHIVED	= 'archived';
+    use Behaviour\Trackable\Implementation;
+    use Behaviour\Versionable\Implementation;
+    use Behaviour\Publishable\Implementation;
 	
 	/**
      * @ORM\Id
@@ -40,16 +40,6 @@ abstract class Item extends Model
      * @ORM\Column(type="string", nullable=true)
      */
     protected $subtype;
-
-	/**
-     * @ORM\Column(type="integer")
-     */
-	protected $version = 1;
-
-	/**
-     * @ORM\Column(type="string", length=10)
-     */
-	protected $status = self::STATUS_PENDING;
 	
 	/**
      * @ORM\Column(type="string")
@@ -67,44 +57,20 @@ abstract class Item extends Model
      */
 	protected $slug;
 
-    /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
-     */
-    protected $createDate;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Ayre\User")
-     * @Gedmo\Blameable(on="create")
-     */
-    protected $createUser;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
-     */
-    protected $modifyDate;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Ayre\User")
-     * @Gedmo\Blameable(on="update")
-     */
-    protected $modifyUser;
-
 	/**
      * @ORM\OneToOne(targetEntity="Ayre\Search", mappedBy="item")
      */
 	protected $search;
 
 	/**
-     * @ORM\ManyToOne(targetEntity="Ayre\Item", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="Ayre\Item", inversedBy="followers")
      */
-	protected $parent;
+	protected $master;
 
 	/**
-     * @ORM\OneToMany(targetEntity="Ayre\Item", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Ayre\Item", mappedBy="master")
      */
-	protected $children;
+	protected $followers;
 
 	/**
      * @ORM\OneToMany(targetEntity="Ayre\Action", mappedBy="item")

@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace Ayre\Controller;
 
 use Coast\App\Controller\Action,
 	Coast\App\Request,

@@ -7,6 +7,7 @@
 namespace Ayre;
 
 use Ayre,
+    Ayre\Behaviour,
     Coast\Model,
 	Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM,
@@ -15,8 +16,10 @@ use Ayre,
 /**
  * @ORM\Entity
 */
-class Menu extends Model
+class Menu extends Model implements Behaviour\Trackable
 {
+    use Behaviour\Trackable\Implementation;
+    
 	/**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -33,28 +36,4 @@ class Menu extends Model
      * @ORM\ManyToOne(targetEntity="Ayre\Tree", inversedBy="menus")
      */
 	protected $tree;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
-     */
-    protected $createDate;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Ayre\User")
-     * @Gedmo\Blameable(on="create")
-     */
-    protected $createUser;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
-     */
-    protected $modifyDate;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Ayre\User")
-     * @Gedmo\Blameable(on="update")
-     */
-    protected $modifyUser;
 }

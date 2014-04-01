@@ -7,6 +7,7 @@
 namespace Ayre;
 
 use Ayre,
+    Ayre\Behaviour,
     Coast\Model,
 	Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM,
@@ -15,8 +16,10 @@ use Ayre,
 /**
  * @ORM\Entity
 */
-class User extends Model
+class User extends Model implements Behaviour\Trackable
 {
+    use Behaviour\Trackable\Implementation;
+
 	const ROLE_ROOT				= 'root';
 	const ROLE_ADMINISTRATOR	= 'administrator';
 	const ROLE_EDITOR			= 'editor';
@@ -61,29 +64,10 @@ class User extends Model
      */
 	protected $prefs = array();
 
-    /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
+	/**
+     * @ORM\OneToMany(targetEntity="Ayre\Action", mappedBy="user")
      */
-    protected $createDate;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Ayre\User")
-     * @Gedmo\Blameable(on="create")
-     */
-    protected $createUser;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
-     */
-    protected $modifyDate;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Ayre\User")
-     * @Gedmo\Blameable(on="update")
-     */
-    protected $modifyUser;
+	protected $actions;
 
 	public function setPasswordPlain($passwordPlain)
 	{
