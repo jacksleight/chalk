@@ -153,11 +153,28 @@ $app->set('em', $em);
 
 
 
+$test = new EventTest();
+$evm->addEventListener(\Doctrine\ORM\Events::loadClassMetadata, $test);
+
+class EventTest
+{
+    public function loadClassMetadata(\Doctrine\ORM\Event\LoadClassMetadataEventArgs $eventArgs)
+    {
+        $classMetadata = $eventArgs->getClassMetadata();
+       	$parts = explode('\\', $classMetadata->getName());
+       	array_shift($parts);
+       	$table = strtolower(implode('_', $parts));
+        $classMetadata->setTableName($table);
+    }
+}
+
+
+
 
 
 // $doct = new Doctrine\ORM\Configuration();
-// \Doctrine\DBAL\Types\Type::addType('json', '\JS\Doctrine\DBAL\Types\JSONType');
-// \Doctrine\DBAL\Types\Type::addType('url', '\JS\Doctrine\DBAL\Types\URLType');
+\Doctrine\DBAL\Types\Type::addType('json', '\Js\Doctrine\DBAL\Types\JSONType');
+\Doctrine\DBAL\Types\Type::addType('url', '\Js\Doctrine\DBAL\Types\URLType');
 // $doct->addCustomStringFunction('CEILING', '\JS\Doctrine\ORM\Query\Mysql\Ceiling');
 // $doct->addCustomStringFunction('FIELD', '\JS\Doctrine\ORM\Query\Mysql\Field');
 // $doct->addCustomStringFunction('FLOOR', '\JS\Doctrine\ORM\Query\Mysql\Floor');

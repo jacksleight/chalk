@@ -8,26 +8,32 @@ namespace Ayre;
 
 use Ayre,
     Coast\Model,
-    Doctrine\Common\Collections\ArrayCollection,
+	Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM,
     Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
 */
-class Domain extends Model
+class Action extends Model
 {
+	const TYPE_CREATE			= 'create';
+	const TYPE_UPDATE			= 'update';
+	const TYPE_STATUS_PENDING	= 'status_pending';
+	const TYPE_STATUS_PUBLISHED	= 'status_published';
+	const TYPE_STATUS_ARCHIVED	= 'status_archived';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
-    protected $id;
+	protected $id;
 
     /**
      * @ORM\Column(type="string")
      */
-    protected $name;
+	protected $type;
 
     /**
      * @ORM\Column(type="datetime")
@@ -42,19 +48,8 @@ class Domain extends Model
     protected $createUser;
 
     /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
+     * @ORM\ManyToOne(targetEntity="Ayre\Item", inversedBy="actions")
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
-    protected $modifyDate;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Ayre\User")
-     * @Gedmo\Blameable(on="update")
-     */
-    protected $modifyUser;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Ayre\Tree", inversedBy="menus")
-     */
-    protected $tree;
+	protected $item;
 }

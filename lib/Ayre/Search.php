@@ -6,16 +6,31 @@
 
 namespace Ayre;
 
-use Coast\Model,
+use Ayre,
+    Coast\Model,
 	Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM,
     Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="domain")
 */
-class Url extends \Ayre\Item
+class Search extends Model
 {
-	protected $type = 'url';
+	/**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
+	protected $id;
+
+	/**
+     * @ORM\Column(type="text")
+     */
+	protected $content;
+
+	/**
+     * @ORM\OneToOne(targetEntity="Ayre\Item", inversedBy="search")
+     */
+	protected $item;
 }

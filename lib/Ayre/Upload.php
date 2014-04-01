@@ -6,7 +6,7 @@
 
 namespace Ayre;
 
-class Upload extends \Js\Entity
+class Upload
 {
 	protected $id;
 	protected $name;

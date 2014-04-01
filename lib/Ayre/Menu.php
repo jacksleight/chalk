@@ -8,26 +8,31 @@ namespace Ayre;
 
 use Ayre,
     Coast\Model,
-    Doctrine\Common\Collections\ArrayCollection,
+	Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM,
     Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
 */
-class Domain extends Model
+class Menu extends Model
 {
-    /**
+	/**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
-    protected $id;
-
-    /**
+	protected $id;
+	
+	/**
      * @ORM\Column(type="string")
      */
     protected $name;
+
+	/**
+     * @ORM\ManyToOne(targetEntity="Ayre\Tree", inversedBy="menus")
+     */
+	protected $tree;
 
     /**
      * @ORM\Column(type="datetime")
@@ -52,9 +57,4 @@ class Domain extends Model
      * @Gedmo\Blameable(on="update")
      */
     protected $modifyUser;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Ayre\Tree", inversedBy="menus")
-     */
-    protected $tree;
 }

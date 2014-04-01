@@ -1,38 +1,38 @@
 <?php
 /*
- * Copyright 2008-2013 Jack Sleight <http://jacksleight.com/>
- * Any redistribution or reproduction of part or all of the contents in any form is prohibited.
+ * Copyright 2014 Jack Sleight <http://jacksleight.com/>
+ * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Ayre\File;
+namespace Ayre;
 
-class Revision extends \Ayre\Item\Revision
+use Ayre,
+    Coast\Model,
+	Doctrine\Common\Collections\ArrayCollection,
+    Doctrine\ORM\Mapping as ORM,
+    Gedmo\Mapping\Annotation as Gedmo;
+
+/**
+ * @ORM\Entity
+*/
+class File extends Item
 {
+	protected $type = 'file';
+
 	protected static $_imagickCompatibleMimeTypes;
 
+    /**
+     * @ORM\Column(type="string")
+     */
 	protected $mimeType;
+
+    /**
+     * @ORM\Column(type="string")
+     */
 	protected $fileName;
+
 	protected $file;
 	protected $newFile;
-
-	protected static function _defineMetadata($class)
-	{
-		return array_merge_recursive(parent::_defineMetadata($class), array(
-			'fields' => array(
-				'mimeType' => array(
-					'type'		=> 'string',
-					'length'	=> 255,
-				),
-				'fileName' => array(
-					'type'		=> 'string',
-					'length'	=> 255,
-					'validator'	=> new \Js\Validator\Chain(array(
-						new \Js\Validator\Regex('/^[a-z0-9\.\-_ ]+$/i'),
-					)),	
-				),
-			),
-		));
-	}
 		
 	protected static function _getImagickCompatibleMimeTypes()
 	{
@@ -118,7 +118,11 @@ class Revision extends \Ayre\Item\Revision
 		}
 	}
 	
-	public function postPersistUpdate()
+	/**
+	 * @ORM\PrePersist
+	 * @ORM\PreUpdate
+	 */
+	public function processFile()
 	{
 		parent::postPersistUpdate();
 
@@ -132,23 +136,11 @@ class Revision extends \Ayre\Item\Revision
 		}
 	}
 
-	public function postLoad()
+	/**
+	 * @ORM\PostLoad
+	 */
+	public function initializeFile()
 	{
-		parent::postLoad();
-
 		$this->file = $this->getDir()->getFile($this->fileName);
 	}
-
-	public function _postValidate()
-	{
-		parent::_postValidate();
-
-		if ($this->isPersisted()) {
-			$path		= new \JS\Path($this->fileName);
-			$extension	= $path->toString(\JS\Path::EXTENSION);
-			if (\Ayre::$instance->app->extToMimeType($extension) != $this->mimeType) {
-				$this->_addError('fileName', 'validator_extension_invalid');
-			}
-		}
-	}	
 }
