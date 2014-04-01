@@ -54,7 +54,7 @@ class Domain extends Model
     protected $modifyUser;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Ayre\Tree", inversedBy="menus")
+     * @ORM\ManyToOne(targetEntity="Ayre\Tree", inversedBy="domains")
      */
     protected $tree;
 }

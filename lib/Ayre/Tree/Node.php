@@ -44,6 +44,11 @@ class Node extends Model
      */
     private $children;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Ayre\Tree", inversedBy="nodes")
+     */
+    protected $tree;
+
 	/**
      * @ORM\ManyToOne(targetEntity="Ayre\Item", inversedBy="nodes")
      */
