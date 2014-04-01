@@ -201,3 +201,9 @@ class EventTest
 
 $swift = Swift_Mailer::newInstance(Swift_MailTransport::newInstance());
 $app->set('swift', $swift);
+
+
+
+
+
+return $app;
