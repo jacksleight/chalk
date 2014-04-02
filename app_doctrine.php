@@ -46,10 +46,10 @@ $doct->setMetadataDriverImpl($chain);
 
 $evm = new \Doctrine\Common\EventManager();
 $classes = [
+	'Ayre\Listener',
 	'Ayre\Behaviour\Loggable\Listener',
 	'Ayre\Behaviour\Searchable\Listener',
 	'Ayre\Behaviour\Versionable\Listener',
-	'Ayre\Metadata\Listener',
 	'Ayre\Tree\Node\Listener',
 	'Gedmo\Blameable\BlameableListener',
 	'Gedmo\Sluggable\SluggableListener',

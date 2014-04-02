@@ -85,10 +85,13 @@ class Ayre extends App
 	
 	public function register($class)
 	{
-		$parts = explode('\\', str_replace('Ayre\\', null, $class));
-		foreach ($parts as $i => $part) {
-			$parts[$i] = lcfirst($part);
-		}
+		$parts = explode('\\', $class);
+		if ($parts[0] != 'Ayre') {
+            throw new Exception("Class {$class} is not under the Ayre namespace");   
+        }
+        array_shift($parts);
+
+		$parts = array_map('lcfirst', $parts);
 		$type = [
 			'class'	=> $class,
 			'id'	=> implode('_', $parts),

@@ -13,7 +13,7 @@ use Ayre,
     Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\MaterializedPathRepository")
+ * @ORM\Entity
  * @Gedmo\Tree(type="materializedPath")
 */
 class Node extends Model

@@ -4,7 +4,9 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Ayre;
+namespace Ayre\Repository\Tree;
 
-class Exception extends \Exception
+use Gedmo\Tree\Entity\Repository\MaterializedPathRepository;
+
+class Node extends MaterializedPathRepository
 {}

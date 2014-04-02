@@ -35,7 +35,9 @@ trait Implementation
     {
     	$version = clone $this->master->versions->last();
     	$this->master->versions->add($version);
-    	$version->version++;
+    	
+        $version->id = null;
+        $version->version++;
         if ($version instanceof Publishable) {
             $version->status = Ayre::STATUS_DRAFT;
         }

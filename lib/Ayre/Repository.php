@@ -6,5 +6,7 @@
 
 namespace Ayre;
 
-class Exception extends \Exception
+use Doctrine\ORM\EntityRepository;
+
+class Repository extends EntityRepository
 {}

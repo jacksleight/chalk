@@ -1,12 +1,14 @@
 <?php
 /*
- * Copyright 2008-2013 Jack Sleight <http://jacksleight.com/>
- * Any redistribution or reproduction of part or all of the contents in any form is prohibited.
+ * Copyright 2014 Jack Sleight <http://jacksleight.com/>
+ * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Ayre\Silt;
+namespace Ayre\Repository;
 
-class Repository extends \Doctrine\ORM\EntityRepository
+use Ayre\Repository;
+
+class Silt extends Repository
 {
 	// public function fetch($silt)
 	// {
@@ -54,17 +56,5 @@ class Repository extends \Doctrine\ORM\EntityRepository
 	// }
 	// 
 	// 
-	// public static function search($phrase)
-	// {
-	// 	$conn = \Ayre::$instance->em->getConnection();
-		
-	// 	$phrase = $conn->quote($phrase);
-	// 	return \JS\array_column($conn->query("
-	// 		SELECT s.id,
-	// 			MATCH(s.content) AGAINST ({$phrase} IN BOOLEAN MODE) AS score
-	// 		FROM search AS s
-	// 		WHERE MATCH(s.content) AGAINST ({$phrase} IN BOOLEAN MODE)
-	// 		ORDER BY score DESC
-	// 	")->fetchAll(), 'id');
-	// }
+	// 
 }
