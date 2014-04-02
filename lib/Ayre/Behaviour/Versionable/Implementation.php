@@ -6,7 +6,9 @@
 
 namespace Ayre\Behaviour\Versionable;
 
-use Doctrine\ORM\Mapping as ORM,
+use Ayre,
+    Ayre\Behaviour,
+    Doctrine\ORM\Mapping as ORM,
     Gedmo\Mapping\Annotation as Gedmo;
 
 trait Implementation
@@ -21,6 +23,9 @@ trait Implementation
     	$version = clone $this->master->versions->last();
     	$this->master->versions->add($version);
     	$version->version++;
+        if ($version instanceof Behaviour\Publishable) {
+            $version->status = Ayre::STATUS_DRAFT;
+        }
     	return $version;
     }
 }

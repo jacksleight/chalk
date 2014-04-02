@@ -8,21 +8,22 @@ class Ayre extends App
 	const STATUS_PUBLISHED	= 'published';
 	const STATUS_ARCHIVED	= 'archived';
 
-	public static $instance;
 	protected $_mimeTypeMap;
-	protected $_itemTypes = array();
+
+	protected $_siltTypes			= [];
+	protected $_publishableTypes	= [];
 
 	public function __construct(array $envs = array())
 	{
 		parent::__construct($envs);
-		self::$instance = $this;
-
 		$this
-			->addItemType('Ayre\Document')
-			->addItemType('Ayre\File')
-			->addItemType('Ayre\Url')
-			->addItemType('Ayre\Url\Email')
-			->addItemType('Ayre\Url\Oembed');
+			->addSiltType('Ayre\Document')
+			->addSiltType('Ayre\File')
+			->addPublishableType('Ayre\Silt')
+			->addPublishableType('Ayre\Tree');
+			// ->addSiltType('Ayre\Url')
+			// ->addSiltType('Ayre\Url\Email')
+			// ->addSiltType('Ayre\Url\Oembed');
 	}
 
 	public function isDebug()
@@ -45,220 +46,163 @@ class Ayre extends App
 		return $this->env('SERVER') == 'production';
 	}	
 
-	protected function _getMimeTypeMap()
-	{
-		if (!isset($this->_mimeTypeMap)) {
-			$file = $this->_dir->getChild('data')
-				->getFile('mime-types.txt')
-				->open();
-			$mimeTypeMap = array();
-			while (false !== $line = $file->get()) {
-				if (substr($line, 0, 1) == '#') {
-					continue;
-				}
-				list($mimeType, $exts) = preg_split("/\t+/", trim($line));	
-				$exts = preg_split("/\s+/", $exts);
-				foreach ($exts as $ext) {
-					$mimeTypeMap[$ext] = $mimeType;
-				}
-			}
-			$file->close();
-			$this->_mimeTypeMap = $mimeTypeMap;
-		}		
-		return $this->_mimeTypeMap;
-	}
+	// protected function _getMimeTypeMap()
+	// {
+	// 	if (!isset($this->_mimeTypeMap)) {
+	// 		$file = $this->_dir->getChild('data')
+	// 			->getFile('mime-types.txt')
+	// 			->open();
+	// 		$mimeTypeMap = array();
+	// 		while (false !== $line = $file->get()) {
+	// 			if (substr($line, 0, 1) == '#') {
+	// 				continue;
+	// 			}
+	// 			list($mimeType, $exts) = preg_split("/\t+/", trim($line));	
+	// 			$exts = preg_split("/\s+/", $exts);
+	// 			foreach ($exts as $ext) {
+	// 				$mimeTypeMap[$ext] = $mimeType;
+	// 			}
+	// 		}
+	// 		$file->close();
+	// 		$this->_mimeTypeMap = $mimeTypeMap;
+	// 	}		
+	// 	return $this->_mimeTypeMap;
+	// }
 	
-	public function getMimeTypes()
-	{
-		return array_unique(array_values($this->_getMimeTypeMap()));
-	}
+	// public function getMimeTypes()
+	// {
+	// 	return array_unique(array_values($this->_getMimeTypeMap()));
+	// }
 	
-	public function extToMimeType($ext)
-	{
-		$ext = strtolower($ext);
-		$mimeTypeMap = $this->_getMimeTypeMap();
-		return isset($mimeTypeMap[$ext])
-			? $mimeTypeMap[$ext]
-			: null;
-	}
+	// public function extToMimeType($ext)
+	// {
+	// 	$ext = strtolower($ext);
+	// 	$mimeTypeMap = $this->_getMimeTypeMap();
+	// 	return isset($mimeTypeMap[$ext])
+	// 		? $mimeTypeMap[$ext]
+	// 		: null;
+	// }
 	
-	public function addItemType($class)
+	public function addSiltType($class)
+	{
+		if (!is_subclass_of($class, 'Ayre\Silt')) {
+			throw new Exception("Class '{$class}' is not a subclass of Ayre\Silt");
+		}
+		$this->_siltTypes[$class] = $this->_parseTypeClass($class);
+		return $this;
+	}
+
+	public function addPublishableType($class)
+	{
+		if (!is_subclass_of($class, 'Ayre\Behaviour\Publishable')) {
+			throw new Exception("Class '{$class}' is not a subclass of Ayre\Behaviour\Publishable");
+		} else if (is_subclass_of($class, 'Ayre\Silt')) {
+			throw new Exception("Class '{$class}' is a subclass of Ayre\Silt and does not need to be added");
+		}
+		$this->_publishableTypes[$class] = $this->_parseTypeClass($class);
+		return $this;
+	}
+
+	public function _parseTypeClass($class)
 	{
 		$parts = explode('\\', str_replace(get_class($this) . '\\', null, $class));
 		foreach ($parts as $i => $part) {
 			$parts[$i] = lcfirst($part);
 		}
-		$this->_itemTypes[$class] = array(
+		return array(
 			'class'	=> $class,
 			'id'	=> implode('_', $parts),
 			'slug'	=> implode('-', $parts),
 			'dir'	=> implode('/', $parts),
 		);
-		return $this;
 	}
 	
-	public function getItemTypes()
-	{
-		return $this->_itemTypes;
-	}
+	// public function getSiltTypes()
+	// {
+	// 	return $this->_siltTypes;
+	// }
 	
-	public function getItemTypeMap($relation = null)
-	{
-		$map = array();
-		foreach ($this->_itemTypes as $class => $type) {
-			$class = isset($relation)
-				? "{$class}\\{$relation}"
-				: "{$class}";
-			$map[$type['id']] = $class;
-		}
-		return $map;
-	}
+	// public function getSiltTypeMap($relation = null)
+	// {
+	// 	$map = array();
+	// 	foreach ($this->_siltTypes as $class => $type) {
+	// 		$class = isset($relation)
+	// 			? "{$class}\\{$relation}"
+	// 			: "{$class}";
+	// 		$map[$type['id']] = $class;
+	// 	}
+	// 	return $map;
+	// }
 	
-	public function getItemType($class)
-	{
-		return $this->_itemTypes[$class];
-	}
+	// public function getSiltType($class)
+	// {
+	// 	return $this->_siltTypes[$class];
+	// }
 	
-	public function getItemTypeById($id)
-	{
-		$map = array_combine(
-			\JS\array_column($this->_itemTypes, 'id'),
-			array_keys($this->_itemTypes)
-		);
-		return $this->_itemTypes[$map[$id]];
-	}
+	// public function getSiltTypeById($id)
+	// {
+	// 	$map = array_combine(
+	// 		\JS\array_column($this->_siltTypes, 'id'),
+	// 		array_keys($this->_siltTypes)
+	// 	);
+	// 	return $this->_siltTypes[$map[$id]];
+	// }
 	
-	public function getItemTypeBySlug($slug)
-	{
-		$map = array_combine(
-			\JS\array_column($this->_itemTypes, 'slug'),
-			array_keys($this->_itemTypes)
-		);
-		return $this->_itemTypes[$map[$slug]];
-	}
+	// public function getSiltTypeBySlug($slug)
+	// {
+	// 	$map = array_combine(
+	// 		\JS\array_column($this->_siltTypes, 'slug'),
+	// 		array_keys($this->_siltTypes)
+	// 	);
+	// 	return $this->_siltTypes[$map[$slug]];
+	// }
 	
-	public function getItemTypeByObject($item)
-	{
-		if ($item instanceof \JS\Entity\Wrapper\Entity) {
-			$item = $item->getObject();
-		}
-		$class = get_class($item);
-		return $this->_itemTypes[$class];
-	}
+	// public function getSiltTypeByObject($silt)
+	// {
+	// 	if ($silt instanceof \JS\Entity\Wrapper\Entity) {
+	// 		$silt = $silt->getObject();
+	// 	}
+	// 	$class = get_class($silt);
+	// 	return $this->_siltTypes[$class];
+	// }
 	
-	public function getLayouts()
+	// public function getLayouts()
+	// {
+	// 	$layouts = array();
+	// 	$dir = $this->getRootDir()->getChild('views/_layouts');
+	// 	foreach ($dir->getIterator() as $file) {
+	// 		$filename = $file->toString(\JS\Path::FILENAME);
+	// 		if (preg_match('/page_(.*)/i', $filename, $match)) {
+	// 			$layout = new \App\Layout();
+	// 			$layout->fromArray(array(
+	// 				'id'	=> $match[1],
+	// 				'name'	=> ucwords(str_replace('-', ' ', $match[1])),
+	// 			));
+	// 			$layouts[$layout->name] = $layout;
+	// 		}
+	// 	}
+	// 	ksort($layouts);
+	// 	return $layouts;
+	// }
+
+	public function publish()
 	{
-		$layouts = array();
-		$dir = $this->getRootDir()->getChild('views/_layouts');
-		foreach ($dir->getIterator() as $file) {
-			$filename = $file->toString(\JS\Path::FILENAME);
-			if (preg_match('/page_(.*)/i', $filename, $match)) {
-				$layout = new \App\Layout();
-				$layout->fromArray(array(
-					'id'	=> $match[1],
-					'name'	=> ucwords(str_replace('-', ' ', $match[1])),
-				));
-				$layouts[$layout->name] = $layout;
-			}
-		}
-		ksort($layouts);
-		return $layouts;
-	}
-
-	public function publishItems()
-	{
-		$items = $this->_helper->em
-			->getRepository('App\Item')
-			->fetchAllForPublishing();
-
-		foreach ($items as $item) {
-			$i		= 0;
-			$last	= $item->revisions->count() - 1;
-			foreach ($item->revisions as $revision) {
-				$revision->status = $i == $last
-					? \App\Item\Revision::STATUS_PUBLISHED
-					: \App\Item\Revision::STATUS_ARCHIVED;
-				$i++;
-			}
-		}
-	}
-
-	public function publishTrees()
-	{
-		$trees = $this->_helper->em
-			->getRepository('App\Tree')
-			->fetchAllForPublishing();
-
-		foreach ($trees as $tree) {
-			$i		= 0;
-			$last	= $tree->revisions->count() - 1;
-			foreach ($tree->revisions as $revision) {
-				$revision->status = $i == $last
-					? \App\Tree\Revision::STATUS_PUBLISHED
-					: \App\Tree\Revision::STATUS_ARCHIVED;
-				$i++;
-			}
-		}
-	}
-
-	public function syncPaths()
-	{
-		$locales = $this->_helper->em
-			->getRepository('App\Locale')
-			->fetchAll();
-
-		$trees = $this->_helper->em
-			->getRepository('App\Tree')
-			->fetchPublished();
-
-		foreach ($trees as $tree) {
-			$nodes = $this->_helper->em
-				->getRepository('App\Tree')
-				->fetchNodesWithPublishedItems($tree->revision);
-			foreach ($nodes as $node) {
-				if ($node->isRoot()) {
-					continue;
+		foreach ($this->_publishableTypes as $class => $type) {
+			$entitys = $this->em->getRepository($class)->fetchAllForPublish();
+			if (is_subclass_of($class, 'Ayre\Behaviour\Versionable')) {
+				$last = null;
+				foreach ($entitys as $entity) {
+					$entity->status = $entity->master === $last
+						? Ayre::STATUS_ARCHIVED
+						: Ayre::STATUS_PUBLISHED;
+					$last = $entity->master;
 				}
-				$ancestorNodes = array_merge(
-					$node->getAncestors(),
-					array($node)
-				);
-				foreach ($locales as $locale) {
-					$parts = array();
-					foreach ($ancestorNodes as $i => $ancestorNode) {
-						if ($ancestorNode->isRoot()) {
-							continue;
-						}
-						$item		= $ancestorNode->getNode()->item;
-						$parts[$i]	= "_{$item->id}";
-						if (!$item->revisions->count()) {
-							continue;
-						}
-						$version = $item->revision->getVersion($locale);
-						if (!isset($version)) {
-							continue;
-						}
-						$slug = $version->smartSlug;
-						if (!isset($slug)) {
-							continue;
-						}
-						$parts[$i] = $slug;
-					}
-					$name = implode('/', $parts);
-					foreach ($node->getNode()->paths as $path) {
-						if ($path->name == $name && $path->locale->id == $locale->id) {
-							$path->node = null;
-							$node->getNode()->paths->removeElement($path);
-							$this->_helper->em->remove($path);
-						}
-					}
-					
-					$path = $node->getNode()->createPath();
-					$path->locale = $locale;
-					$path->name = $name;
-					$this->_helper->em->persist($path);
+			} else {
+				foreach ($entitys as $entity) {
+					$entity->status = Ayre::STATUS_PUBLISHED;
 				}
 			}
 		}
+		$this->em->flush();
 	}
 }

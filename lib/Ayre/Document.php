@@ -16,7 +16,7 @@ use Ayre,
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
 */
-class Document extends Item
+class Document extends Silt
 {
 	protected $type = 'document';
 

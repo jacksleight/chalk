@@ -14,11 +14,17 @@ class LoadClassMetadata
     {
         $classMetadata = $eventArgs->getClassMetadata();
         $class = $classMetadata->getName();
+        
         $parts = explode('\\', $class);
         array_shift($parts);
         foreach ($parts as $i => $name) {
             $parts[$i] = lcfirst($name);
         }
         $classMetadata->setTableName(implode('_', $parts));
+
+        $repositoryClass = "{$class}\Repository";
+        if (class_exists($repositoryClass)) {
+            $classMetadata->setCustomRepositoryClass($repositoryClass);
+        }
     }
 }

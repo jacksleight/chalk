@@ -25,7 +25,7 @@ class Search
 			$uow->getScheduledEntityUpdates()
 		);
 		foreach ($entities as $entity) {
-			if (!$entity instanceof \Ayre\Item) {
+			if (!$entity instanceof \Ayre\Silt) {
 				continue;
 			}
 			$search = $entity->search;

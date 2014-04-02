@@ -49,10 +49,10 @@ class Action extends Model
     protected $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Ayre\Item", inversedBy="actions")
+     * @ORM\ManyToOne(targetEntity="Ayre\Silt", inversedBy="actions")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    protected $item;
+    protected $silt;
 
     /**
      * @ORM\ManyToOne(targetEntity="Ayre\Tree", inversedBy="actions")

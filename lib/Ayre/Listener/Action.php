@@ -74,8 +74,8 @@ class Action
 	{
 		$action	= new \Ayre\Action();
 		$action->type = $type;
-		if ($entity instanceof \Ayre\Item) {
-			$action->item = $entity;
+		if ($entity instanceof \Ayre\Silt) {
+			$action->silt = $entity;
 		} else if ($entity instanceof \Ayre\Tree) {
 			$action->tree = $entity;
 		}

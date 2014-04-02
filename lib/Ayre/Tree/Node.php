@@ -56,10 +56,10 @@ class Node extends Model
     protected $children;
 
 	/**
-     * @ORM\ManyToOne(targetEntity="Ayre\Item", inversedBy="nodes")
+     * @ORM\ManyToOne(targetEntity="Ayre\Silt", inversedBy="nodes")
      * @ORM\JoinColumn(nullable=false)
      */
-	protected $item;
+	protected $silt;
 
     public function __construct()
     {
@@ -84,13 +84,13 @@ class Node extends Model
         return $this->parent;
     }
 
-    public function item(\Ayre\Item $value = null)
+    public function silt(\Ayre\Silt $value = null)
     {
         if (isset($value)) {
-            $this->item = $value;
+            $this->silt = $value;
             $this->_refreshSlug();
         }
-        return $this->item;
+        return $this->silt;
     }
 
     public function __clone()
@@ -113,8 +113,8 @@ class Node extends Model
     protected function _refreshSlug()
     {
         $this->slug = implode('/', array_map(function($node) {
-            return isset($node->item)
-                ? $node->item->slug
+            return isset($node->silt)
+                ? $node->silt->slug
                 : null;
         }, $this->ancestors));
     }

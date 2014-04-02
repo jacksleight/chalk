@@ -30,8 +30,8 @@ class Search extends Model
 	protected $content;
 
 	/**
-     * @ORM\OneToOne(targetEntity="Ayre\Item", inversedBy="search")
+     * @ORM\OneToOne(targetEntity="Ayre\Silt", inversedBy="search")
      * @ORM\JoinColumn(nullable=false)
      */
-	protected $item;
+	protected $silt;
 }
