@@ -31,6 +31,7 @@ class Search extends Model
 
 	/**
      * @ORM\OneToOne(targetEntity="Ayre\Item", inversedBy="search")
+     * @ORM\JoinColumn(nullable=false)
      */
 	protected $item;
 }

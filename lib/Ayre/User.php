@@ -69,7 +69,7 @@ class User extends Model implements Behaviour\Trackable
      */
 	protected $actions;
 
-	public function setPasswordPlain($passwordPlain)
+	public function passwordPlain($passwordPlain)
 	{
 		if (!isset($passwordPlain)) {
 			return;
@@ -78,7 +78,7 @@ class User extends Model implements Behaviour\Trackable
 		$this->password = password_hash($passwordPlain, PASSWORD_DEFAULT);
 	}
 
-	public function isPasswordValid($passwordPlain)
+	public function verifyPassword($passwordPlain)
 	{
 		return password_verify($passwordPlain, $this->password);
 	}

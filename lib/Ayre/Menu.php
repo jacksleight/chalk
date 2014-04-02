@@ -34,6 +34,7 @@ class Menu extends Model implements Behaviour\Trackable
 
 	/**
      * @ORM\ManyToOne(targetEntity="Ayre\Tree", inversedBy="menus")
+     * @ORM\JoinColumn(nullable=false)
      */
 	protected $tree;
 }

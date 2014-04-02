@@ -16,9 +16,9 @@ session_name('session');
 
 $app = new \Ayre($config->envs);
 $app->set('config', $config)
-	->set('memcached', Coast\import('app_memcached.php', ['app' => $app]))
-	->set('em', Coast\import('app_doctrine.php', ['app' => $app]))
-	->set('swift', Coast\import('app_swift.php'))
+	->set('memcached', $app->import('app_memcached.php'))
+	->set('em', $app->import('app_doctrine.php'))
+	->set('swift', $app->import('app_swift.php'))
 	->set('entity', new \Js\App\Entity())
 	->set('html', new \Js\App\Html())
 	->set('image', new \Js\App\Image())

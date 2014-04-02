@@ -1,8 +1,8 @@
 <?php
 /*
-* Copyright 2008-2013 Jack Sleight <http://jacksleight.com/>
-* Any redistribution or reproduction of part or all of the contents in any form is prohibited.
-*/
+ * Copyright 2014 Jack Sleight <http://jacksleight.com/>
+ * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
+ */
 
 namespace Ayre\Listener;
 
@@ -25,7 +25,7 @@ class Search
 			$uow->getScheduledEntityUpdates()
 		);
 		foreach ($entities as $entity) {
-			if (!$entity instanceof \Ayre\Item\Revision) {
+			if (!$entity instanceof \Ayre\Item) {
 				continue;
 			}
 			$search = $entity->search;

@@ -38,6 +38,8 @@ Gedmo\DoctrineExtensions::registerAbstractMappingIntoDriverChainORM($driverChain
 $doct->setMetadataDriverImpl($driverChain);
 
 $evm = new \Doctrine\Common\EventManager();
+$actionListener = new \Ayre\Listener\Action($evm);
+$searchListener = new \Ayre\Listener\Search($evm);
 $evm->addEventListener(\Doctrine\ORM\Events::loadClassMetadata, new \Ayre\Doctrine\Event\LoadClassMetadata());
 
 $sluggable = new Gedmo\Sluggable\SluggableListener();
@@ -48,14 +50,14 @@ $timestampable = new Gedmo\Timestampable\TimestampableListener();
 $timestampable->setAnnotationReader($cachedAnnotationReader);
 $evm->addEventSubscriber($timestampable);
 
+global $blameable;
+$blameable = new \Gedmo\Blameable\BlameableListener();
+$blameable->setAnnotationReader($cachedAnnotationReader);
+$evm->addEventSubscriber($blameable);
+
 $uploadable = new Gedmo\Uploadable\UploadableListener();
 $uploadable->setAnnotationReader($cachedAnnotationReader);
 $evm->addEventSubscriber($uploadable);
-
-$blameable = new \Gedmo\Blameable\BlameableListener();
-$blameable->setAnnotationReader($cachedAnnotationReader);
-$blameable->setUserValue('JACK');
-$evm->addEventSubscriber($blameable);
 
 $tree = new \Gedmo\Tree\TreeListener();
 $tree->setAnnotationReader($cachedAnnotationReader);

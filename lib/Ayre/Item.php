@@ -16,9 +16,9 @@ use Ayre,
 /**
  * @ORM\Entity
  * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="class", type="string")
+ * @ORM\DiscriminatorColumn(name="_discriminator", type="string")
 */
-abstract class Item extends Model implements Behaviour\Trackable, Behaviour\Versionable, Behaviour\Publishable
+abstract class Item extends Model implements Behaviour\Trackable, Behaviour\Versionable, Behaviour\Publishable, Behaviour\Loggable
 {
     use Behaviour\Trackable\Implementation;
     use Behaviour\Versionable\Implementation;
@@ -53,64 +53,71 @@ abstract class Item extends Model implements Behaviour\Trackable, Behaviour\Vers
 	
 	/**
      * @ORM\Column(type="string")
-     * @Gedmo\Slug(fields={"name"})
+     * @Gedmo\Slug(fields={"name"}, unique=false)
      */
 	protected $slug;
 
 	/**
-     * @ORM\OneToOne(targetEntity="Ayre\Search", mappedBy="item")
+     * @ORM\OneToOne(targetEntity="Ayre\Search", mappedBy="item", cascade={"persist"})
      */
 	protected $search;
+	
+	/**
+     * @ORM\OneToMany(targetEntity="Ayre\Tree\Node", mappedBy="item")
+     */
+	protected $nodes;
 
 	/**
-     * @ORM\ManyToOne(targetEntity="Ayre\Item", inversedBy="followers")
+     * @ORM\ManyToOne(targetEntity="Ayre\Item", inversedBy="versions")
      */
 	protected $master;
 
 	/**
      * @ORM\OneToMany(targetEntity="Ayre\Item", mappedBy="master")
      */
-	protected $followers;
+	protected $versions;
 
 	/**
      * @ORM\OneToMany(targetEntity="Ayre\Action", mappedBy="item")
      */
 	protected $actions;
 	
-	/**
-     * @ORM\OneToMany(targetEntity="Ayre\Tree\Node", mappedBy="item")
-     */
-	protected $nodes;
-	
-	public static function search($phrase)
-	{
-		$conn = \Ayre::$instance->em->getConnection();
+	// public static function search($phrase)
+	// {
+	// 	$conn = \Ayre::$instance->em->getConnection();
 		
-		$phrase = $conn->quote($phrase);
-		return \JS\array_column($conn->query("
-			SELECT s.id,
-				MATCH(s.content) AGAINST ({$phrase} IN BOOLEAN MODE) AS score
-			FROM search AS s
-			WHERE MATCH(s.content) AGAINST ({$phrase} IN BOOLEAN MODE)
-			ORDER BY score DESC
-		")->fetchAll(), 'id');
-	}
+	// 	$phrase = $conn->quote($phrase);
+	// 	return \JS\array_column($conn->query("
+	// 		SELECT s.id,
+	// 			MATCH(s.content) AGAINST ({$phrase} IN BOOLEAN MODE) AS score
+	// 		FROM search AS s
+	// 		WHERE MATCH(s.content) AGAINST ({$phrase} IN BOOLEAN MODE)
+	// 		ORDER BY score DESC
+	// 	")->fetchAll(), 'id');
+	// }
 
 	public function __construct()
 	{	
+		$this->nodes	= new ArrayCollection();
+		$this->versions	= new ArrayCollection();
+		$this->actions	= new ArrayCollection();
+		
+		$this->master = $this;
+		$this->versions->add($this);
+
 		$search = new \Ayre\Search();
 		$search->item = $this;
 		$this->search = $search;
 	}
 	
-	public function getSmartLabel()
+	public function smartLabel()
 	{
 		return isset($this->label)
 			? $this->label
 			: $this->name;
 	}
 	
-	public function getSmartSlug()
+	public function smartSlug()
 	{
 		if (isset($this->slug)) {
 			return $this->slug;
@@ -121,7 +128,7 @@ abstract class Item extends Model implements Behaviour\Trackable, Behaviour\Vers
 			: null;
 	}
 	
-	public function getSearchContent()
+	public function searchContent()
 	{
 		return \Coast\array_filter_null(array(
 			$this->name,

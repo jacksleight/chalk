@@ -18,7 +18,7 @@ use Ayre,
 class Action extends Model
 {
 	const TYPE_CREATE			= 'create';
-	const TYPE_UPDATE			= 'update';
+	const TYPE_MODIFY			= 'modify';
 	const TYPE_STATUS_PENDING	= 'status_pending';
 	const TYPE_STATUS_PUBLISHED	= 'status_published';
 	const TYPE_STATUS_ARCHIVED	= 'status_archived';
@@ -43,7 +43,7 @@ class Action extends Model
 
     /**
      * @ORM\ManyToOne(targetEntity="Ayre\User", inversedBy="actions")
-     * @ORM\JoinColumn(onDelete="CASCADE")
+     * @ORM\JoinColumn(onDelete="CASCADE", nullable=false)
      * @Gedmo\Blameable(on="create")
      */
     protected $user;
@@ -52,5 +52,11 @@ class Action extends Model
      * @ORM\ManyToOne(targetEntity="Ayre\Item", inversedBy="actions")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
-	protected $item;
+    protected $item;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Ayre\Tree", inversedBy="actions")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    protected $tree;
 }

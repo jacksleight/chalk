@@ -16,7 +16,7 @@ use Ayre,
 /**
  * @ORM\Entity
 */
-class Tree extends Model implements Behaviour\Trackable, Behaviour\Versionable, Behaviour\Publishable
+class Tree extends Model implements Behaviour\Trackable, Behaviour\Versionable, Behaviour\Publishable, Behaviour\Loggable
 {
     use Behaviour\Trackable\Implementation;
     use Behaviour\Versionable\Implementation;
@@ -30,21 +30,14 @@ class Tree extends Model implements Behaviour\Trackable, Behaviour\Versionable, 
     protected $id;
 	
     /**
-     * @ORM\Column(type="integer")
-     */
-	protected $root;
-	
-	protected $_rootNode;
-
-    /**
      * @ORM\Column(type="string")
      */
 	protected $name;
 
 	/**
-     * @ORM\OneToMany(targetEntity="Ayre\Tree\Node", mappedBy="tree")
+     * @ORM\OneToOne(targetEntity="Ayre\Tree\Node", inversedBy="tree", cascade={"persist"})
      */
-	protected $nodes;
+	protected $root;
 
 	/**
      * @ORM\OneToMany(targetEntity="Ayre\Domain", mappedBy="tree")
@@ -57,44 +50,35 @@ class Tree extends Model implements Behaviour\Trackable, Behaviour\Versionable, 
 	protected $menus;
 
 	/**
-     * @ORM\ManyToOne(targetEntity="Ayre\Tree", inversedBy="followers")
+     * @ORM\ManyToOne(targetEntity="Ayre\Tree", inversedBy="versions")
      */
 	protected $master;
 
 	/**
      * @ORM\OneToMany(targetEntity="Ayre\Tree", mappedBy="master")
      */
-	protected $followers;
+	protected $versions;
 
 	/**
-     * @ORM\OneToMany(targetEntity="Ayre\Action", mappedBy="item")
+     * @ORM\OneToMany(targetEntity="Ayre\Action", mappedBy="tree")
      */
 	protected $actions;
 
-	public function getRootNode()
-	{
-		if (!isset($this->_rootNode)) {
-			$nsm = \Ayre\Tree\Revision\Node::getNsm();
-			$this->_rootNode = $nsm->fetchTree($this->root);
-		}
-		return $this->_rootNode;
-	}
+	public function __construct()
+	{	
+		$this->nodes	= new ArrayCollection();
+		$this->versions	= new ArrayCollection();
+		$this->actions	= new ArrayCollection();
+		
+		$this->master = $this;
+		$this->versions->add($this);
 
-	public function createNode()
-	{
-		$node = new \Ayre\Tree\Revision\Node();
-		$node->revision = $this;
-		$this->nodes[] = $node;
-		return $node;
+		$this->root = new \Ayre\Tree\Node();
+		$this->root->tree = $this;
 	}
 
 	public function __clone()
 	{
-		$this->root = null;		
-		if (isset($this->nodes)) {
-			foreach ($this->nodes as $node) {
-				$this->nodes->removeElement($node);
-			}
-		}
+		$this->root = clone $this->root;
 	}
 }

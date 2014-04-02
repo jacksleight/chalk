@@ -15,4 +15,12 @@ trait Implementation
      * @ORM\Column(type="integer")
      */
     protected $version = 1;
+
+    public function createVersion()
+    {
+    	$version = clone $this->master->versions->last();
+    	$this->master->versions->add($version);
+    	$version->version++;
+    	return $version;
+    }
 }

@@ -19,6 +19,7 @@ trait Implementation
 
     /**
      * @ORM\ManyToOne(targetEntity="Ayre\User")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      * @Gedmo\Blameable(on="create")
      */
     protected $createUser;
@@ -31,6 +32,7 @@ trait Implementation
 
     /**
      * @ORM\ManyToOne(targetEntity="Ayre\User")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      * @Gedmo\Blameable(on="update")
      */
     protected $modifyUser;

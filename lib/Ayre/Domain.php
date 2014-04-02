@@ -34,6 +34,7 @@ class Domain extends Model implements Behaviour\Trackable
 
     /**
      * @ORM\ManyToOne(targetEntity="Ayre\Tree", inversedBy="domains")
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $tree;
 }

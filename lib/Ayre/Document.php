@@ -14,6 +14,7 @@ use Ayre,
 
 /**
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
 */
 class Document extends Item
 {
@@ -27,7 +28,7 @@ class Document extends Item
     /**
      * @ORM\Column(type="json")
      */
-	protected $meta = array('description' => null);
+	protected $meta = array('description' => 'super cool');
 
     /**
      * @ORM\Column(type="json")
@@ -46,10 +47,10 @@ class Document extends Item
 		return $this;
 	}
 	
-	public function getSearchContent()
+	public function searchContent()
 	{
 		return array_merge(
-			parent::getSearchContent(),
+			parent::searchContent(),
 			\Coast\array_intersect_key($this->meta, array(
 				'description',
 				'keywords',
@@ -64,9 +65,9 @@ class Document extends Item
 	 */
 	public function cleanMeta()
 	{
-		foreach ($this->meta as $i => $meta) {
-			if (!isset($meta['value'])) {
-				unset($this->meta[$i]);
+		foreach ($this->meta as $name => $value) {
+			if (!isset($value)) {
+				unset($this->meta[$name]);
 			}
 		}
 	}

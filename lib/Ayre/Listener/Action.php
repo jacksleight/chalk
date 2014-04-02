@@ -1,8 +1,8 @@
 <?php
 /*
-* Copyright 2008-2013 Jack Sleight <http://jacksleight.com/>
-* Any redistribution or reproduction of part or all of the contents in any form is prohibited.
-*/
+ * Copyright 2014 Jack Sleight <http://jacksleight.com/>
+ * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
+ */
 
 namespace Ayre\Listener;
 
@@ -17,22 +17,17 @@ class Action
 		), $this);
 	}
 
-	public function setUser(\Ayre\User $user = null)
-	{
-		$this->_user = $user;
-	}
-
 	public function onFlush(\Doctrine\ORM\Event\OnFlushEventArgs $args)
 	{
 		$em  = $args->getEntityManager();
 		$uow = $em->getUnitOfWork();
 
-		$actions		= array();
-		$treeRevisions	= array();
+		$actions	= array();
+		$trees		= array();
 		foreach ($uow->getScheduledEntityInsertions() as $entity) {
-			if ($entity instanceof \Ayre\Tree\Revision\Node && !in_array($entity->revision, $treeRevisions)) {
-				$treeRevisions[] = $entity->revision;
-			} else if ($entity instanceof \Ayre\Action\Logged) {
+			if ($entity instanceof \Ayre\Tree\Node && !in_array($entity->root->tree, $trees)) {
+				$trees[] = $entity->root->tree;
+			} else if ($entity instanceof \Ayre\Behaviour\Loggable) {
 				$action = $this->_createAction($entity,
 					\Ayre\Action::TYPE_CREATE);
 				$em->persist($action);
@@ -40,16 +35,16 @@ class Action
 			}			
 		}
 		foreach ($uow->getScheduledEntityUpdates() as $entity) {
-			if ($entity instanceof \Ayre\Tree\Revision\Node && !in_array($entity->revision, $treeRevisions)) {
-				$treeRevisions[] = $entity->revision;
-			} else if ($entity instanceof \Ayre\Action\Logged) {
+			if ($entity instanceof \Ayre\Tree\Node && !in_array($entity->root->tree, $trees)) {
+				$trees[] = $entity->root->tree;
+			} else if ($entity instanceof \Ayre\Behaviour\Loggable) {
 				$changeSet = $uow->getEntityChangeSet($entity);
-				if ($entity instanceof \Ayre\Tree\Revision && isset($changeSet['root'])) {
+				if ($entity instanceof \Ayre\Tree && isset($changeSet['root'])) {
 					continue;
 				}
 				if (!isset($changeSet['status']) || count($changeSet) != 1) {
 					$action = $this->_createAction($entity,
-						\Ayre\Action::TYPE_UPDATE);
+						\Ayre\Action::TYPE_MODIFY);
 					$em->persist($action);
 					$actions[] = $action;
 				}
@@ -61,9 +56,9 @@ class Action
 				}
 			}
 		}
-		foreach ($treeRevisions as $treeRevision) {
-			$action = $this->_createAction($treeRevision,
-				\Ayre\Action::TYPE_UPDATE);
+		foreach ($trees as $tree) {
+			$action = $this->_createAction($tree,
+				\Ayre\Action::TYPE_MODIFY);
 			$em->persist($action);
 			$actions[] = $action;
 		}
@@ -79,11 +74,10 @@ class Action
 	{
 		$action	= new \Ayre\Action();
 		$action->type = $type;
-		$action->user = $this->_user;
-		if ($entity instanceof \Ayre\Item\Revision) {
-			$action->itemRevision = $entity;
-		} else if ($entity instanceof \Ayre\Tree\Revision) {
-			$action->treeRevision = $entity;
+		if ($entity instanceof \Ayre\Item) {
+			$action->item = $entity;
+		} else if ($entity instanceof \Ayre\Tree) {
+			$action->tree = $entity;
 		}
 		$entity->actions->add($action);
 		return $action;
