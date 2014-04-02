@@ -38,16 +38,33 @@ class Repository extends \Doctrine\ORM\EntityRepository
 	public function fetchAllForPublish()
 	{
 		return $this->_em->createQueryBuilder()
-			->select("i")
-			->from("Ayre\Silt", "i")
-			->where("i.status IN (:statuses)")
-			->addOrderBy("i.master")
-			->addOrderBy("i.version", "DESC")
+			->select("t")
+			->from("Ayre\Tree", "t")
+			->where("t.status IN (:statuses)")
+			->addOrderBy("t.master")
+			->addOrderBy("t.version", "DESC")
 			->getQuery()
 			->setParameters([
 				'statuses' => [
 					\Ayre::STATUS_PENDING,
 					\Ayre::STATUS_PUBLISHED,
+				],
+			])
+			->getResult();
+	}
+
+	public function fetchAllForSlugRefresh()
+	{
+		return $this->_em->createQueryBuilder()
+			->select("t", "r")
+			->from("Ayre\Tree", "t")
+			->innerJoin("t.root", "r")
+			->where("t.status IN (:statuses)")
+			->getQuery()
+			->setParameters([
+				'statuses' => [
+					\Ayre::STATUS_DRAFT,
+					\Ayre::STATUS_PENDING,
 				],
 			])
 			->getResult();

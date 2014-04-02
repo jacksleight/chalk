@@ -8,13 +8,6 @@ namespace Ayre\Listener;
 
 class Search
 {
-	public function __construct(\Doctrine\Common\EventManager $evm)
-	{
-		$evm->addEventListener(array(
-			\Doctrine\ORM\Events::onFlush,
-		), $this);
-	}
-
 	public function onFlush(\Doctrine\ORM\Event\OnFlushEventArgs $args)
 	{
 		$em  = $args->getEntityManager();

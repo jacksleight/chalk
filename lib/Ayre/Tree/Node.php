@@ -14,7 +14,7 @@ use Ayre,
     Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\MaterializedPathRepository")
  * @Gedmo\Tree(type="materializedPath")
 */
 class Node extends Model
@@ -39,9 +39,9 @@ class Node extends Model
     protected $path;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    protected $slug = '1';
+    protected $slug;
 
     /**
      * @ORM\ManyToOne(targetEntity="Ayre\Tree\Node", inversedBy="children")
@@ -64,7 +64,6 @@ class Node extends Model
     public function __construct()
     {
         $this->children = new ArrayCollection();
-        $this->_refreshSlug();
     }
 
     public function root()
@@ -79,7 +78,6 @@ class Node extends Model
         if (isset($value)) {
             $this->parent = $value;
             $value->children->add($this);
-            $this->_refreshSlug();
         }
         return $this->parent;
     }
@@ -88,7 +86,6 @@ class Node extends Model
     {
         if (isset($value)) {
             $this->silt = $value;
-            $this->_refreshSlug();
         }
         return $this->silt;
     }
@@ -108,14 +105,5 @@ class Node extends Model
         return isset($this->parent)
             ? array_merge([$this], $this->parent->ancestors)
             : [$this];
-    }
-
-    protected function _refreshSlug()
-    {
-        $this->slug = implode('/', array_map(function($node) {
-            return isset($node->silt)
-                ? $node->silt->slug
-                : null;
-        }, $this->ancestors));
     }
 }

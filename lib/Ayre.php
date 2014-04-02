@@ -121,19 +121,7 @@ class Ayre extends App
 	// {
 	// 	return $this->_siltTypes;
 	// }
-	
-	// public function getSiltTypeMap($relation = null)
-	// {
-	// 	$map = array();
-	// 	foreach ($this->_siltTypes as $class => $type) {
-	// 		$class = isset($relation)
-	// 			? "{$class}\\{$relation}"
-	// 			: "{$class}";
-	// 		$map[$type['id']] = $class;
-	// 	}
-	// 	return $map;
-	// }
-	
+		
 	// public function getSiltType($class)
 	// {
 	// 	return $this->_siltTypes[$class];

@@ -16,7 +16,7 @@ use Ayre,
 /**
  * @ORM\Entity
  * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="_discriminator", type="string")
+ * @ORM\DiscriminatorColumn(name="_disc", type="string")
 */
 abstract class Silt extends Model implements Behaviour\Trackable, Behaviour\Versionable, Behaviour\Publishable, Behaviour\Loggable
 {

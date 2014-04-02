@@ -29,38 +29,42 @@ if ($app->isDebug()) {
 Doctrine\Common\Annotations\AnnotationRegistry::registerFile(
     'vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php'
 );
-$annotationReader		= new \Doctrine\Common\Annotations\AnnotationReader();
-$cachedAnnotationReader	= new \Doctrine\Common\Annotations\CachedReader($annotationReader, $cache, $app->isDebug());
-$driverChain			= new \Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain();
-$annotationDriver		= new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($cachedAnnotationReader, array('lib'));
-$driverChain->addDriver($annotationDriver, 'Ayre');
-Gedmo\DoctrineExtensions::registerAbstractMappingIntoDriverChainORM($driverChain, $cachedAnnotationReader);
-$doct->setMetadataDriverImpl($driverChain);
+$reader			= new \Doctrine\Common\Annotations\AnnotationReader();
+$cachedReader	= new \Doctrine\Common\Annotations\CachedReader($reader, $cache, $app->isDebug());
+$chain			= new \Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain();
+$driver			= new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($cachedReader, array('lib'));
+$chain->addDriver($driver, 'Ayre');
+Gedmo\DoctrineExtensions::registerAbstractMappingIntoDriverChainORM($chain, $cachedReader);
+$doct->setMetadataDriverImpl($chain);
 
 $evm = new \Doctrine\Common\EventManager();
-$actionListener = new \Ayre\Listener\Action($evm);
-$searchListener = new \Ayre\Listener\Search($evm);
-$evm->addEventListener(\Doctrine\ORM\Events::loadClassMetadata, new \Ayre\Doctrine\Event\LoadClassMetadata());
+$evm->addEventListener([
+	\Doctrine\ORM\Events::onFlush,
+	\Doctrine\ORM\Events::postFlush,
+], new \Ayre\Listener\Node());
+$evm->addEventListener(\Doctrine\ORM\Events::onFlush, new \Ayre\Listener\Search());
+$evm->addEventListener(\Doctrine\ORM\Events::onFlush, new \Ayre\Listener\Action());
+$evm->addEventListener(\Doctrine\ORM\Events::loadClassMetadata, new \Ayre\Listener\Metadata());
 
 $sluggable = new Gedmo\Sluggable\SluggableListener();
-$sluggable->setAnnotationReader($cachedAnnotationReader);
+$sluggable->setAnnotationReader($cachedReader);
 $evm->addEventSubscriber($sluggable);
 
 $timestampable = new Gedmo\Timestampable\TimestampableListener();
-$timestampable->setAnnotationReader($cachedAnnotationReader);
+$timestampable->setAnnotationReader($cachedReader);
 $evm->addEventSubscriber($timestampable);
 
 global $blameable;
 $blameable = new \Gedmo\Blameable\BlameableListener();
-$blameable->setAnnotationReader($cachedAnnotationReader);
+$blameable->setAnnotationReader($cachedReader);
 $evm->addEventSubscriber($blameable);
 
 $uploadable = new Gedmo\Uploadable\UploadableListener();
-$uploadable->setAnnotationReader($cachedAnnotationReader);
+$uploadable->setAnnotationReader($cachedReader);
 $evm->addEventSubscriber($uploadable);
 
 $tree = new \Gedmo\Tree\TreeListener();
-$tree->setAnnotationReader($cachedAnnotationReader);
+$tree->setAnnotationReader($cachedReader);
 $evm->addEventSubscriber($tree);
 
 $em = Doctrine\ORM\EntityManager::create(array_merge($app->config->database, ['charset' => 'utf8']), $doct, $evm);

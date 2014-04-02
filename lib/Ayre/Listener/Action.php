@@ -6,77 +6,76 @@
 
 namespace Ayre\Listener;
 
+use Ayre,
+	Ayre\Behaviour,
+	Doctrine\ORM\UnitOfWork;
+
 class Action
 {
-	protected $_user;
-
-	public function __construct(\Doctrine\Common\EventManager $evm)
-	{
-		$evm->addEventListener(array(
-			\Doctrine\ORM\Events::onFlush,
-		), $this);
-	}
-
 	public function onFlush(\Doctrine\ORM\Event\OnFlushEventArgs $args)
 	{
 		$em  = $args->getEntityManager();
 		$uow = $em->getUnitOfWork();
 
-		$actions	= array();
-		$trees		= array();
-		foreach ($uow->getScheduledEntityInsertions() as $entity) {
-			if ($entity instanceof \Ayre\Tree\Node && !in_array($entity->root->tree, $trees)) {
-				$trees[] = $entity->root->tree;
-			} else if ($entity instanceof \Ayre\Behaviour\Loggable) {
-				$action = $this->_createAction($entity,
-					\Ayre\Action::TYPE_CREATE);
-				$em->persist($action);
-				$actions[] = $action;
-			}			
-		}
-		foreach ($uow->getScheduledEntityUpdates() as $entity) {
-			if ($entity instanceof \Ayre\Tree\Node && !in_array($entity->root->tree, $trees)) {
-				$trees[] = $entity->root->tree;
-			} else if ($entity instanceof \Ayre\Behaviour\Loggable) {
+		$entities = array_merge(
+			$uow->getScheduledEntityInsertions(),
+			$uow->getScheduledEntityUpdates()
+		);
+
+		$loggables = [];
+		foreach ($entities as $entity) {
+			if ($entity instanceof Ayre\Tree\Node) {
 				$changeSet = $uow->getEntityChangeSet($entity);
-				if ($entity instanceof \Ayre\Tree && isset($changeSet['root'])) {
+				if (isset($changeSet['slug'])
+					&& !isset($changeSet['slug'][0])
+					&& isset($changeSet['slug'][1])) {
 					continue;
 				}
-				if (!isset($changeSet['status']) || count($changeSet) != 1) {
+				$entity = $entity->root->tree;
+			}
+			if (!$entity instanceof Behaviour\Loggable || in_array($entity, $loggables, true)) {
+				continue;
+			}
+			$loggables[] = $entity;
+		}
+
+		$actions = [];
+		foreach ($loggables as $entity) {
+			if (!isset($entity->id)) {
+				$action = $this->_createAction($entity,
+					Ayre\Action::TYPE_CREATE);
+				$em->persist($action);
+				$actions[] = $action;
+			} else {
+				$changeSet = $uow->getEntityChangeSet($entity);
+				if ($entity instanceof Behaviour\Publishable
+					&& isset($changeSet['status'])
+					&& $changeSet['status'][0] != $changeSet['status'][1]) {
 					$action = $this->_createAction($entity,
-						\Ayre\Action::TYPE_MODIFY);
+						constant('Ayre\Action::TYPE_STATUS_' . strtoupper($entity->status)));
 					$em->persist($action);
 					$actions[] = $action;
-				}
-				if (isset($changeSet['status'])) {
+				} else {
 					$action = $this->_createAction($entity,
-						constant('\Ayre\Action::TYPE_STATUS_' . strtoupper($entity->status)));
+						Ayre\Action::TYPE_MODIFY);
 					$em->persist($action);
 					$actions[] = $action;
 				}
 			}
 		}
-		foreach ($trees as $tree) {
-			$action = $this->_createAction($tree,
-				\Ayre\Action::TYPE_MODIFY);
-			$em->persist($action);
-			$actions[] = $action;
-		}
 
 		foreach ($actions as $action) {
-			$uow->computeChangeSet(
-				$em->getClassMetadata(get_class($action)),
-				$action);
+			$uow->computeChangeSet($em->getClassMetadata('Ayre\Action'), $action);
 		}
 	}
 
 	public function _createAction($entity, $type)
 	{
-		$action	= new \Ayre\Action();
+		$action	= new Ayre\Action();
 		$action->type = $type;
-		if ($entity instanceof \Ayre\Silt) {
+		if ($entity instanceof Ayre\Silt) {
 			$action->silt = $entity;
-		} else if ($entity instanceof \Ayre\Tree) {
+		} else if ($entity instanceof Ayre\Tree) {
 			$action->tree = $entity;
 		}
 		$entity->actions->add($action);
