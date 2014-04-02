@@ -24,14 +24,20 @@ class Search extends Model
      */
 	protected $id;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $class;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $class_id;
+    
+    protected $class_obj;
+
 	/**
      * @ORM\Column(type="text")
      */
 	protected $content;
-
-	/**
-     * @ORM\OneToOne(targetEntity="Ayre\Silt", inversedBy="search")
-     * @ORM\JoinColumn(nullable=false)
-     */
-	protected $silt;
 }

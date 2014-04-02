@@ -7,7 +7,7 @@
 namespace Ayre;
 
 use Ayre,
-    Ayre\Behaviour,
+    Ayre\Behaviour\Trackable,
     Coast\Model,
     Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM,
@@ -16,9 +16,9 @@ use Ayre,
 /**
  * @ORM\Entity
 */
-class Domain extends Model implements Behaviour\Trackable
+class Domain extends Model implements Trackable
 {
-    use Behaviour\Trackable\Implementation;
+    use Trackable\Implementation;
 
     /**
      * @ORM\Id

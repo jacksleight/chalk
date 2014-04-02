@@ -7,7 +7,10 @@
 namespace Ayre;
 
 use Ayre,
-    Ayre\Behaviour,
+    Ayre\Behaviour\Trackable,
+    Ayre\Behaviour\Versionable,
+    Ayre\Behaviour\Publishable,
+    Ayre\Behaviour\Loggable,
 	Coast\Model,
 	Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM,
@@ -16,11 +19,13 @@ use Ayre,
 /**
  * @ORM\Entity
 */
-class Tree extends Model implements Behaviour\Trackable, Behaviour\Versionable, Behaviour\Publishable, Behaviour\Loggable
+class Tree extends Model implements Loggable, Publishable, Trackable, Versionable
 {
-    use Behaviour\Trackable\Implementation;
-    use Behaviour\Versionable\Implementation;
-    use Behaviour\Publishable\Implementation;
+    use Publishable\Implementation,
+    	Trackable\Implementation,
+    	Versionable\Implementation {
+        	Versionable\Implementation::__construct as __constructVersionable;
+    	}
 
 	/**
      * @ORM\Id
@@ -48,33 +53,16 @@ class Tree extends Model implements Behaviour\Trackable, Behaviour\Versionable, 
      * @ORM\OneToMany(targetEntity="Ayre\Menu", mappedBy="tree")
      */
 	protected $menus;
-
-	/**
-     * @ORM\ManyToOne(targetEntity="Ayre\Tree", inversedBy="versions")
-     */
-	protected $master;
-
-	/**
-     * @ORM\OneToMany(targetEntity="Ayre\Tree", mappedBy="master")
-     */
-	protected $versions;
-
-	/**
-     * @ORM\OneToMany(targetEntity="Ayre\Action", mappedBy="tree")
-     */
-	protected $actions;
-
+	
 	public function __construct()
 	{	
 		$this->nodes	= new ArrayCollection();
-		$this->versions	= new ArrayCollection();
 		$this->actions	= new ArrayCollection();
 		
-		$this->master = $this;
-		$this->versions->add($this);
-
 		$this->root = new \Ayre\Tree\Node();
 		$this->root->tree = $this;
+
+		$this->__constructVersionable();
 	}
 
 	public function __clone()

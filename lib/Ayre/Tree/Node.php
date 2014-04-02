@@ -7,7 +7,6 @@
 namespace Ayre\Tree;
 
 use Ayre,
-    Ayre\Behaviour,
 	Coast\Model,
 	Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM,

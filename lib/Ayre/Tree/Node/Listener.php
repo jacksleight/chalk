@@ -4,21 +4,31 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Ayre\Listener;
+namespace Ayre\Tree\Node;
 
 use Ayre, 
-	Doctrine\ORM\Event\PostFlushEventArgs;
+	Doctrine\Common\EventSubscriber,
+	Doctrine\ORM\Event\OnFlushEventArgs,
+	Doctrine\ORM\Event\PostFlushEventArgs,
+	Doctrine\ORM\Events,
+	Doctrine\ORM\UnitOfWork;
 
-class Node
+class Listener implements EventSubscriber
 {
 	protected $_refresh = false;
 
-	public function onFlush(\Doctrine\ORM\Event\OnFlushEventArgs $args)
+	public function getSubscribedEvents()
 	{
-		$this->_refresh = false;
-		
-		$em		= $args->getEntityManager();
-		$uow	= $em->getUnitOfWork();
+		return [
+			Events::onFlush,
+			Events::postFlush,
+		];
+	}
+
+	public function onFlush(OnFlushEventArgs $args)
+	{
+		$em	 = $args->getEntityManager();
+		$uow = $em->getUnitOfWork();
 		
 		$entities = array_merge(
 			$uow->getScheduledEntityInsertions(),
@@ -26,7 +36,11 @@ class Node
 		);
 
 		foreach ($entities as $entity) {
-			if ($entity instanceof \Ayre\Tree || $entity instanceof \Ayre\Tree\Node || $entity instanceof \Ayre\Silt) {
+			if (
+				$entity instanceof Ayre\Tree ||
+				$entity instanceof Ayre\Tree\Node ||
+				$entity instanceof Ayre\Silt
+			) {
 				$this->_refresh = true;
 				break;
 			}			
@@ -38,12 +52,15 @@ class Node
 		if (!$this->_refresh) {
 			return;
 		}
+		$this->_refresh = false;
 		
 		$em = $args->getEntityManager();
 
-		$trees = $em->getRepository('Ayre\Tree')->fetchAllForSlugRefresh();
+		$trees = $em->getRepository('Ayre\Tree')
+			->fetchAllForSlugRefresh();
 		foreach ($trees as $tree) {
-			$nodes = $em->getRepository('Ayre\Tree\Node')->getChildren($tree->root, false, 'id', 'asc', true);
+			$nodes = $em->getRepository('Ayre\Tree\Node')
+				->getChildren($tree->root, false, 'id', 'asc', true);
 			foreach ($nodes as $node) {
 				$ancestors = array_reverse($node->ancestors);
 				if (isset($node->parent)) {
@@ -54,6 +71,7 @@ class Node
 		        }, $ancestors));
 			}
 		}
+
 		$em->flush();
 	}
 }

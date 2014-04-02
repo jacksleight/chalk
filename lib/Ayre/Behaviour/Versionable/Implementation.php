@@ -7,7 +7,8 @@
 namespace Ayre\Behaviour\Versionable;
 
 use Ayre,
-    Ayre\Behaviour,
+    Ayre\Behaviour\Publishable,
+    Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM,
     Gedmo\Mapping\Annotation as Gedmo;
 
@@ -18,12 +19,24 @@ trait Implementation
      */
     protected $version = 1;
 
+    protected $master;
+
+    protected $versions;
+
+    public function __construct()
+    {   
+        $this->versions = new ArrayCollection();
+        
+        $this->master = $this;
+        $this->versions->add($this);
+    }
+
     public function createVersion()
     {
     	$version = clone $this->master->versions->last();
     	$this->master->versions->add($version);
     	$version->version++;
-        if ($version instanceof Behaviour\Publishable) {
+        if ($version instanceof Publishable) {
             $version->status = Ayre::STATUS_DRAFT;
         }
     	return $version;

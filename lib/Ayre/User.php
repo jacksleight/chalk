@@ -7,7 +7,8 @@
 namespace Ayre;
 
 use Ayre,
-    Ayre\Behaviour,
+    Ayre\Behaviour\Trackable,
+    Ayre\Behaviour\Searchable,
     Coast\Model,
 	Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM,
@@ -16,9 +17,9 @@ use Ayre,
 /**
  * @ORM\Entity
 */
-class User extends Model implements Behaviour\Trackable
+class User extends Model implements Trackable, Searchable
 {
-    use Behaviour\Trackable\Implementation;
+    use Trackable\Implementation;
 
 	const ROLE_ROOT				= 'root';
 	const ROLE_ADMINISTRATOR	= 'administrator';
@@ -65,9 +66,9 @@ class User extends Model implements Behaviour\Trackable
 	protected $prefs = array();
 
 	/**
-     * @ORM\OneToMany(targetEntity="Ayre\Action", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Ayre\Log", mappedBy="user")
      */
-	protected $actions;
+	protected $logs;
 
 	public function passwordPlain($passwordPlain)
 	{
@@ -81,5 +82,13 @@ class User extends Model implements Behaviour\Trackable
 	public function verifyPassword($passwordPlain)
 	{
 		return password_verify($passwordPlain, $this->password);
+	}
+
+	public function searchContent()
+	{
+		return \Coast\array_filter_null(array(
+			$this->name,
+			$this->emailAddress,
+		));
 	}
 }

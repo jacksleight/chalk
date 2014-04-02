@@ -10,17 +10,17 @@ class Ayre extends App
 
 	protected $_mimeTypeMap;
 
-	protected $_siltTypes			= [];
-	protected $_publishableTypes	= [];
+	protected $_silts			= [];
+	protected $_publishables	= [];
 
 	public function __construct(array $envs = array())
 	{
 		parent::__construct($envs);
 		$this
-			->addSiltType('Ayre\Document')
-			->addSiltType('Ayre\File')
-			->addPublishableType('Ayre\Silt')
-			->addPublishableType('Ayre\Tree');
+			->register('Ayre\Document')
+			->register('Ayre\File')
+			->register('Ayre\Silt')
+			->register('Ayre\Tree');
 			// ->addSiltType('Ayre\Url')
 			// ->addSiltType('Ayre\Url\Email')
 			// ->addSiltType('Ayre\Url\Oembed');
@@ -83,66 +83,55 @@ class Ayre extends App
 	// 		: null;
 	// }
 	
-	public function addSiltType($class)
+	public function register($class)
 	{
-		if (!is_subclass_of($class, 'Ayre\Silt')) {
-			throw new Exception("Class '{$class}' is not a subclass of Ayre\Silt");
-		}
-		$this->_siltTypes[$class] = $this->_parseTypeClass($class);
-		return $this;
-	}
-
-	public function addPublishableType($class)
-	{
-		if (!is_subclass_of($class, 'Ayre\Behaviour\Publishable')) {
-			throw new Exception("Class '{$class}' is not a subclass of Ayre\Behaviour\Publishable");
-		} else if (is_subclass_of($class, 'Ayre\Silt')) {
-			throw new Exception("Class '{$class}' is a subclass of Ayre\Silt and does not need to be added");
-		}
-		$this->_publishableTypes[$class] = $this->_parseTypeClass($class);
-		return $this;
-	}
-
-	public function _parseTypeClass($class)
-	{
-		$parts = explode('\\', str_replace(get_class($this) . '\\', null, $class));
+		$parts = explode('\\', str_replace('Ayre\\', null, $class));
 		foreach ($parts as $i => $part) {
 			$parts[$i] = lcfirst($part);
 		}
-		return array(
+		$type = [
 			'class'	=> $class,
 			'id'	=> implode('_', $parts),
 			'slug'	=> implode('-', $parts),
 			'dir'	=> implode('/', $parts),
-		);
+		];
+
+		if (is_subclass_of($class, 'Ayre\Silt')) {
+			$this->_silts[$class] = $type;
+		}
+		if (is_subclass_of($class, 'Ayre\Behaviour\Publishable') && !is_subclass_of($class, 'Ayre\Silt')) {
+			$this->_publishables[$class] = $type;
+		}
+
+		return $this;
 	}
 	
 	// public function getSiltTypes()
 	// {
-	// 	return $this->_siltTypes;
+	// 	return $this->_silts;
 	// }
 		
 	// public function getSiltType($class)
 	// {
-	// 	return $this->_siltTypes[$class];
+	// 	return $this->_silts[$class];
 	// }
 	
 	// public function getSiltTypeById($id)
 	// {
 	// 	$map = array_combine(
-	// 		\JS\array_column($this->_siltTypes, 'id'),
-	// 		array_keys($this->_siltTypes)
+	// 		\JS\array_column($this->_silts, 'id'),
+	// 		array_keys($this->_silts)
 	// 	);
-	// 	return $this->_siltTypes[$map[$id]];
+	// 	return $this->_silts[$map[$id]];
 	// }
 	
 	// public function getSiltTypeBySlug($slug)
 	// {
 	// 	$map = array_combine(
-	// 		\JS\array_column($this->_siltTypes, 'slug'),
-	// 		array_keys($this->_siltTypes)
+	// 		\JS\array_column($this->_silts, 'slug'),
+	// 		array_keys($this->_silts)
 	// 	);
-	// 	return $this->_siltTypes[$map[$slug]];
+	// 	return $this->_silts[$map[$slug]];
 	// }
 	
 	// public function getSiltTypeByObject($silt)
@@ -151,7 +140,7 @@ class Ayre extends App
 	// 		$silt = $silt->getObject();
 	// 	}
 	// 	$class = get_class($silt);
-	// 	return $this->_siltTypes[$class];
+	// 	return $this->_silts[$class];
 	// }
 	
 	// public function getLayouts()
@@ -175,7 +164,7 @@ class Ayre extends App
 
 	public function publish()
 	{
-		foreach ($this->_publishableTypes as $class => $type) {
+		foreach ($this->_publishables as $class => $type) {
 			$entitys = $this->em->getRepository($class)->fetchAllForPublish();
 			if (is_subclass_of($class, 'Ayre\Behaviour\Versionable')) {
 				$last = null;

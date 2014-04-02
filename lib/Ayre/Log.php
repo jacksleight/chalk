@@ -15,10 +15,11 @@ use Ayre,
 /**
  * @ORM\Entity
 */
-class Action extends Model
+class Log extends Model
 {
 	const TYPE_CREATE			= 'create';
 	const TYPE_MODIFY			= 'modify';
+    const TYPE_STATUS_DRAFT     = 'status_draft';
 	const TYPE_STATUS_PENDING	= 'status_pending';
 	const TYPE_STATUS_PUBLISHED	= 'status_published';
 	const TYPE_STATUS_ARCHIVED	= 'status_archived';
@@ -29,6 +30,18 @@ class Action extends Model
      * @ORM\GeneratedValue
      */
 	protected $id;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $class;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $class_id;
+    
+    protected $class_obj;
 
     /**
      * @ORM\Column(type="string")
@@ -47,16 +60,4 @@ class Action extends Model
      * @Gedmo\Blameable(on="create")
      */
     protected $user;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Ayre\Silt", inversedBy="actions")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
-    protected $silt;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Ayre\Tree", inversedBy="actions")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
-    protected $tree;
 }
