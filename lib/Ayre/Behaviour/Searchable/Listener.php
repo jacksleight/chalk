@@ -28,6 +28,12 @@ class Listener implements EventSubscriber
 
 	public function onFlush(OnFlushEventArgs $args)
 	{
+		$reduce = function($value) {
+			return is_array($value)
+				? array_map($reduce, $value)
+				: "{$value} ";
+		};
+
 		$em  = $args->getEntityManager();
 		$uow = $em->getUnitOfWork();
 
@@ -40,8 +46,26 @@ class Listener implements EventSubscriber
 			if (!$entity instanceof Searchable) {
 				continue;
 			}
-			$search = $em->getRepository('Ayre\Search')->fetch($entity);
-			$search->content = implode(' ', $entity->searchContent);
+			$changeSet	= $uow->getEntityChangeSet($entity);
+			$fields		= $entity->searchFields;
+			$changes	= array_intersect($fields, array_keys($changeSet));
+			if (!count($changes)) {
+				continue;
+			}
+			$search  = $em->getRepository('Ayre\Entity\Search')->fetch($entity);
+			$content = [];
+			foreach ($fields as $field) {
+				$value = $entity->$field;
+				if (is_array($value)) {
+					$temp = (object) ['temp' => []];
+					array_walk_recursive($value, function($value, $name, $temp) {
+						$temp->temp[] = $value;
+					}, $temp);
+					$value = implode(' ', $temp->temp);
+				}
+				$content[] = $value;
+			}
+			$search->content = implode(' ', $content);
 			$this->_searches[] = $search;
 		}
 	}

@@ -8,8 +8,9 @@ class Ayre extends App
 	const STATUS_PUBLISHED	= 'published';
 	const STATUS_ARCHIVED	= 'archived';
 
-	protected $_mimeTypeMap;
+	protected static $_types	= [];
 
+	protected $_mimeTypeMap;
 	protected $_silts			= [];
 	protected $_publishables	= [];
 
@@ -17,10 +18,10 @@ class Ayre extends App
 	{
 		parent::__construct($envs);
 		$this
-			->register('Ayre\Document')
-			->register('Ayre\File')
-			->register('Ayre\Silt')
-			->register('Ayre\Tree');
+			->register('Ayre\Entity\Document')
+			->register('Ayre\Entity\File')
+			->register('Ayre\Entity\Silt')
+			->register('Ayre\Entity\Tree');
 			// ->addSiltType('Ayre\Url')
 			// ->addSiltType('Ayre\Url\Email')
 			// ->addSiltType('Ayre\Url\Oembed');
@@ -82,30 +83,41 @@ class Ayre extends App
 	// 		? $mimeTypeMap[$ext]
 	// 		: null;
 	// }
+
+	public static function resolve($class)
+	{
+		if (isset(self::$_types[$class])) {
+			return self::$_types[$class];
+		}
+
+		$namespace = __CLASS__ . '\\Entity';
+		if (!is_subclass_of($class, $namespace)) {
+			throw new Exception("Class {$class} does not extend {$namespace}");   
+		}
+
+		$short = str_replace($namespace . '\\', '', $class);
+		$parts = explode('\\', $short);
+		$parts = array_map('lcfirst', $parts);
+		self::$_types[$class] = (object) [
+			'class'	=> $class,
+			'short'	=> $short,
+			'id'	=> implode('_', $parts),
+			'slug'	=> implode('-', $parts),
+			'path'	=> implode('/', $parts),
+		];
+
+		return self::$_types[$class];
+	}
 	
 	public function register($class)
 	{
-		$parts = explode('\\', $class);
-		if ($parts[0] != 'Ayre') {
-            throw new Exception("Class {$class} is not under the Ayre namespace");   
-        }
-        array_shift($parts);
-
-		$parts = array_map('lcfirst', $parts);
-		$type = [
-			'class'	=> $class,
-			'id'	=> implode('_', $parts),
-			'slug'	=> implode('-', $parts),
-			'dir'	=> implode('/', $parts),
-		];
-
-		if (is_subclass_of($class, 'Ayre\Silt')) {
+		$type = self::resolve($class);
+		if (is_subclass_of($class, 'Ayre\\Entity\\Silt')) {
 			$this->_silts[$class] = $type;
 		}
-		if (is_subclass_of($class, 'Ayre\Behaviour\Publishable') && !is_subclass_of($class, 'Ayre\Silt')) {
+		if (is_subclass_of($class, 'Ayre\\Behaviour\\Publishable') && !is_subclass_of($class, 'Ayre\\Entity\\Silt')) {
 			$this->_publishables[$class] = $type;
 		}
-
 		return $this;
 	}
 	

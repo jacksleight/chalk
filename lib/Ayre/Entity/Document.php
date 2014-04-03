@@ -4,10 +4,9 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Ayre;
+namespace Ayre\Entity;
 
-use Ayre,
-    Coast\Model,
+use Ayre\Entity,
 	Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM,
     Gedmo\Mapping\Annotation as Gedmo;
@@ -47,16 +46,12 @@ class Document extends Silt
 		return $this;
 	}
 	
-	public function searchContent()
+	public function searchFields()
 	{
-		return array_merge(
-			parent::searchContent(),
-			\Coast\array_intersect_key($this->meta, array(
-				'description',
-				'keywords',
-			)),
-			$this->content
-		);
+		return array_merge(parent::searchFields(), [
+			'meta',
+			'content',
+		]);
 	}
 
 	/**

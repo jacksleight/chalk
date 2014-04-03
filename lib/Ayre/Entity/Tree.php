@@ -4,9 +4,9 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Ayre;
+namespace Ayre\Entity;
 
-use Ayre,
+use Ayre\Entity,
     Ayre\Behaviour\Trackable,
     Ayre\Behaviour\Versionable,
     Ayre\Behaviour\Publishable,
@@ -19,7 +19,7 @@ use Ayre,
 /**
  * @ORM\Entity
 */
-class Tree extends Model implements Loggable, Publishable, Trackable, Versionable
+class Tree extends Entity implements Loggable, Publishable, Trackable, Versionable
 {
     use Publishable\Implementation,
     	Trackable\Implementation,
@@ -40,17 +40,17 @@ class Tree extends Model implements Loggable, Publishable, Trackable, Versionabl
 	protected $name;
 
 	/**
-     * @ORM\OneToOne(targetEntity="Ayre\Tree\Node", inversedBy="tree", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="\Ayre\Entity\Tree\Node", inversedBy="tree", cascade={"persist"})
      */
 	protected $root;
 
 	/**
-     * @ORM\OneToMany(targetEntity="Ayre\Domain", mappedBy="tree")
+     * @ORM\OneToMany(targetEntity="\Ayre\Entity\Domain", mappedBy="tree")
      */
 	protected $domains;
 
 	/**
-     * @ORM\OneToMany(targetEntity="Ayre\Menu", mappedBy="tree")
+     * @ORM\OneToMany(targetEntity="\Ayre\Entity\Menu", mappedBy="tree")
      */
 	protected $menus;
 	
@@ -59,7 +59,7 @@ class Tree extends Model implements Loggable, Publishable, Trackable, Versionabl
 		$this->nodes	= new ArrayCollection();
 		$this->actions	= new ArrayCollection();
 		
-		$this->root = new \Ayre\Tree\Node();
+		$this->root = new Entity\Tree\Node();
 		$this->root->tree = $this;
 
 		$this->__constructVersionable();

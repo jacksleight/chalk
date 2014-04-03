@@ -4,9 +4,9 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Ayre\Tree\Node;
+namespace Ayre\Entity\Tree\Node;
 
-use Ayre, 
+use Ayre\Entity, 
 	Doctrine\Common\EventSubscriber,
 	Doctrine\ORM\Event\OnFlushEventArgs,
 	Doctrine\ORM\Event\PostFlushEventArgs,
@@ -37,9 +37,9 @@ class Listener implements EventSubscriber
 
 		foreach ($entities as $entity) {
 			if (
-				$entity instanceof Ayre\Tree ||
-				$entity instanceof Ayre\Tree\Node ||
-				$entity instanceof Ayre\Silt
+				$entity instanceof Entity\Tree ||
+				$entity instanceof Entity\Tree\Node ||
+				$entity instanceof Entity\Silt
 			) {
 				$this->_refresh = true;
 				break;
@@ -56,10 +56,10 @@ class Listener implements EventSubscriber
 		
 		$em = $args->getEntityManager();
 
-		$trees = $em->getRepository('Ayre\Tree')
+		$trees = $em->getRepository('\Ayre\Entity\Tree')
 			->fetchAllForSlugRefresh();
 		foreach ($trees as $tree) {
-			$nodes = $em->getRepository('Ayre\Tree\Node')
+			$nodes = $em->getRepository('\Ayre\Entity\Tree\Node')
 				->getChildren($tree->root, false, 'id', 'asc', true);
 			foreach ($nodes as $node) {
 				$ancestors = array_reverse($node->ancestors);

@@ -4,12 +4,11 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Ayre;
+namespace Ayre\Entity;
 
-use Ayre,
+use Ayre\Entity,
     Ayre\Behaviour\Trackable,
     Ayre\Behaviour\Searchable,
-    Coast\Model,
 	Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM,
     Gedmo\Mapping\Annotation as Gedmo;
@@ -17,7 +16,7 @@ use Ayre,
 /**
  * @ORM\Entity
 */
-class User extends Model implements Trackable, Searchable
+class User extends Entity implements Trackable, Searchable
 {
     use Trackable\Implementation;
 
@@ -66,7 +65,7 @@ class User extends Model implements Trackable, Searchable
 	protected $prefs = array();
 
 	/**
-     * @ORM\OneToMany(targetEntity="Ayre\Log", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="\Ayre\Entity\Log", mappedBy="user")
      */
 	protected $logs;
 
@@ -83,12 +82,12 @@ class User extends Model implements Trackable, Searchable
 	{
 		return password_verify($passwordPlain, $this->password);
 	}
-
-	public function searchContent()
+	
+	public function searchFields()
 	{
-		return \Coast\array_filter_null(array(
-			$this->name,
-			$this->emailAddress,
-		));
+		return [
+			'name',
+			'emailAddress',
+		];
 	}
 }

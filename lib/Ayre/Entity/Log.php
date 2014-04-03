@@ -4,10 +4,9 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Ayre;
+namespace Ayre\Entity;
 
-use Ayre,
-    Coast\Model,
+use Ayre\Entity,
 	Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM,
     Gedmo\Mapping\Annotation as Gedmo;
@@ -15,7 +14,7 @@ use Ayre,
 /**
  * @ORM\Entity
 */
-class Log extends Model
+class Log extends Entity
 {
 	const TYPE_CREATE			= 'create';
 	const TYPE_MODIFY			= 'modify';
@@ -55,7 +54,7 @@ class Log extends Model
     protected $actionDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Ayre\User", inversedBy="actions")
+     * @ORM\ManyToOne(targetEntity="\Ayre\Entity\User", inversedBy="actions")
      * @ORM\JoinColumn(onDelete="CASCADE", nullable=false)
      * @Gedmo\Blameable(on="create")
      */

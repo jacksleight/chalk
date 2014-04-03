@@ -14,7 +14,7 @@ class Tree extends Repository
 	// {
 	// 	return $this->_em->createQueryBuilder()
 	// 		->select("t", "d", "m")
-	// 		->from("Ayre\Tree", "t")
+	// 		->from("Ayre\Entity\Tree", "t")
 	// 			->leftJoin("t.domains" , "d")
 	// 			->leftJoin("t.menus" , "m")
 	// 		->orderBy("t.name")
@@ -29,7 +29,7 @@ class Tree extends Repository
 	// 	);
 	// 	return $this->_em->createQueryBuilder()
 	// 		->select("t", "r")
-	// 		->from("Ayre\Tree", "t")
+	// 		->from("Ayre\Entity\Tree", "t")
 	// 			->innerJoin("t.revisions", "r")
 	// 		->where("r.status IN('{$statuses[0]}')")
 	// 		->orderBy("r.id")
@@ -41,7 +41,7 @@ class Tree extends Repository
 	{
 		return $this->_em->createQueryBuilder()
 			->select("t")
-			->from("Ayre\Tree", "t")
+			->from("Ayre\Entity\Tree", "t")
 			->where("t.status IN (:statuses)")
 			->addOrderBy("t.master")
 			->addOrderBy("t.version", "DESC")
@@ -59,7 +59,7 @@ class Tree extends Repository
 	{
 		return $this->_em->createQueryBuilder()
 			->select("t", "r")
-			->from("Ayre\Tree", "t")
+			->from("Ayre\Entity\Tree", "t")
 			->innerJoin("t.root", "r")
 			->where("t.status IN (:statuses)")
 			->getQuery()
@@ -79,7 +79,7 @@ class Tree extends Repository
 	// 	);
 	// 	$qb = $this->_em->createQueryBuilder()
 	// 		->select("n", "i", "r", "v", "p")
-	// 		->from("Ayre\Tree\Revision\Node", "n")
+	// 		->from("Ayre\Entity\Tree\Revision\Node", "n")
 	// 			->leftJoin("n.silt", "i")
 	// 				->leftJoin("i.revisions", "r", "r.status IN('{$statuses[0]}')")
 	// 					->leftJoin("r.versions", "v")
@@ -100,7 +100,7 @@ class Tree extends Repository
 	// {
 	// 	return $this->_em->createQueryBuilder()
 	// 		->select("p", "n")
-	// 		->from("Ayre\Tree\Revision\Node\Path", "p")
+	// 		->from("Ayre\Entity\Tree\Revision\Node\Path", "p")
 	// 			->leftJoin("p.node", "n")
 	// 		->where("n.revision = :revision")
 	// 		->orderBy("p.id", "DESC")

@@ -24,7 +24,7 @@ class Listener implements EventSubscriber
         $meta  = $args->getClassMetadata();
         $class = $meta->name;
         
-        if (!is_subclass_of($class, 'Ayre\Behaviour\Versionable') || is_subclass_of($class, 'Ayre\Silt')) {
+        if (!is_subclass_of($class, 'Ayre\Behaviour\Versionable') || is_subclass_of($class, 'Ayre\Entity\Silt')) {
             return;
         }
 

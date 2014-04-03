@@ -6,18 +6,19 @@
 
 namespace Ayre\Repository;
 
-use Ayre,
+use Ayre\Entity,
+	Ayre\Behaviour\Searchable,
 	Ayre\Repository;
 
 class Search extends Repository
 {
-	public function fetch(\Ayre\Behaviour\Searchable $entity)
+	public function fetch(Searchable $entity)
 	{
 		$class = get_class($entity);
 		if (isset($entity->id)) {
 			$search = $this->_em->createQueryBuilder()
 				->select("s")
-				->from("Ayre\Search", "s")
+				->from("\Ayre\Entity\Search", "s")
 				->andWhere("s.class = :class")
 				->andWhere("s.class_id = :class_id")
 				->getQuery()
@@ -27,7 +28,7 @@ class Search extends Repository
 				])			
 				->getOneOrNullResult();
 		} else {
-			$search				= new Ayre\Search();
+			$search				= new Entity\Search();
 			$search->class		= $class;
 			$search->class_obj	= $entity;
 		}

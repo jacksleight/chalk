@@ -4,15 +4,14 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Ayre;
+namespace Ayre\Entity;
 
-use Ayre,
+use Ayre\Entity,
     Ayre\Behaviour\Loggable,
     Ayre\Behaviour\Publishable,
     Ayre\Behaviour\Searchable,
     Ayre\Behaviour\Trackable,
     Ayre\Behaviour\Versionable,
-    Coast\Model,
 	Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM,
     Gedmo\Mapping\Annotation as Gedmo;
@@ -22,7 +21,7 @@ use Ayre,
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="class", type="string")
 */
-abstract class Silt extends Model implements Loggable, Publishable, Searchable, Trackable, Versionable
+abstract class Silt extends Entity implements Loggable, Publishable, Searchable, Trackable, Versionable
 {
     use Publishable\Implementation,
     	Trackable\Implementation,
@@ -64,7 +63,7 @@ abstract class Silt extends Model implements Loggable, Publishable, Searchable, 
 	protected $slug;
 	
 	/**
-     * @ORM\OneToMany(targetEntity="Ayre\Tree\Node", mappedBy="silt")
+     * @ORM\OneToMany(targetEntity="\Ayre\Entity\Tree\Node", mappedBy="silt")
      */
 	protected $nodes;
 	
@@ -75,30 +74,12 @@ abstract class Silt extends Model implements Loggable, Publishable, Searchable, 
 		
 		$this->__constructVersionable();
 	}
-	
-	public function smartLabel()
+			
+	public function searchFields()
 	{
-		return isset($this->label)
-			? $this->label
-			: $this->name;
-	}
-	
-	public function smartSlug()
-	{
-		if (isset($this->slug)) {
-			return $this->slug;
-		}
-		$slug = \Coast\str_simplify(iconv('utf-8', 'ascii//translit//ignore', $this->smartLabel), '-');
-		return strlen($slug)
-			? strtolower($slug)
-			: null;
-	}
-	
-	public function searchContent()
-	{
-		return \Coast\array_filter_null(array(
-			$this->name,
-			$this->label,
-		));
+		return [
+			'name',
+			'label',
+		];
 	}
 }

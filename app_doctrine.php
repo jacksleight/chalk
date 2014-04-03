@@ -39,8 +39,8 @@ Doctrine\Common\Annotations\AnnotationRegistry::registerFile('vendor/doctrine/or
 $reader			= new \Doctrine\Common\Annotations\AnnotationReader();
 $cachedReader	= new \Doctrine\Common\Annotations\CachedReader($reader, $cache, $app->isDebug());
 $chain			= new \Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain();
-$driver			= new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($cachedReader, array('lib'));
-$chain->addDriver($driver, 'Ayre');
+$driver			= new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($cachedReader, array('lib/Ayre/Entity'));
+$chain->addDriver($driver, 'Ayre\Entity');
 Gedmo\DoctrineExtensions::registerAbstractMappingIntoDriverChainORM($chain, $cachedReader);
 $doct->setMetadataDriverImpl($chain);
 
@@ -50,7 +50,7 @@ $classes = [
 	'Ayre\Behaviour\Loggable\Listener',
 	'Ayre\Behaviour\Searchable\Listener',
 	'Ayre\Behaviour\Versionable\Listener',
-	'Ayre\Tree\Node\Listener',
+	'Ayre\Entity\Tree\Node\Listener',
 	'Gedmo\Blameable\BlameableListener',
 	'Gedmo\Sluggable\SluggableListener',
 	'Gedmo\Timestampable\TimestampableListener',

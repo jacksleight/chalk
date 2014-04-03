@@ -18,7 +18,7 @@ trait Implementation
     protected $createDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Ayre\User")
+     * @ORM\ManyToOne(targetEntity="\Ayre\Entity\User")
      * @ORM\JoinColumn(onDelete="SET NULL")
      * @Gedmo\Blameable(on="create")
      */
@@ -31,7 +31,7 @@ trait Implementation
     protected $modifyDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Ayre\User")
+     * @ORM\ManyToOne(targetEntity="\Ayre\Entity\User")
      * @ORM\JoinColumn(onDelete="SET NULL")
      * @Gedmo\Blameable(on="update")
      */

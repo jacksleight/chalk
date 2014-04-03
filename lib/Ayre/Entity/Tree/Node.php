@@ -4,9 +4,9 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Ayre\Tree;
+namespace Ayre\Entity\Tree;
 
-use Ayre,
+use Ayre\Entity,
 	Coast\Model,
 	Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM,
@@ -16,7 +16,7 @@ use Ayre,
  * @ORM\Entity
  * @Gedmo\Tree(type="materializedPath")
 */
-class Node extends Model
+class Node extends Entity
 {
 	/**
      * @ORM\Id
@@ -27,7 +27,7 @@ class Node extends Model
 	protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Ayre\Tree", mappedBy="root")
+     * @ORM\OneToOne(targetEntity="\Ayre\Entity\Tree", mappedBy="root")
      */
     protected $tree;
 
@@ -43,19 +43,19 @@ class Node extends Model
     protected $slug;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Ayre\Tree\Node", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="\Ayre\Entity\Tree\Node", inversedBy="children")
      * @ORM\JoinColumn(onDelete="CASCADE")
      * @Gedmo\TreeParent
      */
     protected $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="Ayre\Tree\Node", mappedBy="parent", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="\Ayre\Entity\Tree\Node", mappedBy="parent", cascade={"persist"})
      */
     protected $children;
 
 	/**
-     * @ORM\ManyToOne(targetEntity="Ayre\Silt", inversedBy="nodes")
+     * @ORM\ManyToOne(targetEntity="\Ayre\Entity\Silt", inversedBy="nodes")
      * @ORM\JoinColumn(nullable=false)
      */
 	protected $silt;
@@ -72,7 +72,7 @@ class Node extends Model
             : $this;
     }
 
-    public function parent(\Ayre\Tree\Node $value = null)
+    public function parent(Entity\Tree\Node $value = null)
     {
         if (isset($value)) {
             $this->parent = $value;
@@ -81,7 +81,7 @@ class Node extends Model
         return $this->parent;
     }
 
-    public function silt(\Ayre\Silt $value = null)
+    public function silt(Entity\Silt $value = null)
     {
         if (isset($value)) {
             $this->silt = $value;

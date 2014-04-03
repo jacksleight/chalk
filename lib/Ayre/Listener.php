@@ -6,7 +6,8 @@
 
 namespace Ayre;
 
-use Doctrine\ORM\Event\LoadClassMetadataEventArgs,
+use Ayre,
+    Doctrine\ORM\Event\LoadClassMetadataEventArgs,
     Doctrine\ORM\Events,
     Doctrine\Common\EventSubscriber;
 
@@ -21,28 +22,33 @@ class Listener implements EventSubscriber
 
     public function loadClassMetadata(LoadClassMetadataEventArgs $args)
     {
-        $meta  = $args->getClassMetadata();
-        $class = $meta->name;
-        $parts = explode('\\', $class);
-        if ($parts[0] != 'Ayre') {
+        $meta      = $args->getClassMetadata();
+        $class     = $meta->name;
+        $namespace = __NAMESPACE__ . '\\Entity';
+        if (!is_subclass_of($class, $namespace)) {
             return;
         }
-        array_shift($parts);
 
-        $meta->setTableName(implode('_', array_map('lcfirst', $parts)));
+        $type = Ayre::resolve($class);
+        $meta->setTableName($type->id);
 
-        $repositoryClass = "Ayre\\Repository\\" . implode('\\', $parts);
-        $meta->setCustomRepositoryClass(class_exists($repositoryClass)
-            ? $repositoryClass
-            : (is_subclass_of($class, 'Ayre\\Silt')
-                ? 'Ayre\\Repository\\Silt'
-                : 'Ayre\\Repository'));
+        $repositoryClasses = [
+            'Ayre\\Repository\\' . $type->short,
+            'Ayre\\Repository\\' . Ayre::resolve($meta->rootEntityName)->short,
+            'Ayre\\Repository',
+        ];
+        foreach ($repositoryClasses as $repositoryClass) {
+            if (class_exists($repositoryClass)) {
+                $meta->setCustomRepositoryClass($repositoryClass);
+                break;
+            }
+        }
 
         if (isset($meta->discriminatorMap)) {
             $map = $meta->discriminatorMap;
             foreach ($map as $id => $class) {
                 unset($map[$id]);
-                $map[$class] = $class;
+                $map[Ayre::resolve($class)->short] = $class;
             }
             $meta->setDiscriminatorMap($map);
         }
