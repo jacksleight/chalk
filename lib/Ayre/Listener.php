@@ -30,7 +30,7 @@ class Listener implements EventSubscriber
         }
 
         $type = Ayre::resolve($class);
-        $meta->setTableName($type->id);
+        $meta->setTableName('core_' . $type->id);
 
         $repositoryClasses = [
             'Ayre\\Repository\\' . $type->short,

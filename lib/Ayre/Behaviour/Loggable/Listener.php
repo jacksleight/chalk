@@ -99,14 +99,14 @@ class Listener implements EventSubscriber
 		$em = $args->getEntityManager();
 
 		while (count($this->_updates)) {
-			$log = array_shift($this->_updates);
-			$log->class_id = $log->class_obj->id;
-			$em->persist($log);
+			$entity = array_shift($this->_updates);
+			$entity->class_id = $entity->class_obj->id;
+			$em->persist($entity);
 		}
 
 		while (count($this->_deletions)) {
-			$log = array_shift($this->_deletions);
-			$em->remove($log);
+			$entity = array_shift($this->_deletions);
+			$em->remove($entity);
 		}	
 
 		$em->flush();

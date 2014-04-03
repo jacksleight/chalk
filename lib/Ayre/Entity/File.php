@@ -13,140 +13,88 @@ use Ayre\Entity,
 
 /**
  * @ORM\Entity
-*/
+ * @Gedmo\Uploadable(pathMethod="generateDir", appendNumber=true)
+ */
 class File extends Content
 {
-	protected static $_imageMimeTypes;
+	public static $uploadable;
 
     /**
      * @ORM\Column(type="string")
+     * @Gedmo\UploadableFilePath
      */
-	protected $mimeType;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-	protected $fileName;
+	protected $path;
 
 	protected $file;
 
-	protected $newFile;
-		
-	protected static function _imageMimeTypes()
-	{
-		if (!isset(self::$_imageMimeTypes)) {
-			$im = new \Imagick();
-			$formats = $im->queryFormats();
-			$im->destroy();
-			$map = array(
-				'GIF'	=> 'image/gif',
-				'JPEG'	=> 'image/jpeg',
-				'PDF'	=> 'application/pdf',
-				'PNG'	=> 'image/png',
-				'SVG'	=> 'image/svg+xml',
-				'WEBP'	=> 'image/webp',
-			);
-			foreach ($map as $format => $mimeType) {
-				if (in_array($format, $formats)) {
-					$imageMimeTypes[] = $mimeType;
-				}
-			}
-			self::$_imageMimeTypes = $imageMimeTypes;
-		}		
-		return self::$_imageMimeTypes;
-	}
+    /**
+     * @ORM\Column(type="decimal")
+     * @Gedmo\UploadableFileSize
+     */
+	protected $size;
 
-	public function isImage()
-	{
-		return in_array($this->mimeType, self::_imageMimeTypes());
-	}
-
-	public function dir()
-	{
-		$num = ceil($this->id / 1000);
-		return \Ayre::$instance->dir("store/files/{$num}", true, 0777);
-	}
+    /**
+     * @ORM\Column(type="string")
+     * @Gedmo\UploadableFileMimeType
+     */
+	protected $mimeType;
 	
-	public function mimeType($mimeType = null)
+	public function generateDir()
 	{
-		if (isset($mimeType)) {
-			$this->mimeType	= $mimeType;
-			$this->subtype	= $this->mimeType;
+		$dir = new \Coast\Dir('data/files');
+		$count = 0;
+		foreach ($dir->iterator(true) as $file) {
+			$count++;
+		}
+		$number = ceil(max(1, $count) / 1000);
+		return "{$dir}/{$number}";
+	}
+
+	public function baseName($baseName = null)
+	{
+		if (isset($baseName)) {
+			$this->file()->rename(['baseName' => $baseName]);
+			$this->path = $this->file()->name();
 			return $this;
 		}
-		return $this->mimeType;
+		return $this->file()->baseName;
 	}
 
-
-
-
-
-
-
-
-
-
-
-	public function setFileName($fileName)
+	public function fileName($fileName = null)
 	{
-		if ($this->isPersisted() && $fileName == $this->fileName) {
-			return;
+		if (isset($fileName)) {
+			$this->file()->rename(['fileName' => $fileName]);
+			$this->path = $this->file()->name();
+			return $this;
 		}
-
-		$path		= new \JS\Path($fileName);
-		$fileName	= $path->toString(\JS\Path::FILENAME);
-		$extension	= $path->toString(\JS\Path::EXTENSION);
-		$i			= 1;
-		do {
-			$try = $i == 1
-				? "{$fileName}.{$extension}"
-				: "{$fileName}_{$i}.{$extension}";
-			$exists = \Ayre::$instance->em->getRepository('Ayre\File')
-				->checkFileNameExists($try);
-			$i++;
-		} while ($exists);
-		
-		$this->fileName = $try;
+		return $this->file()->fileName;
 	}
-	
-	public function setNewFile(\JS\File $file)
+
+	public function extName($extName = null)
 	{
-		$this->newFile = $file;
-
-		$fileName	= $file->toString(\JS\Path::FILENAME);
-		$baseName	= $file->toString(\JS\Path::BASENAME);
-		$extension	= $file->toString(\JS\Path::EXTENSION);
-
-		$this->setFileName($baseName);
-		$this->setMimeType(\Ayre::$instance->app->extToMimeType($extension));
-		if (!$this->isPersisted()) {
-			$this->versions->first()->name = ucwords(trim(preg_replace('/[^a-z0-9]+/i', ' ', $fileName)));
+		if (isset($extName)) {
+			$this->file()->rename(['extName' => $extName]);
+			$this->path = $this->file()->name();
+			return $this;
 		}
+		return $this->file()->extName;
 	}
-	
-	/**
-	 * @ORM\PrePersist
-	 * @ORM\PreUpdate
-	 */
-	public function processFile()
-	{
-		parent::postPersistUpdate();
 
-		if (isset($this->newFile)) {
-			if (isset($this->file)) {
-				$this->file->delete();
-			}
-			$this->file = $this->newFile->copy($this->dir, $this->fileName);
-		} elseif (isset($this->file) && $this->file->toString(\JS\Path::BASENAME) != $this->fileName) {
-			$this->file = $this->file->rename($this->fileName);
+	public function file(\Coast\File $file = null)
+	{
+		if (isset($file)) {
+			$this->name = ucwords(trim(preg_replace('/[^a-z0-9]+/i', ' ', $file->fileName())));
+			self::$uploadable->addEntityFileInfo($this, new File\Info([
+				'tmp_name'	=> $file->name(),
+				'name'		=> $file->baseName(),
+				'size'		=> $file->size(),
+				'type'		=> null,
+				'error'		=> 0,
+			]));
+			return $this;
+		} else if (!isset($this->file)) {
+			$this->file = new \Coast\File($this->path);
 		}
-	}
-
-	/**
-	 * @ORM\PostLoad
-	 */
-	public function initializeFile()
-	{
-		$this->file = $this->dir()->file($this->fileName);
+		return $this->file;
 	}
 }

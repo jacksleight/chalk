@@ -15,7 +15,7 @@ use Ayre\Entity,
  * @ORM\Entity
  * @ORM\Table(options={"engine"="MyISAM"})
 */
-class Search extends Entity
+class Index extends Entity
 {
 	/**
      * @ORM\Id

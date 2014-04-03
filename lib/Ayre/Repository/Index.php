@@ -11,22 +11,22 @@ use Ayre,
     Ayre\Behaviour\Searchable,
     Ayre\Repository;
 
-class Search extends Repository
+class Index extends Repository
 {
     public function fetch(Searchable $entity)
     {
-        $search = $this->_em->createQueryBuilder()
-            ->select("s")
-            ->from("\Ayre\Entity\Search", "s")
-            ->andWhere("s.class = :class")
-            ->andWhere("s.class_id = :class_id")
+        $index = $this->_em->createQueryBuilder()
+            ->select("i")
+            ->from("\Ayre\Entity\Index", "i")
+            ->andWhere("i.class = :class")
+            ->andWhere("i.class_id = :class_id")
             ->getQuery()
             ->setParameters([
                 'class'     => Ayre::resolve($entity)->short,
                 'class_id'  => $entity->id,
             ])          
             ->getOneOrNullResult();
-        return $search;
+        return $index;
     }
 
     public function query($query, $classes = array())
@@ -40,13 +40,13 @@ class Search extends Repository
         }
 
         $where  = count($classes)
-            ? "AND s.class IN(" . implode(', ', $classes) . ")"
+            ? "AND i.class IN(" . implode(', ', $classes) . ")"
             : null;
         return $conn->query("
-            SELECT s.class, s.class_id,
-                MATCH(s.content) AGAINST ({$query} IN BOOLEAN MODE) AS score
-            FROM search AS s
-            WHERE MATCH(s.content) AGAINST ({$query} IN BOOLEAN MODE)
+            SELECT i.class, i.class_id,
+                MATCH(i.content) AGAINST ({$query} IN BOOLEAN MODE) AS score
+            FROM core_index AS s
+            WHERE MATCH(i.content) AGAINST ({$query} IN BOOLEAN MODE)
                 {$where}
             ORDER BY score DESC
         ")->fetchAll();

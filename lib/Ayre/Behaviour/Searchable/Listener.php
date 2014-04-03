@@ -47,11 +47,11 @@ class Listener implements EventSubscriber
 			if (!count($changes)) {
 				continue;
 			}
-			$search  = $em->getRepository('Ayre\Entity\Search')->fetch($entity);
-			if (!isset($search)) {
-				$search				= new Entity\Search();
-				$search->class		= Ayre::resolve($entity)->short;
-				$search->class_obj	= $entity;
+			$index  = $em->getRepository('Ayre\Entity\Index')->fetch($entity);
+			if (!isset($index)) {
+				$index				= new Entity\Index();
+				$index->class		= Ayre::resolve($entity)->short;
+				$index->class_obj	= $entity;
 			}
 			$content = [];
 			foreach ($fields as $field) {
@@ -65,8 +65,8 @@ class Listener implements EventSubscriber
 				}
 				$content[] = $value;
 			}
-			$search->content = implode(' ', $content);
-			$this->_updates[] = $search;
+			$index->content = implode(' ', $content);
+			$this->_updates[] = $index;
 		}
 
 		$entities = array_merge(
@@ -76,11 +76,11 @@ class Listener implements EventSubscriber
 			if (!$entity instanceof Searchable) {
 				continue;
 			}
-			$search  = $em->getRepository('Ayre\Entity\Search')->fetch($entity);
-			if (!isset($search)) {
+			$index  = $em->getRepository('Ayre\Entity\Index')->fetch($entity);
+			if (!isset($index)) {
 				continue;
 			}
-			$this->_deletions[] = $search;
+			$this->_deletions[] = $index;
 		}
 	}
 
@@ -93,16 +93,16 @@ class Listener implements EventSubscriber
 		$em = $args->getEntityManager();
 
 		while (count($this->_updates)) {
-			$search = array_shift($this->_updates);
-			if (!isset($search->id)) {
-				$search->class_id = $search->class_obj->id;
-				$em->persist($search);
+			$entity = array_shift($this->_updates);
+			if (!isset($entity->id)) {
+				$entity->class_id = $entity->class_obj->id;
+				$em->persist($entity);
 			}
 		}
 
 		while (count($this->_deletions)) {
-			$search = array_shift($this->_deletions);
-			$em->remove($search);
+			$entity = array_shift($this->_deletions);
+			$em->remove($entity);
 		}	
 
 		$em->flush();

@@ -67,6 +67,9 @@ foreach ($classes as $class) {
 		global $blameable;
 		$blameable = $listener;
 	}
+	if ($class == 'Gedmo\Uploadable\UploadableListener') {
+		\Ayre\Entity\File::$uploadable = $listener;
+	}
 }
 
 $em = Doctrine\ORM\EntityManager::create(array_merge($app->config->database, ['charset' => 'utf8']), $doct, $evm);

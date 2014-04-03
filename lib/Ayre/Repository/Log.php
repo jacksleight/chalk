@@ -15,7 +15,7 @@ class Log extends Repository
 {
 	public function fetchAll(Loggable $entity)
 	{
-		$search = $this->_em->createQueryBuilder()
+		$logs = $this->_em->createQueryBuilder()
 			->select("l")
 			->from("\Ayre\Entity\Log", "l")
 			->andWhere("l.class = :class")
@@ -26,6 +26,6 @@ class Log extends Repository
 				'class_id'	=> $entity->id,
 			])			
 			->getResult();
-		return $search;
+		return $logs;
 	}
 }
