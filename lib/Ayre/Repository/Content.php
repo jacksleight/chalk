@@ -8,16 +8,16 @@ namespace Ayre\Repository;
 
 use Ayre\Repository;
 
-class Silt extends Repository
+class Content extends Repository
 {
 	public function fetchAllForPublish()
 	{
 		return $this->_em->createQueryBuilder()
-			->select("silt")
-			->from("Ayre\Silt", "silt")
-			->where("silt.status IN (:statuses)")
-			->addOrderBy("silt.master")
-			->addOrderBy("silt.version", "DESC")
+			->select("content")
+			->from("Ayre\Content", "content")
+			->where("content.status IN (:statuses)")
+			->addOrderBy("content.master")
+			->addOrderBy("content.version", "DESC")
 			->getQuery()
 			->setParameters([
 				'statuses' => [

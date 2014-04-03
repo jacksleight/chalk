@@ -21,7 +21,7 @@ use Ayre\Entity,
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="class", type="string")
 */
-abstract class Silt extends Entity implements Loggable, Publishable, Searchable, Trackable, Versionable
+abstract class Content extends Entity implements Loggable, Publishable, Searchable, Trackable, Versionable
 {
     use Publishable\Implementation,
     	Trackable\Implementation,
@@ -63,7 +63,7 @@ abstract class Silt extends Entity implements Loggable, Publishable, Searchable,
 	protected $slug;
 	
 	/**
-     * @ORM\OneToMany(targetEntity="\Ayre\Entity\Tree\Node", mappedBy="silt")
+     * @ORM\OneToMany(targetEntity="\Ayre\Entity\Tree\Node", mappedBy="content")
      */
 	protected $nodes;
 	

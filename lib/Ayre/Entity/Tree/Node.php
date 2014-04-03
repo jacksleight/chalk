@@ -55,10 +55,10 @@ class Node extends Entity
     protected $children;
 
 	/**
-     * @ORM\ManyToOne(targetEntity="\Ayre\Entity\Silt", inversedBy="nodes")
+     * @ORM\ManyToOne(targetEntity="\Ayre\Entity\Content", inversedBy="nodes")
      * @ORM\JoinColumn(nullable=false)
      */
-	protected $silt;
+	protected $content;
 
     public function __construct()
     {
@@ -81,12 +81,12 @@ class Node extends Entity
         return $this->parent;
     }
 
-    public function silt(Entity\Silt $value = null)
+    public function content(Entity\Content $value = null)
     {
         if (isset($value)) {
-            $this->silt = $value;
+            $this->content = $value;
         }
-        return $this->silt;
+        return $this->content;
     }
 
     public function __clone()

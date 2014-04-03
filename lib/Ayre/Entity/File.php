@@ -14,7 +14,7 @@ use Ayre\Entity,
 /**
  * @ORM\Entity
 */
-class File extends Silt
+class File extends Content
 {
 	protected $type = 'file';
 
@@ -99,7 +99,7 @@ class File extends Silt
 	public function setMimeType($mimeType)
 	{
 		$this->mimeType = $mimeType;
-		$this->silt->subtype = $mimeType;
+		$this->content->subtype = $mimeType;
 	}
 	
 	public function setNewFile(\JS\File $file)

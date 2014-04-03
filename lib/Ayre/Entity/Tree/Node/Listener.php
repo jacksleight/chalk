@@ -39,7 +39,7 @@ class Listener implements EventSubscriber
 			if (
 				$entity instanceof Entity\Tree ||
 				$entity instanceof Entity\Tree\Node ||
-				$entity instanceof Entity\Silt
+				$entity instanceof Entity\Content
 			) {
 				$this->_refresh = true;
 				break;
@@ -67,7 +67,7 @@ class Listener implements EventSubscriber
 					array_shift($ancestors);
 				}
 				$node->slug = implode('/', array_map(function($node) {
-		            return $node->silt->slug;
+		            return $node->content->slug;
 		        }, $ancestors));
 			}
 		}

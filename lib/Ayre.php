@@ -11,7 +11,7 @@ class Ayre extends App
 	protected static $_types	= [];
 
 	protected $_mimeTypeMap;
-	protected $_silts			= [];
+	protected $_contents			= [];
 	protected $_publishables	= [];
 
 	public static function resolve($class)
@@ -57,11 +57,11 @@ class Ayre extends App
 		$this
 			->register('Ayre\Entity\Document')
 			->register('Ayre\Entity\File')
-			->register('Ayre\Entity\Silt')
+			->register('Ayre\Entity\Content')
 			->register('Ayre\Entity\Tree');
-			// ->addSiltType('Ayre\Url')
-			// ->addSiltType('Ayre\Url\Email')
-			// ->addSiltType('Ayre\Url\Oembed');
+			// ->addContentType('Ayre\Url')
+			// ->addContentType('Ayre\Url\Email')
+			// ->addContentType('Ayre\Url\Oembed');
 	}
 
 	public function isDebug()
@@ -124,50 +124,50 @@ class Ayre extends App
 	public function register($class)
 	{
 		$type = self::resolve($class);
-		if (is_subclass_of($class, 'Ayre\\Entity\\Silt')) {
-			$this->_silts[$class] = $type;
+		if (is_subclass_of($class, 'Ayre\\Entity\\Content')) {
+			$this->_contents[$class] = $type;
 		}
-		if (is_subclass_of($class, 'Ayre\\Behaviour\\Publishable') && !is_subclass_of($class, 'Ayre\\Entity\\Silt')) {
+		if (is_subclass_of($class, 'Ayre\\Behaviour\\Publishable') && !is_subclass_of($class, 'Ayre\\Entity\\Content')) {
 			$this->_publishables[$class] = $type;
 		}
 		return $this;
 	}
 	
-	// public function getSiltTypes()
+	// public function getContentTypes()
 	// {
-	// 	return $this->_silts;
+	// 	return $this->_contents;
 	// }
 		
-	// public function getSiltType($class)
+	// public function getContentType($class)
 	// {
-	// 	return $this->_silts[$class];
+	// 	return $this->_contents[$class];
 	// }
 	
-	// public function getSiltTypeById($id)
+	// public function getContentTypeById($id)
 	// {
 	// 	$map = array_combine(
-	// 		\JS\array_column($this->_silts, 'id'),
-	// 		array_keys($this->_silts)
+	// 		\JS\array_column($this->_contents, 'id'),
+	// 		array_keys($this->_contents)
 	// 	);
-	// 	return $this->_silts[$map[$id]];
+	// 	return $this->_contents[$map[$id]];
 	// }
 	
-	// public function getSiltTypeBySlug($slug)
+	// public function getContentTypeBySlug($slug)
 	// {
 	// 	$map = array_combine(
-	// 		\JS\array_column($this->_silts, 'slug'),
-	// 		array_keys($this->_silts)
+	// 		\JS\array_column($this->_contents, 'slug'),
+	// 		array_keys($this->_contents)
 	// 	);
-	// 	return $this->_silts[$map[$slug]];
+	// 	return $this->_contents[$map[$slug]];
 	// }
 	
-	// public function getSiltTypeByObject($silt)
+	// public function getContentTypeByObject($content)
 	// {
-	// 	if ($silt instanceof \JS\Entity\Wrapper\Entity) {
-	// 		$silt = $silt->getObject();
+	// 	if ($content instanceof \JS\Entity\Wrapper\Entity) {
+	// 		$content = $content->getObject();
 	// 	}
-	// 	$class = get_class($silt);
-	// 	return $this->_silts[$class];
+	// 	$class = get_class($content);
+	// 	return $this->_contents[$class];
 	// }
 	
 	// public function getLayouts()
