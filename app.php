@@ -61,3 +61,8 @@ $app->router
 		'action'     => 'index',
 		'id'    	 => null,
 	]);
+
+/* User */
+
+global $blameable;
+$blameable->setUserValue($app->entity('User')->find(1));

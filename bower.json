@@ -1,12 +1,10 @@
 {
   "name": "ayre",
   "devDependencies": {
-    "fastclick": "~1.0.0",
+    "fastclick": "~1.0.1",
     "html5shiv": "~3.7.0",
-    "js-cookies": "~1.0.1",
-    "mootools": "~1.4.5",
-    "mootools-more": "~1.2.4",
-    "respond": "~1.4.2",
-    "log": "~0.1.2"
+    "log": "~0.1.2",
+    "jquery": "~2.1.0",
+    "jquery-file-upload": "~9.5.7"
   }
 }
