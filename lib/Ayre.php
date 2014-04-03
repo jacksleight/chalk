@@ -14,6 +14,43 @@ class Ayre extends App
 	protected $_silts			= [];
 	protected $_publishables	= [];
 
+	public static function resolve($class)
+	{
+		if (is_object($class)) {
+			$class = get_class($class);
+		}
+		if (isset(self::$_types[$class])) {
+			return self::$_types[$class];
+		}
+
+		$namespace = __CLASS__ . '\\Entity';
+		if (!is_subclass_of($class, $namespace)) {
+			throw new Exception("Class {$class} does not extend {$namespace}");   
+		}
+
+		$short = str_replace($namespace . '\\', '', $class);
+		$parts = explode('\\', $short);
+		$parts = array_map('lcfirst', $parts);
+		self::$_types[$class] = (object) [
+			'class'	=> $class,
+			'short'	=> $short,
+			'id'	=> implode('_', $parts),
+			'slug'	=> implode('-', $parts),
+			'path'	=> implode('/', $parts),
+		];
+
+		return self::$_types[$class];
+	}
+
+	public static function resolveShort($short)
+	{
+		if (is_object($short)) {
+			$short = get_class($short);
+		}
+		$namespace = __CLASS__ . '\\Entity';
+		return self::resolve("{$namespace}\\{$short}");
+	}
+
 	public function __construct(array $envs = array())
 	{
 		parent::__construct($envs);
@@ -83,31 +120,6 @@ class Ayre extends App
 	// 		? $mimeTypeMap[$ext]
 	// 		: null;
 	// }
-
-	public static function resolve($class)
-	{
-		if (isset(self::$_types[$class])) {
-			return self::$_types[$class];
-		}
-
-		$namespace = __CLASS__ . '\\Entity';
-		if (!is_subclass_of($class, $namespace)) {
-			throw new Exception("Class {$class} does not extend {$namespace}");   
-		}
-
-		$short = str_replace($namespace . '\\', '', $class);
-		$parts = explode('\\', $short);
-		$parts = array_map('lcfirst', $parts);
-		self::$_types[$class] = (object) [
-			'class'	=> $class,
-			'short'	=> $short,
-			'id'	=> implode('_', $parts),
-			'slug'	=> implode('-', $parts),
-			'path'	=> implode('/', $parts),
-		];
-
-		return self::$_types[$class];
-	}
 	
 	public function register($class)
 	{

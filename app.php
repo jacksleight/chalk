@@ -14,12 +14,11 @@ require 'vendor/autoload.php';
 $config = new Config('config/config.php');
 session_name('session');
 
-$app = new \Ayre($config->envs);
+$app = new Ayre($config->envs);
 $app->set('config', $config)
 	->set('memcached', $app->import('app_memcached.php'))
-	->set('em', $app->import('app_doctrine.php'))
+	->set('entity', new Ayre\App\Entity($app->import('app_doctrine.php')))
 	->set('swift', $app->import('app_swift.php'))
-	->set('entity', new \Js\App\Entity())
 	->set('html', new \Js\App\Html())
 	->set('image', new \Js\App\Image())
 //  ->set('message', new App\Message())

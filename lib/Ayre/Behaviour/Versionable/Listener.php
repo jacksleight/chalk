@@ -28,15 +28,20 @@ class Listener implements EventSubscriber
             return;
         }
 
-        $meta->mapOneToMany(array(
+        $meta->mapOneToMany([
             'fieldName'    => 'versions',
             'targetEntity' => $class,
             'mappedBy'     => 'master',
-        ));
-        $meta->mapManyToOne(array(
+        ]);
+        $meta->mapManyToOne([
             'fieldName'    => 'master',
             'targetEntity' => $class,
             'inversedBy'   => 'versions',
-        ));
+            'joinColumns'  => [[
+                'name'                 => 'master_id',
+                'referencedColumnName' => 'id',
+                'onDelete'             => 'CASCADE',
+            ]]
+        ]);
     }
 }

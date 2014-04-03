@@ -10,24 +10,6 @@ use Ayre\Repository;
 
 class Silt extends Repository
 {
-	// public function fetch($silt)
-	// {
-	// 	return $this->_createQueryBuilder()
-	// 		->andWhere("i = :silt")
-	// 		->setParameters(array(
-	// 			'silt' => $silt,
-	// 		))
-	// 		->getQuery()
-	// 		->getSingleResult();
-	// }
-
-	// public function fetchAll()
-	// {
-	// 	return $this->_createQueryBuilder()
-	// 		->getQuery()
-	// 		->getResult();
-	// }
-
 	public function fetchAllForPublish()
 	{
 		return $this->_em->createQueryBuilder()
@@ -45,16 +27,4 @@ class Silt extends Repository
 			])
 			->getResult();
 	}
-
-	// protected function _createQueryBuilder()
-	// {
-	// 	return $this->_em->createQueryBuilder()
-	// 		->select("i")
-	// 		->from("Ayre\Silt", "i")
-	// 		->addOrderBy("silt.master")
-	// 		->addOrderBy("silt.version");
-	// }
-	// 
-	// 
-	// 
 }

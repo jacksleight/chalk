@@ -6,7 +6,8 @@
 
 namespace Ayre\Behaviour\Loggable;
 
-use Ayre\Entity,
+use Ayre,
+	Ayre\Entity,
 	Ayre\Behaviour\Loggable,
 	Ayre\Behaviour\Publishable,
 	Doctrine\Common\EventSubscriber,
@@ -17,7 +18,8 @@ use Ayre\Entity,
 
 class Listener implements EventSubscriber
 {
-	protected $_logs = [];
+	protected $_updates		= [];
+	protected $_deletions	= [];
 
 	public function getSubscribedEvents()
 	{
@@ -36,7 +38,6 @@ class Listener implements EventSubscriber
 			$uow->getScheduledEntityInsertions(),
 			$uow->getScheduledEntityUpdates()
 		);
-
 		foreach ($entities as $entity) {
 			if (!$entity instanceof Entity\Tree\Node) {
 				continue;
@@ -55,14 +56,13 @@ class Listener implements EventSubscriber
 			}
 			$entities[] = $entity;
 		}
-
 		foreach ($entities as $i => $entity) {
 			if (!$entity instanceof Loggable) {
 				continue;
 			}
 			$changeSet		= $uow->getEntityChangeSet($entity);
 			$log			= new Entity\Log();
-			$log->class		= get_class($entity);
+			$log->class		= Ayre::resolve($entity)->short;
 			$log->class_obj	= $entity;
 			if (!isset($entity->id)) {
 				$log->type = Entity\Log::TYPE_CREATE;
@@ -75,23 +75,39 @@ class Listener implements EventSubscriber
 			} else {
 				$log->type = Entity\Log::TYPE_MODIFY;
 			}
-			$this->_logs[] = $log;
+			$this->_updates[] = $log;
+		}
+
+		$entities = array_merge(
+			$uow->getScheduledEntityDeletions()
+		);
+		foreach ($entities as $i => $entity) {
+			if (!$entity instanceof Loggable) {
+				continue;
+			}
+			$logs = $em->getRepository('Ayre\Entity\Log')->fetchAll($entity);
+			$this->_deletions = array_merge($this->_deletions, $logs);
 		}
 	}
 
 	public function postFlush(PostFlushEventArgs $args)
 	{
-		if (!count($this->_logs)) {
+		if (!count($this->_updates) && !count($this->_deletions)) {
 			return;
 		}
 
 		$em = $args->getEntityManager();
 
-		while (count($this->_logs)) {
-			$log = array_shift($this->_logs);
+		while (count($this->_updates)) {
+			$log = array_shift($this->_updates);
 			$log->class_id = $log->class_obj->id;
 			$em->persist($log);
 		}
+
+		while (count($this->_deletions)) {
+			$log = array_shift($this->_deletions);
+			$em->remove($log);
+		}	
 
 		$em->flush();
 	}

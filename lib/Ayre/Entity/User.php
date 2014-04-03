@@ -62,7 +62,7 @@ class User extends Entity implements Trackable, Searchable
 	/**
      * @ORM\Column(type="json")
      */
-	protected $prefs = array();
+	protected $prefs = [];
 
 	/**
      * @ORM\OneToMany(targetEntity="\Ayre\Entity\Log", mappedBy="user")

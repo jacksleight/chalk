@@ -7,6 +7,7 @@
 namespace Ayre\Behaviour\Searchable;
 
 use Ayre,
+	Ayre\Entity,
 	Ayre\Behaviour\Searchable,
 	Doctrine\Common\EventSubscriber,
 	Doctrine\ORM\Event\OnFlushEventArgs,
@@ -16,7 +17,8 @@ use Ayre,
 
 class Listener implements EventSubscriber
 {
-	protected $_searches = [];
+	protected $_updates		= [];
+	protected $_deletions	= [];
 
 	public function getSubscribedEvents()
 	{
@@ -28,12 +30,6 @@ class Listener implements EventSubscriber
 
 	public function onFlush(OnFlushEventArgs $args)
 	{
-		$reduce = function($value) {
-			return is_array($value)
-				? array_map($reduce, $value)
-				: "{$value} ";
-		};
-
 		$em  = $args->getEntityManager();
 		$uow = $em->getUnitOfWork();
 
@@ -41,7 +37,6 @@ class Listener implements EventSubscriber
 			$uow->getScheduledEntityInsertions(),
 			$uow->getScheduledEntityUpdates()
 		);
-
 		foreach ($entities as $entity) {
 			if (!$entity instanceof Searchable) {
 				continue;
@@ -53,6 +48,11 @@ class Listener implements EventSubscriber
 				continue;
 			}
 			$search  = $em->getRepository('Ayre\Entity\Search')->fetch($entity);
+			if (!isset($search)) {
+				$search				= new Entity\Search();
+				$search->class		= Ayre::resolve($entity)->short;
+				$search->class_obj	= $entity;
+			}
 			$content = [];
 			foreach ($fields as $field) {
 				$value = $entity->$field;
@@ -66,25 +66,44 @@ class Listener implements EventSubscriber
 				$content[] = $value;
 			}
 			$search->content = implode(' ', $content);
-			$this->_searches[] = $search;
+			$this->_updates[] = $search;
+		}
+
+		$entities = array_merge(
+			$uow->getScheduledEntityDeletions()
+		);
+		foreach ($entities as $entity) {
+			if (!$entity instanceof Searchable) {
+				continue;
+			}
+			$search  = $em->getRepository('Ayre\Entity\Search')->fetch($entity);
+			if (!isset($search)) {
+				continue;
+			}
+			$this->_deletions[] = $search;
 		}
 	}
 
 	public function postFlush(PostFlushEventArgs $args)
 	{
-		if (!count($this->_searches)) {
+		if (!count($this->_updates) && !count($this->_deletions)) {
 			return;
 		}
 
 		$em = $args->getEntityManager();
 
-		while (count($this->_searches)) {
-			$search = array_shift($this->_searches);
+		while (count($this->_updates)) {
+			$search = array_shift($this->_updates);
 			if (!isset($search->id)) {
 				$search->class_id = $search->class_obj->id;
 				$em->persist($search);
 			}
 		}
+
+		while (count($this->_deletions)) {
+			$search = array_shift($this->_deletions);
+			$em->remove($search);
+		}	
 
 		$em->flush();
 	}

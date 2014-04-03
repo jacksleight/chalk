@@ -9,14 +9,4 @@ namespace Ayre\Repository;
 use Ayre\Repository;
 
 class User extends Repository
-{
-	public function fetchAll()
-	{
-		return $this->_em->createQueryBuilder()
-			->select("u")
-			->from("Ayre\User", "u")
-			->addOrderBy("u.name")
-			->getQuery()
-			->execute();
-	}
-}
+{}

@@ -27,22 +27,22 @@ class Document extends Silt
     /**
      * @ORM\Column(type="json")
      */
-	protected $meta = array('description' => 'super com. cool "jazz hands"');
+	protected $meta = [];
 
     /**
      * @ORM\Column(type="json")
      */
-	protected $content = array();
+	protected $content = [];
 
 	public function addMeta($name = null, $value = null)
 	{
 		if (isset($name) && in_array($name, \Coast\array_column($this->meta, 'name'))) {
 			return;
 		}
-		$this->meta[time()] = array(
+		$this->meta[time()] = [
 			'name'	=> $name,
 			'value'	=> $value,
-		);
+		];
 		return $this;
 	}
 	
