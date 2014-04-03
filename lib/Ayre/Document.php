@@ -28,7 +28,7 @@ class Document extends Silt
     /**
      * @ORM\Column(type="json")
      */
-	protected $meta = array('description' => 'super cool');
+	protected $meta = array('description' => 'super com. cool "jazz hands"');
 
     /**
      * @ORM\Column(type="json")

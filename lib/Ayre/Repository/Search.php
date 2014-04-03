@@ -37,7 +37,7 @@ class Search extends Repository
 	public function search($phrase, $class = null)
 	{
 		$conn	= $this->_em->getConnection();
-		$phrase	= $conn->quote(Ayre\Search::parse($phrase));
+		$phrase	= $conn->quote($phrase);
 		$where	= isset($class)	
 			? "AND s.class = {$conn->quote($class)}"
 			: null;

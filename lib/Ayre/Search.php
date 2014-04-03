@@ -14,23 +14,10 @@ use Ayre,
 
 /**
  * @ORM\Entity
+ * @ORM\Table(options={"engine"="MyISAM"})
 */
 class Search extends Model
 {
-    public static function parse($content)
-    {
-        $content = trim(preg_replace('/[^\w]+/u', ' ', $content));
-        $words = explode(' ', $content);
-        foreach ($words as $i => $word) {
-            if (strlen($word) < 3) {
-                unset($words[$i]);
-            } else if (strlen($word) < 4) {
-                $words[$i] = str_pad($word, 4, '_');
-            }
-        }
-        return implode(' ', $words);
-    }
-
 	/**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -58,7 +45,7 @@ class Search extends Model
     public function content($content = null)
     {
         if (isset($content)) {
-            $this->content = self::parse($content);
+            $this->content = $content;
         }
         return $this->content;
     }
