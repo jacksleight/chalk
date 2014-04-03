@@ -17,8 +17,6 @@ use Ayre\Entity,
 */
 class Document extends Content
 {
-	protected $type = 'document';
-
     /**
      * @ORM\Column(type="string", nullable=true)
      */

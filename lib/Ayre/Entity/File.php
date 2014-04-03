@@ -16,9 +16,7 @@ use Ayre\Entity,
 */
 class File extends Content
 {
-	protected $type = 'file';
-
-	protected static $_imagickCompatibleMimeTypes;
+	protected static $_imageMimeTypes;
 
     /**
      * @ORM\Column(type="string")
@@ -31,15 +29,16 @@ class File extends Content
 	protected $fileName;
 
 	protected $file;
+
 	protected $newFile;
 		
-	protected static function _getImagickCompatibleMimeTypes()
+	protected static function _imageMimeTypes()
 	{
-		if (!isset(self::$_imagickCompatibleMimeTypes)) {
-			$im = new \JS\Imagick();
+		if (!isset(self::$_imageMimeTypes)) {
+			$im = new \Imagick();
 			$formats = $im->queryFormats();
 			$im->destroy();
-			$formatMap = array(
+			$map = array(
 				'GIF'	=> 'image/gif',
 				'JPEG'	=> 'image/jpeg',
 				'PDF'	=> 'application/pdf',
@@ -47,32 +46,46 @@ class File extends Content
 				'SVG'	=> 'image/svg+xml',
 				'WEBP'	=> 'image/webp',
 			);
-			foreach ($formatMap as $format => $mimeType) {
+			foreach ($map as $format => $mimeType) {
 				if (in_array($format, $formats)) {
-					$imagickCompatibleMimeTypes[] = $mimeType;
+					$imageMimeTypes[] = $mimeType;
 				}
 			}
-			self::$_imagickCompatibleMimeTypes = $imagickCompatibleMimeTypes;
+			self::$_imageMimeTypes = $imageMimeTypes;
 		}		
-		return self::$_imagickCompatibleMimeTypes;
+		return self::$_imageMimeTypes;
 	}
 
-	public function getDir()
+	public function isImage()
+	{
+		return in_array($this->mimeType, self::_imageMimeTypes());
+	}
+
+	public function dir()
 	{
 		$num = ceil($this->id / 1000);
 		return \Ayre::$instance->dir("store/files/{$num}", true, 0777);
 	}
-			
-	public function isReadable()
+	
+	public function mimeType($mimeType = null)
 	{
-		return isset($this->file) && $this->file->isFile() && $this->file->isReadable();
+		if (isset($mimeType)) {
+			$this->mimeType	= $mimeType;
+			$this->subtype	= $this->mimeType;
+			return $this;
+		}
+		return $this->mimeType;
 	}
 
-	public function isImagickCompatible()
-	{
-		$imagickCompatibleMimeTypes = self::_getImagickCompatibleMimeTypes();
-		return in_array($this->mimeType, $imagickCompatibleMimeTypes);
-	}
+
+
+
+
+
+
+
+
+
 
 	public function setFileName($fileName)
 	{
@@ -94,12 +107,6 @@ class File extends Content
 		} while ($exists);
 		
 		$this->fileName = $try;
-	}
-	
-	public function setMimeType($mimeType)
-	{
-		$this->mimeType = $mimeType;
-		$this->content->subtype = $mimeType;
 	}
 	
 	public function setNewFile(\JS\File $file)
@@ -140,6 +147,6 @@ class File extends Content
 	 */
 	public function initializeFile()
 	{
-		$this->file = $this->getDir()->getFile($this->fileName);
+		$this->file = $this->dir()->file($this->fileName);
 	}
 }
