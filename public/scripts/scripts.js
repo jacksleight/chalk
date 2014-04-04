@@ -16,7 +16,7 @@ $('#fileupload').fileupload({
 	maxChunkSize: 1048576,
 	done: function (e, data) {
 		$.each(data.result.files, function (index, file) {
-			$('<p/>').text(file.name).appendTo(document.body);
+			log(file);
 		});
 	}
 });

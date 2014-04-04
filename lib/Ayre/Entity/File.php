@@ -41,7 +41,7 @@ class File extends Content
 	
 	public function generateDir()
 	{
-		$dir = new \Coast\Dir('data/store/files', true);
+		$dir = new \Coast\Dir('public/data/store/files', true);
 		$count = 0;
 		foreach ($dir->iterator(true) as $file) {
 			$count++;
@@ -86,7 +86,7 @@ class File extends Content
 			$this->name = ucwords(trim(preg_replace('/[^\w]+/', ' ', $file->fileName())));
 			self::$uploadable->addEntityFileInfo($this, new File\Info([
 				'tmp_name'	=> $file->name(),
-				'name'		=> trim(preg_replace('/[^\w]+/', '-', $file->fileName()), '-') . '.' . $file->extName(),
+				'name'		=> $file->baseName(),
 				'size'		=> $file->size(),
 				'type'		=> null,
 				'error'		=> 0,

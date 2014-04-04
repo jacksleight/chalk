@@ -39,6 +39,7 @@ class Index extends Action
 				$this->entity->persist($entity);
 				$this->entity->flush();
 				$file->remove();
+				$upload->url = $this->url($entity->file, true, true, false)->toString();
 			}
 		}
 		
