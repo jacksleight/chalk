@@ -30,7 +30,7 @@ class Listener implements EventSubscriber
         }
 
         $type = Ayre::resolve($class);
-        $meta->setTableName('core_' . $type->id);
+        $meta->setTableName($type->id);
 
         $repositoryClasses = [
             'Ayre\\Repository\\' . $type->short,
@@ -48,7 +48,7 @@ class Listener implements EventSubscriber
             $map = $meta->discriminatorMap;
             foreach ($map as $id => $class) {
                 unset($map[$id]);
-                $map[Ayre::resolve($class)->short] = $class;
+                $map[Ayre::resolve($class)->id] = $class;
             }
             $meta->setDiscriminatorMap($map);
         }

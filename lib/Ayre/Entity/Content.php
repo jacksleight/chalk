@@ -20,7 +20,7 @@ use Ayre,
 /**
  * @ORM\Entity
  * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="class", type="string")
+ * @ORM\DiscriminatorColumn(name="entity_type", type="string")
 */
 abstract class Content extends Entity implements Loggable, Publishable, Searchable, Trackable, Versionable
 {

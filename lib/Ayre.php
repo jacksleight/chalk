@@ -11,7 +11,7 @@ class Ayre extends App
 	protected static $_types	= [];
 
 	protected $_mimeTypeMap;
-	protected $_contents			= [];
+	protected $_contents		= [];
 	protected $_publishables	= [];
 
 	public static function resolve($class)
@@ -31,6 +31,7 @@ class Ayre extends App
 		$short = str_replace($namespace . '\\', '', $class);
 		$parts = explode('\\', $short);
 		$parts = array_map('lcfirst', $parts);
+		array_unshift($parts, 'core');
 		self::$_types[$class] = (object) [
 			'class'	=> $class,
 			'short'	=> $short,

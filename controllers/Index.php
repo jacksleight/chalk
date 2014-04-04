@@ -33,7 +33,10 @@ class Index extends Action
 		list($uploads, $headers) = $fileUpload->processAll();
 		foreach ($uploads as $upload) {
 			if (isset($upload->path)) {
-				$file	= new \Coast\File($upload->path);
+				$file = new \Coast\File($upload->path);
+				if (!$file->extName()) {
+					$file->rename(['extName' => 'txt']);
+				}
 				$entity	= new \Ayre\Entity\File();
 				$entity->file = $file;
 				$this->entity->persist($entity);

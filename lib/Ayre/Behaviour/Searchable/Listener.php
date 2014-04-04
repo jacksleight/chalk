@@ -50,8 +50,8 @@ class Listener implements EventSubscriber
 			$index  = $em->getRepository('Ayre\Entity\Index')->fetch($entity);
 			if (!isset($index)) {
 				$index				= new Entity\Index();
-				$index->class		= Ayre::resolve($entity)->short;
-				$index->class_obj	= $entity;
+				$index->entity_type	= Ayre::resolve($entity)->id;
+				$index->entity_obj	= $entity;
 			}
 			$content = [];
 			foreach ($fields as $field) {
@@ -95,7 +95,7 @@ class Listener implements EventSubscriber
 		while (count($this->_updates)) {
 			$entity = array_shift($this->_updates);
 			if (!isset($entity->id)) {
-				$entity->class_id = $entity->class_obj->id;
+				$entity->entity_id = $entity->entity_obj->id;
 				$em->persist($entity);
 			}
 		}

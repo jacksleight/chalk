@@ -33,14 +33,14 @@ class Log extends Entity
     /**
      * @ORM\Column(type="string")
      */
-    protected $class;
+    protected $entity_type;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $class_id;
+    protected $entity_id;
     
-    protected $class_obj;
+    protected $entity_obj;
 
     /**
      * @ORM\Column(type="string")

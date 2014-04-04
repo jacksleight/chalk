@@ -60,10 +60,10 @@ class Listener implements EventSubscriber
 			if (!$entity instanceof Loggable) {
 				continue;
 			}
-			$changeSet		= $uow->getEntityChangeSet($entity);
-			$log			= new Entity\Log();
-			$log->class		= Ayre::resolve($entity)->short;
-			$log->class_obj	= $entity;
+			$changeSet			= $uow->getEntityChangeSet($entity);
+			$log				= new Entity\Log();
+			$log->entity_type	= Ayre::resolve($entity)->id;
+			$log->entity_obj	= $entity;
 			if (!isset($entity->id)) {
 				$log->type = Entity\Log::TYPE_CREATE;
 			} else if (
@@ -100,7 +100,7 @@ class Listener implements EventSubscriber
 
 		while (count($this->_updates)) {
 			$entity = array_shift($this->_updates);
-			$entity->class_id = $entity->class_obj->id;
+			$entity->entity_id = $entity->entity_obj->id;
 			$em->persist($entity);
 		}
 

@@ -41,12 +41,9 @@ class File extends Content
 	
 	public function generateDir()
 	{
-		$dir = new \Coast\Dir('public/data/store/files', true);
-		$count = 0;
-		foreach ($dir->iterator(true) as $file) {
-			$count++;
-		}
-		$number = ceil(max(1, $count) / 1000);
+		$dir	= new \Coast\Dir('public/data/store/files', true);
+		$count	= iterator_count($dir->iterator(true));
+		$number	= ceil(max(1, $count) / 1000);
 		return $dir->dir($number, true)->name();
 	}
 
@@ -57,7 +54,7 @@ class File extends Content
 			$this->path = $this->file()->name();
 			return $this;
 		}
-		return $this->file()->baseName;
+		return $this->file()->baseName();
 	}
 
 	public function fileName($fileName = null)
@@ -67,7 +64,7 @@ class File extends Content
 			$this->path = $this->file()->name();
 			return $this;
 		}
-		return $this->file()->fileName;
+		return $this->file()->fileName();
 	}
 
 	public function extName($extName = null)
@@ -77,7 +74,7 @@ class File extends Content
 			$this->path = $this->file()->name();
 			return $this;
 		}
-		return $this->file()->extName;
+		return $this->file()->extName();
 	}
 
 	public function file(\Coast\File $file = null)
@@ -92,9 +89,16 @@ class File extends Content
 				'error'		=> 0,
 			]));
 			return $this;
-		} else if (!isset($this->file)) {
+		} else if (!isset($this->file) || $this->file->name() != $this->path) {
 			$this->file = new \Coast\File($this->path);
 		}
 		return $this->file;
+	}
+	
+	public function searchFields()
+	{
+		return array_merge(parent::searchFields(), [
+			'fileName',
+		]);
 	}
 }
