@@ -1,7 +1,9 @@
 <?php
 namespace Ayre\Controller;
 
-use FileUpload,
+use FileUpload\FileUpload,
+	FileUpload\PathResolver,
+	FileUpload\FileSystem,
 	Coast\App\Controller\Action,
 	Coast\App\Request,
 	Coast\App\Response;
@@ -21,31 +23,30 @@ class Index extends Action
 	public function upload(Request $req, Response $res)
 	{
 		if (!$req->isPost()) {
-			return true;
+			throw new \Ayre\Exception("Upload only accepts post requests");
 		}
 
-		$pathResolver = new FileUpload\PathResolver\Simple((new \Coast\Dir('data/temp/upload', true))->name());
-		$fileSystem   = new FileUpload\FileSystem\Simple();
-		$fileUpload   = new FileUpload\FileUpload($_FILES['files'], $_SERVER);
-		$fileUpload->setPathResolver($pathResolver);
-		$fileUpload->setFileSystem($fileSystem);
+		$dir      = new \Coast\Dir('data/temp/upload', true);
+		$uploader = new FileUpload($_FILES['files'], $_SERVER);
+		$uploader->setPathResolver(new PathResolver\Simple($dir->name()));
+		$uploader->setFileSystem(new FileSystem\Simple());
 
-		list($uploads, $headers) = $fileUpload->processAll();
+		list($uploads, $headers) = $uploader->processAll();
 		foreach ($uploads as $upload) {
 			if (isset($upload->path)) {
-				$file = new \Coast\File($upload->path);
-				if (!$file->extName()) {
-					$file->rename(['extName' => 'txt']);
+				$temp = new \Coast\File($upload->path);
+				// Gedmo\Uploadable Fails on duplicate file names with no extenstion
+				if (!$temp->extName()) {
+					$temp->rename(['extName' => 'bin']);
 				}
 				$entity	= new \Ayre\Entity\File();
-				$entity->file = $file;
+				$entity->file = $temp;
 				$this->entity->persist($entity);
 				$this->entity->flush();
-				$file->remove();
+				$temp->remove();
 				$upload->url = $this->url($entity->file, true, true, false)->toString();
 			}
 		}
-		
 		foreach ($headers as $name => $value) {
 			$res->header($name, $value);
 		}
