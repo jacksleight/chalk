@@ -27,14 +27,14 @@ class Index extends Action
 		}
 
 		$dir      = new \Coast\Dir('data/temp/upload', true);
-		$uploader = new FileUpload($_FILES['files'], $_SERVER);
+		$uploader = new FileUpload($req->bodyParam('files'), $req->servers());
 		$uploader->setPathResolver(new PathResolver\Simple($dir->name()));
 		$uploader->setFileSystem(new FileSystem\Simple());
 
-		list($uploads, $headers) = $uploader->processAll();
-		foreach ($uploads as $upload) {
-			if (isset($upload->path)) {
-				$temp = new \Coast\File($upload->path);
+		list($files, $headers) = $uploader->processAll();
+		foreach ($files as $file) {
+			if (isset($file->path)) {
+				$temp = new \Coast\File($file->path);
 				// Gedmo\Uploadable Fails on duplicate file names with no extenstion
 				if (!$temp->extName()) {
 					$temp->rename(['extName' => 'bin']);
@@ -44,12 +44,11 @@ class Index extends Action
 				$this->entity->persist($entity);
 				$this->entity->flush();
 				$temp->remove();
-				$upload->url = $this->url($entity->file, true, true, false)->toString();
+				$file->url = $this->url($entity->file, true, true, false)->toString();
 			}
 		}
-		foreach ($headers as $name => $value) {
-			$res->header($name, $value);
-		}
-		return $res->json(['files' => $uploads]);
+		return $res
+			->headers($headers)
+			->json(['files' => $files]);
 	}
 }
