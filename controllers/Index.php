@@ -31,24 +31,24 @@ class Index extends Action
 		$uploader->setPathResolver(new PathResolver\Simple($dir->name()));
 		$uploader->setFileSystem(new FileSystem\Simple());
 
-		list($files, $headers) = $uploader->processAll();
-		foreach ($files as $file) {
-			if (isset($file->path)) {
-				$temp = new \Coast\File($file->path);
+		list($uploads, $headers) = $uploader->processAll();
+		foreach ($uploads as $upload) {
+			if (isset($upload->path)) {
+				$temp = new \Coast\File($upload->path);
 				// Gedmo\Uploadable Fails on duplicate file names with no extenstion
 				if (!$temp->extName()) {
 					$temp->rename(['extName' => 'bin']);
 				}
-				$entity	= new \Ayre\Entity\File();
-				$entity->file = $temp;
-				$this->entity->persist($entity);
+				$file = new \Ayre\Entity\File();
+				$file->file($temp);
+				$this->entity->persist($file);
 				$this->entity->flush();
 				$temp->remove();
-				$file->url = $this->url($entity->file, true, true, false)->toString();
+				$upload->url = $this->url($file->file, true, true, false)->toString();
 			}
 		}
 		return $res
 			->headers($headers)
-			->json(['files' => $files]);
+			->json(['files' => $uploads]);
 	}
 }

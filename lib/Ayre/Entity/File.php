@@ -13,7 +13,7 @@ use Ayre\Entity,
 
 /**
  * @ORM\Entity
- * @Gedmo\Uploadable(pathMethod="generateDir", appendNumber=true)
+ * @Gedmo\Uploadable(pathMethod="generatePath", callback="updateProperties", appendNumber=true)
  */
 class File extends Content
 {
@@ -39,12 +39,57 @@ class File extends Content
      */
 	protected $mimeType;
 	
-	public function generateDir()
+	public function generatePath()
 	{
 		$dir	= new \Coast\Dir('public/data/store/files', true);
 		$count	= iterator_count($dir->iterator(true));
 		$number	= ceil(max(1, $count) / 1000);
 		return $dir->dir($number, true)->name();
+	}
+	
+	public function updateProperties(array $info)
+	{
+		$this->path($info['filePath']);
+		$this->size($info['fileSize']);
+		$this->mimeType($info['fileMimeType']);
+	}
+
+	public function path($path = null)
+	{
+		if (isset($path)) {
+			$this->path = $path;
+			$this->file()->name($this->path);
+			return $this;
+		}
+		return $this->path;
+	}
+
+	public function file(\Coast\File $file = null)
+	{
+		if (isset($file)) {
+			$this->name = ucwords(trim(preg_replace('/[^\w]+/', ' ', $file->fileName())));
+			self::$uploadable->addEntityFileInfo($this, new File\Info([
+				'tmp_name'	=> $file->name(),
+				'name'		=> $file->baseName(),
+				'size'		=> $file->size(),
+				'type'		=> null,
+				'error'		=> 0,
+			]));
+			return $this;
+		} else if (!isset($this->file)) {
+			$this->file = new \Coast\File($this->path);
+		}
+		return $this->file;
+	}
+
+	public function mimeType($mimeType = null)
+	{
+		if (isset($mimeType)) {
+			$this->mimeType	= $mimeType;
+			$this->subtype	= $this->mimeType;
+			return $this;
+		}
+		return $this->mimeType;
 	}
 
 	public function baseName($baseName = null)
@@ -75,24 +120,6 @@ class File extends Content
 			return $this;
 		}
 		return $this->file()->extName();
-	}
-
-	public function file(\Coast\File $file = null)
-	{
-		if (isset($file)) {
-			$this->name = ucwords(trim(preg_replace('/[^\w]+/', ' ', $file->fileName())));
-			self::$uploadable->addEntityFileInfo($this, new File\Info([
-				'tmp_name'	=> $file->name(),
-				'name'		=> $file->baseName(),
-				'size'		=> $file->size(),
-				'type'		=> null,
-				'error'		=> 0,
-			]));
-			return $this;
-		} else if (!isset($this->file) || $this->file->name() != $this->path) {
-			$this->file = new \Coast\File($this->path);
-		}
-		return $this->file;
 	}
 	
 	public function searchFields()
