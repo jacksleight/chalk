@@ -17,7 +17,7 @@ use Ayre\Entity,
  */
 class File extends Content
 {
-	public static $uploadable;
+	protected static $_uploadable;
 
     /**
      * @ORM\Column(type="string")
@@ -38,6 +38,14 @@ class File extends Content
      * @Gedmo\UploadableFileMimeType
      */
 	protected $mimeType;
+
+	public static function uploadable($uploadable = null)
+	{
+		if (isset($uploadable)) {
+			self::$_uploadable = $uploadable;
+		}
+		return self::$_uploadable;
+	}
 	
 	public function generatePath()
 	{
@@ -68,7 +76,7 @@ class File extends Content
 	{
 		if (isset($file)) {
 			$this->name = ucwords(trim(preg_replace('/[^\w]+/', ' ', $file->fileName())));
-			self::$uploadable->addEntityFileInfo($this, new File\Info([
+			self::uploadable()->addEntityFileInfo($this, new File\Info([
 				'tmp_name'	=> $file->name(),
 				'name'		=> $file->baseName(),
 				'size'		=> $file->size(),
@@ -94,32 +102,35 @@ class File extends Content
 
 	public function baseName($baseName = null)
 	{
+		$file = $this->file();
 		if (isset($baseName)) {
-			$this->file()->rename(['baseName' => $baseName]);
-			$this->path = $this->file()->name();
+			$file->rename(['baseName' => $baseName]);
+			$this->path = $file->name();
 			return $this;
 		}
-		return $this->file()->baseName();
+		return $file->baseName();
 	}
 
 	public function fileName($fileName = null)
 	{
+		$file = $this->file();
 		if (isset($fileName)) {
-			$this->file()->rename(['fileName' => $fileName]);
-			$this->path = $this->file()->name();
+			$file->rename(['fileName' => $fileName]);
+			$this->path = $file->name();
 			return $this;
 		}
-		return $this->file()->fileName();
+		return $file->fileName();
 	}
 
 	public function extName($extName = null)
 	{
+		$file = $this->file();
 		if (isset($extName)) {
-			$this->file()->rename(['extName' => $extName]);
-			$this->path = $this->file()->name();
+			$file->rename(['extName' => $extName]);
+			$this->path = $file->name();
 			return $this;
 		}
-		return $this->file()->extName();
+		return $file->extName();
 	}
 	
 	public function searchFields()

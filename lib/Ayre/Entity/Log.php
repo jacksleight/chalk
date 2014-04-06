@@ -55,7 +55,7 @@ class Log extends Entity
 
     /**
      * @ORM\ManyToOne(targetEntity="\Ayre\Entity\User", inversedBy="actions")
-     * @ORM\JoinColumn(onDelete="CASCADE", nullable=false)
+     * @ORM\JoinColumn(onDelete="SET NULL")
      * @Gedmo\Blameable(on="create")
      */
     protected $user;

@@ -39,7 +39,7 @@ Doctrine\Common\Annotations\AnnotationRegistry::registerFile('vendor/doctrine/or
 $reader			= new \Doctrine\Common\Annotations\AnnotationReader();
 $cachedReader	= new \Doctrine\Common\Annotations\CachedReader($reader, $cache, $app->isDebug());
 $chain			= new \Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain();
-$driver			= new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($cachedReader, array('lib/Ayre/Entity'));
+$driver			= new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($cachedReader, ['lib/Ayre/Entity']);
 $chain->addDriver($driver, 'Ayre\Entity');
 Gedmo\DoctrineExtensions::registerAbstractMappingIntoDriverChainORM($chain, $cachedReader);
 $doct->setMetadataDriverImpl($chain);
@@ -64,15 +64,16 @@ foreach ($classes as $class) {
 	}
 	$evm->addEventSubscriber($listener);
 	if ($class == 'Gedmo\Blameable\BlameableListener') {
-		global $blameable;
-		$blameable = $listener;
-	}
-	if ($class == 'Gedmo\Uploadable\UploadableListener') {
-		\Ayre\Entity\File::$uploadable = $listener;
+		\Ayre::blameable($listener);
+	} else if ($class == 'Gedmo\Uploadable\UploadableListener') {
+		\Ayre\Entity\File::uploadable($listener);
 	}
 }
 
-$em = Doctrine\ORM\EntityManager::create(array_merge($app->config->database, ['charset' => 'utf8']), $doct, $evm);
+$em = Doctrine\ORM\EntityManager::create($app->config->database + [
+	'driver'	=> 'pdo_mysql',
+	'charset'	=> 'utf8'
+], $doct, $evm);
 $em->getConnection()->exec("SET NAMES utf8");
 
 return $em;

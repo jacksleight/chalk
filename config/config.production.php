@@ -5,7 +5,6 @@ return [
 		'DEBUG'		=> false,
 	],
 	'database' => [
-		'driver'	=> 'pdo_mysql',
 		'host'		=> 'localhost',
 		'user'		=> '',
 		'password'	=> '',
