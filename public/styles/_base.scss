@@ -8,7 +8,8 @@ html {
 	font-size: $font-size;
 	line-height: $line-height;
 	font-family: $font-family;
-	color: $color-foreground; 
+	color: $color-foreground;
+	font-weight: 300;
 }
 
 /* Header */
@@ -19,19 +20,19 @@ html {
 	margin: $spacing 0 0 0;
 }
 h1 { 
-	@include font-size(6);
-}
-h2 { 
-	@include font-size(5);
-}
-h3 { 
 	@include font-size(4);
 }
-h4 { 
+h2 { 
 	@include font-size(3);
 }
-h5 { 
+h3 { 
 	@include font-size(2);
+}
+h4 { 
+	@include font-size(1);
+}
+h5 { 
+	@include font-size(1);
 }
 h6 { 
 	@include font-size(1);
@@ -83,7 +84,7 @@ ol {
 dl { 
 	margin: $spacing 0 0 0;
 	dt { 
-		font-weight: bold;
+		font-weight: 500;
 		float: left;
 		width: (100px - $gutter);
 	}
@@ -112,7 +113,7 @@ em, i {
 	font-style: oblique;
 }
 strong, b { 
-	font-weight: bold;
+	font-weight: 500;
 }
 mark { 
 	background-color: $color-highlight;
@@ -192,6 +193,18 @@ small {
 }
 .error { 
 	color: $color-negative;
+}
+
+/* Label */
+
+.label {
+	background-color: $color-positive;
+	color: white;
+	font-weight: 500;
+	@include font-size(-2);
+	border-radius: 100px;
+	padding: 2px 5px 4px 5px;
+	vertical-align: 3px;
 }
 
 /* Rule */
@@ -280,17 +293,56 @@ video {
 figure { 
 	margin: $spacing 0 0 0;
 	@include flush;
-	figcaption { 
+	.progress {
+		background-color: $color-shade;
 		@include font-size(-1);
-		font-style: oblique;
-		text-align: right;
-		margin: $spacing * 0.5 0 0 0;
+		position: relative;
+		&:before {
+			content: '';
+			display: block;
+			@include ratio(1px, 1px);
+		}
+		.progress-status {
+			background-color: $color-positive;
+			color: white;
+			display: block;
+			position: absolute;
+			left: 0;
+			width: 100%;
+			bottom: 0;
+			overflow: hidden;
+			line-height: 1;
+			min-height: 30px;
+			span {
+				display: block;
+				padding: 8px;
+			}
+		}
+	}
+	figcaption { 
+		@include font-size(-2);
+		margin: $spacing * 0.4 0 0 0;
 		display: block;
 	}
-	&.quote {
-		figcaption:before {
-			content: '— ';
-		}
+}
+
+/* Thumbs */
+
+.thumbs {
+	@include no-bullets;
+	@include clearfix;
+	@include inline-blocks('li', $gutter, $gutter);
+	li {
+		width: $width-2;
+		@include flush;
+	}
+	a {
+		text-decoration: none;
+	}
+	figcaption {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 	}
 }
 
@@ -338,7 +390,7 @@ table {
 		padding: 4px 8px;
 	}
 	th { 
-		font-weight: bold;
+		font-weight: 500;
 		text-align: left;
 		color: $color-loud;
 	}
@@ -368,7 +420,7 @@ table {
    the height, to ensure height and vertical-alignment consistency. Text is vertically
    aligned in the center automatically by the browser (except selects in Firefox) */
 $input-border-width:	1px;
-$input-padding: 		4px;
+$input-padding: 		6px;
 $input-height:			round($font-size * $line-height)
 						+ ($input-padding * 2)
 						+ ($input-border-width * 2);
@@ -377,7 +429,7 @@ input,
 select,
 textarea,
 button,
-a.button { 
+.button { 
 	@include transition(all $speed ease);
 }
 
@@ -476,9 +528,8 @@ input[type=reset],
 input[type=submit],
 input[type=button],
 button,
-a.button { 
+.button { 
 	font-family: $font-family;
-	font-weight: bold;
 	@include font-size;
 	height: $input-height;
 	line-height: $input-height - ($input-border-width * 2);
@@ -486,49 +537,23 @@ a.button {
 	width: auto;
 	padding: 0 $input-padding + 9px;
 	margin: 0;
-	color: $color-foreground;
-	text-shadow: white 0 1px 1px;
-	@include background-with-css2-fallback(linear-gradient(top, color-stops(
-		tint(gray, 80%),
-		tint(gray, 70%)
-	)), tint(gray, 80%));
+	color: white;
+	background-color: $color-positive;
 	border: $input-border-width solid;
-	border-color:
-		tint(gray, 60%)
-		tint(gray, 50%)
-		tint(gray, 50%)
-		tint(gray, 60%);
+	border-color: $color-shade;
 	@include border-radius($radius);
 	outline: 0;
 	cursor: pointer;
 	text-decoration: none;
 	-webkit-appearance: none;
 	&:hover { 
-		@include background-with-css2-fallback(linear-gradient(top, color-stops(
-			tint(gray, 70%),
-			tint(gray, 60%)
-		)), tint(gray, 70%));
-		border-color:
-			tint(gray, 50%)
-			tint(gray, 40%)
-			tint(gray, 40%)
-			tint(gray, 50%);
-		color: $color-foreground;
+		background-color: shade($color-positive, 20%);
 	}
 	&:active { 
-		@include background-with-css2-fallback(linear-gradient(top, color-stops(
-			tint(gray, 60%),
-			tint(gray, 70%)
-		)), tint(gray, 60%));
-		border-color:
-			tint(gray, 40%)
-			tint(gray, 50%)
-			tint(gray, 50%)
-			tint(gray, 40%);
-		@include box-shadow(inset rgba(0, 0, 0, 0.25) 0 1px 2px 0);
+		background-color: shade($color-positive, 20%);
 	}
 }
-a.button { 
+.button { 
 	display: inline-block;
 }
 
@@ -551,7 +576,7 @@ input[type=reset],
 input[type=submit],
 input[type=button],
 button,
-a.button { 
+.button { 
 	&:focus {
 		border-color: $color-primary;
 		@include box-shadow(tint($color-primary, 20%) 0 0 6px 0);
@@ -564,7 +589,7 @@ select option,
 select optgroup,
 textarea,
 button,
-a.button {
+.button {
 	&[disabled], &.disabled {
 		@include experimental(user-select, none);
 		pointer-events: none;
@@ -678,5 +703,24 @@ legend {
 				border-left: 0;
 			}	
 		}
+	}
+}
+
+/* Toolbar */
+
+.toolbar {
+	@include no-bullets;
+	@include inline-blocks('li', $gutter);
+	&:first-child {
+		float: right;
+		@include flush-next;
+	}
+}
+
+/* Upload */
+
+.upload {
+	.upload-input {
+		display: none;
 	}
 }

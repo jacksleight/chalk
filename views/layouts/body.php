@@ -1,37 +1,43 @@
 <? $this->layout('/layouts/html') ?>
 <? $this->block('body') ?>
 
-<div class="outer">
-	<header class="header" role="banner"><div class="wrap">
-		<a href="<?= $this->url() ?>" class="logo">
-			Ayre
-		</a>
-		<nav class="links" role="navigation">
-			<?= $this->render('nav', ['items' => [
-				'About'		=> [],
-				'Contact'	=> [],
-			]]) ?>
-		</nav>
-	</div></header>
-	<nav class="nav" role="navigation"><div class="wrap">
-		<?= $this->render('nav', ['items' => [
-			'Home'		=> [],
-			'News'		=> [],
-			'Events'	=> [],
-			'Demo'		=> [],
-		]]) ?>
-	</div></nav>
-	<?= $content->main ?>
-	<div class="outer-footer"></div>
+<div class="frame">
+	<header class="header">
+		<ul class="toggle">
+			<li>
+				<a href="">
+					<i class="fa fa-sitemap"></i>
+					Structure
+				</a>
+			</li>
+			<li>
+				<a href="#" class="active">
+					<i class="fa fa-picture-o"></i>
+					Content
+				</a>
+			</li>
+		</ul>
+		<div class="topbar">
+			<ul class="toolbar">
+				<li>
+					<i class="fa fa-user"></i>
+					Jack Sleight
+				</li>
+				<li>
+					<a href="#">Logout</a>
+				</li>
+			</ul>
+			<ul class="toolbar">
+				<li class="title">
+					Example Site
+				</li>
+				<li>
+					Publish <span class="label">14</span>
+				</li>
+			</ul>
+		</div>
+	</header>
+	<div>
+		<?= $content->main ?>
+	</div>
 </div>
-<footer class="footer c" role="contentinfo"><div class="wrap">
-	<p class="credit">Site by <a href="http://jacksleight.com/">Jack Sleight</a></p>
-	<p>© <?= date('Y') ?> Foundation</p>
-	<nav class="links" role="navigation">
-		<?= $this->render('nav', ['items' => [
-			'Accessiblity'			=> [],
-			'Terms & Conditions'	=> [],
-			'Privacy Policy'		=> [],
-		]]) ?>
-	</nav>
-</div></footer>

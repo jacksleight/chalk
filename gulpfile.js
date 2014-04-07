@@ -108,7 +108,7 @@ gulp.task('watch', function() {
 		}
 		gulp.watch(stylesDir + '/**/*.scss', ['styles']);
 		gulp.watch(scriptsDir + '/**/*.js', ['scripts']);
-		gulp.watch(viewsDir + '/**/*.phtml', function(ev) {
+		gulp.watch(viewsDir + '/**/*.php', function(ev) {
 			server.changed({
 				body: {
 					files: [ev.path]

@@ -29,9 +29,9 @@ class Entity implements \Coast\App\Access
     	return $this->_em;
     }
 
-    public function call($short)
+    public function call($id)
     {
-    	return $this->_em->getRepository(Ayre::resolveShort($short)->class);
+    	return $this->_em->getRepository(Ayre::type($id)->class);
     }
 
     public function __call($name, array $args)

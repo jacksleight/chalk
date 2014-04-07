@@ -70,7 +70,7 @@ abstract class Content extends Entity implements Loggable, Publishable, Searchab
 	
 	public function __construct()
 	{	
-		$this->type		= Ayre::resolve($this)->id;
+		$this->type		= Ayre::type($this)->type;
 		$this->nodes	= new ArrayCollection();
 		$this->actions	= new ArrayCollection();
 		

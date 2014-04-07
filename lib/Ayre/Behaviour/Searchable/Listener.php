@@ -50,7 +50,7 @@ class Listener implements EventSubscriber
 			$index  = $em->getRepository('Ayre\Entity\Index')->fetch($entity);
 			if (!isset($index)) {
 				$index				= new Entity\Index();
-				$index->entity_type	= Ayre::resolve($entity)->id;
+				$index->entity_type	= Ayre::type($entity)->type;
 				$index->entity_obj	= $entity;
 			}
 			$content = [];

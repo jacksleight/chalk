@@ -25,16 +25,19 @@ class Listener implements EventSubscriber
         $meta      = $args->getClassMetadata();
         $class     = $meta->name;
         $namespace = __NAMESPACE__ . '\\Entity';
-        if (!is_subclass_of($class, $namespace)) {
+        try {
+            $type = Ayre::type($class);
+        } catch (\Exception $e) {
             return;
         }
-
-        $type = Ayre::resolve($class);
-        $meta->setTableName($type->id);
+        
+        $meta->setTableName($type->type);
 
         $repositoryClasses = [
-            'Ayre\\Repository\\' . $type->short,
-            'Ayre\\Repository\\' . Ayre::resolve($meta->rootEntityName)->short,
+            $type->module->class . '\\Repository\\' . $type->local->class,
+            $type->module->class . '\\Repository\\' . Ayre::type($meta->rootEntityName)->local->class,
+            'Ayre\\Repository\\' . Ayre::type($meta->rootEntityName)->local->class,
+            $type->module->class . '\\Repository',
             'Ayre\\Repository',
         ];
         foreach ($repositoryClasses as $repositoryClass) {
@@ -48,7 +51,7 @@ class Listener implements EventSubscriber
             $map = $meta->discriminatorMap;
             foreach ($map as $id => $class) {
                 unset($map[$id]);
-                $map[Ayre::resolve($class)->id] = $class;
+                $map[Ayre::type($class)->type] = $class;
             }
             $meta->setDiscriminatorMap($map);
         }

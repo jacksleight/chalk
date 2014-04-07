@@ -1,6 +1,6 @@
 /* Fonts */
 
-$font-family:			'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family:			Raleway, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $font-family-monospace:	Consolas, 'Courier New', Courier, monospace;
 $font-size:				16px;
 $font-scale:			1.15;
@@ -9,10 +9,10 @@ $line-height-tight:		$line-height - 0.2;
 
 /* Colors */
 
-$color-primary:			#00aeef;
+$color-primary:			#3E4651;
 
-$color-positive:		#0cf8b7;
-$color-negative:		#f21847;
+$color-positive:		#00B5B5;
+$color-negative:		#F1654C;
 $color-highlight:		#ffff00;
 
 $color-foreground:		tint(black, 20%);
@@ -27,7 +27,7 @@ $color-divide:			tint(black, 85%);
 
 $spacing:				$font-size;
 $gutter:				20px;
-$radius:				3px;
+$radius:				4px;
 
 /* Transitions */
 

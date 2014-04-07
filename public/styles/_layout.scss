@@ -1,170 +1,128 @@
 /* Page */
 
 html { 
-	background: $color-shade;
-	overflow-y: scroll;
-	@include media(960px) {
-		background: $color-background;
-	}
+	background: $color-background;
+	overflow-y: none;
 }
-body {
+html, body {
 	margin: 0;
+	height: 100%;
 }
-.wrap { 
-	position: relative;
-	max-width: 1200px;
-	margin: 0 auto;
-}
-@mixin page-padding {
-	padding-left: $gutter;
-	padding-right: $gutter;
-	@include media(960px) {
-		padding-left: $gutter * 2;
-		padding-right: $gutter * 2;
+
+/* Frame */
+
+.frame {
+	display: table;
+	width: 100%;
+	height: 100%;
+	> * {
+		display: table-row;
+		> * {
+			display: table-cell;
+		}
 	}
 }
 
 /* Header */
 
 .header {
-	padding: $gutter 0;
+	height: 0;
 	background: $color-shade;
-	color: $color-quiet;
-	.logo {
-		vertical-align: middle;
-		@include sprite-vector(logo);
+}
+
+/* Toggle */
+
+.toggle {
+	width: 280px;
+	background: shade($color-primary, 30%);
+	@include no-bullets;
+	@include inline-blocks('li');
+	&, a {
+		@include link-color(tint($color-primary, 80%));
+	}
+	li {
+		width: $width-6;
+	}
+	a {
+		text-decoration: none;
+		padding: $gutter;
+		display: block;
+		i {
+			margin-right: 0.25em;
+		}
+		&:hover, &:focus {
+			background: shade($color-primary, 50%);
+		}
+		&.active {
+			background: $color-primary;
+		}
+	}
+}
+
+/* Toolbar */
+
+.topbar {
+	padding: $gutter $gutter * 1.5;
+	@include flush;
+	.toolbar:first-child {
+		float: right;
+		@include flush-next;
+	}
+	.title {
+		font-weight: 500;
+	}
+	&, a {
+		@include link-color($color-primary);
 	}
 	a {
 		@include hover-link;
-		color: $color-quiet;
 	}
-	@include media(960px) {
-		padding: $gutter * 1.5 0;
-		.links {
-			position: absolute;
-			top: 0;
-			right: 0;
-			ul {
-				margin: 0;
-			}
-		}
-	}
-	@include media(print) {
-		display: none;
-	}
-	@include page-padding;
 }
 
-/* Navigation */
+/* Sidebar */
+
+.sidebar {
+	background: $color-primary;
+	padding: $gutter;
+	@include flush;
+	&, a {
+		@include link-color(tint($color-primary, 80%));
+	}
+}
 
 .nav {
-	background: shade($color-shade, 7%);
-	ul {
-		margin-top: 0;
-		@include no-bullets;
-		@include inline-blocks('li', $gutter * 2);
-	}
+	@include no-bullets;
 	li {
-		a {
-			display: block;
-			padding: round($gutter * 0.5) 0;
-			text-decoration: none;
-			@include font-size(1);
-			@include link-color($color-foreground);
-		}
-		&.active a, a:focus, a:hover, a:active { 
-			@include link-color($color-primary);
-		}
-		.active a {
-
+		border-top: 1px solid transparentize(white, 0.8);
+		padding: 5px 0;
+		&:first-child {
+			border-top: 0;
+			padding-top: 0;
 		}
 	}
-	@include media(print) {
-		display: none;
+	a {
+		@include hover-link;
 	}
-	@include page-padding;
 }
 
 /* Main */
 
 .main {
-	padding: $gutter 0;
-	background: $color-background;
-	.wrap {
-		@include flush;
-	}
-	@include media(960px) {
-		padding: $gutter * 2 0;
-	}
-	@include page-padding;
+	overflow: auto;
+	padding: $gutter $gutter * 1.5;
+	@include flush;
 }
 
 /* Footer */
 
-@include media(960px) {
-	@include sticky-footer(110px, '.outer', '.outer-footer', '.footer');
-}
 .footer	{
-	padding: $gutter 0;
-	background: $color-shade;
-	color: $color-quiet;
-	.wrap {
-		@include flush;
-	}
-	p, ul {
-		margin-top: 0;
-	}
-	a {
-		@include hover-link;
-		color: $color-quiet;
-	}
-	&, .links li {
-		@include font-size(-1);
-	}
-	@include media(960px) {
-		padding: $gutter * 1.5 0;
-		p, ul {
-			margin-top: round($spacing * 0.25);
-		}
-		.credit	{
-			float: right;
-			@include flush-next;
-		}
-	}
-	@include media(print) {
-		display: none;
-	}
-	@include page-padding;
-}
-
-/* Cookies */
-
-.js-cookies {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	z-index: 1;
-	padding: $gutter * 0.75;
-	background: black;
-	background: transparentize(black, 0.2);
-	text-align: center;
-	line-height: $line-height-tight;
-	@include font-size(-2);
-	@include transition(all 0.5s ease-in-out);
-	&, a, strong {
-		color: #fff;
-	}
-	&.js-cookies-out {
-		opacity: 0;
-	}
-	@include media(960px) {
-		bottom: $gutter; 
-		left: $gutter;
-		right: auto;
-		width: 250px;
-		text-align: left;
-		line-height: $line-height;
-		@include border-radius($radius);
+	text-align: right;
+	margin: $gutter 0 0 0;
+	border-top: 1px solid tint($color-divide, 30%);
+	padding-top: $gutter * 0.5;
+	@include flush;
+	@include font-size(-1);
+	&, a {
+		@include link-color(tint($color-quiet, 30%));
 	}
 }

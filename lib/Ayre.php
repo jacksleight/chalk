@@ -9,7 +9,9 @@ class Ayre extends App
 	const STATUS_ARCHIVED	= 'archived';
 
 	protected static $_blameable;
-	protected static $_types = [];
+	protected static $_modules	= ['Ayre'];
+	protected static $_classes	= [];
+	protected static $_types	= [];
 
 	public static function blameable($blameable = null)
 	{
@@ -19,39 +21,64 @@ class Ayre extends App
 		return self::$_blameable;
 	}
 
-	public static function resolve($class)
+	public static function type($class)
 	{
 		if (is_object($class)) {
 			$class = get_class($class);
+		} else if (strpos($class, '\\') === false) {
+			$class = isset(self::$_types[$class])
+				? self::$_types[$class]
+				: null;
 		}
-		if (isset(self::$_types[$class])) {
-			return self::$_types[$class];
+		if (isset(self::$_classes[$class])) {
+			return self::$_classes[$class];
+		}
+		if (!is_subclass_of($class, 'Ayre\\Entity')) {
+			throw new Exception("Class '{$class}' does not extend Ayre\Entity");   
 		}
 
-		$namespace = __CLASS__ . '\\Entity';
-		if (!is_subclass_of($class, $namespace)) {
-			throw new Exception("Class {$class} does not extend {$namespace}");   
+		$module = null;
+		foreach (self::$_modules as $name) {
+			if (preg_match("/^{$name}\\\/", $class, $match)) {
+				$module = $name;
+				break;
+			}
+		}
+		if (!isset($module)) {
+			throw new Exception("Class '{$class}' is not part of a registered module");   
 		}
 
-		$short = str_replace($namespace . '\\', '', $class);
-		$parts = explode('\\', $short);
-		$parts = array_map('lcfirst', $parts);
-		array_unshift($parts, 'core');
-		self::$_types[$class] = (object) [
-			'class'	=> $class,
-			'short'	=> $short,
-			'id'	=> implode('_', $parts),
-			'slug'	=> implode('-', $parts),
-			'path'	=> implode('/', $parts),
+		$module			= explode('\\', $module);
+		$moduleLast		= [$module[count($module) - 1]];
+		if ($moduleLast == ['Ayre']) {
+			$moduleLast = ['Core'];
+		}
+		$local			= array_slice(explode('\\', $class), count($module) + 1);
+		$entity			= array_merge($moduleLast, $local);
+		$modulelower	= array_map('lcfirst', $moduleLast);
+		$locallower		= array_map('lcfirst', $local);
+		$entitylower	= array_map('lcfirst', $entity);
+
+		$type = implode('_', $entitylower);
+		self::$_types[$type] = $class;
+		return self::$_classes[$class] = (object) [
+			'class' => $class,
+			'type'	=> $type,
+			'slug'	=> implode('-', $entitylower),
+			'path'	=> implode('/', $entitylower),
+			'module' => (object) [
+				'class' => implode('\\', $module),
+				'type'	=> implode('_', $modulelower),
+				'slug'	=> implode('-', $modulelower),
+				'path'	=> implode('/', $modulelower),
+			],
+			'local' => (object) [
+				'class' => implode('\\', $local),
+				'type'	=> implode('_', $locallower),
+				'slug'	=> implode('-', $locallower),
+				'path'	=> implode('/', $locallower),
+			]
 		];
-
-		return self::$_types[$class];
-	}
-
-	public static function resolveShort($short)
-	{
-		$namespace = __CLASS__ . '\\Entity';
-		return self::resolve("{$namespace}\\{$short}");
 	}
 
 	public function __construct(array $envs = array())

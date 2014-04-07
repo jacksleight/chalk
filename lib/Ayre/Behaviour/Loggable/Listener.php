@@ -62,7 +62,7 @@ class Listener implements EventSubscriber
 			}
 			$changeSet			= $uow->getEntityChangeSet($entity);
 			$log				= new Entity\Log();
-			$log->entity_type	= Ayre::resolve($entity)->id;
+			$log->entity_type	= Ayre::type($entity)->type;
 			$log->entity_obj	= $entity;
 			if (!isset($entity->id)) {
 				$log->type = Entity\Log::TYPE_CREATE;

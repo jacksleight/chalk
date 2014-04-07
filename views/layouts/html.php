@@ -12,6 +12,7 @@ $title	= (isset($title)
 	<title><?= $title ?></title>
 	<meta name="apple-mobile-web-app-title" content="Foundation">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='http://fonts.googleapis.com/css?family=Raleway:300,500' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="<?= $this->url->file("public/build/styles{$code}.css") ?>">
 	<link rel="stylesheet" href="<?= $this->url->file("public/build/demo{$code}.css") ?>">
 	<link rel="shortcut icon" href="<?= $this->url->file("public/images/favicon.ico") ?>">
@@ -19,7 +20,7 @@ $title	= (isset($title)
 	<script src="<?= $this->url->file("public/build/polyfills{$code}.js") ?>"></script>
 	<?= $content->head ?>
 </head>
-<body>
+<body class="<?= isset($class) ? $class : '' ?>">
 	<?= $content->body ?>
 	<script>
 		var App = App || {};

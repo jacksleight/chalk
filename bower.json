@@ -5,6 +5,8 @@
     "html5shiv": "~3.7.0",
     "log": "~0.1.2",
     "jquery": "~2.1.0",
-    "jquery-file-upload": "~9.5.7"
+    "jquery-file-upload": "~9.5.7",
+    "fontawesome": "~4.0.3",
+    "mustache": "~0.8.1"
   }
 }

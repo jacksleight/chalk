@@ -22,7 +22,7 @@ class Index extends Repository
             ->andWhere("i.entity_id = :entity_id")
             ->getQuery()
             ->setParameters([
-                'entity_type' => Ayre::resolve($entity)->id,
+                'entity_type' => Ayre::type($entity)->type,
                 'entity_id'   => $entity->id,
             ])          
             ->getOneOrNullResult();

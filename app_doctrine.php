@@ -75,5 +75,6 @@ $em = Doctrine\ORM\EntityManager::create($app->config->database + [
 	'charset'	=> 'utf8'
 ], $doct, $evm);
 $em->getConnection()->exec("SET NAMES utf8");
+$em->getMetadataFactory()->getAllMetadata();
 
 return $em;
