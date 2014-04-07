@@ -19,6 +19,7 @@ html, body {
 		display: table-row;
 		> * {
 			display: table-cell;
+			vertical-align: top;
 		}
 	}
 }
@@ -47,9 +48,6 @@ html, body {
 		text-decoration: none;
 		padding: $gutter;
 		display: block;
-		i {
-			margin-right: 0.25em;
-		}
 		&:hover, &:focus {
 			background: shade($color-primary, 50%);
 		}
@@ -64,11 +62,15 @@ html, body {
 .topbar {
 	padding: $gutter $gutter * 1.5;
 	@include flush;
-	.toolbar:first-child {
+	.toolbar {
 		float: right;
-		@include flush-next;
+		&:first-child {
+			float: left;
+		}
 	}
 	.title {
+		margin-top: 0;
+		text-align: center;
 		font-weight: 500;
 	}
 	&, a {

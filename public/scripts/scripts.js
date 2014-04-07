@@ -14,36 +14,38 @@ FastClick.attach(document.body);
 
 $('.upload').each(function(i, el) {
 	var button		= $(el).find('.upload-button');
-	var input		= $(el).find('.upload-input');
 	var list		= $(el).find('.upload-list');
 	var template	= $(el).find('.upload-template').html();
 	Mustache.parse(template);
-	input.fileupload({
+	$(el).find('.upload-input').fileupload({
 		dropZone: el,
 		dataType: 'json',
 		maxChunkSize: 1048576,
-		add: function (e, data) {
-			$.each(data.files, function (i, file) {
-				file.el = $($.parseHTML(Mustache.render(template, file))).prependTo(list);
-			});
-			data.submit();
-		},
-		progress: function (e, data) {
-			var file = data.files[0];
-			var perc = parseInt(data.loaded / data.total * 100, 10);
-			file.el.find('.progress-status')
-				.css('height', perc + '%')
-				.find('span')
-				.text(perc + '%');
-		},
-		done: function (e, data) {
-			$.each(data.files, function (i, file) {
-				file.el.find('.progress-status span')
-					.text('Processing…');
-			});
+		limitConcurrentUploads: 5
+	}).bind('fileuploadadd', function (e, data) {
+		var file = data.files[0];
+		data.context = $($.parseHTML(Mustache.render(template, file).trim())[0]);
+		list.prepend(data.context);
+	}).bind('fileuploadprogress', function (e, data) {
+		var perc = parseInt(data.loaded / data.total * 100, 10);
+		data.context.find('.progress .status')
+			.css('height', perc + '%');
+		if (perc == 100) {
+			data.context.find('.info').text('Processing…');
+		} else {
+			data.context.find('.info').text(perc + '%' + ' Uploaded');
 		}
+	}).bind('fileuploaddone', function (e, data) {
+		var result = data.result.files[0];
+		var progress = data.context.find('.progress');
+		var el = $($.parseHTML(result.html.trim())[0]);
+		el.find('.preview').append(progress);
+		data.context.replaceWith(el);
+		setTimeout(function() {
+			el.find('.progress .status').css('height', 0);			
+		}, 0);
 	});
 	button.click(function(ev) {
-		input.trigger('click');
+		$(el).find('.upload-input').trigger('click');
 	});
 });

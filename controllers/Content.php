@@ -62,7 +62,8 @@ class Content extends Action
 				$this->entity->persist($file);
 				$this->entity->flush();
 				$temp->remove();
-				$upload->url = $this->url($file->file, true, true, false)->toString();
+				$upload->jack = $file->file->name();
+				$upload->html = $this->view->render('/content/thumb', ['file' => $file])->toString();
 			}
 		}
 		return $res

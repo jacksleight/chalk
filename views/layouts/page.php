@@ -23,7 +23,7 @@
 </nav>
 <section class="main" role="main">
 	<?= $content->main ?>
-	<footer class="footer c" role="contentinfo">
+	<!-- <footer class="footer c" role="contentinfo">
 		<p>Ayre 0.1.0 © <?= date('Y') ?> <a href="http://jacksleight.com/">Jack Sleight</a></p>
-	</footer>
+	</footer> -->
 </section>

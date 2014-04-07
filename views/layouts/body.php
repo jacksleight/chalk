@@ -20,6 +20,11 @@
 		<div class="topbar">
 			<ul class="toolbar">
 				<li>
+					Publish <span class="label">14</span>
+				</li>
+			</ul>
+			<ul class="toolbar">
+				<li>
 					<i class="fa fa-user"></i>
 					Jack Sleight
 				</li>
@@ -27,14 +32,7 @@
 					<a href="#">Logout</a>
 				</li>
 			</ul>
-			<ul class="toolbar">
-				<li class="title">
-					Example Site
-				</li>
-				<li>
-					Publish <span class="label">14</span>
-				</li>
-			</ul>
+			<p class="title">Example Site</p>
 		</div>
 	</header>
 	<div>

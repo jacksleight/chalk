@@ -207,6 +207,12 @@ small {
 	vertical-align: 3px;
 }
 
+/* Icons */
+
+i.fa {
+	margin-right: 0.25em;
+}
+
 /* Rule */
 
 hr { 
@@ -293,32 +299,6 @@ video {
 figure { 
 	margin: $spacing 0 0 0;
 	@include flush;
-	.progress {
-		background-color: $color-shade;
-		@include font-size(-1);
-		position: relative;
-		&:before {
-			content: '';
-			display: block;
-			@include ratio(1px, 1px);
-		}
-		.progress-status {
-			background-color: $color-positive;
-			color: white;
-			display: block;
-			position: absolute;
-			left: 0;
-			width: 100%;
-			bottom: 0;
-			overflow: hidden;
-			line-height: 1;
-			min-height: 30px;
-			span {
-				display: block;
-				padding: 8px;
-			}
-		}
-	}
 	figcaption { 
 		@include font-size(-2);
 		margin: $spacing * 0.4 0 0 0;
@@ -330,14 +310,64 @@ figure {
 
 .thumbs {
 	@include no-bullets;
-	@include clearfix;
 	@include inline-blocks('li', $gutter, $gutter);
 	li {
 		width: $width-2;
 		@include flush;
+		&.intro {
+			width: $width-12;
+			text-align: center;
+			color: $color-quiet;
+			padding: 100px 0;
+		}
 	}
 	a {
 		text-decoration: none;
+	}
+}
+.thumb {
+	.preview {
+		background-color: tint($color-primary, 75%);
+		position: relative;
+		&:before {
+			content: '';
+			display: block;
+			@include ratio(1px, 1px);
+		}
+		img, 
+		.text, 
+		.progress {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+		img {
+			width: 100%;
+			height: auto;
+		}
+		.text {
+			text-align: center;
+			@include vertically-center('span');
+			span {
+				text-transform: uppercase;
+				@include font-size(40px);
+				color: white;
+			}
+		}
+		.progress {
+			.status {
+				display: block;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				overflow: hidden;
+				background-color: $color-positive;
+				@include transition(height $speed linear);
+			}
+		}
 	}
 	figcaption {
 		overflow: hidden;
@@ -540,7 +570,7 @@ button,
 	color: white;
 	background-color: $color-positive;
 	border: $input-border-width solid;
-	border-color: $color-shade;
+	border-color: $color-positive;
 	@include border-radius($radius);
 	outline: 0;
 	cursor: pointer;
@@ -548,9 +578,11 @@ button,
 	-webkit-appearance: none;
 	&:hover { 
 		background-color: shade($color-positive, 20%);
+		border-color: shade($color-positive, 20%);
 	}
 	&:active { 
 		background-color: shade($color-positive, 20%);
+		border-color: shade($color-positive, 20%);
 	}
 }
 .button { 

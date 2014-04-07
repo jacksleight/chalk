@@ -12,24 +12,23 @@
 	</li> -->
 	<li>
 		<span class="button upload-button">
-			<i class="fa fa-upload"></i>
-			Upload
+			<i class="fa fa-upload"></i> Upload
 		</span>
 	</li>
 </ul>
 <h1>Files</h1>
-<ul class="thumbs upload-list"></ul>
+<?php
+$files = array_reverse($this->entity('core_file')->findAll());
+?>
+<ul class="thumbs upload-list">
+	<? foreach ($files as $file) { ?>
+		<?= $this->render('thumb', ['file' => $file]) ?>
+	<? } ?>
+	<!-- <li class="intro">
+		Hit Upload or drag and drop files/folders here.
+	</li> -->
+</ul>
 <input class="upload-input" type="file" name="files[]" data-url="<?= $this->url(['action' => 'upload']) ?>" multiple>
 <script type="x-tmpl-mustache" class="upload-template">
-	<li>
-		<figure>
-			<div class="progress">
-				<span class="progress-status" style="height: 0%;"><span>Waiting...</span></span>
-			</div>
-			<figcaption>
-				<strong>{{name}}</strong><br>
-				{{type}} – {{size}}
-			</figcaption>
-		</figure>
-	</li>
+	<?= $this->render('thumb', ['template' => true]) ?>
 </script>
