@@ -12,7 +12,7 @@
 	</li> -->
 	<li>
 		<span class="button upload-button">
-			<i class="fa fa-upload"></i> Upload
+			<i class="fa fa-upload"></i> Upload Files
 		</span>
 	</li>
 </ul>
@@ -20,6 +20,23 @@
 <?php
 $files = array_reverse($this->entity('core_file')->findAll());
 ?>
+<ul class="filters">
+	<li>
+		<input type="search" placeholder="Search">
+	</li>
+	<li>
+		<div><i class="fa fa-file-o"></i>Type</div>
+	</li>
+	<li>
+		<div><i class="fa fa-calendar"></i> Date Added</div>
+	</li>
+	<li>
+		<div><i class="fa fa-user"></i> Added By</div>
+	</li>
+	<li>
+		<div><i class="fa fa-check-circle"></i>Draft, Pending, Published</div>
+	</li>
+</ul>
 <ul class="thumbs upload-list">
 	<? foreach ($files as $file) { ?>
 		<?= $this->render('thumb', ['file' => $file]) ?>

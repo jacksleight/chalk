@@ -18,6 +18,7 @@ html {
 	font-weight: normal;
 	color: $color-loud;
 	margin: $spacing 0 0 0;
+	line-height: $line-height-tight;
 }
 h1 { 
 	@include font-size(4);
@@ -324,6 +325,9 @@ figure {
 	a {
 		text-decoration: none;
 	}
+	.filters + & {
+		margin-top: $gutter;
+	}
 }
 .thumb {
 	.preview {
@@ -482,6 +486,7 @@ select {
 	font-family: $font-family;
 	color: $color-foreground;
 	text-align: left;
+	font-weight: 300;
 	height: $input-height;
 	line-height: $input-height - ($input-border-width * 2);
 	vertical-align: baseline;
@@ -490,11 +495,7 @@ select {
 	padding: 0 $input-padding + 3px;
 	background-color: white;
 	border: $input-border-width solid;
-	border-color: 
-		tint(gray, 60%)
-		tint(gray, 70%)
-		tint(gray, 70%)
-		tint(gray, 60%);
+	border-color: tint($color-primary, 75%);
 	@include border-radius($radius);
 	outline: 0;
 	-webkit-appearance: none;
@@ -603,15 +604,9 @@ input[type=time],
 input[type=url],
 input[type=week],
 textarea,
-select,
-input[type=reset],
-input[type=submit],
-input[type=button],
-button,
-.button { 
+select { 
 	&:focus {
-		border-color: $color-primary;
-		@include box-shadow(tint($color-primary, 20%) 0 0 6px 0);
+		border-color: tint($color-primary, 50%);
 	}
 }
 
@@ -746,6 +741,28 @@ legend {
 	&:first-child {
 		float: right;
 		@include flush-next;
+	}
+}
+
+/* Filters */
+
+.filters {
+	margin-top: $gutter;
+	@include no-bullets;
+	@include inline-blocks('li');
+	li {
+		width: 20%;
+		& + li div {
+			border-left: 0;
+		}
+	}
+	div {
+		height: $input-height;
+		line-height: $input-height - ($input-border-width * 2);
+		vertical-align: baseline;
+		padding: 0 $input-padding + 9px;
+		border: 1px solid tint($color-primary, 75%);
+		color: $color-quiet;
 	}
 }
 

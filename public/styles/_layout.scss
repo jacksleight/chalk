@@ -48,6 +48,7 @@ html, body {
 		text-decoration: none;
 		padding: $gutter;
 		display: block;
+		text-align: center;
 		&:hover, &:focus {
 			background: shade($color-primary, 50%);
 		}
