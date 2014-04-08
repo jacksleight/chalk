@@ -11,6 +11,7 @@ vendor/*/*/tests/
 public/demo
 .sass-cache
 composer.lock
+vendor
 bower_components
 node_modules
 npm-debug.log
