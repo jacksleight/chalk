@@ -38,11 +38,10 @@ $('.upload').each(function(i, el) {
 		data.context.replaceWith(replace);
 		data.context = replace;
 		setTimeout(function() {
-			data.context.find('.status').css({
-				bottom: 'auto',
-				top: 0,
-				height: 0
-			});			
+			data.context.find('.progress')
+				.addClass('out')
+			data.context.find('.status')
+				.css('height', 0);
 		}, 100);
 	});
 	button.click(function(ev) {

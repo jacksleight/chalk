@@ -9,7 +9,7 @@
   },
   "autoload": {
     "psr-0": {
-      "Js": "vendor/js/lib",
+      "Js": "js",
       "Ayre": "lib",
       "Ayre\\Proxy": "data/proxies"
     },

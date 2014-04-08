@@ -1,4 +1,4 @@
-@charset "utf-8";
+@charset "UTF-8";
 /* Configuration */
 /* Partials */
 /* Media */
@@ -139,10 +139,10 @@ dl dd {
 /* Link */
 a {
   color: #3e4651;
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
-  -o-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  -webkit-transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
+  transition: all 0.1s ease;
   text-decoration: underline;
 }
 a:visited {
@@ -171,6 +171,8 @@ mark {
   background-color: yellow;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
   border-radius: 2px;
 }
 
@@ -202,6 +204,8 @@ pre, code {
   font-size: 1rem;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
   border-radius: 0;
 }
 
@@ -498,6 +502,9 @@ figure figcaption {
   font-size: 2.5rem;
   color: white;
 }
+.thumb .preview .progress {
+  background-color: #ffd493;
+}
 .thumb .preview .progress .status {
   display: block;
   position: absolute;
@@ -506,10 +513,17 @@ figure figcaption {
   width: 100%;
   overflow: hidden;
   background-color: #ffa927;
-  -webkit-transition: height 0.2s linear;
-  -moz-transition: height 0.2s linear;
-  -o-transition: height 0.2s linear;
-  transition: height 0.2s linear;
+  -webkit-transition: height 0.1s linear;
+  -moz-transition: height 0.1s linear;
+  -o-transition: height 0.1s linear;
+  transition: height 0.1s linear;
+}
+.thumb .preview .progress.out {
+  background-color: transparent;
+}
+.thumb .preview .progress.out .status {
+  bottom: auto;
+  top: 0;
 }
 .thumb figcaption {
   overflow: hidden;
@@ -525,6 +539,8 @@ table {
   border: 1px solid #dedfe1;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
   border-radius: 0;
 }
 table tr th, table tr td {
@@ -553,10 +569,10 @@ table th {
   color: #282828;
 }
 table tbody th, table tbody td {
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
-  -o-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  -webkit-transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
+  transition: all 0.1s ease;
 }
 table tbody tr:hover th, table tbody tr:hover td {
   background: #f1f2f2;
@@ -580,10 +596,10 @@ select,
 textarea,
 button,
 .button {
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
-  -o-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  -webkit-transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
+  transition: all 0.1s ease;
 }
 
 input[type=date],
@@ -618,6 +634,8 @@ select {
   border-color: #ced0d3;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
   border-radius: 0;
   outline: 0;
   -webkit-appearance: none;
@@ -753,7 +771,7 @@ select optgroup option {
 }
 @media (-webkit-min-device-pixel-ratio: 0) {
   select {
-    background-image: url('../images/1x/select-arrow.1396262524.png');
+    background-image: url('../images/1x/select-arrow.1396288106.png');
     background-position: 100% 50%;
     background-repeat: no-repeat;
     padding-right: 22px;
@@ -761,7 +779,7 @@ select optgroup option {
 }
 @media screen and (-webkit-min-device-pixel-ratio: 0) and (-webkit-min-device-pixel-ratio: 2), screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 192dpi) {
   select {
-    background-image: url('../images/2x/select-arrow.1396262524.png');
+    background-image: url('../images/2x/select-arrow.1396288106.png');
     background-size: 20px 5px;
   }
 }
@@ -805,6 +823,8 @@ button,
   border-color: #00b5b5;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
   border-radius: 0;
   outline: 0;
   cursor: pointer;
@@ -824,8 +844,8 @@ input[type=submit]:active,
 input[type=button]:active,
 button:active,
 .button:active {
-  background-color: #009090;
-  border-color: #009090;
+  background-color: #ffa927;
+  border-color: #ffa927;
 }
 
 .button {
@@ -1066,6 +1086,8 @@ legend {
   padding: 0 15px;
   border: 1px solid #ced0d3;
   color: #adadad;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 /* Upload */

@@ -1,4 +1,3 @@
-@charset "utf-8";
 /* Configuration */
 /* Partials */
 /* Media */
@@ -94,12 +93,15 @@
   margin: 16px 0 0 0;
   height: 100px;
   background: #e5e5e5;
+  background: -webkit-gradient(linear, 0% 0%, 100% 100%, color-stop(0%, #e5e5e5), color-stop(100%, #b2b2b2)), #e5e5e5;
   background: -webkit-linear-gradient(top left, #e5e5e5, #b2b2b2), #e5e5e5;
   background: -moz-linear-gradient(top left, #e5e5e5, #b2b2b2), #e5e5e5;
   background: -o-linear-gradient(top left, #e5e5e5, #b2b2b2), #e5e5e5;
-  background: linear-gradient(to bottom right, #e5e5e5, #b2b2b2), #e5e5e5;
+  background: linear-gradient(top left, #e5e5e5, #b2b2b2), #e5e5e5;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
   border-radius: 0;
 }
 .demo-grid > div:first-child > *:first-child {
@@ -224,14 +226,14 @@
 }
 
 .demo-image-raster {
-  background-image: url('../images/1x/tick.1396262524.png');
+  background-image: url('../images/1x/tick.1396288106.png');
   display: inline-block;
   width: 160px;
   height: 32px;
 }
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
   .demo-image-raster {
-    background-image: url('../images/2x/tick.1396262524.png');
+    background-image: url('../images/2x/tick.1396288106.png');
     background-size: 32px 32px;
   }
 }
@@ -244,11 +246,11 @@
   height: 48px;
 }
 .old-ie .demo-image-vector {
-  background-image: url('../images/1x/tick.1396262524.png');
+  background-image: url('../images/1x/tick.1396288106.png');
 }
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
   .old-ie .demo-image-vector {
-    background-image: url('../images/2x/tick.1396262524.png');
+    background-image: url('../images/2x/tick.1396288106.png');
     background-size: 32px 32px;
   }
 }

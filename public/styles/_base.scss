@@ -361,6 +361,7 @@ figure {
 			}
 		}
 		.progress {
+			background-color: tint($color-active, 50%);
 			.status {
 				display: block;
 				position: absolute;
@@ -368,8 +369,15 @@ figure {
 				left: 0;
 				width: 100%;
 				overflow: hidden;
-				background-color: $color-activity;
+				background-color: $color-active;
 				@include transition(height $speed linear);
+			}
+			&.out {
+				background-color: transparent;
+				.status {
+					bottom: auto;
+					top: 0;
+				}
 			}
 		}
 	}
@@ -582,8 +590,8 @@ button,
 		border-color: shade($color-positive, 20%);
 	}
 	&:active { 
-		background-color: shade($color-positive, 20%);
-		border-color: shade($color-positive, 20%);
+		background-color: shade($color-active, 0%);
+		border-color: shade($color-active, 0%);
 	}
 }
 .button { 
@@ -763,6 +771,8 @@ legend {
 		padding: 0 $input-padding + 9px;
 		border: 1px solid tint($color-primary, 75%);
 		color: $color-quiet;
+		overflow: hidden;
+		white-space: nowrap;
 	}
 }
 
