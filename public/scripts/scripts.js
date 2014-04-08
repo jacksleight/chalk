@@ -28,22 +28,22 @@ $('.upload').each(function(i, el) {
 		list.prepend(data.context);
 	}).bind('fileuploadprogress', function (e, data) {
 		var perc = parseInt(data.loaded / data.total * 100, 10);
-		data.context.find('.progress .status')
+		data.context.find('.status')
 			.css('height', perc + '%');
-		if (perc == 100) {
-			data.context.find('.info').text('Processing…');
-		} else {
-			data.context.find('.info').text(perc + '%' + ' Uploaded');
-		}
+		data.context.find('.info')
+			.text(perc == 100 ? 'Processing…' : perc + '%' + ' Uploaded');
 	}).bind('fileuploaddone', function (e, data) {
-		var result = data.result.files[0];
-		var progress = data.context.find('.progress');
-		var el = $($.parseHTML(result.html.trim())[0]);
-		el.find('.preview').append(progress);
-		data.context.replaceWith(el);
+		var result	= data.result.files[0];
+		var replace	= $($.parseHTML(result.html.trim())[0]);
+		data.context.replaceWith(replace);
+		data.context = replace;
 		setTimeout(function() {
-			el.find('.progress .status').css('height', 0);			
-		}, 0);
+			data.context.find('.status').css({
+				bottom: 'auto',
+				top: 0,
+				height: 0
+			});			
+		}, 100);
 	});
 	button.click(function(ev) {
 		$(el).find('.upload-input').trigger('click');

@@ -364,7 +364,7 @@ figure {
 				left: 0;
 				width: 100%;
 				overflow: hidden;
-				background-color: $color-positive;
+				background-color: $color-activity;
 				@include transition(height $speed linear);
 			}
 		}

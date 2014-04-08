@@ -10,6 +10,7 @@ $line-height-tight:		$line-height - 0.2;
 /* Colors */
 
 $color-primary:			#3E4651;
+$color-activity:		#FFA927;
 
 $color-positive:		#00B5B5;
 $color-negative:		#F1654C;
@@ -20,8 +21,8 @@ $color-quiet:			tint($color-foreground, 60%);
 $color-loud:			shade($color-foreground, 20%);
 
 $color-background:		white;
-$color-shade:			tint(black, 95%);
-$color-divide:			tint(black, 85%);
+$color-shade:			tint($color-primary, 93%);
+$color-divide:			tint($color-primary, 83%);
 
 /* Sizes */
 

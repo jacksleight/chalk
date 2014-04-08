@@ -63,7 +63,10 @@ class Content extends Action
 				$this->entity->flush();
 				$temp->remove();
 				$upload->jack = $file->file->name();
-				$upload->html = $this->view->render('/content/thumb', ['file' => $file])->toString();
+				$upload->html = $this->view->render('/content/thumb', [
+					'file'		=> $file,
+					'covered'	=> true,
+				])->toString();
 			}
 		}
 		return $res
