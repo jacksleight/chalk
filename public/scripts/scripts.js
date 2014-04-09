@@ -28,7 +28,7 @@ $('.upload').each(function(i, el) {
 		list.prepend(data.context);
 	}).bind('fileuploadprogress', function (e, data) {
 		var perc = parseInt(data.loaded / data.total * 100, 10);
-		data.context.find('.status')
+		data.context.find('.progress span')
 			.css('height', perc + '%');
 		data.context.find('.info')
 			.text(perc == 100 ? 'Processing…' : perc + '%' + ' Uploaded');
@@ -40,11 +40,19 @@ $('.upload').each(function(i, el) {
 		setTimeout(function() {
 			data.context.find('.progress')
 				.addClass('out')
-			data.context.find('.status')
+			data.context.find('.progress span')
 				.css('height', 0);
 		}, 100);
 	});
 	button.click(function(ev) {
 		$(el).find('.upload-input').trigger('click');
+	});
+});
+
+$('.linkable').each(function(i, el) {
+	var link = $(el).find('a')[0];
+	$(el).click(function(ev) {
+		ev.preventDefault();
+		window.location.href = link.href;
 	});
 });

@@ -3,6 +3,8 @@ use Coast\App;
 
 class Ayre extends App
 {
+	const FORMAT_DATE		= 'jS F Y';
+
 	const STATUS_DRAFT		= 'draft';
 	const STATUS_PENDING	= 'pending';
 	const STATUS_PUBLISHED	= 'published';
@@ -12,6 +14,8 @@ class Ayre extends App
 	protected static $_modules	= ['Ayre'];
 	protected static $_classes	= [];
 	protected static $_types	= [];
+	protected static $_slugs	= [];
+	protected static $_paths	= [];
 
 	public static function blameable($blameable = null)
 	{
@@ -25,9 +29,17 @@ class Ayre extends App
 	{
 		if (is_object($class)) {
 			$class = get_class($class);
-		} else if (strpos($class, '\\') === false) {
+		} else if (strpos($class, '_') !== false) {
 			$class = isset(self::$_types[$class])
 				? self::$_types[$class]
+				: null;
+		} else if (strpos($class, '-') !== false) {
+			$class = isset(self::$_slugs[$class])
+				? self::$_slugs[$class]
+				: null;
+		} else if (strpos($class, '/') !== false) {
+			$class = isset(self::$_paths[$class])
+				? self::$_paths[$class]
 				: null;
 		}
 		if (isset(self::$_classes[$class])) {
@@ -60,12 +72,20 @@ class Ayre extends App
 		$entitylower	= array_map('lcfirst', $entity);
 
 		$type = implode('_', $entitylower);
+		$slug = implode('-', $entitylower);
+		$path = implode('/', $entitylower);
+		$info = [
+			'singular'	=> $type,
+			'plural'	=> $type,
+		];
 		self::$_types[$type] = $class;
+		self::$_slugs[$slug] = $class;
+		self::$_paths[$path] = $class;
 		return self::$_classes[$class] = (object) [
 			'class' => $class,
 			'type'	=> $type,
-			'slug'	=> implode('-', $entitylower),
-			'path'	=> implode('/', $entitylower),
+			'slug'	=> $slug,
+			'path'	=> $path,
 			'module' => (object) [
 				'class' => implode('\\', $module),
 				'type'	=> implode('_', $modulelower),
@@ -77,7 +97,10 @@ class Ayre extends App
 				'type'	=> implode('_', $locallower),
 				'slug'	=> implode('-', $locallower),
 				'path'	=> implode('/', $locallower),
-			]
+			],
+			'info' => (object) (isset($class::$info)
+				? $class::$info + $info
+				: $info),
 		];
 	}
 

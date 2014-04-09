@@ -18,12 +18,12 @@ class Index extends Repository
         $index = $this->_em->createQueryBuilder()
             ->select("i")
             ->from("\Ayre\Entity\Index", "i")
-            ->andWhere("i.entity_type = :entity_type")
+            ->andWhere("i.entity_class = :entity_class")
             ->andWhere("i.entity_id = :entity_id")
             ->getQuery()
             ->setParameters([
-                'entity_type' => Ayre::type($entity)->type,
-                'entity_id'   => $entity->id,
+                'entity_class' => get_class($entity),
+                'entity_id'    => $entity->id,
             ])          
             ->getOneOrNullResult();
         return $index;
@@ -40,10 +40,10 @@ class Index extends Repository
         }
 
         $where  = count($classes)
-            ? "AND i.entity_type IN(" . implode(', ', $classes) . ")"
+            ? "AND i.entity_class IN(" . implode(', ', $classes) . ")"
             : null;
         return $conn->query("
-            SELECT i.entity_type, i.entity_id,
+            SELECT i.entity_class, i.entity_id,
                 MATCH(i.content) AGAINST ({$query} IN BOOLEAN MODE) AS score
             FROM core_index AS s
             WHERE MATCH(i.content) AGAINST ({$query} IN BOOLEAN MODE)

@@ -6,7 +6,7 @@
 		<li>
 			<a href="<?= $this->url([
 				'controller'	=> 'content',
-				'type'			=> 'core_file',
+				'type'			=> 'core-file',
 			], 'entity', true) ?>">
 				Files
 			</a>
@@ -14,7 +14,7 @@
 		<li>
 			<a href="<?= $this->url([
 				'controller'	=> 'content',
-				'type'			=> 'core_document',
+				'type'			=> 'core-document',
 			], 'entity', true) ?>">
 				Documents
 			</a>

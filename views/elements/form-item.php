@@ -13,8 +13,8 @@ $types = [
 	'time'		=> 'input_time',
 	'datetime'	=> 'input_datetime-local',
 	'url'		=> 'input_url',
-	'manyToOne'	=> 'select',
-	'manyToMany'=> 'input_checkboxes',
+	\Doctrine\ORM\Mapping\ClassMetadataInfo::MANY_TO_ONE	=> 'select',
+	\Doctrine\ORM\Mapping\ClassMetadataInfo::MANY_TO_MANY	=> 'input_checkboxes',
 ];
 $type = !isset($type)
 	? (isset($types[$md['type']])

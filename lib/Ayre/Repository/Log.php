@@ -18,11 +18,11 @@ class Log extends Repository
 		$logs = $this->_em->createQueryBuilder()
 			->select("l")
 			->from("\Ayre\Entity\Log", "l")
-			->andWhere("l.entity_type = :entity_type")
+			->andWhere("l.entity_class = :entity_class")
 			->andWhere("l.entity_id = :entity_id")
 			->getQuery()
 			->setParameters([
-				'entity_type'	=> Ayre::type($entity)->type,
+				'entity_class'	=> get_class($entity),
 				'entity_id'		=> $entity->id,
 			])			
 			->getResult();

@@ -36,4 +36,16 @@ trait Implementation
      * @Gedmo\Blameable(on="update")
      */
     protected $modifyUser;
+
+    protected function _alterCreateDateMetadata($md)
+    {
+        $md['validator']->removeValidator('Js\Validator\Set');
+        return $md;
+    }
+
+    protected function _alterModifyDateMetadata($md)
+    {
+        $md['validator']->removeValidator('Js\Validator\Set');
+        return $md;
+    }
 }

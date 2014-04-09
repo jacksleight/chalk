@@ -2,6 +2,7 @@
 namespace Ayre\Controller;
 
 use Ayre,
+	Ayre\Entity,
 	FileUpload\FileUpload,
 	FileUpload\PathResolver,
 	FileUpload\FileSystem,
@@ -11,28 +12,47 @@ use Ayre,
 
 class Content extends Action
 {
+	public function preDispatch(Request $req, Response $res)
+	{
+		$req->type = Ayre::type($req->type);
+	}
+
+	public function postDispatch(Request $req, Response $res)
+	{
+		$path = $this->view->has("{$req->type->local->path}/{$req->action}")
+			? "{$req->type->local->path}/{$req->action}"
+			: "{$req->controller}/{$req->action}";
+		return $res->html($this->view->render($path, array(
+			'req' => $req,
+			'res' => $res,
+		)));
+	}
+
 	public function index(Request $req, Response $res)
 	{}
 
 	public function edit(Request $req, Response $res)
 	{
-		$content = $this->entity($req->type)->findOrCreate($req->id);
+		$wrap = $this->entity->wrap(
+			$content = $this->entity($req->type->class)->findOrCreate($req->id)
+		);
+		$this->req->wrap = $wrap;
 
 		if (!$req->isPost()) {
-			return true;
+			return;
 		}
 
-		$wrap->graphFromArray($this->request->getPostParams());
+		$wrap->graphFromArray($req->bodyParams());
 		if (!$wrap->graphIsValid()) {
 			return;
 		}
 
-		if (!$content->isPersisted()) {
-			$this->em->persist($content);
+		if (!$this->entity->isPersisted($content)) {
+			$this->entity->persist($content);
 		}
-		$this->em->flush();
+		$this->entity->flush();
 
-		return $this->redirect($this->url(array(
+		return $res->redirect($this->url(array(
 			'action'	=> null,
 			'id'		=> null,
 		)));
@@ -64,7 +84,7 @@ class Content extends Action
 				$temp->remove();
 				$upload->jack = $file->file->name();
 				$upload->html = $this->view->render('/content/thumb', [
-					'file'		=> $file,
+					'content'	=> $file,
 					'covered'	=> true,
 				])->toString();
 			}

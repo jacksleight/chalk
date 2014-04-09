@@ -10,15 +10,17 @@ $line-height-tight:		$line-height - 0.2;
 /* Colors */
 
 $color-primary:			#3E4651;
-$color-active:			#FFA927;
+$color-focus:			#00B5B5;
+$color-active:			#FCB941;
 
-$color-positive:		#00B5B5;
-$color-negative:		#F1654C;
+$color-positive:		#2CC990;
+$color-negative:		#FC6042;
 $color-highlight:		#ffff00;
 
-$color-foreground:		tint(black, 20%);
-$color-quiet:			tint($color-foreground, 60%);
-$color-loud:			shade($color-foreground, 20%);
+$color-foreground:		$color-primary;
+$color-quiet:			tint($color-foreground, 50%);
+$color-quieter:			tint($color-foreground, 75%);
+$color-loud:			shade($color-primary, 50%);
 
 $color-background:		white;
 $color-shade:			tint($color-primary, 93%);

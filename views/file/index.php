@@ -5,11 +5,9 @@
 
 <ul class="toolbar">
 	<li>
-		<a href="<?= $this->url([
-			'action' => 'edit',
-		]) ?>" class="button">
-			<i class="fa fa-plus"></i> Add <?= $req->type->info->singular ?>
-		</a>
+		<span class="button upload-button">
+			<i class="fa fa-upload"></i> Upload <?= $req->type->info->singular ?>
+		</span>
 	</li>
 </ul>
 <h1><?= $req->type->info->plural ?></h1>
@@ -33,22 +31,12 @@ $contents = array_reverse($this->entity($req->type->class)->findAll());
 		<div><i class="fa fa-check-circle"></i>Draft, Pending, Published</div>
 	</li>
 </ul>
-<table>
-	<colgroup>
-		<col class="col-name">
-		<col class="col-create">
-		<col class="col-status">
-	</colgroup>
-	<thead>
-		<tr>
-			<th scope="col" class="col-name">Name</th>
-			<th scope="col" class="col-create">Added</th>
-			<th scope="col" class="col-status">Status</th>
-		</tr>
-	</thead>
-	<tbody>
-		<? foreach ($contents as $content) { ?>
-			<?= $this->render('row', ['content' => $content]) ?>
-		<? } ?>
-	</tbody>
-</table>
+<ul class="thumbs upload-list">
+	<? foreach ($contents as $content) { ?>
+		<?= $this->render('/content/thumb', ['content' => $content]) ?>
+	<? } ?>
+</ul>
+<input class="upload-input" type="file" name="files[]" data-url="<?= $this->url(['action' => 'upload']) ?>" multiple>
+<script type="x-tmpl-mustache" class="upload-template">
+	<?= $this->render('/content/thumb', ['template' => true]) ?>
+</script>

@@ -17,6 +17,11 @@ use Ayre\Entity,
  */
 class File extends Content
 {
+	public static $info = [
+		'singular'	=> 'File',
+		'plural'	=> 'Files',
+	];
+
 	protected static $_uploadable;
 
     /**

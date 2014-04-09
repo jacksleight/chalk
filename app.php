@@ -8,6 +8,53 @@ use Coast\App,
 
 /* Initialize */
 
+
+
+function getRelativeDate($date)
+{
+
+	$compare = new DateTime();
+
+
+	$units = array('second', 'minute', 'hour', 'day', 'week', 'month', 'year');
+	$values = array(60, 60, 24, 7, 4.35, 12);
+
+	// Get the difference between the two timestamps. We'll use this to cacluate the
+	// actual time remaining.
+	$difference = abs($compare->getTimestamp() - $date->getTimestamp());
+
+	for ($i = 0; $i < count($values) and $difference >= $values[$i]; $i++)
+	{
+		$difference = $difference / $values[$i];
+	}
+
+	// Round the difference to the nearest whole number.
+	$difference = round($difference);
+
+	if ($compare->getTimestamp() < $date->getTimestamp())
+	{
+		$suffix = 'from now';
+	}
+	else
+	{
+		$suffix = 'ago';
+	}
+
+	// Get the unit of time we are measuring. We'll then check the difference, if it is not equal
+	// to exactly 1 then it's a multiple of the given unit so we'll append an 's'.
+	$unit = $units[$i];
+
+	if ($difference != 1)
+	{
+		$unit .= 's';
+	}
+
+	return $difference.' '.$unit.' '.$suffix;
+}
+
+
+
+
 chdir(__DIR__);
 require 'vendor/autoload.php';
 

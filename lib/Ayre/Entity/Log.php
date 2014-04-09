@@ -33,7 +33,7 @@ class Log extends Entity
     /**
      * @ORM\Column(type="string")
      */
-    protected $entity_type;
+    protected $entity_class;
 
     /**
      * @ORM\Column(type="integer")

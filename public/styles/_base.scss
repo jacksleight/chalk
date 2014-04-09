@@ -24,19 +24,19 @@ h1 {
 	@include font-size(4);
 }
 h2 { 
-	@include font-size(3);
-}
-h3 { 
 	@include font-size(2);
 }
+h3 { 
+	@include font-size(0);
+}
 h4 { 
-	@include font-size(1);
+	@include font-size(0);
 }
 h5 { 
-	@include font-size(1);
+	@include font-size(0);
 }
 h6 { 
-	@include font-size(1);
+	@include font-size(0);
 }
 
 /* Paragraph */
@@ -199,13 +199,34 @@ small {
 /* Label */
 
 .label {
-	background-color: $color-positive;
+	background-color: $color-quieter;
+	border: 1px solid $color-quieter;
 	color: white;
 	font-weight: 500;
-	@include font-size(-2);
-	border-radius: 100px;
-	padding: 2px 5px 4px 5px;
-	vertical-align: 3px;
+	@include font-size(-1);
+	padding: 0 6px;
+	display: inline-block;
+	line-height: 1.6;
+}
+
+/* Status */
+
+.status {
+	text-transform: uppercase;
+	padding-left: 12px;
+	text-align: right;
+	&.status-archived {
+		background-color: white;
+		color: $color-quieter;
+	}
+	&.status-pending {
+		background-color: $color-negative;
+		border-color: $color-negative;
+	}
+	&.status-published {
+		background-color: $color-positive;
+		border-color: $color-positive;
+	}
 }
 
 /* Icons */
@@ -314,7 +335,9 @@ figure {
 	@include inline-blocks('li', $gutter, $gutter);
 	li {
 		width: $width-2;
-		@include flush;
+		figure {
+			margin-top: 0;
+		}
 		&.intro {
 			width: $width-12;
 			text-align: center;
@@ -362,7 +385,7 @@ figure {
 		}
 		.progress {
 			background-color: tint($color-active, 50%);
-			.status {
+			span {
 				display: block;
 				position: absolute;
 				bottom: 0;
@@ -374,7 +397,7 @@ figure {
 			}
 			&.out {
 				background-color: transparent;
-				.status {
+				span {
 					bottom: auto;
 					top: 0;
 				}
@@ -397,12 +420,10 @@ table {
 	width: 100%;
 	margin: $spacing 0 0 0;
 	border-spacing: 0;
-	border: $table-border;
 	@include border-radius($radius);
 	tr {
 		th, td {
-			border-top: $table-border-light;
-			border-left: $table-border-light;
+			border-bottom: $table-border-light;
 			&:first-child {
 				border-left: 0;
 			}
@@ -412,8 +433,24 @@ table {
 				border-top: 0;
 			}
 		}
+		&.linkable {
+			a {
+				text-decoration: none;
+			}
+			&:hover {
+				cursor: pointer;
+			}
+		}
 	}
 	thead {
+		th {
+			font-weight: 500;
+		}
+		tr:first-child {
+			th, td {
+				padding-top: 0;
+			}
+		}
 		tr:last-child {
 			th, td {
 				border-bottom: $table-border;
@@ -429,12 +466,14 @@ table {
 	}
 	th, td { 
 		vertical-align: top;
-		padding: 4px 8px;
+		padding: 6px 0;
 	}
 	th { 
-		font-weight: 500;
+		font-weight: 300;
 		text-align: left;
-		color: $color-loud;
+		&, a {
+			@include link-color($color-loud);
+		}
 	}
 	tbody {
 		th, td { 
@@ -442,7 +481,7 @@ table {
 		}
 		tr:hover { 
 			th, td { 
-				background: $color-shade;
+				background-color: tint($color-shade, 75%);
 			}
 		}
 	}
@@ -452,6 +491,18 @@ table {
 		text-align: right;
 		margin: $spacing * 0.5 0 0 0;
 		caption-side: bottom;
+	}
+	.col-status {
+		width: 1px;
+		padding-left: $gutter;
+		text-align: right;
+		.status {
+			width: 100%;
+		}
+	}
+	.col-create {
+		width: 250px;
+		text-align: right;
 	}
 }
 
@@ -510,12 +561,11 @@ select {
 	&[disabled] {
 		background-color: $color-shade;
 	}
-	&:focus:invalid {
-		border-color: $color-negative;
-		@include box-shadow(tint($color-negative, 20%) 0 0 6px 0);
-	}
+	// &:focus:invalid {
+	// 	border-color: $color-negative;
+	// }
 	@include placeholder {
-		color: $color-quiet;
+		color: tint($color-quiet, 50%);
 	}
 }
 input[type=radio],
@@ -576,22 +626,46 @@ button,
 	width: auto;
 	padding: 0 $input-padding + 9px;
 	margin: 0;
-	color: white;
-	background-color: $color-positive;
+	@include link-color(white);
+	background-color: $color-focus;
 	border: $input-border-width solid;
-	border-color: $color-positive;
+	border-color: $color-focus;
 	@include border-radius($radius);
 	outline: 0;
 	cursor: pointer;
 	text-decoration: none;
 	-webkit-appearance: none;
 	&:hover { 
-		background-color: shade($color-positive, 20%);
-		border-color: shade($color-positive, 20%);
+		background-color: shade($color-focus, 20%);
+		border-color: shade($color-focus, 20%);
 	}
 	&:active { 
-		background-color: shade($color-active, 0%);
-		border-color: shade($color-active, 0%);
+		background-color: shade($color-focus, 20%);
+		border-color: shade($color-focus, 20%);
+	}
+	&.button-positive {
+		background-color: $color-positive;
+		border-color: $color-positive;
+		&:hover { 
+			background-color: shade($color-positive, 20%);
+			border-color: shade($color-positive, 20%);
+		}
+		&:active { 
+			background-color: shade($color-positive, 40%);
+			border-color: shade($color-positive, 40%);
+		}
+	}
+	&.button-negative {
+		background-color: $color-quieter;
+		border-color: $color-quieter;
+		&:hover { 
+			background-color: shade($color-negative, 0%);
+			border-color: shade($color-negative, 0%);
+		}
+		&:active { 
+			background-color: shade($color-negative, 20%);
+			border-color: shade($color-negative, 20%);
+		}
 	}
 }
 .button { 
@@ -649,9 +723,8 @@ button,
 /* Form */
 
 form { 
-	margin: $spacing 0 0 0;
+	margin: 0;
 	padding: 0;
-	@include flush;
 }
 fieldset { 
 	margin: $spacing 0 0 0;
@@ -663,20 +736,45 @@ legend {
 	display: none;
 }
 
+.form-block {
+	margin: $gutter 0 0 0;
+	border: solid $color-divide;
+	border-width: 1px 0;
+	.form-legend {
+		float: left;
+		width: 250px;
+		padding: $gutter $gutter $gutter 0; 
+		border-right: 1px solid $color-shade;
+		@include flush;
+		@include font-size(-1);
+		p {
+			margin-top: $spacing * 0.5;
+		}
+	}
+	.form-items {
+		margin-left: 249px;
+		border-left: 1px solid $color-shade;
+		padding: $gutter 0 $gutter $gutter; 
+		@include flush;
+	}
+}
+
+
 .form-item { 
 	margin: $spacing 0 0 0;
 	+ .form-item {
-		margin-top: round($spacing * 0.5);
+		// margin-top: $spacing * 0.5;
 	}
 	> label {
 		color: $color-loud;
 		display: block;
+		font-weight: 500;
 	}
 	> div { 
-		margin: round($spacing  * 0.25) 0 0 0;
+		margin: $spacing  * 0.25 0 0 0;
 		p { 
 			@include font-size(-1);
-			margin-top: round($spacing  * 0.25);
+			margin-top: round($spacing  * 0.4);
 			line-height: $line-height-tight;
 			& + p {
 				margin-top: 0;
@@ -686,37 +784,13 @@ legend {
 			padding-right: 0.5em;
 		}
 	}
-	&.required {
+	&.optional {
 		> label:after {
-			content: '✱';
-			color: tint($color-quiet, 30%);
+			content: 'Optional';
+			color: tint($color-quiet, 0%);
 			margin-left: 0.25em;
-		}
-	}
-	@include media(960px) {
-		$label-width: 160px;
-		clear: both;
-		> label { 
-			float: left;
-			width: ($label-width - $gutter);
-			margin: $input-padding + $input-border-width 0 0 0;
-			text-align: right;
-			&.shallow { 
-				margin-top: 0;
-			}
-		}
-		> div { 
-			margin-left: $label-width;
-		}
-		&.required {
-			> label:before {
-				content: '✱';
-				color: tint($color-quiet, 70%);
-				margin-right: 0.25em;
-			}
-			> label:after {
-				content: none;
-			}
+			float: right;
+			font-weight: 300;
 		}
 	}
 }

@@ -1,19 +1,12 @@
 config/config.php
 data/
-vendor/*/*/doc/
-vendor/*/*/docs/
-vendor/*/*/example/
-vendor/*/*/examples/
-vendor/*/*/notes/
-vendor/*/*/test-suite/
-vendor/*/*/tests/
 
-public/demo
-.sass-cache
+.sass-cache/
+vendor/
+bower_components/
+node_modules/
+public/demo/
 composer.lock
-vendor
-bower_components
-node_modules
 npm-debug.log
 
 .DS_Store

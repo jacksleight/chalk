@@ -20,10 +20,15 @@ use Ayre,
 /**
  * @ORM\Entity
  * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="entity_type", type="string")
+ * @ORM\DiscriminatorColumn(name="entity_class", type="string")
 */
 abstract class Content extends Entity implements Loggable, Publishable, Searchable, Trackable, Versionable
 {
+	public static $info = [
+		'singular'	=> 'Content',
+		'plural'	=> 'Contents',
+	];
+	
     use Publishable\Implementation,
     	Trackable\Implementation,
     	Versionable\Implementation {
@@ -36,17 +41,7 @@ abstract class Content extends Entity implements Loggable, Publishable, Searchab
      * @ORM\GeneratedValue
      */
     protected $id;
-	
-	/**
-     * @ORM\Column(type="string")
-     */
-    protected $type;
-	
-	/**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $subtype;
-	
+		
 	/**
      * @ORM\Column(type="string")
      */
@@ -59,7 +54,7 @@ abstract class Content extends Entity implements Loggable, Publishable, Searchab
 	
 	/**
      * @ORM\Column(type="string")
-     * @Gedmo\Slug(fields={"name"}, unique=false)
+     * @Gedmo\Slug(fields={"name"}, unique=false, updatable=false)
      */
 	protected $slug;
 	
@@ -70,11 +65,16 @@ abstract class Content extends Entity implements Loggable, Publishable, Searchab
 	
 	public function __construct()
 	{	
-		$this->type		= Ayre::type($this)->type;
 		$this->nodes	= new ArrayCollection();
 		$this->actions	= new ArrayCollection();
 		
 		$this->__constructVersionable();
+	}
+
+	protected function _alterSlugMetadata($md)
+	{
+		$md['validator']->removeValidator('Js\Validator\Set');
+		return $md;
 	}
 			
 	public function searchFields()

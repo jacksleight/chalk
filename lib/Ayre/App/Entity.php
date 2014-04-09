@@ -29,13 +29,37 @@ class Entity implements \Coast\App\Access
     	return $this->_em;
     }
 
-    public function call($id)
+    public function call($class)
     {
-    	return $this->_em->getRepository(Ayre::type($id)->class);
+    	return $this->_em->getRepository($class);
     }
 
     public function __call($name, array $args)
     {
         return call_user_func_array(array($this->_em, $name), $args);
+    }
+
+    public function wrap($object, $allowed = null, array $md = null)
+    {
+        if ($object instanceof \Ayre\Entity) {
+            return new \Ayre\Wrapper\Entity($object, $allowed);
+        } elseif ($object instanceof \Doctrine\Common\Collections\Collection) {
+            return new \Ayre\Wrapper\Collection($object, $allowed, null, null, $md);
+        } else {
+            throw new \Exception();
+        }
+    }
+    
+    public function isPersisted(Ayre\Entity $entity)
+    {
+        $uow = $this->_em->getUnitOfWork();
+        return $uow->getEntityState($entity) == \Doctrine\ORM\UnitOfWork::STATE_MANAGED;
+    }
+
+    public function changes(Ayre\Entity $entity)
+    {
+        $uow = $this->_em->getUnitOfWork();
+        $uow->computeChangeSets();
+        return $uow->getEntityChangeSet($entity);
     }
 }
