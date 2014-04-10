@@ -5,15 +5,15 @@
 	<header class="header">
 		<ul class="toggle">
 			<li>
-				<a href="">
-					<i class="fa fa-sitemap"></i>
-					Structure
-				</a>
-			</li>
-			<li>
 				<a href="#" class="active">
 					<i class="fa fa-picture-o"></i>
 					Content
+				</a>
+			</li>
+			<li>
+				<a href="">
+					<i class="fa fa-sitemap"></i>
+					Structure
 				</a>
 			</li>
 		</ul>

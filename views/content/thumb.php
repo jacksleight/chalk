@@ -20,6 +20,7 @@ $covered  = isset($covered) && $covered;
 					<? if ($covered) { ?>
 						<div class="progress"><span style="height: 100%;"></span></div>
 					<? } ?>
+					<span class="label status status-<?= $content->status ?>"><?= $content->status ?></span>
 				<? } ?>
 			</div>
 			<figcaption>
@@ -27,7 +28,9 @@ $covered  = isset($covered) && $covered;
 				<? if ($template) { ?>
 					Waiting…
 				<? } else if ($content instanceof \Ayre\Entity\File) { ?>
-					<span class="info"><?= $this->mimeTypes[$content->mimeType] ?></span>
+					<span class="info"><?= isset($this->mimeTypes[$content->mimeType])
+						? $this->mimeTypes[$content->mimeType]
+						: $content->mimeType ?></span>
 				<? } ?>
 			</figcaption>
 		</figure>

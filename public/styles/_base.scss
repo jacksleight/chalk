@@ -199,8 +199,8 @@ small {
 /* Label */
 
 .label {
-	background-color: $color-quieter;
-	border: 1px solid $color-quieter;
+	background-color: $color-quiet;
+	border: 1px solid $color-quiet;
 	color: white;
 	font-weight: 500;
 	@include font-size(-1);
@@ -217,7 +217,7 @@ small {
 	text-align: right;
 	&.status-archived {
 		background-color: white;
-		color: $color-quieter;
+		color: $color-quiet;
 	}
 	&.status-pending {
 		background-color: $color-negative;
@@ -331,6 +331,7 @@ figure {
 /* Thumbs */
 
 .thumbs {
+	margin-top: $gutter;
 	@include no-bullets;
 	@include inline-blocks('li', $gutter, $gutter);
 	li {
@@ -347,9 +348,6 @@ figure {
 	}
 	a {
 		text-decoration: none;
-	}
-	.filters + & {
-		margin-top: $gutter;
 	}
 }
 .thumb {
@@ -402,6 +400,11 @@ figure {
 					top: 0;
 				}
 			}
+		}
+		.label {
+			position: absolute;
+			bottom: 0;
+			right: 0;
 		}
 	}
 	figcaption {
@@ -554,7 +557,7 @@ select {
 	padding: 0 $input-padding + 3px;
 	background-color: white;
 	border: $input-border-width solid;
-	border-color: tint($color-primary, 75%);
+	border-color: $color-quieter;
 	@include border-radius($radius);
 	outline: 0;
 	-webkit-appearance: none;
@@ -565,7 +568,7 @@ select {
 	// 	border-color: $color-negative;
 	// }
 	@include placeholder {
-		color: tint($color-quiet, 50%);
+		color: $color-quieter;
 	}
 }
 input[type=radio],
@@ -624,7 +627,7 @@ button,
 	line-height: $input-height - ($input-border-width * 2);
 	vertical-align: baseline;
 	width: auto;
-	padding: 0 $input-padding + 9px;
+	padding: 0 $input-padding + 5px;
 	margin: 0;
 	@include link-color(white);
 	background-color: $color-focus;
@@ -831,22 +834,72 @@ legend {
 .filters {
 	margin-top: $gutter;
 	@include no-bullets;
-	@include inline-blocks('li');
-	li {
-		width: 20%;
+	@include inline-blocks('> li');
+	position: relative;
+	z-index: 10;
+	> li {
+		width: $width-3;
 		& + li div {
-			border-left: 0;
+			border-left: 0 !important;
 		}
 	}
-	div {
+	i {
+		color: $color-quiet;
+	}
+}
+
+/* Dropdown */
+
+.dropdown {
+	position: relative;
+	cursor: default;
+	.dropdown-value {
 		height: $input-height;
 		line-height: $input-height - ($input-border-width * 2);
 		vertical-align: baseline;
-		padding: 0 $input-padding + 9px;
-		border: 1px solid tint($color-primary, 75%);
-		color: $color-quiet;
+		padding: 0 $input-padding + 5px;
+		border: 1px solid $color-quieter;
 		overflow: hidden;
 		white-space: nowrap;
+	}
+	.dropdown-placeholder {
+		color: $color-quieter;
+	}
+	.dropdown-list {
+		position: absolute;
+		top: 100%;
+		left: -1px;
+		right: 0;
+		max-height: 0;
+		overflow: hidden;
+		white-space: nowrap;
+		@include transition(all $speed ease);
+	}
+	ul {
+		margin-top: 0;
+		border: 1px solid $color-quieter;
+		border-top: 0;
+		background-color: white;
+		@include no-bullets;
+		max-height: 300px;
+		overflow: auto;
+	}
+	li {
+		border-top: 1px solid $color-shade;
+		&:first-child {
+			border-top: 0;
+		}
+	}
+	label {
+		padding: 6px $input-padding + 5px;
+		display: block;
+		cursor: pointer;
+		&:hover {
+			background-color: tint($color-shade, 75%);
+		}
+	}
+	&:hover .dropdown-list {
+		max-height: 300px;
 	}
 }
 
@@ -855,5 +908,20 @@ legend {
 .upload {
 	.upload-input {
 		display: none;
+	}
+}
+
+/* Search */
+
+.search {
+	position: relative;
+	i {
+		position: absolute;
+		top: 50%;
+		left: $input-padding + 5px + $input-border-width;
+		margin-top: -8px;
+	}
+	input {
+		padding-left: $input-padding + 5px + $input-border-width + 15px + 7px;
 	}
 }

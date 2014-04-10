@@ -10,16 +10,16 @@ $line-height-tight:		$line-height - 0.2;
 /* Colors */
 
 $color-primary:			#3E4651;
-$color-focus:			#00B5B5;
+$color-focus:			adjust-hue(#00B5B5, 5deg);
 $color-active:			#FCB941;
 
-$color-positive:		#2CC990;
+$color-positive:		adjust-hue(#2CC990, -20deg);
 $color-negative:		#FC6042;
 $color-highlight:		#ffff00;
 
 $color-foreground:		$color-primary;
-$color-quiet:			tint($color-foreground, 50%);
-$color-quieter:			tint($color-foreground, 75%);
+$color-quiet:			tint($color-primary, 50%);
+$color-quieter:			tint($color-primary, 75%);
 $color-loud:			shade($color-primary, 50%);
 
 $color-background:		white;

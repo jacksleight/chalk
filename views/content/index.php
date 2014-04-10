@@ -2,37 +2,24 @@
 	'class' => 'upload',
 ]) ?>
 <? $this->block('main') ?>
+<?php
+$filter = $this->entity->wrap(new \Ayre\Filter())
+	->graphFromArray($req->queryParams());
+$entites = $this->entity($entityType->class)
+	->fetchAll($filter->toArray());
+?>
 
 <ul class="toolbar">
 	<li>
 		<a href="<?= $this->url([
 			'action' => 'edit',
 		]) ?>" class="button">
-			<i class="fa fa-plus"></i> Add <?= $req->type->info->singular ?>
+			<i class="fa fa-plus"></i> Add <?= $entityType->info->singular ?>
 		</a>
 	</li>
 </ul>
-<h1><?= $req->type->info->plural ?></h1>
-<?php
-$contents = array_reverse($this->entity($req->type->class)->findAll());
-?>
-<ul class="filters">
-	<li>
-		<input type="search" placeholder="Search">
-	</li>
-	<li>
-		<div><i class="fa fa-file-o"></i>Type</div>
-	</li>
-	<li>
-		<div><i class="fa fa-calendar"></i> Date Added</div>
-	</li>
-	<li>
-		<div><i class="fa fa-user"></i> Added By</div>
-	</li>
-	<li>
-		<div><i class="fa fa-check-circle"></i>Draft, Pending, Published</div>
-	</li>
-</ul>
+<h1><?= $entityType->info->plural ?></h1>
+<?= $this->render('filters', ['filter' => $filter]) ?>
 <table>
 	<colgroup>
 		<col class="col-name">
@@ -47,8 +34,8 @@ $contents = array_reverse($this->entity($req->type->class)->findAll());
 		</tr>
 	</thead>
 	<tbody>
-		<? foreach ($contents as $content) { ?>
-			<?= $this->render('row', ['content' => $content]) ?>
+		<? foreach ($entites as $entity) { ?>
+			<?= $this->render('row', ['content' => $entity]) ?>
 		<? } ?>
 	</tbody>
 </table>

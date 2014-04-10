@@ -29,7 +29,7 @@ class Index extends Repository
         return $index;
     }
 
-    public function query($query, $classes = array())
+    public function search($query, $classes = array())
     {
         $conn = $this->_em->getConnection();
 
@@ -45,7 +45,7 @@ class Index extends Repository
         return $conn->query("
             SELECT i.entity_class, i.entity_id,
                 MATCH(i.content) AGAINST ({$query} IN BOOLEAN MODE) AS score
-            FROM core_index AS s
+            FROM core_index AS i
             WHERE MATCH(i.content) AGAINST ({$query} IN BOOLEAN MODE)
                 {$where}
             ORDER BY score DESC

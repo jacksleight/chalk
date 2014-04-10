@@ -14,18 +14,14 @@ class Content extends Action
 {
 	public function preDispatch(Request $req, Response $res)
 	{
-		$req->type = Ayre::type($req->type);
+		$req->view->entityType = $req->entityType = Ayre::type($req->entityType);
 	}
 
 	public function postDispatch(Request $req, Response $res)
 	{
-		$path = $this->view->has("{$req->type->local->path}/{$req->action}")
-			? "{$req->type->local->path}/{$req->action}"
+		$req->view->path = $this->view->has("{$req->entityType->local->path}/{$req->action}")
+			? "{$req->entityType->local->path}/{$req->action}"
 			: "{$req->controller}/{$req->action}";
-		return $res->html($this->view->render($path, array(
-			'req' => $req,
-			'res' => $res,
-		)));
 	}
 
 	public function index(Request $req, Response $res)
@@ -33,10 +29,9 @@ class Content extends Action
 
 	public function edit(Request $req, Response $res)
 	{
-		$wrap = $this->entity->wrap(
-			$content = $this->entity($req->type->class)->findOrCreate($req->id)
+		$req->view->entity = $wrap = $this->entity->wrap(
+			$entity = $this->entity($req->entityType->class)->findOrCreate($req->id)
 		);
-		$this->req->wrap = $wrap;
 
 		if (!$req->isPost()) {
 			return;
@@ -47,8 +42,8 @@ class Content extends Action
 			return;
 		}
 
-		if (!$this->entity->isPersisted($content)) {
-			$this->entity->persist($content);
+		if (!$this->entity->isPersisted($entity)) {
+			$this->entity->persist($entity);
 		}
 		$this->entity->flush();
 

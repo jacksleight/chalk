@@ -10,14 +10,70 @@ use Ayre\Repository;
 
 class Content extends Repository
 {
+	public function fetchAll($criteria = array(), $sort = null, $page = null)
+	{
+		$criteria = $criteria + [
+			'search'		=> null,
+			'createDateMin'	=> null,
+			'createUsers'	=> [],
+			'statuses'		=> [],
+		];
+
+		$params = [];
+		$qb = $this->_em->createQueryBuilder()
+			->select("c")
+			->from($this->_class->name, "c")
+			->leftJoin("c.versions", "v", "WITH", "c.id < v.id")
+			->andWhere("v.id IS NULL");
+		
+		if (isset($sort)) {
+
+		} else {
+			$qb->addOrderBy("c.createDate", "DESC");
+		}
+
+		if (isset($criteria['search'])) {
+			$results = $this->_em->getRepository('Ayre\Entity\Index')
+				->search($criteria['search'], $this->_class->name);
+			$ids = \Coast\array_column($results, 'entity_id');
+			$qb ->andWhere("c.id IN (:ids)")
+				->addSelect("FIELD(c.id, :ids) AS HIDDEN sort")
+				->orderBy("sort");
+			$params['ids'] = $ids;
+		}
+		if (isset($criteria['createDateMin'])) {
+			$qb->andWhere("c.createDate >= :createDateMin");
+			$params['createDateMin'] = new \DateTime("{$criteria['createDateMin']}");
+		}
+		if (isset($criteria['createDateMax'])) {
+			$qb->andWhere("c.createDate <= :createDateMax");
+			$params['createDateMax'] = new \DateTime("{$criteria['createDateMax']}");
+		}
+		if (count($criteria['createUsers'])) {
+			$qb->andWhere("c.createUser IN (:createUsers)");
+			$params['createUsers'] = $criteria['createUsers'];
+		}
+		if (count($criteria['statuses'])) {
+			$qb->andWhere("c.status IN (:statuses)");
+			$params['statuses'] = $criteria['statuses'];
+		}
+
+
+		
+		return $qb
+			->getQuery()
+			->setParameters($params)
+			->getResult();
+	}
+
 	public function fetchAllForPublish()
 	{
 		return $this->_em->createQueryBuilder()
-			->select("content")
-			->from("Ayre\Content", "content")
-			->where("content.status IN (:statuses)")
-			->addOrderBy("content.master")
-			->addOrderBy("content.version", "DESC")
+			->select("c")
+			->from($this->_class->name, "c")
+			->where("c.status IN (:statuses)")
+			->addOrderBy("c.master")
+			->addOrderBy("c.version", "DESC")
 			->getQuery()
 			->setParameters([
 				'statuses' => [

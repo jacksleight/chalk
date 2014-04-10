@@ -12837,12 +12837,18 @@ $('.upload').each(function(i, el) {
 		var replace	= $($.parseHTML(result.html.trim())[0]);
 		data.context.replaceWith(replace);
 		data.context = replace;
-		setTimeout(function() {
+		var reveal = function() {
 			data.context.find('.progress')
 				.addClass('out')
 			data.context.find('.progress span')
 				.css('height', 0);
-		}, 100);
+		};
+		var image = data.context.find('img');
+		if (image.length) {
+			image[0].onload = reveal;
+		} else {
+			setTimeout(reveal, 0);
+		}
 	});
 	button.click(function(ev) {
 		$(el).find('.upload-input').trigger('click');
@@ -12856,3 +12862,11 @@ $('.linkable').each(function(i, el) {
 		window.location.href = link.href;
 	});
 });
+
+$('.submitable').each(function(i, form) {
+	var inputs = $(form).find('input');
+	$(inputs).change(function(ev) {
+		$(form).trigger('submit');
+	});
+});
+

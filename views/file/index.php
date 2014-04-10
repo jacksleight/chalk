@@ -2,38 +2,25 @@
 	'class' => 'upload',
 ]) ?>
 <? $this->block('main') ?>
+<?php
+$filter = $this->entity->wrap(new \Ayre\Filter())
+	->graphFromArray($req->queryParams());
+$entites = $this->entity($entityType->class)
+	->fetchAll($filter->toArray());
+?>
 
 <ul class="toolbar">
 	<li>
 		<span class="button upload-button">
-			<i class="fa fa-upload"></i> Upload <?= $req->type->info->singular ?>
+			<i class="fa fa-upload"></i> Upload <?= $entityType->info->singular ?>
 		</span>
 	</li>
 </ul>
-<h1><?= $req->type->info->plural ?></h1>
-<?php
-$contents = array_reverse($this->entity($req->type->class)->findAll());
-?>
-<ul class="filters">
-	<li>
-		<input type="search" placeholder="Search">
-	</li>
-	<li>
-		<div><i class="fa fa-file-o"></i>Type</div>
-	</li>
-	<li>
-		<div><i class="fa fa-calendar"></i> Date Added</div>
-	</li>
-	<li>
-		<div><i class="fa fa-user"></i> Added By</div>
-	</li>
-	<li>
-		<div><i class="fa fa-check-circle"></i>Draft, Pending, Published</div>
-	</li>
-</ul>
+<h1><?= $entityType->info->plural ?></h1>
+<?= $this->render('/content/filters', ['filter' => $filter]) ?>
 <ul class="thumbs upload-list">
-	<? foreach ($contents as $content) { ?>
-		<?= $this->render('/content/thumb', ['content' => $content]) ?>
+	<? foreach ($entites as $entity) { ?>
+		<?= $this->render('/content/thumb', ['content' => $entity]) ?>
 	<? } ?>
 </ul>
 <input class="upload-input" type="file" name="files[]" data-url="<?= $this->url(['action' => 'upload']) ?>" multiple>

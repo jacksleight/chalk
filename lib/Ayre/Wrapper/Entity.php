@@ -25,6 +25,10 @@ class Entity extends \Ayre\Wrapper
 					: $md;
 				foreach ($md as $key => $value) {
 					$value['context'] = array_merge($this->getContext(), array($name));
+					$value['contextName'] = $id = $value['context'][0] 
+						. (count($value['context']) > 1
+							? '[' . implode('][', array_slice($value['context'], 1)) . ']'
+							: '');
 					$md[$key] = $value;
 				}
 				$md = $type == \Ayre\Entity::MD_PROPERTY
@@ -95,6 +99,10 @@ class Entity extends \Ayre\Wrapper
 			return;
 		}
 		if (is_string($value)) {
+			$value = trim($value);
+			if (strlen($value) == 0) {
+				$value = null;
+			}
 			$md = $this->getMetadata(\Ayre\Entity::MD_PROPERTY, $name);
 			switch ($md['type']) {
 				case 'boolean':
