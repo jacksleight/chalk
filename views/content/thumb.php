@@ -13,14 +13,14 @@ $covered  = isset($covered) && $covered;
 					<div class="progress"><span style="height: 0%;"></span></div>
 				<? } else { ?>
 					<? if ($content instanceof \Ayre\Entity\File && $content->mimeType == 'image/jpeg') { ?>
-						<img src="<?= $this->url($this->image->lorempixel(200)) . '?' . rand() ?>">
+						<img src="<?= $this->url($this->image($content->file, 'resize', ['size' => '400', 'crop' => true])) ?>">
 					<? } else if ($content instanceof \Ayre\Entity\File) { ?>
 						<div class="text"><span><?= $content->extName ?></span></div>
 					<? } ?>
+					<span class="label status status-<?= $content->status ?>"><?= $content->status ?></span>
 					<? if ($covered) { ?>
 						<div class="progress"><span style="height: 100%;"></span></div>
 					<? } ?>
-					<span class="label status status-<?= $content->status ?>"><?= $content->status ?></span>
 				<? } ?>
 			</div>
 			<figcaption>

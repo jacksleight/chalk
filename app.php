@@ -68,11 +68,15 @@ $app->set('config', $config)
 	->set('swift', $app->import('app_swift.php'))
 	->set('mimeTypes', $app->import('app_mime-types.php'))
 	->set('html', new \Js\App\Html())
-	->set('image', new \Js\App\Image())
 //  ->set('message', new App\Message())
 //  ->set('oembed', new App\Oembed($config->oembed))
 	->set('view', new App\View([
 		'dir' => 'views',
+	]))
+	->add('image', new \Toast\App\Image([
+		'dir'			=> 'public/data/store/files',
+		'outputDir'		=> 'public/data/cache/images',
+		'transforms'	=> $app->import('app_transforms.php')
 	]))
 	->add('locale', new \Js\App\Locale([
 		'cookie'  => 'locale',

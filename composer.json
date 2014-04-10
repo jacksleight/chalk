@@ -1,11 +1,15 @@
 {
+  "repositories": [
+    {"type": "vcs", "url": "git@github.com:jacksleight/toast.git"}
+  ],
   "require": {
     "doctrine/orm": "2.4.*",
     "gedmo/doctrine-extensions": "2.3.*",
     "swiftmailer/swiftmailer": "5.1.*",
     "intervention/image": "1.6.*",
     "gargron/fileupload": "1.0.*",
-    "jacksleight/coast": "dev-master"
+    "jacksleight/coast": "dev-master",
+    "jacksleight/toast": "dev-master"
   },
   "autoload": {
     "psr-0": {
