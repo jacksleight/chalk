@@ -71,7 +71,7 @@ class Listener implements EventSubscriber
 				isset($changeSet['status']) &&
 				$changeSet['status'][0] != $changeSet['status'][1]
 			) {
-				$log->type = constant('Entity\Log::TYPE_STATUS_' . strtoupper($entity->status));
+				$log->type = constant('Ayre\Entity\Log::TYPE_STATUS_' . strtoupper($entity->status));
 			} else {
 				$log->type = Entity\Log::TYPE_MODIFY;
 			}

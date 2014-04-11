@@ -74,9 +74,6 @@ html, body {
 		text-align: center;
 		font-weight: 500;
 	}
-	&, a {
-		@include link-color($color-primary);
-	}
 	a {
 		@include hover-link;
 	}

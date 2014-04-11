@@ -204,7 +204,7 @@ small {
 	color: white;
 	font-weight: 500;
 	@include font-size(-1);
-	padding: 0 6px;
+	padding: 0 8px;
 	display: inline-block;
 	line-height: 1.6;
 }
@@ -213,15 +213,14 @@ small {
 
 .status {
 	text-transform: uppercase;
-	padding-left: 12px;
 	text-align: right;
 	&.status-archived {
 		background-color: white;
 		color: $color-quiet;
 	}
 	&.status-pending {
-		background-color: $color-negative;
-		border-color: $color-negative;
+		background-color: $color-pending;
+		border-color: $color-pending;
 	}
 	&.status-published {
 		background-color: $color-positive;
@@ -334,8 +333,9 @@ figure {
 	margin-top: $gutter;
 	@include no-bullets;
 	@include inline-blocks('li', $gutter, $gutter);
+	visibility: hidden;
 	li {
-		width: $width-2;
+		width: 200px;
 		figure {
 			margin-top: 0;
 		}
@@ -636,43 +636,37 @@ button,
 	@include border-radius($radius);
 	outline: 0;
 	cursor: pointer;
-	text-decoration: none;
+	text-decoration: none !important;
 	-webkit-appearance: none;
+	display: inline-block;
 	&:hover { 
-		background-color: shade($color-focus, 20%);
-		border-color: shade($color-focus, 20%);
-	}
-	&:active { 
-		background-color: shade($color-focus, 20%);
-		border-color: shade($color-focus, 20%);
+		background-color: shade($color-focus, 10%);
+		border-color: shade($color-focus, 10%);
 	}
 	&.button-positive {
 		background-color: $color-positive;
 		border-color: $color-positive;
 		&:hover { 
-			background-color: shade($color-positive, 20%);
-			border-color: shade($color-positive, 20%);
-		}
-		&:active { 
-			background-color: shade($color-positive, 40%);
-			border-color: shade($color-positive, 40%);
+			background-color: shade($color-positive, 10%);
+			border-color: shade($color-positive, 10%);
 		}
 	}
+	&.button-pending,
 	&.button-negative {
-		background-color: $color-quieter;
-		border-color: $color-quieter;
+		background-color: $color-quiet;
+		border-color: $color-quiet;
 		&:hover { 
 			background-color: shade($color-negative, 0%);
 			border-color: shade($color-negative, 0%);
 		}
-		&:active { 
-			background-color: shade($color-negative, 20%);
-			border-color: shade($color-negative, 20%);
-		}
 	}
-}
-.button { 
-	display: inline-block;
+	&.button-inline {
+		display: inline;
+		height: auto;
+		line-height: $line-height;
+		padding-top: $input-padding + 2px;
+		padding-bottom: $input-padding + 2px;
+	}
 }
 
 input[type=date],
@@ -743,11 +737,10 @@ legend {
 	margin: $gutter 0 0 0;
 	border: solid $color-divide;
 	border-width: 1px 0;
+	padding: $gutter 0; 
 	.form-legend {
 		float: left;
 		width: 250px;
-		padding: $gutter $gutter $gutter 0; 
-		border-right: 1px solid $color-shade;
 		@include flush;
 		@include font-size(-1);
 		p {
@@ -755,9 +748,7 @@ legend {
 		}
 	}
 	.form-items {
-		margin-left: 249px;
-		border-left: 1px solid $color-shade;
-		padding: $gutter 0 $gutter $gutter; 
+		margin-left: 250px + $gutter * 2;
 		@include flush;
 	}
 }

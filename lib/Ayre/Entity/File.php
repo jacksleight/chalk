@@ -144,4 +144,18 @@ class File extends Content
 			'fileName',
 		]);
 	}
+
+	public function isImage()
+	{
+		$info = array_filter(gd_info(), function($a) {
+			return $a === true;
+		});
+		$mimeTypes = array_intersect_key([
+			'GIF Create Support'	=> 'image/gif',
+			'JPEG Support'			=> 'image/jpeg',
+			'PNG Support'			=> 'image/png',
+			'WebP Support'			=> 'image/webp',
+		], $info);
+		return in_array($this->mimeType, $mimeTypes);
+	}
 }

@@ -20,7 +20,10 @@
 		<div class="topbar">
 			<ul class="toolbar">
 				<li>
-					Publish <span class="label">14</span>
+					<a href="#" class="button button-inline button-pending button-invert">
+						<i class="fa fa-globe"></i>
+						Publish <strong>14 Pending</strong> Items…
+					</a>
 				</li>
 			</ul>
 			<ul class="toolbar">

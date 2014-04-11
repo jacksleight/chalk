@@ -58,8 +58,6 @@ class Content extends Repository
 			$params['statuses'] = $criteria['statuses'];
 		}
 
-
-		
 		return $qb
 			->getQuery()
 			->setParameters($params)

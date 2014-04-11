@@ -30,13 +30,15 @@ class Filter extends \Ayre\Entity
 					'nullable'	=> true,
 					'values'	=> [
 						'today'		=> 'Today',
-						'yesterday'	=> 'Since Yesterday',
-						'-1 week'	=> 'Last 1 Week',
-						'-2 weeks'	=> 'Last 2 Weeks',
-						'-1 month'	=> 'Last 4 Month',
-						'-3 month'	=> 'Last 3 Months',
-						'-6 month'	=> 'Last 6 Months',
-						'-1 year'	=> 'Last 1 Year',
+						'-1 hour'	=> 'Past Hour',
+						'-1 day'	=> 'Past Day',
+						'-2 day'	=> 'Past 2 Days',
+						'-1 week'	=> 'Past Week',
+						'-2 week'	=> 'Past 2 Weeks',
+						'-1 month'	=> 'Past Month',
+						'-3 month'	=> 'Past 3 Months',
+						'-6 month'	=> 'Past 6 Months',
+						'-1 year'	=> 'Past Year',
 					]
 				),
 				'createUsers' => array(

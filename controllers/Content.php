@@ -14,7 +14,9 @@ class Content extends Action
 {
 	public function preDispatch(Request $req, Response $res)
 	{
-		$req->view->entityType = $req->entityType = Ayre::type($req->entityType);
+		$req->view->entityType
+			= $req->entityType
+			= Ayre::type(isset($req->entityType) ? $req->entityType : 'core-content');
 	}
 
 	public function postDispatch(Request $req, Response $res)
@@ -87,5 +89,18 @@ class Content extends Action
 		return $res
 			->headers($headers)
 			->json(['files' => $uploads]);
+	}
+
+	public function archive(Request $req, Response $res)
+	{
+		$entity = $this->entity($req->entityType->class)->find($req->id);
+
+		$entity->status = \Ayre::STATUS_ARCHIVED;
+		$this->entity->flush();
+
+		return $res->redirect($this->url(array(
+			'action'	=> null,
+			'id'		=> null,
+		)));
 	}
 }

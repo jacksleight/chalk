@@ -12,7 +12,7 @@ $covered  = isset($covered) && $covered;
 				<? if ($template) { ?>
 					<div class="progress"><span style="height: 0%;"></span></div>
 				<? } else { ?>
-					<? if ($content instanceof \Ayre\Entity\File && $content->mimeType == 'image/jpeg') { ?>
+					<? if ($content instanceof \Ayre\Entity\File && $content->isImage()) { ?>
 						<img src="<?= $this->url($this->image($content->file, 'resize', ['size' => '400', 'crop' => true])) ?>">
 					<? } else if ($content instanceof \Ayre\Entity\File) { ?>
 						<div class="text"><span><?= $content->extName ?></span></div>

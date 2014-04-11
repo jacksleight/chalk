@@ -12821,7 +12821,7 @@ $('.upload').each(function(i, el) {
 		dropZone: el,
 		dataType: 'json',
 		maxChunkSize: 1048576,
-		limitConcurrentUploads: 5
+		limitConcurrentUploads: 3
 	}).bind('fileuploadadd', function (e, data) {
 		var file = data.files[0];
 		data.context = $($.parseHTML(Mustache.render(template, file).trim())[0]);
@@ -12869,4 +12869,25 @@ $('.submitable').each(function(i, form) {
 		$(form).trigger('submit');
 	});
 });
+
+$('.thumbs').each(function(i, el) {
+	var width = $(el).children(':first-child').outerWidth();
+	var refresh = function() {
+		var total = $(el).innerWidth(),
+			count = Math.floor(total / width),
+			perc  = 100 / count;
+		$(el).children().css('width', perc + '%');
+	};
+	refresh();
+	$(window).resize(refresh);
+	$(el).css('visibility', 'visible');
+});
+
+
+
+
+
+
+
+
 

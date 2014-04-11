@@ -268,7 +268,7 @@ small {
   font-weight: 500;
   font-size: 13.91304px;
   font-size: 0.86957rem;
-  padding: 0 6px;
+  padding: 0 8px;
   display: inline-block;
   line-height: 1.6;
 }
@@ -276,7 +276,6 @@ small {
 /* Status */
 .status {
   text-transform: uppercase;
-  padding-left: 12px;
   text-align: right;
 }
 .status.status-archived {
@@ -424,6 +423,7 @@ figure figcaption {
   margin-right: -10px;
   margin-bottom: -20px;
   font-size: 0;
+  visibility: hidden;
 }
 .thumbs li {
   list-style-image: none;
@@ -446,7 +446,7 @@ figure figcaption {
   *display: inline;
 }
 .thumbs li {
-  width: 16.66667%;
+  width: 200px;
 }
 .thumbs li figure {
   margin-top: 0;
@@ -857,8 +857,9 @@ button,
   border-radius: 0;
   outline: 0;
   cursor: pointer;
-  text-decoration: none;
+  text-decoration: none !important;
   -webkit-appearance: none;
+  display: inline-block;
 }
 input[type=reset]:visited,
 input[type=submit]:visited,
@@ -893,16 +894,8 @@ input[type=submit]:hover,
 input[type=button]:hover,
 button:hover,
 .button:hover {
-  background-color: #008490;
-  border-color: #008490;
-}
-input[type=reset]:active,
-input[type=submit]:active,
-input[type=button]:active,
-button:active,
-.button:active {
-  background-color: #008490;
-  border-color: #008490;
+  background-color: #0095a2;
+  border-color: #0095a2;
 }
 input[type=reset].button-positive,
 input[type=submit].button-positive,
@@ -917,44 +910,43 @@ input[type=submit].button-positive:hover,
 input[type=button].button-positive:hover,
 button.button-positive:hover,
 .button.button-positive:hover {
-  background-color: #23a049;
-  border-color: #23a049;
+  background-color: #27b452;
+  border-color: #27b452;
 }
-input[type=reset].button-positive:active,
-input[type=submit].button-positive:active,
-input[type=button].button-positive:active,
-button.button-positive:active,
-.button.button-positive:active {
-  background-color: #1a7837;
-  border-color: #1a7837;
-}
-input[type=reset].button-negative,
+input[type=reset].button-pending, input[type=reset].button-negative,
+input[type=submit].button-pending,
 input[type=submit].button-negative,
+input[type=button].button-pending,
 input[type=button].button-negative,
+button.button-pending,
 button.button-negative,
+.button.button-pending,
 .button.button-negative {
-  background-color: #ced0d3;
-  border-color: #ced0d3;
+  background-color: #9ea2a8;
+  border-color: #9ea2a8;
 }
-input[type=reset].button-negative:hover,
+input[type=reset].button-pending:hover, input[type=reset].button-negative:hover,
+input[type=submit].button-pending:hover,
 input[type=submit].button-negative:hover,
+input[type=button].button-pending:hover,
 input[type=button].button-negative:hover,
+button.button-pending:hover,
 button.button-negative:hover,
+.button.button-pending:hover,
 .button.button-negative:hover {
   background-color: #fc6042;
   border-color: #fc6042;
 }
-input[type=reset].button-negative:active,
-input[type=submit].button-negative:active,
-input[type=button].button-negative:active,
-button.button-negative:active,
-.button.button-negative:active {
-  background-color: #c94c34;
-  border-color: #c94c34;
-}
-
-.button {
-  display: inline-block;
+input[type=reset].button-inline,
+input[type=submit].button-inline,
+input[type=button].button-inline,
+button.button-inline,
+.button.button-inline {
+  display: inline;
+  height: auto;
+  line-height: 1.5;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 input[type=date]:focus,
@@ -1036,12 +1028,11 @@ legend {
   margin: 20px 0 0 0;
   border: solid #dedfe1;
   border-width: 1px 0;
+  padding: 20px 0;
 }
 .form-block .form-legend {
   float: left;
   width: 250px;
-  padding: 20px 20px 20px 0;
-  border-right: 1px solid #f1f2f2;
   font-size: 13.91304px;
   font-size: 0.86957rem;
 }
@@ -1052,9 +1043,7 @@ legend {
   margin-top: 8px;
 }
 .form-block .form-items {
-  margin-left: 249px;
-  border-left: 1px solid #f1f2f2;
-  padding: 20px 0 20px 20px;
+  margin-left: 290px;
 }
 .form-block .form-items > *:first-child {
   margin-top: 0 !important;
@@ -1374,21 +1363,6 @@ html, body {
   margin-top: 0;
   text-align: center;
   font-weight: 500;
-}
-.topbar, .topbar a {
-  color: #3e4651;
-}
-.topbar:visited, .topbar a:visited {
-  color: #3e4651;
-}
-.topbar:focus, .topbar a:focus {
-  color: #3e4651;
-}
-.topbar:hover, .topbar a:hover {
-  color: #3e4651;
-}
-.topbar:active, .topbar a:active {
-  color: #3e4651;
 }
 .topbar a {
   text-decoration: none;
