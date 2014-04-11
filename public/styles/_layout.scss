@@ -9,33 +9,31 @@ html, body {
 	height: 100%;
 }
 
-/* Frame */
+/* Structure */
 
 .frame {
-	display: table;
+	display: flex;
+	flex-direction: row;
 	width: 100%;
 	height: 100%;
 	> * {
-		display: table-row;
-		> * {
-			display: table-cell;
-			vertical-align: top;
-		}
+		display: flex;
+		flex-direction: column;
 	}
 }
-
-/* Header */
-
-.header {
-	height: 0;
-	background: $color-shade;
-}
-
-/* Toggle */
-
-.toggle {
+.sidebar {
 	width: 280px;
+	background: $color-primary;
+	&, a {
+		@include link-color(tint($color-primary, 80%));
+	}
+}
+.body {
+	flex: 1;
+}
+.toggle {
 	background: shade($color-primary, 30%);
+	margin: 0;
 	@include no-bullets;
 	@include inline-blocks('li');
 	&, a {
@@ -48,7 +46,6 @@ html, body {
 		text-decoration: none;
 		padding: $gutter;
 		display: block;
-		text-align: center;
 		&:hover, &:focus {
 			background: shade($color-primary, 50%);
 		}
@@ -57,11 +54,9 @@ html, body {
 		}
 	}
 }
-
-/* Toolbar */
-
 .topbar {
 	padding: $gutter $gutter * 1.5;
+	background: $color-shade;
 	@include flush;
 	.toolbar {
 		float: right;
@@ -78,36 +73,36 @@ html, body {
 		@include hover-link;
 	}
 }
-
-/* Sidebar */
-
-.sidebar {
-	background: $color-primary;
-	padding: $gutter;
-	@include flush;
-	&, a {
-		@include link-color(tint($color-primary, 80%));
-	}
-}
-
 .nav {
-	@include no-bullets;
+	flex: 1;
+	ul {
+		@include no-bullets;
+		margin: 0;
+	}
 	li {
-		border-top: 1px solid transparentize(white, 0.8);
-		padding: 5px 0;
+		border-top: 1px solid tint($color-primary, 10%);
 		&:first-child {
 			border-top: 0;
-			padding-top: 0;
 		}
 	}
 	a {
-		@include hover-link;
+		text-decoration: none;
+		display: block;
+		padding: $gutter * 0.5 $gutter;
+		i {
+			display: none;
+			opacity: 0.5;
+		}
+		&:hover {
+			color: white;
+			i {
+				opacity: 1;
+			}
+		}
 	}
 }
-
-/* Main */
-
 .main {
+	flex: 1;
 	overflow: auto;
 	padding: $gutter $gutter * 1.5;
 	@include flush;
@@ -116,13 +111,15 @@ html, body {
 /* Footer */
 
 .footer	{
-	text-align: right;
-	margin: $gutter 0 0 0;
-	border-top: 1px solid tint($color-divide, 30%);
-	padding-top: $gutter * 0.5;
+	border-top: 1px solid $color-primary;
+	background: shade($color-primary, 30%);
+	text-align: center;
+	padding: $gutter * 0.5;
+	@include font-size(-2);
 	@include flush;
-	@include font-size(-1);
 	&, a {
-		@include link-color(tint($color-quiet, 30%));
+		@include link-color(tint($color-primary, 30%));
 	}
+	
+	
 }

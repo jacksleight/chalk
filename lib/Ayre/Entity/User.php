@@ -18,6 +18,11 @@ use Ayre\Entity,
 */
 class User extends Entity implements Trackable, Searchable
 {
+	public static $info = [
+		'singular'	=> 'User',
+		'plural'	=> 'Users',
+	];
+
     use Trackable\Implementation;
 
 	const ROLE_ROOT				= 'root';

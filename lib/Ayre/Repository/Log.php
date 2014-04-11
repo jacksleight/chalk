@@ -13,7 +13,8 @@ use Ayre,
 
 class Log extends Repository
 {
-	public function fetchAll(Loggable $entity)
+	// @todo this isn't fetch all!
+	public function fetchAll(Loggable $entity = null)
 	{
 		$logs = $this->_em->createQueryBuilder()
 			->select("l")

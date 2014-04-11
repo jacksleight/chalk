@@ -21,9 +21,10 @@ class Content extends Action
 
 	public function postDispatch(Request $req, Response $res)
 	{
-		$req->view->path = $this->view->has("{$req->entityType->local->path}/{$req->action}")
-			? "{$req->entityType->local->path}/{$req->action}"
-			: "{$req->controller}/{$req->action}";
+		$path = "{$req->entityType->local->path}/{$req->action}";
+		if ($this->view->has($path)) {
+			$req->view->path = $path;
+		}
 	}
 
 	public function index(Request $req, Response $res)

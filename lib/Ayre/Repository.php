@@ -23,4 +23,9 @@ class Repository extends EntityRepository
 			? $this->find($id)
 			: $this->create();
 	}
+
+	public function fetchAll()
+	{
+		return $this->findAll();
+	}
 }
