@@ -18,6 +18,8 @@ use Ayre\Entity,
 
 /**
  * @ORM\Entity
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="entity_class", type="string")
 */
 class Tree extends Entity implements Loggable, Publishable, Trackable, Versionable
 {
@@ -67,6 +69,8 @@ class Tree extends Entity implements Loggable, Publishable, Trackable, Versionab
 
 	public function __clone()
 	{
-		$this->root = clone $this->root;
+		if (isset($this->root)) {
+			$this->root = clone $this->root;
+		}
 	}
 }

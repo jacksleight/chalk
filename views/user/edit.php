@@ -5,9 +5,9 @@
 	<? if ($this->entity->isPersisted($entity->getObject())) { ?>
 		<li>
 			<a href="<?= $this->url([
-				'action' => 'delete',
-			]) ?>" class="button button-negative">
-				<i class="fa fa-bin"></i> Delete <?= $entityType->info->singular ?>
+				'action' => 'delete1',
+			]) ?>" class="button button-negative confirm" data-message="Are you sure?<?= "\n\n" ?>If you delete <?= $entity->name ?> you will no longer be able to see which changes they made. If you just want to prevent this user from accessing the system you can disable the account by unchecking the Enabled box.">
+				<i class="fa fa-trash-o"></i> Delete <?= $entityType->info->singular ?>
 			</a>
 		</li>
 	<? } ?>
@@ -16,7 +16,7 @@
 <form action="<?= $this->url->route() ?>" method="post" novalidate>
 	<fieldset class="form-block">
 		<div class="form-legend">
-			<h2>Basic Details</h2>
+			<h2>Details</h2>
 		</div>
 		<div class="form-items">
 			<?= $this->render('/elements/form-item', array(
@@ -31,8 +31,19 @@
 			)) ?>
 			<?= $this->render('/elements/form-item', array(
 				'entity'	=> $entity,
-				'name'		=> 'password',
+				'name'		=> 'passwordPlain',
 				'label'		=> 'Password',
+			)) ?>
+			<?= $this->render('/elements/form-item', array(
+				'entity'	=> $entity,
+				'name'		=> 'role',
+				'label'		=> 'Role',
+				'type'		=> 'input_radio',
+			)) ?>
+			<?= $this->render('/elements/form-item', array(
+				'entity'	=> $entity,
+				'name'		=> 'isEnabled',
+				'label'		=> 'Enabled',
 			)) ?>
 			<p>
 				<button>

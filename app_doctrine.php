@@ -1,8 +1,8 @@
 <?php
 $doct = new \Doctrine\ORM\Configuration();
-$doct->setProxyDir('data/proxy');
+$doct->setProxyDir('data/proxies');
 $doct->setProxyNamespace('Ayre\Proxy');
-$doct->setAutoGenerateProxyClasses(!$app->isDebug());
+$doct->setAutoGenerateProxyClasses(true);
 
 if ($app->isDebug()) {
 	$cache = new \Doctrine\Common\Cache\ArrayCache();

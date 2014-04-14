@@ -1,6 +1,6 @@
 /* General */
 
-* {
+*, *:before, *:after {
 	@include box-sizing(border-box); 
 }	
 html {
@@ -213,7 +213,6 @@ small {
 
 .status {
 	text-transform: uppercase;
-	text-align: right;
 	&.status-archived {
 		background-color: white;
 		color: $color-quiet;
@@ -222,9 +221,14 @@ small {
 		background-color: $color-pending;
 		border-color: $color-pending;
 	}
+	&.status-1,
 	&.status-published {
 		background-color: $color-positive;
 		border-color: $color-positive;
+	}
+	&.status-0 {
+		background-color: $color-negative;
+		border-color: $color-negative;
 	}
 }
 
@@ -495,12 +499,18 @@ table {
 		margin: $spacing * 0.5 0 0 0;
 		caption-side: bottom;
 	}
-	.col-status {
+	.col-status,
+	.col-role {
 		width: 1px;
-		padding-left: $gutter;
-		text-align: right;
+		padding-right: $gutter;
+		text-align: center;
 		.status {
 			width: 100%;
+		}
+		&:last-child {
+			padding-right: 0;
+			padding-left: $gutter;
+			text-align: right;
 		}
 	}
 	.col-create {

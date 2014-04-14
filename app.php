@@ -113,7 +113,7 @@ $app->router
 		'action'     => 'index',
 		'id'    	 => null,
 	])
-	->all('entity', 'content/{entityType}?/{action}?/{id}?', [
+	->all('content', 'content/{entityType}?/{action}?/{id}?', [
 		'controller' => 'content',
 		'action'     => 'index',
 		'id'    	 => null,

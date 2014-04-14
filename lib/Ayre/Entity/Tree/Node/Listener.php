@@ -67,7 +67,7 @@ class Listener implements EventSubscriber
 					array_shift($ancestors);
 				}
 				$node->slug = implode('/', array_map(function($node) {
-		            return $node->content->slug;
+		            return isset($node->content) ? $node->content->slug : null;
 		        }, $ancestors));
 			}
 		}

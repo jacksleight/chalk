@@ -19,14 +19,6 @@ class Content extends Action
 			= Ayre::type(isset($req->entityType) ? $req->entityType : 'core-content');
 	}
 
-	public function postDispatch(Request $req, Response $res)
-	{
-		$path = "{$req->entityType->local->path}/{$req->action}";
-		if ($this->view->has($path)) {
-			$req->view->path = $path;
-		}
-	}
-
 	public function index(Request $req, Response $res)
 	{}
 

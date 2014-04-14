@@ -56,7 +56,7 @@ class Node extends Entity
 
 	/**
      * @ORM\ManyToOne(targetEntity="\Ayre\Entity\Content", inversedBy="nodes")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
 	protected $content;
 
@@ -91,11 +91,13 @@ class Node extends Entity
 
     public function __clone()
     {
-        $this->children = clone $this->children;
-        foreach ($this->children as $child) {
-            $this->children->removeElement($child);
-            $child = clone $child;
-            $child->parent($this);
+        if (isset($this->children)) {
+            $this->children = clone $this->children;
+            foreach ($this->children as $child) {
+                $this->children->removeElement($child);
+                $child = clone $child;
+                $child->parent($this);
+            }
         }
     }
 

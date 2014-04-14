@@ -43,6 +43,11 @@ class User extends Entity implements Trackable, Searchable
 	protected $name;
 	
 	/**
+     * @ORM\Column(type="boolean")
+     */
+	protected $isEnabled = true;
+	
+	/**
      * @ORM\Column(type="string")
      */
 	protected $emailAddress;
@@ -53,6 +58,8 @@ class User extends Entity implements Trackable, Searchable
 	protected $password;
 	
 	protected $passwordPlain;
+
+	protected $passwordPlainConfirm;
 	
 	/**
      * @ORM\Column(type="datetime", nullable=true)
@@ -60,9 +67,9 @@ class User extends Entity implements Trackable, Searchable
 	protected $loginDate;
 	
 	/**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string")
      */
-	protected $role;
+	protected $role = 'contributor';
 	
 	/**
      * @ORM\Column(type="json")
@@ -74,10 +81,44 @@ class User extends Entity implements Trackable, Searchable
      */
 	protected $logs;
 
-	public function passwordPlain($passwordPlain)
+	protected static function _defineMetadata($class)
+	{
+		return array(
+			'fields' => array(
+				'role' => array(
+					'values' => [
+						self::ROLE_CONTRIBUTOR		=> 'Contributor',
+						self::ROLE_EDITOR			=> 'Editor',
+						self::ROLE_ADMINISTRATOR	=> 'Administrator',
+					],
+				),
+				'passwordPlain' => array(
+					'type'		=> 'string',
+					'nullable'	=> true,
+					'validator'	=> new \JS\Validator\Chain(array(
+						new \JS\Validator\Length(6),
+					)),
+				),
+				'passwordPlainConfirm' => array(
+					'type'		=> 'string',
+					'nullable'	=> true,
+				),
+			),
+		);
+	}
+
+	protected function _alterMetadata($name, $data)
+	{
+		if (!isset($this->password) && in_array($name, ['passwordPlain', 'passwordPlainConfirm'])) {
+			$data['validator']->addValidator(new \JS\Validator\Set());
+		}
+		return $data;
+	}
+
+	public function passwordPlain($passwordPlain = null)
 	{
 		if (!isset($passwordPlain)) {
-			return;
+			return $this->passwordPlain;
 		}
 		$this->passwordPlain = $passwordPlain;
 		$this->password = password_hash($passwordPlain, PASSWORD_DEFAULT);

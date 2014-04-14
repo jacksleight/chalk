@@ -17,27 +17,18 @@ $entites = $this->entity($entityType->class)
 <h1><?= $entityType->info->plural ?></h1>
 <table>
 	<colgroup>
-		<col class="col-status">
 		<col class="col-name">
-		<col class="col-emailAddress">
-		<col class="col-role">
+		<col class="col-create">
 	</colgroup>
 	<thead>
 		<tr>
-			<th scope="col" class="col-status">Enabled</th>
 			<th scope="col" class="col-name">Name</th>
-			<th scope="col" class="col-emailAddress">Email Address</th>
-			<th scope="col" class="col-role">Role</th>
+			<th scope="col" class="col-create">Added</th>
 		</tr>
 	</thead>
 	<tbody>
 		<? foreach ($entites as $entity) { ?>
 			<tr class="linkable">
-				<td class="col-status">
-					<span class="label status status-<?= (int) $entity->isEnabled ?>">
-						<i class="fa fa-<?= $entity->isEnabled ? 'check' : 'times' ?>"></i>
-					</span>					
-				</td>
 				<th class="col-name" scope="row">
 					<a href="<?= $this->url([
 						'action'	=> 'edit',
@@ -46,13 +37,9 @@ $entites = $this->entity($entityType->class)
 						<?= $entity->name ?>
 					</a>
 				</th>
-				<td class="col-emailAddress">
-					<a href="mailto:<?= $entity->emailAddress ?>">
-						<?= $entity->emailAddress ?>
-					</a>
-				</td>
-				<td class="col-role">
-					<?= ucfirst($entity->role) ?>
+				<td class="col-create">
+					<?= getRelativeDate($entity->createDate) ?> <small>by</small>
+					<?= isset($entity->createUser) ? $entity->createUser->name : 'System' ?>
 				</td>
 			</tr>
 		<? } ?>

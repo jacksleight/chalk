@@ -26,7 +26,7 @@ $type = !isset($type)
 	<label
 		<?= !in_array($type, ['checkboxes', 'radio']) ? "for=\"_" . implode('_', $md['context']) . "\"" : null ?>
 		<?=  in_array($type, ['checkbox', 'radio', 'range', 'color']) ? "class=\"shallow\"" : null ?>>
-		<? if ($type != 'checkbox') { ?>
+		<? if ($type != 'input_checkbox') { ?>
 			<?= $this->locale->message(isset($label) ? $label : "label_{$name}") ?>
 		<? } ?>
 	</label>

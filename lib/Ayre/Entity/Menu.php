@@ -7,33 +7,10 @@
 namespace Ayre\Entity;
 
 use Ayre\Entity,
-    Ayre\Behaviour\Trackable,
-	Doctrine\Common\Collections\ArrayCollection,
-    Doctrine\ORM\Mapping as ORM,
-    Gedmo\Mapping\Annotation as Gedmo;
+    Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
 */
-class Menu extends Entity implements Trackable
-{
-    use Trackable\Implementation;
-    
-	/**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     */
-	protected $id;
-	
-	/**
-     * @ORM\Column(type="string")
-     */
-    protected $name;
-
-	/**
-     * @ORM\ManyToOne(targetEntity="\Ayre\Entity\Tree", inversedBy="menus")
-     * @ORM\JoinColumn(nullable=false)
-     */
-	protected $tree;
-}
+class Menu extends Tree
+{}

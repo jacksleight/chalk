@@ -3,41 +3,31 @@
 
 <div class="frame">
 	<div class="sidebar">
-		<ul class="toggle">
-			<li>
-				<a href="#" class="active">
-					<i class="fa fa-picture-o fa-fw"></i>
-					Content
-				</a>
-			</li>
-			<li>
-				<a href="">
-					<i class="fa fa-sitemap fa-fw"></i>
-					Structure
-				</a>
-			</li>
-		</ul>
+		<?= $this->render('nav', ['items' => [
+			[
+				'label' => 'Content',
+				'icon'	=> 'fa fa-picture-o fa-fw',
+				'name'	=> 'content',
+			], [
+				'label' => 'Structure',
+				'icon'	=> 'fa fa-sitemap fa-fw',
+				'params'=> ['controller' => 'structure'],
+			]
+		], 'class' => 'toggle']) ?>
 		<nav class="nav">
 			<?= $content->nav ?>			
 		</nav>
-		<ul class="toggle">
-			<li>
-				<a href="<?= $this->url([
-					'controller' => 'user',
-				], 'index', true) ?>">
-					<i class="fa fa-gear fa-fw"></i>
-					Settings
-				</a>
-			</li>
-			<li>
-				<a href="<?= $this->url([
-					'controller' => 'user',
-				], 'index', true) ?>">
-					<i class="fa fa-bar-chart-o fa-fw"></i>
-					Activity
-				</a>
-			</li>
-		</ul>
+		<?= $this->render('nav', ['items' => [
+			[
+				'label' => 'Settings',
+				'icon'	=> 'fa fa-gear fa-fw',
+				'params'=> ['controller' => 'user'],
+			], [
+				'label' => 'Activity',
+				'icon'	=> 'fa fa-bar-chart-o fa-fw',
+				'params'=> ['controller' => 'activity'],
+			]
+		], 'class' => 'toggle']) ?>
 		<footer class="footer c" role="contentinfo">
 			<p>Ayre 0.1.0 © <?= date('Y') ?> <a href="http://jacksleight.com/">Jack Sleight</a></p>
 		</footer>

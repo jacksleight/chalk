@@ -1,31 +1,24 @@
-<?php
-$parents = isset($parents)
-	? $parents
-	: [];
-?>
 <ul class="<?= isset($class) ? $class : null ?>">
-	<? foreach ($items as $label => $children) { ?>
+	<? foreach ($items as $item) { ?>
 		<?php
-		$id      = \Coast\str_simplify($label, '-');
-		$parts	 = array_merge($parents, [$id]);
-		$path	 = implode('/', $parts);
-		$current = isset($req) ? $req->path() : '';
-		$current = strlen($current) ? $current : 'home';
-		$class	 = [
-			strpos($current, $path) === 0 ? 'active' : null,
-			$path == $current ? 'current' : null,
+		$name = isset($item['name'])
+			? $item['name']
+			: 'index';
+		$params = isset($item['params'])
+			? $item['params']
+			: [];
+		$path = $this->url($params, $name, true, false);
+		$class = [
+			strpos($req->path(), $path->toString()) === 0 ? 'active' : null,
 		];
-		$url = $this->url($path == 'home' ? '' : $path);
 		?>
-		<li class="<?= implode(' ', $class) ?>">
-			<a href="<?= $url ?>"><?= $this->escape($label) ?></a>
-			<? if (count($children) > 0) { ?>
-				<?= $this->render('_nav', [
-					'parents'	=> $parts,
-					'items'		=> $children,
-					'class'		=> null,
-				]) ?>
-			<? } ?>
+		<li>
+			<a href="<?= $req->base() . $path ?>" class="<?= implode(' ', $class) ?>">
+				<? if (isset($item['icon'])) { ?>
+					<i class="<?= $item['icon'] ?>"></i>
+				<? } ?>
+				<?= $item['label'] ?>
+			</a>
 		</li>
 	<? } ?>
 </ul>

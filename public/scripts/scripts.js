@@ -83,11 +83,11 @@ $('.thumbs').each(function(i, el) {
 	$(el).css('visibility', 'visible');
 });
 
-
-
-
-
-
-
-
-
+$('.confirm').each(function(i, el) {
+	var message = $(el).attr('data-message') || 'Are you sure?';
+	$(el).click(function(ev) {
+		if (!confirm(message)) {
+			ev.preventDefault();
+		}	
+	});
+});

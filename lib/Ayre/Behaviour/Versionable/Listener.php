@@ -21,10 +21,11 @@ class Listener implements EventSubscriber
 
     public function loadClassMetadata(LoadClassMetadataEventArgs $args)
     {
-        $meta  = $args->getClassMetadata();
-        $class = $meta->name;
+        $meta      = $args->getClassMetadata();
+        $class     = $meta->name;
+        $rootClass = $meta->rootEntityName;
         
-        if (!is_subclass_of($class, 'Ayre\Behaviour\Versionable') || is_subclass_of($class, 'Ayre\Entity\Content')) {
+        if (!is_subclass_of($class, 'Ayre\Behaviour\Versionable') || $class != $rootClass) {
             return;
         }
 

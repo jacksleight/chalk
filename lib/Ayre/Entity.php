@@ -28,7 +28,7 @@ class Entity extends Model
 	public static function injectMetadata(array $md)
 	{
 		$class = get_called_class();
-		self::$_md[$class] = static::_parseMetadata($md);
+		self::$_md[$class] = static::_parseMetadata(\Coast\array_merge_smart($md, $class::_defineMetadata($class)));
 		return self::$_md[$class];
 	}
 

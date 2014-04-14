@@ -22,7 +22,7 @@
 /* Widths & Heights */
 /* Fonts */
 /* General */
-* {
+*, *:before, *:after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -276,7 +276,6 @@ small {
 /* Status */
 .status {
   text-transform: uppercase;
-  text-align: right;
 }
 .status.status-archived {
   background-color: white;
@@ -286,9 +285,13 @@ small {
   background-color: #fc6042;
   border-color: #fc6042;
 }
-.status.status-published {
+.status.status-1, .status.status-published {
   background-color: #2cc95c;
   border-color: #2cc95c;
+}
+.status.status-0 {
+  background-color: #fc6042;
+  border-color: #fc6042;
 }
 
 /* Icons */
@@ -626,13 +629,21 @@ table caption {
   margin: 8px 0 0 0;
   caption-side: bottom;
 }
-table .col-status {
+table .col-status,
+table .col-role {
   width: 1px;
+  padding-right: 20px;
+  text-align: center;
+}
+table .col-status .status,
+table .col-role .status {
+  width: 100%;
+}
+table .col-status:last-child,
+table .col-role:last-child {
+  padding-right: 0;
   padding-left: 20px;
   text-align: right;
-}
-table .col-status .status {
-  width: 100%;
 }
 table .col-create {
   width: 250px;
@@ -1407,16 +1418,23 @@ html, body {
   text-decoration: none;
   display: block;
   padding: 10px 20px;
+  background-color: #3e4651;
 }
-.nav a i {
-  display: none;
-  opacity: 0.5;
-}
-.nav a:hover {
+.nav a:hover, .nav a.active {
   color: white;
+  background-color: #373f48;
 }
-.nav a:hover i {
-  opacity: 1;
+.nav a.active {
+  font-weight: 500;
+  position: relative;
+}
+.nav a.active:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 22px solid;
+  border-color: transparent white transparent transparent;
 }
 
 .main {

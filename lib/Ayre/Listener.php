@@ -24,6 +24,7 @@ class Listener implements EventSubscriber
     {
         $meta      = $args->getClassMetadata();
         $class     = $meta->name;
+        $rootClass = $meta->rootEntityName;
         $namespace = __NAMESPACE__ . '\\Entity';
         try {
             $type = Ayre::type($class);
@@ -31,12 +32,14 @@ class Listener implements EventSubscriber
             return;
         }
         
-        $meta->setTableName($type->type);
-
+        if ($class == $rootClass || $meta->inheritanceType == 2) {
+            $meta->setTableName($type->type);
+        }
+ 
         $repositoryClasses = [
             $type->module->class . '\\Repository\\' . $type->local->class,
-            $type->module->class . '\\Repository\\' . Ayre::type($meta->rootEntityName)->local->class,
-            'Ayre\\Repository\\' . Ayre::type($meta->rootEntityName)->local->class,
+            $type->module->class . '\\Repository\\' . Ayre::type($rootClass)->local->class,
+            'Ayre\\Repository\\' . Ayre::type($rootClass)->local->class,
             $type->module->class . '\\Repository',
             'Ayre\\Repository',
         ];

@@ -6,7 +6,7 @@ use Ayre,
 	Coast\App\Request,
 	Coast\App\Response;
 
-class User extends Ayre\Controller\Entity
+class Domain extends Ayre\Controller\Entity
 {
-	protected $_entityClass = 'Ayre\Entity\User';
+	protected $_entityClass = 'Ayre\Entity\Domain';
 }
