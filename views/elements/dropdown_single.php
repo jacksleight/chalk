@@ -8,14 +8,14 @@ if (isset($null)) {
 }
 ?>
 <div class="dropdown">
-	<div class="dropdown-value">
+	<div class="value">
 		<? if (isset($icon)) { ?>
 			<i class="fa fa-<?= $icon ?>"></i>
 		<? } ?>
 		<? if (count($entity->{$name})) { ?>
 			<?= $values[$entity->{$name}] ?>
 		<? } else { ?>
-			<span class="dropdown-placeholder"><?= $placeholder ?></span>
+			<span class="placeholder"><?= $placeholder ?></span>
 		<? } ?>		
 	</div>
 	<? if (count($values)) { ?>	

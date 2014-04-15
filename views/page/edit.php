@@ -20,7 +20,7 @@
 	<? } ?>
 </h1>
 <form action="<?= $this->url->route() ?>" method="post" novalidate>
-	<fieldset class="form-block advanced">
+	<fieldset class="form-block">
 		<div class="form-legend">
 			<h2>Details</h2>
 		</div>
@@ -30,31 +30,11 @@
 				'name'		=> 'name',
 				'label'		=> 'Name',
 			)) ?>
-			<div class="advanced-body">
-				<?= $this->render('/elements/form-item', array(
-					'entity'	=> $entity,
-					'name'		=> 'slug',
-					'label'		=> 'Slug',
-					'note'		=> 'Alternative text used in URLs.',
-				)) ?>
-				<?= $this->render('/elements/form-item', array(
-					'entity'	=> $entity,
-					'name'		=> 'label',
-					'label'		=> 'Label',
-					'note'		=> 'Alternative text used in navigation.',
-					'placeholder' => $entity->name,
-				)) ?>
-			</div>	
-			<span class="advanced-toggle">
-				<i class="fa fa-chevron-down"></i>
-				Advanced
-			</span>
 		</div>
 	</fieldset>
 	<fieldset class="form-block">
 		<div class="form-legend">
 			<h2>Content</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis aliquid laudantium rem tempora aut. Tempora, veniam quasi voluptate. At, harum.</p>
 		</div>
 		<div class="form-items">
 			<?= $this->render('/elements/form-input', array(

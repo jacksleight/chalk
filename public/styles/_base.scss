@@ -527,6 +527,7 @@ table {
    aligned in the center automatically by the browser (except selects in Firefox) */
 $input-border-width:	1px;
 $input-padding: 		6px;
+$input-padding-horiz:	$input-padding + 4px;
 $input-height:			round($font-size * $line-height)
 						+ ($input-padding * 2)
 						+ ($input-border-width * 2);
@@ -553,7 +554,9 @@ input[type=time],
 input[type=url],
 input[type=week],
 textarea,
-select { 
+select,
+.value { 
+	display: inline-block;
 	@include font-size(0);
 	font-family: $font-family;
 	color: $color-foreground;
@@ -585,7 +588,6 @@ input[type=radio],
 input[type=checkbox] { 
 	vertical-align: 1px;
 }
-
 select { 
 	width: auto;
 	optgroup {
@@ -628,6 +630,15 @@ textarea {
 		font-family: Consolas, monospace;
 	}
 }
+.value {
+	overflow: hidden;
+	white-space: nowrap;
+	vertical-align: bottom;
+	text-overflow: ellipsis;
+	.placeholder {
+		color: $color-quieter;
+	}
+}
 
 input[type=reset],
 input[type=submit],
@@ -636,16 +647,15 @@ button,
 .btn { 
 	font-family: $font-family;
 	@include font-size;
-	height: $input-height;
 	line-height: $input-height - ($input-border-width * 2);
 	vertical-align: baseline;
 	width: auto;
-	padding: 0 $input-padding + 5px;
+	padding: 0 $input-padding-horiz;
 	margin: 0;
-	@include link-color(white);
-	background-color: $color-focus;
+	@include link-color($color-foreground);
+	background-color: $color-shade;
 	border: $input-border-width solid;
-	border-color: $color-focus;
+	border-color: $color-shade;
 	@include border-radius($radius);
 	outline: 0;
 	cursor: pointer;
@@ -653,8 +663,8 @@ button,
 	-webkit-appearance: none;
 	display: inline-block;
 	&:hover { 
-		background-color: shade($color-focus, 10%) !important;
-		border-color: shade($color-focus, 10%) !important;
+		background-color: shade($color-shade, 10%) !important;
+		border-color: shade($color-shade, 10%) !important;
 	}
 	&.btn-block {
 		display: block;
@@ -665,11 +675,21 @@ button,
 	&.btn-inline {
 		display: inline;
 		height: auto;
-		line-height: $line-height;
-		padding-top: $input-padding + 2px;
-		padding-bottom: $input-padding + 2px;
+		line-height: 1;
+		padding-top: $input-padding * 1.5;
+		padding-bottom: $input-padding * 1.5;
+	}
+	&.btn-focus {
+		@include link-color(white);
+		background-color: $color-focus;
+		border-color: $color-focus;
+		&:hover { 
+			background-color: shade($color-focus, 10%) !important;
+			border-color: shade($color-focus, 10%) !important;
+		}
 	}
 	&.btn-positive {
+		@include link-color(white);
 		background-color: $color-positive;
 		border-color: $color-positive;
 		&:hover { 
@@ -677,8 +697,8 @@ button,
 			border-color: shade($color-positive, 10%) !important;
 		}
 	}
-	&.btn-pending,
 	&.btn-negative {
+		@include link-color(white);
 		background-color: $color-negative;
 		border-color: $color-negative;
 		&:hover { 
@@ -687,10 +707,12 @@ button,
 		}
 	}
 	&.btn-quiet {
+		@include link-color(white);
 		background-color: $color-quiet;
 		border-color: $color-quiet;
 	}
 	&.btn-quieter {
+		@include link-color(white);
 		background-color: $color-quieter;
 		border-color: $color-quieter;
 	}
@@ -732,6 +754,50 @@ button,
 	}
 }
 
+.dropdown {
+	position: relative;
+	cursor: default;
+	display: inline-block;
+	vertical-align: bottom;
+	width: 100%;
+	.dropdown-list {
+		position: absolute;
+		top: 100%;
+		left: -1px;
+		right: 0;
+		max-height: 0;
+		overflow: hidden;
+		white-space: nowrap;
+		@include transition(all $speed ease);
+	}
+	ul {
+		margin-top: 0;
+		border: 1px solid $color-quieter;
+		border-top: 0;
+		background-color: white;
+		@include no-bullets;
+		max-height: 300px;
+		overflow: auto;
+	}
+	li {
+		border-top: 1px solid $color-shade;
+		&:first-child {
+			border-top: 0;
+		}
+		label, span, a {
+			padding: $gutter * 0.2 $input-padding-horiz;
+			display: block;
+			cursor: pointer;
+			&:hover {
+				background-color: tint($color-shade, 75%);
+			}
+		}
+	}
+	&:hover .dropdown-list {
+		max-height: 300px;
+	}
+}
+
 ::-moz-focus-inner {
 	border: 0;
 	padding: 0;
@@ -759,7 +825,6 @@ fieldset {
 legend { 
 	display: none;
 }
-
 .form-block {
 	margin: $gutter 0 0 0;
 	border: solid $color-divide;
@@ -783,8 +848,6 @@ legend {
 		border-top: 0;
 	}
 }
-
-
 .form-item { 
 	margin: $gutter 0 0 0;
 	+ .form-item {
@@ -857,8 +920,6 @@ legend {
 	margin-top: $gutter;
 	@include no-bullets;
 	@include inline-blocks('> li');
-	position: relative;
-	z-index: 10;
 	display: flex;
 	flex-direction: row;
 	> li {
@@ -872,61 +933,6 @@ legend {
 	}
 	i {
 		color: $color-quiet;
-	}
-}
-
-/* Dropdown */
-
-.dropdown {
-	position: relative;
-	cursor: default;
-	.dropdown-value {
-		height: $input-height;
-		line-height: $input-height - ($input-border-width * 2);
-		vertical-align: baseline;
-		padding: 0 $input-padding + 5px;
-		border: 1px solid $color-quieter;
-		overflow: hidden;
-		white-space: nowrap;
-	}
-	.dropdown-placeholder {
-		color: $color-quieter;
-	}
-	.dropdown-list {
-		position: absolute;
-		top: 100%;
-		left: -1px;
-		right: 0;
-		max-height: 0;
-		overflow: hidden;
-		white-space: nowrap;
-		@include transition(all $speed ease);
-	}
-	ul {
-		margin-top: 0;
-		border: 1px solid $color-quieter;
-		border-top: 0;
-		background-color: white;
-		@include no-bullets;
-		max-height: 300px;
-		overflow: auto;
-	}
-	li {
-		border-top: 1px solid $color-shade;
-		&:first-child {
-			border-top: 0;
-		}
-	}
-	label {
-		padding: 6px $input-padding + 5px;
-		display: block;
-		cursor: pointer;
-		&:hover {
-			background-color: tint($color-shade, 75%);
-		}
-	}
-	&:hover .dropdown-list {
-		max-height: 300px;
 	}
 }
 
@@ -945,11 +951,11 @@ legend {
 	i {
 		position: absolute;
 		top: 50%;
-		left: $input-padding + 5px + $input-border-width;
+		left: $input-padding-horiz + $input-border-width;
 		margin-top: -8px;
 	}
 	input {
-		padding-left: $input-padding + 5px + $input-border-width + 15px + 7px;
+		padding-left: $input-padding-horiz + $input-border-width + 15px + 7px;
 	}
 }
 
@@ -967,7 +973,7 @@ legend {
 		background-color: $color-shade;
 		color: $color-quiet;
 		text-align: center;
-		padding: $gutter * 0.25 $gutter;
+		padding: $gutter * 0.2 $gutter;
 		cursor: pointer;
 		@include transition(background $speed ease);
 		&:hover {
@@ -984,40 +990,6 @@ legend {
 		}
 		.advanced-toggle i {
 			@include transform(rotate(180deg));
-		}
-	}
-}
-
-/* Editor */
-
-.body {
-	.mce-tinymce,
-	.mce-panel {
-		border-color: $color-quieter;
-	}
-	.mce-tinymce {
-		@include border-radius(0);
-	}
-	.mce-panel {
-		background: white;
-	}
-	.mce-toolbar-grp {
-		padding: 0;
-	}
-	.mce-flow-layout-item {
-		margin: 0;
-		border-right: 1px solid $color-quieter;
-	}
-	.mce-btn-group .mce-btn, 
-	.mce-btn {
-		border: white;
-		background: white !important;
-		@include border-radius(0);
-		@include box-shadow(none);
-		button {		
-			height: $input-height;	
-			line-height: $input-height - ($input-border-width * 2);
-			padding: 0 $input-padding + 5px;
 		}
 	}
 }

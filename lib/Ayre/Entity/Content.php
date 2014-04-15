@@ -41,17 +41,6 @@ abstract class Content extends Entity implements Loggable, Publishable, Searchab
      * @ORM\Column(type="string")
      */
 	protected $name;
-
-	/**
-     * @ORM\Column(type="string", nullable=true)
-     */
-	protected $label;
-	
-	/**
-     * @ORM\Column(type="string")
-     * @Gedmo\Slug(fields={"name"}, unique=false, updatable=false)
-     */
-	protected $slug;
 	
 	/**
      * @ORM\OneToMany(targetEntity="\Ayre\Entity\Tree\Node", mappedBy="content")
@@ -76,7 +65,6 @@ abstract class Content extends Entity implements Loggable, Publishable, Searchab
 	{
 		return [
 			'name',
-			'label',
 		];
 	}
 }

@@ -86,7 +86,7 @@ class Content extends Ayre\Controller\Entity
 				$upload->html = $this->view->render('/content/thumb', [
 					'content'	=> $file,
 					'covered'	=> true,
-				])->toString();
+				] + (array) $req->view)->toString();
 			}
 		}
 		return $res

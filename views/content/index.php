@@ -13,7 +13,7 @@ $entites = $this->entity($entityType->class)
 	<li>
 		<a href="<?= $this->url([
 			'action' => 'edit',
-		]) ?>" class="btn">
+		]) ?>" class="btn btn-focus">
 			<i class="fa fa-plus"></i> Add <?= $entityType->info->singular ?>
 		</a>
 	</li>

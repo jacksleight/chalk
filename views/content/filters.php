@@ -25,7 +25,7 @@
 				'name'			=> 'createUsers',
 				'icon'			=> 'user',
 				'placeholder'	=> 'Added By',
-				'values'		=> []
+				'values'		=> $this->entity('Ayre\Entity\User')->findAll(),
 			)) ?>
 		</li>
 		<li>

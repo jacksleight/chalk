@@ -131,4 +131,9 @@ class User extends Entity implements Trackable, Searchable
 			'emailAddress',
 		];
 	}
+	
+	public function __toString()
+	{
+		return $this->name;
+	}
 }

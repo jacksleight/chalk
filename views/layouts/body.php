@@ -36,7 +36,7 @@
 		<div class="topbar">
 			<ul class="toolbar">
 				<li>
-					<a href="#" class="btn btn-inline btn-pending btn-quiet">
+					<a href="#" class="btn btn-inline btn-negative btn-quiet">
 						<i class="fa fa-globe"></i>
 						Publish <strong>14 Pending</strong> Items…
 					</a>
@@ -48,6 +48,7 @@
 					Jack Sleight
 				</li>
 				<li>
+					<i class="fa fa-sign-out"></i>
 					<a href="#">Logout</a>
 				</li>
 			</ul>

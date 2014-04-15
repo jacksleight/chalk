@@ -4,14 +4,14 @@ $values = isset($values)
 	: $md['values'];
 ?>
 <div class="dropdown">
-	<div class="dropdown-value">
+	<div class="value">
 		<? if (isset($icon)) { ?>
 			<i class="fa fa-<?= $icon ?>"></i>
 		<? } ?>
 		<? if (count($entity->{$name})) { ?>
 			<?= implode(', ', array_intersect_key($values, array_flip($entity->{$name}))) ?>
 		<? } else { ?>
-			<span class="dropdown-placeholder"><?= $placeholder ?></span>
+			<span class="placeholder"><?= $placeholder ?></span>
 		<? } ?>		
 	</div>
 	<? if (count($values)) { ?>	
@@ -35,7 +35,7 @@ $values = isset($values)
 									? array_map(function($value) { return (string) $value; }, $entity->{$name}->toArray())
 									: $entity->{$name}) ? 'checked' : null ?>
 								<?= isset($class) ? "class=\"{$class}\"" : null ?>> 
-							<?= $this->escape($label) ?>
+							<?= $this->escape((string) $label) ?>
 						</label>
 					</li>
 				<? } ?>
