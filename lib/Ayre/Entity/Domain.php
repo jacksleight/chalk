@@ -13,4 +13,17 @@ use Ayre\Entity,
  * @ORM\Entity
 */
 class Domain extends Tree
-{}
+{
+	protected static function _defineMetadata($class)
+	{
+		return array(
+			'fields' => array(
+				'name' => array(
+					'validator'	=> new \Js\Validator\Chain(array(
+						new \Js\Validator\Hostname(),
+					)),
+				),
+			),
+		);
+	}
+}

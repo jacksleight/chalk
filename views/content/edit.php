@@ -6,7 +6,7 @@
 		<li>
 			<a href="<?= $this->url([
 				'action' => 'archive',
-			]) ?>" class="button button-negative">
+			]) ?>" class="btn btn-negative">
 				<i class="fa fa-archive"></i> Archive <?= $entityType->info->singular ?>
 			</a>
 		</li>
@@ -16,7 +16,7 @@
 <form action="<?= $this->url->route() ?>" method="post" novalidate>
 	<fieldset class="form-block">
 		<div class="form-legend">
-			<h2>Basic Details</h2>
+			<h2>Details</h2>
 		</div>
 		<div class="form-items">
 			<?= $this->render('/elements/form-item', array(
@@ -37,12 +37,16 @@
 				'note'		=> 'Alternative text used in navigation.',
 				'placeholder' => $entity->name,
 			)) ?>
-			<p>
+		</div>
+	</fieldset>
+	<fieldset>
+		<ul class="toolbar">
+			<li>
 				<button>
 					<i class="fa fa-check"></i>
 					Save <?= $entityType->info->singular ?>
 				</button>
-			</p>
-		</div>
+			</li>
+		</ul>
 	</fieldset>
 </form>

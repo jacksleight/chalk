@@ -4,6 +4,7 @@ $covered  = isset($covered) && $covered;
 ?>
 <li>
 	<a href="<?= !$template ? $this->url([
+		'entityType'=> $entityType->slug,
 		'action'	=> 'edit',
 		'id'		=> $content->id,
 	]) : '#' ?>">

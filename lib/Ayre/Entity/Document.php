@@ -17,16 +17,6 @@ use Ayre\Entity,
 */
 class Document extends Content
 {
-	public static $info = [
-		'singular'	=> 'Document',
-		'plural'	=> 'Documents',
-	];
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-	protected $layout;
-
     /**
      * @ORM\Column(type="json")
      */
@@ -35,7 +25,10 @@ class Document extends Content
     /**
      * @ORM\Column(type="json")
      */
-	protected $content = [];
+	protected $content = [
+		'primary' => '',
+		'secondary' => '',
+	];
 
 	public function addMeta($name = null, $value = null)
 	{

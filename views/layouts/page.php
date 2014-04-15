@@ -7,12 +7,12 @@
 
 <?= $this->render('nav', ['items' => [
 	[
+		'label' => 'Pages',
+		'name'	=> 'content',
+		'params'=> ['entityType' => 'core-page'],
+	], [
 		'label' => 'Files',
 		'name'	=> 'content',
 		'params'=> ['entityType' => 'core-file'],
-	], [
-		'label' => 'Documents',
-		'name'	=> 'content',
-		'params'=> ['entityType' => 'core-document'],
 	]
 ]]) ?>

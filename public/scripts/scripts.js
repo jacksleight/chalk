@@ -71,12 +71,24 @@ $('.submitable').each(function(i, form) {
 });
 
 $('.thumbs').each(function(i, el) {
-	var width = $(el).children(':first-child').outerWidth();
+	var className = 'thumbs-' + new Date().valueOf();
+	$(el).addClass(className);
+
+	var style = document.createElement('style');
+	style.setAttribute('media', 'screen')
+	style.appendChild(document.createTextNode(''));
+	document.head.appendChild(style);
+
+	var min = $(el).children(':first-child').outerWidth();
+	var index = -1;
 	var refresh = function() {
 		var total = $(el).innerWidth(),
-			count = Math.floor(total / width),
-			perc  = 100 / count;
-		$(el).children().css('width', perc + '%');
+			count = Math.floor(total / min),
+			width  = 100 / count;
+		if (index != -1) {
+			style.sheet.deleteRule(index);
+		}
+		index = style.sheet.insertRule('.' + className + ' > * { width: ' + width + '% !important; }');
 	};
 	refresh();
 	$(window).resize(refresh);
@@ -89,5 +101,11 @@ $('.confirm').each(function(i, el) {
 		if (!confirm(message)) {
 			ev.preventDefault();
 		}	
+	});
+}); 
+
+$('.advanced').each(function(i, el) {
+	$(el).find('.advanced-toggle').click(function(ev) {
+		$(el).toggleClass('active');
 	});
 });

@@ -6,7 +6,7 @@
 		<li>
 			<a href="<?= $this->url([
 				'action' => 'delete1',
-			]) ?>" class="button button-negative confirm" data-message="Are you sure?<?= "\n\n" ?>If you delete <?= $entity->name ?> you will no longer be able to see which changes they made. If you just want to prevent this user from accessing the system you can disable the account by unchecking the Enabled box.">
+			]) ?>" class="btn btn-negative confirm" data-message="Are you sure?<?= "\n\n" ?>If you delete <?= $entity->name ?> you will no longer be able to see which changes they made. If you just want to prevent this user from accessing the system you can disable the account by unchecking the Enabled box.">
 				<i class="fa fa-trash-o"></i> Delete <?= $entityType->info->singular ?>
 			</a>
 		</li>
@@ -19,6 +19,11 @@
 			<h2>Details</h2>
 		</div>
 		<div class="form-items">
+			<?= $this->render('/elements/form-item', array(
+				'entity'	=> $entity,
+				'name'		=> 'isEnabled',
+				'label'		=> 'Enabled',
+			)) ?>
 			<?= $this->render('/elements/form-item', array(
 				'entity'	=> $entity,
 				'name'		=> 'name',
@@ -40,17 +45,16 @@
 				'label'		=> 'Role',
 				'type'		=> 'input_radio',
 			)) ?>
-			<?= $this->render('/elements/form-item', array(
-				'entity'	=> $entity,
-				'name'		=> 'isEnabled',
-				'label'		=> 'Enabled',
-			)) ?>
-			<p>
+		</div>
+	</fieldset>
+	<fieldset>
+		<ul class="toolbar">
+			<li>
 				<button>
 					<i class="fa fa-check"></i>
 					Save <?= $entityType->info->singular ?>
 				</button>
-			</p>
-		</div>
+			</li>
+		</ul>
 	</fieldset>
 </form>

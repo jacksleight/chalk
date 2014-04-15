@@ -6,8 +6,8 @@
 		<li>
 			<a href="<?= $this->url([
 				'action' => 'delete',
-			]) ?>" class="button button-negative">
-				<i class="fa fa-bin"></i> Delete <?= $entityType->info->singular ?>
+			]) ?>" class="btn btn-negative confirm">
+				<i class="fa fa-trash-o"></i> Delete <?= $entityType->info->singular ?>
 			</a>
 		</li>
 	<? } ?>
@@ -16,7 +16,7 @@
 <form action="<?= $this->url->route() ?>" method="post" novalidate>
 	<fieldset class="form-block">
 		<div class="form-legend">
-			<h2>Basic Details</h2>
+			<h2>Details</h2>
 		</div>
 		<div class="form-items">
 			<?= $this->render('/elements/form-item', array(
@@ -24,12 +24,16 @@
 				'name'		=> 'name',
 				'label'		=> 'Name',
 			)) ?>
-			<p>
+		</div>
+	</fieldset>
+	<fieldset>
+		<ul class="toolbar">
+			<li>
 				<button>
 					<i class="fa fa-check"></i>
 					Save <?= $entityType->info->singular ?>
 				</button>
-			</p>
-		</div>
+			</li>
+		</ul>
 	</fieldset>
 </form>

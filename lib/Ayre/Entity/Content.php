@@ -24,11 +24,6 @@ use Ayre,
 */
 abstract class Content extends Entity implements Loggable, Publishable, Searchable, Trackable, Versionable
 {
-	public static $info = [
-		'singular'	=> 'Content',
-		'plural'	=> 'Contents',
-	];
-	
     use Publishable\Implementation,
     	Trackable\Implementation,
     	Versionable\Implementation {

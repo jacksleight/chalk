@@ -1,6 +1,7 @@
 <tr class="linkable">
 	<th class="col-name" scope="row">
 		<a href="<?= $this->url([
+			'entityType'=> $entityType->slug,
 			'action'	=> 'edit',
 			'id'		=> $content->id,
 		]) ?>">

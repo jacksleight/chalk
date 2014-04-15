@@ -17,7 +17,7 @@ html {
 #{headers(1, 6)} { 
 	font-weight: normal;
 	color: $color-loud;
-	margin: $spacing 0 0 0;
+	margin: $gutter 0 0 0;
 	line-height: $line-height-tight;
 }
 h1 { 
@@ -42,7 +42,7 @@ h6 {
 /* Paragraph */
 
 p { 
-	margin: $spacing 0 0 0;
+	margin: $gutter 0 0 0;
 	&.summary { 
 		@include font-size(1);
 	}
@@ -55,7 +55,7 @@ p {
 /* List */
 
 ul, ol { 
-	margin: $spacing 0 0 0;
+	margin: $gutter 0 0 0;
 	padding: 0;
 	ul, ol { 
 		margin-top: 0;
@@ -83,7 +83,7 @@ ol {
 	}
 }
 dl { 
-	margin: $spacing 0 0 0;
+	margin: $gutter 0 0 0;
 	dt { 
 		font-weight: 500;
 		float: left;
@@ -125,7 +125,7 @@ mark {
 
 blockquote { 
 	font-style: oblique;
-	margin: $spacing 0 0 0;
+	margin: $gutter 0 0 0;
 	padding: 0 $gutter;
 	border-left: 1px solid $color-divide;
 	@include flush;
@@ -148,7 +148,7 @@ pre, code {
 	@include border-radius($radius);
 }
 pre { 
-	margin: $spacing 0 0 0; padding: $gutter;
+	margin: $gutter 0 0 0; padding: $gutter;
 	@include experimental(tab-size, 4);
 	background: $color-shade;
 }
@@ -241,7 +241,7 @@ i.fa {
 /* Rule */
 
 hr { 
-	margin: $spacing 0;
+	margin: $gutter 0;
 	border: 0;
 	border-top: 1px solid $color-divide;
 }
@@ -260,7 +260,7 @@ svg {
 	max-height: 100%;
 }
 .image {
-	margin: $spacing 0 0 0;
+	margin: $gutter 0 0 0;
 	img, svg {
 		display: block;
 	}
@@ -277,7 +277,7 @@ audio {
 	vertical-align: middle;
 }
 .audio {
-	margin: $spacing 0 0 0;
+	margin: $gutter 0 0 0;
 	audio, object, .audio-message {
 		display: block;
 		width: 100%;
@@ -296,7 +296,7 @@ video {
 	vertical-align: middle;
 }
 .video {
-	margin: $spacing 0 0 0;
+	margin: $gutter 0 0 0;
 	position: relative;
 	video, object, .video-message {
 		display: block;
@@ -322,11 +322,11 @@ video {
 /* Figures */
 
 figure { 
-	margin: $spacing 0 0 0;
+	margin: $gutter 0 0 0;
 	@include flush;
 	figcaption { 
 		@include font-size(-2);
-		margin: $spacing * 0.4 0 0 0;
+		margin: $gutter * 0.4 0 0 0;
 		display: block;
 	}
 }
@@ -425,7 +425,7 @@ $table-border-light: 1px solid $color-shade;
 
 table { 
 	width: 100%;
-	margin: $spacing 0 0 0;
+	margin: $gutter 0 0 0;
 	border-spacing: 0;
 	@include border-radius($radius);
 	tr {
@@ -496,7 +496,7 @@ table {
 		@include font-size(-1);
 		font-style: oblique;
 		text-align: right;
-		margin: $spacing * 0.5 0 0 0;
+		margin: $gutter * 0.5 0 0 0;
 		caption-side: bottom;
 	}
 	.col-status,
@@ -535,7 +535,7 @@ input,
 select,
 textarea,
 button,
-.button { 
+.btn { 
 	@include transition(all $speed ease);
 }
 
@@ -624,13 +624,16 @@ textarea {
 	line-height: $line-height;
 	padding-top: $input-padding;
 	padding-bottom: $input-padding;
+	&.html {
+		font-family: Consolas, monospace;
+	}
 }
 
 input[type=reset],
 input[type=submit],
 input[type=button],
 button,
-.button { 
+.btn { 
 	font-family: $font-family;
 	@include font-size;
 	height: $input-height;
@@ -650,32 +653,46 @@ button,
 	-webkit-appearance: none;
 	display: inline-block;
 	&:hover { 
-		background-color: shade($color-focus, 10%);
-		border-color: shade($color-focus, 10%);
+		background-color: shade($color-focus, 10%) !important;
+		border-color: shade($color-focus, 10%) !important;
 	}
-	&.button-positive {
-		background-color: $color-positive;
-		border-color: $color-positive;
-		&:hover { 
-			background-color: shade($color-positive, 10%);
-			border-color: shade($color-positive, 10%);
-		}
+	&.btn-block {
+		display: block;
+		width: 100%;
+		text-align: center;
+		margin: $gutter 0 0 0;
 	}
-	&.button-pending,
-	&.button-negative {
-		background-color: $color-quiet;
-		border-color: $color-quiet;
-		&:hover { 
-			background-color: shade($color-negative, 0%);
-			border-color: shade($color-negative, 0%);
-		}
-	}
-	&.button-inline {
+	&.btn-inline {
 		display: inline;
 		height: auto;
 		line-height: $line-height;
 		padding-top: $input-padding + 2px;
 		padding-bottom: $input-padding + 2px;
+	}
+	&.btn-positive {
+		background-color: $color-positive;
+		border-color: $color-positive;
+		&:hover { 
+			background-color: shade($color-positive, 10%) !important;
+			border-color: shade($color-positive, 10%) !important;
+		}
+	}
+	&.btn-pending,
+	&.btn-negative {
+		background-color: $color-negative;
+		border-color: $color-negative;
+		&:hover { 
+			background-color: shade($color-negative, 10%) !important;
+			border-color: shade($color-negative, 10%) !important;
+		}
+	}
+	&.btn-quiet {
+		background-color: $color-quiet;
+		border-color: $color-quiet;
+	}
+	&.btn-quieter {
+		background-color: $color-quieter;
+		border-color: $color-quieter;
 	}
 }
 
@@ -705,7 +722,7 @@ select option,
 select optgroup,
 textarea,
 button,
-.button {
+.btn {
 	&[disabled], &.disabled {
 		@include experimental(user-select, none);
 		pointer-events: none;
@@ -734,7 +751,7 @@ form {
 	padding: 0;
 }
 fieldset { 
-	margin: $spacing 0 0 0;
+	margin: $gutter 0 0 0;
 	padding: 0;
 	@include flush; 
 	border: 0;
@@ -750,24 +767,28 @@ legend {
 	padding: $gutter 0; 
 	.form-legend {
 		float: left;
-		width: 250px;
+		width: 280px - ($gutter * 3);
 		@include flush;
 		@include font-size(-1);
 		p {
-			margin-top: $spacing * 0.5;
+			margin-top: $gutter * 0.5;
 		}
 	}
 	.form-items {
-		margin-left: 250px + $gutter * 2;
+		margin-left: 280px - ($gutter * 1.5);
 		@include flush;
+	}
+	& + .form-block {
+		margin-top: 0;
+		border-top: 0;
 	}
 }
 
 
 .form-item { 
-	margin: $spacing 0 0 0;
+	margin: $gutter 0 0 0;
 	+ .form-item {
-		// margin-top: $spacing * 0.5;
+		// margin-top: $gutter * 0.5;
 	}
 	> label {
 		color: $color-loud;
@@ -775,10 +796,10 @@ legend {
 		font-weight: 500;
 	}
 	> div { 
-		margin: $spacing  * 0.25 0 0 0;
+		margin: $gutter  * 0.25 0 0 0;
 		p { 
 			@include font-size(-1);
-			margin-top: round($spacing  * 0.4);
+			margin-top: round($gutter  * 0.4);
 			line-height: $line-height-tight;
 			& + p {
 				margin-top: 0;
@@ -838,10 +859,15 @@ legend {
 	@include inline-blocks('> li');
 	position: relative;
 	z-index: 10;
+	display: flex;
+	flex-direction: row;
 	> li {
-		width: $width-3;
+		flex: 2;
 		& + li div {
 			border-left: 0 !important;
+		}
+		&:first-child {
+			flex: 3;
 		}
 	}
 	i {
@@ -924,5 +950,74 @@ legend {
 	}
 	input {
 		padding-left: $input-padding + 5px + $input-border-width + 15px + 7px;
+	}
+}
+
+/* Advanced */
+
+.advanced {
+	.advanced-body {
+		max-height: 0;
+		overflow: hidden;
+		@include transition(max-height $speed ease);
+	}
+	.advanced-toggle {
+		margin: $gutter 0 0 0;
+		display: block;
+		background-color: $color-shade;
+		color: $color-quiet;
+		text-align: center;
+		padding: $gutter * 0.25 $gutter;
+		cursor: pointer;
+		@include transition(background $speed ease);
+		&:hover {
+			color: white;
+			background-color: $color-quieter;
+		}
+		i {
+			@include transition(transform $speed ease);
+		}
+	}
+	&.active {
+		.advanced-body {
+			max-height: 500px;
+		}
+		.advanced-toggle i {
+			@include transform(rotate(180deg));
+		}
+	}
+}
+
+/* Editor */
+
+.body {
+	.mce-tinymce,
+	.mce-panel {
+		border-color: $color-quieter;
+	}
+	.mce-tinymce {
+		@include border-radius(0);
+	}
+	.mce-panel {
+		background: white;
+	}
+	.mce-toolbar-grp {
+		padding: 0;
+	}
+	.mce-flow-layout-item {
+		margin: 0;
+		border-right: 1px solid $color-quieter;
+	}
+	.mce-btn-group .mce-btn, 
+	.mce-btn {
+		border: white;
+		background: white !important;
+		@include border-radius(0);
+		@include box-shadow(none);
+		button {		
+			height: $input-height;	
+			line-height: $input-height - ($input-border-width * 2);
+			padding: 0 $input-padding + 5px;
+		}
 	}
 }

@@ -10,13 +10,23 @@ use Ayre,
 	Coast\App\Request,
 	Coast\App\Response;
 
-class Content extends Action
+class Content extends Ayre\Controller\Entity
 {
 	public function preDispatch(Request $req, Response $res)
 	{
 		$req->view->entityType
 			= $req->entityType
-			= Ayre::type(isset($req->entityType) ? $req->entityType : 'core-content');
+			= Ayre::type(isset($req->entityType) ? $req->entityType : 'Ayre\Entity\Content');
+	}
+
+	public function postDispatch(Request $req, Response $res)
+	{
+		$path = "{$req->entityType->local->path}/{$req->action}";
+		if ($this->view->has($path)) {
+			$req->view->path = "{$path}";
+		} else {
+			$req->view->path = "content/{$req->action}";	
+		}
 	}
 
 	public function index(Request $req, Response $res)
@@ -95,5 +105,10 @@ class Content extends Action
 			'action'	=> null,
 			'id'		=> null,
 		)));
+	}
+
+	public function delete(Request $req, Response $res)
+	{
+		throw new \Exception();
 	}
 }

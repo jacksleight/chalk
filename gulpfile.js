@@ -51,12 +51,21 @@ gulp.task('styles-sprites', function() {
 });
 
 gulp.task('scripts', function() {
-	return gulp.src([scriptsDir + '/*.js', '!**/_*.js'])
+	return gulp.src([scriptsDir + '/*.js', '!**/_*.js', '!**/editor.js'])
 		.pipe(include({extensions: ['js']}))
 		.pipe(cached('scripts'))
 		.pipe(gulp.dest(buildDir))
 		.pipe(livereload(server))
 		.pipe(uglify())
+		.pipe(rename({suffix: '.min'}))
+		.pipe(gulp.dest(buildDir));
+});
+gulp.task('scripts-editor', function() {
+	return gulp.src([scriptsDir + '/editor.js'])
+		.pipe(include({extensions: ['js']}))
+		.pipe(cached('scripts'))
+		.pipe(gulp.dest(buildDir))
+		.pipe(livereload(server))
 		.pipe(rename({suffix: '.min'}))
 		.pipe(gulp.dest(buildDir));
 });
@@ -106,9 +115,10 @@ gulp.task('watch', function() {
 		if (err) {
 			return console.log(err)
 		}
-		gulp.watch(stylesDir + '/**/*.scss', ['styles']);
-		gulp.watch(scriptsDir + '/**/*.js', ['scripts']);
-		gulp.watch(viewsDir + '/**/*.php', function(ev) {
+		gulp.watch([stylesDir + '/**/*.scss'], ['styles']);
+		gulp.watch([scriptsDir + '/**/*.js', '!**/editor.js'], ['scripts']);
+		gulp.watch([scriptsDir + '/**/editor.js'], ['scripts-editor']);
+		gulp.watch([viewsDir + '/**/*.php'], function(ev) {
 			server.changed({
 				body: {
 					files: [ev.path]

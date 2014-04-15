@@ -75,8 +75,8 @@ class Ayre extends App
 		$slug = implode('-', $entitylower);
 		$path = implode('/', $entitylower);
 		$info = [
-			'singular'	=> $type,
-			'plural'	=> $type,
+			'singular'	=> $local[count($local) - 1],
+			'plural'	=> $local[count($local) - 1] . 's',
 		];
 		self::$_types[$type] = $class;
 		self::$_slugs[$slug] = $class;

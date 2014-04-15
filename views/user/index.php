@@ -1,20 +1,54 @@
 <? $this->layout('/layouts/page_settings') ?>
 <? $this->block('main') ?>
 <?php
+$filter = $this->entity->wrap(new \Ayre\Filter())
+	->graphFromArray($req->queryParams());
 $entites = $this->entity($entityType->class)
-	->fetchAll();
+	->fetchAll($filter->toArray());
 ?>
 
 <ul class="toolbar">
 	<li>
 		<a href="<?= $this->url([
 			'action' => 'edit',
-		]) ?>" class="button">
+		]) ?>" class="btn">
 			<i class="fa fa-plus"></i> Add <?= $entityType->info->singular ?>
 		</a>
 	</li>
 </ul>
 <h1><?= $entityType->info->plural ?></h1>
+<form action="<?= $this->url->route() ?>" class="submitable">
+	<ul class="filters">
+		<li>
+			<?= $this->render('/elements/form-input', array(
+				'type'			=> 'input_search',
+				'entity'		=> $filter,
+				'name'			=> 'search',
+				'placeholder'	=> 'Search…',
+			)) ?>
+		</li>
+		<li>
+			<?= $this->render('/elements/form-input', array(
+				'type'			=> 'dropdown_single',
+				'entity'		=> $filter,
+				'null'			=> 'Any',
+				'name'			=> 'createDateMin',
+				'icon'			=> 'calendar',
+				'placeholder'	=> 'Date Added',
+			)) ?>
+		</li>
+		<li>
+			<?= $this->render('/elements/form-input', array(
+				'type'			=> 'dropdown_multiple',
+				'entity'		=> $filter,
+				'name'			=> 'createUsers',
+				'icon'			=> 'user',
+				'placeholder'	=> 'Added By',
+				'values'		=> []
+			)) ?>
+		</li>
+	</ul>
+</form>
 <table>
 	<colgroup>
 		<col class="col-status">

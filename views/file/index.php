@@ -11,7 +11,7 @@ $entites = $this->entity($entityType->class)
 
 <ul class="toolbar">
 	<li>
-		<span class="button upload-button">
+		<span class="btn upload-button">
 			<i class="fa fa-upload"></i> Upload <?= $entityType->info->singular ?>
 		</span>
 	</li>

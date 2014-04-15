@@ -36,7 +36,7 @@
 		<div class="topbar">
 			<ul class="toolbar">
 				<li>
-					<a href="#" class="button button-inline button-pending button-invert">
+					<a href="#" class="btn btn-inline btn-pending btn-quiet">
 						<i class="fa fa-globe"></i>
 						Publish <strong>14 Pending</strong> Items…
 					</a>

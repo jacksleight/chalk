@@ -53,7 +53,7 @@ class Listener implements EventSubscriber
         if (isset($meta->discriminatorMap)) {
             foreach ($meta->discriminatorMap as $discriminatorId => $discriminatorClass) {
                 unset($meta->discriminatorMap[$discriminatorId]);
-                $meta->discriminatorMap[Ayre::type($discriminatorClass)->type] = $discriminatorClass;
+                $meta->discriminatorMap[Ayre::type($discriminatorClass)->class] = $discriminatorClass;
             }
         }
 
