@@ -2,21 +2,6 @@
 <? $this->block('main') ?>
 
 <ul class="toolbar">
-	<li class="status">
-		<? if (!$entity->isNew()) { ?>
-			This is the
-				<span class="label label-status-<?= $entity->status ?>"><?= $entity->status ?></span>
-				version <strong><?= $this->locale->spellout($entity->version) ?></strong>
-		<? } else { ?>
-			This is a <strong>new</strong>
-				<span class="label label-status-<?= $entity->status ?>"><?= $entity->status ?></span> version
-			<? if (!$entity->isMaster()) { ?>
-				based on the 
-				<span class="label label-status-<?= $entity->previous->status ?>"><?= $entity->previous->status ?></span>
-				copy
-			<? } ?>
-		<? } ?>
-	</li>
 	<? if (!$entity->isNew() || !$entity->isMaster()) { ?>
 		<li class="space"><a href="#" class="btn">
 			<i class="fa fa-clock-o"></i>
@@ -30,6 +15,19 @@
 	<? } else { ?>
 		New <?= $entityType->singular ?>
 	<? } ?>
+	<small>
+		<span class="label label-status-<?= $entity->status ?>"><?= $entity->status ?></span>&nbsp;
+		<i class="fa fa-clock-o"></i>
+		<? if (!$entity->isNew()) { ?>
+			Version <strong><?= $entity->version ?></strong>
+		<? } else { ?>
+			<? if (!$entity->isMaster()) { ?>
+				<strong>New</strong> version based on version <strong><?= $entity->previous->version ?></strong>
+			<? } else { ?>
+				<strong>First</strong> version
+			<? } ?>
+		<? } ?>
+	</small>
 </h1>
 
 <form action="<?= $this->url->route() ?>" method="post">

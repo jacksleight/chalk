@@ -15,7 +15,7 @@ html {
 /* Header */
 
 #{headers(1, 6)} { 
-	font-weight: normal;
+	font-weight: 500;
 	color: $color-loud;
 	margin: $gutter 0 0 0;
 	line-height: $line-height-tight;
@@ -23,6 +23,7 @@ html {
 h1 { 
 	@include font-size(4);
 	small {
+		font-weight: 300;
 		display: block;
 		@include font-size(0);
 	}
@@ -114,11 +115,13 @@ a {
 
 /* Emphasised & Marked */
 
-em, i { 
-	font-style: oblique;
+em { 
+	font-style: normal;
+	color: $color-primary;
 }
-strong, b { 
+strong { 
 	font-weight: 500;
+	color: $color-primary;
 }
 mark { 
 	background-color: $color-highlight;
