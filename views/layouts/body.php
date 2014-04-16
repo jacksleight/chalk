@@ -39,7 +39,7 @@
 					<a href="<?= $this->url([
 						'controller' => 'index',
 						'action'	 => 'publish',
-					], 'index', true) ?>" class="btn btn-inline btn-pending btn-quiet">
+					], 'index', true) ?>" class="btn btn-inline btn-published btn-quiet">
 						<i class="fa fa-globe"></i>
 						Publish Pending Items…
 					</a>

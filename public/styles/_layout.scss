@@ -87,7 +87,6 @@ html, body {
 			background-color: shade($color-primary, 10%);
 		}
 		&.active {
-			font-weight: 500;
 			position: relative;
 			&:after {
 				content: '';

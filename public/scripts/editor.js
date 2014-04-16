@@ -12,7 +12,7 @@
 
 tinyMCE.baseURL = App.options.base + 'tinymce';
 tinyMCE.init({
-	selector: '.html',
+	selector: '.html:not([disabled])',
 	menubar: false,
 	plugins: 'code paste table contextmenu charmap',
 	toolbar: 'styleselect bold italic removeformat | bullist numlist | undo redo | code | table charmap',

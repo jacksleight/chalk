@@ -28,7 +28,7 @@ class Content extends Repository
 		if (isset($sort)) {
 
 		} else {
-			$qb->addOrderBy("c.createDate", "DESC");
+			$qb->addOrderBy("c.modifyDate", "DESC");
 		}
 
 		if (isset($criteria['search'])) {

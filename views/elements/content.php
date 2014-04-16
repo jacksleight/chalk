@@ -7,6 +7,7 @@
 			<textarea
 				name="<?= implode('_', $md['context']) . "[{$label}]" ?>"
 				id="<?= '_' . implode('_', $md['context']) . "[{$label}]" ?>"
+				<?= isset($disabled) && $disabled ? "disabled" : null ?>
 				class="html"><?= $this->escape($value) ?></textarea>
 		</div>
 	</div>	

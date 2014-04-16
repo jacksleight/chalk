@@ -31,7 +31,7 @@ class Content extends Ayre\Controller\Entity
 	{
 		$entity = $this->entity($req->entityType->class)->findOrCreate($req->id);
 		if ($entity->status == \Ayre::STATUS_PUBLISHED) {
-			$entity = $entity->createVersion();
+			$entity = $entity->duplicate();
 		}
 		$req->view->entity = $wrap = $this->entity->wrap($entity);
 
@@ -91,16 +91,39 @@ class Content extends Ayre\Controller\Entity
 			->json(['files' => $uploads]);
 	}
 
-	public function archive(Request $req, Response $res)
+	public function status(Request $req, Response $res)
 	{
 		$entity = $this->entity($req->entityType->class)->find($req->id);
 
-		$entity->status = \Ayre::STATUS_ARCHIVED;
+		$entity->status = $req->status;
+		if ($entity->status == \Ayre::STATUS_ARCHIVED && isset($entity->previous)) {
+			$entity->previous->status = $entity->status;
+		}
+		$this->entity->flush();
+
+		if ($entity->status == \Ayre::STATUS_ARCHIVED) {
+			return $res->redirect($this->url(array(
+				'action' => null,
+				'id'	 => null,
+			)));
+		} else {
+			return $res->redirect($this->url(array(
+				'action' => 'edit',
+			)));
+		}
+	}
+
+	public function restore(Request $req, Response $res)
+	{
+		$entity = $this->entity($req->entityType->class)->find($req->id);
+
+		$entity = $entity->restore();
+		$this->entity->persist($entity);
 		$this->entity->flush();
 
 		return $res->redirect($this->url(array(
-			'action'	=> null,
-			'id'		=> null,
+			'action' => 'edit',
+			'id'	 => $entity->id,
 		)));
 	}
 

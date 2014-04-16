@@ -19,11 +19,13 @@ $entites = $this->entity($entityType->class)
 <table>
 	<colgroup>
 		<col class="col-name">
+		<col class="col-date">
 		<col class="col-status">
 	</colgroup>
 	<thead>
 		<tr>
 			<th scope="col" class="col-name">Name</th>
+			<th scope="col" class="col-date">Updated</th>
 			<th scope="col" class="col-status">Status</th>
 		</tr>
 	</thead>
@@ -36,6 +38,9 @@ $entites = $this->entity($entityType->class)
 						'id'		=> $entity->id,
 					]) ?>"><?= $entity->name ?></a>
 				</th>
+				<td class="col-date">
+					<?= $entity->modifyDate->diffForHumans() ?>
+				</td>	
 				<td class="col-status">
 					<span class="label label-status-<?= $entity->status ?>"><?= $entity->status ?></span>
 				</td>	

@@ -35,19 +35,45 @@ trait Implementation
         $this->versions->add($this);
     }
 
-    public function createVersion()
+    public function duplicate()
     {
-    	$version = clone $this->master->versions->last();
-    	$this->master->versions->add($version);
+        if (!$this->isLast()) {
+            throw new \Ayre\Exception('You can only create new versions from the last version');
+        }
+
+        $version = clone $this;
+        $this->master->versions->add($version);
         $version->previous = $this;
         $this->next = $version;
-    	
+
         $version->id = null;
+        $version->next = null;
         $version->version++;
         if ($version instanceof Publishable) {
             $version->status = Ayre::STATUS_DRAFT;
         }
-    	return $version;
+        return $version;
+    }
+
+    public function restore()
+    {
+        $last = $this->master->versions->last();
+       
+        $version = clone $this;
+        $this->master->versions->add($version);
+        $version->previous = $last;
+        $last->next = $version;
+
+        $version->id = null;
+        $version->next = null;
+        $version->version = $last->version + 1;
+        if ($version instanceof Publishable) {
+            $version->status = Ayre::STATUS_DRAFT;
+        }
+
+
+
+        return $version;
     }
 
     public function isMaster()
@@ -55,13 +81,33 @@ trait Implementation
         return $this === $this->master;
     }
 
-    public function isOldest()
+    public function isFirst()
     {
         return !isset($this->previous);
     }
 
-    public function isNewest()
+    public function isLast()
     {
         return !isset($this->next);
+    }
+
+    public function isDraft()
+    {
+        return $this->status == Ayre::STATUS_DRAFT;
+    }
+
+    public function isPending()
+    {
+        return $this->status == Ayre::STATUS_PENDING;
+    }
+
+    public function isPublished()
+    {
+        return $this->status == Ayre::STATUS_PUBLISHED;
+    }
+
+    public function isArchived()
+    {
+        return $this->status == Ayre::STATUS_ARCHIVED;
     }
 }

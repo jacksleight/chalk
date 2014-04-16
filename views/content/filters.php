@@ -16,7 +16,7 @@
 				'null'			=> 'Any',
 				'name'			=> 'modifyDateMin',
 				'icon'			=> 'calendar',
-				'placeholder'	=> 'Date Modified',
+				'placeholder'	=> 'Updated',
 			)) ?>
 		</li>
 		<li>

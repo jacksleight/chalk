@@ -3,7 +3,7 @@
 
 <ul class="toolbar">
 	<? if (!$entity->isNew() || !$entity->isMaster()) { ?>
-		<li class="space"><a href="#" class="btn">
+		<li><a href="#" class="btn">
 			<i class="fa fa-clock-o"></i>
 			View History
 		</a></li>
@@ -15,20 +15,27 @@
 	<? } else { ?>
 		New <?= $entityType->singular ?>
 	<? } ?>
-	<small>
-		<span class="label label-status-<?= $entity->status ?>"><?= $entity->status ?></span>&nbsp;
-		<i class="fa fa-clock-o"></i>
-		<? if (!$entity->isNew()) { ?>
-			Version <strong><?= $entity->version ?></strong>
-		<? } else { ?>
-			<? if (!$entity->isMaster()) { ?>
-				<strong>New</strong> version based on version <strong><?= $entity->previous->version ?></strong>
-			<? } else { ?>
-				<strong>First</strong> version
-			<? } ?>
-		<? } ?>
-	</small>
 </h1>
+<ul class="meta">
+	<li>
+		<span class="label label-status-<?= $entity->status ?>">
+			<? if ($entity->isNew()) { ?>
+				New
+			<? } ?>
+			<?= $entity->status ?>
+		</span>
+	</li>
+	<li>
+		<i class="fa fa-asterisk"></i>
+		Version <em><?= $entity->version ?></em>
+	</li>
+	<? if (!$entity->isNew()) { ?>
+		<li>
+			<i class="fa fa-calendar"></i>
+			Last modified <em><?= $entity->modifyDate->diffForHumans() ?></em> by <em><?= $entity->modifyUserName ?></em>
+		</li>
+	<? } ?>
+</ul>
 
 <form action="<?= $this->url->route() ?>" method="post">
 	<fieldset class="form-block">
@@ -41,13 +48,16 @@
 				'name'		=> 'name',
 				'label'		=> 'Name',
 				'autofocus'	=> true,
+				'disabled'	=> $entity->isArchived(),
 			)) ?>
 			<?= $this->render('/elements/form-item', array(
 				'type'		=> 'select',
 				'entity'	=> $entity,
 				'name'		=> 'layout',
 				'label'		=> 'Layout',
+				'null'		=> 'Default',
 				'values'	=> [],
+				'disabled'	=> $entity->isArchived(),
 			)) ?>
 		</div>
 	</fieldset>
@@ -60,34 +70,57 @@
 				'entity'	=> $entity,
 				'name'		=> 'content',
 				'type'		=> 'content',
+				'disabled'	=> $entity->isArchived(),
 			)) ?>
 		</div>
 	</fieldset>
 	<fieldset>
 		<ul class="toolbar">
-			<li><button class="btn-pending" name="status" value="<?= \Ayre::STATUS_PENDING ?>">
-				<i class="fa fa-check"></i>
-				<? if ($entity->status != \Ayre::STATUS_PENDING) { ?>Save as Pending<? } else { ?>Save Pending<? } ?>
-			</button></li>
-			<? if ($entity->status != \Ayre::STATUS_PENDING) { ?>
-				<li><button class="btn-focus">
-					<i class="fa fa-save"></i>
-					Save <?= ucfirst($entity->status) ?>
+			<? if (!$entity->isArchived()) { ?>
+				<? if (!$entity->isPending()) { ?>
+					<li><button class="btn-focus">
+						<i class="fa fa-save"></i>
+						Save <?= ucfirst($entity->status) ?>
+					</button></li>
+				<? } ?>
+				<li><button class="btn-pending" name="status" value="<?= \Ayre::STATUS_PENDING ?>">
+					<i class="fa fa-check"></i>
+					Save
+					<? if (!$entity->isPending()) { ?>
+						as Pending
+					<? } else { ?>
+						Pending
+					<? } ?>
 				</button></li>
+			<? } else { ?>
+				<li><a href="<?= $this->url([
+					'action' => 'restore'
+				]) ?>" class="btn btn-focus">
+					<i class="fa fa-repeat"></i>
+					Restore
+				</a></li>
 			<? } ?>
 		</ul>
 		<ul class="toolbar">
-			<? if ($entity->status != \Ayre::STATUS_DRAFT) { ?>
-				<li><button class="btn-negative btn-quiet" name="status" value="<?= \Ayre::STATUS_DRAFT ?>">
-					<i class="fa fa-reply"></i>
-					Save as Draft
-				</button></li>
-			<? } ?>
-			<? if ($entity->status != \Ayre::STATUS_ARCHIVED) { ?>
-				<li><button class="btn-negative btn-quiet" name="status" value="<?= \Ayre::STATUS_ARCHIVED ?>">
-					<i class="fa fa-archive"></i>
-					Save to Archive
-				</button></li>
+			<? if (!$entity->isArchived()) { ?>
+				<? if (!$entity->isDraft()) { ?>
+					<li><a href="<?= $this->url([
+						'action' => 'status']) . $this->url->query([
+						'status' => \Ayre::STATUS_DRAFT,
+					]) ?>" class="btn btn-negative btn-quiet">
+						<i class="fa fa-undo"></i>
+						Set as Draft
+					</a></li>
+				<? } ?>
+				<? if ((!$entity->isNew() || !$entity->isMaster())) { ?>
+					<li><a href="<?= $this->url([
+						'action' => 'status']) . $this->url->query([
+						'status' => \Ayre::STATUS_ARCHIVED,
+					]) ?>" class="btn btn-negative btn-quiet">
+						<i class="fa fa-archive"></i>
+						Archive
+					</a></li>
+				<? } ?>
 			<? } ?>
 		</ul>
 	</fieldset>

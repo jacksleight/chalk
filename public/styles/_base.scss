@@ -15,21 +15,16 @@ html {
 /* Header */
 
 #{headers(1, 6)} { 
-	font-weight: 500;
+	font-weight: 300;
 	color: $color-loud;
 	margin: $gutter 0 0 0;
 	line-height: $line-height-tight;
 }
 h1 { 
-	@include font-size(4);
-	small {
-		font-weight: 300;
-		display: block;
-		@include font-size(0);
-	}
+	@include font-size(6);
 }
 h2 { 
-	@include font-size(2);
+	@include font-size(3);
 }
 h3 { 
 	@include font-size(0);
@@ -209,9 +204,9 @@ small {
 	background-color: $color-quiet;
 	border: 1px solid $color-quiet;
 	color: white;
-	font-weight: 500;
+	font-weight: 300;
 	@include font-size(-1);
-	padding: 0 8px;
+	padding: 0 $gutter * 0.25;
 	display: inline-block;
 	line-height: 1.6;
 	td &, th & {
@@ -236,11 +231,15 @@ small {
 	background-color: $color-pending;
 	border-color: $color-pending;
 }
-.label-status-1,
-.label-status-published {
+.label-status-1 {
 	@extend .label-status;
 	background-color: $color-positive;
 	border-color: $color-positive;
+}
+.label-status-published {
+	@extend .label-status;
+	background-color: $color-published;
+	border-color: $color-published;
 }
 
 /* Icons */
@@ -513,7 +512,7 @@ table {
 			text-align: right;
 		}
 	}
-	.col-create {
+	.col-date {
 		width: 250px;
 		text-align: right;
 	}
@@ -697,6 +696,15 @@ button,
 			border-color: shade($color-pending, 10%) !important;
 		}
 	}
+	&.btn-published {
+		@include link-color(white);
+		background-color: $color-published;
+		border-color: $color-published;
+		&:hover { 
+			background-color: shade($color-published, 10%) !important;
+			border-color: shade($color-published, 10%) !important;
+		}
+	}
 	&.btn-positive {
 		@include link-color(white);
 		background-color: $color-positive;
@@ -759,7 +767,6 @@ button,
 		pointer-events: none;
 		cursor: default;
 		color: $color-quiet;
-		opacity: 0.75;
 	}
 }
 
@@ -863,7 +870,7 @@ legend {
 .form-item { 
 	margin: $gutter 0 0 0;
 	+ .form-item {
-		// margin-top: $gutter * 0.5;
+		margin-top: $gutter * 0.75;
 	}
 	> label {
 		color: $color-loud;
@@ -912,6 +919,21 @@ legend {
 				border-left: 0;
 			}	
 		}
+	}
+}
+
+/* Meta */
+
+.meta {
+	margin-top: $gutter * 0.25;
+	@include no-bullets;
+	@include inline-blocks('> li', $gutter * 0.75);
+	color: $color-quiet;
+	i {
+		color: $color-foreground;
+	}
+	a {
+		text-decoration: none;
 	}
 }
 

@@ -3,8 +3,8 @@ $required = $md['validator']->hasValidator('Js\Validator\Set');
 $values = isset($values)
 	? $values
 	: $md['values'];
-if (isset($null) && $null) {
-	array_unshift($values, null);
+if (isset($null)) {
+	$values = array_merge([null => $null], $values);
 }
 ?>
 <? foreach ($values as $value => $label) { ?>

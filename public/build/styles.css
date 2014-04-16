@@ -42,26 +42,20 @@ html {
 
 /* Header */
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 500;
+  font-weight: 300;
   color: #1f2328;
   margin: 20px 0 0 0;
   line-height: 1.3;
 }
 
 h1 {
-  font-size: 27.9841px;
-  font-size: 1.74901rem;
-}
-h1 small {
-  font-weight: 300;
-  display: block;
-  font-size: 16px;
-  font-size: 1rem;
+  font-size: 37.00897px;
+  font-size: 2.31306rem;
 }
 
 h2 {
-  font-size: 21.16px;
-  font-size: 1.3225rem;
+  font-size: 24.334px;
+  font-size: 1.52087rem;
 }
 
 h3 {
@@ -273,29 +267,25 @@ small {
 
 /* Label */
 .label, .label-status, .label-status-draft, .label-status-0,
-.label-status-archived, .label-status-pending, .label-status-1,
-.label-status-published {
+.label-status-archived, .label-status-pending, .label-status-1, .label-status-published {
   background-color: #9ea2a8;
   border: 1px solid #9ea2a8;
   color: white;
-  font-weight: 500;
+  font-weight: 300;
   font-size: 13.91304px;
   font-size: 0.86957rem;
-  padding: 0 8px;
+  padding: 0 5px;
   display: inline-block;
   line-height: 1.6;
 }
 td .label, td .label-status, td .label-status-draft, td .label-status-0,
-td .label-status-archived, td .label-status-pending, td .label-status-1,
-td .label-status-published, th .label, th .label-status, th .label-status-draft, th .label-status-0,
-th .label-status-archived, th .label-status-pending, th .label-status-1,
-th .label-status-published {
+td .label-status-archived, td .label-status-pending, td .label-status-1, td .label-status-published, th .label, th .label-status, th .label-status-draft, th .label-status-0,
+th .label-status-archived, th .label-status-pending, th .label-status-1, th .label-status-published {
   width: 100%;
 }
 
 .label-status, .label-status-draft, .label-status-0,
-.label-status-archived, .label-status-pending, .label-status-1,
-.label-status-published {
+.label-status-archived, .label-status-pending, .label-status-1, .label-status-published {
   text-transform: uppercase;
 }
 
@@ -310,7 +300,11 @@ th .label-status-published {
   border-color: #fc6042;
 }
 
-.label-status-1,
+.label-status-1 {
+  background-color: #2cc95c;
+  border-color: #2cc95c;
+}
+
 .label-status-published {
   background-color: #2cc95c;
   border-color: #2cc95c;
@@ -561,8 +555,7 @@ figure figcaption {
   top: 0;
 }
 .thumb .preview .label, .thumb .preview .label-status, .thumb .preview .label-status-draft, .thumb .preview .label-status-0,
-.thumb .preview .label-status-archived, .thumb .preview .label-status-pending, .thumb .preview .label-status-1,
-.thumb .preview .label-status-published {
+.thumb .preview .label-status-archived, .thumb .preview .label-status-pending, .thumb .preview .label-status-1, .thumb .preview .label-status-published {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -661,7 +654,7 @@ table .col-status:last-child,
 table .col-role:last-child {
   text-align: right;
 }
-table .col-create {
+table .col-date {
   width: 250px;
   text-align: right;
 }
@@ -1058,6 +1051,51 @@ button.btn-pending:hover,
   background-color: #e2563b !important;
   border-color: #e2563b !important;
 }
+input[type=reset].btn-published,
+input[type=submit].btn-published,
+input[type=button].btn-published,
+button.btn-published,
+.btn.btn-published {
+  color: white;
+  background-color: #2cc95c;
+  border-color: #2cc95c;
+}
+input[type=reset].btn-published:visited,
+input[type=submit].btn-published:visited,
+input[type=button].btn-published:visited,
+button.btn-published:visited,
+.btn.btn-published:visited {
+  color: white;
+}
+input[type=reset].btn-published:focus,
+input[type=submit].btn-published:focus,
+input[type=button].btn-published:focus,
+button.btn-published:focus,
+.btn.btn-published:focus {
+  color: white;
+}
+input[type=reset].btn-published:hover,
+input[type=submit].btn-published:hover,
+input[type=button].btn-published:hover,
+button.btn-published:hover,
+.btn.btn-published:hover {
+  color: white;
+}
+input[type=reset].btn-published:active,
+input[type=submit].btn-published:active,
+input[type=button].btn-published:active,
+button.btn-published:active,
+.btn.btn-published:active {
+  color: white;
+}
+input[type=reset].btn-published:hover,
+input[type=submit].btn-published:hover,
+input[type=button].btn-published:hover,
+button.btn-published:hover,
+.btn.btn-published:hover {
+  background-color: #27b452 !important;
+  border-color: #27b452 !important;
+}
 input[type=reset].btn-positive,
 input[type=submit].btn-positive,
 input[type=button].btn-positive,
@@ -1262,7 +1300,6 @@ button.disabled,
   pointer-events: none;
   cursor: default;
   color: #9ea2a8;
-  opacity: 0.75;
 }
 
 .dropdown {
@@ -1386,6 +1423,9 @@ legend {
 .form-item {
   margin: 20px 0 0 0;
 }
+.form-item + .form-item {
+  margin-top: 15px;
+}
 .form-item > label {
   color: #1f2328;
   display: block;
@@ -1443,6 +1483,41 @@ legend {
   margin-left: 0;
   padding-left: 0;
   border-left: 0;
+}
+
+/* Meta */
+.meta {
+  margin-top: 5px;
+  list-style: none;
+  margin-left: -7.5px;
+  margin-right: -7.5px;
+  font-size: 0;
+  color: #9ea2a8;
+}
+.meta li {
+  list-style-image: none;
+  list-style-type: none;
+  margin-left: 0;
+}
+.meta > li {
+  font-size: 16px;
+  font-size: 1rem;
+}
+.meta > li {
+  padding-left: 7.5px;
+  padding-right: 7.5px;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: top;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+}
+.meta i {
+  color: #3e4651;
+}
+.meta a {
+  text-decoration: none;
 }
 
 /* Toolbar */
@@ -1612,8 +1687,7 @@ legend {
   color: #3e4651;
 }
 .status .label, .status .label-status, .status .label-status-draft, .status .label-status-0,
-.status .label-status-archived, .status .label-status-pending, .status .label-status-1,
-.status .label-status-published {
+.status .label-status-archived, .status .label-status-pending, .status .label-status-1, .status .label-status-published {
   margin: 0 2px;
 }
 
@@ -1759,7 +1833,6 @@ html, body {
   background-color: #373f48;
 }
 .nav a.active {
-  font-weight: 500;
   position: relative;
 }
 .nav a.active:after {

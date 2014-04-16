@@ -42,6 +42,7 @@ class Listener implements EventSubscriber
         $meta->mapOneToOne([
             'fieldName'    => 'previous',
             'targetEntity' => $class,
+            'inversedBy'   => 'next',
             'joinColumns'  => [[
                 'name'                 => 'previous_id',
                 'referencedColumnName' => 'id',
@@ -51,6 +52,7 @@ class Listener implements EventSubscriber
         $meta->mapOneToOne([
             'fieldName'    => 'next',
             'targetEntity' => $class,
+            'inversedBy'   => 'previous',
             'joinColumns'  => [[
                 'name'                 => 'next_id',
                 'referencedColumnName' => 'id',
