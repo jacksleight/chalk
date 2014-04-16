@@ -238,4 +238,9 @@ class Entity extends Model
 			? \Coast\array_intersect_key($this->_errors, $names)
 			: $this->_errors;
 	}
+
+	public function isNew()
+	{
+		return !isset($this->id);
+	}
 }

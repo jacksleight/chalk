@@ -22,6 +22,10 @@ html {
 }
 h1 { 
 	@include font-size(4);
+	small {
+		display: block;
+		@include font-size(0);
+	}
 }
 h2 { 
 	@include font-size(2);
@@ -99,10 +103,10 @@ dl {
 a { 
 	@include link-colors(
 		$color-primary,
-		shade($color-primary, 10%),
-		shade($color-primary, 10%),
+		$color-focus, i
 		$color-primary,
-		shade($color-primary, 10%)
+		$color-primary,
+		$color-primary
 	);
 	@include transition(all $speed ease);
 	text-decoration: underline;
@@ -207,36 +211,37 @@ small {
 	padding: 0 8px;
 	display: inline-block;
 	line-height: 1.6;
+	td &, th & {
+		width: 100%;
+	}
 }
-
-/* Status */
-
-.status {
+.label-status {
+	@extend .label;
 	text-transform: uppercase;
-	&.status-archived {
-		background-color: white;
-		color: $color-quiet;
-	}
-	&.status-pending {
-		background-color: $color-pending;
-		border-color: $color-pending;
-	}
-	&.status-1,
-	&.status-published {
-		background-color: $color-positive;
-		border-color: $color-positive;
-	}
-	&.status-0 {
-		background-color: $color-negative;
-		border-color: $color-negative;
-	}
+}
+.label-status-draft {
+	@extend .label-status;
+}
+.label-status-0,
+.label-status-archived {
+	@extend .label-status;
+	background-color: white;
+	color: $color-quiet;
+}
+.label-status-pending {
+	@extend .label-status;
+	background-color: $color-pending;
+	border-color: $color-pending;
+}
+.label-status-1,
+.label-status-published {
+	@extend .label-status;
+	background-color: $color-positive;
+	border-color: $color-positive;
 }
 
 /* Icons */
 
-i.fa {
-	margin-right: 0.2em;
-}
 
 /* Rule */
 
@@ -440,14 +445,6 @@ table {
 				border-top: 0;
 			}
 		}
-		&.linkable {
-			a {
-				text-decoration: none;
-			}
-			&:hover {
-				cursor: pointer;
-			}
-		}
 	}
 	thead {
 		th {
@@ -473,7 +470,10 @@ table {
 	}
 	th, td { 
 		vertical-align: top;
-		padding: 6px 0;
+		padding: 6px 0 6px $gutter;
+		&:first-child {
+			padding-left: 0;
+		}
 	}
 	th { 
 		font-weight: 300;
@@ -502,14 +502,11 @@ table {
 	.col-status,
 	.col-role {
 		width: 1px;
-		padding-right: $gutter;
 		text-align: center;
 		.status {
 			width: 100%;
 		}
 		&:last-child {
-			padding-right: 0;
-			padding-left: $gutter;
 			text-align: right;
 		}
 	}
@@ -607,7 +604,7 @@ select {
 		@include image-raster(select-arrow);
 		background-position: 100% 50%;
 		background-repeat: no-repeat;
-		padding-right: 22px;
+		padding-right: 30px;
 	}
 	/* Fix Firefox not vertically centering text */
 	@media (min--moz-device-pixel-ratio: 0) {
@@ -688,6 +685,15 @@ button,
 			border-color: shade($color-focus, 10%) !important;
 		}
 	}
+	&.btn-pending {
+		@include link-color(white);
+		background-color: $color-pending;
+		border-color: $color-pending;
+		&:hover { 
+			background-color: shade($color-pending, 10%) !important;
+			border-color: shade($color-pending, 10%) !important;
+		}
+	}
 	&.btn-positive {
 		@include link-color(white);
 		background-color: $color-positive;
@@ -760,24 +766,21 @@ button,
 	display: inline-block;
 	vertical-align: bottom;
 	width: 100%;
-	.dropdown-list {
-		position: absolute;
-		top: 100%;
-		left: -1px;
-		right: 0;
-		max-height: 0;
-		overflow: hidden;
-		white-space: nowrap;
-		@include transition(all $speed ease);
-	}
 	ul {
 		margin-top: 0;
 		border: 1px solid $color-quieter;
 		border-top: 0;
 		background-color: white;
 		@include no-bullets;
-		max-height: 300px;
-		overflow: auto;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		overflow-y: auto;
+		overflow-x: hidden;
+		white-space: nowrap;
+		@include transition(max-height $speed ease);
+
 	}
 	li {
 		border-top: 1px solid $color-shade;
@@ -793,8 +796,13 @@ button,
 			}
 		}
 	}
-	&:hover .dropdown-list {
+	ul {
+		max-height: 0;
+		border-bottom-width: 0;
+	}
+	&:hover ul {
 		max-height: 300px;
+		border-bottom-width: 1px;
 	}
 }
 
@@ -813,14 +821,15 @@ button,
 /* Form */
 
 form { 
-	margin: 0;
+	margin: $gutter 0 0 0;
 	padding: 0;
+	@include flush;
 }
 fieldset { 
 	margin: $gutter 0 0 0;
 	padding: 0;
-	@include flush; 
 	border: 0;
+	@include flush; 
 }
 legend { 
 	display: none;
@@ -907,10 +916,19 @@ legend {
 
 .toolbar {
 	@include no-bullets;
-	@include inline-blocks('li', $gutter);
+	@include inline-blocks('> li', $gutter * 0.25);
 	&:first-child {
 		float: right;
 		@include flush-next;
+	}
+	> li {
+		vertical-align: middle;
+		&.space {
+			padding-left: $gutter * 0.75;
+		}
+	}
+	a {
+		text-decoration: none;
 	}
 }
 
@@ -924,15 +942,18 @@ legend {
 	flex-direction: row;
 	> li {
 		flex: 2;
-		& + li div {
-			border-left: 0 !important;
-		}
 		&:first-child {
 			flex: 3;
 		}
 	}
 	i {
 		color: $color-quiet;
+	}
+	.value {
+		border-left: 0;
+	}
+	.dropdown ul {
+		left: -1px;
 	}
 }
 
@@ -991,5 +1012,31 @@ legend {
 		.advanced-toggle i {
 			@include transform(rotate(180deg));
 		}
+	}
+}
+
+/* Clickable */
+
+.clickable {
+	a {
+		@include hover-link;
+		&.hover {
+			text-decoration: underline;
+		}
+	}
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+/* Status */
+
+.status {
+	color: $color-quiet;
+	strong {
+		color: $color-foreground;
+	}
+	.label {
+		margin: 0 2px;
 	}
 }

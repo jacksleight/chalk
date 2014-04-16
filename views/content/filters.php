@@ -5,6 +5,7 @@
 				'type'			=> 'input_search',
 				'entity'		=> $filter,
 				'name'			=> 'search',
+				'autofocus'		=> true,
 				'placeholder'	=> 'Search…',
 			)) ?>
 		</li>
@@ -13,19 +14,9 @@
 				'type'			=> 'dropdown_single',
 				'entity'		=> $filter,
 				'null'			=> 'Any',
-				'name'			=> 'createDateMin',
+				'name'			=> 'modifyDateMin',
 				'icon'			=> 'calendar',
-				'placeholder'	=> 'Date Added',
-			)) ?>
-		</li>
-		<li>
-			<?= $this->render('/elements/form-input', array(
-				'type'			=> 'dropdown_multiple',
-				'entity'		=> $filter,
-				'name'			=> 'createUsers',
-				'icon'			=> 'user',
-				'placeholder'	=> 'Added By',
-				'values'		=> $this->entity('Ayre\Entity\User')->findAll(),
+				'placeholder'	=> 'Date Modified',
 			)) ?>
 		</li>
 		<li>

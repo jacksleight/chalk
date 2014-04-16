@@ -17,6 +17,10 @@ class Ayre extends App
 	protected static $_slugs	= [];
 	protected static $_paths	= [];
 
+	protected static $_publishables	= [
+		'Ayre\Entity\Content',
+	];
+
 	public static function blameable($blameable = null)
 	{
 		if (isset($blameable)) {
@@ -81,7 +85,7 @@ class Ayre extends App
 		self::$_types[$type] = $class;
 		self::$_slugs[$slug] = $class;
 		self::$_paths[$path] = $class;
-		return self::$_classes[$class] = (object) [
+		return self::$_classes[$class] = (object) ([
 			'class' => $class,
 			'type'	=> $type,
 			'slug'	=> $slug,
@@ -98,10 +102,7 @@ class Ayre extends App
 				'slug'	=> implode('-', $locallower),
 				'path'	=> implode('/', $locallower),
 			],
-			'info' => (object) (isset($class::$info)
-				? $class::$info + $info
-				: $info),
-		];
+		] + (isset($class::$info) ? $class::$info + $info : $info));
 	}
 
 	public function __construct(array $envs = array())
@@ -131,8 +132,8 @@ class Ayre extends App
 
 	public function publish()
 	{
-		foreach ($this->_publishables as $class => $type) {
-			$entitys = $this->em->getRepository($class)->fetchAllForPublish();
+		foreach (self::$_publishables as $class) {
+			$entitys = $this->entity($class)->fetchAllForPublish();
 			if (is_subclass_of($class, 'Ayre\Behaviour\Versionable')) {
 				$last = null;
 				foreach ($entitys as $entity) {
@@ -147,6 +148,6 @@ class Ayre extends App
 				}
 			}
 		}
-		$this->em->flush();
+		$this->entity->flush();
 	}
 }

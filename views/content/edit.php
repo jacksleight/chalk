@@ -2,17 +2,17 @@
 <? $this->block('main') ?>
 
 <ul class="toolbar">
-	<? if ($this->entity->isPersisted($entity->getObject())) { ?>
+	<? if (isset($entity->id)) { ?>
 		<li>
 			<a href="<?= $this->url([
 				'action' => 'archive',
 			]) ?>" class="btn btn-negative">
-				<i class="fa fa-archive"></i> Archive <?= $entityType->info->singular ?>
+				<i class="fa fa-archive"></i> Archive <?= $entityType->singular ?>
 			</a>
 		</li>
 	<? } ?>
 </ul>
-<h1><?= $entityType->info->singular ?></h1>
+<h1><?= $entityType->singular ?></h1>
 <form action="<?= $this->url->route() ?>" method="post" novalidate>
 	<fieldset class="form-block">
 		<div class="form-legend">
@@ -44,7 +44,7 @@
 			<li>
 				<button>
 					<i class="fa fa-check"></i>
-					Save <?= $entityType->info->singular ?>
+					Save <?= $entityType->singular ?>
 				</button>
 			</li>
 		</ul>

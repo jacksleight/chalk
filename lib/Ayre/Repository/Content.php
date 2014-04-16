@@ -23,8 +23,7 @@ class Content extends Repository
 		$qb = $this->_em->createQueryBuilder()
 			->select("c")
 			->from($this->_class->name, "c")
-			->leftJoin("c.versions", "v", "WITH", "c.id < v.id")
-			->andWhere("v.id IS NULL");
+			->andWhere("c.next IS NULL");
 		
 		if (isset($sort)) {
 
@@ -48,6 +47,14 @@ class Content extends Repository
 		if (isset($criteria['createDateMax'])) {
 			$qb->andWhere("c.createDate <= :createDateMax");
 			$params['createDateMax'] = new \DateTime("{$criteria['createDateMax']}");
+		}
+		if (isset($criteria['modifyDateMin'])) {
+			$qb->andWhere("c.modifyDate >= :modifyDateMin");
+			$params['modifyDateMin'] = new \DateTime("{$criteria['modifyDateMin']}");
+		}
+		if (isset($criteria['modifyDateMax'])) {
+			$qb->andWhere("c.modifyDate <= :modifyDateMax");
+			$params['modifyDateMax'] = new \DateTime("{$criteria['modifyDateMax']}");
 		}
 		if (count($criteria['createUsers'])) {
 			$qb->andWhere("c.createUser IN (:createUsers)");

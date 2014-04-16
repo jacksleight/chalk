@@ -2,24 +2,37 @@
 <? $this->block('main') ?>
 
 <ul class="toolbar">
-	<? if ($this->entity->isPersisted($entity->getObject())) { ?>
-		<li>
-			<a href="<?= $this->url([
-				'action' => 'archive',
-			]) ?>" class="btn btn-negative btn-quiet">
-				<i class="fa fa-archive"></i> Archive <?= $entityType->info->singular ?>
-			</a>
-		</li>
+	<li class="status">
+		<? if (!$entity->isNew()) { ?>
+			This is the
+				<span class="label label-status-<?= $entity->status ?>"><?= $entity->status ?></span>
+				version <strong><?= $this->locale->spellout($entity->version) ?></strong>
+		<? } else { ?>
+			This is a <strong>new</strong>
+				<span class="label label-status-<?= $entity->status ?>"><?= $entity->status ?></span> version
+			<? if (!$entity->isMaster()) { ?>
+				based on the 
+				<span class="label label-status-<?= $entity->previous->status ?>"><?= $entity->previous->status ?></span>
+				copy
+			<? } ?>
+		<? } ?>
+	</li>
+	<? if (!$entity->isNew() || !$entity->isMaster()) { ?>
+		<li class="space"><a href="#" class="btn">
+			<i class="fa fa-clock-o"></i>
+			View History
+		</a></li>
 	<? } ?>
 </ul>
 <h1>
-	<? if ($this->entity->isPersisted($entity->getObject())) { ?>
-		<?= $entity->name ?>		
+	<? if (!$entity->isNew() || !$entity->isMaster()) { ?>
+		<?= $entity->name ?>
 	<? } else { ?>
-		New <?= $entityType->info->singular ?>
+		New <?= $entityType->singular ?>
 	<? } ?>
 </h1>
-<form action="<?= $this->url->route() ?>" method="post" novalidate>
+
+<form action="<?= $this->url->route() ?>" method="post">
 	<fieldset class="form-block">
 		<div class="form-legend">
 			<h2>Details</h2>
@@ -29,6 +42,14 @@
 				'entity'	=> $entity,
 				'name'		=> 'name',
 				'label'		=> 'Name',
+				'autofocus'	=> true,
+			)) ?>
+			<?= $this->render('/elements/form-item', array(
+				'type'		=> 'select',
+				'entity'	=> $entity,
+				'name'		=> 'layout',
+				'label'		=> 'Layout',
+				'values'	=> [],
 			)) ?>
 		</div>
 	</fieldset>
@@ -46,12 +67,30 @@
 	</fieldset>
 	<fieldset>
 		<ul class="toolbar">
-			<li>
-				<button>
-					<i class="fa fa-check"></i>
-					Save <?= $entityType->info->singular ?>
-				</button>
-			</li>
+			<li><button class="btn-pending" name="status" value="<?= \Ayre::STATUS_PENDING ?>">
+				<i class="fa fa-check"></i>
+				<? if ($entity->status != \Ayre::STATUS_PENDING) { ?>Save as Pending<? } else { ?>Save Pending<? } ?>
+			</button></li>
+			<? if ($entity->status != \Ayre::STATUS_PENDING) { ?>
+				<li><button class="btn-focus">
+					<i class="fa fa-save"></i>
+					Save <?= ucfirst($entity->status) ?>
+				</button></li>
+			<? } ?>
+		</ul>
+		<ul class="toolbar">
+			<? if ($entity->status != \Ayre::STATUS_DRAFT) { ?>
+				<li><button class="btn-negative btn-quiet" name="status" value="<?= \Ayre::STATUS_DRAFT ?>">
+					<i class="fa fa-reply"></i>
+					Save as Draft
+				</button></li>
+			<? } ?>
+			<? if ($entity->status != \Ayre::STATUS_ARCHIVED) { ?>
+				<li><button class="btn-negative btn-quiet" name="status" value="<?= \Ayre::STATUS_ARCHIVED ?>">
+					<i class="fa fa-archive"></i>
+					Save to Archive
+				</button></li>
+			<? } ?>
 		</ul>
 	</fieldset>
 </form>

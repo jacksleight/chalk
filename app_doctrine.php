@@ -15,11 +15,20 @@ if ($app->isDebug()) {
 }
 
 $types = [
-	'json'	=> 'Js\Doctrine\DBAL\Types\JSONType',
-	'url'	=> 'Js\Doctrine\DBAL\Types\URLType',
+	'json'		=> 'Js\Doctrine\DBAL\Types\JSONType',
+	'url'		=> 'Js\Doctrine\DBAL\Types\URLType',
 ];
 foreach ($types as $name => $class) {
 	\Doctrine\DBAL\Types\Type::addType($name, $class);
+}
+
+$types = [
+	'date'		=> 'Js\Doctrine\DBAL\Types\CarbonDateType',
+	'time'		=> 'Js\Doctrine\DBAL\Types\CarbonTimeType',
+	'datetime'	=> 'Js\Doctrine\DBAL\Types\CarbonDateTimeType',
+];
+foreach ($types as $name => $class) {
+	\Doctrine\DBAL\Types\Type::overrideType($name, $class);
 }
 
 $functions = [

@@ -51,10 +51,10 @@ class Log extends Entity
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
-    protected $actionDate;
+    protected $logDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Ayre\Entity\User", inversedBy="actions")
+     * @ORM\ManyToOne(targetEntity="\Ayre\Entity\User", inversedBy="logs")
      * @ORM\JoinColumn(onDelete="SET NULL")
      * @Gedmo\Blameable(on="create")
      */

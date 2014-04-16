@@ -9,8 +9,7 @@ namespace Ayre;
 class Filter extends \Ayre\Entity
 {
 	protected $search;
-	protected $createDateMin;
-	protected $createUsers = [];
+	protected $modifyDateMin;
 	protected $statuses = [
 		\Ayre::STATUS_DRAFT,
 		\Ayre::STATUS_PENDING,
@@ -25,7 +24,7 @@ class Filter extends \Ayre\Entity
 					'type'		=> 'string',
 					'nullable'	=> true,
 				),
-				'createDateMin' => array(
+				'modifyDateMin' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
 					'values'	=> [
@@ -40,10 +39,6 @@ class Filter extends \Ayre\Entity
 						'-6 month'	=> 'Past 6 Months',
 						'-1 year'	=> 'Past Year',
 					]
-				),
-				'createUsers' => array(
-					'type'		=> 'array',
-					'nullable'	=> true,
 				),
 				'statuses' => array(
 					'type'		=> 'array',

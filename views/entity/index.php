@@ -10,11 +10,11 @@ $entites = $this->entity($entityType->class)
 		<a href="<?= $this->url([
 			'action' => 'edit',
 		]) ?>" class="btn">
-			<i class="fa fa-plus"></i> Add <?= $entityType->info->singular ?>
+			<i class="fa fa-plus"></i> Add <?= $entityType->singular ?>
 		</a>
 	</li>
 </ul>
-<h1><?= $entityType->info->plural ?></h1>
+<h1><?= $entityType->plural ?></h1>
 <table>
 	<colgroup>
 		<col class="col-name">

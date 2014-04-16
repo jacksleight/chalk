@@ -11,12 +11,12 @@ $entites = $this->entity($entityType->class)
 	<li>
 		<a href="<?= $this->url([
 			'action' => 'edit',
-		]) ?>" class="btn">
-			<i class="fa fa-plus"></i> Add <?= $entityType->info->singular ?>
+		]) ?>" class="btn btn-focus">
+			<i class="fa fa-plus"></i> Add <?= $entityType->singular ?>
 		</a>
 	</li>
 </ul>
-<h1><?= $entityType->info->plural ?></h1>
+<h1><?= $entityType->plural ?></h1>
 <form action="<?= $this->url->route() ?>" class="submitable">
 	<ul class="filters">
 		<li>
@@ -66,9 +66,9 @@ $entites = $this->entity($entityType->class)
 	</thead>
 	<tbody>
 		<? foreach ($entites as $entity) { ?>
-			<tr class="linkable">
+			<tr class="clickable">
 				<td class="col-status">
-					<span class="label status status-<?= (int) $entity->isEnabled ?>">
+					<span class="label label-status-<?= (int) $entity->isEnabled ?>">
 						<i class="fa fa-<?= $entity->isEnabled ? 'check' : 'times' ?>"></i>
 					</span>					
 				</td>

@@ -11,4 +11,11 @@ class Index extends Action
 	{
 
 	}
+
+	public function publish(Request $req, Response $res)
+	{
+		$this->app->publish();
+
+		return $res->redirect($this->url([], 'index', true));
+	}
 }

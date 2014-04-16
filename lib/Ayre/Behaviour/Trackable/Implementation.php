@@ -48,4 +48,18 @@ trait Implementation
         $md['validator']->removeValidator('Js\Validator\Set');
         return $md;
     }
+
+    public function createUserName()
+    {
+        return isset($this->createUser)
+            ? $this->createUserName
+            : 'Unknown';
+    }
+
+    public function modifyUserName()
+    {
+        return isset($this->modifyUser)
+            ? $this->modifyUserName
+            : 'Unknown';
+    }
 }

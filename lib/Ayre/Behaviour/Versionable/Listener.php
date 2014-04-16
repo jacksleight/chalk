@@ -29,11 +29,6 @@ class Listener implements EventSubscriber
             return;
         }
 
-        $meta->mapOneToMany([
-            'fieldName'    => 'versions',
-            'targetEntity' => $class,
-            'mappedBy'     => 'master',
-        ]);
         $meta->mapManyToOne([
             'fieldName'    => 'master',
             'targetEntity' => $class,
@@ -43,6 +38,29 @@ class Listener implements EventSubscriber
                 'referencedColumnName' => 'id',
                 'onDelete'             => 'CASCADE',
             ]]
+        ]);
+        $meta->mapOneToOne([
+            'fieldName'    => 'previous',
+            'targetEntity' => $class,
+            'joinColumns'  => [[
+                'name'                 => 'previous_id',
+                'referencedColumnName' => 'id',
+                'onDelete'             => 'CASCADE',
+            ]]
+        ]);
+        $meta->mapOneToOne([
+            'fieldName'    => 'next',
+            'targetEntity' => $class,
+            'joinColumns'  => [[
+                'name'                 => 'next_id',
+                'referencedColumnName' => 'id',
+                'onDelete'             => 'CASCADE',
+            ]]
+        ]);
+        $meta->mapOneToMany([
+            'fieldName'    => 'versions',
+            'targetEntity' => $class,
+            'mappedBy'     => 'master',
         ]);
     }
 }

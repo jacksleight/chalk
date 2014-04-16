@@ -21,6 +21,10 @@ trait Implementation
 
     protected $master;
 
+    protected $previous;
+
+    protected $next;
+
     protected $versions;
 
     public function __construct()
@@ -35,6 +39,8 @@ trait Implementation
     {
     	$version = clone $this->master->versions->last();
     	$this->master->versions->add($version);
+        $version->previous = $this;
+        $this->next = $version;
     	
         $version->id = null;
         $version->version++;
@@ -42,5 +48,20 @@ trait Implementation
             $version->status = Ayre::STATUS_DRAFT;
         }
     	return $version;
+    }
+
+    public function isMaster()
+    {
+        return $this === $this->master;
+    }
+
+    public function isOldest()
+    {
+        return !isset($this->previous);
+    }
+
+    public function isNewest()
+    {
+        return !isset($this->next);
     }
 }

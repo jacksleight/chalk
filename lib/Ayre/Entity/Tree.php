@@ -45,16 +45,6 @@ class Tree extends Entity implements Loggable, Publishable, Trackable, Versionab
      * @ORM\OneToOne(targetEntity="\Ayre\Entity\Tree\Node", inversedBy="tree", cascade={"persist"})
      */
 	protected $root;
-
-	/**
-     * @ORM\OneToMany(targetEntity="\Ayre\Entity\Domain", mappedBy="tree")
-     */
-	protected $domains;
-
-	/**
-     * @ORM\OneToMany(targetEntity="\Ayre\Entity\Menu", mappedBy="tree")
-     */
-	protected $menus;
 	
 	public function __construct()
 	{	

@@ -55,18 +55,32 @@ $('.upload').each(function(i, el) {
 	});
 });
 
-$('.linkable').each(function(i, el) {
-	var link = $(el).find('a')[0];
+$('.clickable').each(function(i, el) {
+	var target = $(el).find('a')[0];
+	$(el).mouseover(function(ev) {
+		if ($(ev.target).is('a')) {
+			return;
+		}
+		$(target).addClass('hover');
+	});
+	$(el).mouseout(function(ev) {
+		if ($(ev.target).is('a')) {
+			return;
+		}
+		$(target).removeClass('hover');
+	});
 	$(el).click(function(ev) {
-		ev.preventDefault();
-		window.location.href = link.href;
+		if ($(ev.target).is('a')) {
+			return;
+		}
+		target.click();
 	});
 });
 
 $('.submitable').each(function(i, form) {
 	var inputs = $(form).find('input');
 	$(inputs).change(function(ev) {
-		$(form).trigger('submit');
+		form.submit();
 	});
 });
 

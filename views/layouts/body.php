@@ -36,9 +36,12 @@
 		<div class="topbar">
 			<ul class="toolbar">
 				<li>
-					<a href="#" class="btn btn-inline btn-negative btn-quiet">
+					<a href="<?= $this->url([
+						'controller' => 'index',
+						'action'	 => 'publish',
+					], 'index', true) ?>" class="btn btn-inline btn-pending btn-quiet">
 						<i class="fa fa-globe"></i>
-						Publish <strong>14 Pending</strong> Items…
+						Publish Pending Items…
 					</a>
 				</li>
 			</ul>
@@ -47,7 +50,7 @@
 					<i class="fa fa-user"></i>
 					Jack Sleight
 				</li>
-				<li>
+				<li class="space">
 					<i class="fa fa-sign-out"></i>
 					<a href="#">Logout</a>
 				</li>

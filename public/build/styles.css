@@ -52,6 +52,11 @@ h1 {
   font-size: 27.9841px;
   font-size: 1.74901rem;
 }
+h1 small {
+  display: block;
+  font-size: 16px;
+  font-size: 1rem;
+}
 
 h2 {
   font-size: 21.16px;
@@ -148,13 +153,13 @@ a:visited {
   color: #3e4651;
 }
 a:focus {
-  color: #373f48;
+  color: #3e4651;
 }
 a:hover {
-  color: #373f48;
+  color: #00a6b5;
 }
 a:active {
-  color: #373f48;
+  color: i #3e4651;
 }
 
 /* Emphasised & Marked */
@@ -264,7 +269,9 @@ small {
 }
 
 /* Label */
-.label {
+.label, .label-status, .label-status-draft, .label-status-0,
+.label-status-archived, .label-status-pending, .label-status-1,
+.label-status-published {
   background-color: #9ea2a8;
   border: 1px solid #9ea2a8;
   color: white;
@@ -275,33 +282,38 @@ small {
   display: inline-block;
   line-height: 1.6;
 }
+td .label, td .label-status, td .label-status-draft, td .label-status-0,
+td .label-status-archived, td .label-status-pending, td .label-status-1,
+td .label-status-published, th .label, th .label-status, th .label-status-draft, th .label-status-0,
+th .label-status-archived, th .label-status-pending, th .label-status-1,
+th .label-status-published {
+  width: 100%;
+}
 
-/* Status */
-.status {
+.label-status, .label-status-draft, .label-status-0,
+.label-status-archived, .label-status-pending, .label-status-1,
+.label-status-published {
   text-transform: uppercase;
 }
-.status.status-archived {
+
+.label-status-0,
+.label-status-archived {
   background-color: white;
   color: #9ea2a8;
 }
-.status.status-pending {
+
+.label-status-pending {
   background-color: #fc6042;
   border-color: #fc6042;
 }
-.status.status-1, .status.status-published {
+
+.label-status-1,
+.label-status-published {
   background-color: #2cc95c;
   border-color: #2cc95c;
 }
-.status.status-0 {
-  background-color: #fc6042;
-  border-color: #fc6042;
-}
 
 /* Icons */
-i.fa {
-  margin-right: 0.2em;
-}
-
 /* Rule */
 hr {
   margin: 20px 0;
@@ -545,7 +557,9 @@ figure figcaption {
   bottom: auto;
   top: 0;
 }
-.thumb .preview .label {
+.thumb .preview .label, .thumb .preview .label-status, .thumb .preview .label-status-draft, .thumb .preview .label-status-0,
+.thumb .preview .label-status-archived, .thumb .preview .label-status-pending, .thumb .preview .label-status-1,
+.thumb .preview .label-status-published {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -576,12 +590,6 @@ table tr th:first-child, table tr td:first-child {
 table tr:first-child th, table tr:first-child td {
   border-top: 0;
 }
-table tr.linkable a {
-  text-decoration: none;
-}
-table tr.linkable:hover {
-  cursor: pointer;
-}
 table thead th {
   font-weight: 500;
 }
@@ -596,7 +604,10 @@ table tfoot tr:first-child th, table tfoot tr:first-child td {
 }
 table th, table td {
   vertical-align: top;
-  padding: 6px 0;
+  padding: 6px 0 6px 20px;
+}
+table th:first-child, table td:first-child {
+  padding-left: 0;
 }
 table th {
   font-weight: 300;
@@ -637,7 +648,6 @@ table caption {
 table .col-status,
 table .col-role {
   width: 1px;
-  padding-right: 20px;
   text-align: center;
 }
 table .col-status .status,
@@ -646,8 +656,6 @@ table .col-role .status {
 }
 table .col-status:last-child,
 table .col-role:last-child {
-  padding-right: 0;
-  padding-left: 20px;
   text-align: right;
 }
 table .col-create {
@@ -830,7 +838,7 @@ select optgroup option {
     background-image: url('../images/1x/select-arrow.1396288106.png');
     background-position: 100% 50%;
     background-repeat: no-repeat;
-    padding-right: 22px;
+    padding-right: 30px;
   }
 }
 @media screen and (-webkit-min-device-pixel-ratio: 0) and (-webkit-min-device-pixel-ratio: 2), screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 192dpi) {
@@ -1001,6 +1009,51 @@ button.btn-focus:hover,
 .btn.btn-focus:hover {
   background-color: #0095a2 !important;
   border-color: #0095a2 !important;
+}
+input[type=reset].btn-pending,
+input[type=submit].btn-pending,
+input[type=button].btn-pending,
+button.btn-pending,
+.btn.btn-pending {
+  color: white;
+  background-color: #fc6042;
+  border-color: #fc6042;
+}
+input[type=reset].btn-pending:visited,
+input[type=submit].btn-pending:visited,
+input[type=button].btn-pending:visited,
+button.btn-pending:visited,
+.btn.btn-pending:visited {
+  color: white;
+}
+input[type=reset].btn-pending:focus,
+input[type=submit].btn-pending:focus,
+input[type=button].btn-pending:focus,
+button.btn-pending:focus,
+.btn.btn-pending:focus {
+  color: white;
+}
+input[type=reset].btn-pending:hover,
+input[type=submit].btn-pending:hover,
+input[type=button].btn-pending:hover,
+button.btn-pending:hover,
+.btn.btn-pending:hover {
+  color: white;
+}
+input[type=reset].btn-pending:active,
+input[type=submit].btn-pending:active,
+input[type=button].btn-pending:active,
+button.btn-pending:active,
+.btn.btn-pending:active {
+  color: white;
+}
+input[type=reset].btn-pending:hover,
+input[type=submit].btn-pending:hover,
+input[type=button].btn-pending:hover,
+button.btn-pending:hover,
+.btn.btn-pending:hover {
+  background-color: #e2563b !important;
+  border-color: #e2563b !important;
 }
 input[type=reset].btn-positive,
 input[type=submit].btn-positive,
@@ -1216,27 +1269,23 @@ button.disabled,
   vertical-align: bottom;
   width: 100%;
 }
-.dropdown .dropdown-list {
-  position: absolute;
-  top: 100%;
-  left: -1px;
-  right: 0;
-  max-height: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  -webkit-transition: all 0.1s ease;
-  -moz-transition: all 0.1s ease;
-  -o-transition: all 0.1s ease;
-  transition: all 0.1s ease;
-}
 .dropdown ul {
   margin-top: 0;
   border: 1px solid #ced0d3;
   border-top: 0;
   background-color: white;
   list-style: none;
-  max-height: 300px;
-  overflow: auto;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  white-space: nowrap;
+  -webkit-transition: max-height 0.1s ease;
+  -moz-transition: max-height 0.1s ease;
+  -o-transition: max-height 0.1s ease;
+  transition: max-height 0.1s ease;
 }
 .dropdown ul li {
   list-style-image: none;
@@ -1257,8 +1306,13 @@ button.disabled,
 .dropdown li label:hover, .dropdown li span:hover, .dropdown li a:hover {
   background-color: #fbfbfb;
 }
-.dropdown:hover .dropdown-list {
+.dropdown ul {
+  max-height: 0;
+  border-bottom-width: 0;
+}
+.dropdown:hover ul {
   max-height: 300px;
+  border-bottom-width: 1px;
 }
 
 ::-moz-focus-inner {
@@ -1277,8 +1331,11 @@ button.disabled,
 
 /* Form */
 form {
-  margin: 0;
+  margin: 20px 0 0 0;
   padding: 0;
+}
+form > *:first-child {
+  margin-top: 0 !important;
 }
 
 fieldset {
@@ -1388,8 +1445,8 @@ legend {
 /* Toolbar */
 .toolbar {
   list-style: none;
-  margin-left: -10px;
-  margin-right: -10px;
+  margin-left: -2.5px;
+  margin-right: -2.5px;
   font-size: 0;
 }
 .toolbar li {
@@ -1397,13 +1454,13 @@ legend {
   list-style-type: none;
   margin-left: 0;
 }
-.toolbar li {
+.toolbar > li {
   font-size: 16px;
   font-size: 1rem;
 }
-.toolbar li {
-  padding-left: 10px;
-  padding-right: 10px;
+.toolbar > li {
+  padding-left: 2.5px;
+  padding-right: 2.5px;
   display: -moz-inline-stack;
   display: inline-block;
   vertical-align: top;
@@ -1416,6 +1473,15 @@ legend {
 }
 .toolbar:first-child:first-child + * {
   margin-top: 0 !important;
+}
+.toolbar > li {
+  vertical-align: middle;
+}
+.toolbar > li.space {
+  padding-left: 15px;
+}
+.toolbar a {
+  text-decoration: none;
 }
 
 /* Filters */
@@ -1446,14 +1512,17 @@ legend {
 .filters > li {
   flex: 2;
 }
-.filters > li + li div {
-  border-left: 0 !important;
-}
 .filters > li:first-child {
   flex: 3;
 }
 .filters i {
   color: #9ea2a8;
+}
+.filters .value {
+  border-left: 0;
+}
+.filters .dropdown ul {
+  left: -1px;
 }
 
 /* Upload */
@@ -1516,6 +1585,33 @@ legend {
   -ms-transform: rotate(180deg);
   -o-transform: rotate(180deg);
   transform: rotate(180deg);
+}
+
+/* Clickable */
+.clickable a {
+  text-decoration: none;
+}
+.clickable a:hover {
+  text-decoration: underline;
+}
+.clickable a.hover {
+  text-decoration: underline;
+}
+.clickable:hover {
+  cursor: pointer;
+}
+
+/* Status */
+.status {
+  color: #9ea2a8;
+}
+.status strong {
+  color: #3e4651;
+}
+.status .label, .status .label-status, .status .label-status-draft, .status .label-status-0,
+.status .label-status-archived, .status .label-status-pending, .status .label-status-1,
+.status .label-status-published {
+  margin: 0 2px;
 }
 
 /* Page */
@@ -1635,12 +1731,6 @@ html, body {
   margin-top: 0;
   text-align: center;
   font-weight: 500;
-}
-.topbar a {
-  text-decoration: none;
-}
-.topbar a:hover {
-  text-decoration: underline;
 }
 
 .nav {

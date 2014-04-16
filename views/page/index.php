@@ -7,36 +7,35 @@ $entites = $this->entity($entityType->class)
 	->fetchAll($filter->toArray());
 ?>
 
-<h1><?= $entityType->singular ?></h1>
-<?= $this->render('filters', ['filter' => $filter]) ?>
+<ul class="toolbar">
+	<li><a href="<?= $this->url([
+			'action' => 'edit',
+		]) ?>" class="btn btn-focus">
+			<i class="fa fa-plus"></i> New <?= $entityType->singular ?>
+	</a></li>
+</ul>
+<h1><?= $entityType->plural ?></h1>
+<?= $this->render('/content/filters', ['filter' => $filter]) ?>
 <table>
 	<colgroup>
-		<col class="col-type">
 		<col class="col-name">
-		<col class="col-create">
 		<col class="col-status">
 	</colgroup>
 	<thead>
 		<tr>
-			<th scope="col" class="col-type">Type</th>
 			<th scope="col" class="col-name">Name</th>
-			<th scope="col" class="col-create">Added</th>
 			<th scope="col" class="col-status">Status</th>
 		</tr>
 	</thead>
 	<tbody>
 		<? foreach ($entites as $entity) { ?>
-			<tr>
-				<td class="col-type">
-					<?= \Ayre::type($entity)->singular ?>
-				</td>
+			<tr class="clickable">
 				<th class="col-name" scope="row">
-					<?= $entity->name ?>
+					<a href="<?= $this->url([
+						'action'	=> 'edit',
+						'id'		=> $entity->id,
+					]) ?>"><?= $entity->name ?></a>
 				</th>
-				<td class="col-create">
-					<?= $entity->createDate->diffForHumans() ?>
-					<small>by</small> <?= $entity->createUserName ?>
-				</td>
 				<td class="col-status">
 					<span class="label label-status-<?= $entity->status ?>"><?= $entity->status ?></span>
 				</td>	

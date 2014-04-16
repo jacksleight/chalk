@@ -15,15 +15,11 @@ if (!isset($null) || $null) {
 	<?= isset($readOnly) && $readOnly ? "readonly" : null ?>
 	<?= isset($required) && $required ? "required" : null ?>
 	<?= isset($autofocus) && $autofocus ? "autofocus" : null ?>>
-	<? foreach ($values as $value) { ?>
+	<? foreach ($values as $value => $label) { ?>
 		<option
 			value="<?= (string) $value ?>"
 			<?= (string) $value === (string) $entity->{$name} ? 'selected' : null ?>>
-			<?= $this->escape(!isset($value)
-				? $this->locale->message("label_{$name}_null")
-				: (is_object($value)
-					? $value->name
-					: $this->locale->message("label_{$name}_{$value}"))) ?>
+			<?= $this->escape((string) $label) ?>
 		</option>
 	<? } ?>
 </select>

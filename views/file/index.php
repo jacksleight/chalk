@@ -27,18 +27,18 @@ $entites = $this->entity($entityType->class)
 	</li>
 	<li>
 		<span class="btn btn-focus upload-button">
-			<i class="fa fa-upload"></i> Upload <?= $entityType->info->singular ?>
+			<i class="fa fa-upload"></i> Upload <?= $entityType->singular ?>
 		</span>
 	</li>
 </ul>
-<h1><?= $entityType->info->plural ?></h1>
+<h1><?= $entityType->plural ?></h1>
 <?= $this->render('/content/filters', ['filter' => $filter]) ?>
 <ul class="thumbs upload-list">
 	<? foreach ($entites as $entity) { ?>
-		<?= $this->render('/content/thumb', ['content' => $entity]) ?>
+		<?= $this->render('thumb', ['entity' => $entity]) ?>
 	<? } ?>
 </ul>
 <input class="upload-input" type="file" name="files[]" data-url="<?= $this->url(['action' => 'upload']) ?>" multiple>
 <script type="x-tmpl-mustache" class="upload-template">
-	<?= $this->render('/content/thumb', ['template' => true]) ?>
+	<?= $this->render('thumb', ['template' => true]) ?>
 </script>

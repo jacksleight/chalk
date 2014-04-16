@@ -8,6 +8,7 @@
     "swiftmailer/swiftmailer": "5.1.*",
     "intervention/image": "1.6.*",
     "gargron/fileupload": "1.0.*",
+    "nesbot/carbon": "1.8.*",
     "jacksleight/coast": "dev-master",
     "jacksleight/toast": "dev-master"
   },

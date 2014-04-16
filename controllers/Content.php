@@ -21,12 +21,7 @@ class Content extends Ayre\Controller\Entity
 
 	public function postDispatch(Request $req, Response $res)
 	{
-		$path = "{$req->entityType->local->path}/{$req->action}";
-		if ($this->view->has($path)) {
-			$req->view->path = "{$path}";
-		} else {
-			$req->view->path = "content/{$req->action}";	
-		}
+		$req->view->path = "{$req->entityType->local->path}/{$req->action}";
 	}
 
 	public function index(Request $req, Response $res)
@@ -34,9 +29,11 @@ class Content extends Ayre\Controller\Entity
 
 	public function edit(Request $req, Response $res)
 	{
-		$req->view->entity = $wrap = $this->entity->wrap(
-			$entity = $this->entity($req->entityType->class)->findOrCreate($req->id)
-		);
+		$entity = $this->entity($req->entityType->class)->findOrCreate($req->id);
+		if ($entity->status == \Ayre::STATUS_PUBLISHED) {
+			$entity = $entity->createVersion();
+		}
+		$req->view->entity = $wrap = $this->entity->wrap($entity);
 
 		if (!$req->isPost()) {
 			return;
