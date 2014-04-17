@@ -70,4 +70,9 @@ $app->router
 		'controller' => 'content',
 		'action'     => 'index',
 		'id'    	 => null,
+	])
+	->all('structure', 'structure/{id}?', [
+		'controller' => 'structure',
+		'action'     => 'index',
+		'id'    	 => null,
 	]);

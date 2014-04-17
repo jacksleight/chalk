@@ -17,6 +17,14 @@ class Repository extends EntityRepository
 		return $reflection->newInstanceArgs($args);
 	}
 
+	public function fetch($id)
+	{
+		if (!isset($id)) {
+			return null;
+		}
+		return $this->find($id);
+	}
+
 	public function findOrCreate($id = null)
 	{
 		return isset($id)

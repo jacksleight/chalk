@@ -14,9 +14,9 @@
 				'params'=> ['controller' => 'structure'],
 			]
 		], 'class' => 'toggle']) ?>
-		<nav class="nav">
-			<?= $content->nav ?>			
-		</nav>
+		<div class="body">
+			<?= $content->sidebar ?>
+		</div>
 		<?= $this->render('nav', ['items' => [
 			[
 				'label' => 'Settings',
@@ -32,7 +32,7 @@
 			<p>Ayre 0.1.0 © <?= date('Y') ?> <a href="http://jacksleight.com/">Jack Sleight</a></p>
 		</footer>
 	</div>
-	<div class="body">
+	<div class="main">
 		<div class="topbar">
 			<ul class="toolbar">
 				<li>
@@ -57,7 +57,7 @@
 			</ul>
 			<p class="title">Example Site</p>
 		</div>
-		<section class="main" role="main">
+		<section class="body" role="main">
 			<?= $content->main ?>
 		</section>
 	</div>

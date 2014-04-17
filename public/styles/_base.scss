@@ -582,6 +582,13 @@ select,
 	@include placeholder {
 		color: $color-quieter;
 	}
+	.sidebar & {
+		background-color: shade($color-primary, 10%);
+		border: 0;
+		color: inherit;
+		padding-left: $gutter;
+		padding-right: $gutter;
+	}
 }
 input[type=radio],
 input[type=checkbox] { 
@@ -776,41 +783,23 @@ button,
 	display: inline-block;
 	vertical-align: bottom;
 	width: 100%;
-	ul {
+	.menu {
 		margin-top: 0;
-		border: 1px solid $color-quieter;
-		border-top: 0;
-		background-color: white;
-		@include no-bullets;
 		position: absolute;
 		top: 100%;
 		left: 0;
 		right: 0;
-		overflow-y: auto;
-		overflow-x: hidden;
 		white-space: nowrap;
-		@include transition(max-height $speed ease);
-
-	}
-	li {
-		border-top: 1px solid $color-shade;
-		&:first-child {
-			border-top: 0;
-		}
-		label, span, a {
-			padding: $gutter * 0.2 $input-padding-horiz;
-			display: block;
-			cursor: pointer;
-			&:hover {
-				background-color: tint($color-shade, 75%);
-			}
-		}
-	}
-	ul {
 		max-height: 0;
+		border-top-width: 0;
 		border-bottom-width: 0;
+		overflow: hidden;
+		@include transition(max-height $speed ease);
+		&:hover {
+			overflow-y: auto;
+		}
 	}
-	&:hover ul {
+	&:hover .menu {
 		max-height: 300px;
 		border-bottom-width: 1px;
 	}
@@ -977,7 +966,7 @@ legend {
 	.value {
 		border-left: 0;
 	}
-	.dropdown ul {
+	.dropdown .menu {
 		left: -1px;
 	}
 }
@@ -1064,4 +1053,160 @@ legend {
 	.label {
 		margin: 0 2px;
 	}
+}
+
+/* Menu */
+
+.menu {
+	margin: $gutter 0 0 0;
+	border: 1px solid $color-quieter;
+	ul {
+		margin: 0;
+		background-color: white;
+		@include no-bullets;
+	}
+	li {
+		border-top: 1px solid $color-shade;
+		&:first-child {
+			border-top: 0;
+		}
+	}
+	label, span, a {
+		padding: $gutter * 0.25 $input-padding-horiz;
+		display: block;
+		cursor: pointer;
+		text-decoration: none;
+		&:hover {
+			background-color: tint($color-shade, 75%);
+		}
+	}
+	.sidebar & {
+		border: 0;
+		ul {
+			background-color: $color-primary;
+		}
+		li {
+			border: 0;
+		}
+		label, span, a {
+			padding-left: $gutter;
+			padding-right: $gutter;
+			&:hover,
+			&.active {
+				color: white;
+				background-color: shade($color-primary, 10%);
+			}
+			&.active {
+				position: relative;
+				&:after {
+					content: '';
+					position: absolute;
+					top: 0;
+					right: 0;
+					border: 17px solid;
+					border-color: transparent white transparent transparent;
+				}
+			}
+		}
+	}
+}
+
+/* Tree */
+
+.tree {
+	margin: $gutter * 0.5 0 0 0;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.tree-list {
+	position: relative;
+	display: block;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.tree-list .tree-list {
+	padding-left: $gutter;
+}
+.tree-collapsed .tree-list {
+	display: none;
+}
+.tree-item,
+.tree-empty,
+.tree-placeholder {
+	display: block;
+	position: relative;
+	margin: 0;
+	padding: 0;
+}
+.tree-handle {
+	display: block;
+	padding: $gutter * 0.25 $gutter $gutter * 0.25 $gutter * 2;
+	cursor: move;
+	&:before {
+		content: '';
+		position: absolute;
+		top: 12px;
+		left: $gutter;
+		@include sprite-vector(icon-blank);
+		opacity: 0.1;
+	}
+	&:hover,
+	&.active {
+		color: white;
+		background-color: shade($color-primary, 10%);
+	}
+	&.active {
+		position: relative;
+		&:after {
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			border: 17px solid;
+			border-color: transparent white transparent transparent;
+		}
+	}
+}
+.tree-item > button {
+	position: absolute;
+	z-index: 1;
+	padding: 0;
+	top: 0;
+	left: 0;
+	width: $gutter * 2;
+	height: 34px;
+	text-align: center;
+	cursor: pointer;
+	border: 0;
+	background-color: transparent !important;
+	span {
+		position: absolute;
+		top: 12px;
+		left: $gutter;
+		opacity: 0.75;
+	}
+	&:hover span {
+		opacity: 1;
+	}
+	&[data-action=expand] span {
+		@include sprite-vector(icon-plus);
+	}
+	&[data-action=collapse] span {
+		@include sprite-vector(icon-minus);
+	}
+}
+.tree-placeholder,
+.tree-empty {
+	background-position: right;
+	background-color: $color-active;
+}
+.tree-drag {
+	color: white;
+	background-color: shade($color-primary, 10%);
+	position: absolute;
+	pointer-events: none;
+	z-index: 10000;
 }

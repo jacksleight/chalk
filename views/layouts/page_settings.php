@@ -3,17 +3,19 @@
 
 <?= $content->main ?>
 
-<? $this->block('nav') ?>
+<? $this->block('sidebar') ?>
 
-<?= $this->render('nav', ['items' => [
-	[
-		'label' => 'Users',
-		'params'=> ['controller' => 'user'],
-	], [
-		'label' => 'Domains',
-		'params'=> ['controller' => 'domain'],
-	], [
-		'label' => 'Menus',
-		'params'=> ['controller' => 'menu'],
-	]
-]]) ?>
+<nav class="menu" role="navigation">
+	<?= $this->render('nav', ['items' => [
+		[
+			'label' => 'Users',
+			'params'=> ['controller' => 'user'],
+		], [
+			'label' => 'Domains',
+			'params'=> ['controller' => 'domain'],
+		], [
+			'label' => 'Menus',
+			'params'=> ['controller' => 'menu'],
+		]
+	]]) ?>
+</nav>

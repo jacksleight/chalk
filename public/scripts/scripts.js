@@ -2,10 +2,13 @@
 
 //= require ../../bower_components/log/log.js
 //= require ../../bower_components/fastclick/lib/fastclick.js
+
 //= require ../../bower_components/jquery/dist/jquery.js
+//= require ../../bower_components/Nestable/jquery.nestable.js
 //= require ../../bower_components/jquery-file-upload/js/vendor/jquery.ui.widget.js
 //= require ../../bower_components/jquery-file-upload/js/jquery.iframe-transport.js
 //= require ../../bower_components/jquery-file-upload/js/jquery.fileupload.js
+
 //= require ../../bower_components/mustache/mustache.js
 
 /* Initialize */
@@ -122,4 +125,18 @@ $('.advanced').each(function(i, el) {
 	$(el).find('.advanced-toggle').click(function(ev) {
 		$(el).toggleClass('active');
 	});
+});
+
+$('.tree').nestable({
+	maxDepth		: 100,
+	rootClass		: 'tree',
+	listClass		: 'tree-list',
+	itemClass		: 'tree-item',
+	dragClass		: 'tree-drag',
+	handleClass		: 'tree-handle',
+	collapsedClass	: 'tree-collapsed',
+	placeClass		: 'tree-placeholder',
+	emptyClass		: 'tree-empty',
+	expandBtnHTML	: '<button data-action="expand"><span>Expand</span></button>',
+	collapseBtnHTML	: '<button data-action="collapse"><span>Collapse</span></button>',
 });

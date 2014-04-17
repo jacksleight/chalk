@@ -13,7 +13,7 @@ use Ayre,
 
 class Index extends Repository
 {
-    public function fetch(Searchable $entity)
+    public function fetch($id)
     {
         $index = $this->_em->createQueryBuilder()
             ->select("i")
@@ -22,8 +22,8 @@ class Index extends Repository
             ->andWhere("i.entity_id = :entity_id")
             ->getQuery()
             ->setParameters([
-                'entity_class' => get_class($entity),
-                'entity_id'    => $entity->id,
+                'entity_class' => get_class($id),
+                'entity_id'    => $id->id,
             ])          
             ->getOneOrNullResult();
         return $index;

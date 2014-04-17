@@ -10,7 +10,7 @@ $entites = $this->entity($entityType->class)
 		<a href="<?= $this->url([
 			'action' => 'edit',
 		]) ?>" class="btn">
-			<i class="fa fa-plus"></i> Add <?= $entityType->singular ?>
+			<i class="fa fa-plus"></i> New <?= $entityType->singular ?>
 		</a>
 	</li>
 </ul>
@@ -18,12 +18,12 @@ $entites = $this->entity($entityType->class)
 <table>
 	<colgroup>
 		<col class="col-name">
-		<col class="col-create">
+		<col class="col-date">
 	</colgroup>
 	<thead>
 		<tr>
 			<th scope="col" class="col-name">Name</th>
-			<th scope="col" class="col-create">Added</th>
+			<th scope="col" class="col-date">Added</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -37,9 +37,8 @@ $entites = $this->entity($entityType->class)
 						<?= $entity->name ?>
 					</a>
 				</th>
-				<td class="col-create">
-					<?= getRelativeDate($entity->createDate) ?> <small>by</small>
-					<?= isset($entity->createUser) ? $entity->createUser->name : 'System' ?>
+				<td class="col-date">
+					<?= $entity->createDate->diffForHumans() ?>
 				</td>
 			</tr>
 		<? } ?>

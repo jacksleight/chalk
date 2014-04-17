@@ -27,26 +27,6 @@ $entites = $this->entity($entityType->class)
 				'placeholder'	=> 'Search…',
 			)) ?>
 		</li>
-		<li>
-			<?= $this->render('/elements/form-input', array(
-				'type'			=> 'dropdown_single',
-				'entity'		=> $filter,
-				'null'			=> 'Any',
-				'name'			=> 'createDateMin',
-				'icon'			=> 'calendar',
-				'placeholder'	=> 'Date Added',
-			)) ?>
-		</li>
-		<li>
-			<?= $this->render('/elements/form-input', array(
-				'type'			=> 'dropdown_multiple',
-				'entity'		=> $filter,
-				'name'			=> 'createUsers',
-				'icon'			=> 'user',
-				'placeholder'	=> 'Added By',
-				'values'		=> []
-			)) ?>
-		</li>
 	</ul>
 </form>
 <table>

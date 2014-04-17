@@ -3,16 +3,18 @@
 
 <?= $content->main ?>
 
-<? $this->block('nav') ?>
+<? $this->block('sidebar') ?>
 
-<?= $this->render('nav', ['items' => [
-	[
-		'label' => 'Pages',
-		'name'	=> 'content',
-		'params'=> ['entityType' => 'core-page'],
-	], [
-		'label' => 'Files',
-		'name'	=> 'content',
-		'params'=> ['entityType' => 'core-file'],
-	]
-]]) ?>
+<nav class="menu" role="navigation">
+	<?= $this->render('nav', ['items' => [
+		[
+			'label' => 'Pages',
+			'name'	=> 'content',
+			'params'=> ['entityType' => 'core-page'],
+		], [
+			'label' => 'Files',
+			'name'	=> 'content',
+			'params'=> ['entityType' => 'core-file'],
+		]
+	]]) ?>
+</nav>

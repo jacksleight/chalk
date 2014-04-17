@@ -20,90 +20,63 @@ html, body {
 		display: flex;
 		flex-direction: column;
 	}
-}
-.sidebar {
-	width: 280px;
-	background: $color-primary;
-	&, a {
-		@include link-color(tint($color-primary, 80%));
-	}
-}
-.body {
-	flex: 1;
-}
-.toggle {
-	background: shade($color-primary, 30%);
-	margin: 0;
-	@include no-bullets;
-	@include inline-blocks('li');
-	&, a {
-		@include link-color(tint($color-primary, 80%));
-	}
-	li {
-		width: $width-6;
-	}
-	a {
-		text-decoration: none;
-		padding: $gutter;
-		display: block;
-		&:hover, &:focus {
-			background: shade($color-primary, 50%);
+	.sidebar {
+		width: 280px;
+		background: $color-primary;
+		&, a {
+			@include link-color(tint($color-primary, 80%));
 		}
-		&.active {
-			background: $color-primary;
-		}
-	}
-}
-.topbar {
-	padding: $gutter $gutter * 1.5;
-	background: $color-shade;
-	@include flush;
-	.toolbar {
-		float: right;
-		&:first-child {
-			float: left;
-		}
-	}
-	.title {
-		margin-top: 0;
-		text-align: center;
-		font-weight: 500;
-	}
-}
-.nav {
-	flex: 1;
-	ul {
-		@include no-bullets;
-		margin: 0;
-	}
-	a {
-		text-decoration: none;
-		display: block;
-		padding: $gutter * 0.5 $gutter;
-		background-color: $color-primary;
-		&:hover, 
-		&.active {
-			color: white;
-			background-color: shade($color-primary, 10%);
-		}
-		&.active {
-			position: relative;
-			&:after {
-				content: '';
-				position: absolute;
-				top: 0;
-				right: 0;
-				border: 22px solid;
-				border-color: transparent white transparent transparent;
+		.toggle {
+			background: shade($color-primary, 30%);
+			margin: 0;
+			@include no-bullets;
+			@include inline-blocks('li');
+			&, a {
+				@include link-color(tint($color-primary, 80%));
+			}
+			li {
+				width: $width-6;
+			}
+			a {
+				text-decoration: none;
+				padding: $gutter;
+				display: block;
+				&:hover, &:focus {
+					background: shade($color-primary, 50%);
+				}
+				&.active {
+					background: $color-primary;
+				}
 			}
 		}
 	}
-}
-.main {
-	flex: 1;
-	overflow: auto;
-	padding: $gutter $gutter * 1.5;
-	@include flush;
+	.main {
+		flex: 1;
+		.topbar {
+			padding: $gutter $gutter * 1.5;
+			background: $color-shade;
+			@include flush;
+			.toolbar {
+				float: right;
+				&:first-child {
+					float: left;
+				}
+			}
+			.title {
+				margin-top: 0;
+				text-align: center;
+				font-weight: 500;
+			}
+		}
+		.body {
+			padding: $gutter $gutter * 1.5;
+		}
+	}
+	.body {
+		flex: 1;
+		overflow: auto;
+		@include flush;
+	}
 }
 
 /* Footer */

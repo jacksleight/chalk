@@ -32,7 +32,7 @@
 	<? if (!$entity->isNew()) { ?>
 		<li>
 			<i class="fa fa-calendar"></i>
-			Last modified <em><?= $entity->modifyDate->diffForHumans() ?></em> by <em><?= $entity->modifyUserName ?></em>
+			Last updated <em><?= $entity->modifyDate->diffForHumans() ?></em> by <em><?= $entity->modifyUserName ?></em>
 		</li>
 	<? } ?>
 </ul>
