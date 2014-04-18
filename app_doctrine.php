@@ -59,7 +59,6 @@ $classes = [
 	'Ayre\Behaviour\Loggable\Listener',
 	'Ayre\Behaviour\Searchable\Listener',
 	'Ayre\Behaviour\Versionable\Listener',
-	'Ayre\Entity\Tree\Node\Listener',
 	'Gedmo\Blameable\BlameableListener',
 	'Gedmo\Sluggable\SluggableListener',
 	'Gedmo\Timestampable\TimestampableListener',
@@ -79,6 +78,7 @@ foreach ($classes as $class) {
 	}
 }
 
+global $em;
 $em = Doctrine\ORM\EntityManager::create($app->config->database + [
 	'driver'	=> 'pdo_mysql',
 	'charset'	=> 'utf8'

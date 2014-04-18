@@ -52,14 +52,14 @@ trait Implementation
     public function createUserName()
     {
         return isset($this->createUser)
-            ? $this->createUserName
+            ? $this->createUser->name
             : 'Unknown';
     }
 
     public function modifyUserName()
     {
         return isset($this->modifyUser)
-            ? $this->modifyUserName
+            ? $this->modifyUser->name
             : 'Unknown';
     }
 }

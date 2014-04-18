@@ -40,32 +40,29 @@ if (!isset($tree)) {
 		</ul>
 	</nav>
 </div>
-
-
+<ol>
+	<li class="tree-item" data-id="<?= $tree->root->id ?>">
+		<div class="tree-handle ">Node <?= $tree->root->id ?></div>
+	</li>
+</ol>
 <div class="tree">
-	<ol class="tree-list">
-		<li class="tree-item" data-id="1">
-			<div class="tree-handle ">Home</div>
-		</li>
-		<li class="tree-item" data-id="3">
-			<div class="tree-handle">Our Services</div>
-			<ol class="tree-list">
-				<li class="tree-item" data-id="4">
-					<div class="tree-handle">Explosions</div>
-				</li>
-				<li class="tree-item" data-id="5">
-					<div class="tree-handle">Demolitions</div>
-				</li>
-				<li class="tree-item" data-id="5">
-					<div class="tree-handle">Crash &amp; Burn</div>
-				</li>
-			</ol>
-		</li>
-		<li class="tree-item" data-id="2">
-			<div class="tree-handle">About Us</div>
-		</li>
-		<li class="tree-item" data-id="2">
-			<div class="tree-handle">Contact Us</div>
-		</li>
-	</ol>
+	<?= $this->entity('Ayre\Entity\Tree\Node')->childrenHierarchy($tree->root, false, [
+		'decorate'		=> true,
+		'rootOpen'		=> '<ol class="tree-list">',
+		'rootClose'		=> '</ol>',
+		'childOpen'		=> '',
+		'childClose'	=> '</li>',
+		'nodeDecorator'	=> function($node) {
+			return '
+				<li class="tree-item" data-id="' . $node['id'] . '">
+				<div class="tree-handle ">Node ' . $node['id'] . '</div>
+			';
+		}
+	]) ?>
 </div>
+<p>
+	<a href="<?= $this->url([
+		'action'	=> 'node',
+		'id'		=> $tree->id,
+	]) ?>" class="btn btn-focus btn-block">Add Node</a>
+</p>

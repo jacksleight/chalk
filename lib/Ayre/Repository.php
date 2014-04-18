@@ -17,23 +17,31 @@ class Repository extends EntityRepository
 		return $reflection->newInstanceArgs($args);
 	}
 
+	public function fetchOrCreate($id)
+	{
+		$entity = $this->fetch($id);
+		if (!isset($entity)) {
+			$entity = $this->create();
+		}
+		return $entity;
+	}
+
 	public function fetch($id)
 	{
 		if (!isset($id)) {
-			return null;
+			return;
 		}
-		return $this->find($id);
-	}
-
-	public function findOrCreate($id = null)
-	{
-		return isset($id)
-			? $this->find($id)
-			: $this->create();
+		return $this->createQueryBuilder('e')
+			->andWhere("e.id = :id")
+			->getQuery()
+			->setParameters(['id' => $id])
+			->getOneOrNullResult();
 	}
 
 	public function fetchAll()
 	{
-		return $this->findAll();
+		return $this->createQueryBuilder('e')
+			->getQuery()
+			->getResult();
 	}
 }

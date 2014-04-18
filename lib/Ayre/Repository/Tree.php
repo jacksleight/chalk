@@ -38,7 +38,6 @@ class Tree extends Repository
 			->getQuery()
 			->setParameters([
 				'statuses' => [
-					\Ayre::STATUS_DRAFT,
 					\Ayre::STATUS_PENDING,
 				],
 			])

@@ -18,7 +18,6 @@ class Log extends Entity
 {
 	const TYPE_CREATE			= 'create';
 	const TYPE_MODIFY			= 'modify';
-    const TYPE_STATUS_DRAFT     = 'status_draft';
 	const TYPE_STATUS_PENDING	= 'status_pending';
 	const TYPE_STATUS_PUBLISHED	= 'status_published';
 	const TYPE_STATUS_ARCHIVED	= 'status_archived';

@@ -13,13 +13,15 @@ var gulp		= require('gulp'),
 	server		= require('tiny-lr')();
 	path		= require('path');
 
-var projectDir	= __dirname,
-	viewsDir	= projectDir + '/views',
-	publicDir	= projectDir + '/public',
-	stylesDir	= publicDir + '/styles',
-	scriptsDir	= publicDir + '/scripts',
-	imagesDir	= publicDir + '/images',
-	buildDir	= publicDir + '/build';
+var projectDir		= __dirname,
+	controllersDir	= projectDir + '/controllers',
+	libDir			= projectDir + '/lib',
+	viewsDir		= projectDir + '/views',
+	publicDir		= projectDir + '/public',
+	stylesDir		= publicDir + '/styles',
+	scriptsDir		= publicDir + '/scripts',
+	imagesDir		= publicDir + '/images',
+	buildDir		= publicDir + '/build';
 
 gulp.task('styles', function() {
 	return sequence(
@@ -118,7 +120,11 @@ gulp.task('watch', function() {
 		gulp.watch([stylesDir + '/**/*.scss'], ['styles']);
 		gulp.watch([scriptsDir + '/**/*.js', '!**/editor.js'], ['scripts']);
 		gulp.watch([scriptsDir + '/**/editor.js'], ['scripts-editor']);
-		gulp.watch([viewsDir + '/**/*.php'], function(ev) {
+		gulp.watch([
+			controllersDir + '/**/*.php',
+			libDir + '/**/*.php',
+			viewsDir + '/**/*.php'
+		], function(ev) {
 			server.changed({
 				body: {
 					files: [ev.path]

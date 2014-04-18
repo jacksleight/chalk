@@ -5,12 +5,13 @@ class Ayre extends App
 {
 	const FORMAT_DATE		= 'jS F Y';
 
-	const STATUS_DRAFT		= 'draft';
 	const STATUS_PENDING	= 'pending';
 	const STATUS_PUBLISHED	= 'published';
 	const STATUS_ARCHIVED	= 'archived';
 
 	protected static $_blameable;
+	protected static $_user;
+
 	protected static $_modules	= ['Ayre'];
 	protected static $_classes	= [];
 	protected static $_types	= [];
@@ -108,6 +109,16 @@ class Ayre extends App
 	public function __construct(array $envs = array())
 	{
 		parent::__construct($envs);
+	}
+
+	public function user(\Ayre\Entity\User $user = null)
+	{
+		if (isset($user)) {
+			$this->_user = $user;
+			self::$_blameable->setUserValue($this->_user);
+			return $this;
+		}
+		return $this->_user;
 	}
 
 	public function isDebug()

@@ -31,7 +31,7 @@ class Entity extends Action
 	public function edit(Request $req, Response $res)
 	{
 		$req->view->entity = $wrap = $this->entity->wrap(
-			$entity = $this->entity($req->entityType->class)->findOrCreate($req->id)
+			$entity = $this->entity($req->entityType->class)->fetchOrCreate($req->id)
 		);
 
 		if (!$req->isPost()) {
@@ -39,7 +39,7 @@ class Entity extends Action
 		}
 
 		$wrap->graphFromArray($req->bodyParams());
-		if (!$wrap->graphIsValid()) {
+		if (!$wrap->isValid()) {
 			return;
 		}
 

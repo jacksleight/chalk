@@ -58,6 +58,9 @@ if (!$app->isDebug()) {
 	});
 }
 
+$user = $app->entity('Ayre\Entity\User')->fetch(1);
+$app->user($user);
+
 /* Routes */
 
 $app->router
@@ -71,7 +74,7 @@ $app->router
 		'action'     => 'index',
 		'id'    	 => null,
 	])
-	->all('structure', 'structure/{id}?', [
+	->all('structure', 'structure/{action}?/{id}?', [
 		'controller' => 'structure',
 		'action'     => 'index',
 		'id'    	 => null,

@@ -123,6 +123,17 @@ class User extends Entity implements Trackable, Searchable
 	{
 		return password_verify($passwordPlain, $this->password);
 	}
+
+	public function pref($name, $value = null)
+	{
+		if (isset($value)) {
+			$this->prefs[$name] = $value;
+			return $this;
+		}
+		return isset($this->prefs[$name])
+			? $this->prefs[$name]
+			: null;
+	}
 	
 	public function searchFields()
 	{

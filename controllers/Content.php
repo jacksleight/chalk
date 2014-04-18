@@ -29,7 +29,7 @@ class Content extends Ayre\Controller\Entity
 
 	public function edit(Request $req, Response $res)
 	{
-		$entity = $this->entity($req->entityType->class)->findOrCreate($req->id);
+		$entity = $this->entity($req->entityType->class)->fetchOrCreate($req->id);
 		if ($entity->status == \Ayre::STATUS_PUBLISHED) {
 			$entity = $entity->duplicate();
 		}
@@ -40,7 +40,7 @@ class Content extends Ayre\Controller\Entity
 		}
 
 		$wrap->graphFromArray($req->bodyParams());
-		if (!$wrap->graphIsValid()) {
+		if (!$wrap->isValid()) {
 			return;
 		}
 

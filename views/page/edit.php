@@ -18,12 +18,7 @@
 </h1>
 <ul class="meta">
 	<li>
-		<span class="label label-status-<?= $entity->status ?>">
-			<? if ($entity->isNew()) { ?>
-				New
-			<? } ?>
-			<?= $entity->status ?>
-		</span>
+		<span class="label label-status-<?= $entity->status ?>"><?= $entity->status ?></span>
 	</li>
 	<li>
 		<i class="fa fa-asterisk"></i>
@@ -77,20 +72,9 @@
 	<fieldset>
 		<ul class="toolbar">
 			<? if (!$entity->isArchived()) { ?>
-				<? if (!$entity->isPending()) { ?>
-					<li><button class="btn-focus">
-						<i class="fa fa-save"></i>
-						Save <?= ucfirst($entity->status) ?>
-					</button></li>
-				<? } ?>
-				<li><button class="btn-pending" name="status" value="<?= \Ayre::STATUS_PENDING ?>">
+				<li><button class="btn-focus">
 					<i class="fa fa-check"></i>
-					Save
-					<? if (!$entity->isPending()) { ?>
-						as Pending
-					<? } else { ?>
-						Pending
-					<? } ?>
+					Save Changes
 				</button></li>
 			<? } else { ?>
 				<li><a href="<?= $this->url([
@@ -103,15 +87,6 @@
 		</ul>
 		<ul class="toolbar">
 			<? if (!$entity->isArchived()) { ?>
-				<? if (!$entity->isDraft()) { ?>
-					<li><a href="<?= $this->url([
-						'action' => 'status']) . $this->url->query([
-						'status' => \Ayre::STATUS_DRAFT,
-					]) ?>" class="btn btn-negative btn-quiet">
-						<i class="fa fa-undo"></i>
-						Set as Draft
-					</a></li>
-				<? } ?>
 				<? if ((!$entity->isNew() || !$entity->isMaster())) { ?>
 					<li><a href="<?= $this->url([
 						'action' => 'status']) . $this->url->query([

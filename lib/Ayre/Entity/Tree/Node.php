@@ -38,9 +38,32 @@ class Node extends Entity
     protected $path;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
+     * @Gedmo\TreeLevel
+     */
+    protected $level;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $name;
+
+    /**
+     * @ORM\Column(type="string")
+     * @Gedmo\Slug(fields={"name"}, unique=false)
      */
     protected $slug;
+
+    /**
+     * @ORM\Column(type="string")
+     * @Gedmo\Slug(handlers={
+     *     @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\TreeSlugHandler", options={
+     *         @Gedmo\SlugHandlerOption(name="parentRelationField", value="parent"),
+     *         @Gedmo\SlugHandlerOption(name="separator", value="/")
+     *     })
+     * }, fields={"slug"}, unique=false)
+     */
+    protected $slugPath;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Ayre\Entity\Tree\Node", inversedBy="children")
@@ -63,6 +86,9 @@ class Node extends Entity
     public function __construct()
     {
         $this->children = new ArrayCollection();
+
+        global $em;
+        $this->content($em->getRepository('Ayre\Entity\Page')->find(1));
     }
 
     public function root()
@@ -85,6 +111,7 @@ class Node extends Entity
     {
         if (isset($value)) {
             $this->content = $value;
+            $this->name    = $this->content->name;
         }
         return $this->content;
     }

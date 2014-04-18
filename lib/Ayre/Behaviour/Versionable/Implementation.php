@@ -50,7 +50,7 @@ trait Implementation
         $version->next = null;
         $version->version++;
         if ($version instanceof Publishable) {
-            $version->status = Ayre::STATUS_DRAFT;
+            $version->status = Ayre::STATUS_PENDING;
         }
         return $version;
     }
@@ -68,7 +68,7 @@ trait Implementation
         $version->next = null;
         $version->version = $last->version + 1;
         if ($version instanceof Publishable) {
-            $version->status = Ayre::STATUS_DRAFT;
+            $version->status = Ayre::STATUS_PENDING;
         }
 
 
@@ -89,11 +89,6 @@ trait Implementation
     public function isLast()
     {
         return !isset($this->next);
-    }
-
-    public function isDraft()
-    {
-        return $this->status == Ayre::STATUS_DRAFT;
     }
 
     public function isPending()

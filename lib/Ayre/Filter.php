@@ -11,7 +11,6 @@ class Filter extends \Ayre\Entity
 	protected $search;
 	protected $modifyDateMin;
 	protected $statuses = [
-		\Ayre::STATUS_DRAFT,
 		\Ayre::STATUS_PENDING,
 		\Ayre::STATUS_PUBLISHED,
 	];
@@ -44,7 +43,6 @@ class Filter extends \Ayre\Entity
 					'type'		=> 'array',
 					'nullable'	=> true,
 					'values'	=> [
-						\Ayre::STATUS_DRAFT		=> 'Draft',
 						\Ayre::STATUS_PENDING	=> 'Pending',
 						\Ayre::STATUS_PUBLISHED	=> 'Published',
 						\Ayre::STATUS_ARCHIVED	=> 'Archived',
