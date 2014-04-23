@@ -5,7 +5,7 @@
 	<? if (!$entity->isNew() || !$entity->isMaster()) { ?>
 		<li><a href="#" class="btn">
 			<i class="fa fa-clock-o"></i>
-			View History
+			View <?= $entityType->singular ?> History
 		</a></li>
 	<? } ?>
 </ul>
@@ -74,14 +74,14 @@
 			<? if (!$entity->isArchived()) { ?>
 				<li><button class="btn-focus">
 					<i class="fa fa-check"></i>
-					Save Changes
+					Save <?= $entityType->singular ?>
 				</button></li>
 			<? } else { ?>
 				<li><a href="<?= $this->url([
 					'action' => 'restore'
 				]) ?>" class="btn btn-focus">
 					<i class="fa fa-repeat"></i>
-					Restore
+					Restore <?= $entityType->singular ?>
 				</a></li>
 			<? } ?>
 		</ul>
@@ -93,7 +93,7 @@
 						'status' => \Ayre::STATUS_ARCHIVED,
 					]) ?>" class="btn btn-negative btn-quiet">
 						<i class="fa fa-archive"></i>
-						Archive
+						Archive <?= $entityType->singular ?>
 					</a></li>
 				<? } ?>
 			<? } ?>

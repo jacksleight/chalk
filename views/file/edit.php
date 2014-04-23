@@ -24,19 +24,6 @@
 				'name'		=> 'name',
 				'label'		=> 'Name',
 			)) ?>
-			<?= $this->render('/elements/form-item', array(
-				'entity'	=> $entity,
-				'name'		=> 'slug',
-				'label'		=> 'Slug',
-				'note'		=> 'Alternative text used in URLs.',
-			)) ?>
-			<?= $this->render('/elements/form-item', array(
-				'entity'	=> $entity,
-				'name'		=> 'label',
-				'label'		=> 'Label',
-				'note'		=> 'Alternative text used in navigation.',
-				'placeholder' => $entity->name,
-			)) ?>
 		</div>
 	</fieldset>
 	<fieldset>

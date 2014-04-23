@@ -11,21 +11,6 @@ $entites = $this->entity($entityType->class)
 
 <ul class="toolbar">
 	<li>
-		<span class="dropdown">
-			<span class="btn">Actions…</span>
-			<div class="dropdown-list">
-				<ul>
-					<li>
-						<span>
-							<i class="fa fa-trash-o"></i>
-							Archive
-						</span>
-					</li>
-				</ul>
-			</div>
-		</span>
-	</li>
-	<li>
 		<span class="btn btn-focus upload-button">
 			<i class="fa fa-upload"></i> Upload <?= $entityType->singular ?>
 		</span>

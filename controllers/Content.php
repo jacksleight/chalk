@@ -80,8 +80,8 @@ class Content extends Ayre\Controller\Entity
 				$this->entity->flush();
 				$temp->remove();
 				$upload->jack = $file->file->name();
-				$upload->html = $this->view->render('/content/thumb', [
-					'content'	=> $file,
+				$upload->html = $this->view->render('/file/thumb', [
+					'entity'	=> $file,
 					'covered'	=> true,
 				] + (array) $req->view)->toString();
 			}
