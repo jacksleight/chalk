@@ -4,8 +4,8 @@
 	echo $this->render('input', [
 		'type'		=> 'search',
 		'value'		=> $entity->{$name},
-		'maxlength'	=> $md['validator']->hasValidator('Js\Validator\Length')
-			? $md['validator']->getValidator('Js\Validator\Length')->getMax()
+		'maxlength'	=> $md['validator']->hasValidator('Toast\Validator\Length')
+			? $md['validator']->getValidator('Toast\Validator\Length')->getMax()
 			: null,
 	]);
 	?>

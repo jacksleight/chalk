@@ -54,32 +54,32 @@ class Entity extends Model
 				'type'		=> null,
 				'length'	=> null,
 				'nullable'	=> false,
-				'validator'	=> new \Js\Validator\Chain(),
+				'validator'	=> new \Toast\Validator\Chain(),
 			), $field);
 			$list = array();
 			if (!$field['nullable']) {
-				$list[] = new \Js\Validator\Set();
+				$list[] = new \Toast\Validator\Set();
 			}
 			if ($field['type'] == 'integer' || $field['type'] == 'smallint' || $field['type'] == 'bigint') {
-				$list[] = new \Js\Validator\Integer();
+				$list[] = new \Toast\Validator\Integer();
 			} elseif ($field['type'] == 'decimal') {
-				$list[] = new \Js\Validator\Decimal();
+				$list[] = new \Toast\Validator\Decimal();
 			} elseif ($field['type'] == 'boolean') {
-				$list[] = new \Js\Validator\Boolean();
+				$list[] = new \Toast\Validator\Boolean();
 			} elseif ($field['type'] == 'string' && isset($field['length'])) {
-				if ($field['validator']->hasValidator('Js\Validator\Length')) {
-					$length = $field['validator']->getValidator('Js\Validator\Length');
+				if ($field['validator']->hasValidator('Toast\Validator\Length')) {
+					$length = $field['validator']->getValidator('Toast\Validator\Length');
 					if ($field['length'] < $length->getMax()) {
 						$length->setMax($field['length']);
 					}
 				} else {
-					$length = new \Js\Validator\Length(null, $field['length']);
+					$length = new \Toast\Validator\Length(null, $field['length']);
 				}
 				$list[] = $length;
 			} elseif ($field['type'] == 'date' || $field['type'] == 'time' || $field['type'] == 'datetime') {
-				$list[] = new \Js\Validator\DateTime();
+				$list[] = new \Toast\Validator\DateTime();
 			} elseif ($field['type'] == 'url') {
-				$list[] = new \Js\Validator\Url();
+				$list[] = new \Toast\Validator\Url();
 			}
 			$field['validator']->addValidators($list, true);
 
@@ -92,11 +92,11 @@ class Entity extends Model
 				'type'		=> null,
 				'entity'	=> null,
 				'nullable'	=> false,
-				'validator'	=> new \Js\Validator\Chain(),
+				'validator'	=> new \Toast\Validator\Chain(),
 			), $assoc);
 			$list = array();
 			if (!$assoc['nullable'] && $assoc['type'] == 'manyToOne') {
-				$list[] = new \Js\Validator\Set();
+				$list[] = new \Toast\Validator\Set();
 			}
 			$assoc['validator']->addValidators($list, true);
 

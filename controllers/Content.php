@@ -29,11 +29,11 @@ class Content extends Ayre\Controller\Entity
 
 	public function edit(Request $req, Response $res)
 	{
-		$entity = $this->entity($req->entityType->class)->fetchOrCreate($req->id);
+		$entity = $this->em($req->entityType->class)->fetchOrCreate($req->id);
 		if ($entity->status == \Ayre::STATUS_PUBLISHED) {
 			$entity = $entity->duplicate();
 		}
-		$req->view->entity = $wrap = $this->entity->wrap($entity);
+		$req->view->entity = $wrap = $this->em->wrap($entity);
 
 		if (!$req->isPost()) {
 			return;
@@ -44,10 +44,10 @@ class Content extends Ayre\Controller\Entity
 			return;
 		}
 
-		if (!$this->entity->isPersisted($entity)) {
-			$this->entity->persist($entity);
+		if (!$this->em->isPersisted($entity)) {
+			$this->em->persist($entity);
 		}
-		$this->entity->flush();
+		$this->em->flush();
 
 		return $res->redirect($this->url(array(
 			'action'	=> null,
@@ -76,8 +76,8 @@ class Content extends Ayre\Controller\Entity
 				}
 				$file = new \Ayre\Entity\File();
 				$file->file($temp);
-				$this->entity->persist($file);
-				$this->entity->flush();
+				$this->em->persist($file);
+				$this->em->flush();
 				$temp->remove();
 				$upload->jack = $file->file->name();
 				$upload->html = $this->view->render('/file/thumb', [
@@ -93,13 +93,13 @@ class Content extends Ayre\Controller\Entity
 
 	public function status(Request $req, Response $res)
 	{
-		$entity = $this->entity($req->entityType->class)->find($req->id);
+		$entity = $this->em($req->entityType->class)->find($req->id);
 
 		$entity->status = $req->status;
 		if ($entity->status == \Ayre::STATUS_ARCHIVED && isset($entity->previous)) {
 			$entity->previous->status = $entity->status;
 		}
-		$this->entity->flush();
+		$this->em->flush();
 
 		if ($entity->status == \Ayre::STATUS_ARCHIVED) {
 			return $res->redirect($this->url(array(
@@ -115,11 +115,11 @@ class Content extends Ayre\Controller\Entity
 
 	public function restore(Request $req, Response $res)
 	{
-		$entity = $this->entity($req->entityType->class)->find($req->id);
+		$entity = $this->em($req->entityType->class)->find($req->id);
 
 		$entity = $entity->restore();
-		$this->entity->persist($entity);
-		$this->entity->flush();
+		$this->em->persist($entity);
+		$this->em->flush();
 
 		return $res->redirect($this->url(array(
 			'action' => 'edit',

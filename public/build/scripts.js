@@ -13449,12 +13449,58 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 FastClick.attach(document.body);
 
-$('.upload').each(function(i, el) {
-	var button		= $(el).find('.upload-button');
-	var list		= $(el).find('.upload-list');
-	var template	= $(el).find('.upload-template').html();
+/* Behaviours */
+
+$('.autosubmitable').each(function(i, form) {
+	var inputs = $(form).find('input');
+	$(inputs).change(function(ev) {
+		form.submit();
+	});
+});
+
+$('.clickable').each(function(i, el) {
+	var target = $(el).find('a')[0];
+	$(el).mouseover(function(ev) {
+		if ($(ev.target).is('a')) {
+			return;
+		}
+		$(target).addClass('hover');
+	});
+	$(el).mouseout(function(ev) {
+		if ($(ev.target).is('a')) {
+			return;
+		}
+		$(target).removeClass('hover');
+	});
+	$(el).click(function(ev) {
+		if ($(ev.target).is('a')) {
+			return;
+		}
+		target.click();
+	});
+});
+
+$('.confirmable').each(function(i, el) {
+	var message = $(el).attr('data-message') || 'Are you sure?';
+	$(el).click(function(ev) {
+		if (!confirm(message)) {
+			ev.preventDefault();
+		}	
+	});
+}); 
+
+$('.expandable').each(function(i, el) {
+	$(el).find('.expandable-toggle').click(function(ev) {
+		$(el).toggleClass('active');
+	});
+});
+
+$('.uploadable').each(function(i, el) {
+	var button		= $(el).find('.uploadable-button');
+	var list		= $(el).find('.uploadable-list');
+	var template	= $(el).find('.uploadable-template').html();
 	Mustache.parse(template);
-	$(el).find('.upload-input').fileupload({
+	$(el).find('.uploadable-input').fileupload({
 		dropZone: el,
 		dataType: 'json',
 		maxChunkSize: 1048576,
@@ -13488,38 +13534,12 @@ $('.upload').each(function(i, el) {
 		}
 	});
 	button.click(function(ev) {
-		$(el).find('.upload-input').trigger('click');
+		$(el).find('.uploadable-input').trigger('click');
 	});
 });
 
-$('.clickable').each(function(i, el) {
-	var target = $(el).find('a')[0];
-	$(el).mouseover(function(ev) {
-		if ($(ev.target).is('a')) {
-			return;
-		}
-		$(target).addClass('hover');
-	});
-	$(el).mouseout(function(ev) {
-		if ($(ev.target).is('a')) {
-			return;
-		}
-		$(target).removeClass('hover');
-	});
-	$(el).click(function(ev) {
-		if ($(ev.target).is('a')) {
-			return;
-		}
-		target.click();
-	});
-});
 
-$('.submitable').each(function(i, form) {
-	var inputs = $(form).find('input');
-	$(inputs).change(function(ev) {
-		form.submit();
-	});
-});
+/* Elements */
 
 $('.thumbs').each(function(i, el) {
 	var className = 'thumbs-' + new Date().valueOf();
@@ -13544,21 +13564,6 @@ $('.thumbs').each(function(i, el) {
 	refresh();
 	$(window).resize(refresh);
 	$(el).css('visibility', 'visible');
-});
-
-$('.confirm').each(function(i, el) {
-	var message = $(el).attr('data-message') || 'Are you sure?';
-	$(el).click(function(ev) {
-		if (!confirm(message)) {
-			ev.preventDefault();
-		}	
-	});
-}); 
-
-$('.advanced').each(function(i, el) {
-	$(el).find('.advanced-toggle').click(function(ev) {
-		$(el).toggleClass('active');
-	});
 });
 
 $('.tree').nestable({

@@ -1,5 +1,5 @@
 <?php
-$md = $entity->getMetadata(\Js\Entity::MD_PROPERTY, $name);
+$md = $entity->getMetadata(\Ayre\Entity::MD_PROPERTY, $name);
 $types = [
 	'string'	=> 'input_text',
 	'text'		=> 'textarea',
@@ -22,12 +22,12 @@ $type = !isset($type)
 		: 'text')
 	: $type;
 ?>
-<div class="form-item <?= $md['validator']->hasValidator('Js\Validator\Set') ? 'required' : 'optional' ?>">
+<div class="form-item <?= $md['validator']->hasValidator('Toast\Validator\Set') ? 'required' : 'optional' ?>">
 	<label
 		<?= !in_array($type, ['checkboxes', 'radio']) ? "for=\"_" . implode('_', $md['context']) . "\"" : null ?>
 		<?=  in_array($type, ['checkbox', 'radio', 'range', 'color']) ? "class=\"shallow\"" : null ?>>
 		<? if ($type != 'input_checkbox') { ?>
-			<?= $this->locale->message(isset($label) ? $label : "label_{$name}") ?>
+			<?= $label ?>
 		<? } ?>
 	</label>
 	<div>
@@ -46,7 +46,7 @@ $type = !isset($type)
 			</p>
 		<? } ?>
 		<? if (isset($note)) { ?>
-			<p><small><?= $this->locale->message($note) ?></small></p>
+			<p><small><?= $note ?></small></p>
 		<? } ?>
 	</div>
 </div>

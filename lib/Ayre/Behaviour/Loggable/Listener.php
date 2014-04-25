@@ -39,7 +39,7 @@ class Listener implements EventSubscriber
 			$uow->getScheduledEntityUpdates()
 		);
 		foreach ($entities as $entity) {
-			if (!$entity instanceof Entity\Tree\Node) {
+			if (!$entity instanceof Entity\Structure\Node) {
 				continue;
 			}
 			$changeSet = $uow->getEntityChangeSet($entity);
@@ -50,7 +50,7 @@ class Listener implements EventSubscriber
 			) {
 				continue;
 			}
-			$entity = $entity->root->tree;
+			$entity = $entity->root->structure;
 			if (in_array($entity, $entities, true)) {
 				continue;
 			}

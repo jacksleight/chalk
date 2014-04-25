@@ -17,12 +17,9 @@ session_name('session');
 $app = new Ayre($config->envs);
 $app->set('config', $config)
 	->set('memcached', $app->import('app_memcached.php'))
-	->set('entity', new Ayre\App\Entity($app->import('app_doctrine.php')))
+	->set('em', $app->import('app_doctrine.php'))
 	->set('swift', $app->import('app_swift.php'))
 	->set('mimeTypes', $app->import('app_mime-types.php'))
-	->set('html', new \Js\App\Html())
-//  ->set('message', new App\Message())
-//  ->set('oembed', new App\Oembed($config->oembed))
 	->set('view', new App\View([
 		'dir' => 'views',
 	]))
@@ -31,7 +28,7 @@ $app->set('config', $config)
 		'outputDir'		=> 'public/data/cache/images',
 		'transforms'	=> $app->import('app_transforms.php')
 	]))
-	->add('locale', new \Js\App\Locale([
+	->add('locale', new \Toast\App\Locale([
 		'cookie'  => 'locale',
 		'locales' => [
 			'en-GB' => 'en-GB@timezone=Europe/London;currency=GBP',
@@ -58,7 +55,7 @@ if (!$app->isDebug()) {
 	});
 }
 
-$user = $app->entity('Ayre\Entity\User')->fetch(1);
+$user = $app->em('Ayre\Entity\User')->fetch(1);
 $app->user($user);
 
 /* Routes */

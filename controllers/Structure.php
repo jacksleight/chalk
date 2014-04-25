@@ -14,14 +14,14 @@ class Structure extends Action
 
 	public function node(Request $req, Response $res)
 	{
-		$tree	= $this->entity('Ayre\Entity\Tree')->fetch($req->id);
-		$nodes	= $this->entity('Ayre\Entity\Tree\Node')->getChildren($tree->root, null, null, null, true);
+		$tree	= $this->em('Ayre\Entity\Structure')->fetch($req->id);
+		$nodes	= $this->em('Ayre\Entity\Structure\Node')->getChildren($tree->root, null, null, null, true);
 		$parent = $nodes[array_rand($nodes)];
 
-		$node = new \Ayre\Entity\Tree\Node();
+		$node = new \Ayre\Entity\Structure\Node();
 		$node->parent = $parent;
-		$this->entity->persist($node);
-		$this->entity->flush();
+		$this->em->persist($node);
+		$this->em->flush();
 
 		return $res->redirect($this->url(array(
 			'action' => 'index',

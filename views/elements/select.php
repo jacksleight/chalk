@@ -1,5 +1,5 @@
 <?php
-$required = $md['validator']->hasValidator('Js\Validator\Set');
+$required = $md['validator']->hasValidator('Toast\Validator\Set');
 $values = isset($values)
 	? $values
 	: $md['values'];

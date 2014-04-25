@@ -12,5 +12,5 @@ use Ayre\Entity,
 /**
  * @ORM\Entity
 */
-class Menu extends Tree
+class Menu extends Structure
 {}

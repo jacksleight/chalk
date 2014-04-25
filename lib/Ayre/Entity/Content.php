@@ -43,7 +43,7 @@ abstract class Content extends Entity implements Loggable, Publishable, Searchab
 	protected $name;
 	
 	/**
-     * @ORM\OneToMany(targetEntity="\Ayre\Entity\Tree\Node", mappedBy="content")
+     * @ORM\OneToMany(targetEntity="\Ayre\Entity\Structure\Node", mappedBy="content")
      */
 	protected $nodes;
 	
@@ -57,7 +57,7 @@ abstract class Content extends Entity implements Loggable, Publishable, Searchab
 
 	protected function _alterSlugMetadata($md)
 	{
-		$md['validator']->removeValidator('Js\Validator\Set');
+		$md['validator']->removeValidator('Toast\Validator\Set');
 		return $md;
 	}
 			

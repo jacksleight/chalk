@@ -9,9 +9,6 @@ class Ayre extends App
 	const STATUS_PUBLISHED	= 'published';
 	const STATUS_ARCHIVED	= 'archived';
 
-	protected static $_blameable;
-	protected static $_user;
-
 	protected static $_modules	= ['Ayre'];
 	protected static $_classes	= [];
 	protected static $_types	= [];
@@ -22,13 +19,7 @@ class Ayre extends App
 		'Ayre\Entity\Content',
 	];
 
-	public static function blameable($blameable = null)
-	{
-		if (isset($blameable)) {
-			self::$_blameable = $blameable;
-		}
-		return self::$_blameable;
-	}
+	protected $_user;
 
 	public static function type($class)
 	{
@@ -115,7 +106,7 @@ class Ayre extends App
 	{
 		if (isset($user)) {
 			$this->_user = $user;
-			self::$_blameable->setUserValue($this->_user);
+			$this->em->blameable()->setUserValue($this->_user);
 			return $this;
 		}
 		return $this->_user;
@@ -144,7 +135,7 @@ class Ayre extends App
 	public function publish()
 	{
 		foreach (self::$_publishables as $class) {
-			$entitys = $this->entity($class)->fetchAllForPublish();
+			$entitys = $this->em($class)->fetchAllForPublish();
 			if (is_subclass_of($class, 'Ayre\Behaviour\Versionable')) {
 				$last = null;
 				foreach ($entitys as $entity) {
@@ -159,6 +150,6 @@ class Ayre extends App
 				}
 			}
 		}
-		$this->entity->flush();
+		$this->em->flush();
 	}
 }

@@ -7,7 +7,7 @@ $path = str_replace(DIRECTORY_SEPARATOR, '/', realpath('../../'));
 require_once "{$path}/app.php";
 
 header('Content-Type: text/plain');
-$cli = new \Js\Cli();
+$cli = new \Toast\Cli();
 
 try {
 

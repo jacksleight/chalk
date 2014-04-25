@@ -1,19 +1,10 @@
 <? $this->layout('/layouts/page') ?>
 <? $this->block('main') ?>
 
-<ul class="toolbar">
-	<? if (isset($entity->id)) { ?>
-		<li>
-			<a href="<?= $this->url([
-				'action' => 'archive',
-			]) ?>" class="btn btn-negative">
-				<i class="fa fa-archive"></i> Archive <?= $entityType->singular ?>
-			</a>
-		</li>
-	<? } ?>
-</ul>
-<h1><?= $entityType->singular ?></h1>
-<form action="<?= $this->url->route() ?>" method="post" novalidate>
+<?= $this->render('/content/actions-top') ?>
+<?= $this->render('/content/header') ?>
+<?= $this->render('/content/meta') ?>
+<form action="<?= $this->url->route() ?>" method="post">
 	<fieldset class="form-block">
 		<div class="form-legend">
 			<h2>Details</h2>
@@ -27,13 +18,6 @@
 		</div>
 	</fieldset>
 	<fieldset>
-		<ul class="toolbar">
-			<li>
-				<button>
-					<i class="fa fa-check"></i>
-					Save <?= $entityType->singular ?>
-				</button>
-			</li>
-		</ul>
+		<?= $this->render('/content/actions-bottom') ?>
 	</fieldset>
 </form>

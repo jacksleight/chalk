@@ -1,7 +1,7 @@
 <?php
-$required	= $md['validator']->hasValidator('Js\Validator\Set');
-$maxlength	= $md['validator']->hasValidator('Js\Validator\Length')
-	? $md['validator']->getValidator('Js\Validator\Length')->getMax()
+$required	= $md['validator']->hasValidator('Toast\Validator\Set');
+$maxlength	= $md['validator']->hasValidator('Toast\Validator\Length')
+	? $md['validator']->getValidator('Toast\Validator\Length')->getMax()
 	: null;
 ?>
 <textarea

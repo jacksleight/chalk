@@ -71,14 +71,17 @@ trait Implementation
             $version->status = Ayre::STATUS_PENDING;
         }
 
-
-
         return $version;
     }
 
     public function isMaster()
     {
         return $this === $this->master;
+    }
+
+    public function isNewMaster()
+    {
+        return $this->isNew() && $this->isMaster();
     }
 
     public function isFirst()

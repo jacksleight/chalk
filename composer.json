@@ -1,6 +1,7 @@
 {
   "repositories": [
-    {"type": "vcs", "url": "git@github.com:jacksleight/toast.git"}
+    {"type": "vcs", "url": "git@github.com:jacksleight/toast.git"},
+    {"type": "vcs", "url": "git@github.com:jacksleight/coast-doctrine.git"}
   ],
   "require": {
     "doctrine/orm": "2.4.*",
@@ -10,6 +11,7 @@
     "gargron/fileupload": "1.0.*",
     "nesbot/carbon": "1.8.*",
     "jacksleight/coast": "dev-master",
+    "jacksleight/coast-doctrine": "dev-master",
     "jacksleight/toast": "dev-master"
   },
   "autoload": {

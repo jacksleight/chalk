@@ -576,9 +576,9 @@ select,
 	&[disabled] {
 		background-color: $color-shade;
 	}
-	// &:focus:invalid {
-	// 	border-color: $color-negative;
-	// }
+	&:focus:invalid {
+		border-color: $color-negative;
+	}
 	@include placeholder {
 		color: $color-quieter;
 	}
@@ -954,6 +954,8 @@ legend {
 	@include inline-blocks('> li');
 	display: flex;
 	flex-direction: row;
+	z-index: 1;
+	position: relative;
 	> li {
 		flex: 2;
 		&:first-child {
@@ -971,10 +973,10 @@ legend {
 	}
 }
 
-/* Upload */
+/* Uploadable */
 
-.upload {
-	.upload-input {
+.uploadable {
+	.uploadable-input {
 		display: none;
 	}
 }
@@ -994,15 +996,15 @@ legend {
 	}
 }
 
-/* Advanced */
+/* Expandable */
 
-.advanced {
-	.advanced-body {
+.expandable {
+	.expandable-body {
 		max-height: 0;
 		overflow: hidden;
 		@include transition(max-height $speed ease);
 	}
-	.advanced-toggle {
+	.expandable-toggle {
 		margin: $gutter 0 0 0;
 		display: block;
 		background-color: $color-shade;
@@ -1020,10 +1022,10 @@ legend {
 		}
 	}
 	&.active {
-		.advanced-body {
+		.expandable-body {
 			max-height: 500px;
 		}
-		.advanced-toggle i {
+		.expandable-toggle i {
 			@include transform(rotate(180deg));
 		}
 	}
@@ -1113,6 +1115,12 @@ legend {
 
 /* Tree */
 
+.structure {
+	margin: $gutter 0 0 0;
+	.tree-root, .tree {
+		margin-top: 0;
+	}
+}
 .tree {
 	margin: $gutter * 0.5 0 0 0;
 	-webkit-user-select: none;
@@ -1144,7 +1152,6 @@ legend {
 .tree-handle {
 	display: block;
 	padding: $gutter * 0.25 $gutter $gutter * 0.25 $gutter * 2;
-	cursor: move;
 	&:before {
 		content: '';
 		position: absolute;
@@ -1168,6 +1175,9 @@ legend {
 			border: 17px solid;
 			border-color: transparent white transparent transparent;
 		}
+	}
+	.tree & {
+		cursor: move;
 	}
 }
 .tree-item > button {

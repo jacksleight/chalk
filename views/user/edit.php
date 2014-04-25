@@ -2,13 +2,13 @@
 <? $this->block('main') ?>
 
 <h1>
-	<? if (!$entity->isNew() || !$entity->isMaster()) { ?>
+	<? if (!$entity->isNew()) { ?>
 		<?= $entity->name ?>
 	<? } else { ?>
 		New <?= $entityType->singular ?>
 	<? } ?>
 </h1>
-<form action="<?= $this->url->route() ?>" method="post" novalidate>
+<form action="<?= $this->url->route() ?>" method="post">
 	<fieldset class="form-block">
 		<div class="form-legend">
 			<h2>Details</h2>
@@ -26,6 +26,7 @@
 			)) ?>
 			<?= $this->render('/elements/form-item', array(
 				'entity'	=> $entity,
+				'type'		=> 'input_email',
 				'name'		=> 'emailAddress',
 				'label'		=> 'Email Address',
 			)) ?>
@@ -56,7 +57,7 @@
 				<li>
 					<a href="<?= $this->url([
 						'action' => 'delete1',
-					]) ?>" class="btn btn-negative btn-quiet confirm" data-message="Are you sure?<?= "\n\n" ?>If you delete <?= $entity->name ?> you will no longer be able to see which changes they made. If you just want to prevent this user from accessing the system you can disable the account by unchecking the Enabled box.">
+					]) ?>" class="btn btn-negative btn-quiet confirmable" data-message="Are you sure?<?= "\n\n" ?>If you delete <?= $entity->name ?> you will no longer be able to see which changes they made. If you just want to prevent this user from accessing the system you can disable the account by unchecking the Enabled box.">
 						<i class="fa fa-trash-o"></i> Delete <?= $entityType->singular ?>
 					</a>
 				</li>

@@ -29,8 +29,8 @@ class Upload
 				),
 				'mimeType' => array(
 					'type'		=> 'string',
-					'validator'	=> new \Js\Validator\Chain(array(
-						new \Js\Validator_List(\Ayre::$instance->app->getMimeTypes()),
+					'validator'	=> new \Toast\Validator\Chain(array(
+						new \Toast\Validator_List(\Ayre::$instance->app->getMimeTypes()),
 					)),
 				),
 				'size' => array(
@@ -38,8 +38,8 @@ class Upload
 				),
 				'chunkSize' => array(
 					'type'		=> 'int',
-					'validator'	=> new \Js\Validator\Chain(array(
-						new \Js\Validator_Range(0, self::_getMaxChunkSize()),
+					'validator'	=> new \Toast\Validator\Chain(array(
+						new \Toast\Validator_Range(0, self::_getMaxChunkSize()),
 					)),
 				),
 			),

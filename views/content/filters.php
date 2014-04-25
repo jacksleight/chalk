@@ -1,4 +1,4 @@
-<form action="<?= $this->url->route() ?>" class="submitable">
+<form action="<?= $this->url->route() ?>" class="autosubmitable">
 	<ul class="filters">
 		<li>
 			<?= $this->render('/elements/form-input', array(

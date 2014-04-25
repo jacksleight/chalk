@@ -8,7 +8,7 @@
 		New <?= $entityType->singular ?>
 	<? } ?>
 </h1>
-<form action="<?= $this->url->route() ?>" method="post" novalidate>
+<form action="<?= $this->url->route() ?>" method="post">
 	<fieldset class="form-block">
 		<div class="form-legend">
 			<h2>Details</h2>
@@ -36,7 +36,7 @@
 				<li>
 					<a href="<?= $this->url([
 						'action' => 'delete',
-					]) ?>" class="btn btn-negative btn-quiet confirm">
+					]) ?>" class="btn btn-negative btn-quiet confirmable">
 						<i class="fa fa-trash-o"></i> Delete <?= $entityType->singular ?>
 					</a>
 				</li>

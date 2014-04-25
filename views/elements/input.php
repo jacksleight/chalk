@@ -1,5 +1,5 @@
 <?php
-$required = $md['validator']->hasValidator('Js\Validator\Set');
+$required = $md['validator']->hasValidator('Toast\Validator\Set');
 ?>
 <input
 	type="<?= $type ?>"
@@ -18,7 +18,7 @@ $required = $md['validator']->hasValidator('Js\Validator\Set');
 	<?= isset($step) ? "step=\"{$step}\"" : null ?>
 	<?= isset($list) ? "list=\"{$list}\"" : null ?>
 	<?= isset($multiple) ? "multiple=\"{$multiple}\"" : null ?>
-	<?= isset($placeholder) ? "placeholder=\"" . $this->escape($this->locale->message($placeholder)) . "\"" : null ?>
+	<?= isset($placeholder) ? "placeholder=\"" . $this->escape($placeholder) . "\"" : null ?>
 	<?= isset($autofocus) && $autofocus ? "autofocus" : null ?>
 	<?= isset($autocomplete) ? "autocomplete=\"" . ($autocomplete ? 'on' : 'off') . "\"" : null ?>
 	<?= isset($spellcheck) ? "spellcheck=\"" . ($spellcheck ? 'true' : 'false') . "\"" : null ?>>

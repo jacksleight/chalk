@@ -22,8 +22,8 @@ class Revision extends \Ayre\Url\Revision
 				'emailAddress' => array(
 					'type'		=> 'string',
 					'persist'	=> false,
-					'validator'	=> new \Js\Validator\Chain(array(
-						new \Js\Validator\EmailAddress(),
+					'validator'	=> new \Toast\Validator\Chain(array(
+						new \Toast\Validator\EmailAddress(),
 					)),
 				),
 				'subject' => array(

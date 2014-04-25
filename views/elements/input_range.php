@@ -1,6 +1,6 @@
 <?php
-$range = $md['validator']->hasValidator('Js\Validator\Range')
-	? $md['validator']->getValidator('Js\Validator\Range')
+$range = $md['validator']->hasValidator('Toast\Validator\Range')
+	? $md['validator']->getValidator('Toast\Validator\Range')
 	: null;
 echo $this->render('input', [
 	'type'		=> 'range',

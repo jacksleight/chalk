@@ -1,5 +1,5 @@
 <?php
-$required = $md['validator']->hasValidator('Js\Validator\Set');
+$required = $md['validator']->hasValidator('Toast\Validator\Set');
 ?>
 <label for="<?= '_' . implode('_', $md['context']) ?>">
 	<input
@@ -16,5 +16,5 @@ $required = $md['validator']->hasValidator('Js\Validator\Set');
 		<?= isset($required) && $required ? "required" : null ?>
 		<?= $entity->{$name} ? 'checked' : null ?>
 		<?= isset($class) ? "class=\"{$class}\"" : null ?>>
-	<?= $this->escape($this->locale->message(isset($label) ? $label : "label_{$name}")) ?>
+	<?= $label ?>
 </label>

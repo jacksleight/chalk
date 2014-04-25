@@ -15,7 +15,7 @@ class All extends Action
 		$value	= $req->queryParams();
 		if (count($value)) {
 			$this->app->user()->pref($name, $value);
-			$this->entity->flush();
+			$this->em->flush();
 		} else {
 			$value = $this->app->user()->pref($name);
 			if (isset($value)) {

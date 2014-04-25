@@ -90,8 +90,8 @@ class User extends Entity implements Trackable, Searchable
 				'passwordPlain' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
-					'validator'	=> new \JS\Validator\Chain(array(
-						new \JS\Validator\Length(6),
+					'validator'	=> new \Toast\Validator\Chain(array(
+						new \Toast\Validator\Length(6),
 					)),
 				),
 				'passwordPlainConfirm' => array(

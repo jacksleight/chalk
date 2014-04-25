@@ -1,9 +1,9 @@
 <? $this->layout('/layouts/page') ?>
 <? $this->block('main') ?>
 <?php
-$filter = $this->entity->wrap(new \Ayre\Filter())
+$filter = $this->em->wrap(new \Ayre\Filter())
 	->graphFromArray($req->queryParams());
-$entites = $this->entity($entityType->class)
+$entites = $this->em($entityType->class)
 	->fetchAll($filter->toArray());
 ?>
 

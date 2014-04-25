@@ -6,63 +6,67 @@
 <? $this->block('sidebar') ?>
 
 <?php
-$trees	= $this->entity('Ayre\Entity\Tree')->fetchAll();
-$tree	= $this->entity('Ayre\Entity\Tree')->fetch($req->id);
-if (!isset($tree)) {
-	$tree = $trees[0];
+$structs	= $this->em('Ayre\Entity\Structure')->fetchAll();
+$struct		= $this->em('Ayre\Entity\Structure')->fetch($req->id);
+if (!isset($struct)) {
+	$struct = $structs[0];
 }
 ?>
 <div class="dropdown">
 	<div class="value">
-		<? if ($tree instanceof \Ayre\Entity\Domain) { ?>
+		<? if ($struct instanceof \Ayre\Entity\Domain) { ?>
 			<i class="fa fa-globe fa-fw"></i>
-		<? } else if ($tree instanceof \Ayre\Entity\Menu) { ?>
+		<? } else if ($struct instanceof \Ayre\Entity\Menu) { ?>
 			<i class="fa fa-bars fa-fw"></i>
 		<? } ?>
-		<?= $tree->name ?>		
+		<?= $struct->name ?>		
 	</div>
 	<nav class="menu">
 		<ul>
-			<? foreach ($trees as $tree) { ?>
+			<? foreach ($structs as $struct) { ?>
 				<li>
 					<a href="<?= $this->url([
-						'id' => $tree->id,
+						'id' => $struct->id,
 					]) ?>">
-						<? if ($tree instanceof \Ayre\Entity\Domain) { ?>
+						<? if ($struct instanceof \Ayre\Entity\Domain) { ?>
 							<i class="fa fa-globe fa-fw"></i>
-						<? } else if ($tree instanceof \Ayre\Entity\Menu) { ?>
+						<? } else if ($struct instanceof \Ayre\Entity\Menu) { ?>
 							<i class="fa fa-bars fa-fw"></i>
 						<? } ?>
-						<?= $tree->name ?>
+						<?= $struct->name ?>
 					</a>
 				</li>
 			<? } ?>
 		</ul>
 	</nav>
 </div>
-<ol>
-	<li class="tree-item" data-id="<?= $tree->root->id ?>">
-		<div class="tree-handle ">Node <?= $tree->root->id ?></div>
-	</li>
-</ol>
-<div class="tree">
-	<?= $this->entity('Ayre\Entity\Tree\Node')->childrenHierarchy($tree->root, false, [
-		'decorate'		=> true,
-		'rootOpen'		=> '<ol class="tree-list">',
-		'rootClose'		=> '</ol>',
-		'childOpen'		=> '',
-		'childClose'	=> '</li>',
-		'nodeDecorator'	=> function($node) {
-			return '
-				<li class="tree-item" data-id="' . $node['id'] . '">
-				<div class="tree-handle ">Node ' . $node['id'] . '</div>
-			';
-		}
-	]) ?>
+
+<div class="structure">
+	<ol class="tree-root">
+		<li class="tree-item" data-id="<?= $struct->root->id ?>">
+			<div class="tree-handle "><?= $struct->root->name ?></div>
+		</li>
+	</ol>
+	<div class="tree">
+		<?= $this->em('Ayre\Entity\Structure\Node')->childrenHierarchy($struct->root, false, [
+			'decorate'		=> true,
+			'rootOpen'		=> '<ol class="tree-list">',
+			'rootClose'		=> '</ol>',
+			'childOpen'		=> '',
+			'childClose'	=> '</li>',
+			'nodeDecorator'	=> function($node) {
+				return '
+					<li class="tree-item" data-id="' . $node['id'] . '">
+					<div class="tree-handle ">' . $node['name'] . '</div>
+				';
+			}
+		]) ?>
+	</div>
 </div>
+
 <p>
 	<a href="<?= $this->url([
 		'action'	=> 'node',
-		'id'		=> $tree->id,
+		'id'		=> $struct->id,
 	]) ?>" class="btn btn-focus btn-block">Add Node</a>
 </p>

@@ -1,7 +1,7 @@
 <? $this->layout('/layouts/page_settings') ?>
 <? $this->block('main') ?>
 <?php
-$entites = $this->entity($entityType->class)
+$entites = $this->em($entityType->class)
 	->fetchAll();
 ?>
 

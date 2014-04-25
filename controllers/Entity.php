@@ -30,8 +30,8 @@ class Entity extends Action
 
 	public function edit(Request $req, Response $res)
 	{
-		$req->view->entity = $wrap = $this->entity->wrap(
-			$entity = $this->entity($req->entityType->class)->fetchOrCreate($req->id)
+		$req->view->entity = $wrap = $this->em->wrap(
+			$entity = $this->em($req->entityType->class)->fetchOrCreate($req->id)
 		);
 
 		if (!$req->isPost()) {
@@ -43,10 +43,10 @@ class Entity extends Action
 			return;
 		}
 
-		if (!$this->entity->isPersisted($entity)) {
-			$this->entity->persist($entity);
+		if (!$this->em->isPersisted($entity)) {
+			$this->em->persist($entity);
 		}
-		$this->entity->flush();
+		$this->em->flush();
 
 		return $res->redirect($this->url(array(
 			'action'	=> null,
@@ -56,10 +56,10 @@ class Entity extends Action
 
 	public function delete(Request $req, Response $res)
 	{
-		$entity = $this->entity($req->entityType->class)->find($req->id);
+		$entity = $this->em($req->entityType->class)->find($req->id);
 
-		$this->entity->remove($entity);
-		$this->entity->flush();
+		$this->em->remove($entity);
+		$this->em->flush();
 
 		return $res->redirect($this->url(array(
 			'action'	=> null,

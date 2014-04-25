@@ -114,7 +114,7 @@ class Entity extends \Ayre\Wrapper
 					try {
 						$value = new \DateTime($value);
 					} catch (\Exception $e) {
-						$value = new \Js\DateTime\Invalid($value);
+						$value = new \Toast\DateTime\Invalid($value);
 					}
 				break;
 				case 'url':
