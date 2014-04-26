@@ -14,7 +14,7 @@ use Ayre\Entity,
 /**
  * @ORM\Entity
 */
-class Log extends Entity
+class Log extends \Toast\Entity
 {
 	const TYPE_CREATE			= 'create';
 	const TYPE_MODIFY			= 'modify';

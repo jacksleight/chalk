@@ -21,7 +21,7 @@ use Ayre\Entity,
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="entity_class", type="string")
 */
-class Structure extends Entity implements Loggable, Publishable, Trackable, Versionable
+class Structure extends \Toast\Entity implements Loggable, Publishable, Trackable, Versionable
 {
     use Publishable\Implementation,
     	Trackable\Implementation,

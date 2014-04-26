@@ -16,7 +16,7 @@ use Ayre\Entity,
 /**
  * @ORM\Entity
 */
-class User extends Entity implements Trackable, Searchable
+class User extends \Toast\Entity implements Trackable, Searchable
 {
     use Trackable\Implementation;
 

@@ -22,7 +22,7 @@ use Ayre,
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="entity_class", type="string")
 */
-abstract class Content extends Entity implements Loggable, Publishable, Searchable, Trackable, Versionable
+abstract class Content extends \Toast\Entity implements Loggable, Publishable, Searchable, Trackable, Versionable
 {
     use Publishable\Implementation,
     	Trackable\Implementation,

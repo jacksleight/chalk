@@ -13,10 +13,10 @@ class EntityManager extends \Coast\Doctrine\ORM\EntityManager
 
     public function wrap($object, $allowed = null, array $md = null)
     {
-        if ($object instanceof \Ayre\Entity) {
-            return new \Ayre\Wrapper\Entity($object, $allowed);
+        if ($object instanceof \Toast\Entity) {
+            return new \Toast\Wrapper\Entity($object, $allowed);
         } elseif ($object instanceof \Doctrine\Common\Collections\Collection) {
-            return new \Ayre\Wrapper\Collection($object, $allowed, null, null, $md);
+            return new \Toast\Wrapper\Collection($object, $allowed, null, null, $md);
         } else {
             throw new \Exception();
         }

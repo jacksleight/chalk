@@ -15,6 +15,10 @@
 			'label' => 'Files',
 			'name'	=> 'content',
 			'params'=> ['entityType' => 'core-file'],
+		], [
+			'label' => 'URLs',
+			'name'	=> 'content',
+			'params'=> ['entityType' => 'core-url'],
 		]
 	]]) ?>
 </nav>

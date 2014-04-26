@@ -1219,4 +1219,7 @@ legend {
 	position: absolute;
 	pointer-events: none;
 	z-index: 10000;
+	&[style] {
+		opacity: 0.6 !important
+	}
 }

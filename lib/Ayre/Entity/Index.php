@@ -15,7 +15,7 @@ use Ayre\Entity,
  * @ORM\Entity
  * @ORM\Table(options={"engine"="MyISAM"})
 */
-class Index extends Entity
+class Index extends \Toast\Entity
 {
 	/**
      * @ORM\Id

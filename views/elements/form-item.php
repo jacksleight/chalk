@@ -1,5 +1,5 @@
 <?php
-$md = $entity->getMetadata(\Ayre\Entity::MD_PROPERTY, $name);
+$md = $entity->getMetadata(\Toast\Entity::MD_PROPERTY, $name);
 $types = [
 	'string'	=> 'input_text',
 	'text'		=> 'textarea',

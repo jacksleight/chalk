@@ -16,7 +16,7 @@ use Ayre\Entity,
  * @ORM\Entity
  * @Gedmo\Tree(type="materializedPath")
 */
-class Node extends Entity
+class Node extends \Toast\Entity
 {
 	/**
      * @ORM\Id

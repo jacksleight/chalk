@@ -6,7 +6,7 @@
 
 namespace Ayre;
 
-class Filter extends \Ayre\Entity
+class Filter extends \Toast\Entity
 {
 	protected $search;
 	protected $modifyDateMin;

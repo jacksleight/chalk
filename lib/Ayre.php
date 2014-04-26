@@ -41,7 +41,7 @@ class Ayre extends App
 		if (isset(self::$_classes[$class])) {
 			return self::$_classes[$class];
 		}
-		if (!is_subclass_of($class, 'Ayre\\Entity')) {
+		if (strpos($class, 'Ayre\\Entity') === false) {
 			throw new Exception("Class '{$class}' does not extend Ayre\Entity");   
 		}
 

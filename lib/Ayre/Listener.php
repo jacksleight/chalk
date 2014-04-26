@@ -43,6 +43,7 @@ class Listener implements EventSubscriber
             $type->module->class . '\\Repository',
             'Ayre\\Repository',
         ];
+
         foreach ($repositoryClasses as $repositoryClass) {
             if (class_exists($repositoryClass)) {
                 $meta->setCustomRepositoryClass($repositoryClass);
