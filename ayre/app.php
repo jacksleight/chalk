@@ -32,6 +32,11 @@ $app->set('config', $config)
 			'en-GB' => 'en-GB@timezone=Europe/London;currency=GBP',
 		],
 	]))
+	->add(function(Request $req, Response $res) {
+		if (strpos($req->path(), AYRE_BASE) !== 0) {
+			return false;
+		}
+	})
 	->add('router', new App\Router([
 		'target' => new App\Controller(['namespace' => 'Ayre\Controller']),
 	]))
@@ -45,12 +50,15 @@ $app->set('config', $config)
 		},
 	]))
 	->notFoundHandler(function(Request $req, Response $res) {
-		$res->status(404)
+		if (strpos($req->path(), AYRE_BASE) !== 0) {
+			return null;
+		}
+		return $res->status(404)
 			->html($this->view->render('/error/not-found'));
 	});
 if (!$app->isDebug()) {
 	$app->errorHandler(function(Request $req, Response $res, Exception $e) {
-		$res->status(500)
+		return $res->status(500)
 			->html($this->view->render('/error/index', array('e' => $e)));
 	});
 }
