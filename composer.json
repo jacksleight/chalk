@@ -16,12 +16,11 @@
   },
   "autoload": {
     "psr-0": {
-      "Js": "js",
-      "Ayre": "lib",
-      "Ayre\\Proxy": "data/proxies"
+      "Ayre": "ayre/lib",
+      "Ayre\\Proxy": "ayre/data/proxies"
     },
     "psr-4": {
-      "Ayre\\Controller\\": "controllers/"
+      "Ayre\\Controller\\": "ayre/controllers/"
     }
   }
 }

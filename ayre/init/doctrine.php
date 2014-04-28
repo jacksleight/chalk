@@ -20,7 +20,7 @@ if ($app->isDebug()) {
 $reader			= new \Doctrine\Common\Annotations\AnnotationReader();
 $cachedReader	= new \Doctrine\Common\Annotations\CachedReader($reader, $cache, $app->isDebug());
 $chain			= new \Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain();
-$driver			= new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($cachedReader, ['lib/Ayre/Entity']);
+$driver			= new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($cachedReader, [AYRE_DIR . '/lib/Ayre/Entity']);
 $chain->addDriver($driver, 'Ayre\Entity');
 \Gedmo\DoctrineExtensions::registerAbstractMappingIntoDriverChainORM($chain, $cachedReader);
 $config->setMetadataDriverImpl($chain);
