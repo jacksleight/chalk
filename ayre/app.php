@@ -4,27 +4,33 @@ use Coast\App,
 	Coast\App\Response, 
 	Coast\Config,
 	Coast\Path,
+	Coast\Dir,
 	Coast\Url;
 
-/* Initialize */
-
-define('AYRE_DIR',  __DIR__);
-define('AYRE_PATH', (string) (new \Coast\Path(AYRE_DIR))->toRelative(new \Coast\Path(getcwd())));
-define('AYRE_BASE', "{$base}/");
+if (!isset($app)) {
+	throw new \Exception('Ayre can only run as middleware');
+} else if (!isset($base)) {
+	throw new \Exception('You must specify a base path');
+}
+$master = $app;
 
 $app = new Ayre($config->envs);
-$app->set('config', $config)
-	->set('memcached', $app->import(AYRE_DIR . '/init/memcached.php'))
-	->set('em', $app->import(AYRE_DIR . '/init/doctrine.php'))
-	->set('swift', $app->import(AYRE_DIR . '/init/swift.php'))
-	->set('mimeTypes', $app->import(AYRE_DIR . '/init/mime-types.php'))
+$app->set('master', 	$master)
+	->set('config',		$config)
+	->set('dir',		new Dir(__DIR__))
+	->set('base',		new Path($base))
+	->set('path',		$app->dir->toRelative(new Path(getcwd())))
+	->set('memcached',	$app->import("{$app->dir}/init/memcached.php"))
+	->set('em',			$app->import("{$app->dir}/init/doctrine.php"))
+	->set('swift',		$app->import("{$app->dir}/init/swift.php"))
+	->set('mimeTypes',	$app->import("{$app->dir}/init/mime-types.php"))
 	->set('view', new App\View([
-		'dir' => AYRE_DIR . '/views',
+		'dir' => "{$app->dir}/views",
 	]))
 	->add('image', new \Toast\App\Image([
 		'dir'			=> 'data/store/files',
 		'outputDir'		=> 'data/cache/images',
-		'transforms'	=> $app->import(AYRE_DIR . '/init/transforms.php')
+		'transforms'	=> $app->import("{$app->dir}/init/transforms.php")
 	]))
 	->add('locale', new \Toast\App\Locale([
 		'cookie'  => 'locale',
@@ -33,7 +39,7 @@ $app->set('config', $config)
 		],
 	]))
 	->add(function(Request $req, Response $res) {
-		if (strpos($req->path(), AYRE_BASE) !== 0) {
+		if (strpos($req->path(), (string) $this->base) !== 0) {
 			return false;
 		}
 	})
@@ -41,50 +47,33 @@ $app->set('config', $config)
 		'target' => new App\Controller(['namespace' => 'Ayre\Controller']),
 	]))
 	->set('url', new App\Url($config->url + [
-		'base'		=> $config->url['base'] . AYRE_BASE,
-		'pathBase'	=> $config->url['base'],
-		'dir'		=> AYRE_DIR,
+		'base'		=> "{$config->url['base']}{$app->base}/",
+		'pathBase'	=> "{$config->url['base']}",
 		'router'	=> $app->router,
 		'version'	=> function(Url $url, Path $path) {
-			$url->path()->suffix(".{$path->modifyTime()->getTimestamp()}");
+			$url->path()->suffix("." . $path->modifyTime()->getTimestamp());
 		},
 	]))
 	->notFoundHandler(function(Request $req, Response $res) {
-		if (strpos($req->path(), AYRE_BASE) !== 0) {
+		if (strpos($req->path(), (string) $this->base) !== 0) {
 			return null;
 		}
-		return $res->status(404)
-			->html($this->view->render('/error/not-found'));
+		return $res
+			->status(404)
+			->html($this->view->render('error/not-found'));
 	});
+
 if (!$app->isDebug()) {
 	$app->errorHandler(function(Request $req, Response $res, Exception $e) {
-		return $res->status(500)
-			->html($this->view->render('/error/index', array('e' => $e)));
+		return $res
+			->status(500)
+			->html($this->view->render('error/index', array('e' => $e)));
 	});
 }
 
 $user = $app->em('Ayre\Entity\User')->fetch(1);
 $app->user($user);
 
-/* Routes */
-
-$app->router
-	->all('index', AYRE_BASE . '{controller}?/{action}?/{id}?', [
-		'controller' => 'index',
-		'action'     => 'index',
-		'id'    	 => null,
-	])
-	->all('content', AYRE_BASE . 'content/{entityType}?/{action}?/{id}?', [
-		'controller' => 'content',
-		'action'     => 'index',
-		'id'    	 => null,
-	])
-	->all('structure', AYRE_BASE . 'structure/{action}?/{id}?', [
-		'controller' => 'structure',
-		'action'     => 'index',
-		'id'    	 => null,
-	]);
-
-/* Return */
+$app->import("{$app->dir}/init/routes.php");
 
 return $app;
