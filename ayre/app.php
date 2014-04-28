@@ -8,7 +8,9 @@ use Coast\App,
 
 /* Initialize */
 
-define('AYRE_DIR', __DIR__);
+define('AYRE_DIR',  __DIR__);
+define('AYRE_PATH', (string) (new \Coast\Path(AYRE_DIR))->toRelative(new \Coast\Path(getcwd())));
+define('AYRE_BASE', "{$base}/");
 
 $app = new Ayre($config->envs);
 $app->set('config', $config)
@@ -34,10 +36,11 @@ $app->set('config', $config)
 		'target' => new App\Controller(['namespace' => 'Ayre\Controller']),
 	]))
 	->set('url', new App\Url($config->url + [
-		'base'    => '/admin/',
-		'dir'     => AYRE_DIR,
-		'router'  => $app->router,
-		'version' => function(Url $url, Path $path) {
+		'base'		=> $config->url['base'] . AYRE_BASE,
+		'pathBase'	=> $config->url['base'],
+		'dir'		=> AYRE_DIR,
+		'router'	=> $app->router,
+		'version'	=> function(Url $url, Path $path) {
 			$url->path()->suffix(".{$path->modifyTime()->getTimestamp()}");
 		},
 	]))
@@ -58,17 +61,17 @@ $app->user($user);
 /* Routes */
 
 $app->router
-	->all('index', '{controller}?/{action}?/{id}?', [
+	->all('index', AYRE_BASE . '{controller}?/{action}?/{id}?', [
 		'controller' => 'index',
 		'action'     => 'index',
 		'id'    	 => null,
 	])
-	->all('content', 'content/{entityType}?/{action}?/{id}?', [
+	->all('content', AYRE_BASE . 'content/{entityType}?/{action}?/{id}?', [
 		'controller' => 'content',
 		'action'     => 'index',
 		'id'    	 => null,
 	])
-	->all('structure', 'structure/{action}?/{id}?', [
+	->all('structure', AYRE_BASE . 'structure/{action}?/{id}?', [
 		'controller' => 'structure',
 		'action'     => 'index',
 		'id'    	 => null,

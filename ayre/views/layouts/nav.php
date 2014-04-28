@@ -8,12 +8,13 @@
 			? $item['params']
 			: [];
 		$path = $this->url($params, $name, true, false);
+		$current = isset($req) ? $req->path() : '';
 		$class = [
-			strpos($req->path(), $path->toString()) === 0 ? 'active' : null,
+			strpos($current, $path->toString()) === 0 ? 'active' : null,
 		];
 		?>
 		<li>
-			<a href="<?= $req->base() . $path ?>" class="<?= implode(' ', $class) ?>">
+			<a href="<?= $this->url() . $path ?>" class="<?= implode(' ', $class) ?>">
 				<? if (isset($item['icon'])) { ?>
 					<i class="<?= $item['icon'] ?>"></i>
 				<? } ?>

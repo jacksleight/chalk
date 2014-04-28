@@ -13,10 +13,10 @@ $title	= (isset($title)
 	<meta name="apple-mobile-web-app-title" content="Foundation">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href='http://fonts.googleapis.com/css?family=Raleway:300,500' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="<?= $this->url->file("public/build/styles{$code}.css") ?>">
-	<link rel="shortcut icon" href="<?= $this->url->file("public/images/favicon.ico") ?>">
-	<link rel="apple-touch-icon-precomposed" href="<?= $this->url->file("public/images/touch-icon-precomposed.png") ?>">
-	<script src="<?= $this->url->file("public/build/polyfills{$code}.js") ?>"></script>
+	<link rel="stylesheet" href="<?= $this->url->file(AYRE_PATH . "/assets/build/styles{$code}.css") ?>">
+	<link rel="shortcut icon" href="<?= $this->url->file(AYRE_PATH . "/assets/images/favicon.ico") ?>">
+	<link rel="apple-touch-icon-precomposed" href="<?= $this->url->file(AYRE_PATH . "/assets/images/touch-icon-precomposed.png") ?>">
+	<script src="<?= $this->url->file(AYRE_PATH . "/assets/build/polyfills{$code}.js") ?>"></script>
 	<?= $content->head ?>
 </head>
 <body class="<?= isset($class) ? $class : '' ?>">
@@ -32,8 +32,8 @@ $title	= (isset($title)
 		App.DOMReady = function(a,b,c){b=document,c='addEventListener';b[c]?b[c]('DOMContentLoaded',a):window.attachEvent('onload',a)}
    		App.DOMReady(function() {
    			var scripts = [
-   				'<?= $this->url->file("public/build/scripts{$code}.js") ?>',
-   				'<?= $this->url->file("public/build/editor{$code}.js") ?>'
+   				'<?= $this->url->file(AYRE_PATH . "/assets/build/scripts{$code}.js") ?>',
+   				'<?= $this->url->file(AYRE_PATH . "/assets/build/editor{$code}.js") ?>'
    			];
    			for (var i = 0; i < scripts.length; i++) {
    				var el = document.createElement('script');

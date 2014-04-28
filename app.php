@@ -11,4 +11,7 @@ $config = new Config('config/config.php');
 session_name('session');
 
 $app = new App();
-$app->add('ayre', new SubApp($app->import('ayre/app.php', ['config' => $config])));
+$app->add('ayre', \Coast\import('ayre/app.php', [
+	'base'	 => 'admin',
+	'config' => $config,
+]));
