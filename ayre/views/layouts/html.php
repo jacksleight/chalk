@@ -13,10 +13,10 @@ $title	= (isset($title)
 	<meta name="apple-mobile-web-app-title" content="Foundation">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href='http://fonts.googleapis.com/css?family=Raleway:300,500' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="<?= $this->url->file("{$this->app->path}/assets/build/styles{$code}.css") ?>">
-	<link rel="shortcut icon" href="<?= $this->url->file("{$this->app->path}/assets/images/favicon.ico") ?>">
-	<link rel="apple-touch-icon-precomposed" href="<?= $this->url->file("{$this->app->path}/assets/images/touch-icon-precomposed.png") ?>">
-	<script src="<?= $this->url->file("{$this->app->path}/assets/build/polyfills{$code}.js") ?>"></script>
+	<link rel="stylesheet" href="<?= $this->url->file("{$this->app->dirPath}/assets/build/styles{$code}.css") ?>">
+	<link rel="shortcut icon" href="<?= $this->url->file("{$this->app->dirPath}/assets/images/favicon.ico") ?>">
+	<link rel="apple-touch-icon-precomposed" href="<?= $this->url->file("{$this->app->dirPath}/assets/images/touch-icon-precomposed.png") ?>">
+	<script src="<?= $this->url->file("{$this->app->dirPath}/assets/build/polyfills{$code}.js") ?>"></script>
 	<?= $content->head ?>
 </head>
 <body class="<?= isset($class) ? $class : '' ?>">
@@ -26,14 +26,16 @@ $title	= (isset($title)
 		App.options = <?= json_encode(\Coast\array_merge_smart(
 			isset($options) ? $options : [], [
 			'base'		=> (string) $this->url->base(),
+			'dirBase'	=> (string) $this->url->dirBase(),
+			'dirPath'	=> (string) $this->app->dirPath,
 			'path'		=> $req->path(),
 			'privacy'	=> (string) $this->url('privacy-policy'),
 		])) ?>;
 		App.DOMReady = function(a,b,c){b=document,c='addEventListener';b[c]?b[c]('DOMContentLoaded',a):window.attachEvent('onload',a)}
    		App.DOMReady(function() {
    			var scripts = [
-   				'<?= $this->url->file("{$this->app->path}/assets/build/scripts{$code}.js") ?>',
-   				'<?= $this->url->file("{$this->app->path}/assets/build/editor{$code}.js") ?>'
+   				'<?= $this->url->file("{$this->app->dirPath}/assets/build/scripts{$code}.js") ?>',
+   				'<?= $this->url->file("{$this->app->dirPath}/assets/build/editor{$code}.js") ?>'
    			];
    			for (var i = 0; i < scripts.length; i++) {
    				var el = document.createElement('script');

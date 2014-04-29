@@ -10,6 +10,6 @@ $config = new Config('config/config.php');
 
 $app = new App();
 $app->add('ayre', $app->import('ayre/app.php', [
-	'base'	 => 'admin',
+	'path'	 => 'admin',
 	'config' => $config,
 ]));

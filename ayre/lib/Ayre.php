@@ -97,11 +97,6 @@ class Ayre extends App
 		] + (isset($class::$info) ? $class::$info + $info : $info));
 	}
 
-	public function __construct(array $envs = array())
-	{
-		parent::__construct($envs);
-	}
-
 	public function user(\Ayre\Entity\User $user = null)
 	{
 		if (isset($user)) {

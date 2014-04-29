@@ -9,17 +9,16 @@ use Coast\App,
 
 if (!isset($app)) {
 	throw new \Exception('Ayre can only run as middleware');
-} else if (!isset($base)) {
-	throw new \Exception('You must specify a base path');
+} else if (!isset($path)) {
+	throw new \Exception('You must specify a path');
 }
 $master = $app;
 
-$app = new Ayre($config->envs);
+$app = new Ayre(['path' => $path], $config->envs);
 $app->set('master', 	$master)
 	->set('config',		$config)
 	->set('dir',		new Dir(__DIR__))
-	->set('base',		new Path($base))
-	->set('path',		$app->dir->toRelative(new Path(getcwd())))
+	->set('dirPath',	$app->dir->toRelative(new Path(getcwd())))
 	->set('memcached',	$app->import("{$app->dir}/init/memcached.php"))
 	->set('em',			$app->import("{$app->dir}/init/doctrine.php"))
 	->set('swift',		$app->import("{$app->dir}/init/swift.php"))
@@ -38,26 +37,18 @@ $app->set('master', 	$master)
 			'en-GB' => 'en-GB@timezone=Europe/London;currency=GBP',
 		],
 	]))
-	->add(function(Request $req, Response $res) {
-		if (strpos($req->path(), (string) $this->base) !== 0) {
-			return false;
-		}
-	})
 	->add('router', new App\Router([
 		'target' => new App\Controller(['namespace' => 'Ayre\Controller']),
 	]))
-	->set('url', new App\Url($config->url + [
-		'base'		=> "{$config->url['base']}{$app->base}/",
-		'pathBase'	=> "{$config->url['base']}",
+	->set('url', new App\Url([
+		'base'		=> "{$config->url['base']}{$path}/",
+		'dirBase'	=> "{$config->url['base']}",
 		'router'	=> $app->router,
 		'version'	=> function(Url $url, Path $path) {
 			$url->path()->suffix("." . $path->modifyTime()->getTimestamp());
 		},
 	]))
 	->notFoundHandler(function(Request $req, Response $res) {
-		if (strpos($req->path(), (string) $this->base) !== 0) {
-			return null;
-		}
 		return $res
 			->status(404)
 			->html($this->view->render('error/not-found'));

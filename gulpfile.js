@@ -14,9 +14,9 @@ var gulp		= require('gulp'),
 	path		= require('path');
 
 var projectDir		= __dirname,
-	controllersDir	= projectDir + '/controllers',
-	libDir			= projectDir + '/lib',
-	viewsDir		= projectDir + '/views',
+	controllersDir	= projectDir + '/ayre/controllers',
+	libDir			= projectDir + '/ayre/lib',
+	viewsDir		= projectDir + '/ayre/views',
 	publicDir		= projectDir + '/ayre/assets',
 	stylesDir		= publicDir + '/styles',
 	scriptsDir		= publicDir + '/scripts',

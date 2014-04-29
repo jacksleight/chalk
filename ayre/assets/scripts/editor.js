@@ -10,7 +10,7 @@
 
 /* Initialize */
 
-tinyMCE.baseURL = App.options.base + 'tinymce';
+tinyMCE.baseURL = App.options.dirBase + App.options.dirPath + '/assets/tinymce';
 tinyMCE.init({
 	selector: '.html:not([disabled])',
 	menubar: false,
