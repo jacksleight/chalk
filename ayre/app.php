@@ -14,22 +14,21 @@ if (!isset($app)) {
 }
 $master = $app;
 
-$app = new Ayre(['path' => $path], $config->envs);
+$app = new Ayre(__DIR__, ['path' => $path], $config->envs);
 $app->set('master', 	$master)
 	->set('config',		$config)
-	->set('dir',		new Dir(__DIR__))
-	->set('dirPath',	$app->dir->toRelative(new Path(getcwd())))
-	->set('memcached',	$app->import("{$app->dir}/init/memcached.php"))
-	->set('em',			$app->import("{$app->dir}/init/doctrine.php"))
-	->set('swift',		$app->import("{$app->dir}/init/swift.php"))
-	->set('mimeTypes',	$app->import("{$app->dir}/init/mime-types.php"))
+	->set('dirPath',	$app->dir()->toRelative($master->dir()))
+	->set('memcached',	$app->import('init/memcached.php'))
+	->set('em',			$app->import('init/doctrine.php'))
+	->set('swift',		$app->import('init/swift.php'))
+	->set('mimeTypes',	$app->import('init/mime-types.php'))
 	->set('view', new App\View([
-		'dir' => "{$app->dir}/views",
+		'dir' => 'views',
 	]))
 	->add('image', new \Toast\App\Image([
-		'dir'			=> 'data/store/files',
-		'outputDir'		=> 'data/cache/images',
-		'transforms'	=> $app->import("{$app->dir}/init/transforms.php")
+		'sourceDir'		=> 'public/data/store/files',
+		'targetDir'		=> 'public/data/cache/images',
+		'transforms'	=> $app->import($app->dir()->file('init/transforms.php'))
 	]))
 	->add('locale', new \Toast\App\Locale([
 		'cookie'  => 'locale',
@@ -65,6 +64,6 @@ if (!$app->isDebug()) {
 $user = $app->em('Ayre\Entity\User')->fetch(1);
 $app->user($user);
 
-$app->import("{$app->dir}/init/routes.php");
+$app->import('init/routes.php');
 
 return $app;

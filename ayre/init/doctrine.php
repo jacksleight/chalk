@@ -16,11 +16,11 @@ if ($app->isDebug()) {
 
 \Coast\Doctrine\register_dbal_types();
 
-\Doctrine\Common\Annotations\AnnotationRegistry::registerFile('vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
+\Doctrine\Common\Annotations\AnnotationRegistry::registerFile($app->master->dir()->file('vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php')->toString());
 $reader			= new \Doctrine\Common\Annotations\AnnotationReader();
 $cachedReader	= new \Doctrine\Common\Annotations\CachedReader($reader, $cache, $app->isDebug());
 $chain			= new \Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain();
-$driver			= new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($cachedReader, [$app->dir . '/lib/Ayre/Entity']);
+$driver			= new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($cachedReader, [$app->dir()->dir('lib/Ayre/Entity')->toString()]);
 $chain->addDriver($driver, 'Ayre\Entity');
 \Gedmo\DoctrineExtensions::registerAbstractMappingIntoDriverChainORM($chain, $cachedReader);
 $config->setMetadataDriverImpl($chain);
