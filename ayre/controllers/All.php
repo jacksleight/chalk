@@ -14,10 +14,10 @@ class All extends Action
 		$name	= "criteria_" . md5(serialize($req->route['params']));
 		$value	= $req->queryParams();
 		if (count($value)) {
-			$this->app->user()->pref($name, $value);
+			// $this->app->user()->pref($name, $value);
 			$this->em->flush();
 		} else {
-			$value = $this->app->user()->pref($name);
+			// $value = $this->app->user()->pref($name);
 			if (isset($value)) {
 				$req->queryParams($value);
 			}

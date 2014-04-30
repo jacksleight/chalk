@@ -19,8 +19,6 @@ class Ayre extends App
 		'Ayre\Entity\Content',
 	];
 
-	protected $_user;
-
 	public static function type($class)
 	{
 		if (is_object($class)) {
@@ -95,16 +93,6 @@ class Ayre extends App
 				'path'	=> implode('/', $locallower),
 			],
 		] + (isset($class::$info) ? $class::$info + $info : $info));
-	}
-
-	public function user(\Ayre\Entity\User $user = null)
-	{
-		if (isset($user)) {
-			$this->_user = $user;
-			$this->em->blameable()->setUserValue($this->_user);
-			return $this;
-		}
-		return $this->_user;
 	}
 
 	public function isDebug()

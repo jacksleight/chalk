@@ -15,14 +15,14 @@ $covered  = isset($covered)  && $covered;
 						<span style="height: 0%;"></span>
 					</div>
 				<? } else { ?>
-					<? if ($entity->isGdCompatible()) { ?>
-						<img src="<?= $this->rootUrl($this->image(
+					<? if ($entity->file->exists() && $entity->isGdCompatible()) { ?>
+						<img src="<?= $this->image(
 							$entity->file,
 							'resize',
 							['size' => '400', 'crop' => true]
-						)) ?>">
+						) ?>">
 					<? } else { ?>
-						<div class="text"><span><?= $entity->extName ?></span></div>
+						<div class="text"><span><?= $entity->file->extName() ?></span></div>
 					<? } ?>
 					<span class="label label-status-<?= $entity->status ?>">
 						<?= $entity->status ?>

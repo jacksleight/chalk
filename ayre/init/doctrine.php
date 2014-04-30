@@ -57,7 +57,7 @@ $em = new \Ayre\Doctrine\ORM\EntityManager(\Doctrine\ORM\EntityManager::create(
 	$evm
 ));
 $em->blameable($listeners['Gedmo\Blameable\BlameableListener']);
-$em->Uploadable($listeners['Gedmo\Uploadable\UploadableListener']);
+$em->uploadable($listeners['Gedmo\Uploadable\UploadableListener']);
 $em->getConnection()->exec("SET NAMES utf8");
 $em->getMetadataFactory()->getAllMetadata();
 

@@ -35,7 +35,6 @@ class EntityManager extends \Coast\Doctrine\ORM\EntityManager
     {
         if (isset($uploadable)) {
             $this->_uploadable = $uploadable;
-            // @todo This is a dirty hack
             \Ayre\Entity\File::uploadable($this->_uploadable);
             return $this;
         }
