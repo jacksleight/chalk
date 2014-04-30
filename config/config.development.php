@@ -1,5 +1,6 @@
 <?php
 return [
+	'baseUrl' => '/_ayre/',
 	'envs' => [
 		'SERVER'	=> 'development',
 		'DEBUG'		=> true,
@@ -13,8 +14,5 @@ return [
 	'memcached' => [
 		'host'		=> 'localhost',
 		'port'		=> 11211,
-	],
-	'url' => [
-		'base' 		=> '/_ayre/',
 	],
 ];

@@ -15,20 +15,8 @@ $covered  = isset($covered)  && $covered;
 						<span style="height: 0%;"></span>
 					</div>
 				<? } else { ?>
-					<? if ($entity->isImage()) { ?>
-
-						<?php 
-						var_dump($entity->file);
-						var_dump($entity->file->modifyTime());
-						var_dump($this->image(
-							$entity->file,
-							'resize',
-							['size' => '400', 'crop' => true]
-						));
-						die;
-						?>
-
-						<img src="<?= $this->url($this->image(
+					<? if ($entity->isGdCompatible()) { ?>
+						<img src="<?= $this->rootUrl($this->image(
 							$entity->file,
 							'resize',
 							['size' => '400', 'crop' => true]

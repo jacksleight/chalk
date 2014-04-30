@@ -140,7 +140,7 @@ class File extends Content
 		]);
 	}
 
-	public function isImage()
+	public function isGdCompatible()
 	{
 		$info = array_filter(gd_info(), function($a) {
 			return $a === true;

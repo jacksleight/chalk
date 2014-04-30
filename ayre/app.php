@@ -1,52 +1,50 @@
 <?php
-use Coast\App, 
+use Coast\App\Controller, 
 	Coast\App\Request, 
 	Coast\App\Response, 
+	Coast\App\Router, 
+	Coast\App\View,
 	Coast\Config,
 	Coast\Path,
-	Coast\Dir,
-	Coast\Url;
+	Coast\Url,
+	Toast\App\Image,
+	Toast\App\Locale;
 
 if (!isset($app)) {
 	throw new \Exception('Ayre can only run as middleware');
 } else if (!isset($path)) {
 	throw new \Exception('You must specify a path');
 }
-$master = $app;
+$root = $app;
 
-$app = new Ayre(__DIR__, ['path' => $path], $config->envs);
-$app->set('master', 	$master)
+$app = new Ayre(__DIR__, $config->envs);
+$app->path(new Path("{$path}"))
+	->set('root', 		$root)
 	->set('config',		$config)
-	->set('dirPath',	$app->dir()->toRelative($master->dir()))
-	->set('memcached',	$app->import('init/memcached.php'))
-	->set('em',			$app->import('init/doctrine.php'))
-	->set('swift',		$app->import('init/swift.php'))
-	->set('mimeTypes',	$app->import('init/mime-types.php'))
-	->set('view', new App\View([
-		'dir' => 'views',
-	]))
-	->add('image', new \Toast\App\Image([
-		'sourceDir'		=> 'public/data/store/files',
-		'targetDir'		=> 'public/data/cache/images',
-		'transforms'	=> $app->import($app->dir()->file('init/transforms.php'))
-	]))
-	->add('locale', new \Toast\App\Locale([
+	->set('memcached',	$app->import($app->file('init/memcached.php')))
+	->set('em',			$app->import($app->file('init/doctrine.php')))
+	->set('swift',		$app->import($app->file('init/swift.php')))
+	->set('mimeTypes',	$app->import($app->file('init/mime-types.php')))
+	->set('view', new View(
+		$app->dir('views')))
+	->add('image', new Image(
+		$root->dir(),
+		$root->dir('public/data/cache/images'),
+		$app->import($app->file('init/transforms.php'))))
+	->add('locale', new Locale([
 		'cookie'  => 'locale',
 		'locales' => [
 			'en-GB' => 'en-GB@timezone=Europe/London;currency=GBP',
-		],
-	]))
-	->add('router', new App\Router([
-		'target' => new App\Controller(['namespace' => 'Ayre\Controller']),
-	]))
-	->set('url', new App\Url([
-		'base'		=> "{$config->url['base']}{$path}/",
-		'dirBase'	=> "{$config->url['base']}",
-		'router'	=> $app->router,
-		'version'	=> function(Url $url, Path $path) {
-			$url->path()->suffix("." . $path->modifyTime()->getTimestamp());
-		},
-	]))
+		]]))
+	->add('router', new Router(
+		new Controller('Ayre\Controller')))
+	->set('url', new Coast\App\Url(
+		new Url("{$config->baseUrl}{$app->path()}/"),
+		$app->dir(),
+		$app->router))
+	->set('rootUrl', new Coast\App\Url(
+		new Url("{$config->baseUrl}"),
+		$root->dir()))
 	->notFoundHandler(function(Request $req, Response $res) {
 		return $res
 			->status(404)
@@ -64,6 +62,6 @@ if (!$app->isDebug()) {
 $user = $app->em('Ayre\Entity\User')->fetch(1);
 $app->user($user);
 
-$app->import('init/routes.php');
+$app->import($app->file('init/routes.php'));
 
 return $app;

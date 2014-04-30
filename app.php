@@ -4,11 +4,12 @@ use Coast\App,
 	Coast\Config;
 
 session_name('session');
+date_default_timezone_set('UTC');
 require __DIR__ . '/vendor/autoload.php';
 $config = new Config(__DIR__ . '/config/config.php');
 
 $app = new App(__DIR__);
-$app->add('ayre', $app->import('ayre/app.php', [
+$app->add('ayre', $app->import($app->file('ayre/app.php'), [
 	'path'	 => 'admin',
 	'config' => $config,
 ]));

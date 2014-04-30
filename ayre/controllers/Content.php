@@ -61,7 +61,7 @@ class Content extends Ayre\Controller\Entity
 			throw new \Ayre\Exception("Upload only accepts post requests");
 		}
 
-		$dir      = new \Coast\Dir('data/temp/upload', true);
+		$dir      = $this->root->dir('data/upload', true);
 		$uploader = new FileUpload($req->bodyParam('files'), $req->servers());
 		$uploader->setPathResolver(new PathResolver\Simple($dir->name()));
 		$uploader->setFileSystem(new FileSystem\Simple());
@@ -69,6 +69,8 @@ class Content extends Ayre\Controller\Entity
 		list($uploads, $headers) = $uploader->processAll();
 		foreach ($uploads as $upload) {
 			if (isset($upload->path)) {
+				$cwd = getcwd();
+				chdir($this->root->dir()->name());
 				$temp = new \Coast\File($upload->path);
 				// Gedmo\Uploadable Fails on duplicate file names with no extenstion
 				if (!$temp->extName()) {
@@ -80,12 +82,14 @@ class Content extends Ayre\Controller\Entity
 				$this->em->flush();
 				$temp->remove();
 				$upload->jack = $file->file->name();
-				$upload->html = $this->view->render('/file/thumb', [
+				$upload->html = $this->view->render('file/thumb', [
 					'entity'	=> $file,
 					'covered'	=> true,
 				] + (array) $req->view)->toString();
+				chdir($cwd);
 			}
 		}
+
 		return $res
 			->headers($headers)
 			->json(['files' => $uploads]);
