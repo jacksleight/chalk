@@ -13,72 +13,142 @@ use Ayre\Entity,
 
 /**
  * @ORM\Entity
- * @Gedmo\Uploadable(pathMethod="generatePath", appendNumber=true)
  */
 class File extends Content
 {
-	protected static $_uploadable;
+	protected static $_baseDir;
+	protected static $_mimeTypes = [];
 
     /**
      * @ORM\Column(type="string")
-     * @Gedmo\UploadableFilePath
      */
-	protected $path;
+	protected $baseName;
 
     /**
-     * @ORM\Column(type="decimal")
-     * @Gedmo\UploadableFileSize
+     * @ORM\Column(type="string")
+     */
+	protected $mimeType;
+
+    /**
+     * @ORM\Column(type="integer")
      */
 	protected $size;
 
     /**
      * @ORM\Column(type="string")
-     * @Gedmo\UploadableFileMimeType
      */
-	protected $mimeType;
+	protected $hash;
 
-	public static function uploadable($uploadable = null)
+	protected $file;
+
+	protected $newFile;
+
+	public static function baseDir(\Coast\Dir $baseDir = null)
 	{
-		if (isset($uploadable)) {
-			self::$_uploadable = $uploadable;
+		if (isset($baseDir)) {
+			self::$_baseDir = $baseDir;
 		}
-		return self::$_uploadable;
+		return self::$_baseDir;
 	}
-	
-	public function generatePath()
+
+	public static function mimeTypes(array $mimeTypes = null)
 	{
-		$dir	= new \Coast\Dir(self::uploadable()->getDefaultPath());
-		$count	= iterator_count($dir->iterator(true));
-		$number	= ceil(max(1, $count) / 1000);
-		return $dir->dir($number, true)->name();
+		if (isset($mimeTypes)) {
+			self::$_mimeTypes = $mimeTypes;
+		}
+		return self::$_mimeTypes;
 	}
-	
-	public function file(\Coast\File $file = null)
+
+	public function move(\Coast\File $file)
 	{
-		if (isset($file)) {
-			$this->name = ucwords(trim(preg_replace('/[^\w]+/', ' ', $file->fileName())));
-			self::uploadable()->addEntityFileInfo($this, new File\Info([
-				'tmp_name'	=> $file->name(),
-				'name'		=> $file->baseName(),
-				'size'		=> $file->size(),
-				'type'		=> null,
-				'error'		=> 0,
-			]));
+		if (!$file->exists()) {
+			throw new \Exception("File '{$file}' does not exist");
+		}
+
+		$this->remove();
+			
+		$this->name	= ucwords(trim(preg_replace('/[^\w]+/', ' ', $file->fileName())));
+		$this->size	= $file->size();
+		$this->hash	= $file->hash('md5');
+
+		$extName = strtolower($file->extName());
+		if ($extName) {
+			foreach (self::$_mimeTypes as $mimeType => $info) {
+				if (in_array($extName, $info[1])) {
+					$this->mimeType	= $mimeType;
+					break;
+				}
+			}
+		}
+		if (!isset($this->mimeType)) {
+			$this->mimeType = 'application/octet-stream';
+		}
+
+		$i	 = 0;
+		$dir = $this->dir();
+		do {
+			$temp = clone $file;
+			if ($i > 0) {
+				$temp->suffix("-{$i}");
+			}
+			$i++;
+		} while ($dir->file($temp->baseName())->exists());
+		
+		$this->baseName	= $temp->baseName();
+		$this->file		= $file->move($dir, $this->baseName);
+		
+		return $this;
+	}
+
+	public function remove()
+	{
+		$file = $this->file();
+		if (!isset($file)) {
 			return $this;
 		}
-		$dir = new \Coast\Dir(self::uploadable()->getDefaultPath());
-		return $dir->file($this->path);
+
+		if ($file->exists()) {
+			$file->remove();
+		}
+
+		$this->file		= null;
+		$this->baseName	= null;
+		$this->mimeType	= null;
+		$this->size		= null;
+		$this->hash		= null;
+
+		return $this;
 	}
 
-	public function fileName()
+	public function init()
 	{
-		return $this->file()->fileName();
+		$this->file = $this->dir()->file($this->baseName);
+		return $this;
+	}
+
+	public function dir()
+	{	
+		return self::$_baseDir->dir("{$this->hash[0]}/{$this->hash[1]}", true);
+	}
+
+	public function type()
+	{	
+		return isset(self::$_mimeTypes[$this->mimeType])
+			? self::$_mimeTypes[$this->mimeType][0]
+			: strtoupper($this->file->extName()) . ' File';
+	}
+
+	public function typeExtName()
+	{	
+		return isset(self::$_mimeTypes[$this->mimeType])
+			? self::$_mimeTypes[$this->mimeType][1][0]
+			: strtoupper($this->file->extName());
 	}
 
 	public function searchFields()
 	{
 		return array_merge(parent::searchFields(), [
-			'fileName',
+			'baseName',
 		]);
 	}
 
@@ -94,12 +164,5 @@ class File extends Content
 			'WebP Support'			=> 'image/webp',
 		], $info);
 		return in_array($this->mimeType, $mimeTypes);
-	}
-
-	public function makePathRelative()
-	{
-		$dir		= new \Coast\Dir(self::uploadable()->getDefaultPath());
-		$file		= new \Coast\File($this->path);
-		$this->path	= $file->toRelative($dir);
 	}
 }

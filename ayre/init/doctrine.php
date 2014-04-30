@@ -28,6 +28,7 @@ $config->setMetadataDriverImpl($chain);
 $evm = new \Doctrine\Common\EventManager();
 $classes = [
 	'Ayre\Listener',
+	'Ayre\Entity\File\Listener',
 	'Ayre\Behaviour\Loggable\Listener',
 	'Ayre\Behaviour\Searchable\Listener',
 	'Ayre\Behaviour\Versionable\Listener',
@@ -35,7 +36,6 @@ $classes = [
 	'Gedmo\Sluggable\SluggableListener',
 	'Gedmo\Timestampable\TimestampableListener',
 	'Gedmo\Tree\TreeListener',
-	'Gedmo\Uploadable\UploadableListener',
 ];
 $listeners = [];
 foreach ($classes as $class) {
@@ -57,7 +57,6 @@ $em = new \Ayre\Doctrine\ORM\EntityManager(\Doctrine\ORM\EntityManager::create(
 	$evm
 ));
 $em->blameable($listeners['Gedmo\Blameable\BlameableListener']);
-$em->uploadable($listeners['Gedmo\Uploadable\UploadableListener']);
 $em->getConnection()->exec("SET NAMES utf8");
 $em->getMetadataFactory()->getAllMetadata();
 

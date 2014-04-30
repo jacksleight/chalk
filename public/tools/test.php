@@ -1,8 +1,9 @@
 <?php
 require __DIR__ . '/../../app.php';
 
+$em = $app->ayre->em;
+
 $file = new \Ayre\Entity\File();
-
-$md = $file->getMetadata();
-
-var_dump($md);
+$file->newFile = $app->file('ayre/assets/images/logo.svg');
+$em->persist($file);
+$em->flush();

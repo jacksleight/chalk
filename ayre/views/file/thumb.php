@@ -22,7 +22,7 @@ $covered  = isset($covered)  && $covered;
 							['size' => '400', 'crop' => true]
 						) ?>">
 					<? } else { ?>
-						<div class="text"><span><?= $entity->file->extName() ?></span></div>
+						<div class="text"><span><?= $entity->typeExtName ?></span></div>
 					<? } ?>
 					<span class="label label-status-<?= $entity->status ?>">
 						<?= $entity->status ?>
@@ -42,9 +42,7 @@ $covered  = isset($covered)  && $covered;
 					Waiting…
 				<? } else { ?>
 					<span class="info">
-						<?= isset($this->mimeTypes[$entity->mimeType])
-							? $this->mimeTypes[$entity->mimeType]
-							: $entity->mimeType ?>
+						<?= $entity->type ?>
 					</span>
 				<? } ?>
 			</figcaption>

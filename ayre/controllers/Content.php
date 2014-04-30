@@ -69,18 +69,10 @@ class Content extends Ayre\Controller\Entity
 		list($uploads, $headers) = $uploader->processAll();
 		foreach ($uploads as $upload) {
 			if (isset($upload->path)) {
-				$temp = new \Coast\File($upload->path);
-				// Gedmo\Uploadable Fails on duplicate file names with no extenstion
-				if (!$temp->extName()) {
-					$temp->rename(['extName' => 'bin']);
-				}
 				$entity = new \Ayre\Entity\File();
-				$entity->file($temp);
+				$entity->newFile = new \Coast\File($upload->path);
 				$this->em->persist($entity);
 				$this->em->flush();
-				$entity->makePathRelative();
-				$this->em->flush();
-				$temp->remove();
 				unset($upload->path);
 				$upload->html = $this->view->render('file/thumb', [
 					'entity'	=> $entity,

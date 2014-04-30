@@ -48,7 +48,6 @@ $app->set('root', 		$root)
 	->set('memcached',	$app->import($app->file('init/memcached.php')))
 	->set('em',			$app->import($app->file('init/doctrine.php')))
 	->set('swift',		$app->import($app->file('init/swift.php')))
-	->set('mimeTypes',	$app->import($app->file('init/mime-types.php')))
 	->set('view', $viewRenderer)
 	->add('image', $image)
 	->add('locale', new Locale([
@@ -73,7 +72,8 @@ if (!$app->isDebug()) {
 	});
 }
 
-$app->em->uploadable()->setDefaultPath($root->dir('public/data/file', true)->name());
+\Ayre\Entity\File::baseDir($root->dir('public/data/file', true));
+\Ayre\Entity\File::mimeTypes($app->import($app->file('init/mime-types.php')));
 
 $user = $app->em('Ayre\Entity\User')->fetch(1);
 $app->em->blameable()->setUserValue($user);
