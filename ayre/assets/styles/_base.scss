@@ -583,8 +583,8 @@ select,
 		color: $color-quieter;
 	}
 	.sidebar & {
-		background-color: shade($color-primary, 10%);
-		border: 0;
+		border-color: shade($color-primary, 30%);
+		background-color: $color-primary;
 		color: inherit;
 		padding-left: $gutter;
 		padding-right: $gutter;
@@ -783,6 +783,7 @@ button,
 	display: inline-block;
 	vertical-align: bottom;
 	width: 100%;
+	z-index: 10;
 	.menu {
 		margin-top: 0;
 		position: absolute;
@@ -1082,13 +1083,19 @@ legend {
 			background-color: tint($color-shade, 75%);
 		}
 	}
+	&.menu-simple {
+		border-width: 0;
+		li {
+			border-width: 0;
+		}
+	}
 	.sidebar & {
-		border: 0;
+		border-color: shade($color-primary, 30%);
 		ul {
 			background-color: $color-primary;
 		}
 		li {
-			border: 0;
+			border-color: shade($color-primary, 15%);
 		}
 		label, span, a {
 			padding-left: $gutter;
@@ -1096,7 +1103,7 @@ legend {
 			&:hover,
 			&.active {
 				color: white;
-				background-color: shade($color-primary, 10%);
+				background-color: shade($color-primary, 5%);
 			}
 			&.active {
 				position: relative;

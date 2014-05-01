@@ -1,3 +1,4 @@
+@charset "utf-8";
 /* Configuration */
 /* Partials */
 /* Media */
@@ -180,8 +181,6 @@ mark {
   background-color: yellow;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
-  -ms-border-radius: 2px;
-  -o-border-radius: 2px;
   border-radius: 2px;
 }
 
@@ -213,8 +212,6 @@ pre, code {
   font-size: 1rem;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
   border-radius: 0;
 }
 
@@ -581,8 +578,6 @@ table {
   border-spacing: 0;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
   border-radius: 0;
 }
 table tr th, table tr td {
@@ -717,8 +712,6 @@ select,
   border-color: #ced0d3;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
   border-radius: 0;
   outline: 0;
   -webkit-appearance: none;
@@ -847,8 +840,8 @@ input[type=week], .sidebar
 textarea, .sidebar
 select, .sidebar
 .value {
-  background-color: #373f48;
-  border: 0;
+  border-color: #2b3138;
+  background-color: #3e4651;
   color: inherit;
   padding-left: 20px;
   padding-right: 20px;
@@ -879,7 +872,7 @@ select optgroup option {
 }
 @media (-webkit-min-device-pixel-ratio: 0) {
   select {
-    background-image: url('../images/1x/select-arrow.1396288106.png');
+    background-image: url('../images/1x/select-arrow.1398958304.png');
     background-position: 100% 50%;
     background-repeat: no-repeat;
     padding-right: 30px;
@@ -887,7 +880,7 @@ select optgroup option {
 }
 @media screen and (-webkit-min-device-pixel-ratio: 0) and (-webkit-min-device-pixel-ratio: 2), screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 192dpi) {
   select {
-    background-image: url('../images/2x/select-arrow.1396288106.png');
+    background-image: url('../images/2x/select-arrow.1397749884.png');
     background-size: 20px 5px;
   }
 }
@@ -943,8 +936,6 @@ button,
   border-color: #f1f2f2;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
   border-radius: 0;
   outline: 0;
   cursor: pointer;
@@ -1356,6 +1347,7 @@ button.disabled,
   display: inline-block;
   vertical-align: bottom;
   width: 100%;
+  z-index: 10;
 }
 .dropdown .menu {
   margin-top: 0;
@@ -1749,14 +1741,20 @@ legend {
 .menu label:hover, .menu span:hover, .menu a:hover {
   background-color: #fbfbfb;
 }
+.menu.menu-simple {
+  border-width: 0;
+}
+.menu.menu-simple li {
+  border-width: 0;
+}
 .sidebar .menu {
-  border: 0;
+  border-color: #2b3138;
 }
 .sidebar .menu ul {
   background-color: #3e4651;
 }
 .sidebar .menu li {
-  border: 0;
+  border-color: #343b44;
 }
 .sidebar .menu label, .sidebar .menu span, .sidebar .menu a {
   padding-left: 20px;
@@ -1764,7 +1762,7 @@ legend {
 }
 .sidebar .menu label:hover, .sidebar .menu label.active, .sidebar .menu span:hover, .sidebar .menu span.active, .sidebar .menu a:hover, .sidebar .menu a.active {
   color: white;
-  background-color: #373f48;
+  background-color: #3a424c;
 }
 .sidebar .menu label.active, .sidebar .menu span.active, .sidebar .menu a.active {
   position: relative;
@@ -1834,7 +1832,7 @@ legend {
   opacity: 0.1;
 }
 .old-ie .tree-handle:before {
-  background-image: url('../images/1x-sd30e44466d.png');
+  background-image: url('../images/1x-seb75d7cdf8.png');
   background-position: -40px 0;
   width: 10px;
   height: 10px;
@@ -1895,7 +1893,7 @@ legend {
   height: 10px;
 }
 .old-ie .tree-item > button[data-action=expand] span {
-  background-image: url('../images/1x-sd30e44466d.png');
+  background-image: url('../images/1x-seb75d7cdf8.png');
   background-position: -20px 0;
   width: 10px;
   height: 10px;
@@ -1915,7 +1913,7 @@ legend {
   height: 10px;
 }
 .old-ie .tree-item > button[data-action=collapse] span {
-  background-image: url('../images/1x-sd30e44466d.png');
+  background-image: url('../images/1x-seb75d7cdf8.png');
   background-position: -30px 0;
   width: 10px;
   height: 10px;
@@ -2039,6 +2037,19 @@ html, body {
 }
 .frame .sidebar .toggle a.active {
   background: #3e4651;
+}
+.frame .sidebar .pad {
+  padding: 20px 20px 0 20px;
+}
+.frame .sidebar .pad > *:first-child {
+  margin-top: 0 !important;
+}
+.frame .sidebar .body {
+  display: flex;
+  flex-direction: column;
+}
+.frame .sidebar .body > .flex {
+  flex: 1;
 }
 .frame .main {
   flex: 1;

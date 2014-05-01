@@ -19,10 +19,15 @@ class Content extends Repository
 			'statuses'		=> [],
 		];
 
-		$params = ['classes' => [$this->_entityName]];
-		$qb = $this->createQueryBuilder('c')
-			->andWhere("c INSTANCE OF :classes")
-			->andWhere("c.next IS NULL");
+		$params = [];
+		$qb = $this->createQueryBuilder('c');
+
+		if ($this->_entityName != 'Ayre\Entity\Content') {
+			$qb->andWhere("c INSTANCE OF :class");
+			$params['class'] = $this->_entityName;
+		}
+		
+		$qb->andWhere("c.next IS NULL");
 		
 		if (isset($sort)) {
 

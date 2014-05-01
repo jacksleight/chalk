@@ -13,15 +13,15 @@ var gulp		= require('gulp'),
 	server		= require('tiny-lr')();
 	path		= require('path');
 
-var projectDir		= __dirname,
-	controllersDir	= projectDir + '/ayre/controllers',
-	libDir			= projectDir + '/ayre/lib',
-	viewsDir		= projectDir + '/ayre/views',
-	publicDir		= projectDir + '/ayre/assets',
-	stylesDir		= publicDir + '/styles',
-	scriptsDir		= publicDir + '/scripts',
-	imagesDir		= publicDir + '/images',
-	buildDir		= publicDir + '/build';
+var projectDir		= __dirname + '/ayre',
+	controllersDir	= projectDir + '/controllers',
+	libDir			= projectDir + '/lib',
+	viewsDir		= projectDir + '/views',
+	assetsDir		= projectDir + '/assets',
+	stylesDir		= assetsDir + '/styles',
+	scriptsDir		= assetsDir + '/scripts',
+	imagesDir		= assetsDir + '/images',
+	buildDir		= assetsDir + '/build';
 
 gulp.task('styles', function() {
 	return sequence(
@@ -34,8 +34,8 @@ gulp.task('styles-compass', function() {
 		.pipe(compass({
 			config_file: projectDir + '/compass.rb',
 			project: projectDir,
-			sass: 'public/styles',
-			css: 'public/build'
+			sass: 'assets/styles',
+			css: 'assets/build'
 		}));
 });
 gulp.task('styles-min', function() {

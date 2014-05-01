@@ -1,8 +1,8 @@
-css_dir				= "public/build"
-sass_dir			= "public/styles"
-images_dir			= "public/images"
-javascripts_dir		= "public/scripts"
-fonts_dir			= "public/fonts"
+css_dir				= "assets/build"
+sass_dir			= "assets/styles"
+images_dir			= "assets/images"
+javascripts_dir		= "assets/scripts"
+fonts_dir			= "assets/fonts"
 
 output_style		= :expanded
 relative_assets		= true

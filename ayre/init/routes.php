@@ -8,6 +8,7 @@ $app->router
 	->all('content', "content/{entityType}?/{action}?/{id}?", [
 		'controller' => 'content',
 		'action'     => 'index',
+		'entityType' => 'core-content',
 		'id'    	 => null,
 	])
 	->all('structure', "structure/{action}?/{id}?", [

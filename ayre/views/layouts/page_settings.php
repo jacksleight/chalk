@@ -5,7 +5,7 @@
 
 <? $this->block('sidebar') ?>
 
-<nav class="menu" role="navigation">
+<nav class="menu menu-simple" role="navigation">
 	<?= $this->render('nav', ['items' => [
 		[
 			'label' => 'Users',

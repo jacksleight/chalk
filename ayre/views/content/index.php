@@ -13,14 +13,14 @@ $entites = $this->em($entityType->class)
 	<colgroup>
 		<col class="col-type">
 		<col class="col-name">
-		<col class="col-create">
+		<col class="col-date">
 		<col class="col-status">
 	</colgroup>
 	<thead>
 		<tr>
 			<th scope="col" class="col-type">Type</th>
 			<th scope="col" class="col-name">Name</th>
-			<th scope="col" class="col-create">Added</th>
+			<th scope="col" class="col-date">Modified</th>
 			<th scope="col" class="col-status">Status</th>
 		</tr>
 	</thead>
@@ -33,9 +33,8 @@ $entites = $this->em($entityType->class)
 				<th class="col-name" scope="row">
 					<?= $entity->name ?>
 				</th>
-				<td class="col-create">
-					<?= $entity->createDate->diffForHumans() ?>
-					<small>by</small> <?= $entity->createUserName ?>
+				<td class="col-date">
+					<?= $entity->modifyDate->diffForHumans() ?>
 				</td>
 				<td class="col-status">
 					<span class="label label-status-<?= $entity->status ?>"><?= $entity->status ?></span>

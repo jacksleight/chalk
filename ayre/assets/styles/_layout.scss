@@ -49,6 +49,17 @@ html, body {
 				}
 			}
 		}
+		.pad {
+			padding: $gutter $gutter 0 $gutter;
+			@include flush;
+		}
+		.body {
+			display: flex;
+			flex-direction: column;
+			> .flex {
+				flex: 1;
+			}
+		}
 	}
 	.main {
 		flex: 1;
