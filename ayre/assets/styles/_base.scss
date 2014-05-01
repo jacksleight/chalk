@@ -362,6 +362,8 @@ figure {
 	}
 }
 .thumb {
+	position: relative;
+	@include link-color($color-foreground);
 	.preview {
 		background-color: tint($color-primary, 75%);
 		position: relative;
@@ -422,6 +424,30 @@ figure {
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
+	}
+	input[type=checkbox] {
+		position: absolute;
+		top: $gutter * 0.5;
+		left: $gutter * 0.5;
+		z-index: 10;
+		margin: 0;
+		opacity: 0.25;
+		@include transition(opacity $speed ease);		
+		cursor: default;
+	}
+	&:hover {
+		background-color: tint($color-primary, 95%);
+		outline: $gutter * 0.4 solid tint($color-primary, 95%);
+		input[type=checkbox] {
+			opacity: 1;
+		}
+	}
+	.selected & {
+		background-color: tint($color-active, 70%);
+		outline: $gutter * 0.4 solid tint($color-active, 70%);
+		input[type=checkbox] {
+			opacity: 1;
+		}
 	}
 }
 
@@ -493,6 +519,17 @@ table {
 				background-color: tint($color-shade, 75%);
 			}
 		}
+		tr.selected {
+			th, td {
+				background-color: tint($color-active, 80%);
+				border-bottom-color: tint($color-active, 60%);
+			}
+			&:hover {
+				th, td {
+					background-color: tint($color-active, 70%);				
+				}
+			}
+		}
 	}
 	caption { 
 		@include font-size(-1);
@@ -515,6 +552,12 @@ table {
 	.col-date {
 		width: 250px;
 		text-align: right;
+	}
+	.col-select {
+		width: 1px;
+	}
+	input[type=checkbox] {
+		margin: 0 0 0 $gutter * 0.5;
 	}
 }
 

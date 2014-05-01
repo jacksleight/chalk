@@ -22,6 +22,7 @@ FastClick.attach(document.body);
 //= require behaviours/confirmable.js
 //= require behaviours/expandable.js
 //= require behaviours/uploadable.js
+//= require behaviours/selectable.js
 
 /* Elements */
 

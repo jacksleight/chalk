@@ -11,6 +11,7 @@ $entites = $this->em($entityType->class)
 <?= $this->render('filters', ['filter' => $filter]) ?>
 <table>
 	<colgroup>
+		<col class="col-select">
 		<col class="col-type">
 		<col class="col-name">
 		<col class="col-date">
@@ -18,15 +19,19 @@ $entites = $this->em($entityType->class)
 	</colgroup>
 	<thead>
 		<tr>
+			<th scope="col" class="col-select"></th>
 			<th scope="col" class="col-type">Type</th>
 			<th scope="col" class="col-name">Name</th>
 			<th scope="col" class="col-date">Modified</th>
 			<th scope="col" class="col-status">Status</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody class="selectable">
 		<? foreach ($entites as $entity) { ?>
 			<tr>
+				<td class="col-select">
+					<input type="checkbox">
+				</td>
 				<td class="col-type">
 					<?= \Ayre::type($entity)->singular ?>
 				</td>

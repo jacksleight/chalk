@@ -9,6 +9,7 @@ $covered  = isset($covered)  && $covered;
 		'id'		=> $entity->id,
 	]) : '#' ?>">
 		<figure class="thumb">
+			<input type="checkbox">
 			<div class="preview">
 				<? if ($template) { ?>
 					<div class="progress">
