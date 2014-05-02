@@ -105,7 +105,7 @@ class User extends \Toast\Entity implements Trackable, Searchable
 	protected function _alterMetadata($name, $data)
 	{
 		if (!isset($this->password) && in_array($name, ['passwordPlain', 'passwordPlainConfirm'])) {
-			$data['validator']->addValidator(new \JS\Validator\Set());
+			$data['validator']->addValidator(new \Toast\Validator\Set());
 		}
 		return $data;
 	}

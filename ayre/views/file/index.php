@@ -18,7 +18,7 @@ $entites = $this->em($entityType->class)
 </ul>
 <h1><?= $entityType->plural ?></h1>
 <?= $this->render('/content/filters', ['filter' => $filter]) ?>
-<ul class="thumbs uploadable-list selectable">
+<ul class="thumbs uploadable-list">
 	<? foreach ($entites as $entity) { ?>
 		<?= $this->render('thumb', ['entity' => $entity]) ?>
 	<? } ?>

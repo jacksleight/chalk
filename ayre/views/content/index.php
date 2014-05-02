@@ -30,7 +30,7 @@ $entites = $this->em($entityType->class)
 		<? foreach ($entites as $entity) { ?>
 			<tr>
 				<td class="col-select">
-					<input type="checkbox">
+					<input type="checkbox" id="entity-<?= $entity->id ?>"><label for="entity-<?= $entity->id ?>"></label>
 				</td>
 				<td class="col-type">
 					<?= \Ayre::type($entity)->singular ?>

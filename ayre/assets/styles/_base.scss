@@ -363,7 +363,10 @@ figure {
 }
 .thumb {
 	position: relative;
+	background-color: white;
+	outline-color: white;
 	@include link-color($color-foreground);
+	@include transition(background-color $speed ease, outline-color $speed ease);
 	.preview {
 		background-color: tint($color-primary, 75%);
 		position: relative;
@@ -425,27 +428,27 @@ figure {
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
-	input[type=checkbox] {
+	input[type=checkbox] + label {
 		position: absolute;
-		top: $gutter * 0.5;
-		left: $gutter * 0.5;
-		z-index: 10;
-		margin: 0;
-		opacity: 0.25;
-		@include transition(opacity $speed ease);		
+		top: 0;
+		left: 0;
+		z-index: 1;	
 		cursor: default;
-	}
-	&:hover {
-		background-color: tint($color-primary, 95%);
-		outline: $gutter * 0.4 solid tint($color-primary, 95%);
-		input[type=checkbox] {
+		opacity: 0.5;
+		padding: $gutter * 0.5 $gutter $gutter $gutter * 0.5;
+		@include transition(opacity $speed linear);
+		&:hover {
 			opacity: 1;
 		}
 	}
-	.selected & {
-		background-color: tint($color-active, 70%);
-		outline: $gutter * 0.4 solid tint($color-active, 70%);
-		input[type=checkbox] {
+	&:hover {
+		background-color: tint($color-primary, 90%);
+		outline: $gutter * 0.4 solid tint($color-primary, 90%);
+	}
+	&.selected {
+		background-color: tint($color-active, 0%);
+		outline: $gutter * 0.4 solid tint($color-active, 0%);
+		input[type=checkbox] + label {
 			opacity: 1;
 		}
 	}
@@ -556,9 +559,6 @@ table {
 	.col-select {
 		width: 1px;
 	}
-	input[type=checkbox] {
-		margin: 0 0 0 $gutter * 0.5;
-	}
 }
 
 /* Input */
@@ -573,6 +573,7 @@ $input-padding-horiz:	$input-padding + 4px;
 $input-height:			round($font-size * $line-height)
 						+ ($input-padding * 2)
 						+ ($input-border-width * 2);
+$input-toggle-size:		$input-height - 10px;
 
 input,
 select,
@@ -633,9 +634,37 @@ select,
 		padding-right: $gutter;
 	}
 }
-input[type=radio],
-input[type=checkbox] { 
-	vertical-align: 1px;
+input[type=checkbox],
+input[type=radio] {
+	position: absolute;
+	left: -10000px;
+	& + label {
+		position: relative;
+		&:before {
+			content: '';
+			display: inline-block;
+			width: $input-toggle-size;
+			height: $input-toggle-size;
+			border: 1px solid $color-quieter;
+			background: white;
+			vertical-align: $input-toggle-size * -0.3;
+			margin-right: 0.25em;
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+	}
+	&:focus + label:before {
+		border-color: tint($color-primary, 50%);
+	}
+}
+input[type=radio] + label:before {
+	border-radius: 50%; 
+}
+input[type=checkbox]:checked + label:before {
+	background-image: inline-image('tick.svg');
+}
+input[type=radio]:checked + label:before {
+	background-image: inline-image('dot.svg');
 }
 select { 
 	width: auto;
@@ -826,7 +855,7 @@ button,
 	display: inline-block;
 	vertical-align: bottom;
 	width: 100%;
-	z-index: 10;
+	z-index: 500;
 	.menu {
 		margin-top: 0;
 		position: absolute;
@@ -998,7 +1027,7 @@ legend {
 	@include inline-blocks('> li');
 	display: flex;
 	flex-direction: row;
-	z-index: 1;
+	z-index: 500;
 	position: relative;
 	> li {
 		flex: 2;
@@ -1130,6 +1159,16 @@ legend {
 		border-width: 0;
 		li {
 			border-width: 0;
+		}
+	}
+	input[type=checkbox],
+	input[type=radio] {
+		& + label {
+			&:before {
+				border: 0;
+				background-color: transparent;
+				width: 16px;
+			}
 		}
 	}
 	.sidebar & {
@@ -1268,7 +1307,7 @@ legend {
 	background-color: shade($color-primary, 10%);
 	position: absolute;
 	pointer-events: none;
-	z-index: 10000;
+	z-index: 1000;
 	&[style] {
 		opacity: 0.6 !important
 	}

@@ -8,8 +8,8 @@ $covered  = isset($covered)  && $covered;
 		'action'	=> 'edit',
 		'id'		=> $entity->id,
 	]) : '#' ?>">
-		<figure class="thumb">
-			<input type="checkbox">
+		<figure class="thumb selectable">
+			<input type="checkbox" id="entity-<?= $entity->id ?>"><label for="entity-<?= $entity->id ?>"></label>
 			<div class="preview">
 				<? if ($template) { ?>
 					<div class="progress">
