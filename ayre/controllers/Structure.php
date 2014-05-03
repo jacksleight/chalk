@@ -32,7 +32,7 @@ class Structure extends Action
 		}		
 
 		$it = new \RecursiveIteratorIterator(
-			new StructureIterator($data),
+			new Entity\Structure\Iterator($data),
 			\RecursiveIteratorIterator::SELF_FIRST);
 		$stack = [];
 		foreach ($it as $i => $value) {
@@ -84,15 +84,3 @@ class Structure extends Action
 	}
 }
 
-class StructureIterator extends \RecursiveArrayIterator
-{
-	public function hasChildren()
-	{
-		return isset($this->current()->children);
-	}
-
-	public function getChildren()
-	{
-		return new StructureIterator($this->current()->children);
-	}
-}

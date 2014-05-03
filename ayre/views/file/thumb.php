@@ -9,7 +9,9 @@ $covered  = isset($covered)  && $covered;
 		'id'		=> $entity->id,
 	]) : '#' ?>">
 		<figure class="thumb selectable">
-			<input type="checkbox" id="entity-<?= $entity->id ?>"><label for="entity-<?= $entity->id ?>"></label>
+			<? if (!$template) { ?>
+				<input type="checkbox" id="entity-<?= $entity->id ?>"><label for="entity-<?= $entity->id ?>"></label>
+			<? } ?>
 			<div class="preview">
 				<? if ($template) { ?>
 					<div class="progress">

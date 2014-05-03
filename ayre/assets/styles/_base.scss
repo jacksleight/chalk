@@ -238,8 +238,6 @@ small {
 }
 .label-status-published {
 	@extend .label-status;
-	background-color: $color-published;
-	border-color: $color-published;
 }
 
 /* Icons */
@@ -431,6 +429,7 @@ figure {
 		&:before {
 			opacity: 0.5;
 			margin: $gutter * 0.5 $gutter $gutter $gutter * 0.5;
+			border: transparent !important;
 		}
 		&:hover:before {
 			opacity: 1;
@@ -439,6 +438,11 @@ figure {
 	&.selected {
 		input[type=checkbox] + label:before {
 			opacity: 1;
+		}
+		.preview {
+			img {
+				-webkit-filter: grayscale(1);
+			}
 		}
 	}
 }
@@ -551,7 +555,6 @@ table {
 	input[type=checkbox] + label:before {
 		background-color: $color-active !important;
 		border-color: shade($color-active, 15%) !important;
-		@include transition(all $speed linear);
 	}
 }
 
@@ -645,6 +648,7 @@ input[type=radio] {
 			margin-right: 0.25em;
 			background-position: center;
 			background-repeat: no-repeat;
+			@include transition(all $speed linear);
 		}
 	}
 	&:focus + label:before {
@@ -1298,4 +1302,12 @@ legend {
 	&[style] {
 		opacity: 0.6 !important
 	}
+}
+
+.tree-status-pending {
+	color: $color-pending;
+}
+.tree-status-archived {
+	opacity: 0.5;
+	text-decoration: line-through;
 }

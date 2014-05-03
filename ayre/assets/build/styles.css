@@ -313,11 +313,6 @@ th .label-status-archived, th .label-status-pending, th .label-status-1, th .lab
   border-color: #2cc95c;
 }
 
-.label-status-published {
-  background-color: #2cc95c;
-  border-color: #2cc95c;
-}
-
 /* Icons */
 /* Rule */
 hr {
@@ -599,12 +594,16 @@ figure figcaption {
 .thumb input[type=checkbox] + label:before {
   opacity: 0.5;
   margin: 10px 20px 20px 10px;
+  border: transparent !important;
 }
 .thumb input[type=checkbox] + label:hover:before {
   opacity: 1;
 }
 .thumb.selected input[type=checkbox] + label:before {
   opacity: 1;
+}
+.thumb.selected .preview img {
+  -webkit-filter: grayscale(1);
 }
 
 /* Table */
@@ -714,10 +713,6 @@ table .col-select input[type=checkbox] + label:before {
 .selected input[type=checkbox] + label:before {
   background-color: #fcb941 !important;
   border-color: #d69d37 !important;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
-  transition: all 0.1s linear;
 }
 
 /* Input */
@@ -928,6 +923,10 @@ input[type=radio] + label:before {
   margin-right: 0.25em;
   background-position: center;
   background-repeat: no-repeat;
+  -webkit-transition: all 0.1s linear;
+  -moz-transition: all 0.1s linear;
+  -o-transition: all 0.1s linear;
+  transition: all 0.1s linear;
 }
 input[type=checkbox]:focus + label:before,
 input[type=radio]:focus + label:before {
@@ -2042,6 +2041,15 @@ legend {
 }
 .tree-drag[style] {
   opacity: 0.6 !important;
+}
+
+.tree-status-pending {
+  color: #fc6042;
+}
+
+.tree-status-archived {
+  opacity: 0.5;
+  text-decoration: line-through;
 }
 
 /* Page */

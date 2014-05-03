@@ -11,16 +11,16 @@ $entites = $this->em($entityType->class)
 	<table class="multiselectable">
 		<colgroup>
 			<col class="col-select">
-			<col class="col-type">
 			<col class="col-name">
+			<col class="col-type">
 			<col class="col-date">
 			<col class="col-status">
 		</colgroup>
 		<thead>
 			<tr>
 				<th scope="col" class="col-select"></th>
-				<th scope="col" class="col-type">Type</th>
 				<th scope="col" class="col-name">Name</th>
+				<th scope="col" class="col-type">Type</th>
 				<th scope="col" class="col-date">Modified</th>
 				<th scope="col" class="col-status">Status</th>
 			</tr>
@@ -34,12 +34,12 @@ $entites = $this->em($entityType->class)
 							'value'		=> $entity,
 						]) ?>
 					</td>
-					<td class="col-type">
-						<?= \Ayre::type($entity)->singular ?>
-					</td>
 					<th class="col-name" scope="row">
 						<?= $entity->name ?>
 					</th>
+					<td class="col-type">
+						<?= \Ayre::type($entity)->singular ?>
+					</td>
 					<td class="col-date">
 						<?= $entity->modifyDate->diffForHumans() ?>
 					</td>
