@@ -14,7 +14,7 @@ use Ayre\Entity,
 
 /**
  * @ORM\Entity
- * @Gedmo\Tree(type="materializedPath")
+ * @Gedmo\Tree(type="nested")
 */
 class Node extends \Toast\Entity
 {
@@ -32,16 +32,33 @@ class Node extends \Toast\Entity
     protected $structure;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Gedmo\TreePath(separator="/", endsWithSeparator=false)
+     * @ORM\Column(type="integer", nullable=true)
+     * @Gedmo\TreeRoot
      */
-    protected $path;
+    protected $root_id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(name="`left`", type="integer")
+     * @Gedmo\TreeLeft
+     */
+    protected $left;
+
+    /**
+     * @ORM\Column(name="`right`", type="integer")
+     * @Gedmo\TreeRight
+     */
+    protected $right;
+
+    /**
+     * @ORM\Column(type="integer")
      * @Gedmo\TreeLevel
      */
     protected $level;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $sort = 0;
 
     /**
      * @ORM\Column(type="string")
@@ -74,6 +91,7 @@ class Node extends \Toast\Entity
 
     /**
      * @ORM\OneToMany(targetEntity="\Ayre\Entity\Structure\Node", mappedBy="parent", cascade={"persist"})
+     * @ORM\OrderBy({"left" = "ASC"})
      */
     protected $children;
 

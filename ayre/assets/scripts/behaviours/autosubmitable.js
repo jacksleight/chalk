@@ -1,6 +1,6 @@
-$('.autosubmitable').each(function(i, form) {
-	var inputs = $(form).find('input');
+$('.autosubmitable').each(function(i, el) {
+	var inputs = $(el).find('input, textarea, select');
 	$(inputs).change(function(ev) {
-		form.submit();
+		ev.target.form.submit();
 	});
 });

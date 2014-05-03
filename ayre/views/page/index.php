@@ -1,7 +1,7 @@
 <? $this->layout('/layouts/page') ?>
 <? $this->block('main') ?>
 <?php
-$filter = $this->em->wrap(new \Ayre\Filter())
+$filter = $this->em->wrap(new \Ayre\Index())
 	->graphFromArray($req->queryParams());
 $entites = $this->em($entityType->class)
 	->fetchAll($filter->toArray());

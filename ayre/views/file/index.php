@@ -3,7 +3,7 @@
 ]) ?>
 <? $this->block('main') ?>
 <?php
-$filter = $this->em->wrap(new \Ayre\Filter())
+$filter = $this->em->wrap(new \Ayre\Index())
 	->graphFromArray($req->queryParams());
 $entites = $this->em($entityType->class)
 	->fetchAll($filter->toArray());
@@ -18,7 +18,7 @@ $entites = $this->em($entityType->class)
 </ul>
 <h1><?= $entityType->plural ?></h1>
 <?= $this->render('/content/filters', ['filter' => $filter]) ?>
-<ul class="thumbs uploadable-list">
+<ul class="thumbs uploadable-list multiselectable">
 	<? foreach ($entites as $entity) { ?>
 		<?= $this->render('thumb', ['entity' => $entity]) ?>
 	<? } ?>

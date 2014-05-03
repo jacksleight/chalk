@@ -6,7 +6,7 @@
 
 namespace Ayre\Repository\Structure;
 
-use Gedmo\Tree\Entity\Repository\MaterializedPathRepository;
+use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
-class Node extends MaterializedPathRepository
+class Node extends NestedTreeRepository
 {}

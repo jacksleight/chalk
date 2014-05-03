@@ -67,4 +67,9 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 			'name',
 		];
 	}
+			
+	public function __toString()
+	{
+		return (string) $this->id;
+	}
 }

@@ -20,74 +20,74 @@ html, body {
 		display: flex;
 		flex-direction: column;
 	}
-	.sidebar {
-		width: 280px;
-		background: $color-primary;
+}
+.sidebar {
+	width: 280px;
+	background: $color-primary;
+	&, a {
+		@include link-color(tint($color-primary, 80%));
+	}
+	.toggle {
+		background: shade($color-primary, 30%);
+		margin: 0;
+		@include no-bullets;
+		@include inline-blocks('li');
 		&, a {
 			@include link-color(tint($color-primary, 80%));
 		}
-		.toggle {
-			background: shade($color-primary, 30%);
-			margin: 0;
-			@include no-bullets;
-			@include inline-blocks('li');
-			&, a {
-				@include link-color(tint($color-primary, 80%));
-			}
-			li {
-				width: $width-6;
-			}
-			a {
-				text-decoration: none;
-				padding: $gutter;
-				display: block;
-				&:hover, &:focus {
-					background: shade($color-primary, 50%);
-				}
-				&.active {
-					background: $color-primary;
-				}
-			}
+		li {
+			width: $width-6;
 		}
-		.pad {
-			padding: $gutter $gutter 0 $gutter;
-			@include flush;
-		}
-		.body {
-			display: flex;
-			flex-direction: column;
-			> .flex {
-				flex: 1;
+		a {
+			text-decoration: none;
+			padding: $gutter;
+			display: block;
+			&:hover, &:focus {
+				background: shade($color-primary, 50%);
+			}
+			&.active {
+				background: $color-primary;
 			}
 		}
 	}
-	.main {
-		flex: 1;
-		.topbar {
-			padding: $gutter $gutter * 1.5;
-			background: $color-shade;
-			@include flush;
-			.toolbar {
-				float: right;
-				&:first-child {
-					float: left;
-				}
-			}
-			.title {
-				margin-top: 0;
-				text-align: center;
-				font-weight: 500;
+	.pad {
+		padding: $gutter $gutter 0 $gutter;
+		@include flush;
+	}
+	.body {
+		display: flex;
+		flex-direction: column;
+		> .flex {
+			flex: 1;
+		}
+	}
+}
+.main {
+	flex: 1;
+	.topbar {
+		padding: $gutter $gutter * 1.5;
+		background: $color-shade;
+		@include flush;
+		.toolbar {
+			float: right;
+			&:first-child {
+				float: left;
 			}
 		}
-		.body {
-			padding: $gutter $gutter * 1.5;
+		.title {
+			margin-top: 0;
+			text-align: center;
+			font-weight: 500;
 		}
 	}
 	.body {
-		flex: 1;
-		overflow: auto;
-		@include flush;
+		padding: $gutter $gutter * 1.5;
 	}
+}
+.body {
+	flex: 1;
+	overflow: auto;
+	@include flush;
 }
 
 /* Footer */

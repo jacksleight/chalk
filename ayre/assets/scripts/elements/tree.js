@@ -8,6 +8,9 @@ $('.tree').nestable({
 	collapsedClass	: 'tree-collapsed',
 	placeClass		: 'tree-placeholder',
 	emptyClass		: 'tree-empty',
-	expandBtnHTML	: '<button data-action="expand"><span>Expand</span></button>',
-	collapseBtnHTML	: '<button data-action="collapse"><span>Collapse</span></button>',
+	expandBtnHTML	: '<button type="button" data-action="expand"><span>Expand</span></button>',
+	collapseBtnHTML	: '<button type="button" data-action="collapse"><span>Collapse</span></button>',
+	dropCallback: function(data) {
+		this.el.find('.tree-data').val(JSON.stringify(this.serialize()));
+	}
 });

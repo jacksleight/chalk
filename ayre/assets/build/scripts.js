@@ -13451,10 +13451,10 @@ FastClick.attach(document.body);
 
 /* Behaviours */
 
-$('.autosubmitable').each(function(i, form) {
-	var inputs = $(form).find('input');
+$('.autosubmitable').each(function(i, el) {
+	var inputs = $(el).find('input, textarea, select');
 	$(inputs).change(function(ev) {
-		form.submit();
+		ev.target.form.submit();
 	});
 });
 
@@ -13540,13 +13540,44 @@ $('.uploadable').each(function(i, el) {
 
 $('.selectable').each(function(i, el) {
 	var checkbox = $(el).find('input[type=checkbox]');
-	checkbox.change(function(ev) {
+	var select = function(ev) {
 		if ($(checkbox).prop('checked')) {
 			$(el).addClass('selected');
 		} else {
 			$(el).removeClass('selected');			
 		}
+	};
+	checkbox.change(select);
+	select();
+});
+
+$('.multiselectable').each(function(i, el) {
+	var active	= false;
+	var checked	= null
+	$(el).mousedown(function(ev) {
+		if (!$(ev.target).is('input[type=checkbox] + label')) {
+			return;
+		}
+		ev.preventDefault();
+		active	= true;
+		checked = !$(ev.target).prev().prop('checked');
 	});
+	$(el).mouseup(function(ev) {
+		active	= false;
+		checked	= null;
+	});
+	var select = function(ev) {
+		if (!active) {
+			return;
+		}
+		var selectable = $(ev.target).closest('.selectable');
+		var checkbox = $(selectable).find('input[type=checkbox]');
+		if (checkbox.prop('checked') != checked) {
+			checkbox.trigger('click');
+		}
+	};
+	$(el).mouseover(select);
+	$(el).mouseout(select);
 });
 
 
@@ -13587,6 +13618,9 @@ $('.tree').nestable({
 	collapsedClass	: 'tree-collapsed',
 	placeClass		: 'tree-placeholder',
 	emptyClass		: 'tree-empty',
-	expandBtnHTML	: '<button data-action="expand"><span>Expand</span></button>',
-	collapseBtnHTML	: '<button data-action="collapse"><span>Collapse</span></button>',
+	expandBtnHTML	: '<button type="button" data-action="expand"><span>Expand</span></button>',
+	collapseBtnHTML	: '<button type="button" data-action="collapse"><span>Collapse</span></button>',
+	dropCallback: function(data) {
+		this.el.find('.tree-data').val(JSON.stringify(this.serialize()));
+	}
 });

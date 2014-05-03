@@ -343,18 +343,12 @@ figure {
 .thumbs {
 	margin-top: $gutter;
 	@include no-bullets;
-	@include inline-blocks('li', $gutter, $gutter);
+	@include inline-blocks('li', $gutter * 0.75, $gutter * 0.75);
 	visibility: hidden;
 	li {
 		width: 200px;
 		figure {
 			margin-top: 0;
-		}
-		&.intro {
-			width: $width-12;
-			text-align: center;
-			color: $color-quiet;
-			padding: 100px 0;
 		}
 	}
 	a {
@@ -368,7 +362,7 @@ figure {
 	@include link-color($color-foreground);
 	@include transition(background-color $speed ease, outline-color $speed ease);
 	.preview {
-		background-color: tint($color-primary, 75%);
+		background-color: tint($color-primary, 80%);
 		position: relative;
 		&:before {
 			content: '';
@@ -432,32 +426,24 @@ figure {
 		position: absolute;
 		top: 0;
 		left: 0;
-		z-index: 1;	
+		z-index: 1;
 		cursor: default;
-		opacity: 0.5;
-		padding: $gutter * 0.5 $gutter $gutter $gutter * 0.5;
-		@include transition(opacity $speed linear);
-		&:hover {
+		&:before {
+			opacity: 0.5;
+			margin: $gutter * 0.5 $gutter $gutter $gutter * 0.5;
+		}
+		&:hover:before {
 			opacity: 1;
 		}
 	}
-	&:hover {
-		background-color: tint($color-primary, 90%);
-		outline: $gutter * 0.4 solid tint($color-primary, 90%);
-	}
 	&.selected {
-		background-color: tint($color-active, 0%);
-		outline: $gutter * 0.4 solid tint($color-active, 0%);
-		input[type=checkbox] + label {
+		input[type=checkbox] + label:before {
 			opacity: 1;
 		}
 	}
 }
 
 /* Table */
-
-$table-border: 1px solid $color-divide;
-$table-border-light: 1px solid $color-shade;
 
 table { 
 	width: 100%;
@@ -466,7 +452,7 @@ table {
 	@include border-radius($radius);
 	tr {
 		th, td {
-			border-bottom: $table-border-light;
+			border-bottom: 1px solid $color-shade;
 			&:first-child {
 				border-left: 0;
 			}
@@ -488,20 +474,20 @@ table {
 		}
 		tr:last-child {
 			th, td {
-				border-bottom: $table-border;
+				border-bottom: 1px solid $color-divide;
 			}
 		}
 	}
 	tfoot {
 		tr:first-child {
 			th, td {
-				border-top: $table-border;
+				border-top: 1px solid $color-divide;
 			}
 		}
 	}
 	th, td { 
 		vertical-align: top;
-		padding: 6px 0 6px $gutter;
+		padding: 7px 0 7px $gutter;
 		&:first-child {
 			padding-left: 0;
 		}
@@ -517,19 +503,10 @@ table {
 		th, td { 
 			@include transition(all $speed ease);
 		}
-		tr:hover { 
-			th, td { 
-				background-color: tint($color-shade, 75%);
-			}
-		}
-		tr.selected {
-			th, td {
-				background-color: tint($color-active, 80%);
-				border-bottom-color: tint($color-active, 60%);
-			}
-			&:hover {
-				th, td {
-					background-color: tint($color-active, 70%);				
+		tr {
+			&:hover { 
+				th, td { 
+					background-color: tint($color-shade, 75%);
 				}
 			}
 		}
@@ -558,6 +535,23 @@ table {
 	}
 	.col-select {
 		width: 1px;
+		padding: 0;
+		input[type=checkbox] + label {
+			display: block;
+			&:before {
+				margin: 5px 0;
+			}
+		}
+	}
+}
+
+/* Selectable */
+
+.selected {
+	input[type=checkbox] + label:before {
+		background-color: $color-active !important;
+		border-color: shade($color-active, 15%) !important;
+		@include transition(all $speed linear);
 	}
 }
 
@@ -647,7 +641,7 @@ input[type=radio] {
 			height: $input-toggle-size;
 			border: 1px solid $color-quieter;
 			background: white;
-			vertical-align: $input-toggle-size * -0.3;
+			vertical-align: -8px;
 			margin-right: 0.25em;
 			background-position: center;
 			background-repeat: no-repeat;
@@ -1161,16 +1155,6 @@ legend {
 			border-width: 0;
 		}
 	}
-	input[type=checkbox],
-	input[type=radio] {
-		& + label {
-			&:before {
-				border: 0;
-				background-color: transparent;
-				width: 16px;
-			}
-		}
-	}
 	.sidebar & {
 		border-color: shade($color-primary, 30%);
 		ul {
@@ -1240,11 +1224,14 @@ legend {
 }
 .tree-handle {
 	display: block;
-	padding: $gutter * 0.25 $gutter $gutter * 0.25 $gutter * 2;
+	padding: $gutter * 0.1 $gutter $gutter * 0.1 $gutter * 2;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 	&:before {
 		content: '';
 		position: absolute;
-		top: 12px;
+		top: 9px;
 		left: $gutter;
 		@include sprite-vector(icon-blank);
 		opacity: 0.1;
@@ -1276,14 +1263,14 @@ legend {
 	top: 0;
 	left: 0;
 	width: $gutter * 2;
-	height: 34px;
+	height: 28px;
 	text-align: center;
 	cursor: pointer;
 	border: 0;
 	background-color: transparent !important;
 	span {
 		position: absolute;
-		top: 12px;
+		top: 9px;
 		left: $gutter;
 		opacity: 0.75;
 	}

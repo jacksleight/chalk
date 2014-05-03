@@ -10,6 +10,20 @@ use Ayre\Repository;
 
 class Structure extends Repository
 {
+	public function fetch($id)
+	{
+		if (!isset($id)) {
+			return;
+		}
+		return $this->createQueryBuilder('e')
+			->addSelect("n")
+			->andWhere("e.id = :id")
+			->innerJoin("e.root", "n")
+			->getQuery()
+			->setParameters(['id' => $id])
+			->getOneOrNullResult();
+	}
+
 	public function fetchAllForPublish()
 	{
 		return $this->_em->createQueryBuilder()

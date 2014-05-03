@@ -6,7 +6,7 @@
 
 namespace Ayre;
 
-class Filter extends \Toast\Entity
+class Index extends \Toast\Entity
 {
 	protected $search;
 	protected $modifyDateMin;
@@ -14,6 +14,7 @@ class Filter extends \Toast\Entity
 		\Ayre::STATUS_PENDING,
 		\Ayre::STATUS_PUBLISHED,
 	];
+	protected $contents = [];
 
 	protected static function _defineMetadata($class)
 	{
@@ -49,6 +50,12 @@ class Filter extends \Toast\Entity
 					],
 				),
 			),
+			'associations' => [
+				'contents' => array(
+					'type'		=> 'oneToMany',
+					'entity'	=> '\Ayre\Entity\Content',
+				),
+			]
 		);
 	}
 }

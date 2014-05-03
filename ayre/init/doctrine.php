@@ -60,4 +60,5 @@ $em->blameable($listeners['Gedmo\Blameable\BlameableListener']);
 $em->getConnection()->exec("SET NAMES utf8");
 $em->getMetadataFactory()->getAllMetadata();
 
+Toast\Wrapper\Collection::$em = $em;
 return $em;

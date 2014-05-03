@@ -25,7 +25,11 @@ class Content extends Ayre\Controller\Entity
 	}
 
 	public function index(Request $req, Response $res)
-	{}
+	{
+		$wrap = $this->em->wrap($index = new \Ayre\Index());
+		$wrap->graphFromArray($req->queryParams());
+		$req->view->index = $wrap;
+	}
 
 	public function edit(Request $req, Response $res)
 	{

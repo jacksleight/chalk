@@ -44,7 +44,10 @@ if (!isset($struct)) {
 			</nav>
 		</div>
 	</div>
-	<div class="structure">
+	<form action="<?= $this->url([
+		'id'		=> $struct->id,
+		'action'	=> 'reorder',
+	]) ?>" class="structure" method="post">
 		<ol class="tree-root">
 			<li class="tree-item" data-id="<?= $struct->root->id ?>">
 				<div class="tree-handle "><?= $struct->root->name ?></div>
@@ -64,12 +67,14 @@ if (!isset($struct)) {
 					';
 				}
 			]) ?>
+			<input type="hidden" name="data" class="tree-data">
 		</div>
-	</div>
+		<button class="btn-positive btn-block">Save Changes</button>
+	</form>
 </div>
 <div class="fix">
 	<a href="<?= $this->url([
-		'action'	=> 'node',
+		'action'	=> 'add',
 		'id'		=> $struct->id,
 	]) ?>" class="btn btn-focus btn-block">Add Content</a>
 </div>
