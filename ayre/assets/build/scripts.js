@@ -13461,19 +13461,19 @@ $('.autosubmitable').each(function(i, el) {
 $('.clickable').each(function(i, el) {
 	var target = $(el).find('a')[0];
 	$(el).mouseover(function(ev) {
-		if ($(ev.target).is('a')) {
+		if ($(ev.target).is('a, input, label')) {
 			return;
 		}
 		$(target).addClass('hover');
 	});
 	$(el).mouseout(function(ev) {
-		if ($(ev.target).is('a')) {
+		if ($(ev.target).is('a, input, label')) {
 			return;
 		}
 		$(target).removeClass('hover');
 	});
 	$(el).click(function(ev) {
-		if ($(ev.target).is('a')) {
+		if ($(ev.target).is('a, input, label')) {
 			return;
 		}
 		target.click();
@@ -13553,7 +13553,15 @@ $('.selectable').each(function(i, el) {
 
 $('.multiselectable').each(function(i, el) {
 	var active	= false;
-	var checked	= null
+	var checked	= null;
+	$(el).find('.multiselectable-all').change(function(ev) {
+		var checked = $(ev.target).prop('checked');
+		$(el).find('input[type=checkbox]').each(function(j, checkbox) {
+			if ($(checkbox).prop('checked') != checked) {
+				$(checkbox).trigger('click');
+			}
+		});
+	});
 	$(el).mousedown(function(ev) {
 		if (!$(ev.target).is('input[type=checkbox] + label')) {
 			return;
@@ -13608,19 +13616,22 @@ $('.thumbs').each(function(i, el) {
 	$(el).css('visibility', 'visible');
 });
 
-$('.tree').nestable({
-	maxDepth		: 100,
-	rootClass		: 'tree',
-	listClass		: 'tree-list',
-	itemClass		: 'tree-item',
-	dragClass		: 'tree-drag',
-	handleClass		: 'tree-handle',
-	collapsedClass	: 'tree-collapsed',
-	placeClass		: 'tree-placeholder',
-	emptyClass		: 'tree-empty',
-	expandBtnHTML	: '<button type="button" data-action="expand"><span>Expand</span></button>',
-	collapseBtnHTML	: '<button type="button" data-action="collapse"><span>Collapse</span></button>',
-	dropCallback: function(data) {
-		this.el.find('.tree-data').val(JSON.stringify(this.serialize()));
-	}
+$('.structure').each(function(i, el) {
+	$(el).find('.tree').nestable({
+		maxDepth		: 100,
+		rootClass		: 'tree',
+		listClass		: 'tree-list',
+		itemClass		: 'tree-item',
+		dragClass		: 'tree-drag',
+		handleClass		: 'tree-handle',
+		collapsedClass	: 'tree-collapsed',
+		placeClass		: 'tree-placeholder',
+		emptyClass		: 'tree-empty',
+		expandBtnHTML	: '<button type="button" data-action="expand"><span>Expand</span></button>',
+		collapseBtnHTML	: '<button type="button" data-action="collapse"><span>Collapse</span></button>',
+		dropCallback: function(data) {
+			$(el).find('.structure-submit').prop('disabled', false);
+			$(el).find('.structure-data').val(JSON.stringify(this.serialize()));
+		}
+	})
 });

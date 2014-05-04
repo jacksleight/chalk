@@ -471,11 +471,6 @@ table {
 		th {
 			font-weight: 500;
 		}
-		tr:first-child {
-			th, td {
-				padding-top: 0;
-			}
-		}
 		tr:last-child {
 			th, td {
 				border-bottom: 1px solid $color-divide;
@@ -554,6 +549,8 @@ table {
 			display: block;
 			&:before {
 				margin: $gutter * 0.25 0;
+				height: 24px;
+				width: 24px;
 			}
 		}
 	}
@@ -738,6 +735,7 @@ button,
 	width: auto;
 	padding: 0 $input-padding-horiz;
 	margin: 0;
+	font-weight: 300;
 	@include link-color($color-foreground);
 	background-color: $color-shade;
 	border: $input-border-width solid;
@@ -748,15 +746,24 @@ button,
 	text-decoration: none !important;
 	-webkit-appearance: none;
 	display: inline-block;
+	&[disabled] {
+		opacity: 0.25;
+	}
 	&:hover { 
 		background-color: shade($color-shade, 10%) !important;
 		border-color: shade($color-shade, 10%) !important;
+	}
+	&.active {
+		@include arrow(38px, 1px);
 	}
 	&.btn-block {
 		display: block;
 		width: 100%;
 		text-align: center;
 		margin: $gutter 0 0 0;
+		& + .btn-block {
+			margin-top: 0;
+		}
 	}
 	&.btn-inline {
 		display: inline;
@@ -853,7 +860,6 @@ button,
 		@include experimental(user-select, none);
 		pointer-events: none;
 		cursor: default;
-		color: $color-quiet;
 	}
 }
 
@@ -1204,12 +1210,11 @@ legend {
 
 .structure {
 	margin: $gutter 0 0 0;
-	.tree-root, .tree {
+	.tree {
 		margin-top: 0;
 	}
 }
 .tree {
-	margin: $gutter * 0.5 0 0 0;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
@@ -1256,15 +1261,7 @@ legend {
 		background-color: shade($color-primary, 10%);
 	}
 	&.active {
-		position: relative;
-		&:after {
-			content: '';
-			position: absolute;
-			top: 0;
-			right: 0;
-			border: 17px solid;
-			border-color: transparent white transparent transparent;
-		}
+		@include arrow(34px);
 	}
 	.tree & {
 		cursor: move;

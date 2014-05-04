@@ -17,14 +17,18 @@ $entites = $this->em($entityType->class)
 	</ul>
 	<h1><?= $entityType->plural ?></h1>
 	<?= $this->render('/content/filters', ['filter' => $filter]) ?>
-	<table>
+	<table class="multiselectable">
 		<colgroup>
+			<col class="col-select">
 			<col class="col-name">
 			<col class="col-date">
 			<col class="col-status">
 		</colgroup>
 		<thead>
 			<tr>
+				<th scope="col" class="col-select">
+					<input type="checkbox" id="select" class="multiselectable-all"><label for="select"></label>
+				</th>
 				<th scope="col" class="col-name">Name</th>
 				<th scope="col" class="col-date">Updated</th>
 				<th scope="col" class="col-status">Status</th>
@@ -32,7 +36,13 @@ $entites = $this->em($entityType->class)
 		</thead>
 		<tbody>
 			<? foreach ($entites as $entity) { ?>
-				<tr class="clickable">
+				<tr class="clickable selectable">
+					<td class="col-select">
+						<?= $this->render('/content/checkbox', [
+							'entity'	=> $index,
+							'value'		=> $entity,
+						]) ?>
+					</td>
 					<th class="col-name" scope="row">
 						<a href="<?= $this->url([
 							'action'	=> 'edit',

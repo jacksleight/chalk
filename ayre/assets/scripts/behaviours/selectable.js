@@ -13,7 +13,15 @@ $('.selectable').each(function(i, el) {
 
 $('.multiselectable').each(function(i, el) {
 	var active	= false;
-	var checked	= null
+	var checked	= null;
+	$(el).find('.multiselectable-all').change(function(ev) {
+		var checked = $(ev.target).prop('checked');
+		$(el).find('input[type=checkbox]').each(function(j, checkbox) {
+			if ($(checkbox).prop('checked') != checked) {
+				$(checkbox).trigger('click');
+			}
+		});
+	});
 	$(el).mousedown(function(ev) {
 		if (!$(ev.target).is('input[type=checkbox] + label')) {
 			return;

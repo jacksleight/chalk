@@ -25,7 +25,7 @@ $covered  = isset($covered)  && $covered;
 							['size' => '400', 'crop' => true]
 						) ?>">
 					<? } else { ?>
-						<div class="text"><span><?= $entity->subtypeLabelShort ?></span></div>
+						<div class="text"><span><i class="fa fa-file"></i></span></div>
 					<? } ?>
 					<span class="label label-status-<?= $entity->status ?>">
 						<?= $entity->status ?>

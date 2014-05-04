@@ -17,7 +17,9 @@ $entites = $this->em($entityType->class)
 		</colgroup>
 		<thead>
 			<tr>
-				<th scope="col" class="col-select"></th>
+				<th scope="col" class="col-select">
+					<input type="checkbox" id="select" class="multiselectable-all"><label for="select"></label>
+				</th>
 				<th scope="col" class="col-name">Content</th>
 				<th scope="col" class="col-date">Modified</th>
 				<th scope="col" class="col-status">Status</th>
@@ -42,7 +44,7 @@ $entites = $this->em($entityType->class)
 						<? } ?>
 						<?= $entity->name ?>
 						<small>
-							<?= $entity->type ?>
+							<?= $entity->typeLabel ?>
 							<? if (isset($entity->subtype)) { ?>
 								– <?= $entity->subtypeLabel ?>
 							<? } ?>

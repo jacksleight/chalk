@@ -74,19 +74,19 @@ trait Implementation
         return $version;
     }
 
-    public function current()
+    public function first()
+    {
+        return $this->master->versions->first();
+    }
+
+    public function last()
     {
         return $this->master->versions->last();
     }
 
     public function isMaster()
     {
-        return $this === $this->master;
-    }
-
-    public function isNewMaster()
-    {
-        return $this->isNew() && $this->isMaster();
+        return !isset($this->previous);
     }
 
     public function isCurrent()
@@ -107,5 +107,10 @@ trait Implementation
     public function isArchived()
     {
         return $this->status == Ayre::STATUS_ARCHIVED;
+    }
+
+    public function isNewMaster()
+    {
+        return $this->isNew() && $this->isMaster();
     }
 }

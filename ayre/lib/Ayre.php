@@ -65,19 +65,19 @@ class Ayre extends App
 		$locallower		= array_map('lcfirst', $local);
 		$entitylower	= array_map('lcfirst', $entity);
 
-		$type = implode('_', $entitylower);
+		$name = implode('_', $entitylower);
 		$slug = implode('-', $entitylower);
 		$path = implode('/', $entitylower);
 		$info = [
 			'singular'	=> $local[count($local) - 1],
 			'plural'	=> $local[count($local) - 1] . 's',
 		];
-		self::$_types[$type] = $class;
+		self::$_types[$name] = $class;
 		self::$_slugs[$slug] = $class;
 		self::$_paths[$path] = $class;
 		return self::$_classes[$class] = (object) ([
 			'class' => $class,
-			'type'	=> $type,
+			'name'	=> $name,
 			'slug'	=> $slug,
 			'path'	=> $path,
 			'module' => (object) [

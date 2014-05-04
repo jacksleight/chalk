@@ -21,6 +21,7 @@
 }
 
 /* Placeholder */
+/* Arrow */
 /* Functions */
 /* Fonts */
 /* Colors */
@@ -629,9 +630,6 @@ table tr:first-child th, table tr:first-child td {
 table thead th {
   font-weight: 500;
 }
-table thead tr:first-child th, table thead tr:first-child td {
-  padding-top: 0;
-}
 table thead tr:last-child th, table thead tr:last-child td {
   border-bottom: 1px solid #dedfe1;
 }
@@ -716,6 +714,8 @@ table .col-select input[type=checkbox] + label {
 }
 table .col-select input[type=checkbox] + label:before {
   margin: 5px 0;
+  height: 24px;
+  width: 24px;
 }
 
 /* Selectable */
@@ -1032,6 +1032,7 @@ button,
   width: auto;
   padding: 0 10px;
   margin: 0;
+  font-weight: 300;
   color: #3e4651;
   background-color: #f1f2f2;
   border: 1px solid;
@@ -1075,6 +1076,13 @@ button:active,
 .btn:active {
   color: #3e4651;
 }
+input[type=reset][disabled],
+input[type=submit][disabled],
+input[type=button][disabled],
+button[disabled],
+.btn[disabled] {
+  opacity: 0.25;
+}
 input[type=reset]:hover,
 input[type=submit]:hover,
 input[type=button]:hover,
@@ -1082,6 +1090,25 @@ button:hover,
 .btn:hover {
   background-color: #d8d9d9 !important;
   border-color: #d8d9d9 !important;
+}
+input[type=reset].active,
+input[type=submit].active,
+input[type=button].active,
+button.active,
+.btn.active {
+  position: relative;
+}
+input[type=reset].active:after,
+input[type=submit].active:after,
+input[type=button].active:after,
+button.active:after,
+.btn.active:after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  border: 19px solid;
+  border-color: transparent white transparent transparent;
 }
 input[type=reset].btn-block,
 input[type=submit].btn-block,
@@ -1092,6 +1119,13 @@ button.btn-block,
   width: 100%;
   text-align: center;
   margin: 20px 0 0 0;
+}
+input[type=reset].btn-block + .btn-block,
+input[type=submit].btn-block + .btn-block,
+input[type=button].btn-block + .btn-block,
+button.btn-block + .btn-block,
+.btn.btn-block + .btn-block {
+  margin-top: 0;
 }
 input[type=reset].btn-inline,
 input[type=submit].btn-inline,
@@ -1442,7 +1476,6 @@ button.disabled,
   user-select: none;
   pointer-events: none;
   cursor: default;
-  color: #9ea2a8;
 }
 
 .dropdown {
@@ -1884,12 +1917,11 @@ legend {
 .structure {
   margin: 20px 0 0 0;
 }
-.structure .tree-root, .structure .tree {
+.structure .tree {
   margin-top: 0;
 }
 
 .tree {
-  margin: 10px 0 0 0;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -2083,6 +2115,18 @@ html, body {
   display: flex;
   flex-direction: column;
 }
+.frame .fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+}
+.frame .fill > .flex {
+  flex: 1;
+}
 
 .sidebar {
   width: 280px;
@@ -2162,11 +2206,7 @@ html, body {
   margin-top: 0 !important;
 }
 .sidebar .body {
-  display: flex;
-  flex-direction: column;
-}
-.sidebar .body > .flex {
-  flex: 1;
+  position: relative;
 }
 
 .main {

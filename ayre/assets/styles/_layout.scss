@@ -20,6 +20,18 @@ html, body {
 		display: flex;
 		flex-direction: column;
 	}
+	.fill {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		display: flex;
+		flex-direction: column;
+		> .flex {
+			flex: 1;
+		}
+	}
 }
 .sidebar {
 	width: 280px;
@@ -55,11 +67,7 @@ html, body {
 		@include flush;
 	}
 	.body {
-		display: flex;
-		flex-direction: column;
-		> .flex {
-			flex: 1;
-		}
+		position: relative;
 	}
 }
 .main {
@@ -100,7 +108,5 @@ html, body {
 	@include flush;
 	&, a {
 		@include link-color(tint($color-primary, 30%));
-	}
-	
-	
+	}	
 }

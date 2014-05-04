@@ -197,6 +197,20 @@ $sprites-2x: sprite-map('2x/*.png', $layout: smart);
 	&:-ms-input-placeholder      { @content }
 }
 
+/* Arrow */
+
+@mixin arrow($size, $offset: 0) {
+	position: relative;
+	&:after {
+		content: '';
+		position: absolute;
+		top: $offset * -1;
+		right: $offset * -1;
+		border: $size * 0.5 solid;
+		border-color: transparent white transparent transparent;
+	}
+}
+
 /* Functions */
 
 @function strip-units($number) {

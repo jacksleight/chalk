@@ -33,7 +33,7 @@ class Listener implements EventSubscriber
         }
         
         if ($class == $rootClass || $meta->inheritanceType == 2) {
-            $meta->setTableName($type->type);
+            $meta->setTableName($type->name);
         }
  
         $repositoryClasses = [
