@@ -70,6 +70,7 @@ return [
     'image/bmp'                                                                 => ['Bitmap Image', ['bmp']],
     'image/gif'                                                                 => ['GIF Image', ['gif']],
     'image/jpeg'                                                                => ['JPEG Image', ['jpg', 'jpeg']],
+    'image/png'                                                                 => ['PNG Image', ['png']],
     'image/svg+xml'                                                             => ['SVG Image', ['svg']],
     'image/tiff'                                                                => ['TIFF Image', ['tiff']],
     'image/vnd.adobe.photoshop'                                                 => ['Adobe Photoshop Document', ['psd']],

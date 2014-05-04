@@ -640,10 +640,15 @@ table tfoot tr:first-child th, table tfoot tr:first-child td {
 }
 table th, table td {
   vertical-align: top;
-  padding: 7px 0 7px 20px;
+  padding: 5px 0 5px 15px;
 }
 table th:first-child, table td:first-child {
   padding-left: 0;
+}
+table th small, table td small {
+  display: block;
+  font-size: 13.91304px;
+  font-size: 0.86957rem;
 }
 table th {
   font-weight: 300;
@@ -693,6 +698,10 @@ table .col-role .status {
 table .col-status:last-child,
 table .col-role:last-child {
   text-align: right;
+}
+table .col-name img {
+  float: left;
+  margin: 0 10px 0 0;
 }
 table .col-date {
   width: 250px;

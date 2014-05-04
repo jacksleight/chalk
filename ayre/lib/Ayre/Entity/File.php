@@ -23,12 +23,7 @@ class File extends Content
      * @ORM\Column(type="string")
      */
 	protected $baseName;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-	protected $mimeType;
-
+	
     /**
      * @ORM\Column(type="integer")
      */
@@ -75,13 +70,13 @@ class File extends Content
 		if ($extName) {
 			foreach (self::$_mimeTypes as $mimeType => $info) {
 				if (in_array($extName, $info[1])) {
-					$this->mimeType	= $mimeType;
+					$this->subtype	= $mimeType;
 					break;
 				}
 			}
 		}
-		if (!isset($this->mimeType)) {
-			$this->mimeType = 'application/octet-stream';
+		if (!isset($this->subtype)) {
+			$this->subtype = 'application/octet-stream';
 		}
 
 		$i	 = 0;
@@ -113,7 +108,7 @@ class File extends Content
 
 		$this->file		= null;
 		$this->baseName	= null;
-		$this->mimeType	= null;
+		$this->subtype	= null;
 		$this->size		= null;
 		$this->hash		= null;
 
@@ -131,17 +126,17 @@ class File extends Content
 		return self::$_baseDir->dir("{$this->hash[0]}/{$this->hash[1]}", true);
 	}
 
-	public function type()
+	public function subtypeLabel()
 	{	
-		return isset(self::$_mimeTypes[$this->mimeType])
-			? self::$_mimeTypes[$this->mimeType][0]
+		return isset(self::$_mimeTypes[$this->subtype])
+			? self::$_mimeTypes[$this->subtype][0]
 			: strtoupper($this->file->extName()) . ' File';
 	}
 
-	public function typeExtName()
+	public function subtypeLabelShort()
 	{	
-		return isset(self::$_mimeTypes[$this->mimeType])
-			? self::$_mimeTypes[$this->mimeType][1][0]
+		return isset(self::$_mimeTypes[$this->subtype])
+			? self::$_mimeTypes[$this->subtype][1][0]
 			: strtoupper($this->file->extName());
 	}
 
@@ -163,6 +158,6 @@ class File extends Content
 			'PNG Support'			=> 'image/png',
 			'WebP Support'			=> 'image/webp',
 		], $info);
-		return in_array($this->mimeType, $mimeTypes);
+		return in_array($this->subtype, $mimeTypes);
 	}
 }

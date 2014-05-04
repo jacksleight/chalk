@@ -25,7 +25,7 @@ $covered  = isset($covered)  && $covered;
 							['size' => '400', 'crop' => true]
 						) ?>">
 					<? } else { ?>
-						<div class="text"><span><?= $entity->typeExtName ?></span></div>
+						<div class="text"><span><?= $entity->subtypeLabelShort ?></span></div>
 					<? } ?>
 					<span class="label label-status-<?= $entity->status ?>">
 						<?= $entity->status ?>
@@ -45,7 +45,7 @@ $covered  = isset($covered)  && $covered;
 					Waiting…
 				<? } else { ?>
 					<span class="info">
-						<?= $entity->type ?>
+						<?= $entity->subtypeLabel ?>
 					</span>
 				<? } ?>
 			</figcaption>

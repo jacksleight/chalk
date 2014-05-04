@@ -491,9 +491,13 @@ table {
 	}
 	th, td { 
 		vertical-align: top;
-		padding: 7px 0 7px $gutter;
+		padding: $gutter * 0.25 0 $gutter * 0.25 $gutter * 0.75;
 		&:first-child {
 			padding-left: 0;
+		}
+		small {
+			display: block;
+			@include font-size(-1);
 		}
 	}
 	th { 
@@ -533,6 +537,12 @@ table {
 			text-align: right;
 		}
 	}
+	.col-name {
+		img {
+			float: left;
+			margin: 0 $gutter * 0.5 0 0;
+		}
+	}
 	.col-date {
 		width: 250px;
 		text-align: right;
@@ -543,7 +553,7 @@ table {
 		input[type=checkbox] + label {
 			display: block;
 			&:before {
-				margin: 5px 0;
+				margin: $gutter * 0.25 0;
 			}
 		}
 	}

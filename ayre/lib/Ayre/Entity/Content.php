@@ -41,6 +41,11 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
      * @ORM\Column(type="string")
      */
 	protected $name;
+		
+	/**
+     * @ORM\Column(type="string", nullable=true)
+     */
+	protected $subtype;
 	
 	/**
      * @ORM\OneToMany(targetEntity="\Ayre\Entity\Structure\Node", mappedBy="content")
@@ -67,7 +72,12 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 			'name',
 		];
 	}
-			
+
+	public function type()
+	{
+		return \Ayre::type($this)->singular;
+	}
+
 	public function __toString()
 	{
 		return (string) $this->id;

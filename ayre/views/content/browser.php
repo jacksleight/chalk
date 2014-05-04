@@ -12,15 +12,13 @@ $entites = $this->em($entityType->class)
 		<colgroup>
 			<col class="col-select">
 			<col class="col-name">
-			<col class="col-type">
 			<col class="col-date">
 			<col class="col-status">
 		</colgroup>
 		<thead>
 			<tr>
 				<th scope="col" class="col-select"></th>
-				<th scope="col" class="col-name">Name</th>
-				<th scope="col" class="col-type">Type</th>
+				<th scope="col" class="col-name">Content</th>
 				<th scope="col" class="col-date">Modified</th>
 				<th scope="col" class="col-status">Status</th>
 			</tr>
@@ -35,13 +33,24 @@ $entites = $this->em($entityType->class)
 						]) ?>
 					</td>
 					<th class="col-name" scope="row">
+						<? if ($entity instanceof \Ayre\Entity\File && $entity->file->exists() && $entity->isGdCompatible()) { ?>
+							<img src="<?= $this->image(
+								$entity->file,
+								'resize',
+								['size' => '46', 'crop' => true]
+							) ?>">
+						<? } ?>
 						<?= $entity->name ?>
+						<small>
+							<?= $entity->type ?>
+							<? if (isset($entity->subtype)) { ?>
+								– <?= $entity->subtypeLabel ?>
+							<? } ?>
+						</small>
 					</th>
-					<td class="col-type">
-						<?= \Ayre::type($entity)->singular ?>
-					</td>
 					<td class="col-date">
 						<?= $entity->modifyDate->diffForHumans() ?>
+						<small>by <?= $entity->modifyUserName ?></small>
 					</td>
 					<td class="col-status">
 						<span class="label label-status-<?= $entity->status ?>"><?= $entity->status ?></span>
