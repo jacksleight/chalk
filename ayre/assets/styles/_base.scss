@@ -116,7 +116,6 @@ em {
 }
 strong { 
 	font-weight: 500;
-	color: $color-primary;
 }
 mark { 
 	background-color: $color-highlight;
@@ -631,7 +630,8 @@ select,
 		color: $color-quieter;
 	}
 	.sidebar & {
-		border-color: shade($color-primary, 30%);
+		border-color: $color-primary;
+		border-bottom-color: shade($color-primary, 30%);
 		background-color: $color-primary;
 		color: inherit;
 		padding-left: $gutter;
@@ -882,6 +882,7 @@ button,
 		border-bottom-width: 0;
 		overflow: hidden;
 		@include transition(max-height $speed ease);
+		@include box-shadow(0 5px 0 0 transparentize(black, 0.95));
 		&:hover {
 			overflow-y: auto;
 		}
@@ -1176,7 +1177,8 @@ legend {
 		}
 	}
 	.sidebar & {
-		border-color: shade($color-primary, 30%);
+		border-color: $color-primary;
+		border-bottom-color: shade($color-primary, 30%);
 		ul {
 			background-color: $color-primary;
 		}

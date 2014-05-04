@@ -15,7 +15,7 @@ class Structure extends Action
 	public function reorder(Request $req, Response $res)
 	{
 		if (!$req->isPost()) {
-			throw new \Ayre\Exception("Upload action only accepts POST requests");
+			throw new \Ayre\Exception("Reorder action only accepts POST requests");
 		}
 		if (!$req->data) {
 			return $res->redirect($this->url(array(
@@ -24,8 +24,10 @@ class Structure extends Action
 		}
 
 		$data	= json_decode($req->data);
-		$tree	= $this->em('Ayre\Entity\Structure')->fetch($req->id);
-		$nodes	= $this->em('Ayre\Entity\Structure\Node')->getChildren($tree->root, null, null, null, true);
+		$repo	= $this->em('Ayre\Entity\Structure');
+		$struct	= $repo->fetch($req->id);
+		$nodes	= $repo->fetchNodes($struct);
+
 		$map	= [];
 		foreach ($nodes as $node) {
 			$map[$node->id] = $node;
@@ -40,7 +42,7 @@ class Structure extends Action
 			$depth  = $it->getDepth();
 			$parent = $depth > 0
 				? $stack[$depth - 1]
-				: $tree->root;
+				: $struct->root;
 			$node = $map[$value->id];
 			$node->sort = $i;
 			$node->parent->children->removeElement($node);
@@ -48,7 +50,7 @@ class Structure extends Action
 		}
 
 		$this->em->flush();
-		$this->em('Ayre\Entity\Structure\Node')->reorder($tree->root, 'sort');
+		$this->em('Ayre\Entity\Structure\Node')->reorder($struct->root, 'sort');
 
 		return $res->redirect($this->url(array(
 			'action' => 'index',
@@ -68,11 +70,11 @@ class Structure extends Action
 		}
 
 		$wrap->graphFromArray($req->bodyParams());
-		$tree = $this->em('Ayre\Entity\Structure')->fetch($req->id);
+		$struct = $this->em('Ayre\Entity\Structure')->fetch($req->id);
 
 		foreach ($index->contents as $content) {
 			$node = new \Ayre\Entity\Structure\Node();
-			$node->parent = $tree->root;
+			$node->parent = $struct->root;
 			$node->content = $content->master;
 			$this->em->persist($node);
 			$this->em->flush();

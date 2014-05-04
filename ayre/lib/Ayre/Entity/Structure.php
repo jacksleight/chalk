@@ -57,6 +57,11 @@ class Structure extends \Toast\Entity implements Loggable, Publishable, Trackabl
 		$this->__constructVersionable();
 	}
 
+	public function label()
+	{
+		return $this->name;
+	}
+
 	public function __clone()
 	{
 		if (isset($this->root)) {

@@ -174,7 +174,6 @@ em {
 
 strong {
   font-weight: 500;
-  color: #3e4651;
 }
 
 mark {
@@ -904,7 +903,8 @@ input[type=week], .sidebar
 textarea, .sidebar
 select, .sidebar
 .value {
-  border-color: #2b3138;
+  border-color: #3e4651;
+  border-bottom-color: #2b3138;
   background-color: #3e4651;
   color: inherit;
   padding-left: 20px;
@@ -1501,6 +1501,9 @@ button.disabled,
   -moz-transition: max-height 0.1s ease;
   -o-transition: max-height 0.1s ease;
   transition: max-height 0.1s ease;
+  -webkit-box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.05);
 }
 .dropdown .menu:hover {
   overflow-y: auto;
@@ -1885,7 +1888,8 @@ legend {
   border-width: 0;
 }
 .sidebar .menu {
-  border-color: #2b3138;
+  border-color: #3e4651;
+  border-bottom-color: #2b3138;
 }
 .sidebar .menu ul {
   background-color: #3e4651;

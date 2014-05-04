@@ -18,11 +18,6 @@ class File extends Content
 {
 	protected static $_baseDir;
 	protected static $_mimeTypes = [];
-
-    /**
-     * @ORM\Column(type="string")
-     */
-	protected $baseName;
 	
     /**
      * @ORM\Column(type="integer")
@@ -89,8 +84,8 @@ class File extends Content
 			$i++;
 		} while ($dir->file($temp->baseName())->exists());
 		
-		$this->baseName	= $temp->baseName();
-		$this->file		= $file->move($dir, $this->baseName);
+		$this->name	= $temp->baseName();
+		$this->file	= $file->move($dir, $this->name);
 		
 		return $this;
 	}
@@ -107,7 +102,7 @@ class File extends Content
 		}
 
 		$this->file		= null;
-		$this->baseName	= null;
+		$this->name		= null;
 		$this->subtype	= null;
 		$this->size		= null;
 		$this->hash		= null;
@@ -117,7 +112,7 @@ class File extends Content
 
 	public function init()
 	{
-		$this->file = $this->dir()->file($this->baseName);
+		$this->file = $this->dir()->file($this->name);
 		return $this;
 	}
 
@@ -138,13 +133,6 @@ class File extends Content
 		return isset(self::$_mimeTypes[$this->subtype])
 			? self::$_mimeTypes[$this->subtype][1][0]
 			: strtoupper($this->file->extName());
-	}
-
-	public function searchFields()
-	{
-		return array_merge(parent::searchFields(), [
-			'baseName',
-		]);
 	}
 
 	public function isGdCompatible()

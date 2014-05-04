@@ -13,4 +13,9 @@ use Ayre\Entity,
  * @ORM\Entity
 */
 class Menu extends Structure
-{}
+{
+	public function label()
+	{
+		return $this->name . ' ' . \Ayre::type($this)->singular;
+	}
+}
