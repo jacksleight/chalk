@@ -74,6 +74,11 @@ trait Implementation
         return $version;
     }
 
+    public function current()
+    {
+        return $this->master->versions->last();
+    }
+
     public function isMaster()
     {
         return $this === $this->master;
@@ -84,12 +89,7 @@ trait Implementation
         return $this->isNew() && $this->isMaster();
     }
 
-    public function isFirst()
-    {
-        return !isset($this->previous);
-    }
-
-    public function isLast()
+    public function isCurrent()
     {
         return !isset($this->next);
     }

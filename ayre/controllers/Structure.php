@@ -72,8 +72,8 @@ class Structure extends Action
 
 		foreach ($index->contents as $content) {
 			$node = new \Ayre\Entity\Structure\Node();
-			$node->parent	= $tree->root;
-			$node->content	= $content;
+			$node->parent = $tree->root;
+			$node->content = $content->master;
 			$this->em->persist($node);
 			$this->em->flush();
 		}

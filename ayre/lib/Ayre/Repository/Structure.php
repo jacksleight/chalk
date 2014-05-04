@@ -6,7 +6,8 @@
 
 namespace Ayre\Repository;
 
-use Ayre\Repository;
+use Ayre\Repository,
+	Ayre\Entity;
 
 class Structure extends Repository
 {
@@ -56,5 +57,17 @@ class Structure extends Repository
 				],
 			])
 			->getResult();
+	}
+
+	public function fetchNodes(Entity\Structure $structure, $depth = null)
+	{
+		return $this->_em->getRepository('Ayre\Entity\Structure\Node')
+			->fetchAll($structure->root, true, $depth);
+	}
+
+	public function fetchTree(Entity\Structure $structure, $depth = null)
+	{
+		return $this->_em->getRepository('Ayre\Entity\Structure\Node')
+			->fetchTree($structure->root, true, $depth);
 	}
 }

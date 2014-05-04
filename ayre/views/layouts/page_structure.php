@@ -6,13 +6,12 @@
 <? $this->block('sidebar') ?>
 
 <?php
-$structs = $this->em('Ayre\Entity\Structure')->fetchAll();
-$struct	 = $this->em('Ayre\Entity\Structure')->fetch($req->id);
+$repo = $this->em('Ayre\Entity\Structure');
+$structs = $repo->fetchAll();
+$struct	 = $repo->fetch($req->id);
 if (!isset($struct)) {
 	$struct = $structs[0];
 }
-$nodes = $this->em('Ayre\Entity\Structure\Node')
-	->getChildren($struct->root, null, null, null, true);
 ?>
 
 <div class="flex">
@@ -50,17 +49,19 @@ $nodes = $this->em('Ayre\Entity\Structure\Node')
 		'id'		=> $struct->id,
 		'action'	=> 'reorder',
 	]) ?>" class="structure" method="post">
+		<?php
+		$tree = $repo->fetchTree($struct);
+		?>
 		<ol class="tree-root">
-			<li class="tree-item" data-id="<?= $struct->root->id ?>">
-				<div class="tree-handle "><?= $struct->root->name ?></div>
+			<li class="tree-item" data-id="<?= $tree[0]->id ?>">
+				<div class="tree-handle "><?= $tree[0]->name ?></div>
 			</li>
 		</ol>
 		<div class="tree">
 			<?php 
 			$it = new \RecursiveIteratorIterator(
-				new \Ayre\Entity\Structure\Iterator($struct->root->children),
+				new \Ayre\Entity\Structure\Iterator($tree[0]->children),
 				\RecursiveIteratorIterator::SELF_FIRST);
-			$stack = [];
 			$depth = 0;
 			$i	   = 0;
 			?>
@@ -74,7 +75,7 @@ $nodes = $this->em('Ayre\Entity\Structure\Node')
 						</li>
 					<? } ?>
 					<li class="tree-item" data-id="<?= $node->id ?>">
-						<div class="tree-handle tree-status-<?= $node->content->status ?>"><?= $node->name ?></div>
+						<div class="tree-handle tree-status-<?= $node->content->current->status ?>"><?= $node->name ?></div>
 					<?php				
 					$depth = $it->getDepth();
 					$i++;

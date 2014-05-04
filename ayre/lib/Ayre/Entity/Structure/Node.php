@@ -109,6 +109,11 @@ class Node extends \Toast\Entity
         $this->content($em->getRepository('Ayre\Entity\Page')->find(1));
     }
 
+    public function isRoot()
+    {
+        return !isset($this->parent);
+    }
+
     public function root()
     {
         return isset($this->parent)
