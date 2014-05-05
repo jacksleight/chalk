@@ -57,7 +57,9 @@ if (!isset($struct)) {
 					'structure'	=> $struct->id,
 					'action'	=> 'edit',
 					'node'		=> $tree[0]->id,
-				], 'structure_node') ?>" class="tree-item <?= $tree[0]->id == $req->node ? 'active' : '' ?>"><?= $tree[0]->name ?></a>
+				], 'structure_node') ?>" class="tree-item <?= $tree[0]->id == $req->node ? 'active' : '' ?>">
+					<?= $tree[0]->nameSmart ?>
+				</a>
 			</li>
 		</ol>
 		<div class="tree">
@@ -85,7 +87,9 @@ if (!isset($struct)) {
 							'structure'	=> $struct->id,
 							'action'	=> 'edit',
 							'node'		=> $node->id,
-						], 'structure_node') ?>" class="tree-item <?= $node->id == $req->node ? 'active' : '' ?> tree-status-<?= $content->status ?>"><?= $node->name ?></a>
+						], 'structure_node') ?>" class="tree-item <?= $node->id == $req->node ? 'active' : '' ?> tree-status-<?= $content->status ?>">
+							<?= $node->nameSmart ?>
+						</a>
 						<span class="tree-handle"></span>
 					<?php				
 					$depth = $it->getDepth();

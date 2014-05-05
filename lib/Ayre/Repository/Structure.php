@@ -43,6 +43,7 @@ class Structure extends Repository
 			->getResult();
 	}
 
+	// @todo merge into fetchAll
 	public function fetchAllForSlugRefresh()
 	{
 		return $this->_em->createQueryBuilder()

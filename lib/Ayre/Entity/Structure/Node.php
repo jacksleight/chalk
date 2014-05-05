@@ -61,26 +61,19 @@ class Node extends \Toast\Entity
     protected $sort = 0;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $name;
 
     /**
-     * @ORM\Column(type="string")
-     * @Gedmo\Slug(fields={"name"}, unique=false)
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $slug;
 
     /**
      * @ORM\Column(type="string")
-     * @Gedmo\Slug(handlers={
-     *     @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\TreeSlugHandler", options={
-     *         @Gedmo\SlugHandlerOption(name="parentRelationField", value="parent"),
-     *         @Gedmo\SlugHandlerOption(name="separator", value="/")
-     *     })
-     * }, fields={"slug"}, unique=false)
      */
-    protected $slugPath;
+    protected $path;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Ayre\Entity\Structure\Node", inversedBy="children")
@@ -121,6 +114,48 @@ class Node extends \Toast\Entity
             : $this;
     }
 
+    public function content(Entity\Content $value = null)
+    {
+        if (isset($value)) {
+            $this->content = $value;
+            $this->content->nodes->add($this);
+        }
+        return $this->content;
+    }
+
+    public function nameSmart()
+    {
+        return isset($this->name)
+            ? $this->name
+            : $this->content->last->name;
+    }
+
+    public function slugSmart()
+    {
+        return isset($this->slug)
+            ? $this->slug
+            : $this->content->last->slug;
+    }
+
+    public function name($name = null)
+    {
+        if (isset($name)) {
+            $this->name = $name;
+            $this->slug($this->slug);
+            return $this;
+        }
+        return $this->name;
+    }
+
+    public function slug($slug = null)
+    {
+        if (isset($slug)) {
+            $this->slug = \Coast\str_simplify(iconv('utf-8', 'ascii//translit//ignore', $slug), '-');
+            return $this;
+        }
+        return $this->slug;
+    }
+
     public function parent(Entity\Structure\Node $value = null)
     {
         if (isset($value)) {
@@ -128,15 +163,6 @@ class Node extends \Toast\Entity
             $value->children->add($this);
         }
         return $this->parent;
-    }
-
-    public function content(Entity\Content $value = null)
-    {
-        if (isset($value)) {
-            $this->content = $value;
-            $this->name = $this->content->name;
-        }
-        return $this->content;
     }
 
     public function __clone()

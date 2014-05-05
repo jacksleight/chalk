@@ -122,18 +122,20 @@ class Ayre extends App
 
 	public function layouts()
 	{
-		$dir = $this->root->dir('views/layouts/page');
-		$it = $dir->iterator(null, true);
 		$layouts = [];
-		foreach ($it as $file) {
-			$path	= $file->toRelative($dir);
-			$path	= $path->extName('');
-			$name	= trim($path, './');
-			$label	= ucwords(str_replace(['-', '/'], [' ', ' – '], $name));
-			$layouts[$name] = $label;
+		$dir = $this->root->dir('views/layouts/page');
+		if ($dir->exists()) {
+			$it = $dir->iterator(null, true);
+			foreach ($it as $file) {
+				$path	= $file->toRelative($dir);
+				$path	= $path->extName('');
+				$name	= trim($path, './');
+				$label	= ucwords(str_replace(['-', '/'], [' ', ' – '], $name));
+				$layouts[$name] = $label;
+			}
+			unset($layouts['default']);
+			ksort($layouts);
 		}
-		unset($layouts['default']);
-		ksort($layouts);
 		return $layouts;
 	}
 

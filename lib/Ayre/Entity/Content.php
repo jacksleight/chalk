@@ -19,7 +19,6 @@ use Ayre,
 
 /**
  * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="entity_class", type="string")
 */
@@ -42,6 +41,11 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
      * @ORM\Column(type="string")
      */
 	protected $name;
+		
+	/**
+     * @ORM\Column(type="string")
+     */
+	protected $slug;
 		
 	/**
      * @ORM\Column(type="string", nullable=true)
@@ -74,6 +78,25 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 		];
 	}
 
+	public function name($name = null)
+	{
+		if (isset($name)) {
+			$this->name = $name;
+			$this->slug($this->name);
+			return $this;
+		}
+		return $this->name;
+	}
+
+	public function slug($slug = null)
+	{
+		if (isset($slug)) {
+			$this->slug = \Coast\str_simplify(iconv('utf-8', 'ascii//translit//ignore', $slug), '-');
+			return $this;
+		}
+		return $this->slug;
+	}
+
 	public function type()
 	{
 		return \Ayre::type($this)->name;
@@ -87,16 +110,5 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 	public function __toString()
 	{
 		return (string) $this->id;
-	}
-
-	/**
-	 * @ORM\PrePersist
-	 * @ORM\PreUpdate
-	 */
-	public function updateNodes()
-	{
-		foreach ($this->master->nodes as $node) {
-			$node->name = $this->name;
-		}
 	}
 }

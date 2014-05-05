@@ -36,11 +36,7 @@ class Listener implements EventSubscriber
 		);
 
 		foreach ($entities as $entity) {
-			if (
-				$entity instanceof Entity\Structure ||
-				$entity instanceof Entity\Structure\Node ||
-				$entity instanceof Entity\Content
-			) {
+			if ($entity instanceof Entity\Structure\Node || ($entity instanceof Entity\Content && $entity->isCurrent())) {
 				$this->_refresh = true;
 				break;
 			}			
@@ -56,22 +52,34 @@ class Listener implements EventSubscriber
 		
 		$em = $args->getEntityManager();
 
-		$structures = $em->getRepository('\Ayre\Entity\Structure')
+		$structs = $em->getRepository('\Ayre\Entity\Structure')
 			->fetchAllForSlugRefresh();
-		foreach ($structures as $structure) {
-			$nodes = $em->getRepository('\Ayre\Entity\Structure\Node')
-				->getChildren($structure->root, false, 'id', 'asc', true);
+		foreach ($structs as $struct) {
+			$paths = [];
+			$nodes = $em->getRepository('\Ayre\Entity\Structure')
+				->fetchNodes($struct);
 			foreach ($nodes as $node) {
-				$ancestors = array_reverse($node->ancestors);
-				if (isset($node->parent)) {
-					array_shift($ancestors);
-				}
-				$node->slug = implode('/', array_map(function($node) {
-		            return isset($node->content) ? $node->content->slug : null;
-		        }, $ancestors));
+
+				var_dump($node->id);
+
+				$path = $node->isRoot()
+					? [$node]
+					: $node->parents(true);
+				$path = implode('/', array_map(function($node) {
+		            return $node->slugSmart;
+		        }, $path));
+				$i = 0;
+				do {
+					$temp = $path;
+					if ($i > 0) {
+						$temp .= "-{$i}";
+					}
+					$i++;
+				} while (in_array($temp, $paths));
+				$node->path	= $temp;
+				$paths[]	= $node->path;
 			}
 		}
-
 		$em->flush();
 	}
 }

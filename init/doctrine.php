@@ -29,11 +29,11 @@ $evm = new \Doctrine\Common\EventManager();
 $classes = [
 	'Ayre\Listener',
 	'Ayre\Entity\File\Listener',
+	'Ayre\Entity\Structure\Node\Listener',
 	'Ayre\Behaviour\Loggable\Listener',
 	'Ayre\Behaviour\Searchable\Listener',
 	'Ayre\Behaviour\Versionable\Listener',
 	'Gedmo\Blameable\BlameableListener',
-	'Gedmo\Sluggable\SluggableListener',
 	'Gedmo\Timestampable\TimestampableListener',
 	'Gedmo\Tree\TreeListener',
 ];
