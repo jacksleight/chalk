@@ -154,7 +154,7 @@ class Node extends \Toast\Entity
     public function parents()
     {
         return isset($this->parent)
-            ? array_merge([$this], $this->parent->parents)
+            ? array_merge($this->parent->parents, [$this])
             : [$this];
     }
 

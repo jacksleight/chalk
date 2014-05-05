@@ -21,9 +21,12 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
     {        
 		$domains = $this->_ayre->em('Ayre\Entity\Domain')->fetchAll();
 		$domain	 = $domains[0];
-		$path 	 = $domain->root->slug . ($req->path() ? '/' . $req->path() : null);
+		$path 	 = $domain->root->slugPath . ($req->path() ? '/' . $req->path() : null);
 		$node    = $this->_ayre->em('Ayre\Entity\Structure\Node')->fetchBySlugPath($domain, $path, true);
 		return $res
-			->html($this->view->render('index', ['page' => $node->content->last]));
+			->html($this->view->render('index', [
+                'node' => $node,
+                'page' => $node->content->last
+            ]));
     }
 }

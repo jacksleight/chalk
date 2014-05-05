@@ -30,7 +30,7 @@ tinymce.PluginManager.add("image",function(e){function t(e,t){function i(e,i){n.
 
 /* Initialize */
 
-tinyMCE.baseURL = Ayre.rootBaseUrl + 'ayre/assets/tinymce';
+tinyMCE.baseURL = Ayre.rootBaseUrl + 'vendor/jacksleight/ayre/assets/tinymce';
 tinyMCE.init({
 	selector: '.html:not([disabled])',
 	menubar: false,
