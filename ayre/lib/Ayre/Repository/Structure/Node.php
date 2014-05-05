@@ -20,6 +20,7 @@ class Node extends NestedTreeRepository
 			'minLevel'	=> $node->level,
 		];
 		$qb = $this->createQueryBuilder('n')
+			->addSelect('c', 'cv')
 			->innerJoin('n.content', 'c')
 			->innerJoin('c.versions', 'cv')
 			->andWhere('cv.next IS NULL')
@@ -56,14 +57,15 @@ class Node extends NestedTreeRepository
 		$params = [
 			'node' => $node,
 		];
-		$qb = $this->createQueryBuilder('np')
-			->innerJoin('np.content', 'c')
+		$qb = $this->createQueryBuilder('n')
+			->addSelect('c', 'cv')
+			->innerJoin('n.content', 'c')
 			->innerJoin('c.versions', 'cv')
 			->andWhere('cv.next IS NULL')
-			->from($this->_entityName, 'n')
-			->andWhere('n.left > np.left AND n.left < np.right')
+			->from($this->_entityName, 'nc')
+			->andWhere('nc.left > n.left AND nc.left < n.right')
 			->andWhere('n = :node')
-			->orderBy('n.left');
+			->orderBy('nc.left');
 		$nodes = $qb
 			->getQuery()
 			->setParameters($params)
@@ -96,5 +98,29 @@ class Node extends NestedTreeRepository
 		return $include
 			? [$node]
 			: $node->children;
+	}
+
+	public function fetchBySlugPath(Entity\Structure $struct, $slugPath, $published = false)
+	{
+		$params = [
+			'root'		=> $struct->root->id,
+			'slugPath'	=> $slugPath,
+		];
+		$qb = $this->createQueryBuilder("n")
+			->addSelect('c', 'cv')
+			->innerJoin("n.content", "c")
+			->innerJoin("c.versions", "cv")
+			->andWhere("n.root_id = :root")
+			->andWhere("n.slugPath = :slugPath");
+		if ($published) {
+			$qb->andWhere("cv.status = :status");
+			$params['status'] = \Ayre::STATUS_PUBLISHED;
+		} else {
+			$qb->andWhere("cv.next IS NULL");
+		}
+		return $qb
+			->getQuery()
+			->setParameters($params)
+			->getOneOrNullResult();
 	}
 }

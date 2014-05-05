@@ -613,7 +613,7 @@ select,
 	vertical-align: baseline;
 	width: $width-12;
 	margin: 0;
-	padding: 0 $input-padding + 3px;
+	padding: 0 $input-padding-horiz;
 	background-color: white;
 	border: $input-border-width solid;
 	border-color: $color-quieter;
@@ -687,10 +687,10 @@ select {
 	padding-right: 0;
 	/* Include an arrow icon for WebKit */
 	@media (-webkit-min-device-pixel-ratio: 0) {
-		@include image-raster(select-arrow);
 		background-position: 100% 50%;
 		background-repeat: no-repeat;
-		padding-right: 30px;
+		@include image(arrow-select);
+		padding-right: 35px;
 	}
 	/* Fix Firefox not vertically centering text */
 	@media (min--moz-device-pixel-ratio: 0) {
@@ -870,6 +870,12 @@ button,
 	vertical-align: bottom;
 	width: 100%;
 	z-index: 500;
+	.value {
+		background-position: 100% 50%;
+		background-repeat: no-repeat;
+		@include image(arrow-select);
+		padding-right: 35px;
+	}
 	.menu {
 		margin-top: 0;
 		position: absolute;
@@ -890,6 +896,9 @@ button,
 	&:hover .menu {
 		max-height: 300px;
 		border-bottom-width: 1px;
+	}
+	.sidebar & .value {
+		@include image(arrow-dropdown);
 	}
 }
 
@@ -1254,8 +1263,8 @@ legend {
 		position: absolute;
 		top: 9px;
 		left: $gutter;
-		@include sprite-vector(icon-blank);
 		opacity: 0.1;
+		@include sprite(blank, 10px, 10px);
 	}
 	&:hover,
 	&.active {
@@ -1291,10 +1300,10 @@ legend {
 		opacity: 1;
 	}
 	&[data-action=expand] span {
-		@include sprite-vector(icon-plus);
+		@include sprite(plus, 10px, 10px);
 	}
 	&[data-action=collapse] span {
-		@include sprite-vector(icon-minus);
+		@include sprite(minus, 10px, 10px);
 	}
 }
 .tree-placeholder,

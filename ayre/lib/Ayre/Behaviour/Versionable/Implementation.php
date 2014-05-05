@@ -37,8 +37,8 @@ trait Implementation
 
     public function duplicate()
     {
-        if (!$this->isLast()) {
-            throw new \Ayre\Exception('You can only create new versions from the last version');
+        if (!$this->isCurrent()) {
+            throw new \Ayre\Exception('You can only create new versions from the current version');
         }
 
         $version = clone $this;

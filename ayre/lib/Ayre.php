@@ -113,7 +113,29 @@ class Ayre extends App
 	public function isProduction()
 	{
 		return $this->env('SERVER') == 'production';
-	}	
+	}
+
+	public function frontend()
+	{
+		return new \Ayre\Frontend($this);
+	}
+
+	public function layouts()
+	{
+		$dir = $this->root->dir('views/layouts/page');
+		$it = $dir->iterator(null, true);
+		$layouts = [];
+		foreach ($it as $file) {
+			$path	= $file->toRelative($dir);
+			$path	= $path->extName('');
+			$name	= trim($path, './');
+			$label	= ucwords(str_replace(['-', '/'], [' ', ' – '], $name));
+			$layouts[$name] = $label;
+		}
+		unset($layouts['default']);
+		ksort($layouts);
+		return $layouts;
+	}
 
 	public function publish()
 	{

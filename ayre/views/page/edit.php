@@ -23,7 +23,7 @@
 				'name'		=> 'layout',
 				'label'		=> 'Layout',
 				'null'		=> 'Default',
-				'values'	=> [],
+				'values'	=> $this->app->layouts(),
 				'disabled'	=> $entity->isArchived(),
 			)) ?>
 		</div>

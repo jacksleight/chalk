@@ -93,7 +93,7 @@ if (!isset($struct)) {
 		<a href="<?= $this->url([
 			'action'	=> 'add',
 			'id'		=> $struct->id,
-		]) ?>" class="btn btn-focus btn-block active">
+		]) ?>" class="btn btn-focus btn-block">
 			<i class="fa fa-plus"></i> Add Content
 		</a>
 		<button class="btn-positive btn-block structure-submit" disabled>

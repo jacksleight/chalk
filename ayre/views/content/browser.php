@@ -4,9 +4,13 @@ $entites = $this->em($entityType->class)
 ?>
 <form action="<?= $this->url->route() ?>">
 	<ul class="toolbar">
-		<li><button class="btn btn-focus" formmethod="post">Select</button></li>
+		<li>
+			<button class="btn btn-focus" formmethod="post">
+				<i class="fa fa-plus"></i> Add to <?= $struct->label ?>	
+			</button>
+		</li>
 	</ul>
-	<h1><?= $entityType->singular ?></h1>
+	<h1>Select Content</h1>
 	<?= $this->render('filters', ['filter' => $index]) ?>
 	<table class="multiselectable">
 		<colgroup>

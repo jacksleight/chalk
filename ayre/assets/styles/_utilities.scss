@@ -20,56 +20,19 @@
 
 /* Image & Sprite */
 
-@mixin image-raster($name, $extension: png) {
-	$file-1x: '1x/' + $name + '.' + $extension;
-	$file-2x: '2x/' + $name + '.' + $extension;
-	background-image: image-url($file-1x);
-	@include media(high-dpi) {
-		background-image: image-url($file-2x);
-		background-size: (image-width($file-2x) / 2) (image-height($file-2x) / 2);
-	}
-}
-@mixin image-vector($name) {
+@mixin image($name) {
 	$file: $name + '.svg';
 	background-image: inline-image($file);
-	.old-ie & {
-		@include image-raster($name);
-	}
 }
-
-$sprites-1x: sprite-map('1x/*.png', $layout: smart);
-$sprites-2x: sprite-map('2x/*.png', $layout: smart);
-%sprite {
+@mixin sprite($name, $width, $height) {
+	$file: $name + '.svg';
 	display: inline-block;
 	background-repeat: no-repeat;
+	background-image: inline-image($file);
+	width: $width;
+	height: $height;
 	@include hide-text;
 }
-@mixin sprite-raster($name) {
-	@extend %sprite;
-	background-image: sprite-url($sprites-1x);
-	background-position: sprite-position($sprites-1x, $name);
-	width: image-width(sprite-file($sprites-1x, $name));
-	height: image-height(sprite-file($sprites-1x, $name));
-	@include media(high-dpi) {
-		background-image: sprite-url($sprites-2x);
-		background-position: round(nth(sprite-position($sprites-2x, $name), 1) / 2) round(nth(sprite-position($sprites-2x, $name), 2) / 2);
-		background-size: (image-width(sprite-path($sprites-2x)) / 2) (image-height(sprite-path($sprites-2x)) / 2);
-		width: image-width(sprite-file($sprites-2x, $name)) / 2;
-		height: image-height(sprite-file($sprites-2x, $name)) / 2;
-	}
-}
-@mixin sprite-vector($name) {
-	$file: $name + '.svg';
-	$file-1x: '1x/' + $name + '.png';
-	@extend %sprite;
-	background-image: inline-image($file);
-	width: image-width($file-1x);
-	height: image-height($file-1x);
-	.old-ie & {
-		@include sprite-raster($name);
-	}
-}
-
 @mixin attach($position: before, $margin: 0.5em, $align: middle) {
 	#{'&:' + $position} {
 		content: '';
