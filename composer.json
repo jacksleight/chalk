@@ -1,9 +1,19 @@
 {
+  "name": "jacksleight/ayre",
+  "type": "project",
+  "description": "CMS",
+  "keywords": ["cms"],
+  "homepage": "http://jacksleight.com/",
+  "license": "MIT",
+  "authors": [
+      {"name": "Jack Sleight", "email": "jacksleight@gmail.com"}
+  ],
   "repositories": [
     {"type": "vcs", "url": "git@github.com:jacksleight/toast.git"},
     {"type": "vcs", "url": "git@github.com:jacksleight/coast-doctrine.git"}
   ],
   "require": {
+    "php": ">=5.5.0",
     "doctrine/orm": "2.4.*",
     "gedmo/doctrine-extensions": "2.3.*",
     "swiftmailer/swiftmailer": "5.1.*",
@@ -16,11 +26,11 @@
   },
   "autoload": {
     "psr-0": {
-      "Ayre": "ayre/lib",
-      "Ayre\\Proxy": "ayre/data/proxies"
+      "Ayre": "lib",
+      "Ayre\\Proxy": "data/proxies"
     },
     "psr-4": {
-      "Ayre\\Controller\\": "ayre/controllers/"
+      "Ayre\\Controller\\": "controllers/"
     }
   }
 }

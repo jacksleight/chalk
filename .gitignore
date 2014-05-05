@@ -1,11 +1,7 @@
-config/config.php
-data/
-
 .sass-cache/
 vendor/
 bower_components/
 node_modules/
-public/demo/
 composer.lock
 npm-debug.log
 

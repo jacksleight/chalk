@@ -13,7 +13,7 @@ var gulp		= require('gulp'),
 	server		= require('tiny-lr')();
 	path		= require('path');
 
-var projectDir		= __dirname + '/ayre',
+var projectDir		= __dirname + '',
 	controllersDir	= projectDir + '/controllers',
 	libDir			= projectDir + '/lib',
 	viewsDir		= projectDir + '/views',
