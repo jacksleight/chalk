@@ -1,6 +1,3 @@
-<? $this->layout('/layouts/page') ?>
-<? $this->block('main') ?>
-
 <?= $this->render('/content/actions-top') ?>
 <?= $this->render('/content/header') ?>
 <?= $this->render('/content/meta') ?>

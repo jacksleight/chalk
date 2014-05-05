@@ -8,5 +8,5 @@ namespace Ayre\Repository;
 
 use Ayre\Repository;
 
-class Domain extends Repository
+class Domain extends Structure
 {}

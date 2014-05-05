@@ -11,6 +11,24 @@ use Ayre\Entity,
 
 class Node extends NestedTreeRepository
 {
+	public function fetch($id)
+	{
+		if (!isset($id)) {
+			return;
+		}
+		return $this->createQueryBuilder('n')
+			->addSelect('c', 'cv')
+			->innerJoin('n.content', 'c')
+			->innerJoin('c.versions', 'cv')
+			->andWhere('cv.next IS NULL')
+			->andWhere('n.id = :id')
+			->getQuery()
+			->setParameters([
+				'id' => $id,
+			])
+			->getOneOrNullResult();
+	}
+
 	public function fetchAll(Entity\Structure\Node $node, $include = false, $depth = null)
 	{
 		$params = [

@@ -8,15 +8,15 @@
 <?php
 $repo    = $this->em('Ayre\Entity\Structure');
 $structs = $repo->fetchAll();
-$struct	 = $repo->fetch($req->id);
+$struct	 = $repo->fetch($req->structure);
 if (!isset($struct)) {
 	$struct = $structs[0];
 }
 ?>
 <form action="<?= $this->url([
-	'id'		=> $struct->id,
 	'action'	=> 'reorder',
-]) ?>" class="fill structure" method="post">
+	'structure'		=> $struct->id,
+], 'structure', true) ?>" class="fill structure" method="post">
 	<div class="fix">
 		<div class="dropdown">
 			<div class="value">
@@ -32,7 +32,7 @@ if (!isset($struct)) {
 					<? foreach ($structs as $entity) { ?>
 						<li>
 							<a href="<?= $this->url([
-								'id' => $entity->id,
+								'structure' => $entity->id,
 							]) ?>">
 								<? if ($entity instanceof \Ayre\Entity\Domain) { ?>
 									<i class="fa fa-globe fa-fw"></i>
@@ -52,12 +52,16 @@ if (!isset($struct)) {
 		$tree = $repo->fetchTree($struct);
 		?>
 		<ol class="tree-root">
-			<li class="tree-item" data-id="<?= $tree[0]->id ?>">
-				<div class="tree-handle "><?= $tree[0]->name ?></div>
+			<li class="tree-node" data-id="<?= $tree[0]->id ?>">
+				<a href="<?= $this->url([
+					'structure'	=> $struct->id,
+					'action'	=> 'edit',
+					'node'		=> $tree[0]->id,
+				], 'structure_node') ?>" class="tree-item <?= $tree[0]->id == $req->node ? 'active' : '' ?>"><?= $tree[0]->name ?></a>
 			</li>
 		</ol>
 		<div class="tree">
-			<?php 
+			<?php  
 			$it = new \RecursiveIteratorIterator(
 				new \Ayre\Entity\Structure\Iterator($tree[0]->children),
 				\RecursiveIteratorIterator::SELF_FIRST);
@@ -76,8 +80,13 @@ if (!isset($struct)) {
 					<? } else if ($i > 0) { ?>
 						</li>
 					<? } ?>
-					<li class="tree-item" data-id="<?= $node->id ?>">
-						<div class="tree-handle tree-status-<?= $content->status ?>"><?= $node->name ?></div>
+					<li class="tree-node" data-id="<?= $node->id ?>">
+						<a href="<?= $this->url([
+							'structure'	=> $struct->id,
+							'action'	=> 'edit',
+							'node'		=> $node->id,
+						], 'structure_node') ?>" class="tree-item <?= $node->id == $req->node ? 'active' : '' ?> tree-status-<?= $content->status ?>"><?= $node->name ?></a>
+						<span class="tree-handle"></span>
 					<?php				
 					$depth = $it->getDepth();
 					$i++;
@@ -90,15 +99,15 @@ if (!isset($struct)) {
 		</div>
 	</div>
 	<div class="fix">
-		<a href="<?= $this->url([
-			'action'	=> 'add',
-			'id'		=> $struct->id,
-		]) ?>" class="btn btn-focus btn-block">
-			<i class="fa fa-plus"></i> Add Content
-		</a>
-		<button class="btn-positive btn-block structure-submit" disabled>
+		<button class="btn-positive btn-block structure-submit btn-collapse" disabled>
 			<i class="fa fa-check"></i> Save Changes
 		</button>
+		<a href="<?= $this->url([
+			'action'	=> 'add',
+			'structure'	=> $struct->id,
+		], 'structure', true) ?>" class="btn btn-focus btn-block">
+			<i class="fa fa-plus"></i> Add Content
+		</a>
 	</div>
 	<input type="hidden" name="data" class="structure-data">
 </form>

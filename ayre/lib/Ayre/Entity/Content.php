@@ -19,6 +19,7 @@ use Ayre,
 
 /**
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="entity_class", type="string")
 */
@@ -86,5 +87,16 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 	public function __toString()
 	{
 		return (string) $this->id;
+	}
+
+	/**
+	 * @ORM\PrePersist
+	 * @ORM\PreUpdate
+	 */
+	public function updateNodes()
+	{
+		foreach ($this->master->nodes as $node) {
+			$node->name = $this->name;
+		}
 	}
 }

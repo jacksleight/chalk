@@ -26,9 +26,11 @@ class All extends Action
 
 	public function postDispatch(Request $req, Response $res)
 	{
+		$controller	= strtolower(str_replace('_', '/', $req->controller));
+		$action		= strtolower(str_replace('_', '-', $req->action));
 		$path = isset($req->view->path)
 			? $req->view->path
-			: "/{$req->controller}/{$req->action}";
+			: "{$controller}/{$action}";
 		return $res->html($this->view->render($path, [
 			'req' => $req,
 			'res' => $res,

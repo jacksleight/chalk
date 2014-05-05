@@ -8,5 +8,5 @@ namespace Ayre\Repository;
 
 use Ayre\Repository;
 
-class Menu extends Repository
+class Menu extends Structure
 {}

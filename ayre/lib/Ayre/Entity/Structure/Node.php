@@ -134,7 +134,7 @@ class Node extends \Toast\Entity
     {
         if (isset($value)) {
             $this->content = $value;
-            $this->name    = $this->content->name;
+            $this->name = $this->content->name;
         }
         return $this->content;
     }
@@ -151,10 +151,17 @@ class Node extends \Toast\Entity
         }
     }
 
-    public function ancestors()
+    public function parents()
     {
         return isset($this->parent)
-            ? array_merge([$this], $this->parent->ancestors)
+            ? array_merge([$this], $this->parent->parents)
             : [$this];
+    }
+
+    public function slugPathReal()
+    {
+        $parts = explode('/', $this->slugPath);
+        array_shift($parts);
+        return implode('/', $parts);
     }
 }

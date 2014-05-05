@@ -1,5 +1,3 @@
-<? $this->layout('/layouts/page') ?>
-<? $this->block('main') ?>
 <?php
 $filter = $this->em->wrap(new \Ayre\Index())
 	->graphFromArray($req->queryParams());

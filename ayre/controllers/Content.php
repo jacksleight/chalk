@@ -20,9 +20,7 @@ class Content extends Ayre\Controller\Entity
 	}
 
 	public function postDispatch(Request $req, Response $res)
-	{
-		$req->view->path = "{$req->entityType->local->path}/{$req->action}";
-	}
+	{}
 
 	public function index(Request $req, Response $res)
 	{

@@ -14,4 +14,7 @@ $app->add('ayre', $app->import($app->file('ayre/app.php'), [
 		'config' => $config,
 	]))
 	->set('view', new App\ViewRenderer($app->dir('views')))
+	->set('url', new App\UrlResolver(
+		new \Coast\Url($config->baseUrl),
+		$app->dir()))
 	->add('frontend', $app->ayre->frontend());

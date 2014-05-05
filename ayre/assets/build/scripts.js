@@ -13621,7 +13621,7 @@ $('.structure').each(function(i, el) {
 		maxDepth		: 100,
 		rootClass		: 'tree',
 		listClass		: 'tree-list',
-		itemClass		: 'tree-item',
+		itemClass		: 'tree-node',
 		dragClass		: 'tree-drag',
 		handleClass		: 'tree-handle',
 		collapsedClass	: 'tree-collapsed',

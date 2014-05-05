@@ -389,6 +389,7 @@ figure {
 			}
 		}
 		.progress {
+			z-index: 2;
 			background-color: tint($color-active, 50%);
 			span {
 				display: block;
@@ -730,6 +731,7 @@ button,
 .btn { 
 	font-family: $font-family;
 	@include font-size;
+	height: $input-height;
 	line-height: $input-height - ($input-border-width * 2);
 	vertical-align: baseline;
 	width: auto;
@@ -755,6 +757,15 @@ button,
 	}
 	&.active {
 		@include arrow(38px, 1px);
+	}
+	&.btn-collapse {
+		max-height: 40px;
+		&[disabled] {
+			opacity: 1;
+			border-top-width: 0; 
+			border-bottom-width: 0;
+			max-height: 0;
+		}
 	}
 	&.btn-block {
 		display: block;
@@ -1244,7 +1255,7 @@ legend {
 .tree-collapsed .tree-list {
 	display: none;
 }
-.tree-item,
+.tree-node,
 .tree-empty,
 .tree-placeholder {
 	display: block;
@@ -1252,12 +1263,7 @@ legend {
 	margin: 0;
 	padding: 0;
 }
-.tree-handle {
-	display: block;
-	padding: $gutter * 0.1 $gutter $gutter * 0.1 $gutter * 2;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
+.tree-node {
 	&:before {
 		content: '';
 		position: absolute;
@@ -1266,44 +1272,68 @@ legend {
 		opacity: 0.1;
 		@include sprite(blank, 10px, 10px);
 	}
-	&:hover,
-	&.active {
-		color: white;
-		background-color: shade($color-primary, 10%);
+	button {
+		position: absolute;
+		z-index: 1;
+		padding: 0;
+		top: 0;
+		left: 0;
+		width: $gutter * 2;
+		height: 28px;
+		text-align: center;
+		cursor: pointer;
+		border: 0;
+		background-color: transparent !important;
+		span {
+			position: absolute;
+			top: 9px;
+			left: $gutter;
+			opacity: 0.75;
+		}
+		&:hover span {
+			opacity: 1;
+		}
+		&[data-action=expand] span {
+			@include sprite(plus, 10px, 10px);
+		}
+		&[data-action=collapse] span {
+			@include sprite(minus, 10px, 10px);
+		}
 	}
-	&.active {
-		@include arrow(34px);
-	}
-	.tree & {
-		cursor: move;
+	.tree-item {
+		text-decoration: none;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		display: block;
+		padding: $gutter * 0.1 $gutter $gutter * 0.1 $gutter * 2;
+		&:hover,
+		&.active {
+			color: white;
+			background-color: shade($color-primary, 10%);
+		}
+		&.active {
+			@include arrow(28px);
+		}
 	}
 }
-.tree-item > button {
+.tree-handle {
+	cursor: move;
 	position: absolute;
-	z-index: 1;
-	padding: 0;
 	top: 0;
-	left: 0;
-	width: $gutter * 2;
+	right: 0;
 	height: 28px;
-	text-align: center;
-	cursor: pointer;
-	border: 0;
-	background-color: transparent !important;
-	span {
-		position: absolute;
-		top: 9px;
-		left: $gutter;
-		opacity: 0.75;
+	width: $gutter + 16px;
+	background-position: left;
+	background-repeat: no-repeat;
+	@include image(move);
+	opacity: 0;
+	@include transition(opacity $speed ease);
+	.tree-item:hover + & {
+		opacity: 0.5;
 	}
-	&:hover span {
-		opacity: 1;
-	}
-	&[data-action=expand] span {
-		@include sprite(plus, 10px, 10px);
-	}
-	&[data-action=collapse] span {
-		@include sprite(minus, 10px, 10px);
+	&:hover {
+		opacity: 1 !important;
 	}
 }
 .tree-placeholder,
@@ -1312,13 +1342,16 @@ legend {
 	background-color: $color-active;
 }
 .tree-drag {
-	color: white;
 	background-color: shade($color-primary, 10%);
 	position: absolute;
 	pointer-events: none;
 	z-index: 1000;
+	margin-left: -127px;
 	&[style] {
 		opacity: 0.6 !important
+	}
+	&, a {
+		@include link-color(white);
 	}
 }
 

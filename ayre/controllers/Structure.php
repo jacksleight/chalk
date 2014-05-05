@@ -25,7 +25,7 @@ class Structure extends Action
 
 		$data	= json_decode($req->data);
 		$repo	= $this->em('Ayre\Entity\Structure');
-		$struct	= $repo->fetch($req->id);
+		$struct	= $repo->fetch($req->structure);
 		$nodes	= $repo->fetchNodes($struct);
 
 		$map	= [];
@@ -70,7 +70,7 @@ class Structure extends Action
 		}
 
 		$wrap->graphFromArray($req->bodyParams());
-		$struct = $this->em('Ayre\Entity\Structure')->fetch($req->id);
+		$struct = $this->em('Ayre\Entity\Structure')->fetch($req->structure);
 
 		foreach ($index->contents as $content) {
 			$node = new \Ayre\Entity\Structure\Node();

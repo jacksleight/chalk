@@ -1,6 +1,3 @@
-<? $this->layout('/layouts/page') ?>
-<? $this->block('main') ?>
-
 <?= $this->render('/content/actions-top') ?>
 <?= $this->render('/content/header') ?>
 <?= $this->render('/content/meta') ?>
@@ -14,6 +11,15 @@
 				'entity'	=> $entity,
 				'name'		=> 'name',
 				'label'		=> 'Name',
+				'autofocus'	=> true,
+				'disabled'	=> $entity->isArchived(),
+			)) ?>
+			<?= $this->render('/elements/form-item', array(
+				'entity'		=> $entity,
+				'name'			=> 'url',
+				'label'			=> 'URL',
+				'placeholder'	=> 'http://example.com/',
+				'disabled'		=> $entity->isArchived(),
 			)) ?>
 		</div>
 	</fieldset>

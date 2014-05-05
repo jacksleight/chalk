@@ -543,6 +543,7 @@ figure figcaption {
   color: white;
 }
 .thumb .preview .progress {
+  z-index: 2;
   background-color: #fddca0;
 }
 .thumb .preview .progress span {
@@ -1013,6 +1014,7 @@ button,
   font-family: Raleway, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-size: 1rem;
+  height: 38px;
   line-height: 36px;
   vertical-align: baseline;
   width: auto;
@@ -1095,6 +1097,23 @@ button.active:after,
   right: -1px;
   border: 19px solid;
   border-color: transparent white transparent transparent;
+}
+input[type=reset].btn-collapse,
+input[type=submit].btn-collapse,
+input[type=button].btn-collapse,
+button.btn-collapse,
+.btn.btn-collapse {
+  max-height: 40px;
+}
+input[type=reset].btn-collapse[disabled],
+input[type=submit].btn-collapse[disabled],
+input[type=button].btn-collapse[disabled],
+button.btn-collapse[disabled],
+.btn.btn-collapse[disabled] {
+  opacity: 1;
+  border-top-width: 0;
+  border-bottom-width: 0;
+  max-height: 0;
 }
 input[type=reset].btn-block,
 input[type=submit].btn-block,
@@ -1943,7 +1962,7 @@ legend {
   display: none;
 }
 
-.tree-item,
+.tree-node,
 .tree-empty,
 .tree-placeholder {
   display: block;
@@ -1952,14 +1971,7 @@ legend {
   padding: 0;
 }
 
-.tree-handle {
-  display: block;
-  padding: 2px 20px 2px 40px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-.tree-handle:before {
+.tree-node:before {
   content: '';
   position: absolute;
   top: 9px;
@@ -1974,26 +1986,7 @@ legend {
   overflow: hidden;
   text-align: left;
 }
-.tree-handle:hover, .tree-handle.active {
-  color: white;
-  background-color: #373f48;
-}
-.tree-handle.active {
-  position: relative;
-}
-.tree-handle.active:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  border: 17px solid;
-  border-color: transparent white transparent transparent;
-}
-.tree .tree-handle {
-  cursor: move;
-}
-
-.tree-item > button {
+.tree-node button {
   position: absolute;
   z-index: 1;
   padding: 0;
@@ -2006,16 +1999,16 @@ legend {
   border: 0;
   background-color: transparent !important;
 }
-.tree-item > button span {
+.tree-node button span {
   position: absolute;
   top: 9px;
   left: 20px;
   opacity: 0.75;
 }
-.tree-item > button:hover span {
+.tree-node button:hover span {
   opacity: 1;
 }
-.tree-item > button[data-action=expand] span {
+.tree-node button[data-action=expand] span {
   display: inline-block;
   background-repeat: no-repeat;
   background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTAgMHYxMGgxMHYtMTBoLTEwem04IDZoLTJ2MmgtMnYtMmgtMnYtMmgydi0yaDJ2MmgydjJ6Ii8+PC9zdmc+');
@@ -2025,7 +2018,7 @@ legend {
   overflow: hidden;
   text-align: left;
 }
-.tree-item > button[data-action=collapse] span {
+.tree-node button[data-action=collapse] span {
   display: inline-block;
   background-repeat: no-repeat;
   background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTAgMHYxMGgxMHYtMTBoLTEwem04IDZoLTZ2LTJoNnYyeiIvPjwvc3ZnPg==');
@@ -2035,6 +2028,52 @@ legend {
   overflow: hidden;
   text-align: left;
 }
+.tree-node .tree-item {
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+  padding: 2px 20px 2px 40px;
+}
+.tree-node .tree-item:hover, .tree-node .tree-item.active {
+  color: white;
+  background-color: #373f48;
+}
+.tree-node .tree-item.active {
+  position: relative;
+}
+.tree-node .tree-item.active:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 14px solid;
+  border-color: transparent white transparent transparent;
+}
+
+.tree-handle {
+  cursor: move;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 28px;
+  width: 36px;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4wLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iMTZweCIgaGVpZ2h0PSIxNnB4IiB2aWV3Qm94PSIyNDggMjQ4IDE2IDE2IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDI0OCAyNDggMTYgMTYiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBvbHlnb24gaWQ9ImN1cnNvci1tb3ZlLTItaWNvbiIgZmlsbD0iI0ZGRkZGRiIgcG9pbnRzPSIyNjQsMjU1Ljk4MyAyNjAuNzcsMjUyLjg4NSAyNjAuNzcsMjU0Ljg1IDI1Ny4xNSwyNTQuODUgMjU3LjE1LDI1MS4zNyANCgkyNTkuMTE1LDI1MS4zNyAyNTUuOTgzLDI0OCAyNTIuODg1LDI1MS4zNyAyNTQuODg0LDI1MS4zNyAyNTQuODg0LDI1NC44NSAyNTEuMzcsMjU0Ljg1IDI1MS4zNywyNTIuODg1IDI0OCwyNTYuMDE3IA0KCTI1MS4zNywyNTkuMTE1IDI1MS4zNywyNTcuMTE2IDI1NC44ODQsMjU3LjExNiAyNTQuODg0LDI2MC43NyAyNTIuOTE5LDI2MC43NyAyNTYuMDE3LDI2NCAyNTkuMTE1LDI2MC43NyAyNTcuMTUsMjYwLjc3IA0KCTI1Ny4xNSwyNTcuMTE2IDI2MC43NywyNTcuMTE2IDI2MC43NywyNTkuMDgxICIvPg0KPC9zdmc+DQo=');
+  opacity: 0;
+  -webkit-transition: opacity 0.1s ease;
+  -moz-transition: opacity 0.1s ease;
+  -o-transition: opacity 0.1s ease;
+  transition: opacity 0.1s ease;
+}
+.tree-item:hover + .tree-handle {
+  opacity: 0.5;
+}
+.tree-handle:hover {
+  opacity: 1 !important;
+}
 
 .tree-placeholder,
 .tree-empty {
@@ -2043,14 +2082,29 @@ legend {
 }
 
 .tree-drag {
-  color: white;
   background-color: #373f48;
   position: absolute;
   pointer-events: none;
   z-index: 1000;
+  margin-left: -127px;
 }
 .tree-drag[style] {
   opacity: 0.6 !important;
+}
+.tree-drag, .tree-drag a {
+  color: white;
+}
+.tree-drag:visited, .tree-drag a:visited {
+  color: white;
+}
+.tree-drag:focus, .tree-drag a:focus {
+  color: white;
+}
+.tree-drag:hover, .tree-drag a:hover {
+  color: white;
+}
+.tree-drag:active, .tree-drag a:active {
+  color: white;
 }
 
 .tree-status-pending {
