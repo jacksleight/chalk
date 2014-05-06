@@ -9,6 +9,9 @@ class All extends Action
 {
 	public function preDispatch(Request $req, Response $res)
 	{
+		$user = $this->em('Ayre\Entity\User')->fetch(1);
+		$this->em->blameable()->setUserValue($user);
+
 		$req->view = (object) [];
 
 		$name	= "criteria_" . md5(serialize($req->route['params']));

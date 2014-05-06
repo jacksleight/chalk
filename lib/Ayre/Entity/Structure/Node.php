@@ -7,8 +7,8 @@
 namespace Ayre\Entity\Structure;
 
 use Ayre\Entity,
-	Coast\Model,
-	Doctrine\Common\Collections\ArrayCollection,
+    Coast\Model,
+    Doctrine\Common\Collections\ArrayCollection,
     Doctrine\ORM\Mapping as ORM,
     Gedmo\Mapping\Annotation as Gedmo;
 
@@ -18,16 +18,17 @@ use Ayre\Entity,
 */
 class Node extends \Toast\Entity
 {
-	/**
+    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      * @Gedmo\TreePathSource
      */
-	protected $id;
+    protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="\Ayre\Entity\Structure", mappedBy="root")
+     * @ORM\ManyToOne(targetEntity="\Ayre\Entity\Structure", inversedBy="nodes")
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $structure;
 
@@ -88,11 +89,11 @@ class Node extends \Toast\Entity
      */
     protected $children;
 
-	/**
+    /**
      * @ORM\ManyToOne(targetEntity="\Ayre\Entity\Content", inversedBy="nodes")
      * @ORM\JoinColumn(nullable=true)
      */
-	protected $content;
+    protected $content;
 
     public function __construct()
     {
@@ -156,11 +157,12 @@ class Node extends \Toast\Entity
         return $this->slug;
     }
 
-    public function parent(Entity\Structure\Node $value = null)
+    public function parent(Entity\Structure\Node $parent = null)
     {
-        if (isset($value)) {
-            $this->parent = $value;
-            $value->children->add($this);
+        if (isset($parent)) {
+            $this->parent    = $parent;
+            $this->structure = $parent->structure;
+            $parent->children->add($this);
         }
         return $this->parent;
     }

@@ -19,9 +19,8 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
 
     public function execute(\Coast\App\Request $req, \Coast\App\Response $res)
     {        
-		$domains = $this->_ayre->em('Ayre\Entity\Domain')->fetchAll();
-		$domain	 = $domains[0];
-		$node    = $this->_ayre->em('Ayre\Entity\Structure\Node')
+        $domain = $this->_ayre->em('Ayre\Entity\Domain')->fetch(3);
+        $node   = $this->_ayre->em('Ayre\Entity\Structure\Node')
             ->fetchByPath($domain, $req->path(), true);
         if (!$node) {
             return;

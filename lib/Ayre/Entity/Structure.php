@@ -42,17 +42,18 @@ class Structure extends \Toast\Entity implements Loggable, Publishable, Trackabl
 	protected $name;
 
 	/**
-     * @ORM\OneToOne(targetEntity="\Ayre\Entity\Structure\Node", inversedBy="structure", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="\Ayre\Entity\Structure\Node", mappedBy="structure", cascade={"persist"})
      */
-	protected $root;
+	protected $nodes;
 	
 	public function __construct()
 	{	
 		$this->nodes	= new ArrayCollection();
 		$this->actions	= new ArrayCollection();
 		
-		$this->root = new Entity\Structure\Node();
-		$this->root->structure = $this;
+		$node = new Entity\Structure\Node();
+		$node->structure = $this;
+		$this->nodes->add($node);
 
 		$this->__constructVersionable();
 	}
@@ -62,10 +63,13 @@ class Structure extends \Toast\Entity implements Loggable, Publishable, Trackabl
 		return $this->name;
 	}
 
+	public function root()
+	{
+		return $this->nodes->first();
+	}
+
 	public function __clone()
 	{
-		if (isset($this->root)) {
-			$this->root = clone $this->root;
-		}
+		// throw new \Exception('TODO');
 	}
 }

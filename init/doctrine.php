@@ -4,21 +4,21 @@ $config->setProxyDir('data/proxies');
 $config->setProxyNamespace('Ayre\Proxy');
 $config->setAutoGenerateProxyClasses(true);
 
-if ($app->isDebug()) {
+if ($app->isDevelopment()) {
 	$cache = new \Doctrine\Common\Cache\ArrayCache();
 } else if (isset($app->memcached)) {
 	$cache = new \Doctrine\Common\Cache\MemcachedCache();
 	$cache->setMemcached($app->memcached);
-	$config->setQueryCacheImpl($cache);
-	$config->setResultCacheImpl($cache);
-	$config->setMetadataCacheImpl($cache);
 }
+$config->setQueryCacheImpl($cache);
+$config->setResultCacheImpl($cache);
+$config->setMetadataCacheImpl($cache);
 
 \Coast\Doctrine\register_dbal_types();
 
 \Doctrine\Common\Annotations\AnnotationRegistry::registerFile($app->root->file('vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php')->toString());
 $reader			= new \Doctrine\Common\Annotations\AnnotationReader();
-$cachedReader	= new \Doctrine\Common\Annotations\CachedReader($reader, $cache, $app->isDebug());
+$cachedReader	= new \Doctrine\Common\Annotations\CachedReader($reader, $cache, $app->isDevelopment());
 $chain			= new \Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain();
 $driver			= new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($cachedReader, [$app->dir('lib/Ayre/Entity')->toString()]);
 $chain->addDriver($driver, 'Ayre\Entity');
@@ -46,6 +46,8 @@ foreach ($classes as $class) {
 	$evm->addEventSubscriber($listener);
 	$listeners[$class] = $listener;
 }
+
+// $config->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger());
 
 global $em;
 $em = new \Ayre\Doctrine\ORM\EntityManager(\Doctrine\ORM\EntityManager::create(

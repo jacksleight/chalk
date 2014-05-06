@@ -17,22 +17,24 @@ class Structure extends Repository
 			return;
 		}
 		return $this->createQueryBuilder('e')
-			->addSelect("n")
+			->addSelect("n", 'c', 'cv')
+			->innerJoin("e.nodes", "n")
+			->innerJoin('n.content', 'c')
+			->innerJoin('c.versions', 'cv')
 			->andWhere("e.id = :id")
-			->innerJoin("e.root", "n")
+			->andWhere("n.level = 0")
+			->andWhere('cv.next IS NULL')
 			->getQuery()
 			->setParameters(['id' => $id])
-			->getOneOrNullResult();
+			->getSingleResult();
 	}
 
 	public function fetchAllForPublish()
 	{
-		return $this->_em->createQueryBuilder()
-			->select("t")
-			->from("Ayre\Entity\Structure", "t")
-			->where("t.status IN (:statuses)")
-			->addOrderBy("t.master")
-			->addOrderBy("t.version", "DESC")
+		return $this->createQueryBuilder("s")
+			->where("s.status IN (:statuses)")
+			->addOrderBy("s.master")
+			->addOrderBy("s.version", "DESC")
 			->getQuery()
 			->setParameters([
 				'statuses' => [
@@ -46,11 +48,8 @@ class Structure extends Repository
 	// @todo merge into fetchAll
 	public function fetchAllForSlugRefresh()
 	{
-		return $this->_em->createQueryBuilder()
-			->select("t", "r")
-			->from("Ayre\Entity\Structure", "t")
-			->innerJoin("t.root", "r")
-			->where("t.status IN (:statuses)")
+		return $this->createQueryBuilder("s")
+			->where("s.status IN (:statuses)")
 			->getQuery()
 			->setParameters([
 				'statuses' => [

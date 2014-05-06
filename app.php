@@ -75,9 +75,6 @@ if (!$app->isDebug()) {
 \Ayre\Entity\File::baseDir($root->dir('public/data/file', true));
 \Ayre\Entity\File::mimeTypes($app->import($app->file('init/mime-types.php')));
 
-$user = $app->em('Ayre\Entity\User')->fetch(1);
-$app->em->blameable()->setUserValue($user);
-
 $app->import($app->file('init/routes.php'));
 
 return $app;
