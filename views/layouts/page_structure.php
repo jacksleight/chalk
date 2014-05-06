@@ -6,7 +6,7 @@
 <? $this->block('sidebar') ?>
 
 <?php
-$repo    = $this->em('Ayre\Entity\Structure');
+$repo    = $this->em('Ayre\Entity\Domain');
 $structs = $repo->fetchAll();
 $struct	 = $repo->fetch($req->structure);
 if (!isset($struct)) {
