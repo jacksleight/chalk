@@ -71,7 +71,7 @@ class Node extends \Toast\Entity
     protected $slug;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $path;
 
@@ -182,12 +182,5 @@ class Node extends \Toast\Entity
         return isset($this->parent)
             ? array_merge($this->parent->parents, [$this])
             : [$this];
-    }
-
-    public function slugPathReal()
-    {
-        $parts = explode('/', $this->slugPath);
-        array_shift($parts);
-        return implode('/', $parts);
     }
 }

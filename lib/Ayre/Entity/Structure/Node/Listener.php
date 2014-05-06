@@ -59,12 +59,8 @@ class Listener implements EventSubscriber
 			$nodes = $em->getRepository('\Ayre\Entity\Structure')
 				->fetchNodes($struct);
 			foreach ($nodes as $node) {
-
-				var_dump($node->id);
-
-				$path = $node->isRoot()
-					? [$node]
-					: $node->parents(true);
+				$path = $node->parents(true);
+				array_shift($path);
 				$path = implode('/', array_map(function($node) {
 		            return $node->slugSmart;
 		        }, $path));

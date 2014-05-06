@@ -118,18 +118,18 @@ class Node extends NestedTreeRepository
 			: $node->children;
 	}
 
-	public function fetchBySlugPath(Entity\Structure $struct, $slugPath, $published = false)
+	public function fetchByPath(Entity\Structure $struct, $path, $published = false)
 	{
 		$params = [
-			'root'		=> $struct->root->id,
-			'slugPath'	=> $slugPath,
+			'root'	=> $struct->root->id,
+			'path'	=> $path,
 		];
 		$qb = $this->createQueryBuilder("n")
 			->addSelect('c', 'cv')
 			->innerJoin("n.content", "c")
 			->innerJoin("c.versions", "cv")
 			->andWhere("n.root_id = :root")
-			->andWhere("n.slugPath = :slugPath");
+			->andWhere("n.path = :path");
 		if ($published) {
 			$qb->andWhere("cv.status = :status");
 			$params['status'] = \Ayre::STATUS_PUBLISHED;
