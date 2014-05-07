@@ -82,11 +82,6 @@ html, body {
 				float: left;
 			}
 		}
-		.title {
-			margin-top: 0;
-			text-align: center;
-			font-weight: 500;
-		}
 	}
 	.body {
 		padding: $gutter $gutter * 1.5;
@@ -96,6 +91,31 @@ html, body {
 	flex: 1;
 	overflow: auto;
 	@include flush;
+}
+.title {
+	margin-top: 0;
+	text-align: center;
+	font-weight: 500;
+}
+.center {
+	width: 100%;
+	height: 100%;
+	background: $color-shade;
+	text-align: center;
+	@include vertically-center('> div');
+	> div {
+		width: auto;
+		text-align: left;
+	}
+	.footer {
+		background-color: transparent;
+	}
+}
+
+.login {
+	max-width: 300px;
+	background-color: white;
+	padding: $gutter;
 }
 
 /* Footer */

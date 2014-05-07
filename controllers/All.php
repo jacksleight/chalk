@@ -9,18 +9,32 @@ class All extends Action
 {
 	public function preDispatch(Request $req, Response $res)
 	{
-		$user = $this->em('Ayre\Entity\User')->fetch(1);
-		$this->em->blameable()->setUserValue($user);
+		$session =& $req->session('ayre');
+		if (!isset($session->user) && $req->controller !== 'auth') {
+			return $res->redirect($this->url(array(), 'login', true));
+		}
 
 		$req->view = (object) [];
+
+		if ($req->controller == 'auth') {
+			return;
+		}
+
+		$req->user = $this->em('Ayre\Entity\User')->fetch($session->user);
+		if (!isset($req->user)) {
+			$session->user = null;
+			return $res->redirect($this->url(array(), 'login', true));
+		}
+
+		$this->em->blameable()->setUserValue($req->user);
 
 		$name	= "criteria_" . md5(serialize($req->route['params']));
 		$value	= $req->queryParams();
 		if (count($value)) {
-			// $this->app->user()->pref($name, $value);
+			$req->user->pref($name, $value);
 			$this->em->flush();
 		} else {
-			// $value = $this->app->user()->pref($name);
+			$value = $req->user->pref($name);
 			if (isset($value)) {
 				$req->queryParams($value);
 			}

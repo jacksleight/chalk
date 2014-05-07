@@ -5,6 +5,14 @@ $app->router
 		'action'     => 'index',
 		'id'    	 => null,
 	])
+	->all('login', "login", [
+		'controller' => 'auth',
+		'action'     => 'login',
+	])
+	->all('logout', "logout", [
+		'controller' => 'auth',
+		'action'     => 'logout',
+	])
 	->all('content', "content/{entityType}?/{action}?/{id}?", [
 		'controller' => 'content',
 		'action'     => 'index',

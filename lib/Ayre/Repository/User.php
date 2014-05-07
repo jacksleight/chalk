@@ -9,4 +9,13 @@ namespace Ayre\Repository;
 use Ayre\Repository;
 
 class User extends Repository
-{}
+{
+	public function fetchByEmailAddress($emailAddress)
+	{
+		return $this->createQueryBuilder('e')
+			->andWhere("e.emailAddress = :emailAddress")
+			->getQuery()
+			->setParameters(['emailAddress' => $emailAddress])
+			->getOneOrNullResult();
+	}
+}

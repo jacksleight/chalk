@@ -48,11 +48,11 @@
 			<ul class="toolbar">
 				<li>
 					<i class="fa fa-user"></i>
-					Jack Sleight
+					<?= $req->user->name ?>
 				</li>
 				<li class="space">
 					<i class="fa fa-sign-out"></i>
-					<a href="#">Logout</a>
+					<a href="<?= $this->url([], 'logout', true) ?>">Logout</a>
 				</li>
 			</ul>
 			<p class="title">Example Site</p>
