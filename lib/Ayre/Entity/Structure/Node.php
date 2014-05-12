@@ -64,7 +64,7 @@ class Node extends \Toast\Entity
      * @ManyToOne(targetEntity="\Ayre\Entity\Content", inversedBy="nodes")
      * @JoinColumn(nullable=true)
      */
-    protected $content;
+    protected $contentMaster;
 
     /**
      * @Column(type="string", nullable=true)
@@ -84,9 +84,6 @@ class Node extends \Toast\Entity
     public function __construct()
     {
         $this->children = new ArrayCollection();
-
-        global $em;
-        $this->content($em->getRepository('Ayre\Entity\Page')->find(1));
     }
 
     public function isRoot()
@@ -94,27 +91,30 @@ class Node extends \Toast\Entity
         return !isset($this->parent);
     }
 
-    public function content(Entity\Content $value = null)
+    public function contentMaster(Entity\Content $content = null)
     {
-        if (isset($value)) {
-            $this->content = $value;
-            $this->content->nodes->add($this);
+        if (!$content->isMaster()) {
+            throw new \Ayre\Exception("Content master can only be set to a master content version");
         }
-        return $this->content;
+        if (isset($content)) {
+            $this->contentMaster = $content;
+            $this->contentMaster->nodes->add($this);
+        }
+        return $this->contentMaster;
     }
 
     public function nameSmart()
     {
         return isset($this->name)
             ? $this->name
-            : $this->content->last->name;
+            : $this->content->name;
     }
 
     public function slugSmart()
     {
         return isset($this->slug)
             ? $this->slug
-            : $this->content->last->slug;
+            : $this->content->slug;
     }
 
     public function name($name = null)
@@ -144,6 +144,18 @@ class Node extends \Toast\Entity
             $parent->children->add($this);
         }
         return $this->parent;
+    }
+
+    public function iterator($include = false)
+    {
+        return new \RecursiveIteratorIterator(
+            new \Ayre\Entity\Structure\Iterator($include ? [$this] : $this->children),
+            \RecursiveIteratorIterator::SELF_FIRST);
+    }
+
+    public function content()
+    {
+        return $this->contentMaster->last;
     }
 
     public function __clone()

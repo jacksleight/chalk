@@ -6,56 +6,41 @@
 <? $this->block('sidebar') ?>
 
 <?php
-$repo    = $this->em('Ayre\Entity\Domain');
-$structs = $repo->fetchAll();
-$struct	 = $repo->fetch($req->structure);
-if (!isset($struct)) {
-	$struct = $structs[0];
+$repo		= $this->em('Ayre\Entity\Domain');
+$structures	= $repo->fetchAll();
+$structure	= $repo->fetch($req->structure);
+if (!isset($structure)) {
+	$structure = $structures[0];
 }
-
-
-$node = $this->em('Ayre\Entity\Structure\Node')->find(4);
-
-
-$nodes = $this->em('Ayre\Entity\Structure\Node')->fetchSiblings($node, true);
-
-var_dump(count($nodes));
-
-
-foreach ($nodes as $node) {
-	var_dump(str_repeat('--', $node->depth) . ' ' . $node->id);
-}
-
-
-die;
+$repo->fetchTree($structure);
 ?>
 <form action="<?= $this->url([
 	'action'	=> 'reorder',
-	'structure'	=> $struct->id,
+	'structure'	=> $structure->id,
 ], 'structure', true) ?>" class="fill structure" method="post">
 	<div class="fix">
 		<div class="dropdown">
 			<div class="value">
-				<? if ($struct instanceof \Ayre\Entity\Domain) { ?>
+				<? if ($structure instanceof \Ayre\Entity\Domain) { ?>
 					<i class="fa fa-globe fa-fw"></i>
-				<? } else if ($struct instanceof \Ayre\Entity\Menu) { ?>
+				<? } else if ($structure instanceof \Ayre\Entity\Menu) { ?>
 					<i class="fa fa-bars fa-fw"></i>
 				<? } ?>
-				<strong><?= $struct->label ?></strong>		
+				<strong><?= $structure->label ?></strong>
 			</div>
 			<nav class="menu">
 				<ul>
-					<? foreach ($structs as $listStruct) { ?>
+					<? foreach ($structures as $listStructure) { ?>
 						<li>
 							<a href="<?= $this->url([
-								'structure' => $listStruct->id,
+								'structure' => $listStructure->id,
 							]) ?>">
-								<? if ($listStruct instanceof \Ayre\Entity\Domain) { ?>
+								<? if ($listStructure instanceof \Ayre\Entity\Domain) { ?>
 									<i class="fa fa-globe fa-fw"></i>
-								<? } else if ($listStruct instanceof \Ayre\Entity\Menu) { ?>
+								<? } else if ($listStructure instanceof \Ayre\Entity\Menu) { ?>
 									<i class="fa fa-bars fa-fw"></i>
 								<? } ?>
-								<?= $listStruct->label ?>
+								<?= $listStructure->label ?>
 							</a>
 						</li>
 					<? } ?>
@@ -65,26 +50,24 @@ die;
 	</div>
 	<div class="flex">
 		<?php
-		$tree = $repo->fetchTree($struct);
+		$repo->fetchTree($structure);
 		?>
 		<ol class="tree-root">
-			<li class="tree-node" data-id="<?= $tree[0]->id ?>">
+			<li class="tree-node" data-id="<?= $structure->root->id ?>">
 				<a href="<?= $this->url([
-					'structure'	=> $struct->id,
+					'structure'	=> $structure->id,
 					'action'	=> 'edit',
-					'node'		=> $tree[0]->id,
-				], 'structure_node') ?>" class="tree-item <?= $tree[0]->id == $req->node ? 'active' : '' ?>">
-					<?= $tree[0]->nameSmart ?>
+					'node'		=> $structure->root->id,
+				], 'structure_node') ?>" class="tree-item <?= $structure->root->id == $req->node ? 'active' : '' ?>">
+					<?= $structure->root->nameSmart ?>
 				</a>
 			</li>
 		</ol>
 		<div class="tree">
 			<?php  
-			$it = new \RecursiveIteratorIterator(
-				new \Ayre\Entity\Structure\Iterator($tree[0]->children),
-				\RecursiveIteratorIterator::SELF_FIRST);
-			$depth = 0;
-			$i	   = 0;
+			$it		= $structure->root->iterator();
+			$depth	= 0;
+			$i		= 0;
 			?>
 			<ol class="tree-list">
 				<? foreach ($it as $node) { ?>
@@ -100,7 +83,7 @@ die;
 					<? } ?>
 					<li class="tree-node" data-id="<?= $node->id ?>">
 						<a href="<?= $this->url([
-							'structure'	=> $struct->id,
+							'structure'	=> $structure->id,
 							'action'	=> 'edit',
 							'node'		=> $node->id,
 						], 'structure_node') ?>" class="tree-item <?= $node->id == $req->node ? 'active' : '' ?> tree-status-<?= $content->status ?>">
@@ -124,7 +107,7 @@ die;
 		</button>
 		<a href="<?= $this->url([
 			'action'	=> 'add',
-			'structure'	=> $struct->id,
+			'structure'	=> $structure->id,
 			'node'		=> $req->node,
 		], 'structure_node', true) ?>" class="btn btn-focus btn-block">
 			<i class="fa fa-plus"></i> Add Content

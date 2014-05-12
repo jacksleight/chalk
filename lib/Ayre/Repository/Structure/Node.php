@@ -17,7 +17,7 @@ class Node extends \Ayre\Repository
         }
         return $this->createQueryBuilder('n')
             ->addSelect('c', 'cv')
-            ->innerJoin('n.content', 'c')
+            ->innerJoin('n.contentMaster', 'c')
             ->innerJoin('c.versions', 'cv')
             ->andWhere('cv.next IS NULL')
             ->andWhere('n.id = :id')
@@ -33,7 +33,7 @@ class Node extends \Ayre\Repository
         $params = [];
         $qb = $this->createQueryBuilder('n')
             ->addSelect('c', 'cv')
-            ->innerJoin('n.content', 'c')
+            ->innerJoin('n.contentMaster', 'c')
             ->innerJoin('c.versions', 'cv')
             ->andWhere('cv.next IS NULL');
         
@@ -101,7 +101,7 @@ class Node extends \Ayre\Repository
         ];
         $qb = $this->createQueryBuilder('n')
             ->addSelect('c', 'cv')
-            ->innerJoin('n.content', 'c')
+            ->innerJoin('n.contentMaster', 'c')
             ->innerJoin('c.versions', 'cv')
             ->andWhere('cv.next IS NULL')
             ->from($this->_entityName, 'nc')
@@ -142,7 +142,7 @@ class Node extends \Ayre\Repository
         ];
         $qb = $this->createQueryBuilder("n")
             ->addSelect('c', 'cv')
-            ->innerJoin("n.content", "c")
+            ->innerJoin("n.contentMaster", "c")
             ->innerJoin("c.versions", "cv")
             ->andWhere("n.structure = :structure")
             ->andWhere("n.path = :path");

@@ -8,7 +8,7 @@ namespace Ayre\Entity\Structure\Node;
 
 use Ayre\Entity, 
     Doctrine\Common\EventSubscriber,
-    Doctrine\ORM\Event\PreFlushEventArgs,
+    Doctrine\ORM\Event\OnFlushEventArgs,
     Doctrine\ORM\Events,
     Doctrine\ORM\UnitOfWork;
 
@@ -17,11 +17,11 @@ class Listener implements EventSubscriber
     public function getSubscribedEvents()
     {
         return [
-            Events::preFlush,
+            Events::onFlush,
         ];
     }
 
-    public function preFlush(PreFlushEventArgs $args)
+    public function onFlush(OnFlushEventArgs $args)
     {
         $em  = $args->getEntityManager();
         $uow = $em->getUnitOfWork();
@@ -42,6 +42,9 @@ class Listener implements EventSubscriber
         }
 
         foreach ($structures as $structure) {
+            if (!$structure->isNew()) {
+                $em->getRepository('Ayre\Entity\Structure')->fetchNodes($structure);
+            }
             $it    = $structure->iterator();
             $j     = 0;
             $stack = [];
@@ -61,6 +64,9 @@ class Listener implements EventSubscriber
             }
             foreach (array_reverse($stack) as $reverse) {
                 $reverse->right = ++$j;
+            }
+            foreach ($it as $node) {
+                $uow->recomputeSingleEntityChangeSet($em->getClassMetadata(get_class($node)), $node);
             }
         }
     }

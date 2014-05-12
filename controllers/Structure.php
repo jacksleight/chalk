@@ -23,12 +23,12 @@ class Structure extends Action
 			)));
 		}
 
-		$data	= json_decode($req->data);
-		$repo	= $this->em('Ayre\Entity\Structure');
-		$struct	= $repo->fetch($req->structure);
-		$nodes	= $repo->fetchNodes($struct);
+		$data		= json_decode($req->data);
+		$repo		= $this->em('Ayre\Entity\Structure');
+		$structure	= $repo->fetch($req->structure);
+		$nodes		= $repo->fetchNodes($structure);
 
-		$map	= [];
+		$map = [];
 		foreach ($nodes as $node) {
 			$map[$node->id] = $node;
 		}		
@@ -42,7 +42,7 @@ class Structure extends Action
 			$depth  = $it->getDepth();
 			$parent = $depth > 0
 				? $stack[$depth - 1]
-				: $struct->root;
+				: $structure->root;
 			$node = $map[$value->id];
 			$node->parent->children->removeElement($node);
 			$node->parent = $map[$parent->id];

@@ -31,7 +31,7 @@ class Node extends Action
 		foreach ($index->contents as $content) {
 			$node = new \Ayre\Entity\Structure\Node();
 			$node->parent  = $parent;
-			$node->content = $content->master;
+			$node->contentMaster = $content->master;
 			$this->em->persist($node);
 			$this->em->flush();
 		}

@@ -7,7 +7,7 @@
 namespace Ayre\Repository;
 
 use Ayre\Repository,
-	Ayre\Entity;
+	Ayre\Entity\Structure as EntityStructure;
 
 class Structure extends Repository
 {
@@ -19,7 +19,7 @@ class Structure extends Repository
 		return $this->createQueryBuilder('e')
 			->addSelect("n", 'c', 'cv')
 			->innerJoin("e.nodes", "n")
-			->innerJoin('n.content', 'c')
+			->innerJoin('n.contentMaster', 'c')
 			->innerJoin('c.versions', 'cv')
 			->andWhere("e.id = :id")
 			->andWhere("n.parent IS NULL")
@@ -59,15 +59,22 @@ class Structure extends Repository
 			->getResult();
 	}
 
-	public function fetchNodes(Entity\Structure $structure, $depth = null)
-	{
-		return $this->_em->getRepository('Ayre\Entity\Structure\Node')
-			->fetchAll($structure->root, true, $depth);
-	}
+    public function fetchNodes(EntityStructure $structure, $depth = null)
+    {
+        return $this->_em->getRepository('Ayre\Entity\Structure\Node')->fetchAll([
+			'structure'	=> $structure,
+			'include'	=> true,
+			'depth'		=> $depth,
+        ]);
+    }
 
-	public function fetchTree(Entity\Structure $structure, $depth = null)
-	{
-		return $this->_em->getRepository('Ayre\Entity\Structure\Node')
-			->fetchTree($structure->root, true, $depth);
-	}
+    public function fetchTree(EntityStructure $structure, $depth = null)
+    {
+        $this->_em->getRepository('Ayre\Entity\Structure\Node')->fetchAll([
+			'structure'	=> $structure,
+			'include'	=> true,
+			'depth'		=> $depth,
+        ]);
+        return [$structure->root];
+    }
 }
