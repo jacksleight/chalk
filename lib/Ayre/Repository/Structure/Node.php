@@ -31,30 +31,32 @@ class Node extends \Ayre\Repository
 	public function fetchAll(Entity\Structure\Node $node = null, $include = false, $depth = null)
 	{
 		$params = [
-			'root'		=> $node->root_id,
-			'left'		=> $node->left,
-			'right'		=> $node->right,
-			'minLevel'	=> $node->level,
+			'structure'	=> $node->structure,
+			// 'left'		=> $node->left,
+			// 'right'		=> $node->right,
+			// 'minLevel'	=> $node->level,
 		];
 		$qb = $this->createQueryBuilder('n')
 			->addSelect('c', 'cv')
 			->innerJoin('n.content', 'c')
 			->innerJoin('c.versions', 'cv')
 			->andWhere('cv.next IS NULL')
-			->andWhere('n.root_id = :root')
-			->andWhere('n.left > :left AND n.right < :right')
-			->andWhere('n.level > :minLevel')
-			->orderBy('n.left');
-		if (isset($depth)) {
-			$qb->andWhere('n.level <= :maxLevel');
-			$params['maxLevel'] = $node->level + $depth;
-		}
+			->andWhere('n.structure = :structure')
+			// ->andWhere('n.left > :left AND n.right < :right')
+			// ->andWhere('n.level > :minLevel')
+			->orderBy('n.sort');
+		// if (isset($depth)) {
+		// 	$qb->andWhere('n.level <= :maxLevel');
+		// 	$params['maxLevel'] = $node->level + $depth;
+		// }
 		$nodes = $qb
 			->getQuery()
 			->setParameters($params)
 			->getResult();
-		if ($include) {
-			array_unshift($nodes, $node);
+		if (!$include) {
+			$i = array_search($node, $nodes, true);
+			unset($nodes[$i]);
+			$nodes = array_values($nodes);
 		}
 		return $nodes;
 	}
@@ -71,29 +73,31 @@ class Node extends \Ayre\Repository
 
 	public function fetchParents(Entity\Structure\Node $node, $include = false, $reverse = false)
 	{
-		$params = [
-			'node' => $node,
-		];
-		$qb = $this->createQueryBuilder('n')
-			->addSelect('c', 'cv')
-			->innerJoin('n.content', 'c')
-			->innerJoin('c.versions', 'cv')
-			->andWhere('cv.next IS NULL')
-			->from($this->_entityName, 'nc')
-			->andWhere('nc.left > n.left AND nc.left < n.right')
-			->andWhere('n = :node')
-			->orderBy('nc.left');
-		$nodes = $qb
-			->getQuery()
-			->setParameters($params)
-			->getResult();
-		if ($include) {
-			array_push($nodes, $node);
-		}
-		if ($reverse) {
-			$nodes = array_reverse($nodes);
-		}
-		return $nodes;
+		throw new \Exception('TODO');
+
+		// $params = [
+		// 	'node' => $node,
+		// ];
+		// $qb = $this->createQueryBuilder('n')
+		// 	->addSelect('c', 'cv')
+		// 	->innerJoin('n.content', 'c')
+		// 	->innerJoin('c.versions', 'cv')
+		// 	->andWhere('cv.next IS NULL')
+		// 	->from($this->_entityName, 'nc')
+		// 	->andWhere('nc.left > n.left AND nc.left < n.right')
+		// 	->andWhere('n = :node')
+		// 	->orderBy('nc.left');
+		// $nodes = $qb
+		// 	->getQuery()
+		// 	->setParameters($params)
+		// 	->getResult();
+		// if ($include) {
+		// 	array_push($nodes, $node);
+		// }
+		// if ($reverse) {
+		// 	$nodes = array_reverse($nodes);
+		// }
+		// return $nodes;
 	}
 
 	public function fetchSiblings(Entity\Structure\Node $node, $include = false)
@@ -120,14 +124,14 @@ class Node extends \Ayre\Repository
 	public function fetchByPath(Entity\Structure $struct, $path, $published = false)
 	{
 		$params = [
-			'root'	=> $struct->root->id,
-			'path'	=> $path,
+			'structure'	=> $structure,
+			'path'		=> $path,
 		];
 		$qb = $this->createQueryBuilder("n")
 			->addSelect('c', 'cv')
 			->innerJoin("n.content", "c")
 			->innerJoin("c.versions", "cv")
-			->andWhere("n.root_id = :root")
+			->andWhere("n.structure = :structure")
 			->andWhere("n.path = :path");
 		if ($published) {
 			$qb->andWhere("cv.status = :status");

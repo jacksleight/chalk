@@ -36,7 +36,7 @@ class Node extends \Toast\Entity
     /**
      * @Column(type="string", nullable=true)
      */
-    protected $name;
+    protected $label;
 
     /**
      * @Column(type="string", nullable=true)
@@ -56,7 +56,7 @@ class Node extends \Toast\Entity
 
     /**
      * @OneToMany(targetEntity="\Ayre\Entity\Structure\Node", mappedBy="parent", cascade={"persist"})
-     * @OrderBy({"left" = "ASC"})
+     * @OrderBy({"sort" = "ASC"})
      */
     protected $children;
 
@@ -133,6 +133,7 @@ class Node extends \Toast\Entity
         if (isset($parent)) {
             $this->parent    = $parent;
             $this->structure = $parent->structure;
+            $this->sort      = $this->parent->children->count();
             $parent->children->add($this);
         }
         return $this->parent;

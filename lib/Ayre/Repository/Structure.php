@@ -22,7 +22,7 @@ class Structure extends Repository
 			->innerJoin('n.content', 'c')
 			->innerJoin('c.versions', 'cv')
 			->andWhere("e.id = :id")
-			->andWhere("n.level = 0")
+			->andWhere("n.parent IS NULL")
 			->andWhere('cv.next IS NULL')
 			->getQuery()
 			->setParameters(['id' => $id])

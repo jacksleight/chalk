@@ -109,7 +109,8 @@ if (!isset($struct)) {
 		<a href="<?= $this->url([
 			'action'	=> 'add',
 			'structure'	=> $struct->id,
-		], 'structure', true) ?>" class="btn btn-focus btn-block">
+			'node'		=> $req->node,
+		], 'structure_node', true) ?>" class="btn btn-focus btn-block">
 			<i class="fa fa-plus"></i> Add Content
 		</a>
 	</div>

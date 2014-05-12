@@ -44,41 +44,11 @@ class Structure extends Action
 				? $stack[$depth - 1]
 				: $struct->root;
 			$node = $map[$value->id];
-			$node->sort = $i;
 			$node->parent->children->removeElement($node);
 			$node->parent = $map[$parent->id];
+			$node->sort	= $i;
 		}
-
 		$this->em->flush();
-		$this->em('Ayre\Entity\Structure\Node')->reorder($struct->root, 'sort');
-
-		return $res->redirect($this->url(array(
-			'action' => 'index',
-		)));
-	}
-
-	public function add(Request $req, Response $res)
-	{
-		$req->view->entityType = Ayre::type(isset($req->entityType) ? $req->entityType : 'Ayre\Entity\Content');
-
-		$wrap = $this->em->wrap($index = new \Ayre\Index());
-		$wrap->graphFromArray($req->queryParams());
-		$req->view->index = $wrap;
-
-		if (!$req->isPost()) {
-			return;
-		}
-
-		$wrap->graphFromArray($req->bodyParams());
-		$struct = $this->em('Ayre\Entity\Structure')->fetch($req->structure);
-
-		foreach ($index->contents as $content) {
-			$node = new \Ayre\Entity\Structure\Node();
-			$node->parent = $struct->root;
-			$node->content = $content->master;
-			$this->em->persist($node);
-			$this->em->flush();
-		}
 
 		return $res->redirect($this->url(array(
 			'action' => 'index',

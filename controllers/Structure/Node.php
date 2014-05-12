@@ -9,11 +9,43 @@ use Ayre,
 
 class Node extends Action
 {
-	public function postDispatch(Request $req, Response $res)
+	public function add(Request $req, Response $res)
 	{
-		$req->view->entityType
-			= $req->entityType
-			= Ayre::type($req->view->entity->getObject());
+		$req->view->entityType = Ayre::type('Ayre\Entity\Content');
+
+		$wrap = $this->em->wrap($index = new \Ayre\Index());
+		$wrap->graphFromArray($req->queryParams());
+		$req->view->index = $wrap;
+
+		if (!$req->isPost()) {
+			return;
+		}
+
+		$wrap->graphFromArray($req->bodyParams());
+		if (isset($req->node)) {
+			$parent = $this->em('Ayre\Entity\Structure\Node')->fetch($req->node);
+		} else {
+			$parent = $this->em('Ayre\Entity\Structure')->fetch($req->structure)->root;
+		}
+
+		foreach ($index->contents as $content) {
+			$node = new \Ayre\Entity\Structure\Node();
+			$node->parent  = $parent;
+			$node->content = $content->master;
+			$this->em->persist($node);
+			$this->em->flush();
+		}
+
+		if (isset($req->node)) {
+			return $res->redirect($this->url(array(
+				'action' => 'edit',
+			)));
+		} else {
+			return $res->redirect($this->url(array(
+				'action' => 'index',
+				'node'	 => null,
+			), 'structure'));
+		}
 	}
 
 	public function edit(Request $req, Response $res)
@@ -26,6 +58,9 @@ class Node extends Action
 			$entity = $entity->duplicate();
 		}
 		$req->view->entity = $wrap = $this->em->wrap($entity);
+		$req->view->entityType
+			= $req->entityType
+			= Ayre::type($req->view->entity->getObject());
 
 		if (!$req->isPost()) {
 			return;
