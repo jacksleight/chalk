@@ -36,7 +36,7 @@ class Node extends \Toast\Entity
     /**
      * @Column(type="string", nullable=true)
      */
-    protected $label;
+    protected $name;
 
     /**
      * @Column(type="string", nullable=true)

@@ -51,13 +51,14 @@ class Node extends Action
 	public function edit(Request $req, Response $res)
 	{
 		$node = $this->em('Ayre\Entity\Structure\Node')->fetch($req->node);
-		$req->view->node = $node;
+		$req->view->node	= $wrap = $this->em->wrap($node);
+		$req->view->entity	= $wrap->content->last;
 
-		$entity	= $node->content->last;
-		if ($entity->status == \Ayre::STATUS_PUBLISHED) {
-			$entity = $entity->duplicate();
-		}
-		$req->view->entity = $wrap = $this->em->wrap($entity);
+		// $entity	= $node->content->last;
+		// if ($entity->status == \Ayre::STATUS_PUBLISHED) {
+		// 	$entity = $entity->duplicate();
+		// }
+		// $req->view->entity = $wrap = $this->em->wrap($entity);
 		$req->view->entityType
 			= $req->entityType
 			= Ayre::type($req->view->entity->getObject());

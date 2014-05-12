@@ -4,7 +4,7 @@
 <form action="<?= $this->url->route() ?>" method="post">
 	<fieldset class="form-block">
 		<div class="form-legend">
-			<h2>Details</h2>
+			<h2>General</h2>
 		</div>
 		<div class="form-items">
 			<?= $this->render('/elements/form-item', array(
@@ -38,6 +38,22 @@
 			)) ?>
 		</div>
 	</fieldset>
+	<? if (isset($node)) { ?>
+		<fieldset class="form-block">
+			<div class="form-legend">
+				<h2><?= $node->structure->name ?></h2>
+			</div>
+			<div class="form-items">	
+				<?= $this->render('/elements/form-item', array(
+					'entity'		=> $node,
+					'name'			=> 'name',
+					'label'			=> 'Label',
+					'placeholder'	=> $entity->name,
+					'note'			=> 'Alternative text used in navigation and URLs',
+				)) ?>
+			</div>
+		</fieldset>
+	<? } ?>
 	<fieldset>
 		<?= $this->render('/content/actions-bottom') ?>
 	</fieldset>
