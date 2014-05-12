@@ -8,18 +8,18 @@
 		</div>
 		<div class="form-items">
 			<?= $this->render('/elements/form-item', array(
-				'entity'	=> $entity,
+				'entity'	=> $content,
 				'name'		=> 'name',
 				'label'		=> 'Name',
 				'autofocus'	=> true,
-				'disabled'	=> $entity->isArchived(),
+				'disabled'	=> $content->isArchived(),
 			)) ?>
 			<?= $this->render('/elements/form-item', array(
-				'entity'		=> $entity,
+				'entity'		=> $content,
 				'name'			=> 'url',
 				'label'			=> 'URL',
 				'placeholder'	=> 'http://example.com/',
-				'disabled'		=> $entity->isArchived(),
+				'disabled'		=> $content->isArchived(),
 			)) ?>
 		</div>
 	</fieldset>

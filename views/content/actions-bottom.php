@@ -1,5 +1,5 @@
 <ul class="toolbar">
-	<? if (!$entity->isArchived()) { ?>
+	<? if (!$content->isArchived()) { ?>
 		<li><button class="btn-focus">
 			<i class="fa fa-check"></i>
 			Save <?= $entityType->singular ?>
@@ -14,7 +14,7 @@
 	<? } ?>
 </ul>
 <ul class="toolbar">
-	<? if (!$entity->isArchived() && !$entity->isNewMaster()) { ?>
+	<? if (!$content->isArchived() && !$content->isNewMaster()) { ?>
 		<li><a href="<?= $this->url([
 			'action' => 'status']) . $this->url->query([
 			'status' => \Ayre::STATUS_ARCHIVED,

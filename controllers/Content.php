@@ -31,11 +31,11 @@ class Content extends Ayre\Controller\Entity
 
 	public function edit(Request $req, Response $res)
 	{
-		$entity = $this->em($req->entityType->class)->fetchOrCreate($req->id);
-		if ($entity->status == \Ayre::STATUS_PUBLISHED) {
-			$entity = $entity->duplicate();
+		$content = $this->em($req->entityType->class)->fetchOrCreate($req->id);
+		if ($content->status == \Ayre::STATUS_PUBLISHED) {
+			$content = $content->duplicate();
 		}
-		$req->view->entity = $wrap = $this->em->wrap($entity);
+		$req->view->content = $wrap = $this->em->wrap($content);
 
 		if (!$req->isPost()) {
 			return;
@@ -46,8 +46,8 @@ class Content extends Ayre\Controller\Entity
 			return;
 		}
 
-		if (!$this->em->isPersisted($entity)) {
-			$this->em->persist($entity);
+		if (!$this->em->isPersisted($content)) {
+			$this->em->persist($content);
 		}
 		$this->em->flush();
 
@@ -71,13 +71,13 @@ class Content extends Ayre\Controller\Entity
 		list($uploads, $headers) = $uploader->processAll();
 		foreach ($uploads as $upload) {
 			if (isset($upload->path)) {
-				$entity = new \Ayre\Entity\File();
-				$entity->newFile = new \Coast\File($upload->path);
-				$this->em->persist($entity);
+				$content = new \Ayre\Entity\File();
+				$content->newFile = new \Coast\File($upload->path);
+				$this->em->persist($content);
 				$this->em->flush();
 				unset($upload->path);
 				$upload->html = $this->view->render('file/thumb', [
-					'entity'	=> $entity,
+					'content'	=> $content,
 					'covered'	=> true,
 				] + (array) $req->view)->toString();
 			}
@@ -90,15 +90,15 @@ class Content extends Ayre\Controller\Entity
 
 	public function status(Request $req, Response $res)
 	{
-		$entity = $this->em($req->entityType->class)->find($req->id);
+		$content = $this->em($req->entityType->class)->find($req->id);
 
-		$entity->status = $req->status;
-		if ($entity->status == \Ayre::STATUS_ARCHIVED && isset($entity->previous)) {
-			$entity->previous->status = $entity->status;
+		$content->status = $req->status;
+		if ($content->status == \Ayre::STATUS_ARCHIVED && isset($content->previous)) {
+			$content->previous->status = $content->status;
 		}
 		$this->em->flush();
 
-		if ($entity->status == \Ayre::STATUS_ARCHIVED) {
+		if ($content->status == \Ayre::STATUS_ARCHIVED) {
 			return $res->redirect($this->url(array(
 				'action' => null,
 				'id'	 => null,
@@ -112,15 +112,15 @@ class Content extends Ayre\Controller\Entity
 
 	public function restore(Request $req, Response $res)
 	{
-		$entity = $this->em($req->entityType->class)->find($req->id);
+		$content = $this->em($req->entityType->class)->find($req->id);
 
-		$entity = $entity->restore();
-		$this->em->persist($entity);
+		$content = $content->restore();
+		$this->em->persist($content);
 		$this->em->flush();
 
 		return $res->redirect($this->url(array(
 			'action' => 'edit',
-			'id'	 => $entity->id,
+			'id'	 => $content->id,
 		)));
 	}
 

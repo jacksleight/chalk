@@ -30,7 +30,8 @@ class Entity extends Action
 
 	public function edit(Request $req, Response $res)
 	{
-		$req->view->entity = $wrap = $this->em->wrap(
+		$var = $req->entityType->entity->var;
+		$req->view->$var = $wrap = $this->em->wrap(
 			$entity = $this->em($req->entityType->class)->fetchOrCreate($req->id)
 		);
 

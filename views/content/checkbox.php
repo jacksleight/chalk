@@ -1,7 +1,7 @@
 <?php
 $md	= isset($md)
 	? $md
-	: $entity->getMetadata(\Toast\Entity::MD_PROPERTY, 'contents');
+	: $index->getMetadata(\Toast\Entity::MD_PROPERTY, 'contents');
 ?>
 
 <input
@@ -14,5 +14,5 @@ $md	= isset($md)
 	id="<?= '_' . "{$md['contextName']}[{$value}]" ?>"
 	value="1"
 	<?= in_array((string) $value, array_map(function($value) { return (string) $value; },
-		$entity->contents->toArray())) ? 'checked' : null ?>> 
+		$index->contents->toArray())) ? 'checked' : null ?>> 
 <label for="<?= '_' . "{$md['contextName']}[{$value}]" ?>" class="checkbox"></label>

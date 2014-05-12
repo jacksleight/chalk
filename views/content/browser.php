@@ -1,5 +1,5 @@
 <?php
-$entites = $this->em($entityType->class)
+$contents = $this->em($entityType->class)
 	->fetchAll($index->toArray());
 ?>
 <form action="<?= $this->url->route() ?>">
@@ -30,36 +30,36 @@ $entites = $this->em($entityType->class)
 			</tr>
 		</thead>
 		<tbody>
-			<? foreach ($entites as $entity) { ?>
+			<? foreach ($contents as $content) { ?>
 				<tr class="selectable">
 					<td class="col-select">
 						<?= $this->render('/content/checkbox', [
 							'entity'	=> $index,
-							'value'		=> $entity,
+							'value'		=> $content,
 						]) ?>
 					</td>
 					<th class="col-name" scope="row">
-						<? if ($entity instanceof \Ayre\Entity\File && $entity->file->exists() && $entity->isGdCompatible()) { ?>
+						<? if ($content instanceof \Ayre\Entity\File && $content->file->exists() && $content->isGdCompatible()) { ?>
 							<img src="<?= $this->image(
-								$entity->file,
+								$content->file,
 								'resize',
 								['size' => '46', 'crop' => true]
 							) ?>">
 						<? } ?>
-						<?= $entity->name ?>
+						<?= $content->name ?>
 						<small>
-							<?= $entity->typeLabel ?>
-							<? if (isset($entity->subtype)) { ?>
-								– <?= $entity->subtypeLabel ?>
+							<?= $content->typeLabel ?>
+							<? if (isset($content->subtype)) { ?>
+								– <?= $content->subtypeLabel ?>
 							<? } ?>
 						</small>
 					</th>
 					<td class="col-date">
-						<?= $entity->modifyDate->diffForHumans() ?>
-						<small>by <?= $entity->modifyUserName ?></small>
+						<?= $content->modifyDate->diffForHumans() ?>
+						<small>by <?= $content->modifyUserName ?></small>
 					</td>
 					<td class="col-status">
-						<span class="label label-status-<?= $entity->status ?>"><?= $entity->status ?></span>
+						<span class="label label-status-<?= $content->status ?>"><?= $content->status ?></span>
 					</td>	
 				</tr>
 			<? } ?>

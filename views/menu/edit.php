@@ -2,8 +2,8 @@
 <? $this->block('main') ?>
 
 <h1>
-	<? if (!$entity->isNew() || !$entity->isMaster()) { ?>
-		<?= $entity->name ?>
+	<? if (!$menu->isNew()) { ?>
+		<?= $menu->name ?>
 	<? } else { ?>
 		New <?= $entityType->singular ?>
 	<? } ?>
@@ -15,7 +15,7 @@
 		</div>
 		<div class="form-items">
 			<?= $this->render('/elements/form-item', array(
-				'entity'	=> $entity,
+				'entity'	=> $menu,
 				'name'		=> 'name',
 				'label'		=> 'Name',
 				'autofocus'	=> true,
@@ -32,7 +32,7 @@
 			</li>
 		</ul>
 		<ul class="toolbar">
-			<? if (isset($entity->id)) { ?>
+			<? if (!$menu->isNew()) { ?>
 				<li>
 					<a href="<?= $this->url([
 						'action' => 'delete',

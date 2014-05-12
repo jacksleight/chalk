@@ -8,20 +8,20 @@
 		</div>
 		<div class="form-items">
 			<?= $this->render('/elements/form-item', array(
-				'entity'	=> $entity,
+				'entity'	=> $content,
 				'name'		=> 'name',
 				'label'		=> 'Name',
 				'autofocus'	=> true,
-				'disabled'	=> $entity->isArchived(),
+				'disabled'	=> $content->isArchived(),
 			)) ?>
 			<?= $this->render('/elements/form-item', array(
 				'type'		=> 'select',
-				'entity'	=> $entity,
+				'entity'	=> $content,
 				'name'		=> 'layout',
 				'label'		=> 'Layout',
 				'null'		=> 'Default',
 				'values'	=> $this->app->layouts(),
-				'disabled'	=> $entity->isArchived(),
+				'disabled'	=> $content->isArchived(),
 			)) ?>
 		</div>
 	</fieldset>
@@ -31,10 +31,10 @@
 		</div>
 		<div class="form-items">
 			<?= $this->render('/elements/form-input', array(
-				'entity'	=> $entity,
+				'entity'	=> $content,
 				'name'		=> 'content',
-				'type'		=> 'content',
-				'disabled'	=> $entity->isArchived(),
+				'type'		=> 'html_multiple',
+				'disabled'	=> $content->isArchived(),
 			)) ?>
 		</div>
 	</fieldset>
@@ -48,7 +48,7 @@
 					'entity'		=> $node,
 					'name'			=> 'name',
 					'label'			=> 'Label',
-					'placeholder'	=> $entity->name,
+					'placeholder'	=> $content->name,
 					'note'			=> 'Alternative text used in navigation and URLs',
 				)) ?>
 			</div>

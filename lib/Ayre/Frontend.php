@@ -30,7 +30,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
             return;
         }
         
-        $method = \Ayre::type($node->content)->entity->method;
+        $method = \Ayre::type($node->content)->entity->var;
         return $this->$method($node, $req, $res);
     }
 

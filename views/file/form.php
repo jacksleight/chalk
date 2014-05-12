@@ -8,7 +8,7 @@
 		</div>
 		<div class="form-items">
 			<?= $this->render('/elements/form-item', array(
-				'entity'	=> $entity,
+				'entity'	=> $content,
 				'name'		=> 'name',
 				'label'		=> 'Name',
 				'disabled'	=> true,

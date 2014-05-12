@@ -6,11 +6,11 @@ $covered  = isset($covered)  && $covered;
 	<a href="<?= !$template ? $this->url([
 		'entityType'=> $entityType->slug,
 		'action'	=> 'edit',
-		'id'		=> $entity->id,
+		'id'		=> $content->id,
 	]) : '#' ?>">
 		<figure class="thumb selectable">
 			<? if (!$template) { ?>
-				<input type="checkbox" id="entity-<?= $entity->id ?>"><label for="entity-<?= $entity->id ?>"></label>
+				<input type="checkbox" id="entity-<?= $content->id ?>"><label for="entity-<?= $content->id ?>"></label>
 			<? } ?>
 			<div class="preview">
 				<? if ($template) { ?>
@@ -18,17 +18,17 @@ $covered  = isset($covered)  && $covered;
 						<span style="height: 0%;"></span>
 					</div>
 				<? } else { ?>
-					<? if ($entity->file->exists() && $entity->isGdCompatible()) { ?>
+					<? if ($content->file->exists() && $content->isGdCompatible()) { ?>
 						<img src="<?= $this->image(
-							$entity->file,
+							$content->file,
 							'resize',
 							['size' => '400', 'crop' => true]
 						) ?>">
 					<? } else { ?>
 						<div class="text"><span><i class="fa fa-file"></i></span></div>
 					<? } ?>
-					<span class="label label-status-<?= $entity->status ?>">
-						<?= $entity->status ?>
+					<span class="label label-status-<?= $content->status ?>">
+						<?= $content->status ?>
 					</span>
 					<? if ($covered) { ?>
 						<div class="progress">
@@ -39,13 +39,13 @@ $covered  = isset($covered)  && $covered;
 			</div>
 			<figcaption>
 				<strong class="name">
-					<?= $template ? '{{name}}' : $entity->name ?>
+					<?= $template ? '{{name}}' : $content->name ?>
 				</strong><br>
 				<? if ($template) { ?>
 					Waiting…
 				<? } else { ?>
 					<span class="info">
-						<?= $entity->subtypeLabel ?>
+						<?= $content->subtypeLabel ?>
 					</span>
 				<? } ?>
 			</figcaption>

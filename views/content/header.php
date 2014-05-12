@@ -1,6 +1,6 @@
 <h1>
-	<? if (!$entity->isNewMaster()) { ?>
-		<?= $entity->name ?>
+	<? if (!$content->isNewMaster()) { ?>
+		<?= $content->name ?>
 	<? } else { ?>
 		New <?= $entityType->singular ?>
 	<? } ?>

@@ -1,7 +1,7 @@
 <?php
 $filter = $this->em->wrap(new \Ayre\Index())
 	->graphFromArray($req->queryParams());
-$entites = $this->em($entityType->class)
+$contents = $this->em($entityType->class)
 	->fetchAll($filter->toArray());
 ?>
 
@@ -33,25 +33,25 @@ $entites = $this->em($entityType->class)
 			</tr>
 		</thead>
 		<tbody>
-			<? foreach ($entites as $entity) { ?>
+			<? foreach ($contents as $content) { ?>
 				<tr class="clickable selectable">
 					<td class="col-select">
 						<?= $this->render('/content/checkbox', [
 							'entity'	=> $index,
-							'value'		=> $entity,
+							'value'		=> $content,
 						]) ?>
 					</td>
 					<th class="col-name" scope="row">
 						<a href="<?= $this->url([
 							'action'	=> 'edit',
-							'id'		=> $entity->id,
-						]) ?>"><?= $entity->name ?></a>
+							'id'		=> $content->id,
+						]) ?>"><?= $content->name ?></a>
 					</th>
 					<td class="col-date">
-						<?= $entity->modifyDate->diffForHumans() ?>
+						<?= $content->modifyDate->diffForHumans() ?>
 					</td>	
 					<td class="col-status">
-						<span class="label label-status-<?= $entity->status ?>"><?= $entity->status ?></span>
+						<span class="label label-status-<?= $content->status ?>"><?= $content->status ?></span>
 					</td>	
 				</tr>
 			<? } ?>

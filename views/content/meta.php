@@ -1,18 +1,18 @@
 <ul class="meta">
 	<li>
-		<span class="label label-status-<?= $entity->status ?>">
-			<?= $entity->status ?>
+		<span class="label label-status-<?= $content->status ?>">
+			<?= $content->status ?>
 		</span>
 	</li>
 	<li>
 		<i class="fa fa-asterisk"></i>
-		Version <em><?= $entity->version ?></em>
+		Version <em><?= $content->version ?></em>
 	</li>
-	<? if (!$entity->isNew()) { ?>
+	<? if (!$content->isNew()) { ?>
 		<li>
 			<i class="fa fa-calendar"></i>
-			Updated <em><?= $entity->modifyDate->diffForHumans() ?></em>
-			by <em><?= $entity->modifyUserName ?></em>
+			Updated <em><?= $content->modifyDate->diffForHumans() ?></em>
+			by <em><?= $content->modifyUserName ?></em>
 		</li>
 	<? } ?>
 </ul>

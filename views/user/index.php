@@ -3,7 +3,7 @@
 <?php
 $filter = $this->em->wrap(new \Ayre\Index())
 	->graphFromArray($req->queryParams());
-$entites = $this->em($entityType->class)
+$users = $this->em($entityType->class)
 	->fetchAll($filter->toArray());
 ?>
 
@@ -45,28 +45,28 @@ $entites = $this->em($entityType->class)
 		</tr>
 	</thead>
 	<tbody>
-		<? foreach ($entites as $entity) { ?>
+		<? foreach ($users as $user) { ?>
 			<tr class="clickable">
 				<td class="col-status">
-					<span class="label label-status-<?= (int) $entity->isEnabled ?>">
-						<i class="fa fa-<?= $entity->isEnabled ? 'check' : 'times' ?>"></i>
+					<span class="label label-status-<?= (int) $user->isEnabled ?>">
+						<i class="fa fa-<?= $user->isEnabled ? 'check' : 'times' ?>"></i>
 					</span>					
 				</td>
 				<th class="col-name" scope="row">
 					<a href="<?= $this->url([
 						'action'	=> 'edit',
-						'id'		=> $entity->id,
+						'id'		=> $user->id,
 					]) ?>">
-						<?= $entity->name ?>
+						<?= $user->name ?>
 					</a>
 				</th>
 				<td class="col-emailAddress">
-					<a href="mailto:<?= $entity->emailAddress ?>">
-						<?= $entity->emailAddress ?>
+					<a href="mailto:<?= $user->emailAddress ?>">
+						<?= $user->emailAddress ?>
 					</a>
 				</td>
 				<td class="col-role">
-					<?= ucfirst($entity->role) ?>
+					<?= ucfirst($user->role) ?>
 				</td>
 			</tr>
 		<? } ?>

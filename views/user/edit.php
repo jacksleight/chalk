@@ -2,8 +2,8 @@
 <? $this->block('main') ?>
 
 <h1>
-	<? if (!$entity->isNew()) { ?>
-		<?= $entity->name ?>
+	<? if (!$user->isNew()) { ?>
+		<?= $user->name ?>
 	<? } else { ?>
 		New <?= $entityType->singular ?>
 	<? } ?>
@@ -15,28 +15,28 @@
 		</div>
 		<div class="form-items">
 			<?= $this->render('/elements/form-item', array(
-				'entity'	=> $entity,
+				'entity'	=> $user,
 				'name'		=> 'isEnabled',
 				'label'		=> 'Enabled',
 			)) ?>
 			<?= $this->render('/elements/form-item', array(
-				'entity'	=> $entity,
+				'entity'	=> $user,
 				'name'		=> 'name',
 				'label'		=> 'Name',
 			)) ?>
 			<?= $this->render('/elements/form-item', array(
-				'entity'	=> $entity,
+				'entity'	=> $user,
 				'type'		=> 'input_email',
 				'name'		=> 'emailAddress',
 				'label'		=> 'Email Address',
 			)) ?>
 			<?= $this->render('/elements/form-item', array(
-				'entity'	=> $entity,
+				'entity'	=> $user,
 				'name'		=> 'passwordPlain',
 				'label'		=> 'Password',
 			)) ?>
 			<?= $this->render('/elements/form-item', array(
-				'entity'	=> $entity,
+				'entity'	=> $user,
 				'name'		=> 'role',
 				'label'		=> 'Role',
 				'type'		=> 'input_radio',
@@ -53,11 +53,11 @@
 			</li>
 		</ul>
 		<ul class="toolbar">
-			<? if (isset($entity->id)) { ?>
+			<? if (!$user->isNew()) { ?>
 				<li>
 					<a href="<?= $this->url([
 						'action' => 'delete1',
-					]) ?>" class="btn btn-negative btn-quiet confirmable" data-message="Are you sure?<?= "\n\n" ?>If you delete <?= $entity->name ?> you will no longer be able to see which changes they made. If you just want to prevent this user from accessing the system you can disable the account by unchecking the Enabled box.">
+					]) ?>" class="btn btn-negative btn-quiet confirmable" data-message="Are you sure?<?= "\n\n" ?>If you delete <?= $user->name ?> you will no longer be able to see which changes they made. If you just want to prevent this user from accessing the system you can disable the account by unchecking the Enabled box.">
 						<i class="fa fa-trash-o"></i> Delete <?= $entityType->singular ?>
 					</a>
 				</li>

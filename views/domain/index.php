@@ -1,7 +1,7 @@
 <? $this->layout('/layouts/page_settings') ?>
 <? $this->block('main') ?>
 <?php
-$entites = $this->em($entityType->class)
+$domains = $this->em($entityType->class)
 	->fetchAll();
 ?>
 
@@ -27,18 +27,18 @@ $entites = $this->em($entityType->class)
 		</tr>
 	</thead>
 	<tbody>
-		<? foreach ($entites as $entity) { ?>
+		<? foreach ($domains as $domain) { ?>
 			<tr class="linkable">
 				<th class="col-name" scope="row">
 					<a href="<?= $this->url([
 						'action'	=> 'edit',
-						'id'		=> $entity->id,
+						'id'		=> $domain->id,
 					]) ?>">
-						<?= $entity->name ?>
+						<?= $domain->name ?>
 					</a>
 				</th>
 				<td class="col-date">
-					<?= $entity->createDate->diffForHumans() ?>
+					<?= $domain->createDate->diffForHumans() ?>
 				</td>
 			</tr>
 		<? } ?>

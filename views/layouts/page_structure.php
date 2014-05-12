@@ -15,7 +15,7 @@ if (!isset($struct)) {
 ?>
 <form action="<?= $this->url([
 	'action'	=> 'reorder',
-	'structure'		=> $struct->id,
+	'structure'	=> $struct->id,
 ], 'structure', true) ?>" class="fill structure" method="post">
 	<div class="fix">
 		<div class="dropdown">
@@ -29,17 +29,17 @@ if (!isset($struct)) {
 			</div>
 			<nav class="menu">
 				<ul>
-					<? foreach ($structs as $entity) { ?>
+					<? foreach ($structs as $listStruct) { ?>
 						<li>
 							<a href="<?= $this->url([
-								'structure' => $entity->id,
+								'structure' => $listStruct->id,
 							]) ?>">
-								<? if ($entity instanceof \Ayre\Entity\Domain) { ?>
+								<? if ($listStruct instanceof \Ayre\Entity\Domain) { ?>
 									<i class="fa fa-globe fa-fw"></i>
-								<? } else if ($entity instanceof \Ayre\Entity\Menu) { ?>
+								<? } else if ($listStruct instanceof \Ayre\Entity\Menu) { ?>
 									<i class="fa fa-bars fa-fw"></i>
 								<? } ?>
-								<?= $entity->label ?>
+								<?= $listStruct->label ?>
 							</a>
 						</li>
 					<? } ?>
