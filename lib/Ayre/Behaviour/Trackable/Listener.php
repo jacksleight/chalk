@@ -36,7 +36,7 @@ class Listener implements EventSubscriber
 	{
 		$entity = $args->getEntity();
 
-		if (!$entity instanceof Ayre\Behaviour\Trackable) {
+		if (!$entity instanceof Trackable) {
 			return;
 		}
 
@@ -50,7 +50,7 @@ class Listener implements EventSubscriber
 	{
 		$entity = $args->getEntity();
 		
-		if (!$entity instanceof Ayre\Behaviour\Trackable) {
+		if (!$entity instanceof Trackable) {
 			return;
 		}
 

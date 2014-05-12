@@ -29,9 +29,42 @@ class Node extends \Toast\Entity
     protected $structure;
 
     /**
+     * @ManyToOne(targetEntity="\Ayre\Entity\Structure\Node", inversedBy="children")
+     * @JoinColumn(onDelete="CASCADE")
+     */
+    protected $parent;
+
+    /**
+     * @OneToMany(targetEntity="\Ayre\Entity\Structure\Node", mappedBy="parent", cascade={"persist"})
+     * @OrderBy({"left" = "ASC"})
+     */
+    protected $children;
+
+    /**
      * @Column(type="integer")
      */
     protected $sort = 0;
+
+    /**
+     * @Column(name="`left`", type="integer")
+     */
+    protected $left;
+
+    /**
+     * @Column(name="`right`", type="integer")
+     */
+    protected $right;
+
+    /**
+     * @Column(type="integer")
+     */
+    protected $depth;
+
+    /**
+     * @ManyToOne(targetEntity="\Ayre\Entity\Content", inversedBy="nodes")
+     * @JoinColumn(nullable=true)
+     */
+    protected $content;
 
     /**
      * @Column(type="string", nullable=true)
@@ -48,24 +81,6 @@ class Node extends \Toast\Entity
      */
     protected $path;
 
-    /**
-     * @ManyToOne(targetEntity="\Ayre\Entity\Structure\Node", inversedBy="children")
-     * @JoinColumn(onDelete="CASCADE")
-     */
-    protected $parent;
-
-    /**
-     * @OneToMany(targetEntity="\Ayre\Entity\Structure\Node", mappedBy="parent", cascade={"persist"})
-     * @OrderBy({"sort" = "ASC"})
-     */
-    protected $children;
-
-    /**
-     * @ManyToOne(targetEntity="\Ayre\Entity\Content", inversedBy="nodes")
-     * @JoinColumn(nullable=true)
-     */
-    protected $content;
-
     public function __construct()
     {
         $this->children = new ArrayCollection();
@@ -77,13 +92,6 @@ class Node extends \Toast\Entity
     public function isRoot()
     {
         return !isset($this->parent);
-    }
-
-    public function root()
-    {
-        return isset($this->parent)
-            ? $this->parent->root
-            : $this;
     }
 
     public function content(Entity\Content $value = null)
@@ -133,7 +141,6 @@ class Node extends \Toast\Entity
         if (isset($parent)) {
             $this->parent    = $parent;
             $this->structure = $parent->structure;
-            $this->sort      = $this->parent->children->count();
             $parent->children->add($this);
         }
         return $this->parent;
@@ -157,24 +164,4 @@ class Node extends \Toast\Entity
             ? array_merge($this->parent->parents, [$this])
             : [$this];
     }
-
-    /**
-     * @Column(type="integer", nullable=true)
-     */
-    protected $root_id;
-
-    /**
-     * @Column(name="`left`", type="integer", nullable=true)
-     */
-    protected $left;
-
-    /**
-     * @Column(name="`right`", type="integer", nullable=true)
-     */
-    protected $right;
-
-    /**
-     * @Column(type="integer", nullable=true)
-     */
-    protected $level;
 }

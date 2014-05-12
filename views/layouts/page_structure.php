@@ -12,6 +12,22 @@ $struct	 = $repo->fetch($req->structure);
 if (!isset($struct)) {
 	$struct = $structs[0];
 }
+
+
+$node = $this->em('Ayre\Entity\Structure\Node')->find(4);
+
+
+$nodes = $this->em('Ayre\Entity\Structure\Node')->fetchSiblings($node, true);
+
+var_dump(count($nodes));
+
+
+foreach ($nodes as $node) {
+	var_dump(str_repeat('--', $node->depth) . ' ' . $node->id);
+}
+
+
+die;
 ?>
 <form action="<?= $this->url([
 	'action'	=> 'reorder',

@@ -38,7 +38,7 @@ class Repository extends EntityRepository
 			->getOneOrNullResult();
 	}
 
-	public function fetchAll()
+	public function fetchAll(array $criteria = array())
 	{
 		return $this->createQueryBuilder('e')
 			->getQuery()

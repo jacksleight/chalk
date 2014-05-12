@@ -10,7 +10,7 @@ use Ayre\Repository;
 
 class Content extends Repository
 {
-	public function fetchAll($criteria = array(), $sort = null, $page = null)
+	public function fetchAll(array $criteria = array(), $sort = null, $page = null)
 	{
 		$criteria = $criteria + [
 			'search'		=> null,

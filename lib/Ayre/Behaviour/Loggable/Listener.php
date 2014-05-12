@@ -50,7 +50,7 @@ class Listener implements EventSubscriber
 			) {
 				continue;
 			}
-			$entity = $entity->root->structure;
+			$entity = $entity->structure;
 			if (in_array($entity, $entities, true)) {
 				continue;
 			}
@@ -85,7 +85,7 @@ class Listener implements EventSubscriber
 			if (!$entity instanceof Loggable) {
 				continue;
 			}
-			$logs = $em->getRepository('Ayre\Entity\Log')->fetchAll($entity);
+			$logs = $em->getRepository('Ayre\Entity\Log')->fetchAll(['entity' => $entity]);
 			$this->_deletions = array_merge($this->_deletions, $logs);
 		}
 	}

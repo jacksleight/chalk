@@ -13,20 +13,21 @@ use Ayre,
 
 class Log extends Repository
 {
-	// @todo this isn't fetch all!
-	public function fetchAll(Loggable $entity = null)
+	public function fetchAll(array $criteria = array())
 	{
-		$logs = $this->_em->createQueryBuilder()
+		$params = [];
+		$qb = $this->_em->createQueryBuilder()
 			->select("l")
-			->from("\Ayre\Entity\Log", "l")
-			->andWhere("l.entity_class = :entity_class")
-			->andWhere("l.entity_id = :entity_id")
+			->from("\Ayre\Entity\Log", "l");
+		if (isset($critera['entity'])) {
+			$qb ->andWhere("l.entity_class = :entity_class")
+				->andWhere("l.entity_id = :entity_id");
+			$params['entity_class']	= get_class($entity);
+			$params['entity_id']	= $entity->id;
+		}
+		return $qb
 			->getQuery()
-			->setParameters([
-				'entity_class'	=> get_class($entity),
-				'entity_id'		=> $entity->id,
-			])			
+			->setParameters($params)		
 			->getResult();
-		return $logs;
 	}
 }

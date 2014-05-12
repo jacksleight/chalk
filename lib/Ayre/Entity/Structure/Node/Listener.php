@@ -7,75 +7,61 @@
 namespace Ayre\Entity\Structure\Node;
 
 use Ayre\Entity, 
-	Doctrine\Common\EventSubscriber,
-	Doctrine\ORM\Event\OnFlushEventArgs,
-	Doctrine\ORM\Event\PostFlushEventArgs,
-	Doctrine\ORM\Events,
-	Doctrine\ORM\UnitOfWork;
+    Doctrine\Common\EventSubscriber,
+    Doctrine\ORM\Event\PreFlushEventArgs,
+    Doctrine\ORM\Events,
+    Doctrine\ORM\UnitOfWork;
 
 class Listener implements EventSubscriber
 {
-	protected $_refresh = false;
+    public function getSubscribedEvents()
+    {
+        return [
+            Events::preFlush,
+        ];
+    }
 
-	public function getSubscribedEvents()
-	{
-		return [
-			Events::onFlush,
-			Events::postFlush,
-		];
-	}
+    public function preFlush(PreFlushEventArgs $args)
+    {
+        $em  = $args->getEntityManager();
+        $uow = $em->getUnitOfWork();
 
-	public function onFlush(OnFlushEventArgs $args)
-	{
-		$em	 = $args->getEntityManager();
-		$uow = $em->getUnitOfWork();
-		
-		$entities = array_merge(
-			$uow->getScheduledEntityInsertions(),
-			$uow->getScheduledEntityUpdates()
-		);
+        $structures = [];
+        $entities = array_merge(
+            $uow->getScheduledEntityInsertions(),
+            $uow->getScheduledEntityUpdates(),
+            $uow->getScheduledEntityDeletions()
+        );
+        foreach ($entities as $entity) {
+            if (!$entity instanceof Entity\Structure\Node) {
+                continue;
+            }
+            if (!in_array($entity->structure, $structures, true)) {
+                $structures[] = $entity->structure;
+            }
+        }
 
-		foreach ($entities as $entity) {
-			if ($entity instanceof Entity\Structure\Node || ($entity instanceof Entity\Content && $entity->isCurrent())) {
-				$this->_refresh = true;
-				break;
-			}			
-		}
-	}
-
-	public function postFlush(PostFlushEventArgs $args)
-	{
-		if (!$this->_refresh) {
-			return;
-		}
-		$this->_refresh = false;
-		
-		$em = $args->getEntityManager();
-
-		$structs = $em->getRepository('\Ayre\Entity\Structure')
-			->fetchAllForSlugRefresh();
-		foreach ($structs as $struct) {
-			$paths = [];
-			$nodes = $em->getRepository('\Ayre\Entity\Structure')
-				->fetchNodes($struct);
-			foreach ($nodes as $node) {
-				$path = $node->parents(true);
-				array_shift($path);
-				$path = implode('/', array_map(function($node) {
-		            return $node->slugSmart;
-		        }, $path));
-				$i = 0;
-				do {
-					$temp = $path;
-					if ($i > 0) {
-						$temp .= "-{$i}";
-					}
-					$i++;
-				} while (in_array($temp, $paths));
-				$node->path	= $temp;
-				$paths[]	= $node->path;
-			}
-		}
-		$em->flush();
-	}
+        foreach ($structures as $structure) {
+            $it    = $structure->iterator();
+            $j     = 0;
+            $stack = [];
+            foreach ($it as $i => $node) {
+                $slice = array_splice($stack, $it->getDepth(), count($stack), [$node]);
+                foreach (array_reverse($slice) as $reverse) {
+                    $reverse->right = ++$j;
+                }
+                $node->left  = ++$j;
+                $node->sort  = $i;
+                $node->depth = $it->getDepth();
+                $nodes = $stack;
+                array_shift($nodes);
+                $node->path = implode('/', array_map(function($node) {
+                    return $node->slugSmart;
+                }, $nodes));
+            }
+            foreach (array_reverse($stack) as $reverse) {
+                $reverse->right = ++$j;
+            }
+        }
+    }
 }
