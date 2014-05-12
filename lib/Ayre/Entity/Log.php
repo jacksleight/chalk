@@ -7,15 +7,17 @@
 namespace Ayre\Entity;
 
 use Ayre\Entity,
-	Doctrine\Common\Collections\ArrayCollection,
-    Doctrine\ORM\Mapping as ORM,
-    Gedmo\Mapping\Annotation as Gedmo;
+    Carbon\Carbon,
+    Ayre\Behaviour\Trackable,
+	Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
+ * @Entity
 */
-class Log extends \Toast\Entity
+class Log extends \Toast\Entity implements Trackable
 {
+    use Trackable\Implementation;
+
 	const TYPE_CREATE			= 'create';
 	const TYPE_MODIFY			= 'modify';
 	const TYPE_STATUS_PENDING	= 'status_pending';
@@ -23,39 +25,26 @@ class Log extends \Toast\Entity
 	const TYPE_STATUS_ARCHIVED	= 'status_archived';
 
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @Id
+     * @Column(type="integer")
+     * @GeneratedValue
      */
 	protected $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
     protected $entity_class;
 
     /**
-     * @ORM\Column(type="integer")
+     * @Column(type="integer")
      */
     protected $entity_id;
     
     protected $entity_obj;
 
     /**
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
 	protected $type;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
-     */
-    protected $logDate;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="\Ayre\Entity\User", inversedBy="logs")
-     * @ORM\JoinColumn(onDelete="SET NULL")
-     * @Gedmo\Blameable(on="create")
-     */
-    protected $user;
 }

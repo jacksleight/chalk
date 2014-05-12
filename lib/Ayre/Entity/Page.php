@@ -7,18 +7,16 @@
 namespace Ayre\Entity;
 
 use Ayre\Entity,
-	Doctrine\Common\Collections\ArrayCollection,
-    Doctrine\ORM\Mapping as ORM,
-    Gedmo\Mapping\Annotation as Gedmo;
+	Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
+ * @Entity
+ * @HasLifecycleCallbacks
 */
 class Page extends Document
 {
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @Column(type="string", nullable=true)
      */
 	protected $layout;
 }

@@ -26,7 +26,7 @@ class All extends Action
 			return $res->redirect($this->url(array(), 'login', true));
 		}
 
-		$this->em->blameable()->setUserValue($req->user);
+		$this->em->trackable()->setUser($req->user);
 
 		$name	= "criteria_" . md5(serialize($req->route['params']));
 		$value	= $req->queryParams();

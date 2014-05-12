@@ -15,7 +15,6 @@
   "require": {
     "php": ">=5.5.0",
     "doctrine/orm": "2.4.*",
-    "gedmo/doctrine-extensions": "2.3.*",
     "swiftmailer/swiftmailer": "5.1.*",
     "intervention/image": "1.6.*",
     "gargron/fileupload": "1.0.*",

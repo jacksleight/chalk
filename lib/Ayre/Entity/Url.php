@@ -7,12 +7,11 @@
 namespace Ayre\Entity;
 
 use Ayre\Entity,
-	Doctrine\Common\Collections\ArrayCollection,
-    Doctrine\ORM\Mapping as ORM,
-    Gedmo\Mapping\Annotation as Gedmo;
+	Coast\Url as CoastUrl,
+	Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
+ * @Entity
 */
 class Url extends Content
 {
@@ -22,9 +21,19 @@ class Url extends Content
 	];
 
     /**
-     * @ORM\Column(type="url")
+     * @Column(type="url")
      */
 	protected $url;
+
+	public function url(CoastUrl $url = null)
+	{
+		if (isset($url)) {
+			$this->url		= $url;
+			$this->subtype	= $url->scheme();
+			return $this;
+		}
+		return $this->url;
+	}
 	
 	public function searchFields()
 	{

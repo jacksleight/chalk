@@ -12,14 +12,12 @@ use Ayre\Entity,
     Ayre\Behaviour\Publishable,
     Ayre\Behaviour\Loggable,
 	Coast\Model,
-	Doctrine\Common\Collections\ArrayCollection,
-    Doctrine\ORM\Mapping as ORM,
-    Gedmo\Mapping\Annotation as Gedmo;
+	Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="entity_class", type="string")
+ * @Entity
+ * @InheritanceType("SINGLE_TABLE")
+ * @DiscriminatorColumn(name="entity_class", type="string")
 */
 class Structure extends \Toast\Entity implements Loggable, Publishable, Trackable, Versionable
 {
@@ -30,19 +28,19 @@ class Structure extends \Toast\Entity implements Loggable, Publishable, Trackabl
     	}
 
 	/**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @Id
+     * @Column(type="integer")
+     * @GeneratedValue
      */
     protected $id;
 	
     /**
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
 	protected $name;
 
 	/**
-     * @ORM\OneToMany(targetEntity="\Ayre\Entity\Structure\Node", mappedBy="structure", cascade={"persist"})
+     * @OneToMany(targetEntity="\Ayre\Entity\Structure\Node", mappedBy="structure", cascade={"persist"})
      */
 	protected $nodes;
 	

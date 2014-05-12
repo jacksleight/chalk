@@ -1,21 +1,18 @@
 <?php
-$debug = null;
-
-chdir(dirname(__FILE__));
-$path = str_replace(DIRECTORY_SEPARATOR, '/', realpath('../../'));
-
-require_once "{$path}/app.php";
+require __DIR__ . '/../../../../app.php';
 
 header('Content-Type: text/plain');
 $cli = new \Toast\Cli();
 
+$em = $app->ayre->em;
+
 try {
 
-	if (!$app->isDevelopment()) {
-		$cli->status('Flushing Doctrine APC cache');
-		$apc->flushAll();
-		$cli->ok();
-	}
+	$cli->status('Flushing Doctrine caches');
+	$em->getConfiguration()->getQueryCacheImpl()->deleteAll();
+	$em->getConfiguration()->getResultCacheImpl()->deleteAll();
+	$em->getConfiguration()->getMetadataCacheImpl()->deleteAll();
+	$cli->ok();
 
 	$cli->message('DONE');
 

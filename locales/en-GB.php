@@ -82,5 +82,8 @@ $messages = array(
 			'low'						=> "This must be at least {0,spellout} words long",
 			'high'						=> "This must be no more than {1,spellout} words long",
 		),
+		'login' => array(
+			'invalid'					=> "Sorry, that account could not be found",
+		),
 	),
 );

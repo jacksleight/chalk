@@ -7,12 +7,10 @@
 namespace Ayre\Entity;
 
 use Ayre\Entity,
-	Doctrine\Common\Collections\ArrayCollection,
-    Doctrine\ORM\Mapping as ORM,
-    Gedmo\Mapping\Annotation as Gedmo;
+	Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
+ * @Entity
  */
 class File extends Content
 {
@@ -20,12 +18,12 @@ class File extends Content
 	protected static $_mimeTypes = [];
 	
     /**
-     * @ORM\Column(type="integer")
+     * @Column(type="integer")
      */
 	protected $size;
 
     /**
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
 	protected $hash;
 
@@ -83,7 +81,7 @@ class File extends Content
 			$i++;
 		} while ($dir->file($temp->baseName())->exists());
 		
-		$this->name	= $temp->baseName();
+		$this->name($temp->baseName());
 		$this->file	= $file->move($dir, $this->name);
 		
 		return $this;

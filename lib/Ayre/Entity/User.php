@@ -9,12 +9,10 @@ namespace Ayre\Entity;
 use Ayre\Entity,
     Ayre\Behaviour\Trackable,
     Ayre\Behaviour\Searchable,
-	Doctrine\Common\Collections\ArrayCollection,
-    Doctrine\ORM\Mapping as ORM,
-    Gedmo\Mapping\Annotation as Gedmo;
+	Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
+ * @Entity
 */
 class User extends \Toast\Entity implements Trackable, Searchable
 {
@@ -26,29 +24,29 @@ class User extends \Toast\Entity implements Trackable, Searchable
 	const ROLE_CONTRIBUTOR		= 'contributor';
 
 	/**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @Id
+     * @Column(type="integer")
+     * @GeneratedValue
      */
 	protected $id;
 	
 	/**
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
 	protected $name;
 	
 	/**
-     * @ORM\Column(type="boolean")
+     * @Column(type="boolean")
      */
 	protected $isEnabled = true;
 	
 	/**
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
 	protected $emailAddress;
 	
 	/**
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
 	protected $password;
 	
@@ -57,22 +55,22 @@ class User extends \Toast\Entity implements Trackable, Searchable
 	protected $passwordPlainConfirm;
 	
 	/**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @Column(type="datetime", nullable=true)
      */
 	protected $loginDate;
 	
 	/**
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
 	protected $role = 'contributor';
 	
 	/**
-     * @ORM\Column(type="json")
+     * @Column(type="json")
      */
 	protected $prefs = [];
 
 	/**
-     * @ORM\OneToMany(targetEntity="\Ayre\Entity\Log", mappedBy="user")
+     * @OneToMany(targetEntity="\Ayre\Entity\Log", mappedBy="user")
      */
 	protected $logs;
 

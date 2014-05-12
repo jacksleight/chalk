@@ -7,37 +7,35 @@
 namespace Ayre\Entity;
 
 use Ayre\Entity,
-	Doctrine\Common\Collections\ArrayCollection,
-    Doctrine\ORM\Mapping as ORM,
-    Gedmo\Mapping\Annotation as Gedmo;
+	Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
- * @ORM\Table(options={"engine"="MyISAM"})
+ * @Entity
+ * @Table(options={"engine"="MyISAM"})
 */
 class Index extends \Toast\Entity
 {
 	/**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @Id
+     * @Column(type="integer")
+     * @GeneratedValue
      */
 	protected $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
     protected $entity_class;
 
     /**
-     * @ORM\Column(type="integer")
+     * @Column(type="integer")
      */
     protected $entity_id;
     
     protected $entity_obj;
 
 	/**
-     * @ORM\Column(type="text")
+     * @Column(type="text")
      */
 	protected $content;
 

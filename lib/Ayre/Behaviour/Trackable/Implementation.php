@@ -6,48 +6,29 @@
 
 namespace Ayre\Behaviour\Trackable;
 
-use Doctrine\ORM\Mapping as ORM,
-    Gedmo\Mapping\Annotation as Gedmo;
-
 trait Implementation
 {
     /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
+     * @Column(type="datetime", nullable=true)
      */
     protected $createDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Ayre\Entity\User")
-     * @ORM\JoinColumn(onDelete="SET NULL")
-     * @Gedmo\Blameable(on="create")
+     * @ManyToOne(targetEntity="\Ayre\Entity\User")
+     * @JoinColumn(onDelete="SET NULL")
      */
     protected $createUser;
 
     /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
+     * @Column(type="datetime", nullable=true)
      */
     protected $modifyDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Ayre\Entity\User")
-     * @ORM\JoinColumn(onDelete="SET NULL")
-     * @Gedmo\Blameable(on="update")
+     * @ManyToOne(targetEntity="\Ayre\Entity\User")
+     * @JoinColumn(onDelete="SET NULL")
      */
     protected $modifyUser;
-
-    protected function _alterCreateDateMetadata($md)
-    {
-        $md['validator']->removeValidator('Toast\Validator\Set');
-        return $md;
-    }
-
-    protected function _alterModifyDateMetadata($md)
-    {
-        $md['validator']->removeValidator('Toast\Validator\Set');
-        return $md;
-    }
 
     public function createUserName()
     {

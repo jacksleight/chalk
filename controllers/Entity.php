@@ -19,7 +19,7 @@ class Entity extends Action
 
 	public function postDispatch(Request $req, Response $res)
 	{
-		$path = "{$req->entityType->local->path}/{$req->action}";
+		$path = "{$req->entityType->entity->path}/{$req->action}";
 		if (!$this->view->has($path)) {
 			$req->view->path = "entity/{$req->action}";
 		}

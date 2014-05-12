@@ -6,10 +6,9 @@
 
 namespace Ayre\Repository\Structure;
 
-use Ayre\Entity,
-	Gedmo\Tree\Entity\Repository\NestedTreeRepository;
+use Ayre\Entity;
 
-class Node extends NestedTreeRepository
+class Node extends \Ayre\Repository
 {
 	public function fetch($id)
 	{
@@ -29,7 +28,7 @@ class Node extends NestedTreeRepository
 			->getOneOrNullResult();
 	}
 
-	public function fetchAll(Entity\Structure\Node $node, $include = false, $depth = null)
+	public function fetchAll(Entity\Structure\Node $node = null, $include = false, $depth = null)
 	{
 		$params = [
 			'root'		=> $node->root_id,

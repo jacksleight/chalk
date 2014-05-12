@@ -13,14 +13,12 @@ use Ayre,
     Ayre\Behaviour\Searchable,
     Ayre\Behaviour\Trackable,
     Ayre\Behaviour\Versionable,
-	Doctrine\Common\Collections\ArrayCollection,
-    Doctrine\ORM\Mapping as ORM,
-    Gedmo\Mapping\Annotation as Gedmo;
+	Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="entity_class", type="string")
+ * @Entity
+ * @InheritanceType("JOINED")
+ * @DiscriminatorColumn(name="entity_class", type="string")
 */
 abstract class Content extends \Toast\Entity implements Loggable, Publishable, Searchable, Trackable, Versionable
 {
@@ -31,29 +29,29 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
     	}
 	
 	/**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @Id
+     * @Column(type="integer")
+     * @GeneratedValue
      */
     protected $id;
 		
 	/**
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
 	protected $name;
 		
 	/**
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
 	protected $slug;
 		
 	/**
-     * @ORM\Column(type="string", nullable=true)
+     * @Column(type="string", nullable=true)
      */
 	protected $subtype;
 	
 	/**
-     * @ORM\OneToMany(targetEntity="\Ayre\Entity\Structure\Node", mappedBy="content")
+     * @OneToMany(targetEntity="\Ayre\Entity\Structure\Node", mappedBy="content")
      */
 	protected $nodes;
 	
@@ -105,6 +103,11 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 	public function typeLabel()
 	{
 		return \Ayre::type($this)->singular;
+	}
+
+	public function subtypeLabel()
+	{
+		return $this->subtype;
 	}
 
 	public function __toString()

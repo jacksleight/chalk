@@ -82,15 +82,16 @@ class Ayre extends App
 			'path'	=> $path,
 			'module' => (object) [
 				'class' => implode('\\', $module),
-				'type'	=> implode('_', $modulelower),
+				'name'	=> implode('_', $modulelower),
 				'slug'	=> implode('-', $modulelower),
 				'path'	=> implode('/', $modulelower),
 			],
-			'local' => (object) [
-				'class' => implode('\\', $local),
-				'type'	=> implode('_', $locallower),
-				'slug'	=> implode('-', $locallower),
-				'path'	=> implode('/', $locallower),
+			'entity' => (object) [
+				'class'		=> implode('\\', $local),
+				'method'	=> lcfirst(implode('', $local)),
+				'name'		=> implode('_', $locallower),
+				'slug'		=> implode('-', $locallower),
+				'path'		=> implode('/', $locallower),
 			],
 		] + (isset($class::$info) ? $class::$info + $info : $info));
 	}

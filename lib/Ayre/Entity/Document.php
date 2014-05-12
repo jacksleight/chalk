@@ -7,23 +7,21 @@
 namespace Ayre\Entity;
 
 use Ayre\Entity,
-	Doctrine\Common\Collections\ArrayCollection,
-    Doctrine\ORM\Mapping as ORM,
-    Gedmo\Mapping\Annotation as Gedmo;
+	Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
+ * @Entity
+ * @HasLifecycleCallbacks
 */
 class Document extends Content
 {
     /**
-     * @ORM\Column(type="json")
+     * @Column(type="json")
      */
 	protected $meta = [];
 
     /**
-     * @ORM\Column(type="json")
+     * @Column(type="json")
      */
 	protected $content = [
 		'primary' => '',
@@ -51,8 +49,8 @@ class Document extends Content
 	}
 
 	/**
-	 * @ORM\PrePersist
-	 * @ORM\PreUpdate
+	 * @PrePersist
+	 * @PreUpdate
 	 */
 	public function cleanMeta()
 	{

@@ -6,11 +6,10 @@
 
 namespace Ayre\Entity;
 
-use Ayre\Entity,
-    Doctrine\ORM\Mapping as ORM;
+use Ayre\Entity;
 
 /**
- * @ORM\Entity
+ * @Entity
 */
 class Menu extends Structure
 {

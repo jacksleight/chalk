@@ -8,90 +8,61 @@ namespace Ayre\Entity\Structure;
 
 use Ayre\Entity,
     Coast\Model,
-    Doctrine\Common\Collections\ArrayCollection,
-    Doctrine\ORM\Mapping as ORM,
-    Gedmo\Mapping\Annotation as Gedmo;
+    Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
- * @Gedmo\Tree(type="nested")
+ * @Entity
 */
 class Node extends \Toast\Entity
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     * @Gedmo\TreePathSource
+     * @Id
+     * @Column(type="integer")
+     * @GeneratedValue
      */
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Ayre\Entity\Structure", inversedBy="nodes")
-     * @ORM\JoinColumn(nullable=false)
+     * @ManyToOne(targetEntity="\Ayre\Entity\Structure", inversedBy="nodes")
+     * @JoinColumn(nullable=false)
      */
     protected $structure;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Gedmo\TreeRoot
-     */
-    protected $root_id;
-
-    /**
-     * @ORM\Column(name="`left`", type="integer")
-     * @Gedmo\TreeLeft
-     */
-    protected $left;
-
-    /**
-     * @ORM\Column(name="`right`", type="integer")
-     * @Gedmo\TreeRight
-     */
-    protected $right;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @Gedmo\TreeLevel
-     */
-    protected $level;
-
-    /**
-     * @ORM\Column(type="integer")
+     * @Column(type="integer")
      */
     protected $sort = 0;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @Column(type="string", nullable=true)
      */
     protected $name;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @Column(type="string", nullable=true)
      */
     protected $slug;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @Column(type="string", nullable=true)
      */
     protected $path;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Ayre\Entity\Structure\Node", inversedBy="children")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     * @Gedmo\TreeParent
+     * @ManyToOne(targetEntity="\Ayre\Entity\Structure\Node", inversedBy="children")
+     * @JoinColumn(onDelete="CASCADE")
      */
     protected $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Ayre\Entity\Structure\Node", mappedBy="parent", cascade={"persist"})
-     * @ORM\OrderBy({"left" = "ASC"})
+     * @OneToMany(targetEntity="\Ayre\Entity\Structure\Node", mappedBy="parent", cascade={"persist"})
+     * @OrderBy({"left" = "ASC"})
      */
     protected $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Ayre\Entity\Content", inversedBy="nodes")
-     * @ORM\JoinColumn(nullable=true)
+     * @ManyToOne(targetEntity="\Ayre\Entity\Content", inversedBy="nodes")
+     * @JoinColumn(nullable=true)
      */
     protected $content;
 
@@ -185,4 +156,24 @@ class Node extends \Toast\Entity
             ? array_merge($this->parent->parents, [$this])
             : [$this];
     }
+
+    /**
+     * @Column(type="integer", nullable=true)
+     */
+    protected $root_id;
+
+    /**
+     * @Column(name="`left`", type="integer", nullable=true)
+     */
+    protected $left;
+
+    /**
+     * @Column(name="`right`", type="integer", nullable=true)
+     */
+    protected $right;
+
+    /**
+     * @Column(type="integer", nullable=true)
+     */
+    protected $level;
 }

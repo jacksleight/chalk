@@ -6,14 +6,12 @@
 
 namespace Ayre\Behaviour\Publishable;
 
-use Ayre,
-	Doctrine\ORM\Mapping as ORM,
-    Gedmo\Mapping\Annotation as Gedmo;
+use Ayre;
 
 trait Implementation
 {
 	/**
-     * @ORM\Column(type="string", length=10)
+     * @Column(type="string", length=10)
      */
 	protected $status = Ayre::STATUS_PENDING;
 }

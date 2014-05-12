@@ -24,9 +24,11 @@ class Auth extends Action
 
 		$user = $this->em('Ayre\Entity\User')->fetchByEmailAddress($login->emailAddress);
 		if (!isset($user)) {
+			$login->password = null;
 			$login->addError('emailAddress', 'validator_login_invalid');
 			return;
 		} else if (!$user->verifyPassword($login->password)) {
+			$login->password = null;
 			$login->addError('emailAddress', 'validator_login_invalid');
 			return;
 		}

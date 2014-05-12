@@ -8,8 +8,7 @@ namespace Ayre\Doctrine\ORM;
 
 class EntityManager extends \Coast\Doctrine\ORM\EntityManager
 {
-    protected $_blameable;
-    protected $_uploadable;
+    protected $_trackable;
 
     public function wrap($object, $allowed = null, array $md = null)
     {
@@ -22,21 +21,12 @@ class EntityManager extends \Coast\Doctrine\ORM\EntityManager
         }
     }
 
-    public function blameable(\Gedmo\Blameable\BlameableListener $blameable = null)
+    public function trackable(\Ayre\Behaviour\Trackable\Listener $trackable = null)
     {
-        if (isset($blameable)) {
-            $this->_blameable = $blameable;
+        if (isset($trackable)) {
+            $this->_trackable = $trackable;
             return $this;
         }
-        return $this->_blameable;
-    }
-
-    public function uploadable(\Gedmo\Uploadable\UploadableListener $uploadable = null)
-    {
-        if (isset($uploadable)) {
-            $this->_uploadable = $uploadable;
-            return $this;
-        }
-        return $this->_uploadable;
+        return $this->_trackable;
     }
 }

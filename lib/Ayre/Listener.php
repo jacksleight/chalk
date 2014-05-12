@@ -37,9 +37,9 @@ class Listener implements EventSubscriber
         }
  
         $repositoryClasses = [
-            $type->module->class . '\\Repository\\' . $type->local->class,
-            $type->module->class . '\\Repository\\' . Ayre::type($rootClass)->local->class,
-            'Ayre\\Repository\\' . Ayre::type($rootClass)->local->class,
+            $type->module->class . '\\Repository\\' . $type->entity->class,
+            $type->module->class . '\\Repository\\' . Ayre::type($rootClass)->entity->class,
+            'Ayre\\Repository\\' . Ayre::type($rootClass)->entity->class,
             $type->module->class . '\\Repository',
             'Ayre\\Repository',
         ];

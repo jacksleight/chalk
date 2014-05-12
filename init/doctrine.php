@@ -1,66 +1,59 @@
 <?php
-$config = new \Doctrine\ORM\Configuration();
-$config->setProxyDir('data/proxies');
+use Doctrine\ORM\Configuration,
+	Doctrine\Common\Cache\ArrayCache,
+	Doctrine\Common\Cache\MemcachedCache,
+	Doctrine\Common\EventManager,
+	Doctrine\ORM\EntityManager,
+	Ayre\Doctrine\ORM\EntityManager as AyreEntityManager,
+	Ayre\Listener as Listener,
+	Ayre\Entity\File\Listener as FileListener,
+	Ayre\Entity\Structure\Node\Listener as NodeListener,
+	Ayre\Behaviour\Loggable\Listener as LoggableListener,
+	Ayre\Behaviour\Searchable\Listener as SearchableListener,
+	Ayre\Behaviour\Trackable\Listener as TrackableListener,
+	Ayre\Behaviour\Versionable\Listener as VersionableListener;
+
+\Coast\Doctrine\register_dbal_types();
+
+$config = new Configuration();
+$config->setMetadataDriverImpl($config->newDefaultAnnotationDriver($app->dir('lib/Ayre/Entity')->name()));
+$config->setProxyDir($app->root->dir('data/proxies'));
 $config->setProxyNamespace('Ayre\Proxy');
 $config->setAutoGenerateProxyClasses(true);
+// $config->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger());
 
 if ($app->isDevelopment()) {
-	$cache = new \Doctrine\Common\Cache\ArrayCache();
+	$cache = new ArrayCache();
 } else if (isset($app->memcached)) {
-	$cache = new \Doctrine\Common\Cache\MemcachedCache();
+	$cache = new MemcachedCache();
 	$cache->setMemcached($app->memcached);
 }
 $config->setQueryCacheImpl($cache);
 $config->setResultCacheImpl($cache);
 $config->setMetadataCacheImpl($cache);
 
-\Coast\Doctrine\register_dbal_types();
-
-\Doctrine\Common\Annotations\AnnotationRegistry::registerFile($app->root->file('vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php')->toString());
-$reader			= new \Doctrine\Common\Annotations\AnnotationReader();
-$cachedReader	= new \Doctrine\Common\Annotations\CachedReader($reader, $cache, $app->isDevelopment());
-$chain			= new \Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain();
-$driver			= new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($cachedReader, [$app->dir('lib/Ayre/Entity')->toString()]);
-$chain->addDriver($driver, 'Ayre\Entity');
-\Gedmo\DoctrineExtensions::registerAbstractMappingIntoDriverChainORM($chain, $cachedReader);
-$config->setMetadataDriverImpl($chain);
-
-$evm = new \Doctrine\Common\EventManager();
-$classes = [
-	'Ayre\Listener',
-	'Ayre\Entity\File\Listener',
-	'Ayre\Entity\Structure\Node\Listener',
-	'Ayre\Behaviour\Loggable\Listener',
-	'Ayre\Behaviour\Searchable\Listener',
-	'Ayre\Behaviour\Versionable\Listener',
-	'Gedmo\Blameable\BlameableListener',
-	'Gedmo\Timestampable\TimestampableListener',
-	'Gedmo\Tree\TreeListener',
-];
-$listeners = [];
-foreach ($classes as $class) {
-	$listener = new $class();
-	if (method_exists($listener, 'setAnnotationReader')) {
-		$listener->setAnnotationReader($cachedReader);
-	}
-	$evm->addEventSubscriber($listener);
-	$listeners[$class] = $listener;
-}
-
-// $config->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger());
+$evm = new EventManager();
+$evm->addEventSubscriber(new Listener());
+$evm->addEventSubscriber(new FileListener());
+$evm->addEventSubscriber(new NodeListener());
+$evm->addEventSubscriber(new LoggableListener());
+$evm->addEventSubscriber(new SearchableListener());
+$evm->addEventSubscriber(new VersionableListener());
+$evm->addEventSubscriber($trackable = new TrackableListener());
 
 global $em;
-$em = new \Ayre\Doctrine\ORM\EntityManager(\Doctrine\ORM\EntityManager::create(
+$em = new AyreEntityManager(EntityManager::create(
 	$app->config->database + [
-		'driver'	=> 'pdo_mysql',
-		'charset'	=> 'utf8'
+		'driver'  => 'pdo_mysql',
+		'charset' => 'utf8'
 	],
 	$config,
 	$evm
 ));
-$em->blameable($listeners['Gedmo\Blameable\BlameableListener']);
+$em->trackable($trackable);
 $em->getConnection()->exec("SET NAMES utf8");
 $em->getMetadataFactory()->getAllMetadata();
 
 Toast\Wrapper\Collection::$em = $em;
+
 return $em;

@@ -8,14 +8,12 @@ namespace Ayre\Behaviour\Versionable;
 
 use Ayre,
     Ayre\Behaviour\Publishable,
-    Doctrine\Common\Collections\ArrayCollection,
-    Doctrine\ORM\Mapping as ORM,
-    Gedmo\Mapping\Annotation as Gedmo;
+    Doctrine\Common\Collections\ArrayCollection;
 
 trait Implementation
 {
     /**
-     * @ORM\Column(type="integer")
+     * @Column(type="integer")
      */
     protected $version = 1;
 
