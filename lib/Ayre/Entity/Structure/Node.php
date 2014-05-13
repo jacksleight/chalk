@@ -38,7 +38,7 @@ class Node extends \Toast\Entity
 
     /**
      * @OneToMany(targetEntity="\Ayre\Entity\Structure\Node", mappedBy="parent", cascade={"persist"})
-     * @OrderBy({"left" = "ASC"})
+     * @OrderBy({"sort" = "ASC"})
      */
     protected $children;
 
