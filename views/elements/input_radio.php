@@ -10,15 +10,15 @@ if (isset($null)) {
 <? foreach ($values as $value => $label) { ?>
 	<input
 		type="radio"
-		name="<?= implode('_', $md['context']) ?>"
-		id="<?= '_' . implode('_', $md['context']) . '_' . $value ?>"
+		name="<?= "{$md['contextName']}" ?>"
+		id="<?= "_{$md['contextName']}[{$value}]" ?>"
 		value="<?= $this->escape($value) ?>"
 		<?= isset($disabled) && $disabled ? "disabled" : null ?>
 		<?= isset($readOnly) && $readOnly ? "readonly" : null ?>
 		<?= isset($required) && $required ? "required" : null ?>
 		<?= (string) $value === (string) $entity->{$name} ? 'checked' : null ?>
 		<?= isset($class) ? "class=\"{$class}\"" : null ?>>
-	<label for="<?= '_' . implode('_', $md['context']) . '_' . $value ?>" class="radio">
+	<label for="<?= "_{$md['contextName']}[{$value}]" ?>" class="radio">
 		<?= $this->escape($label) ?>
 	</label>
 <? } ?>

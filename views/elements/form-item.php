@@ -24,7 +24,7 @@ $type = !isset($type)
 ?>
 <div class="form-item <?= $md['validator']->hasValidator('Toast\Validator\Set') ? 'required' : 'optional' ?>">
 	<label
-		<?= !in_array($type, ['checkboxes', 'radio']) ? "for=\"_" . implode('_', $md['context']) . "\"" : null ?>
+		<?= !in_array($type, ['checkboxes', 'radio']) ? "for=\"_" . "{$md['contextName']}\"" : null ?>
 		<?=  in_array($type, ['checkbox', 'radio', 'range', 'color']) ? "class=\"shallow\"" : null ?>>
 		<? if ($type != 'input_checkbox') { ?>
 			<?= $label ?>

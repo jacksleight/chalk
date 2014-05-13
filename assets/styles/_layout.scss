@@ -30,6 +30,10 @@ html, body {
 		flex-direction: column;
 		> .flex {
 			flex: 1;
+			overflow: auto;
+		}
+		> .fix {
+			@include flush;
 		}
 	}
 }

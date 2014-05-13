@@ -51,17 +51,7 @@ class Node extends Action
 	public function edit(Request $req, Response $res)
 	{
 		$node = $this->em('Ayre\Entity\Structure\Node')->fetch($req->node);
-		$req->view->node	= $wrap = $this->em->wrap($node);
-		$req->view->entity	= $wrap->content->last;
-
-		// $entity	= $node->content->last;
-		// if ($entity->status == \Ayre::STATUS_PUBLISHED) {
-		// 	$entity = $entity->duplicate();
-		// }
-		// $req->view->entity = $wrap = $this->em->wrap($entity);
-		$req->view->entityType
-			= $req->entityType
-			= Ayre::type($req->view->entity->getObject());
+		$req->view->node = $wrap = $this->em->wrap($node);
 
 		if (!$req->isPost()) {
 			return;
@@ -72,9 +62,26 @@ class Node extends Action
 			return;
 		}
 
-		if (!$this->em->isPersisted($entity)) {
-			$this->em->persist($entity);
+		if (!$this->em->isPersisted($node)) {
+			$this->em->persist($node);
 		}
+		$this->em->flush();
+
+		return $res->redirect($this->url(array()));
+	}
+
+	public function delete(Request $req, Response $res)
+	{
+		$node = $this->em('Ayre\Entity\Structure\Node')->fetch($req->node);
+
+		$parent = $node->parent;
+		$parent->id;
+		foreach ($node->children as $child) {
+			$node->children->removeElement($child);
+			$child->parent	= $parent;
+			$child->sort	= \Ayre\Entity\Structure\Node::SORT_MAX;
+		}
+		$this->em->remove($node);
 		$this->em->flush();
 
 		return $res->redirect($this->url(array(
@@ -82,6 +89,4 @@ class Node extends Action
 			'node'		=> null,
 		), 'structure'));
 	}
-
 }
-

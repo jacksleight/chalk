@@ -1,7 +1,7 @@
 /* Libraries */
 
 (function() {
-  var ffSupport, formats, getOrderedMatches, hasMatches, isFF, isIE, isOpera, isSafari, log, makeArray, operaSupport, safariSupport, stringToArgs, _log;
+  var exportedLog, ffSupport, formats, getOrderedMatches, hasMatches, isFF, isIE, isOpera, isSafari, log, makeArray, operaSupport, safariSupport, stringToArgs, _log;
 
   if (!(window.console && window.console.log)) {
     return;
@@ -144,12 +144,20 @@
   };
 
   if (isIE() || (isFF() && !ffSupport()) || (isOpera() && !operaSupport()) || (isSafari() && !safariSupport())) {
-    window.log = _log;
+    exportedLog = _log;
   } else {
-    window.log = log;
+    exportedLog = log;
   }
 
-  window.log.l = _log;
+  exportedLog.l = _log;
+
+  if (typeof define === 'function' && define.amd) {
+    define(exportedLog);
+  } else if (typeof exports !== 'undefined') {
+    module.exports = exportedLog;
+  } else {
+    window.log = exportedLog;
+  }
 
 }).call(this);
 
@@ -13528,6 +13536,13 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 FastClick.attach(document.body);
 
+/* Utilities */
+
+Ayre.set = function(prefs) {
+	$.ajax(Ayre.baseUrl + 'prefs', {data: prefs});
+};
+
+
 /* Behaviours */
 
 $('.autosubmitable').each(function(i, el) {
@@ -13696,21 +13711,50 @@ $('.thumbs').each(function(i, el) {
 });
 
 $('.structure').each(function(i, el) {
-	$(el).find('.tree').nestable({
-		maxDepth		: 100,
-		rootClass		: 'tree',
-		listClass		: 'tree-list',
-		itemClass		: 'tree-node',
-		dragClass		: 'tree-drag',
-		handleClass		: 'tree-handle',
-		collapsedClass	: 'tree-collapsed',
-		placeClass		: 'tree-placeholder',
-		emptyClass		: 'tree-empty',
-		expandBtnHTML	: '<button type="button" data-action="expand"><span>Expand</span></button>',
-		collapseBtnHTML	: '<button type="button" data-action="collapse"><span>Collapse</span></button>',
-		dropCallback: function(data) {
-			$(el).find('.structure-submit').prop('disabled', false);
-			$(el).find('.structure-data').val(JSON.stringify(this.serialize()));
-		}
-	})
+    var tree = $(el).find('.tree');
+    tree.nestable({
+        maxDepth        : 100,
+        rootClass       : 'tree',
+        listClass       : 'tree-list',
+        itemClass       : 'tree-node',
+        dragClass       : 'tree-drag',
+        handleClass     : 'tree-handle',
+        collapsedClass  : 'tree-collapsed',
+        placeClass      : 'tree-placeholder',
+        emptyClass      : 'tree-empty',
+        expandBtnHTML   : '<button type="button" data-action="expand"><span>Expand</span></button>',
+        collapseBtnHTML : '<button type="button" data-action="collapse"><span>Collapse</span></button>',
+        dropCallback: function(data) {
+            $(el).find('.structure-submit').prop('disabled', false);
+            $(el).find('.structure-data').val(JSON.stringify(this.serialize()));
+            nodes[data.destId] = 1;
+            Ayre.set({
+                nodes: nodes
+            });
+        }
+    })
+    var nodes = Ayre.prefs.nodes || {};
+    tree.find('li').each(function() {
+        var id = $(this).attr('data-id');
+        if (!nodes[id] || nodes[id] == 0) {
+            var button = $(this).find('> [data-action=collapse]');
+            if (button.length) {
+                button[0].click();
+            }
+        }
+    });
+    tree.click(function(ev) {
+        var target = $(ev.target).is('span')
+            ? $(ev.target).parent()
+            : $(ev.target);
+        if (!target.is('button')) {
+            return;
+        }
+        var id     = target.closest('li').attr('data-id');
+        var expand = target.attr('data-action') == 'expand';
+        nodes[id]  = expand ? 1 : 0;
+        Ayre.set({
+            nodes: nodes
+        });
+    });
 });

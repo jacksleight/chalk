@@ -22,24 +22,14 @@ $title	= (isset($title)
 <body class="<?= isset($class) ? $class : '' ?>">
 	<?= $content->body ?>
 	<script>
-		var Ayre = <?= json_encode(\Coast\array_merge_smart(
-			isset($opts) ? $opts : [], [
+		var Ayre = <?= json_encode([
 			'baseUrl'		=> (string) $this->url->baseUrl(),
 			'rootBaseUrl'	=> (string) $this->rootUrl->baseUrl(),
-		])) ?>;
-		Ayre.DOMReady = function(a,b,c){b=document,c='addEventListener';b[c]?b[c]('DOMContentLoaded',a):window.attachEvent('onload',a)}
-   		Ayre.DOMReady(function() {
-   			var scripts = [
-   				'<?= $this->rootUrl->file("vendor/jacksleight/ayre/assets/build/scripts{$code}.js") ?>',
-   				'<?= $this->rootUrl->file("vendor/jacksleight/ayre/assets/build/editor{$code}.js") ?>'
-   			];
-   			for (var i = 0; i < scripts.length; i++) {
-   				var el = document.createElement('script');
-				el.src = scripts[i];
-				document.body.appendChild(el);
-   			}
-		});
+			'prefs'			=> $req->user->prefs(),
+		]) ?>;
 	</script>
+	<script src="<?= $this->rootUrl->file("vendor/jacksleight/ayre/assets/build/scripts{$code}.js") ?>"></script>
+   	<script src="<?= $this->rootUrl->file("vendor/jacksleight/ayre/assets/build/editor{$code}.js") ?>" async></script>
 	<?= $content->foot ?>
 </body>
 </html>

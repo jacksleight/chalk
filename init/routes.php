@@ -13,6 +13,10 @@ $app->router
 		'controller' => 'auth',
 		'action'     => 'logout',
 	])
+	->all('prefs', "prefs", [
+		'controller' => 'index',
+		'action'     => 'prefs',
+	])
 	->all('content', "content/{entityType}?/{action}?/{id}?", [
 		'controller' => 'content',
 		'action'     => 'index',

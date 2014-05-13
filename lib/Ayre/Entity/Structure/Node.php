@@ -15,6 +15,8 @@ use Ayre\Entity,
 */
 class Node extends \Toast\Entity
 {
+    const SORT_MAX = 99999;
+
     /**
      * @Id
      * @Column(type="integer")
@@ -43,22 +45,22 @@ class Node extends \Toast\Entity
     /**
      * @Column(type="integer")
      */
-    protected $sort = 0;
+    protected $sort = self::SORT_MAX;
 
     /**
      * @Column(name="`left`", type="integer")
      */
-    protected $left;
+    protected $left = -1;
 
     /**
      * @Column(name="`right`", type="integer")
      */
-    protected $right;
+    protected $right = -1;
 
     /**
      * @Column(type="integer")
      */
-    protected $depth;
+    protected $depth = -1;
 
     /**
      * @ManyToOne(targetEntity="\Ayre\Entity\Content", inversedBy="nodes")
@@ -93,10 +95,10 @@ class Node extends \Toast\Entity
 
     public function contentMaster(Entity\Content $content = null)
     {
-        if (!$content->isMaster()) {
-            throw new \Ayre\Exception("Content master can only be set to a master content version");
-        }
         if (isset($content)) {
+            if (!$content->isMaster()) {
+                throw new \Ayre\Exception("Content master can only be set to a master content version");
+            }
             $this->contentMaster = $content;
             $this->contentMaster->nodes->add($this);
         }

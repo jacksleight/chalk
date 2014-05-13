@@ -12,6 +12,15 @@ class Index extends Action
 
 	}
 
+	public function prefs(Request $req, Response $res)
+	{
+		foreach ($req->queryParams() as $name => $value) {
+			$req->user->pref($name, $value);
+		}
+		$this->em->flush();
+		return true;
+	}
+
 	public function publish(Request $req, Response $res)
 	{
 		$this->app->publish();

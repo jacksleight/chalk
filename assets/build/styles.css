@@ -1718,7 +1718,7 @@ legend {
 .toolbar > li {
   vertical-align: middle;
 }
-.toolbar > li.space {
+.toolbar > li + li.space {
   padding-left: 15px;
 }
 .toolbar a {
@@ -1929,6 +1929,36 @@ legend {
 .structure .tree {
   margin-top: 0;
 }
+.structure .tree-status-pending {
+  color: #fc6042;
+}
+.structure .tree-status-pending:visited {
+  color: #fc6042;
+}
+.structure .tree-status-pending:focus {
+  color: #fc6042;
+}
+.structure .tree-status-pending:hover {
+  color: #fc6042;
+}
+.structure .tree-status-pending:active {
+  color: #fc6042;
+}
+.structure .tree-status-archived {
+  color: rgba(255, 255, 255, 0.3);
+}
+.structure .tree-status-archived:visited {
+  color: rgba(255, 255, 255, 0.3);
+}
+.structure .tree-status-archived:focus {
+  color: rgba(255, 255, 255, 0.3);
+}
+.structure .tree-status-archived:hover {
+  color: rgba(255, 255, 255, 0.3);
+}
+.structure .tree-status-archived:active {
+  color: rgba(255, 255, 255, 0.3);
+}
 
 .tree {
   -webkit-user-select: none;
@@ -1968,6 +1998,7 @@ legend {
   top: 9px;
   left: 20px;
   opacity: 0.1;
+  z-index: 1;
   display: inline-block;
   background-repeat: no-repeat;
   background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTAgMGgxMHYxMGgtMTB6Ii8+PC9zdmc+');
@@ -2098,15 +2129,6 @@ legend {
   color: white;
 }
 
-.tree-status-pending {
-  color: #fc6042;
-}
-
-.tree-status-archived {
-  opacity: 0.5;
-  text-decoration: line-through;
-}
-
 /* Page */
 html {
   background: white;
@@ -2140,6 +2162,10 @@ html, body {
 }
 .frame .fill > .flex {
   flex: 1;
+  overflow: auto;
+}
+.frame .fill > .fix > *:first-child {
+  margin-top: 0 !important;
 }
 
 .sidebar {

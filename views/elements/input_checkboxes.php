@@ -6,12 +6,12 @@ $values = isset($values)
 <? foreach ($values as $value) { ?>
 	<input
 		type="hidden"
-		name="<?= implode('_', $md['context']) . '_' . $value ?>"
+		name="<?= "{$md['contextName']}[{$value}]" ?>"
 		value="0">
 	<input
 		type="checkbox"
-		name="<?= implode('_', $md['context']) . '_' . $value ?>"
-		id="<?= '_' . implode('_', $md['context']) . '_' . $value ?>"
+		name="<?= "{$md['contextName']}[{$value}]" ?>"
+		id="<?= "_{$md['contextName']}[{$value}]" ?>"
 		value="1"
 		<?= isset($disabled) && $disabled ? "disabled" : null ?>
 		<?= isset($readOnly) && $readOnly ? "readonly" : null ?>
@@ -19,7 +19,7 @@ $values = isset($values)
 			? array_map(function($value) { return (string) $value; }, $entity->{$name}->toArray())
 			: $entity->{$name}) ? 'checked' : null ?>
 		<?= isset($class) ? "class=\"{$class}\"" : null ?>> 
-	<label for="<?= '_' . implode('_', $md['context']) . '_' . $value ?>" class="checkbox">
+	<label for="<?= "_{$md['contextName']}[{$value}]" ?>" class="checkbox">
 		<?= $this->escape($this->locale->message((is_object($value)
 			? $value->name
 			: $this->locale->message("label_{$name}_{$value}")))) ?>

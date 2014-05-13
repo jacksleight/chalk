@@ -1,10 +1,3 @@
-<? $this->layout('/layouts/body') ?>
-<? $this->block('main') ?>
-
-<?= $content->main ?>
-
-<? $this->block('sidebar') ?>
-
 <?php
 $repo		= $this->em('Ayre\Entity\Domain');
 $structures	= $repo->fetchAll();
@@ -14,6 +7,13 @@ if (!isset($structure)) {
 }
 $repo->fetchTree($structure);
 ?>
+<? $this->layout('/layouts/body') ?>
+<? $this->block('main') ?>
+
+<?= $content->main ?>
+
+<? $this->block('sidebar') ?>
+
 <form action="<?= $this->url([
 	'action'	=> 'reorder',
 	'structure'	=> $structure->id,

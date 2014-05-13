@@ -9,15 +9,19 @@ namespace Ayre\Entity\Structure\Node;
 use Ayre\Entity, 
     Doctrine\Common\EventSubscriber,
     Doctrine\ORM\Event\OnFlushEventArgs,
+    Doctrine\ORM\Event\PostFlushEventArgs,
     Doctrine\ORM\Events,
     Doctrine\ORM\UnitOfWork;
 
 class Listener implements EventSubscriber
 {
+    protected $_structures = [];
+
     public function getSubscribedEvents()
     {
         return [
             Events::onFlush,
+            Events::postFlush,
         ];
     }
 
@@ -36,15 +40,24 @@ class Listener implements EventSubscriber
             if (!$entity instanceof Entity\Structure\Node) {
                 continue;
             }
-            if (!in_array($entity->structure, $structures, true)) {
-                $structures[] = $entity->structure;
+            if (!in_array($entity->structure, $this->_structures, true)) {
+                $this->_structures[] = $entity->structure;
             }
         }
+    }
 
-        foreach ($structures as $structure) {
-            if (!$structure->isNew()) {
-                $em->getRepository('Ayre\Entity\Structure')->fetchNodes($structure);
-            }
+    public function postFlush(PostFlushEventArgs $args)
+    {
+        $em  = $args->getEntityManager();
+        $uow = $em->getUnitOfWork();
+
+        if (!count($this->_structures)) {
+            return;
+        }
+
+        while (count($this->_structures)) {
+            $structure = array_shift($this->_structures);
+            $em->getRepository('Ayre\Entity\Structure')->fetchTree($structure);
             $it    = $structure->iterator();
             $j     = 0;
             $stack = [];
@@ -65,9 +78,7 @@ class Listener implements EventSubscriber
             foreach (array_reverse($stack) as $reverse) {
                 $reverse->right = ++$j;
             }
-            foreach ($it as $node) {
-                $uow->recomputeSingleEntityChangeSet($em->getClassMetadata(get_class($node)), $node);
-            }
         }
+        $em->flush();
     }
 }

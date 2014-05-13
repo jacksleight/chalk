@@ -1045,7 +1045,7 @@ legend {
 	}
 	> li {
 		vertical-align: middle;
-		&.space {
+		& + li.space {
 			padding-left: $gutter * 0.75;
 		}
 	}
@@ -1235,6 +1235,12 @@ legend {
 	.tree {
 		margin-top: 0;
 	}
+	.tree-status-pending {
+		@include link-color($color-pending);
+	}
+	.tree-status-archived {
+		@include link-color(transparentize(white, 0.7));
+	}
 }
 .tree {
 	-webkit-user-select: none;
@@ -1270,6 +1276,7 @@ legend {
 		top: 9px;
 		left: $gutter;
 		opacity: 0.1;
+		z-index: 1;
 		@include sprite(blank, 10px, 10px);
 	}
 	button {
@@ -1353,12 +1360,4 @@ legend {
 	&, a {
 		@include link-color(white);
 	}
-}
-
-.tree-status-pending {
-	color: $color-pending;
-}
-.tree-status-archived {
-	opacity: 0.5;
-	text-decoration: line-through;
 }

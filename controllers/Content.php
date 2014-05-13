@@ -32,9 +32,6 @@ class Content extends Ayre\Controller\Entity
 	public function edit(Request $req, Response $res)
 	{
 		$content = $this->em($req->entityType->class)->fetchOrCreate($req->id);
-		if ($content->status == \Ayre::STATUS_PUBLISHED) {
-			$content = $content->duplicate();
-		}
 		$req->view->content = $wrap = $this->em->wrap($content);
 
 		if (!$req->isPost()) {

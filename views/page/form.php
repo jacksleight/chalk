@@ -1,4 +1,6 @@
-<?= $this->render('/content/actions-top') ?>
+<ul class="toolbar">
+	<?= $this->render('/content/tools') ?>
+</ul>
 <?= $this->render('/content/header') ?>
 <?= $this->render('/content/meta') ?>
 <form action="<?= $this->url->route() ?>" method="post">
@@ -49,12 +51,27 @@
 					'name'			=> 'name',
 					'label'			=> 'Label',
 					'placeholder'	=> $content->name,
-					'note'			=> 'Alternative text used in navigation and URLs',
+					'note'			=> 'Text used in navigation and URLs',
 				)) ?>
 			</div>
 		</fieldset>
 	<? } ?>
 	<fieldset>
-		<?= $this->render('/content/actions-bottom') ?>
+		<ul class="toolbar">
+			<?= $this->render('/content/actions-primary') ?>
+		</ul>
+		<ul class="toolbar">
+			<?= $this->render('/content/actions-secondary') ?>
+			<? if (isset($node) && !$node->isRoot()) { ?>
+				<li class="space"><a href="<?= $this->url([
+					'action' => 'delete'
+				]) ?>" class="btn btn-negative btn-quiet confirmable">
+					<i class="fa fa-times"></i>
+					Remove <?= $entityType->singular ?>
+				</a>
+				<small>&nbsp;from <?= $structure->label ?></small>
+				</li>
+			<? } ?>
+		</ul>
 	</fieldset>
 </form>

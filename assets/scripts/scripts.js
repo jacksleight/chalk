@@ -15,6 +15,10 @@
 
 FastClick.attach(document.body);
 
+/* Utilities */
+
+//= require utils/prefs.js
+
 /* Behaviours */
 
 //= require behaviours/autosubmitable.js

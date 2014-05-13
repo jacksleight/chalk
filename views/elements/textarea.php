@@ -5,8 +5,8 @@ $maxlength	= $md['validator']->hasValidator('Toast\Validator\Length')
 	: null;
 ?>
 <textarea
-	name="<?= implode('_', $md['context']) ?>"
-	id="<?= '_' . implode('_', $md['context']) ?>"
+	name="<?= "{$md['contextName']}" ?>"
+	id="<?= "_{$md['contextName']}" ?>"
 	<?= isset($class) ? "class=\"{$class}\"" : null ?>
 	<?= isset($disabled) && $disabled ? "disabled" : null ?>
 	<?= isset($readOnly) && $readOnly ? "readonly" : null ?>

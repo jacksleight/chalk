@@ -1,4 +1,6 @@
-<?= $this->render('/content/actions-top') ?>
+<ul class="toolbar">
+	<?= $this->render('/content/tools') ?>
+</ul>
 <?= $this->render('/content/header') ?>
 <?= $this->render('/content/meta') ?>
 <form action="<?= $this->url->route() ?>" method="post">
@@ -24,6 +26,11 @@
 		</div>
 	</fieldset>
 	<fieldset>
-		<?= $this->render('/content/actions-bottom') ?>
+		<ul class="toolbar">
+			<?= $this->render('/content/actions-primary') ?>
+		</ul>
+		<ul class="toolbar">
+			<?= $this->render('/content/actions-secondary') ?>
+		</ul>
 	</fieldset>
 </form>

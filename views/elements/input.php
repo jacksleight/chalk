@@ -3,8 +3,8 @@ $required = $md['validator']->hasValidator('Toast\Validator\Set');
 ?>
 <input
 	type="<?= $type ?>"
-	name="<?= implode('_', $md['context']) ?>"
-	id="<?= '_' . implode('_', $md['context']) ?>"
+	name="<?= "{$md['contextName']}" ?>"
+	id="<?= "_{$md['contextName']}" ?>"
 	<?= isset($value) ? "value=\"" . $this->escape($value) . "\"" : null ?>
 	<?= isset($class) ? "class=\"{$class}\"" : null ?>
 	<?= isset($disabled) && $disabled ? "disabled" : null ?>

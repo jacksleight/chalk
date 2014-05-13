@@ -26,7 +26,7 @@ $values = isset($values)
 						<input
 							type="checkbox"
 							name="<?= "{$md['contextName']}[{$value}]" ?>"
-							id="<?= '_' . "{$md['contextName']}[{$value}]" ?>"
+							id="<?= "_{$md['contextName']}[{$value}]" ?>"
 							value="1"
 							<?= isset($disabled) && $disabled ? "disabled" : null ?>
 							<?= isset($readOnly) && $readOnly ? "readonly" : null ?>
@@ -34,7 +34,7 @@ $values = isset($values)
 								? array_map(function($value) { return (string) $value; }, $entity->{$name}->toArray())
 								: $entity->{$name}) ? 'checked' : null ?>
 							<?= isset($class) ? "class=\"{$class}\"" : null ?>> 
-						<label for="<?= '_' . "{$md['contextName']}[{$value}]" ?>" class="checkbox">
+						<label for="<?= "_{$md['contextName']}[{$value}]" ?>" class="checkbox">
 							<?= $this->escape((string) $label) ?>
 						</label>
 					</li>

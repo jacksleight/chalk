@@ -6,7 +6,8 @@
 
 namespace Ayre\Repository\Structure;
 
-use Ayre\Entity\Structure\Node as EntityNode;
+use Ayre\Entity\Structure,
+    Ayre\Entity\Structure\Node as EntityNode;
 
 class Node extends \Ayre\Repository
 {
@@ -67,18 +68,6 @@ class Node extends \Ayre\Repository
             ->getResult();
     }
 
-    public function fetchTree(EntityNode $node, $include = false, $depth = null)
-    {
-        $this->fetchAll([
-            'node'    => $node,
-            'include' => false,
-            'depth'   => $depth,
-        ]);
-        return $include
-            ? [$node]
-            : $node->children;
-    }
-
     public function fetchDescendants(EntityNode $node, $include = false, $depth = null)
     {
         return $this->fetchAll([
@@ -90,7 +79,11 @@ class Node extends \Ayre\Repository
 
     public function fetchChildren(EntityNode $node, $include = false)
     {
-        return $this->fetchDescendants($node, $include, 1);
+        return $this->fetchAll([
+            'node'    => $node,
+            'include' => $include,
+            'depth'   => 1,
+        ]);
     }
 
     public function fetchParents(EntityNode $node, $include = false, $reverse = false)
@@ -134,7 +127,17 @@ class Node extends \Ayre\Repository
         return $nodes;
     }
 
-    public function fetchByPath(Entity\Structure $struct, $path, $published = false)
+    public function fetchTree(EntityNode $node, $include = false, $depth = null)
+    {
+        $nodes = $this->fetchAll([
+            'node'    => $node,
+            'include' => true,
+            'depth'   => $depth,
+        ]);
+        return $include ? [$nodes[0]] : $nodes[0]->children;
+    }
+
+    public function fetchByPath(Structure $structure, $path, $published = false)
     {
         $params = [
             'structure' => $structure,
