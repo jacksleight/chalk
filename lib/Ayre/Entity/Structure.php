@@ -17,7 +17,7 @@ use Ayre\Entity,
 /**
  * @Entity
  * @InheritanceType("SINGLE_TABLE")
- * @DiscriminatorColumn(name="entity_class", type="string")
+ * @DiscriminatorColumn(name="type", type="string")
 */
 class Structure extends \Toast\Entity implements Loggable, Publishable, Trackable, Versionable
 {

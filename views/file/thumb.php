@@ -27,7 +27,7 @@ $covered  = isset($covered)  && $covered;
 					<? } else { ?>
 						<div class="text"><span><i class="fa fa-file"></i></span></div>
 					<? } ?>
-					<span class="label label-status-<?= $content->status ?>">
+					<span class="badge badge-status badge-<?= $content->status ?>">
 						<?= $content->status ?>
 					</span>
 					<? if ($covered) { ?>

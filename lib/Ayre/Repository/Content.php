@@ -21,11 +21,6 @@ class Content extends Repository
 
 		$params = [];
 		$qb = $this->createQueryBuilder('c');
-
-		if ($this->_entityName != 'Ayre\Entity\Content') {
-			$qb->andWhere("c INSTANCE OF :class");
-			$params['class'] = $this->_entityName;
-		}
 		
 		$qb->andWhere("c.next IS NULL");
 		
@@ -38,7 +33,7 @@ class Content extends Repository
 		if (isset($criteria['search'])) {
 			$results = $this->_em->getRepository('Ayre\Entity\Index')
 				->search($criteria['search'], $this->_class->name);
-			$ids = \Coast\array_column($results, 'entity_id');
+			$ids = \Coast\array_column($results, 'entityId');
 			$qb ->andWhere("c.id IN (:ids)")
 				->addSelect("FIELD(c.id, :ids) AS HIDDEN sort")
 				->orderBy("sort");
@@ -91,5 +86,22 @@ class Content extends Repository
 				],
 			])
 			->getResult();
+	}
+
+	public function fetchCountForPublish()
+	{
+		return $this->_em->createQueryBuilder()
+			->select("COUNT(c)")
+			->from($this->_class->name, "c")
+			->where("c.status IN (:statuses)")
+			->addOrderBy("c.master")
+			->addOrderBy("c.version", "DESC")
+			->getQuery()
+			->setParameters([
+				'statuses' => [
+					\Ayre::STATUS_PENDING,
+				],
+			])
+			->getSingleScalarResult();
 	}
 }

@@ -6,7 +6,7 @@
 
 namespace Ayre\Entity\Structure\Node;
 
-use Ayre\Entity, 
+use Ayre\Entity\Structure\Node, 
     Doctrine\Common\EventSubscriber,
     Doctrine\ORM\Event\OnFlushEventArgs,
     Doctrine\ORM\Event\PostFlushEventArgs,
@@ -16,6 +16,8 @@ use Ayre\Entity,
 class Listener implements EventSubscriber
 {
     protected $_structures = [];
+
+    protected $_isFlushing = false;
 
     public function getSubscribedEvents()
     {
@@ -27,6 +29,10 @@ class Listener implements EventSubscriber
 
     public function onFlush(OnFlushEventArgs $args)
     {
+        if ($this->_isFlushing) {
+            return;
+        }
+
         $em  = $args->getEntityManager();
         $uow = $em->getUnitOfWork();
 
@@ -37,7 +43,7 @@ class Listener implements EventSubscriber
             $uow->getScheduledEntityDeletions()
         );
         foreach ($entities as $entity) {
-            if (!$entity instanceof Entity\Structure\Node) {
+            if (!$entity instanceof Node) {
                 continue;
             }
             if (!in_array($entity->structure, $this->_structures, true)) {
@@ -48,15 +54,14 @@ class Listener implements EventSubscriber
 
     public function postFlush(PostFlushEventArgs $args)
     {
-        $em  = $args->getEntityManager();
-        $uow = $em->getUnitOfWork();
-
-        if (!count($this->_structures)) {
+        if ($this->_isFlushing) {
             return;
         }
 
-        while (count($this->_structures)) {
-            $structure = array_shift($this->_structures);
+        $em  = $args->getEntityManager();
+        $uow = $em->getUnitOfWork();
+
+        foreach ($this->_structures as $structure) {       
             $em->getRepository('Ayre\Entity\Structure')->fetchTree($structure);
             $it    = $structure->iterator();
             $j     = 0;
@@ -79,6 +84,10 @@ class Listener implements EventSubscriber
                 $reverse->right = ++$j;
             }
         }
+        $this->_structures = [];
+
+        $this->_isFlushing = true;
         $em->flush();
+        $this->_isFlushing = false;
     }
 }

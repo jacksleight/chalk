@@ -51,7 +51,7 @@ $contents = $this->em($entityType->class)
 						<?= $content->modifyDate->diffForHumans() ?>
 					</td>	
 					<td class="col-status">
-						<span class="label label-status-<?= $content->status ?>"><?= $content->status ?></span>
+						<span class="badge badge-status badge-<?= $content->status ?>"><?= $content->status ?></span>
 					</td>	
 				</tr>
 			<? } ?>

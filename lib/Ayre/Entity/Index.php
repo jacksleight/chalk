@@ -25,14 +25,14 @@ class Index extends \Toast\Entity
     /**
      * @Column(type="string")
      */
-    protected $entity_class;
+    protected $entityType;
 
     /**
      * @Column(type="integer")
      */
-    protected $entity_id;
+    protected $entityId;
     
-    protected $entity_obj;
+    protected $entityObject;
 
 	/**
      * @Column(type="text")

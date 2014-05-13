@@ -34,7 +34,7 @@ $repo->fetchTree($structure);
 						<li>
 							<a href="<?= $this->url([
 								'structure' => $listStructure->id,
-							]) ?>">
+							]) ?>" class="item">
 								<? if ($listStructure instanceof \Ayre\Entity\Domain) { ?>
 									<i class="fa fa-globe fa-fw"></i>
 								<? } else if ($listStructure instanceof \Ayre\Entity\Menu) { ?>

@@ -34,7 +34,7 @@ class Listener implements EventSubscriber
             'targetEntity' => $class,
             'inversedBy'   => 'versions',
             'joinColumns'  => [[
-                'name'                 => 'master_id',
+                'name'                 => 'masterId',
                 'referencedColumnName' => 'id',
                 'onDelete'             => 'CASCADE',
             ]]
@@ -44,7 +44,7 @@ class Listener implements EventSubscriber
             'targetEntity' => $class,
             'inversedBy'   => 'next',
             'joinColumns'  => [[
-                'name'                 => 'previous_id',
+                'name'                 => 'previousId',
                 'referencedColumnName' => 'id',
                 'onDelete'             => 'CASCADE',
             ]]
@@ -54,7 +54,7 @@ class Listener implements EventSubscriber
             'targetEntity' => $class,
             'inversedBy'   => 'previous',
             'joinColumns'  => [[
-                'name'                 => 'next_id',
+                'name'                 => 'nextId',
                 'referencedColumnName' => 'id',
                 'onDelete'             => 'CASCADE',
             ]]

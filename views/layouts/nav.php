@@ -10,16 +10,19 @@
 		$path = $this->url($params, $name, true, false);
 		$current = isset($req) ? $req->path() : '';
 		$class = [
-			strpos($current, $path->toString()) === 0 ? 'active' : null,
+			strlen($path->toString()) && strpos($current, $path->toString()) === 0 ? 'active' : null,
 		];
 		?>
 		<li>
-			<a href="<?= $this->url() . $path ?>" class="<?= implode(' ', $class) ?>">
+			<a href="<?= $this->url() . $path ?>" class="item <?= implode(' ', $class) ?>">
 				<? if (isset($item['icon'])) { ?>
 					<i class="<?= $item['icon'] ?>"></i>
 				<? } ?>
 				<? if (isset($item['label'])) { ?>
-					<?= $item['label'] ?>
+					<span><?= $item['label'] ?></span>
+				<? } ?>
+				<? if (isset($item['badge'])) { ?>
+					<span class="badge badge-figure badge-pending"><?= $item['badge'] ?></span>
 				<? } ?>
 			</a>
 		</li>

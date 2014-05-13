@@ -34,7 +34,7 @@ $values = isset($values)
 								? array_map(function($value) { return (string) $value; }, $entity->{$name}->toArray())
 								: $entity->{$name}) ? 'checked' : null ?>
 							<?= isset($class) ? "class=\"{$class}\"" : null ?>> 
-						<label for="<?= "_{$md['contextName']}[{$value}]" ?>" class="checkbox">
+						<label for="<?= "_{$md['contextName']}[{$value}]" ?>" class="item checkbox">
 							<?= $this->escape((string) $label) ?>
 						</label>
 					</li>

@@ -48,7 +48,7 @@ $users = $this->em($entityType->class)
 		<? foreach ($users as $user) { ?>
 			<tr class="clickable">
 				<td class="col-status">
-					<span class="label label-status-<?= (int) $user->isEnabled ?>">
+					<span class="badge badge-status badge-<?= (int) $user->isEnabled ?>">
 						<i class="fa fa-<?= $user->isEnabled ? 'check' : 'times' ?>"></i>
 					</span>					
 				</td>

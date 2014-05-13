@@ -1,0 +1,28 @@
+<? $this->layout('/layouts/body') ?>
+<? $this->block('main') ?>
+
+<?= $content->main ?>
+
+<? $this->block('sidebar') ?>
+
+<nav class="menu menu-simple" role="navigation">
+	<?= $this->render('nav', ['items' => [
+		[
+			'label' => 'Pages',
+			'name'	=> 'content',
+			'params'=> ['entityType' => 'core-page'],
+			// 'badge'	=> 120,
+		], [
+			'label' => 'Files',
+			'name'	=> 'content',
+			'params'=> ['entityType' => 'core-file'],
+			// 'badge'	=> 12,
+		], 
+		[
+			'label' => 'URLs',
+			'name'	=> 'content',
+			'params'=> ['entityType' => 'core-url'],
+			// 'badge'	=> 12,
+		]
+	]]) ?>
+</nav>

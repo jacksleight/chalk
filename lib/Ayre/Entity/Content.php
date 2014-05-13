@@ -17,8 +17,8 @@ use Ayre,
 
 /**
  * @Entity
- * @InheritanceType("JOINED")
- * @DiscriminatorColumn(name="entity_class", type="string")
+ * @InheritanceType("SINGLE_TABLE")
+ * @DiscriminatorColumn(name="type", type="string")
 */
 abstract class Content extends \Toast\Entity implements Loggable, Publishable, Searchable, Trackable, Versionable
 {

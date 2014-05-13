@@ -1,6 +1,6 @@
 <ul class="meta">
 	<li>
-		<span class="label label-status-<?= $content->status ?>">
+		<span class="badge badge-status badge-<?= $content->status ?>">
 			<?= $content->status ?>
 		</span>
 	</li>

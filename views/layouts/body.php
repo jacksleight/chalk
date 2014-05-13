@@ -1,3 +1,6 @@
+<?php
+$count = $this->em('Ayre\Entity\Content')->fetchCountForPublish();
+?>
 <? $this->layout('/layouts/html') ?>
 <? $this->block('body') ?>
 
@@ -5,17 +8,17 @@
 	<div class="sidebar">
 		<?= $this->render('nav', ['items' => [
 			[
-				// 'label' => 'Content',
+				'label' => 'Content',
 				'icon'	=> 'fa fa-picture-o',
 				'name'	=> 'content',
 			], [
-				// 'label' => 'Structure',
+				'label' => 'Structure',
 				'icon'	=> 'fa fa-sitemap',
 				'params'=> ['controller' => 'structure'],
 			], [
-				// 'label' => 'Live',
+				'label' => 'Live',
 				'icon'	=> 'fa fa-eye',
-				'params'=> ['controller' => 'live'],
+				'params'=> ['controller' => null],
 			]
 		], 'class' => 'toggle']) ?>
 		<div class="body">
@@ -23,13 +26,13 @@
 		</div>
 		<?= $this->render('nav', ['items' => [
 			[
-				// 'label' => 'Settings',
+				'label' => 'Settings',
 				'icon'	=> 'fa fa-gear fa-fw',
 				'params'=> ['controller' => 'user'],
 			], [
-				// 'label' => 'Activity',
+				'label' => 'Activity',
 				'icon'	=> 'fa fa-bar-chart-o fa-fw',
-				'params'=> ['controller' => 'activity'],
+				'params'=> ['controller' => null],
 			]
 		], 'class' => 'toggle']) ?>
 		<footer class="footer c" role="contentinfo">
@@ -39,15 +42,18 @@
 	<div class="main">
 		<div class="topbar">
 			<ul class="toolbar">
-				<li>
-					<a href="<?= $this->url([
-						'controller' => 'index',
-						'action'	 => 'publish',
-					], 'index', true) ?>" class="btn btn-inline btn-published btn-quiet">
-						<i class="fa fa-globe"></i>
-						Publish Pending Items…
-					</a>
-				</li>
+				<? if ($count) { ?>
+					<li>
+						<a href="<?= $this->url([
+							'controller' => 'index',
+							'action'	 => 'publish',
+						], 'index', true) ?>" class="btn btn-inline btn-pending">
+							<i class="fa fa-globe"></i>
+							Publish
+						</a>
+						<small>&nbsp;&nbsp;<strong><?= $count ?></strong> pending items</small>
+					</li>
+				<? } ?>
 			</ul>
 			<ul class="toolbar">
 				<li>
@@ -59,7 +65,7 @@
 					<a href="<?= $this->url([], 'logout', true) ?>">Logout</a>
 				</li>
 			</ul>
-			<p class="title">Example Site</p>
+			<p class="title"><?= $this->options->name ?></p>
 		</div>
 		<section class="body" role="main">
 			<?= $content->main ?>

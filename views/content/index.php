@@ -1,4 +1,4 @@
-<? $this->layout('/layouts/page') ?>
+<? $this->layout('/layouts/page_content') ?>
 <? $this->block('main') ?>
 
 <? if ($entityType->name != 'core_content') { ?>

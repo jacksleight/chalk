@@ -57,10 +57,17 @@ html, body {
 		a {
 			text-decoration: none;
 			text-align: center;
-			@include font-size(5);
 			display: block;
-			line-height: 64px;
+			padding: 12px 0;
+			line-height: 1.4;
 			@include link-color(tint($color-primary, 50%));
+			i {
+				@include font-size(2);
+			}
+			span {
+				display: block;
+				@include font-size(-2);
+			}
 			&:hover, &:focus, &.active {
 				@include link-color(white);
 			}
@@ -97,16 +104,21 @@ html, body {
 		position: relative;
 		padding: $gutter $gutter * 1.5;
 		.flex {
-			padding: 0 $gutter * 1.5;
+			padding: $gutter $gutter * 1.5;
 			@include flush();
 			position: relative;
-			overflow-y: scroll;
+			overflow: auto;
 		}
 		.fix {
 			padding: $gutter $gutter * 1.5;
 			@include flush();
 			position: relative;
-			overflow-y: scroll;
+			&:first-child {
+				border-bottom: 1px solid $color-divide;
+			}
+			&:last-child {
+				border-top: 1px solid $color-divide;
+			}
 		}
 	}
 }

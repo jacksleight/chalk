@@ -25,7 +25,6 @@ class Listener implements EventSubscriber
         $meta      = $args->getClassMetadata();
         $class     = $meta->name;
         $rootClass = $meta->rootEntityName;
-        $namespace = __NAMESPACE__ . '\\Entity';
         try {
             $type = Ayre::type($class);
         } catch (\Exception $e) {
@@ -34,6 +33,30 @@ class Listener implements EventSubscriber
         
         if ($class == $rootClass || $meta->inheritanceType == 2) {
             $meta->setTableName($type->name);
+        }
+
+        $names = $meta->getAssociationNames();
+        foreach ($names as $name) {
+            $mapping = $meta->getAssociationMapping($name);
+            if (!isset($mapping['joinColumns'])) {
+                continue;
+            }
+            foreach ($mapping['joinColumns'] as $i => $joinColumn) {
+                $mapping['joinColumns'][$i]['name'] = "{$mapping['fieldName']}Id";
+            }
+            $meta->setAssociationOverride($name, $mapping);
+        }
+
+        if ($class != $rootClass) {
+            $names = $meta->getFieldNames();
+            foreach ($names as $name) {
+                $mapping = $meta->getFieldMapping($name);
+                if (isset($mapping['inherited'])) {
+                    continue;
+                }
+                $mapping['columnName'] = "{$type->name}_" . trim($mapping['columnName'], '`');
+                $meta->setAttributeOverride($name, $mapping);
+            }
         }
  
         $repositoryClasses = [
@@ -54,7 +77,7 @@ class Listener implements EventSubscriber
         if (isset($meta->discriminatorMap)) {
             foreach ($meta->discriminatorMap as $discriminatorId => $discriminatorClass) {
                 unset($meta->discriminatorMap[$discriminatorId]);
-                $meta->discriminatorMap[Ayre::type($discriminatorClass)->class] = $discriminatorClass;
+                $meta->discriminatorMap[Ayre::type($discriminatorClass)->name] = $discriminatorClass;
             }
         }
 

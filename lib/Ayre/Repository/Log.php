@@ -7,27 +7,27 @@
 namespace Ayre\Repository;
 
 use Ayre,
-	Ayre\Entity,
-	Ayre\Behaviour\Loggable,
-	Ayre\Repository;
+    Ayre\Entity,
+    Ayre\Behaviour\Loggable,
+    Ayre\Repository;
 
 class Log extends Repository
 {
-	public function fetchAll(array $criteria = array())
-	{
-		$params = [];
-		$qb = $this->_em->createQueryBuilder()
-			->select("l")
-			->from("\Ayre\Entity\Log", "l");
-		if (isset($critera['entity'])) {
-			$qb ->andWhere("l.entity_class = :entity_class")
-				->andWhere("l.entity_id = :entity_id");
-			$params['entity_class']	= get_class($entity);
-			$params['entity_id']	= $entity->id;
-		}
-		return $qb
-			->getQuery()
-			->setParameters($params)		
-			->getResult();
-	}
+    public function fetchAll(array $criteria = array())
+    {
+        $params = [];
+        $qb = $this->_em->createQueryBuilder()
+            ->select("l")
+            ->from("\Ayre\Entity\Log", "l");
+        if (isset($critera['entity'])) {
+            $qb ->andWhere("l.entityType = :entityType")
+                ->andWhere("l.entityId = :entityId");
+            $params['entityType'] = \Ayre::type($entity)->name;
+            $params['entityId']   = $entity->id;
+        }
+        return $qb
+            ->getQuery()
+            ->setParameters($params)        
+            ->getResult();
+    }
 }

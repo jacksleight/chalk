@@ -1,4 +1,3 @@
-@charset "utf-8";
 /* Configuration */
 /* Partials */
 /* Media */
@@ -47,7 +46,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 300;
   color: #3a424c;
   margin: 20px 0 0 0;
-  line-height: 1.3;
+  line-height: 1;
 }
 
 h1 {
@@ -173,6 +172,8 @@ mark {
   background-color: yellow;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
   border-radius: 2px;
 }
 
@@ -204,6 +205,8 @@ pre, code {
   font-size: 1rem;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
   border-radius: 0;
 }
 
@@ -262,9 +265,9 @@ small {
   color: #fc6042;
 }
 
-/* Label */
-.label, .label-status, .label-status-draft, .label-status-0,
-.label-status-archived, .label-status-pending, .label-status-1, .label-status-published {
+/* Badge */
+.badge, .badge-status, .badge-0,
+.badge-archived, .badge-pending, .badge-1, .badge-published {
   background-color: #9ca0a5;
   border: 1px solid #9ca0a5;
   color: white;
@@ -275,31 +278,38 @@ small {
   display: inline-block;
   line-height: 1.6;
 }
-td .label, td .label-status, td .label-status-draft, td .label-status-0,
-td .label-status-archived, td .label-status-pending, td .label-status-1, td .label-status-published, th .label, th .label-status, th .label-status-draft, th .label-status-0,
-th .label-status-archived, th .label-status-pending, th .label-status-1, th .label-status-published {
+td .badge, td .badge-status, td .badge-0,
+td .badge-archived, td .badge-pending, td .badge-1, td .badge-published, th .badge, th .badge-status, th .badge-0,
+th .badge-archived, th .badge-pending, th .badge-1, th .badge-published {
   width: 100%;
 }
 
-.label-status, .label-status-draft, .label-status-0,
-.label-status-archived, .label-status-pending, .label-status-1, .label-status-published {
+.badge-figure {
+  border-radius: 1000px;
+}
+
+.badge-status {
   text-transform: uppercase;
 }
 
-.label-status-0,
-.label-status-archived {
+.badge-0,
+.badge-archived {
   background-color: white;
   color: #9ca0a5;
 }
 
-.label-status-pending {
+.badge-pending {
   background-color: #fc6042;
   border-color: #fc6042;
 }
 
-.label-status-1 {
+.badge-1 {
   background-color: #2cc95c;
   border-color: #2cc95c;
+}
+
+.status-pending {
+  color: #fc6042;
 }
 
 /* Icons */
@@ -563,8 +573,8 @@ figure figcaption {
   bottom: auto;
   top: 0;
 }
-.thumb .preview .label, .thumb .preview .label-status, .thumb .preview .label-status-draft, .thumb .preview .label-status-0,
-.thumb .preview .label-status-archived, .thumb .preview .label-status-pending, .thumb .preview .label-status-1, .thumb .preview .label-status-published {
+.thumb .preview .badge, .thumb .preview .badge-status, .thumb .preview .badge-0,
+.thumb .preview .badge-archived, .thumb .preview .badge-pending, .thumb .preview .badge-1, .thumb .preview .badge-published {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -603,6 +613,8 @@ table {
   border-spacing: 0;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
   border-radius: 0;
 }
 table tr th, table tr td {
@@ -761,6 +773,8 @@ select,
   border-color: #cdcfd2;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
   border-radius: 0;
   outline: 0;
   -webkit-appearance: none;
@@ -1020,6 +1034,8 @@ button,
   border-color: #f1f1f2;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
   border-radius: 0;
   outline: 0;
   cursor: pointer;
@@ -1223,51 +1239,6 @@ button.btn-pending:hover,
 .btn.btn-pending:hover {
   background-color: #e2563b !important;
   border-color: #e2563b !important;
-}
-input[type=reset].btn-published,
-input[type=submit].btn-published,
-input[type=button].btn-published,
-button.btn-published,
-.btn.btn-published {
-  color: white;
-  background-color: #2cc95c;
-  border-color: #2cc95c;
-}
-input[type=reset].btn-published:visited,
-input[type=submit].btn-published:visited,
-input[type=button].btn-published:visited,
-button.btn-published:visited,
-.btn.btn-published:visited {
-  color: white;
-}
-input[type=reset].btn-published:focus,
-input[type=submit].btn-published:focus,
-input[type=button].btn-published:focus,
-button.btn-published:focus,
-.btn.btn-published:focus {
-  color: white;
-}
-input[type=reset].btn-published:hover,
-input[type=submit].btn-published:hover,
-input[type=button].btn-published:hover,
-button.btn-published:hover,
-.btn.btn-published:hover {
-  color: white;
-}
-input[type=reset].btn-published:active,
-input[type=submit].btn-published:active,
-input[type=button].btn-published:active,
-button.btn-published:active,
-.btn.btn-published:active {
-  color: white;
-}
-input[type=reset].btn-published:hover,
-input[type=submit].btn-published:hover,
-input[type=button].btn-published:hover,
-button.btn-published:hover,
-.btn.btn-published:hover {
-  background-color: #27b452 !important;
-  border-color: #27b452 !important;
 }
 input[type=reset].btn-positive,
 input[type=submit].btn-positive,
@@ -1556,9 +1527,6 @@ legend {
 
 .form-block {
   margin: 20px 0 0 0;
-  border: solid #dddee0;
-  border-width: 1px 0;
-  padding: 20px 0;
 }
 .form-block .form-legend {
   float: left;
@@ -1579,8 +1547,9 @@ legend {
   margin-top: 0 !important;
 }
 .form-block + .form-block {
-  margin-top: 0;
-  border-top: 0;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #dddee0;
 }
 
 .form-item {
@@ -1650,7 +1619,7 @@ legend {
 
 /* Meta */
 .meta {
-  margin-top: 5px;
+  margin-top: 8px;
   list-style: none;
   margin-left: -7.5px;
   margin-right: -7.5px;
@@ -1851,8 +1820,8 @@ legend {
 .status strong {
   color: #4d545d;
 }
-.status .label, .status .label-status, .status .label-status-draft, .status .label-status-0,
-.status .label-status-archived, .status .label-status-pending, .status .label-status-1, .status .label-status-published {
+.status .badge, .status .badge-status, .status .badge-0,
+.status .badge-archived, .status .badge-pending, .status .badge-1, .status .badge-published {
   margin: 0 2px;
 }
 
@@ -1877,13 +1846,18 @@ legend {
 .menu li:first-child {
   border-top: 0;
 }
-.menu label, .menu span, .menu a {
+.menu .item {
   padding: 5px 10px;
   display: block;
   cursor: pointer;
   text-decoration: none;
 }
-.menu label:hover, .menu span:hover, .menu a:hover {
+.menu .item .badge, .menu .item .badge-status, .menu .item .badge-0,
+.menu .item .badge-archived, .menu .item .badge-pending, .menu .item .badge-1, .menu .item .badge-published {
+  float: right;
+  margin-right: 5px;
+}
+.menu .item:hover {
   background-color: #fbfbfb;
 }
 .menu.menu-simple {
@@ -1902,18 +1876,18 @@ legend {
 .sidebar .menu li {
   border-color: #313840;
 }
-.sidebar .menu label, .sidebar .menu span, .sidebar .menu a {
+.sidebar .menu .item {
   padding-left: 20px;
   padding-right: 20px;
 }
-.sidebar .menu label:hover, .sidebar .menu label.active, .sidebar .menu span:hover, .sidebar .menu span.active, .sidebar .menu a:hover, .sidebar .menu a.active {
+.sidebar .menu .item:hover, .sidebar .menu .item.active {
   color: white;
-  background-color: #373e48;
+  background-color: #343b44;
 }
-.sidebar .menu label.active, .sidebar .menu span.active, .sidebar .menu a.active {
+.sidebar .menu .item.active {
   position: relative;
 }
-.sidebar .menu label.active:after, .sidebar .menu span.active:after, .sidebar .menu a.active:after {
+.sidebar .menu .item.active:after {
   content: '';
   position: absolute;
   top: 0;
@@ -2231,10 +2205,9 @@ html, body {
 .sidebar .toggle a {
   text-decoration: none;
   text-align: center;
-  font-size: 32.18171px;
-  font-size: 2.01136rem;
   display: block;
-  line-height: 64px;
+  padding: 12px 0;
+  line-height: 1.4;
   color: #9ca0a5;
 }
 .sidebar .toggle a:visited {
@@ -2248,6 +2221,15 @@ html, body {
 }
 .sidebar .toggle a:active {
   color: #9ca0a5;
+}
+.sidebar .toggle a i {
+  font-size: 21.16px;
+  font-size: 1.3225rem;
+}
+.sidebar .toggle a span {
+  display: block;
+  font-size: 12.0983px;
+  font-size: 0.75614rem;
 }
 .sidebar .toggle a:hover, .sidebar .toggle a:focus, .sidebar .toggle a.active {
   color: white;
@@ -2301,9 +2283,9 @@ html, body {
   padding: 20px 30px;
 }
 .main .body .flex {
-  padding: 0 30px;
+  padding: 20px 30px;
   position: relative;
-  overflow-y: scroll;
+  overflow: auto;
 }
 .main .body .flex > *:first-child {
   margin-top: 0 !important;
@@ -2311,10 +2293,15 @@ html, body {
 .main .body .fix {
   padding: 20px 30px;
   position: relative;
-  overflow-y: scroll;
 }
 .main .body .fix > *:first-child {
   margin-top: 0 !important;
+}
+.main .body .fix:first-child {
+  border-bottom: 1px solid #dddee0;
+}
+.main .body .fix:last-child {
+  border-top: 1px solid #dddee0;
 }
 
 .body {

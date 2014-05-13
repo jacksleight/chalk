@@ -62,8 +62,8 @@ class Listener implements EventSubscriber
 			}
 			$changeSet			= $uow->getEntityChangeSet($entity);
 			$log				= new Entity\Log();
-			$log->entity_class	= get_class($entity);
-			$log->entity_obj	= $entity;
+			$log->entityType	= \Ayre::type($entity)->name;
+			$log->entityObject	= $entity;
 			if (!isset($entity->id)) {
 				$log->type = Entity\Log::TYPE_CREATE;
 			} else if (
@@ -100,7 +100,7 @@ class Listener implements EventSubscriber
 
 		while (count($this->_updates)) {
 			$entity = array_shift($this->_updates);
-			$entity->entity_id = $entity->entity_obj->id;
+			$entity->entityId = $entity->entityObject->id;
 			$em->persist($entity);
 		}
 

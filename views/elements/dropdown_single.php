@@ -33,7 +33,7 @@ if (isset($null)) {
 							<?= isset($required) && $required ? "required" : null ?>
 							<?= (string) $value === (string) $entity->{$name} ? 'checked' : null ?>
 							<?= isset($class) ? "class=\"{$class}\"" : null ?>>
-						<label for="<?= "_{$md['contextName']}[{$value}]" ?>" class="radio">
+						<label for="<?= "_{$md['contextName']}[{$value}]" ?>" class="item radio">
 							<?= $this->escape($label) ?>
 						</label>
 					</li>

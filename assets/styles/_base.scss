@@ -18,7 +18,7 @@ html {
 	font-weight: 300;
 	color: $color-loud;
 	margin: $gutter 0 0 0;
-	line-height: $line-height-tight;
+	line-height: 1;
 }
 h1 { 
 	@include font-size(6);
@@ -197,9 +197,9 @@ small {
 	color: $color-negative;
 }
 
-/* Label */
+/* Badge */
 
-.label {
+.badge {
 	background-color: $color-quiet;
 	border: 1px solid $color-quiet;
 	color: white;
@@ -212,31 +212,35 @@ small {
 		width: 100%;
 	}
 }
-.label-status {
-	@extend .label;
+.badge-figure {
+	border-radius: 1000px;
+}
+.badge-status {
+	@extend .badge;
 	text-transform: uppercase;
 }
-.label-status-draft {
-	@extend .label-status;
-}
-.label-status-0,
-.label-status-archived {
-	@extend .label-status;
+.badge-0,
+.badge-archived {
+	@extend .badge;
 	background-color: white;
 	color: $color-quiet;
 }
-.label-status-pending {
-	@extend .label-status;
+.badge-pending {
+	@extend .badge;
 	background-color: $color-pending;
 	border-color: $color-pending;
 }
-.label-status-1 {
-	@extend .label-status;
+.badge-1 {
+	@extend .badge;
 	background-color: $color-positive;
 	border-color: $color-positive;
 }
-.label-status-published {
-	@extend .label-status;
+.badge-published {
+	@extend .badge;
+}
+
+.status-pending {
+	color: $color-pending;
 }
 
 /* Icons */
@@ -409,7 +413,7 @@ figure {
 				}
 			}
 		}
-		.label {
+		.badge {
 			position: absolute;
 			bottom: 0;
 			right: 0;
@@ -801,15 +805,6 @@ button,
 			border-color: shade($color-pending, 10%) !important;
 		}
 	}
-	&.btn-published {
-		@include link-color(white);
-		background-color: $color-published;
-		border-color: $color-published;
-		&:hover { 
-			background-color: shade($color-published, 10%) !important;
-			border-color: shade($color-published, 10%) !important;
-		}
-	}
 	&.btn-positive {
 		@include link-color(white);
 		background-color: $color-positive;
@@ -943,9 +938,6 @@ legend {
 }
 .form-block {
 	margin: $gutter 0 0 0;
-	border: solid $color-divide;
-	border-width: 1px 0;
-	padding: $gutter 0; 
 	.form-legend {
 		float: left;
 		width: 280px - ($gutter * 3);
@@ -960,8 +952,9 @@ legend {
 		@include flush;
 	}
 	& + .form-block {
-		margin-top: 0;
-		border-top: 0;
+		margin-top: $gutter;
+		padding-top: $gutter;
+		border-top: 1px solid $color-divide;
 	}
 }
 .form-item { 
@@ -1022,7 +1015,7 @@ legend {
 /* Meta */
 
 .meta {
-	margin-top: $gutter * 0.25;
+	margin-top: $gutter * 0.4;
 	@include no-bullets;
 	@include inline-blocks('> li', $gutter * 0.75);
 	color: $color-quiet;
@@ -1160,7 +1153,7 @@ legend {
 	strong {
 		color: $color-foreground;
 	}
-	.label {
+	.badge {
 		margin: 0 2px;
 	}
 }
@@ -1181,11 +1174,15 @@ legend {
 			border-top: 0;
 		}
 	}
-	label, span, a {
+	.item {
 		padding: $gutter * 0.25 $input-padding-horiz;
 		display: block;
 		cursor: pointer;
 		text-decoration: none;
+		.badge {
+			float: right;
+			margin-right: $gutter * 0.25;
+		}
 		&:hover {
 			background-color: tint($color-shade, 75%);
 		}
@@ -1205,13 +1202,13 @@ legend {
 		li {
 			border-color: shade($color-primary, 15%);
 		}
-		label, span, a {
+		.item {
 			padding-left: $gutter;
 			padding-right: $gutter;
 			&:hover,
 			&.active {
 				color: white;
-				background-color: shade($color-primary, 5%);
+				background-color: shade($color-primary, 10%);
 			}
 			&.active {
 				position: relative;

@@ -11,15 +11,17 @@ use Coast\App\Controller,
 	Toast\App\Image,
 	Toast\App\Locale;
 
+$options = (new \Coast\Config())
+	->fromArray(isset($options) ? $options : []);
 if (!isset($app)) {
 	throw new \Exception('Ayre can only run as middleware');
-} else if (!isset($path)) {
+} else if (!isset($options->path)) {
 	throw new \Exception('You must specify a path');
 }
 $root = $app;
 
 $app = (new Ayre(__DIR__, $config->envs))
-	->path(new Path("{$path}"));
+	->path(new Path("{$options->path}"));
 
 $router = new Router(
 	new Controller('Ayre\Controller'));
@@ -45,6 +47,7 @@ $image = (new Image(
 
 $app->set('root', 		$root)
 	->set('config',		$config)
+	->set('options',	$options)
 	->set('memcached',	$app->import($app->file('init/memcached.php')))
 	->set('em',			$app->import($app->file('init/doctrine.php')))
 	->set('swift',		$app->import($app->file('init/swift.php')))
