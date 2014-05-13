@@ -5,13 +5,17 @@
 	<div class="sidebar">
 		<?= $this->render('nav', ['items' => [
 			[
-				'label' => 'Content',
-				'icon'	=> 'fa fa-picture-o fa-fw',
+				// 'label' => 'Content',
+				'icon'	=> 'fa fa-picture-o',
 				'name'	=> 'content',
 			], [
-				'label' => 'Structure',
-				'icon'	=> 'fa fa-sitemap fa-fw',
+				// 'label' => 'Structure',
+				'icon'	=> 'fa fa-sitemap',
 				'params'=> ['controller' => 'structure'],
+			], [
+				// 'label' => 'Live',
+				'icon'	=> 'fa fa-eye',
+				'params'=> ['controller' => 'live'],
 			]
 		], 'class' => 'toggle']) ?>
 		<div class="body">
@@ -19,11 +23,11 @@
 		</div>
 		<?= $this->render('nav', ['items' => [
 			[
-				'label' => 'Settings',
+				// 'label' => 'Settings',
 				'icon'	=> 'fa fa-gear fa-fw',
 				'params'=> ['controller' => 'user'],
 			], [
-				'label' => 'Activity',
+				// 'label' => 'Activity',
 				'icon'	=> 'fa fa-bar-chart-o fa-fw',
 				'params'=> ['controller' => 'activity'],
 			]

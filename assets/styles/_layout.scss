@@ -41,7 +41,7 @@ html, body {
 	width: 280px;
 	background: $color-primary;
 	&, a {
-		@include link-color(tint($color-primary, 80%));
+		@include link-color(tint($color-primary, 70%));
 	}
 	.toggle {
 		background: shade($color-primary, 30%);
@@ -52,12 +52,18 @@ html, body {
 			@include link-color(tint($color-primary, 80%));
 		}
 		li {
-			width: $width-6;
+			width: $width-4;
 		}
 		a {
 			text-decoration: none;
-			padding: $gutter;
+			text-align: center;
+			@include font-size(5);
 			display: block;
+			line-height: 64px;
+			@include link-color(tint($color-primary, 50%));
+			&:hover, &:focus, &.active {
+				@include link-color(white);
+			}
 			&:hover, &:focus {
 				background: shade($color-primary, 50%);
 			}
@@ -88,7 +94,20 @@ html, body {
 		}
 	}
 	.body {
+		position: relative;
 		padding: $gutter $gutter * 1.5;
+		.flex {
+			padding: 0 $gutter * 1.5;
+			@include flush();
+			position: relative;
+			overflow-y: scroll;
+		}
+		.fix {
+			padding: $gutter $gutter * 1.5;
+			@include flush();
+			position: relative;
+			overflow-y: scroll;
+		}
 	}
 }
 .body {

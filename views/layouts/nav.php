@@ -18,7 +18,9 @@
 				<? if (isset($item['icon'])) { ?>
 					<i class="<?= $item['icon'] ?>"></i>
 				<? } ?>
-				<?= $item['label'] ?>
+				<? if (isset($item['label'])) { ?>
+					<?= $item['label'] ?>
+				<? } ?>
 			</a>
 		</li>
 	<? } ?>
