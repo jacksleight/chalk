@@ -19,4 +19,9 @@ class Page extends Document
      * @Column(type="string", nullable=true)
      */
 	protected $layout;
+
+    /**
+     * @Column(type="text", nullable=true)
+     */
+	protected $summary;
 }

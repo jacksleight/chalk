@@ -17,14 +17,12 @@ $contents = $this->em($entityType->class)
 <table>
 	<colgroup>
 		<col class="col-name">
-		<col class="col-url">
 		<col class="col-date">
 		<col class="col-status">
 	</colgroup>
 	<thead>
 		<tr>
-			<th scope="col" class="col-name">Name</th>
-			<th scope="col" class="col-url">URL</th>
+			<th scope="col" class="col-name">URL</th>
 			<th scope="col" class="col-date">Updated</th>
 			<th scope="col" class="col-status">Status</th>
 		</tr>
@@ -36,13 +34,12 @@ $contents = $this->em($entityType->class)
 					<a href="<?= $this->url([
 						'action'	=> 'edit',
 						'id'		=> $content->id,
-					]) ?>"><?= $content->name ?></a>
+					]) ?>"><?= $content->name ?></a><br>
+					<small><?= $content->subname ?></small>
 				</th>
-				<td class="col-url">
-					<?= $content->url ?>
-				</td>	
 				<td class="col-date">
-					<?= $content->modifyDate->diffForHumans() ?>
+					<?= $content->modifyDate->diffForHumans() ?><br>
+					<small>by <?= $content->modifyUserName ?></small>
 				</td>	
 				<td class="col-status">
 					<span class="badge badge-status badge-<?= $content->status ?>"><?= $content->status ?></span>

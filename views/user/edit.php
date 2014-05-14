@@ -1,49 +1,51 @@
 <? $this->layout('/layouts/page_settings') ?>
 <? $this->block('main') ?>
 
-<h1>
-	<? if (!$user->isNew()) { ?>
-		<?= $user->name ?>
-	<? } else { ?>
-		New <?= $entityType->singular ?>
-	<? } ?>
-</h1>
-<form action="<?= $this->url->route() ?>" method="post">
-	<fieldset class="form-block">
-		<div class="form-legend">
-			<h2>Details</h2>
-		</div>
-		<div class="form-items">
-			<?= $this->render('/elements/form-item', array(
-				'entity'	=> $user,
-				'name'		=> 'isEnabled',
-				'label'		=> 'Enabled',
-			)) ?>
-			<?= $this->render('/elements/form-item', array(
-				'entity'	=> $user,
-				'name'		=> 'name',
-				'label'		=> 'Name',
-			)) ?>
-			<?= $this->render('/elements/form-item', array(
-				'entity'	=> $user,
-				'type'		=> 'input_email',
-				'name'		=> 'emailAddress',
-				'label'		=> 'Email Address',
-			)) ?>
-			<?= $this->render('/elements/form-item', array(
-				'entity'	=> $user,
-				'name'		=> 'passwordPlain',
-				'label'		=> 'Password',
-			)) ?>
-			<?= $this->render('/elements/form-item', array(
-				'entity'	=> $user,
-				'name'		=> 'role',
-				'label'		=> 'Role',
-				'type'		=> 'input_radio',
-			)) ?>
-		</div>
-	</fieldset>
-	<fieldset>
+<form action="<?= $this->url->route() ?>" method="post" class="fill">
+	<div class="flex">
+		<h1>
+			<? if (!$user->isNew()) { ?>
+				<?= $user->name ?>
+			<? } else { ?>
+				New <?= $entityType->singular ?>
+			<? } ?>
+		</h1>
+		<fieldset class="form-block">
+			<div class="form-legend">
+				<h2>General</h2>
+			</div>
+			<div class="form-items">
+				<?= $this->render('/elements/form-item', array(
+					'entity'	=> $user,
+					'name'		=> 'isEnabled',
+					'label'		=> 'Enabled',
+				)) ?>
+				<?= $this->render('/elements/form-item', array(
+					'entity'	=> $user,
+					'name'		=> 'name',
+					'label'		=> 'Name',
+				)) ?>
+				<?= $this->render('/elements/form-item', array(
+					'entity'	=> $user,
+					'type'		=> 'input_email',
+					'name'		=> 'emailAddress',
+					'label'		=> 'Email Address',
+				)) ?>
+				<?= $this->render('/elements/form-item', array(
+					'entity'	=> $user,
+					'name'		=> 'passwordPlain',
+					'label'		=> 'Password',
+				)) ?>
+				<?= $this->render('/elements/form-item', array(
+					'entity'	=> $user,
+					'name'		=> 'role',
+					'label'		=> 'Role',
+					'type'		=> 'input_radio',
+				)) ?>
+			</div>
+		</fieldset>
+	</div>
+	<fieldset class="fix">
 		<ul class="toolbar">
 			<li>
 				<button class="btn-focus">

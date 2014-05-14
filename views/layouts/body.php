@@ -53,6 +53,13 @@ $count = $this->em('Ayre\Entity\Content')->fetchCountForPublish();
 						</a>
 						<small>&nbsp;&nbsp;<strong><?= $count ?></strong> pending items</small>
 					</li>
+				<? } else { ?>
+					<li>
+						<a href="#" class="btn btn-inline btn-quiet">
+							<i class="fa fa-external-link"></i>
+							View SIte
+						</a>
+					</li>					
 				<? } ?>
 			</ul>
 			<ul class="toolbar">

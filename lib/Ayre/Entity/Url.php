@@ -34,6 +34,16 @@ class Url extends Content
 		}
 		return $this->url;
 	}
+
+	public function subtypeLabel()
+	{	
+		return strtoupper($this->subtype);
+	}
+
+	public function subname()
+	{
+		return $this->url->toString();
+	}
 	
 	public function searchFields()
 	{

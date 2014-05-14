@@ -8,6 +8,8 @@ $maxlength	= $md['validator']->hasValidator('Toast\Validator\Length')
 	name="<?= "{$md['contextName']}" ?>"
 	id="<?= "_{$md['contextName']}" ?>"
 	<?= isset($class) ? "class=\"{$class}\"" : null ?>
+	<?= isset($rows) ? "rows=\"{$rows}\"" : null ?>
+	<?= isset($cols) ? "cols=\"{$cols}\"" : null ?>
 	<?= isset($disabled) && $disabled ? "disabled" : null ?>
 	<?= isset($readOnly) && $readOnly ? "readonly" : null ?>
 	<?= isset($required) && $required ? "required" : null ?>

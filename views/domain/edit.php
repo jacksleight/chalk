@@ -1,28 +1,30 @@
 <? $this->layout('/layouts/page_settings') ?>
 <? $this->block('main') ?>
 
-<h1>
-	<? if (!$domain->isNew()) { ?>
-		<?= $domain->name ?>
-	<? } else { ?>
-		New <?= $entityType->singular ?>
-	<? } ?>
-</h1>
-<form action="<?= $this->url->route() ?>" method="post">
-	<fieldset class="form-block">
-		<div class="form-legend">
-			<h2>Details</h2>
-		</div>
-		<div class="form-items">
-			<?= $this->render('/elements/form-item', array(
-				'entity'	=> $domain,
-				'name'		=> 'name',
-				'label'		=> 'Name',
-				'autofocus'	=> true,
-			)) ?>
-		</div>
-	</fieldset>
-	<fieldset>
+<form action="<?= $this->url->route() ?>" method="post" class="fill">
+	<div class="flex">
+		<h1>
+			<? if (!$domain->isNew()) { ?>
+				<?= $domain->name ?>
+			<? } else { ?>
+				New <?= $entityType->singular ?>
+			<? } ?>
+		</h1>
+		<fieldset class="form-block">
+			<div class="form-legend">
+				<h2>General</h2>
+			</div>
+			<div class="form-items">
+				<?= $this->render('/elements/form-item', array(
+					'entity'	=> $domain,
+					'name'		=> 'name',
+					'label'		=> 'Name',
+					'autofocus'	=> true,
+				)) ?>
+			</div>
+		</fieldset>
+	</div>
+	<fieldset class="fix">
 		<ul class="toolbar">
 			<li>
 				<button class="btn-focus">

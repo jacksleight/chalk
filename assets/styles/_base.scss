@@ -494,10 +494,6 @@ table {
 		&:first-child {
 			padding-left: 0;
 		}
-		small {
-			display: block;
-			@include font-size(-1);
-		}
 	}
 	th { 
 		font-weight: 300;
@@ -541,6 +537,9 @@ table {
 			float: left;
 			margin: 0 $gutter * 0.5 0 0;
 		}
+	}
+	.col-type {
+		width: 100px;
 	}
 	.col-date {
 		width: 250px;
@@ -706,15 +705,14 @@ select {
 	}
 }
 textarea { 
-	min-height: 200px;
-	height: 300px;
+	height: auto;
 	display: block;
 	overflow: auto;
 	resize: vertical;
 	line-height: $line-height;
 	padding-top: $input-padding;
 	padding-bottom: $input-padding;
-	&.html {
+	&.monospaced {
 		font-family: Consolas, monospace;
 	}
 }
@@ -928,7 +926,7 @@ form {
 	@include flush;
 }
 fieldset { 
-	margin: $gutter 0 0 0;
+	margin: 0;
 	padding: 0;
 	border: 0;
 	@include flush; 
@@ -938,23 +936,23 @@ legend {
 }
 .form-block {
 	margin: $gutter 0 0 0;
+	padding-top: $gutter;
+	border-top: 1px solid $color-divide;
 	.form-legend {
 		float: left;
-		width: 280px - ($gutter * 3);
+		width: 260px - ($gutter * 3);
 		@include flush;
 		@include font-size(-1);
+		h2 {
+			@include force-wrap;
+		}
 		p {
 			margin-top: $gutter * 0.5;
 		}
 	}
 	.form-items {
-		margin-left: 280px - ($gutter * 1.5);
+		margin-left: 260px - ($gutter * 1.5);
 		@include flush;
-	}
-	& + .form-block {
-		margin-top: $gutter;
-		padding-top: $gutter;
-		border-top: 1px solid $color-divide;
 	}
 }
 .form-item { 

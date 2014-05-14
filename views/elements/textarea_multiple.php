@@ -7,8 +7,10 @@
 			<textarea
 				name="<?= "{$md['contextName']}[{$label}]" ?>"
 				id="<?= "_{$md['contextName']}[{$label}]" ?>"
-				<?= isset($disabled) && $disabled ? "disabled" : null ?>
-				class="html"><?= $this->escape($value) ?></textarea>
+				<?= isset($class) ? "class=\"{$class}\"" : null ?>
+				<?= isset($rows) ? "rows=\"{$rows}\"" : null ?>
+				<?= isset($cols) ? "cols=\"{$cols}\"" : null ?>
+				<?= isset($disabled) && $disabled ? "disabled" : null ?>><?= $this->escape($value) ?></textarea>
 		</div>
 	</div>	
 <? } ?>

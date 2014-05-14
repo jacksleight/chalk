@@ -27,7 +27,7 @@ $contents = $this->em($entityType->class)
 				<th scope="col" class="col-select">
 					<input type="checkbox" id="select" class="multiselectable-all"><label for="select"></label>
 				</th>
-				<th scope="col" class="col-name">Name</th>
+				<th scope="col" class="col-name">Page</th>
 				<th scope="col" class="col-date">Updated</th>
 				<th scope="col" class="col-status">Status</th>
 			</tr>
@@ -45,10 +45,12 @@ $contents = $this->em($entityType->class)
 						<a href="<?= $this->url([
 							'action'	=> 'edit',
 							'id'		=> $content->id,
-						]) ?>"><?= $content->name ?></a>
+						]) ?>"><?= $content->name ?></a><br>
+						<small><?= $content->subname ?></small>
 					</th>
 					<td class="col-date">
 						<?= $content->modifyDate->diffForHumans() ?>
+						<small>by <?= $content->modifyUserName ?></small>
 					</td>	
 					<td class="col-status">
 						<span class="badge badge-status badge-<?= $content->status ?>"><?= $content->status ?></span>

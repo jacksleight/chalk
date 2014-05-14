@@ -642,11 +642,6 @@ table th, table td {
 table th:first-child, table td:first-child {
   padding-left: 0;
 }
-table th small, table td small {
-  display: block;
-  font-size: 13.91304px;
-  font-size: 0.86957rem;
-}
 table th {
   font-weight: 300;
   text-align: left;
@@ -699,6 +694,9 @@ table .col-role:last-child {
 table .col-name img {
   float: left;
   margin: 0 10px 0 0;
+}
+table .col-type {
+  width: 100px;
 }
 table .col-date {
   width: 250px;
@@ -990,8 +988,7 @@ select optgroup option {
 }
 
 textarea {
-  min-height: 200px;
-  height: 300px;
+  height: auto;
   display: block;
   overflow: auto;
   resize: vertical;
@@ -999,7 +996,7 @@ textarea {
   padding-top: 6px;
   padding-bottom: 6px;
 }
-textarea.html {
+textarea.monospaced {
   font-family: Consolas, monospace;
 }
 
@@ -1513,7 +1510,7 @@ form > *:first-child {
 }
 
 fieldset {
-  margin: 20px 0 0 0;
+  margin: 0;
   padding: 0;
   border: 0;
 }
@@ -1527,29 +1524,36 @@ legend {
 
 .form-block {
   margin: 20px 0 0 0;
+  padding-top: 20px;
+  border-top: 1px solid #dddee0;
 }
 .form-block .form-legend {
   float: left;
-  width: 220px;
+  width: 200px;
   font-size: 13.91304px;
   font-size: 0.86957rem;
 }
 .form-block .form-legend > *:first-child {
   margin-top: 0 !important;
 }
+.form-block .form-legend h2 {
+  white-space: pre;
+  white-space: pre-wrap;
+  white-space: pre-line;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -hp-pre-wrap;
+  word-wrap: break-word;
+}
 .form-block .form-legend p {
   margin-top: 10px;
 }
 .form-block .form-items {
-  margin-left: 250px;
+  margin-left: 230px;
 }
 .form-block .form-items > *:first-child {
   margin-top: 0 !important;
-}
-.form-block + .form-block {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #dddee0;
 }
 
 .form-item {

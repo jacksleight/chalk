@@ -125,13 +125,6 @@ class File extends Content
 			: strtoupper($this->file->extName()) . ' File';
 	}
 
-	public function subtypeLabelShort()
-	{	
-		return isset(self::$_mimeTypes[$this->subtype])
-			? self::$_mimeTypes[$this->subtype][1][0]
-			: strtoupper($this->file->extName());
-	}
-
 	public function isGdCompatible()
 	{
 		$info = array_filter(gd_info(), function($a) {
