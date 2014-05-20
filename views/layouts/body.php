@@ -55,9 +55,9 @@ $count = $this->em('Ayre\Entity\Content')->fetchCountForPublish();
 					</li>
 				<? } else { ?>
 					<li>
-						<a href="#" class="btn btn-inline btn-quiet">
+						<a href="<?= $this->rootUrl->baseUrl() ?>" target="_blank" class="btn btn-inline btn-quiet">
 							<i class="fa fa-external-link"></i>
-							View SIte
+							View Site
 						</a>
 					</li>					
 				<? } ?>

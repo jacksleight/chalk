@@ -38,6 +38,11 @@ class Structure extends \Toast\Entity implements Loggable, Publishable, Trackabl
      * @Column(type="string")
      */
 	protected $name;
+		
+	/**
+     * @Column(type="string")
+     */
+	protected $slug;
 
 	/**
      * @OneToMany(targetEntity="\Ayre\Entity\Structure\Node", mappedBy="structure", cascade={"persist"})
@@ -54,6 +59,25 @@ class Structure extends \Toast\Entity implements Loggable, Publishable, Trackabl
 		$this->nodes->add($node);
 
 		$this->__constructVersionable();
+	}
+
+	public function name($name = null)
+	{
+		if (isset($name)) {
+			$this->name = $name;
+			$this->slug($this->name);
+			return $this;
+		}
+		return $this->name;
+	}
+
+	public function slug($slug = null)
+	{
+		if (isset($slug)) {
+			$this->slug = \Coast\str_simplify(iconv('utf-8', 'ascii//translit//ignore', $slug), '-');
+			return $this;
+		}
+		return $this->slug;
 	}
 
 	public function label()

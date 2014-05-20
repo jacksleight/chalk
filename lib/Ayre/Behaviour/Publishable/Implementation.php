@@ -13,5 +13,5 @@ trait Implementation
 	/**
      * @Column(type="string", length=10)
      */
-	protected $status = Ayre::STATUS_PENDING;
+	protected $status = Ayre::STATUS_PUBLISHED;
 }

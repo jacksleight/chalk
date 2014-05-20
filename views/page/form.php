@@ -26,8 +26,15 @@
 					'rows'		=> 5,
 					'disabled'	=> $content->isArchived(),
 				)) ?>
-				<div class="expandable">
+				<div class="expandable1">
 					<div class="expandable-body">
+						<?= $this->render('/elements/form-item', array(
+							'type'		=> 'array',
+							'entity'	=> $content,
+							'name'		=> 'metas',
+							'label'		=> 'Metadata',
+							'disabled'	=> $content->isArchived(),
+						)) ?>
 						<?= $this->render('/elements/form-item', array(
 							'type'		=> 'select',
 							'entity'	=> $content,
@@ -51,10 +58,10 @@
 			<div class="form-items">
 				<?= $this->render('/elements/form-input', array(
 					'entity'	=> $content,
-					'name'		=> 'content',
+					'name'		=> 'contents',
 					'type'		=> 'textarea_multiple',
 					'class'		=> 'monospaced html',
-					'rows'		=> 20,
+					'rows'		=> 15,
 					'disabled'	=> $content->isArchived(),
 				)) ?>
 			</div>

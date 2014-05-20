@@ -90,9 +90,6 @@ class Content extends Ayre\Controller\Entity
 		$content = $this->em($req->entityType->class)->find($req->id);
 
 		$content->status = $req->status;
-		if ($content->status == \Ayre::STATUS_ARCHIVED && isset($content->previous)) {
-			$content->previous->status = $content->status;
-		}
 		$this->em->flush();
 
 		if ($content->status == \Ayre::STATUS_ARCHIVED) {
@@ -111,8 +108,7 @@ class Content extends Ayre\Controller\Entity
 	{
 		$content = $this->em($req->entityType->class)->find($req->id);
 
-		$content = $content->restore();
-		$this->em->persist($content);
+		$content->status = \Ayre::STATUS_PUBLISHED;
 		$this->em->flush();
 
 		return $res->redirect($this->url(array(

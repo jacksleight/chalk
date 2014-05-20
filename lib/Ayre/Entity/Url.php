@@ -21,7 +21,7 @@ class Url extends Content
 	];
 
     /**
-     * @Column(type="url")
+     * @Column(type="coast_url")
      */
 	protected $url;
 

@@ -36,7 +36,7 @@ $evm = new EventManager();
 $evm->addEventSubscriber(new Listener());
 $evm->addEventSubscriber(new FileListener());
 $evm->addEventSubscriber(new NodeListener());
-$evm->addEventSubscriber(new LoggableListener());
+// $evm->addEventSubscriber(new LoggableListener());
 $evm->addEventSubscriber(new SearchableListener());
 $evm->addEventSubscriber(new VersionableListener());
 $evm->addEventSubscriber($trackable = new TrackableListener());

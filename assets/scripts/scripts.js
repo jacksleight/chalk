@@ -27,6 +27,7 @@ FastClick.attach(document.body);
 //= require behaviours/expandable.js
 //= require behaviours/uploadable.js
 //= require behaviours/selectable.js
+//= require behaviours/stackable.js
 
 /* Elements */
 

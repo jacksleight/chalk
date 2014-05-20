@@ -16,48 +16,35 @@ use Ayre\Entity,
 class Document extends Content
 {
     /**
-     * @Column(type="json")
+     * @Column(type="coast_json")
      */
-	protected $meta = [];
+	protected $metas = [];
 
     /**
-     * @Column(type="json")
+     * @Column(type="coast_json")
      */
-	protected $content = [
-		'primary' => '',
-		'secondary' => '',
+	protected $contents = [
+		'primary'	=> '',
+		'secondary'	=> '',
 	];
 
-	public function addMeta($name = null, $value = null)
+	public function metas(array $metas = null)
 	{
-		if (isset($name) && in_array($name, \Coast\array_column($this->meta, 'name'))) {
-			return;
+		if (isset($metas)) {
+			foreach ($metas as $i => $meta) {
+				if (!strlen($meta['value'])) {
+					unset($metas[$i]);
+				}
+			}
+			$this->metas = $metas;
 		}
-		$this->meta[time()] = [
-			'name'	=> $name,
-			'value'	=> $value,
-		];
-		return $this;
+		return $this->metas;
 	}
 	
 	public function searchFields()
 	{
 		return array_merge(parent::searchFields(), [
-			'meta',
-			'content',
+			'contents',
 		]);
-	}
-
-	/**
-	 * @PrePersist
-	 * @PreUpdate
-	 */
-	public function cleanMeta()
-	{
-		foreach ($this->meta as $name => $value) {
-			if (!isset($value)) {
-				unset($this->meta[$name]);
-			}
-		}
 	}
 }

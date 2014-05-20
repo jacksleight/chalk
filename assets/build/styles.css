@@ -1,3 +1,4 @@
+@charset "utf-8";
 /* Configuration */
 /* Partials */
 /* Media */
@@ -172,8 +173,6 @@ mark {
   background-color: yellow;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
-  -ms-border-radius: 2px;
-  -o-border-radius: 2px;
   border-radius: 2px;
 }
 
@@ -205,8 +204,6 @@ pre, code {
   font-size: 1rem;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
   border-radius: 0;
 }
 
@@ -613,8 +610,6 @@ table {
   border-spacing: 0;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
   border-radius: 0;
 }
 table tr th, table tr td {
@@ -771,8 +766,6 @@ select,
   border-color: #cdcfd2;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
   border-radius: 0;
   outline: 0;
   -webkit-appearance: none;
@@ -1031,8 +1024,6 @@ button,
   border-color: #f1f1f2;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
   border-radius: 0;
   outline: 0;
   cursor: pointer;
@@ -2105,6 +2096,20 @@ legend {
 }
 .tree-drag:active, .tree-drag a:active {
   color: white;
+}
+
+/* Stackable */
+.stackable .stackable-item {
+  margin: 0 0 3px 0;
+  display: flex;
+  flex-direction: row;
+}
+.stackable .stackable-item input:first-child {
+  width: 200px;
+}
+.stackable .stackable-item input:last-child {
+  flex: 1;
+  border-left: 0;
 }
 
 /* Page */

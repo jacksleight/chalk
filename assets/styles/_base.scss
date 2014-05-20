@@ -1356,3 +1356,20 @@ legend {
 		@include link-color(white);
 	}
 }
+
+/* Stackable */
+
+.stackable {
+	.stackable-item {
+		margin: 0 0 3px 0;
+		display: flex;
+		flex-direction: row;
+		input:first-child {
+			width: 200px;
+		}
+		input:last-child {
+			flex: 1;
+			border-left: 0;
+		}
+	}
+}
