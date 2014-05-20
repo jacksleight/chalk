@@ -8,7 +8,7 @@ namespace Ayre\Behaviour\Trackable;
 
 use Ayre,
 	Ayre\Behaviour\Trackable,
-	Ayre\Entity\User,
+	Ayre\Core\User,
 	Doctrine\Common\EventSubscriber,
 	Doctrine\ORM\Event\LifecycleEventArgs,
 	Doctrine\ORM\Events,

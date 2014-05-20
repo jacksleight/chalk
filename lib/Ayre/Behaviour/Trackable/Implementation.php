@@ -14,7 +14,7 @@ trait Implementation
     protected $createDate;
 
     /**
-     * @ManyToOne(targetEntity="\Ayre\Entity\User")
+     * @ManyToOne(targetEntity="\Ayre\Core\User")
      * @JoinColumn(onDelete="SET NULL")
      */
     protected $createUser;
@@ -25,7 +25,7 @@ trait Implementation
     protected $modifyDate;
 
     /**
-     * @ManyToOne(targetEntity="\Ayre\Entity\User")
+     * @ManyToOne(targetEntity="\Ayre\Core\User")
      * @JoinColumn(onDelete="SET NULL")
      */
     protected $modifyUser;

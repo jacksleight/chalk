@@ -7,7 +7,8 @@
 namespace Ayre\Behaviour\Loggable;
 
 use Ayre,
-	Ayre\Entity,
+	Ayre\Core\Structure\Node,
+	Ayre\Core\Log,
 	Ayre\Behaviour\Loggable,
 	Ayre\Behaviour\Publishable,
 	Doctrine\Common\EventSubscriber,
@@ -39,7 +40,7 @@ class Listener implements EventSubscriber
 			$uow->getScheduledEntityUpdates()
 		);
 		foreach ($entities as $entity) {
-			if (!$entity instanceof Entity\Structure\Node) {
+			if (!$entity instanceof Node) {
 				continue;
 			}
 			$changeSet = $uow->getEntityChangeSet($entity);
@@ -61,19 +62,19 @@ class Listener implements EventSubscriber
 				continue;
 			}
 			$changeSet			= $uow->getEntityChangeSet($entity);
-			$log				= new Entity\Log();
+			$log				= new Log();
 			$log->entityType	= \Ayre::type($entity)->name;
 			$log->entityObject	= $entity;
 			if (!isset($entity->id)) {
-				$log->type = Entity\Log::TYPE_CREATE;
+				$log->type = Log::TYPE_CREATE;
 			} else if (
 				$entity instanceof Publishable &&
 				isset($changeSet['status']) &&
 				$changeSet['status'][0] != $changeSet['status'][1]
 			) {
-				$log->type = constant('Ayre\Entity\Log::TYPE_STATUS_' . strtoupper($entity->status));
+				$log->type = constant('Ayre\Core\Log::TYPE_STATUS_' . strtoupper($entity->status));
 			} else {
-				$log->type = Entity\Log::TYPE_MODIFY;
+				$log->type = Log::TYPE_MODIFY;
 			}
 			$this->_updates[] = $log;
 		}
@@ -85,7 +86,7 @@ class Listener implements EventSubscriber
 			if (!$entity instanceof Loggable) {
 				continue;
 			}
-			$logs = $em->getRepository('Ayre\Entity\Log')->fetchAll(['entity' => $entity]);
+			$logs = $em->getRepository('Ayre\Core\Log')->fetchAll(['entity' => $entity]);
 			$this->_deletions = array_merge($this->_deletions, $logs);
 		}
 	}

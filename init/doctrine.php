@@ -6,8 +6,8 @@ use Doctrine\ORM\Configuration,
 	Doctrine\ORM\EntityManager,
 	Ayre\Doctrine\ORM\EntityManager as AyreEntityManager,
 	Ayre\Listener as Listener,
-	Ayre\Entity\File\Listener as FileListener,
-	Ayre\Entity\Structure\Node\Listener as NodeListener,
+	Ayre\Core\File\Listener as FileListener,
+	Ayre\Core\Structure\Node\Listener as NodeListener,
 	Ayre\Behaviour\Loggable\Listener as LoggableListener,
 	Ayre\Behaviour\Searchable\Listener as SearchableListener,
 	Ayre\Behaviour\Trackable\Listener as TrackableListener,
@@ -15,8 +15,14 @@ use Doctrine\ORM\Configuration,
 
 \Coast\Doctrine\register_dbal_types();
 
+$paths = [];
+foreach ($app->modules() as $module) {
+	$paths[] = $module->dir('lib')->name();
+}
+
+var_dump($paths);
 $config = new Configuration();
-$config->setMetadataDriverImpl($config->newDefaultAnnotationDriver($app->dir('lib/Ayre/Entity')->name()));
+$config->setMetadataDriverImpl($config->newDefaultAnnotationDriver($paths));
 $config->setProxyDir($app->root->dir('data/proxies'));
 $config->setProxyNamespace('Ayre\Proxy');
 $config->setAutoGenerateProxyClasses(true);

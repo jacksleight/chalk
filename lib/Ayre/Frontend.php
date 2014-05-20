@@ -8,7 +8,7 @@ namespace Ayre;
 
 use Coast\App\Request,
     Coast\App\Response,
-    Ayre\Entity\Structure\Node;
+    Ayre\Core\Structure\Node;
 
 class Frontend implements \Coast\App\Access, \Coast\App\Executable
 {
@@ -23,8 +23,8 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
 
     public function execute(Request $req, Response $res)
     {        
-        $domain = $this->_ayre->em('Ayre\Entity\Domain')->fetch(3);
-        $node   = $this->_ayre->em('Ayre\Entity\Structure\Node')
+        $domain = $this->_ayre->em('Ayre\Core\Domain')->fetch(3);
+        $node   = $this->_ayre->em('Ayre\Core\Structure\Node')
             ->fetchByPath($domain, $req->path(), true);
         if (!$node) {
             return;

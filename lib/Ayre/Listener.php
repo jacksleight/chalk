@@ -25,11 +25,7 @@ class Listener implements EventSubscriber
         $meta      = $args->getClassMetadata();
         $class     = $meta->name;
         $rootClass = $meta->rootEntityName;
-        try {
-            $type = Ayre::type($class);
-        } catch (\Exception $e) {
-            return;
-        }
+        $type      = Ayre::type($class);
         
         if ($class == $rootClass || $meta->inheritanceType == 2) {
             $meta->setTableName($type->name);
@@ -62,7 +58,6 @@ class Listener implements EventSubscriber
         $repositoryClasses = [
             $type->module->class . '\\Repository\\' . $type->entity->class,
             $type->module->class . '\\Repository\\' . Ayre::type($rootClass)->entity->class,
-            'Ayre\\Repository\\' . Ayre::type($rootClass)->entity->class,
             $type->module->class . '\\Repository',
             'Ayre\\Repository',
         ];

@@ -7,7 +7,7 @@
 namespace Ayre\Behaviour\Searchable;
 
 use Ayre,
-    Ayre\Entity,
+    Ayre\Core\Index,
     Ayre\Behaviour\Searchable,
     Doctrine\Common\EventSubscriber,
     Doctrine\ORM\Event\OnFlushEventArgs,
@@ -47,9 +47,9 @@ class Listener implements EventSubscriber
             if (!count($changes)) {
                 continue;
             }
-            $index  = $em->getRepository('Ayre\Entity\Index')->fetch($entity);
+            $index  = $em->getRepository('Ayre\Core\Index')->fetch($entity);
             if (!isset($index)) {
-                $index               = new Entity\Index();
+                $index               = new Index();
                 $index->entityType   = \Ayre::type($entity)->name;
                 $index->entityObject = $entity;
             }
@@ -76,7 +76,7 @@ class Listener implements EventSubscriber
             if (!$entity instanceof Searchable) {
                 continue;
             }
-            $index  = $em->getRepository('Ayre\Entity\Index')->fetch($entity);
+            $index  = $em->getRepository('Ayre\Core\Index')->fetch($entity);
             if (!isset($index)) {
                 continue;
             }

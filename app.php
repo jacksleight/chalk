@@ -20,7 +20,7 @@ if (!isset($app)) {
 }
 $root = $app;
 
-$app = (new Ayre(__DIR__, $config->envs))
+$app = (new Ayre(null, $config->envs))
 	->path(new Path("{$options->path}"));
 
 $router = new Router(
@@ -75,8 +75,8 @@ if (!$app->isDebug()) {
 	});
 }
 
-\Ayre\Entity\File::baseDir($root->dir('public/data/file', true));
-\Ayre\Entity\File::mimeTypes($app->import($app->file('init/mime-types.php')));
+\Ayre\Core\File::baseDir($root->dir('public/data/file', true));
+\Ayre\Core\File::mimeTypes($app->import($app->file('init/mime-types.php')));
 
 $app->import($app->file('init/routes.php'));
 
