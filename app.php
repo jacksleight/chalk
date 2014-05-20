@@ -24,10 +24,10 @@ $app = (new Ayre(null, $config->envs))
 	->path(new Path("{$options->path}"));
 
 $router = new Router(
-	new Controller('Ayre\Controller'));
+	new Controller('Ayre\Core\Controller'));
 
 $viewRenderer = new ViewRenderer(
-	$app->dir('views'));
+	$app->module('core')->dir('views'));
 
 $urlResolver = new UrlResolver(
 	new Url("{$config->baseUrl}{$app->path()}/"),

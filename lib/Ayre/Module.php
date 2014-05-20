@@ -13,15 +13,14 @@ abstract class Module
 {
     protected $_baseDir;
 
-    public function __construct($baseDir = null)
+    public function __construct()
     {
-    	if (!isset($baseDir)) {
-			$reflection	= new \ReflectionClass(get_class($this));
-    		$baseDir = (new File($reflection->getFileName()))
-    			->dir()
-    			->dir('..')
-    			->toReal();
-    	}
+		$reflection	= new \ReflectionClass(get_class($this));
+		$baseDir = (new File($reflection->getFileName()))
+			->dir()
+            ->dir('..')
+			->dir('..')
+			->toReal();
         $this->baseDir(!$baseDir instanceof Dir
             ? new Dir("{$baseDir}")
             : $baseDir);

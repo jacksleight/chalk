@@ -96,7 +96,7 @@ class Ayre extends App
     {
         $baseDir = (new Coast\Dir(__DIR__ . '/..'))->toReal();
         parent::__construct($baseDir, $envs);
-        $this->module(new Core($baseDir));
+        $this->module(new Core());
     }
 
     public function baseDir(\Coast\Dir $baseDir = null)
@@ -115,10 +115,10 @@ class Ayre extends App
             $parts  = explode('\\', get_class($module));           
             $name   = lcfirst($parts[count($parts) - 1]);
         }
-        if (!$module instanceof Module) {
-            throw new Ayre\Exception("Module must be an instance of Ayre\Module");
-        }
         if (isset($module)) {
+            if (!$module instanceof Module) {
+                throw new Ayre\Exception("Module must be an instance of Ayre\Module");
+            }
             $this->_modules[$name]    = $module;
             self::$_namespaces[$name] = get_class($module);
             return $this;

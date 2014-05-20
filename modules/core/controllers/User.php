@@ -1,5 +1,5 @@
 <?php
-namespace Ayre\Controller;
+namespace Ayre\Core\Controller;
 
 use Ayre,
 	Coast\App\Controller\Action,

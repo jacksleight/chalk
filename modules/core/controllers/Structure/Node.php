@@ -1,5 +1,5 @@
 <?php
-namespace Ayre\Controller\Structure;
+namespace Ayre\Core\Controller\Structure;
 
 use Ayre,
 	Ayre\Core,
