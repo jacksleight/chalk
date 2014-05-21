@@ -58,8 +58,8 @@ html, body {
 			text-decoration: none;
 			text-align: center;
 			display: block;
-			padding: 13px 0 12px 0;
-			line-height: 1.4;
+			padding: 12px 0 10px 0;
+			line-height: 1.5;
 			@include link-color(tint($color-primary, 50%));
 			i {
 				@include font-size(2);

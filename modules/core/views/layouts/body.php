@@ -9,7 +9,7 @@ $count = $this->em('Ayre\Core\Content')->fetchCountForPublish();
 		<?= $this->render('nav', ['items' => [
 			[
 				'label' => 'Content',
-				'icon'	=> 'fa fa-picture-o',
+				'icon'	=> 'fa fa-file-text-o',
 				'name'	=> 'content',
 			], [
 				'label' => 'Structure',
