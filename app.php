@@ -23,6 +23,9 @@ $root = $app;
 $app = (new Ayre(null, $config->envs))
 	->path(new Path("{$options->path}"));
 
+foreach ($modules as $module) {
+	$app->module($module);
+}
 $viewDirs = [];
 $controllerNamespaces = [];
 foreach ($app->modules() as $name => $module) {

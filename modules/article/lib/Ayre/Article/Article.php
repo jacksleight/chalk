@@ -4,7 +4,7 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Ayre\Core;
+namespace Ayre\Article;
 
 use Ayre\Core\Document,
 	Doctrine\Common\Collections\ArrayCollection;
@@ -14,8 +14,19 @@ use Ayre\Core\Document,
 */
 class Article extends Document
 {
+	protected $contents = [
+		'primary'	=> '',
+	];
+
     /**
-     * @Column(type="datetime")
+     * @Column(type="date")
      */
-	protected $publishDate = [];
+	protected $activeDate;
+
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->activeDate = new \Carbon\Carbon();
+	}
 }

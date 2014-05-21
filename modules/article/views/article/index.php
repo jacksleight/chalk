@@ -1,22 +1,24 @@
-<? $this->layout('/layouts/page_content') ?>
-<? $this->block('main') ?>
-
-<? if ($entityType->name != 'core_content') { ?>
-	<?= $this->render("/{$entityType->entity->path}/index", [], $entityType->module->name) ?>
-	<?php return; ?>
-<? } ?>
-
 <?php
+$filter = $this->em->wrap(new \Ayre\Core\Model\Index())
+	->graphFromArray($req->queryParams());
 $contents = $this->em($entityType->class)
-	->fetchAll($index->toArray());
+	->fetchAll($filter->toArray(), ['activeDate', 'DESC']);
 ?>
+
 <form action="<?= $this->url->route() ?>">
-	<h1>Content</h1>
-	<?= $this->render('filters', ['filter' => $index]) ?>
+	<ul class="toolbar">
+		<li><a href="<?= $this->url([
+				'action' => 'edit',
+			]) ?>" class="btn btn-focus">
+				<i class="fa fa-plus"></i> New <?= $entityType->singular ?>
+		</a></li>
+	</ul>
+	<h1><?= $entityType->plural ?></h1>
+	<?= $this->render('/content/filters', ['filter' => $filter], 'core') ?>
 	<table class="multiselectable">
 		<colgroup>
 			<col class="col-select">
-			<col class="col-type">
+			<col class="col-name">
 			<col class="col-name">
 			<col class="col-date">
 			<col class="col-status">
@@ -26,46 +28,35 @@ $contents = $this->em($entityType->class)
 				<th scope="col" class="col-select">
 					<input type="checkbox" id="select" class="multiselectable-all"><label for="select"></label>
 				</th>
-				<th scope="col" class="col-name">Type</th>
-				<th scope="col" class="col-name">Content</th>
-				<th scope="col" class="col-date">Modified</th>
+				<th scope="col" class="col-name"><?= $entityType->singular ?></th>
+				<th scope="col" class="col-name">Active</th>
+				<th scope="col" class="col-date">Updated</th>
 				<th scope="col" class="col-status">Status</th>
 			</tr>
 		</thead>
 		<tbody>
 			<? foreach ($contents as $content) { ?>
-				<tr class="selectable clickable">
+				<tr class="clickable selectable">
 					<td class="col-select">
 						<?= $this->render('/content/checkbox', [
 							'entity'	=> $index,
 							'value'		=> $content,
-						]) ?>
-					</td>
-					<td>
-						<a href="<?= $this->url([
-							'action'	=> 'index',
-							'entityType'=> \Ayre::type($content)->slug,
-						]) ?>"><?= $content->typeLabel ?></a>
+						], 'core') ?>
 					</td>
 					<th class="col-name" scope="row">
-						<? if ($content instanceof \Ayre\Core\File && $content->file->exists() && $content->isGdCompatible()) { ?>
-							<img src="<?= $this->image(
-								$content->file,
-								'resize',
-								['size' => '46', 'crop' => true]
-							) ?>">
-						<? } ?>
 						<a href="<?= $this->url([
 							'action'	=> 'edit',
-							'entityType'=> \Ayre::type($content)->slug,
 							'id'		=> $content->id,
 						]) ?>"><?= $content->name ?></a><br>
 						<small><?= $content->subname ?></small>
 					</th>
+					<td class="col-name">
+						<?= $content->activeDate->toFormattedDateString() ?>
+					</td>	
 					<td class="col-date">
-						<?= $content->modifyDate->diffForHumans() ?><br>
+						<?= $content->modifyDate->diffForHumans() ?>
 						<small>by <?= $content->modifyUserName ?></small>
-					</td>
+					</td>	
 					<td class="col-status">
 						<span class="badge badge-status badge-<?= $content->status ?>"><?= $content->status ?></span>
 					</td>	
@@ -73,4 +64,4 @@ $contents = $this->em($entityType->class)
 			<? } ?>
 		</tbody>
 	</table>
-<form>
+</form>

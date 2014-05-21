@@ -15,13 +15,13 @@ use Ayre\Core,
 */
 class Page extends Document
 {
+	protected $contents = [
+		'primary'	=> '',
+		'secondary'	=> '',
+	];
+
     /**
      * @Column(type="string", nullable=true)
      */
 	protected $layout;
-
-    /**
-     * @Column(type="text", nullable=true)
-     */
-	protected $summary;
 }

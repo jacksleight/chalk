@@ -25,7 +25,7 @@ class Content extends Repository
 		$qb->andWhere("c.next IS NULL");
 		
 		if (isset($sort)) {
-
+			$qb->addOrderBy("c.{$sort[0]}", "{$sort[1]}");
 		} else {
 			$qb->addOrderBy("c.modifyDate", "DESC");
 		}

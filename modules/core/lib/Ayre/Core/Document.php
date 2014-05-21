@@ -22,10 +22,12 @@ class Document extends Content
     /**
      * @Column(type="coast_json")
      */
-	protected $contents = [
-		'primary'	=> '',
-		'secondary'	=> '',
-	];
+	protected $contents = [];
+
+    /**
+     * @Column(type="text", nullable=true)
+     */
+	protected $summary;
 
 	public function metas(array $metas = null)
 	{

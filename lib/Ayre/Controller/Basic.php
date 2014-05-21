@@ -17,14 +17,6 @@ class Basic extends Action
 			= Ayre::type($this->_entityClass);
 	}
 
-	public function postDispatch(Request $req, Response $res)
-	{
-		$path = "{$req->entityType->entity->path}/{$req->action}";
-		if (!$this->view->has($path)) {
-			$req->view->path = "entity/{$req->action}";
-		}
-	}
-
 	public function index(Request $req, Response $res)
 	{}
 

@@ -58,9 +58,9 @@ class Listener implements EventSubscriber
         $repositoryClasses = [
             $type->module->class . '\\Repository\\' . $type->entity->class,
             $type->module->class . '\\Repository\\' . Ayre::type($rootClass)->entity->class,
-            $type->module->class . '\\Repository',
+            Ayre::type($rootClass)->module->class . '\\Repository\\' . Ayre::type($rootClass)->entity->class,
             'Ayre\\Repository',
-        ];
+        ];        
 
         foreach ($repositoryClasses as $repositoryClass) {
             if (class_exists($repositoryClass)) {

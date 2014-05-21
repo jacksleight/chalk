@@ -23,6 +23,12 @@
 			'name'	=> 'content',
 			'params'=> ['entityType' => 'core-url'],
 			// 'badge'	=> 12,
+		], 
+		[
+			'label' => 'Articles',
+			'name'	=> 'content',
+			'params'=> ['entityType' => 'article-article'],
+			// 'badge'	=> 12,
 		]
 	]]) ?>
 </nav>
