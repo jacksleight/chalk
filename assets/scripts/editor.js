@@ -25,6 +25,7 @@ tinyMCE.init({
 	plugins: 'code paste table contextmenu charmap link image autoresize fullscreen hr visualblocks searchreplace',
 	toolbar: 'styleselect bold italic removeformat | bullist numlist table hr | link image charmap | pastetext searchreplace | fullscreen visualblocks code',
 	statusbar: false,
+	autoresize_max_height: 800, 
 	paste_retain_style_properties: 'none',
 	paste_webkit_styles: 'none',
 	paste_word_valid_elements: '-strong/b,-em/i,-p,-ol,-ul,-li,-h1,-h2,-h3,-h4,-h5,-h6,-p/div,-table,-tr,-td[colspan|rowspan],-th,-thead,-tfoot,-tbody,-a[href],sub,sup,strike,br,del',
