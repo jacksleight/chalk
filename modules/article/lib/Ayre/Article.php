@@ -6,5 +6,7 @@
 
 namespace Ayre;
 
-class Article extends Module
+use Ayre\Module\Basic;
+
+class Article extends Basic
 {}

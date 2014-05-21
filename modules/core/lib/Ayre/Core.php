@@ -6,5 +6,7 @@
 
 namespace Ayre;
 
-class Core extends Module
+use Ayre\Module\Basic;
+
+class Core extends Basic
 {}

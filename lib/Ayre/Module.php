@@ -6,59 +6,11 @@
 
 namespace Ayre;
 
-use Coast\Dir,
-	Coast\File;
-
-abstract class Module
+interface Module
 {
-    protected $_baseDir;
+    public function libDir();
 
-    public function __construct()
-    {
-		$reflection	= new \ReflectionClass(get_class($this));
-		$baseDir = (new File($reflection->getFileName()))
-			->dir()
-            ->dir('..')
-			->dir('..')
-			->toReal();
-        $this->baseDir(!$baseDir instanceof Dir
-            ? new Dir("{$baseDir}")
-            : $baseDir);
-    }
+    public function viewDir();
 
-    public function baseDir(\Coast\Dir $baseDir = null)
-    {
-        if (isset($baseDir)) {
-            $this->_baseDir = $baseDir;
-            return $this;
-        }
-        return $this->_baseDir;
-    }
-
-    public function dir($path = null, $create = false)
-    {
-        return isset($path)
-            ? $this->_baseDir->dir($path, $create)
-            : $this->_baseDir;
-    }
-
-    public function file($path)
-    {
-        return $this->_baseDir->file($path);
-    }
-
-    public function libDir()
-    {
-        return $this->dir('lib');
-    }
-
-    public function viewDir()
-    {
-        return $this->dir('views');
-    }
-
-    public function controllerNamespace()
-    {
-        return get_class($this) . '\\Controller';
-    }
+    public function controllerNamespace();
 }

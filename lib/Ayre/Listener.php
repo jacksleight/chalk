@@ -53,6 +53,17 @@ class Listener implements EventSubscriber
                 $mapping['columnName'] = "{$type->name}_" . trim($mapping['columnName'], '`');
                 $meta->setAttributeOverride($name, $mapping);
             }
+            $names = $meta->getAssociationNames();
+            foreach ($names as $name) {
+                $mapping = $meta->getAssociationMapping($name);
+                if (isset($mapping['inherited']) || !isset($mapping['joinColumns'])) {
+                    continue;
+                }
+                foreach ($mapping['joinColumns'] as $i => $joinColumn) {
+                    $mapping['joinColumns'][$i]['name'] = "{$type->name}_" . trim($joinColumn['name'], '`');
+                }
+                $meta->setAssociationOverride($name, $mapping);
+            }
         }
  
         $repositoryClasses = [
