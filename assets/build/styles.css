@@ -128,7 +128,7 @@ dl {
   margin: 20px 0 0 0;
 }
 dl dt {
-  font-weight: 500;
+  font-weight: 400;
   float: left;
   width: 80px;
 }
@@ -165,7 +165,7 @@ em {
 }
 
 strong {
-  font-weight: 500;
+  font-weight: 400;
 }
 
 mark {
@@ -627,7 +627,7 @@ table tr:first-child th, table tr:first-child td {
   border-top: 0;
 }
 table thead th {
-  font-weight: 500;
+  font-weight: 400;
 }
 table thead tr:last-child th, table thead tr:last-child td {
   border-bottom: 1px solid #dddee0;
@@ -1565,7 +1565,7 @@ legend {
 .form-item > label {
   color: #3a424c;
   display: block;
-  font-weight: 500;
+  font-weight: 400;
 }
 .form-item > div {
   margin: 5px 0 0 0;
@@ -2224,7 +2224,7 @@ html, body {
   text-decoration: none;
   text-align: center;
   display: block;
-  padding: 12px 0;
+  padding: 13px 0 12px 0;
   line-height: 1.4;
   color: #9ca0a5;
 }
@@ -2333,7 +2333,7 @@ html, body {
 .title {
   margin-top: 0;
   text-align: center;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .center {

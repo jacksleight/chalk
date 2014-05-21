@@ -85,7 +85,7 @@ ol {
 dl { 
 	margin: $gutter 0 0 0;
 	dt { 
-		font-weight: 500;
+		font-weight: 400;
 		float: left;
 		width: (100px - $gutter);
 	}
@@ -115,7 +115,7 @@ em {
 	color: $color-primary;
 }
 strong { 
-	font-weight: 500;
+	font-weight: 400;
 }
 mark { 
 	background-color: $color-highlight;
@@ -473,7 +473,7 @@ table {
 	}
 	thead {
 		th {
-			font-weight: 500;
+			font-weight: 400;
 		}
 		tr:last-child {
 			th, td {
@@ -963,7 +963,7 @@ legend {
 	> label {
 		color: $color-loud;
 		display: block;
-		font-weight: 500;
+		font-weight: 400;
 	}
 	> div { 
 		margin: $gutter  * 0.25 0 0 0;
