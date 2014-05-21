@@ -4,3 +4,27 @@ body {
 	margin: 0 1em;
 	color: #3a424c;
 }
+
+h1 {
+	font-size: 1.75em;	
+}
+
+h2 {
+	font-size: 1.6em;	
+}
+
+h3 {
+	font-size: 1.45em;	
+}
+
+h4 {
+	font-size: 1.3em;	
+}
+
+h5 {
+	font-size: 1.15em;
+}
+
+h6 {
+	font-size: 1em;	
+}

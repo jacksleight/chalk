@@ -12,7 +12,7 @@ $title	= (isset($title)
 	<title><?= $title ?></title>
 	<meta name="apple-mobile-web-app-title" content="Foundation">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href='http://fonts.googleapis.com/css?family=Raleway:300,500' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="<?= $this->rootUrl->file("vendor/jacksleight/ayre/assets/build/styles{$code}.css") ?>">
 	<link rel="shortcut icon" href="<?= $this->rootUrl->file("vendor/jacksleight/ayre/assets/images/favicon.ico") ?>">
 	<link rel="apple-touch-icon-precomposed" href="<?= $this->rootUrl->file("vendor/jacksleight/ayre/assets/images/touch-icon-precomposed.png") ?>">

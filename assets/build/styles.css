@@ -1,4 +1,3 @@
-@charset "utf-8";
 /* Configuration */
 /* Partials */
 /* Media */
@@ -37,7 +36,7 @@ html {
   text-size-adjust: 100%;
   font-size: 16px;
   line-height: 1.5;
-  font-family: Raleway, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #4d545d;
   font-weight: 300;
 }
@@ -173,6 +172,8 @@ mark {
   background-color: yellow;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
   border-radius: 2px;
 }
 
@@ -204,6 +205,8 @@ pre, code {
   font-size: 1rem;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
   border-radius: 0;
 }
 
@@ -610,6 +613,8 @@ table {
   border-spacing: 0;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
   border-radius: 0;
 }
 table tr th, table tr td {
@@ -751,7 +756,7 @@ select,
   display: inline-block;
   font-size: 16px;
   font-size: 1rem;
-  font-family: Raleway, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #4d545d;
   text-align: left;
   font-weight: 300;
@@ -766,6 +771,8 @@ select,
   border-color: #cdcfd2;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
   border-radius: 0;
   outline: 0;
   -webkit-appearance: none;
@@ -954,7 +961,7 @@ select {
 select optgroup {
   font-size: 16px;
   font-size: 1rem;
-  font-family: Raleway, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: normal;
   font-weight: normal;
   color: #9ca0a5;
@@ -1008,7 +1015,7 @@ input[type=submit],
 input[type=button],
 button,
 .btn {
-  font-family: Raleway, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-size: 1rem;
   height: 38px;
@@ -1024,6 +1031,8 @@ button,
   border-color: #f1f1f2;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
   border-radius: 0;
   outline: 0;
   cursor: pointer;
