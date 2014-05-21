@@ -11,7 +11,6 @@ use Ayre\Core,
 
 /**
  * @Entity
- * @HasLifecycleCallbacks
 */
 class Document extends Content
 {

@@ -4,7 +4,7 @@ use Coast\App\Controller,
 	Coast\App\Response, 
 	Coast\App\Router, 
 	Coast\App\UrlResolver,
-	Coast\App\ViewRenderer,
+	Coast\App\View,
 	Coast\Config,
 	Coast\Path,
 	Coast\Url,
@@ -23,11 +23,15 @@ $root = $app;
 $app = (new Ayre(null, $config->envs))
 	->path(new Path("{$options->path}"));
 
-$router = new Router(
-	new Controller('Ayre\Core\Controller'));
+$viewDirs = [];
+$controllerNamespaces = [];
+foreach ($app->modules() as $name => $module) {
+	$viewDirs[$name] = $module->viewDir();
+	$controllerNamespaces[$name] = $module->controllerNamespace();
+}
 
-$viewRenderer = new ViewRenderer(
-	$app->module('core')->dir('views'));
+$router	= new Router(new Controller($controllerNamespaces));
+$view	= new View($viewDirs);
 
 $urlResolver = new UrlResolver(
 	new Url("{$config->baseUrl}{$app->path()}/"),
@@ -51,7 +55,7 @@ $app->set('root', 		$root)
 	->set('memcached',	$app->import($app->file('init/memcached.php')))
 	->set('em',			$app->import($app->file('init/doctrine.php')))
 	->set('swift',		$app->import($app->file('init/swift.php')))
-	->set('view', $viewRenderer)
+	->set('view', $view)
 	->add('image', $image)
 	->add('locale', new Locale([
 		'cookie'  => 'locale',

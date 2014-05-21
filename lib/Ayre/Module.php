@@ -46,4 +46,19 @@ abstract class Module
     {
         return $this->_baseDir->file($path);
     }
+
+    public function libDir()
+    {
+        return $this->dir('lib');
+    }
+
+    public function viewDir()
+    {
+        return $this->dir('views');
+    }
+
+    public function controllerNamespace()
+    {
+        return get_class($this) . '\\Controller';
+    }
 }

@@ -15,8 +15,12 @@ use Doctrine\ORM\Configuration,
 
 \Coast\Doctrine\register_dbal_types();
 
+$paths = [];
+foreach ($app->modules() as $name => $module) {
+	$paths[] = $module->libDir()->name();
+}
 $config = new Configuration();
-$config->setMetadataDriverImpl($config->newDefaultAnnotationDriver($app->module('core')->dir('lib')->name()));
+$config->setMetadataDriverImpl($config->newDefaultAnnotationDriver($paths));
 $config->setProxyDir($app->root->dir('data/proxies'));
 $config->setProxyNamespace('Ayre\Proxy');
 $config->setAutoGenerateProxyClasses(true);
