@@ -23,6 +23,11 @@
 			'params'=> ['entityType' => 'app-person'],
 			// 'badge'	=> 12,
 		], [
+			'label' => 'Features',
+			'name'	=> 'content',
+			'params'=> ['entityType' => 'app-feature'],
+			// 'badge'	=> 12,
+		], [
 			'label' => 'Files',
 			'name'	=> 'content',
 			'params'=> ['entityType' => 'core-file'],

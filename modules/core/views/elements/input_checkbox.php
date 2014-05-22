@@ -12,7 +12,7 @@ $required = $md['validator']->hasValidator('Toast\Validator\Set');
 	value="1"
 	<?= isset($disabled) && $disabled ? "disabled" : null ?>
 	<?= isset($readOnly) && $readOnly ? "readonly" : null ?>
-	<?= isset($required) && $required ? "required" : null ?>
+	<?= false && isset($required) && $required ? "required" : null ?>
 	<?= $entity->{$name} ? 'checked' : null ?>
 	<?= isset($class) ? "class=\"{$class}\"" : null ?>>
 <label for="<?= "_{$md['contextName']}" ?>">
