@@ -8,8 +8,11 @@ use Coast\App\Controller\Action,
 class Index extends Action
 {
 	public function index(Request $req, Response $res)
+	{}
+	
+	public function respond(Request $req, Response $res)
 	{
-
+		return $res->json(['test' => 123]);
 	}
 
 	public function prefs(Request $req, Response $res)

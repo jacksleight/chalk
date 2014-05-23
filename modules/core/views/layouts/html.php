@@ -16,10 +16,9 @@ $title	= (isset($title)
 	<link rel="shortcut icon" href="<?= $this->rootUrl->file("vendor/jacksleight/ayre/assets/images/favicon.ico") ?>">
 	<link rel="apple-touch-icon-precomposed" href="<?= $this->rootUrl->file("vendor/jacksleight/ayre/assets/images/touch-icon-precomposed.png") ?>">
 	<script src="<?= $this->rootUrl->file("vendor/jacksleight/ayre/assets/build/polyfills{$code}.js") ?>"></script>
-	<?= $content->head ?>
 </head>
 <body class="<?= isset($class) ? $class : '' ?>">
-	<?= $content->body ?>
+	<?= $content ?>
 	<script>
 		var Ayre = <?= json_encode([
 			'baseUrl'		=> (string) $this->url->baseUrl(),
@@ -27,8 +26,13 @@ $title	= (isset($title)
 			'prefs'			=> $req->user->prefs(),
 		]) ?>;
 	</script>
+	<script type="x-tmpl-mustache" class="modal-template">
+		<div class="modal hideable hideable-hidden">
+			<div class="modal-content"></div>
+			<div class="modal-loader hideable hideable-hidden"></div>
+		</div>
+	</script>
 	<script src="<?= $this->rootUrl->file("vendor/jacksleight/ayre/assets/build/scripts{$code}.js") ?>"></script>
    	<script src="<?= $this->rootUrl->file("vendor/jacksleight/ayre/assets/build/editor{$code}.js") ?>" async></script>
-	<?= $content->foot ?>
 </body>
 </html>

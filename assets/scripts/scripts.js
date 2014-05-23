@@ -18,6 +18,7 @@ FastClick.attach(document.body);
 /* Utilities */
 
 //= require utils/prefs.js
+//= require utils/modal.js
 
 /* Behaviours */
 

@@ -1,3 +1,4 @@
+@charset "utf-8";
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300);
 /* Configuration */
 /* Partials */
@@ -22,6 +23,47 @@
 /* Transitions */
 /* Widths & Heights */
 /* Fonts */
+/* Animations */
+@-ms-keyframes spin {
+  from {
+    -ms-transform: rotate(0deg);
+  }
+
+  to {
+    -ms-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* General */
 *, *:before, *:after {
   -webkit-box-sizing: border-box;
@@ -173,8 +215,6 @@ mark {
   background-color: yellow;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
-  -ms-border-radius: 2px;
-  -o-border-radius: 2px;
   border-radius: 2px;
 }
 
@@ -206,8 +246,6 @@ pre, code {
   font-size: 1rem;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
   border-radius: 0;
 }
 
@@ -614,8 +652,6 @@ table {
   border-spacing: 0;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
   border-radius: 0;
 }
 table tr th, table tr td {
@@ -772,8 +808,6 @@ select,
   border-color: #cdcfd2;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
   border-radius: 0;
   outline: 0;
   -webkit-appearance: none;
@@ -1032,8 +1066,6 @@ button,
   border-color: #f1f1f2;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
   border-radius: 0;
   outline: 0;
   cursor: pointer;
@@ -2381,6 +2413,65 @@ html, body {
   padding: 20px;
 }
 
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.modal:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal .modal-loader, .modal .modal-content {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  bottom: 20px;
+  left: 20px;
+}
+.modal .modal-loader {
+  background-color: rgba(255, 255, 255, 0.75);
+  pointer-events: none;
+}
+.modal .modal-loader:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  background-color: #fcb941;
+  -webkit-animation: spin 1s infinite linear;
+  -moz-animation: spin 1s infinite linear;
+  -o-animation: spin 1s infinite linear;
+  animation: spin 1s infinite linear;
+}
+.modal .modal-content {
+  background-color: white;
+}
+.modal .modal-content > *:first-child {
+  margin-top: 0 !important;
+}
+
+.hideable {
+  -webkit-transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+  opacity: 1;
+}
+.hideable.hideable-hidden {
+  opacity: 0;
+}
+
 /* Footer */
 .footer {
   background: #1f2429;
@@ -2410,15 +2501,15 @@ html, body {
 
 /* Hacks */
 /*!
- *  Font Awesome 4.1.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  Font Awesome 4.0.3 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
 /* FONT PATH
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url("../fonts/fontawesome-webfont.eot?v=4.1.0");
-  src: url("../fonts/fontawesome-webfont.eot?#iefix&v=4.1.0") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff?v=4.1.0") format("woff"), url("../fonts/fontawesome-webfont.ttf?v=4.1.0") format("truetype"), url("../fonts/fontawesome-webfont.svg?v=4.1.0#fontawesomeregular") format("svg");
+  src: url("../fonts/fontawesome-webfont.eot?v=4.0.3");
+  src: url("../fonts/fontawesome-webfont.eot?#iefix&v=4.0.3") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff?v=4.0.3") format("woff"), url("../fonts/fontawesome-webfont.ttf?v=4.0.3") format("truetype"), url("../fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -2539,20 +2630,28 @@ html, body {
   }
 }
 
+@-ms-keyframes spin {
+  0% {
+    -ms-transform: rotate(0deg);
+  }
+
+  100% {
+    -ms-transform: rotate(359deg);
+  }
+}
+
 @keyframes spin {
   0% {
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 
   100% {
-    -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
 
 .fa-rotate-90 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=$rotation);
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -2561,7 +2660,7 @@ html, body {
 }
 
 .fa-rotate-180 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=$rotation);
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
@@ -2570,7 +2669,7 @@ html, body {
 }
 
 .fa-rotate-270 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=$rotation);
   -webkit-transform: rotate(270deg);
   -moz-transform: rotate(270deg);
   -ms-transform: rotate(270deg);
@@ -2579,7 +2678,7 @@ html, body {
 }
 
 .fa-flip-horizontal {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=$rotation);
   -webkit-transform: scale(-1, 1);
   -moz-transform: scale(-1, 1);
   -ms-transform: scale(-1, 1);
@@ -2588,7 +2687,7 @@ html, body {
 }
 
 .fa-flip-vertical {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=$rotation);
   -webkit-transform: scale(1, -1);
   -moz-transform: scale(1, -1);
   -ms-transform: scale(1, -1);
@@ -2865,8 +2964,6 @@ html, body {
   content: "\f03d";
 }
 
-.fa-photo:before,
-.fa-image:before,
 .fa-picture-o:before {
   content: "\f03e";
 }
@@ -3348,8 +3445,6 @@ html, body {
   content: "\f0c8";
 }
 
-.fa-navicon:before,
-.fa-reorder:before,
 .fa-bars:before {
   content: "\f0c9";
 }
@@ -3428,12 +3523,12 @@ html, body {
 }
 
 .fa-sort-down:before,
-.fa-sort-desc:before {
+.fa-sort-asc:before {
   content: "\f0dd";
 }
 
 .fa-sort-up:before,
-.fa-sort-asc:before {
+.fa-sort-desc:before {
   content: "\f0de";
 }
 
@@ -3684,8 +3779,11 @@ html, body {
   content: "\f121";
 }
 
-.fa-mail-reply-all:before,
 .fa-reply-all:before {
+  content: "\f122";
+}
+
+.fa-mail-reply-all:before {
   content: "\f122";
 }
 
@@ -4141,307 +4239,4 @@ html, body {
 
 .fa-plus-square-o:before {
   content: "\f196";
-}
-
-.fa-space-shuttle:before {
-  content: "\f197";
-}
-
-.fa-slack:before {
-  content: "\f198";
-}
-
-.fa-envelope-square:before {
-  content: "\f199";
-}
-
-.fa-wordpress:before {
-  content: "\f19a";
-}
-
-.fa-openid:before {
-  content: "\f19b";
-}
-
-.fa-institution:before,
-.fa-bank:before,
-.fa-university:before {
-  content: "\f19c";
-}
-
-.fa-mortar-board:before,
-.fa-graduation-cap:before {
-  content: "\f19d";
-}
-
-.fa-yahoo:before {
-  content: "\f19e";
-}
-
-.fa-google:before {
-  content: "\f1a0";
-}
-
-.fa-reddit:before {
-  content: "\f1a1";
-}
-
-.fa-reddit-square:before {
-  content: "\f1a2";
-}
-
-.fa-stumbleupon-circle:before {
-  content: "\f1a3";
-}
-
-.fa-stumbleupon:before {
-  content: "\f1a4";
-}
-
-.fa-delicious:before {
-  content: "\f1a5";
-}
-
-.fa-digg:before {
-  content: "\f1a6";
-}
-
-.fa-pied-piper-square:before,
-.fa-pied-piper:before {
-  content: "\f1a7";
-}
-
-.fa-pied-piper-alt:before {
-  content: "\f1a8";
-}
-
-.fa-drupal:before {
-  content: "\f1a9";
-}
-
-.fa-joomla:before {
-  content: "\f1aa";
-}
-
-.fa-language:before {
-  content: "\f1ab";
-}
-
-.fa-fax:before {
-  content: "\f1ac";
-}
-
-.fa-building:before {
-  content: "\f1ad";
-}
-
-.fa-child:before {
-  content: "\f1ae";
-}
-
-.fa-paw:before {
-  content: "\f1b0";
-}
-
-.fa-spoon:before {
-  content: "\f1b1";
-}
-
-.fa-cube:before {
-  content: "\f1b2";
-}
-
-.fa-cubes:before {
-  content: "\f1b3";
-}
-
-.fa-behance:before {
-  content: "\f1b4";
-}
-
-.fa-behance-square:before {
-  content: "\f1b5";
-}
-
-.fa-steam:before {
-  content: "\f1b6";
-}
-
-.fa-steam-square:before {
-  content: "\f1b7";
-}
-
-.fa-recycle:before {
-  content: "\f1b8";
-}
-
-.fa-automobile:before,
-.fa-car:before {
-  content: "\f1b9";
-}
-
-.fa-cab:before,
-.fa-taxi:before {
-  content: "\f1ba";
-}
-
-.fa-tree:before {
-  content: "\f1bb";
-}
-
-.fa-spotify:before {
-  content: "\f1bc";
-}
-
-.fa-deviantart:before {
-  content: "\f1bd";
-}
-
-.fa-soundcloud:before {
-  content: "\f1be";
-}
-
-.fa-database:before {
-  content: "\f1c0";
-}
-
-.fa-file-pdf-o:before {
-  content: "\f1c1";
-}
-
-.fa-file-word-o:before {
-  content: "\f1c2";
-}
-
-.fa-file-excel-o:before {
-  content: "\f1c3";
-}
-
-.fa-file-powerpoint-o:before {
-  content: "\f1c4";
-}
-
-.fa-file-photo-o:before,
-.fa-file-picture-o:before,
-.fa-file-image-o:before {
-  content: "\f1c5";
-}
-
-.fa-file-zip-o:before,
-.fa-file-archive-o:before {
-  content: "\f1c6";
-}
-
-.fa-file-sound-o:before,
-.fa-file-audio-o:before {
-  content: "\f1c7";
-}
-
-.fa-file-movie-o:before,
-.fa-file-video-o:before {
-  content: "\f1c8";
-}
-
-.fa-file-code-o:before {
-  content: "\f1c9";
-}
-
-.fa-vine:before {
-  content: "\f1ca";
-}
-
-.fa-codepen:before {
-  content: "\f1cb";
-}
-
-.fa-jsfiddle:before {
-  content: "\f1cc";
-}
-
-.fa-life-bouy:before,
-.fa-life-saver:before,
-.fa-support:before,
-.fa-life-ring:before {
-  content: "\f1cd";
-}
-
-.fa-circle-o-notch:before {
-  content: "\f1ce";
-}
-
-.fa-ra:before,
-.fa-rebel:before {
-  content: "\f1d0";
-}
-
-.fa-ge:before,
-.fa-empire:before {
-  content: "\f1d1";
-}
-
-.fa-git-square:before {
-  content: "\f1d2";
-}
-
-.fa-git:before {
-  content: "\f1d3";
-}
-
-.fa-hacker-news:before {
-  content: "\f1d4";
-}
-
-.fa-tencent-weibo:before {
-  content: "\f1d5";
-}
-
-.fa-qq:before {
-  content: "\f1d6";
-}
-
-.fa-wechat:before,
-.fa-weixin:before {
-  content: "\f1d7";
-}
-
-.fa-send:before,
-.fa-paper-plane:before {
-  content: "\f1d8";
-}
-
-.fa-send-o:before,
-.fa-paper-plane-o:before {
-  content: "\f1d9";
-}
-
-.fa-history:before {
-  content: "\f1da";
-}
-
-.fa-circle-thin:before {
-  content: "\f1db";
-}
-
-.fa-header:before {
-  content: "\f1dc";
-}
-
-.fa-paragraph:before {
-  content: "\f1dd";
-}
-
-.fa-sliders:before {
-  content: "\f1de";
-}
-
-.fa-share-alt:before {
-  content: "\f1e0";
-}
-
-.fa-share-alt-square:before {
-  content: "\f1e1";
-}
-
-.fa-bomb:before {
-  content: "\f1e2";
 }
