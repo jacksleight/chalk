@@ -164,24 +164,16 @@ html, body {
 	}
 	.modal-loader, .modal-content {
 		position: absolute;
-		top: $gutter; right: $gutter; bottom: $gutter; left: $gutter;
 	}
 	.modal-loader {
-		background-color: transparentize(white, 0.25);
-		pointer-events: none;
-		&:before {
-			content: '';
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			width: $gutter * 2;
-			height: $gutter * 2;
-			margin: $gutter * -1 0 0 $gutter * -1;
-			background-color: $color-active;
-			@include animation(spin 1s infinite linear);
-		}
+		top: $gutter * 1.25; right: $gutter * 1.25;
+		width: $gutter;
+		height: $gutter;
+		background-color: $color-active;
+		@include animation(spin 1s infinite linear);
 	}
 	.modal-content {
+		top: $gutter * 0.5; right: $gutter * 0.5; bottom: $gutter * 0.5; left: $gutter * 0.5;
 		background-color: white;
 		@include flush;
 	}

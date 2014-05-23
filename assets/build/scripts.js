@@ -13558,9 +13558,14 @@ Ayre.set = function(prefs) {
 			modal.removeClass('hideable-hidden');
 		}, 1);
 
+		var xhr;
 		var request = function(url, type) {
-			loader.removeClass('hideable-hidden');
-			$.ajax(url, {type: type || 'GET'})
+			if (xhr) {
+				xhr.abort();
+				xhr = null;
+			}
+			loader.removeClass('hideable-hidden');		
+			xhr = $.ajax(url, {type: type || 'GET'})
 				.done(function(data) {
 					if (typeof data == 'object') {
 						close(data);
