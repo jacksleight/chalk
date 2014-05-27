@@ -84,6 +84,11 @@ class Node extends \Toast\Entity
      */
     protected $path;
 
+    /**
+     * @Column(type="boolean")
+     */
+    protected $isHidden = false;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();

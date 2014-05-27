@@ -1,10 +1,7 @@
 <?php
-$repo		= $this->em('Ayre\Core\Domain');
+$repo		= $this->em('Ayre\Core\Structure');
 $structures	= $repo->fetchAll();
-$structure	= $repo->fetch($req->structure);
-if (!isset($structure)) {
-	$structure = $structures[0];
-}
+$structure	= $repo->fetch($req->structure ?: 3);
 $repo->fetchTree($structure);
 ?>
 <? $this->layout('/layouts/body') ?>

@@ -63,22 +63,7 @@
 				), 'core') ?>
 			</div>
 		</fieldset>
-		<? if (isset($node)) { ?>
-			<fieldset class="form-block">
-				<div class="form-legend">
-					<h2><?= $node->structure->name ?></h2>
-				</div>
-				<div class="form-items">	
-					<?= $this->render('/elements/form-item', array(
-						'entity'		=> $node,
-						'name'			=> 'name',
-						'label'			=> 'Label',
-						'placeholder'	=> $content->name,
-						'note'			=> 'Text used in navigation and URLs',
-					), 'core') ?>
-				</div>
-			</fieldset>
-		<? } ?>
+		<?= $this->render('/content/node') ?>
 	</div>
 	<fieldset class="fix">
 		<ul class="toolbar">
