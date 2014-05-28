@@ -97,13 +97,7 @@ dl {
 /* Link */
 
 a { 
-	@include link-colors(
-		$color-primary,
-		$color-focus, i
-		$color-primary,
-		$color-primary,
-		$color-primary
-	);
+	@include link-color($color-primary);
 	@include transition(all $speed ease);
 	text-decoration: underline;
 }
@@ -352,9 +346,6 @@ figure {
 			margin-top: 0;
 		}
 	}
-	a {
-		text-decoration: none;
-	}
 }
 .thumb {
 	position: relative;
@@ -438,6 +429,10 @@ figure {
 		&:hover:before {
 			opacity: 1;
 		}
+	}
+	a {
+		text-decoration: none;
+		@include link-color(inherit);
 	}
 	&.selected {
 		input[type=checkbox] + label:before {
@@ -555,6 +550,9 @@ table {
 
 /* Selectable */
 
+.selectable-only * {
+	cursor: default;
+}
 .selected {
 	input[type=checkbox] + label:before {
 		background-color: $color-active !important;
@@ -725,7 +723,16 @@ textarea {
 	padding: $input-padding;
 	line-height: $line-height;
 	.toolbar {
-		margin: 0;
+		margin-top: 0;
+	}
+	.placeholder {
+		color: $color-quieter;
+		height: $input-height;
+		line-height: $input-height - ($input-border-width * 2);
+		vertical-align: baseline;
+		padding: 0 $input-padding-horiz;
+		border: transparent $input-border-width solid;
+		display: inline-block;
 	}
 }
 
@@ -743,10 +750,10 @@ button,
 	padding: 0 $input-padding-horiz;
 	margin: 0;
 	font-weight: 300;
-	@include link-color($color-foreground);
-	background-color: $color-shade;
+	@include link-color(white !important);
+	background-color: $color-quiet;
 	border: $input-border-width solid;
-	border-color: $color-shade;
+	border-color: $color-quiet;
 	@include border-radius($radius);
 	outline: 0;
 	cursor: pointer;
@@ -760,8 +767,8 @@ button,
 		opacity: 0.25;
 	}
 	&:hover { 
-		background-color: shade($color-shade, 10%) !important;
-		border-color: shade($color-shade, 10%) !important;
+		background-color: shade($color-quiet, 10%) !important;
+		border-color: shade($color-quiet, 10%) !important;
 	}
 	&.active {
 		@include arrow(38px, 1px);
@@ -788,11 +795,10 @@ button,
 		display: inline;
 		height: auto;
 		line-height: 1;
-		padding-top: $input-padding * 1.5;
-		padding-bottom: $input-padding * 1.5;
+		padding-top: $input-padding * 1.1;
+		padding-bottom: $input-padding * 1.1;
 	}
 	&.btn-focus {
-		@include link-color(white);
 		background-color: $color-focus;
 		border-color: $color-focus;
 		&:hover { 
@@ -801,7 +807,6 @@ button,
 		}
 	}
 	&.btn-pending {
-		@include link-color(white);
 		background-color: $color-pending;
 		border-color: $color-pending;
 		&:hover { 
@@ -810,7 +815,6 @@ button,
 		}
 	}
 	&.btn-positive {
-		@include link-color(white);
 		background-color: $color-positive;
 		border-color: $color-positive;
 		&:hover { 
@@ -819,7 +823,6 @@ button,
 		}
 	}
 	&.btn-negative {
-		@include link-color(white);
 		background-color: $color-negative;
 		border-color: $color-negative;
 		&:hover { 
@@ -828,14 +831,8 @@ button,
 		}
 	}
 	&.btn-quiet {
-		@include link-color(white);
 		background-color: $color-quiet;
 		border-color: $color-quiet;
-	}
-	&.btn-quieter {
-		@include link-color(white);
-		background-color: $color-quieter;
-		border-color: $color-quieter;
 	}
 }
 

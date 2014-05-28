@@ -1,13 +1,15 @@
 <?php
-$template = isset($template) && $template;
-$covered  = isset($covered)  && $covered;
+$template	= isset($template) ? $template : false;
+$covered	= isset($covered) ? $covered : false;
+$selectOnly	= isset($selectOnly) ? $selectOnly : false;
 ?>
-<a href="<?= !$template ? $this->url([
-	'entityType'=> $entityType->slug,
-	'action'	=> 'edit',
-	'content'	=> $content->id,
+
+<figure class="thumb selectable <?= $selectOnly ? 'selectable-only' : null ?>">
+	<a href="<?= !$template ? $this->url([
+		'entityType'=> $entityType->slug,
+		'action'	=> 'edit',
+		'content'	=> $content->id,
 ]) : '#' ?>">
-	<figure class="thumb selectable">
 		<? if (!$template) { ?>
 			<?= $this->render('/content/checkbox', [
 				'entity'	=> $index,
@@ -51,5 +53,5 @@ $covered  = isset($covered)  && $covered;
 				</span>
 			<? } ?>
 		</figcaption>
-	</figure>
-</a>
+	</a>
+</figure>

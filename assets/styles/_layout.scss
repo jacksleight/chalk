@@ -33,20 +33,31 @@ html, body {
 	> .flex {
 		flex: 1;
 		overflow: auto;
-		padding: $gutter $gutter * 1.5;
 		position: relative;
 		@include flush();
 	}
 	> .fix {
-		@include flush;
-		padding: $gutter $gutter * 1.5;
-		@include flush();
 		position: relative;
-		&:first-child {
-			border-bottom: 1px solid $color-divide;
+		@include flush();
+	}
+	.main &, 
+	.modal & {
+		> .flex {
+			padding: $gutter $gutter * 1.5;
 		}
-		&:last-child {
-			border-top: 1px solid $color-divide;
+		> .fix {
+			padding: $gutter $gutter * 1.5;
+			&:first-child {
+				border-bottom: 1px solid $color-divide;
+			}
+			&:last-child {
+				border-top: 1px solid $color-divide;
+			}
+		}
+	}
+	.sidebar & {
+		> .flex {
+			padding: $gutter 0;
 		}
 	}
 }

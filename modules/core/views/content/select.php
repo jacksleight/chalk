@@ -1,4 +1,5 @@
 <?= $this->render('/content/browser', [
-	'close'		=> true,
-	'thumbs'	=> true,
+	'close'			=> true,
+	'thumbs'		=> true,
+	'selectOnly'	=> true,
 ]) ?>

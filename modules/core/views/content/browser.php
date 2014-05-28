@@ -1,6 +1,7 @@
 <?php
-$close	= isset($close) ? $close : false;
-$thumbs	= isset($thumbs) ? $thumbs : false;
+$close		= isset($close) ? $close : false;
+$thumbs		= isset($thumbs) ? $thumbs : false;
+$selectOnly	= isset($selectOnly) ? $selectOnly : false;
 
 $contents = $this->em($entityType->class)
 	->fetchAll($index->toArray());
@@ -13,10 +14,16 @@ $contents = $this->em($entityType->class)
 			<ul class="thumbs multiselectable">
 				<? if (count($contents)) { ?>
 					<? foreach ($contents as $content) { ?>
-						<li><?= $this->render('thumb', ['content' => $content]) ?></li>
+						<li><?= $this->render('thumb', [
+							'content'		=> $content,
+							'selectOnly'	=> $selectOnly
+						]) ?></li>
 					<? } ?>
 				<? } else { ?>
-					<li><?= $this->render('thumb', ['template' => true]) ?></li>
+					<li><?= $this->render('thumb', [
+						'template'		=> true,
+						'selectOnly'	=> $selectOnly
+					]) ?></li>
 				<? } ?>		
 			</ul>
 		<? } else { ?>
@@ -41,7 +48,10 @@ $contents = $this->em($entityType->class)
 				</thead>
 				<tbody>
 					<? foreach ($contents as $content) { ?>
-						<?= $this->render('row', ['content' => $content]) ?>
+						<?= $this->render('row', [
+							'content'		=> $content,
+							'selectOnly'	=> $selectOnly
+						]) ?>
 					<? } ?>
 				</tbody>
 			</table>

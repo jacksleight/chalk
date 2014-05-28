@@ -190,10 +190,10 @@ a:focus {
   color: #3a424c;
 }
 a:hover {
-  color: #00a6b5;
+  color: #3a424c;
 }
 a:active {
-  color: i #3a424c;
+  color: #3a424c;
 }
 
 /* Emphasised & Marked */
@@ -499,9 +499,6 @@ figure figcaption {
 .thumbs li figure {
   margin-top: 0;
 }
-.thumbs a {
-  text-decoration: none;
-}
 
 .thumb {
   position: relative;
@@ -628,6 +625,22 @@ figure figcaption {
 .thumb input[type=checkbox] + label:hover:before {
   opacity: 1;
 }
+.thumb a {
+  text-decoration: none;
+  color: inherit;
+}
+.thumb a:visited {
+  color: inherit;
+}
+.thumb a:focus {
+  color: inherit;
+}
+.thumb a:hover {
+  color: inherit;
+}
+.thumb a:active {
+  color: inherit;
+}
 .thumb.selected input[type=checkbox] + label:before {
   opacity: 1;
 }
@@ -739,6 +752,10 @@ table .col-select input[type=checkbox] + label:before {
 }
 
 /* Selectable */
+.selectable-only * {
+  cursor: default;
+}
+
 .selected input[type=checkbox] + label:before {
   background-color: #fcb941 !important;
   border-color: #d69d37 !important;
@@ -1045,7 +1062,16 @@ textarea.monospaced {
   line-height: 1.5;
 }
 .content .toolbar {
-  margin: 0;
+  margin-top: 0;
+}
+.content .placeholder {
+  color: #cdcfd2;
+  height: 38px;
+  line-height: 36px;
+  vertical-align: baseline;
+  padding: 0 10px;
+  border: transparent 1px solid;
+  display: inline-block;
 }
 
 input[type=reset],
@@ -1063,10 +1089,10 @@ button,
   padding: 0 10px;
   margin: 0;
   font-weight: 300;
-  color: #4d545d;
-  background-color: #f1f1f2;
+  color: white !important;
+  background-color: #9ca0a5;
   border: 1px solid;
-  border-color: #f1f1f2;
+  border-color: #9ca0a5;
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;
@@ -1081,28 +1107,28 @@ input[type=submit]:visited,
 input[type=button]:visited,
 button:visited,
 .btn:visited {
-  color: #4d545d;
+  color: white !important;
 }
 input[type=reset]:focus,
 input[type=submit]:focus,
 input[type=button]:focus,
 button:focus,
 .btn:focus {
-  color: #4d545d;
+  color: white !important;
 }
 input[type=reset]:hover,
 input[type=submit]:hover,
 input[type=button]:hover,
 button:hover,
 .btn:hover {
-  color: #4d545d;
+  color: white !important;
 }
 input[type=reset]:active,
 input[type=submit]:active,
 input[type=button]:active,
 button:active,
 .btn:active {
-  color: #4d545d;
+  color: white !important;
 }
 input[type=reset] .fa,
 input[type=submit] .fa,
@@ -1123,8 +1149,8 @@ input[type=submit]:hover,
 input[type=button]:hover,
 button:hover,
 .btn:hover {
-  background-color: #d8d8d9 !important;
-  border-color: #d8d8d9 !important;
+  background-color: #8c9094 !important;
+  border-color: #8c9094 !important;
 }
 input[type=reset].active,
 input[type=submit].active,
@@ -1187,45 +1213,16 @@ button.btn-inline,
   display: inline;
   height: auto;
   line-height: 1;
-  padding-top: 9px;
-  padding-bottom: 9px;
+  padding-top: 6.6px;
+  padding-bottom: 6.6px;
 }
 input[type=reset].btn-focus,
 input[type=submit].btn-focus,
 input[type=button].btn-focus,
 button.btn-focus,
 .btn.btn-focus {
-  color: white;
   background-color: #00a6b5;
   border-color: #00a6b5;
-}
-input[type=reset].btn-focus:visited,
-input[type=submit].btn-focus:visited,
-input[type=button].btn-focus:visited,
-button.btn-focus:visited,
-.btn.btn-focus:visited {
-  color: white;
-}
-input[type=reset].btn-focus:focus,
-input[type=submit].btn-focus:focus,
-input[type=button].btn-focus:focus,
-button.btn-focus:focus,
-.btn.btn-focus:focus {
-  color: white;
-}
-input[type=reset].btn-focus:hover,
-input[type=submit].btn-focus:hover,
-input[type=button].btn-focus:hover,
-button.btn-focus:hover,
-.btn.btn-focus:hover {
-  color: white;
-}
-input[type=reset].btn-focus:active,
-input[type=submit].btn-focus:active,
-input[type=button].btn-focus:active,
-button.btn-focus:active,
-.btn.btn-focus:active {
-  color: white;
 }
 input[type=reset].btn-focus:hover,
 input[type=submit].btn-focus:hover,
@@ -1240,37 +1237,8 @@ input[type=submit].btn-pending,
 input[type=button].btn-pending,
 button.btn-pending,
 .btn.btn-pending {
-  color: white;
   background-color: #fc6042;
   border-color: #fc6042;
-}
-input[type=reset].btn-pending:visited,
-input[type=submit].btn-pending:visited,
-input[type=button].btn-pending:visited,
-button.btn-pending:visited,
-.btn.btn-pending:visited {
-  color: white;
-}
-input[type=reset].btn-pending:focus,
-input[type=submit].btn-pending:focus,
-input[type=button].btn-pending:focus,
-button.btn-pending:focus,
-.btn.btn-pending:focus {
-  color: white;
-}
-input[type=reset].btn-pending:hover,
-input[type=submit].btn-pending:hover,
-input[type=button].btn-pending:hover,
-button.btn-pending:hover,
-.btn.btn-pending:hover {
-  color: white;
-}
-input[type=reset].btn-pending:active,
-input[type=submit].btn-pending:active,
-input[type=button].btn-pending:active,
-button.btn-pending:active,
-.btn.btn-pending:active {
-  color: white;
 }
 input[type=reset].btn-pending:hover,
 input[type=submit].btn-pending:hover,
@@ -1285,37 +1253,8 @@ input[type=submit].btn-positive,
 input[type=button].btn-positive,
 button.btn-positive,
 .btn.btn-positive {
-  color: white;
   background-color: #2cc95c;
   border-color: #2cc95c;
-}
-input[type=reset].btn-positive:visited,
-input[type=submit].btn-positive:visited,
-input[type=button].btn-positive:visited,
-button.btn-positive:visited,
-.btn.btn-positive:visited {
-  color: white;
-}
-input[type=reset].btn-positive:focus,
-input[type=submit].btn-positive:focus,
-input[type=button].btn-positive:focus,
-button.btn-positive:focus,
-.btn.btn-positive:focus {
-  color: white;
-}
-input[type=reset].btn-positive:hover,
-input[type=submit].btn-positive:hover,
-input[type=button].btn-positive:hover,
-button.btn-positive:hover,
-.btn.btn-positive:hover {
-  color: white;
-}
-input[type=reset].btn-positive:active,
-input[type=submit].btn-positive:active,
-input[type=button].btn-positive:active,
-button.btn-positive:active,
-.btn.btn-positive:active {
-  color: white;
 }
 input[type=reset].btn-positive:hover,
 input[type=submit].btn-positive:hover,
@@ -1330,37 +1269,8 @@ input[type=submit].btn-negative,
 input[type=button].btn-negative,
 button.btn-negative,
 .btn.btn-negative {
-  color: white;
   background-color: #fc6042;
   border-color: #fc6042;
-}
-input[type=reset].btn-negative:visited,
-input[type=submit].btn-negative:visited,
-input[type=button].btn-negative:visited,
-button.btn-negative:visited,
-.btn.btn-negative:visited {
-  color: white;
-}
-input[type=reset].btn-negative:focus,
-input[type=submit].btn-negative:focus,
-input[type=button].btn-negative:focus,
-button.btn-negative:focus,
-.btn.btn-negative:focus {
-  color: white;
-}
-input[type=reset].btn-negative:hover,
-input[type=submit].btn-negative:hover,
-input[type=button].btn-negative:hover,
-button.btn-negative:hover,
-.btn.btn-negative:hover {
-  color: white;
-}
-input[type=reset].btn-negative:active,
-input[type=submit].btn-negative:active,
-input[type=button].btn-negative:active,
-button.btn-negative:active,
-.btn.btn-negative:active {
-  color: white;
 }
 input[type=reset].btn-negative:hover,
 input[type=submit].btn-negative:hover,
@@ -1375,74 +1285,8 @@ input[type=submit].btn-quiet,
 input[type=button].btn-quiet,
 button.btn-quiet,
 .btn.btn-quiet {
-  color: white;
   background-color: #9ca0a5;
   border-color: #9ca0a5;
-}
-input[type=reset].btn-quiet:visited,
-input[type=submit].btn-quiet:visited,
-input[type=button].btn-quiet:visited,
-button.btn-quiet:visited,
-.btn.btn-quiet:visited {
-  color: white;
-}
-input[type=reset].btn-quiet:focus,
-input[type=submit].btn-quiet:focus,
-input[type=button].btn-quiet:focus,
-button.btn-quiet:focus,
-.btn.btn-quiet:focus {
-  color: white;
-}
-input[type=reset].btn-quiet:hover,
-input[type=submit].btn-quiet:hover,
-input[type=button].btn-quiet:hover,
-button.btn-quiet:hover,
-.btn.btn-quiet:hover {
-  color: white;
-}
-input[type=reset].btn-quiet:active,
-input[type=submit].btn-quiet:active,
-input[type=button].btn-quiet:active,
-button.btn-quiet:active,
-.btn.btn-quiet:active {
-  color: white;
-}
-input[type=reset].btn-quieter,
-input[type=submit].btn-quieter,
-input[type=button].btn-quieter,
-button.btn-quieter,
-.btn.btn-quieter {
-  color: white;
-  background-color: #cdcfd2;
-  border-color: #cdcfd2;
-}
-input[type=reset].btn-quieter:visited,
-input[type=submit].btn-quieter:visited,
-input[type=button].btn-quieter:visited,
-button.btn-quieter:visited,
-.btn.btn-quieter:visited {
-  color: white;
-}
-input[type=reset].btn-quieter:focus,
-input[type=submit].btn-quieter:focus,
-input[type=button].btn-quieter:focus,
-button.btn-quieter:focus,
-.btn.btn-quieter:focus {
-  color: white;
-}
-input[type=reset].btn-quieter:hover,
-input[type=submit].btn-quieter:hover,
-input[type=button].btn-quieter:hover,
-button.btn-quieter:hover,
-.btn.btn-quieter:hover {
-  color: white;
-}
-input[type=reset].btn-quieter:active,
-input[type=submit].btn-quieter:active,
-input[type=button].btn-quieter:active,
-button.btn-quieter:active,
-.btn.btn-quieter:active {
-  color: white;
 }
 
 input[type=date]:focus,
@@ -2203,27 +2047,31 @@ html, body {
 .fill > .flex {
   flex: 1;
   overflow: auto;
-  padding: 20px 30px;
   position: relative;
 }
 .fill > .flex > *:first-child {
   margin-top: 0 !important;
 }
 .fill > .fix {
-  padding: 20px 30px;
   position: relative;
 }
 .fill > .fix > *:first-child {
   margin-top: 0 !important;
 }
-.fill > .fix > *:first-child {
-  margin-top: 0 !important;
+.main .fill > .flex, .modal .fill > .flex {
+  padding: 20px 30px;
 }
-.fill > .fix:first-child {
+.main .fill > .fix, .modal .fill > .fix {
+  padding: 20px 30px;
+}
+.main .fill > .fix:first-child, .modal .fill > .fix:first-child {
   border-bottom: 1px solid #dddee0;
 }
-.fill > .fix:last-child {
+.main .fill > .fix:last-child, .modal .fill > .fix:last-child {
   border-top: 1px solid #dddee0;
+}
+.sidebar .fill > .flex {
+  padding: 20px 0;
 }
 
 .sidebar {

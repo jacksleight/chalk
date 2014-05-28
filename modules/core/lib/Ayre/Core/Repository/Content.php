@@ -10,6 +10,19 @@ use Ayre\Repository;
 
 class Content extends Repository
 {
+	public function fetchByMasterId($id)
+	{
+		return $this->createQueryBuilder("c")
+            ->innerJoin('c.master', 'cm')
+            ->andWhere('c.next IS NULL')
+			->andWhere("cm.id = :id")
+			->getQuery()
+			->setParameters([
+				'id' => $id,
+			])
+			->getSingleResult();
+	}
+
 	public function fetchAll(array $criteria = array(), $sort = null, $page = null)
 	{
 		$criteria = $criteria + [
