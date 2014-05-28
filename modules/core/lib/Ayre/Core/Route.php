@@ -13,4 +13,9 @@ use Ayre\Core,
  * @Entity
 */
 class Route extends Content
-{}
+{
+	public static $info = [
+		'singular'	=> 'Route',
+		'plural'	=> 'Routes',
+	];
+}

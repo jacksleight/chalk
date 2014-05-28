@@ -14,6 +14,11 @@ use Ayre\Core,
 */
 class Document extends Content
 {
+	public static $info = [
+		'singular'	=> 'Document',
+		'plural'	=> 'Documents',
+	];
+
     /**
      * @Column(type="coast_json")
      */

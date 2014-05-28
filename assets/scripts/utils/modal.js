@@ -36,6 +36,7 @@
 		};
 		var update = function(data) {
 			content.html(data);
+			Ayre.initialize(content);
 		};
 		var close = function(data) {
 			modal.addClass('hideable-hidden');

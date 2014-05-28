@@ -11,12 +11,9 @@
 
 //= require ../../bower_components/mustache/mustache.js
 
-/* Initialize */
-
-FastClick.attach(document.body);
-
 /* Utilities */
 
+//= require utils/initialize.js
 //= require utils/prefs.js
 //= require utils/modal.js
 
@@ -35,3 +32,8 @@ FastClick.attach(document.body);
 //= require elements/thumbs.js
 //= require elements/tree.js
 //= require elements/content.js
+
+/* Initialize */
+
+FastClick.attach(document.body);
+Ayre.initialize(document.body);

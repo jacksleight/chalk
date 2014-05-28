@@ -1,4 +1,5 @@
-$('.clickable').each(function(i, el) {
+Ayre.component('.clickable', function(i, el) {
+	
 	var target = $(el).find('a')[0];
 	$(el).mouseover(function(ev) {
 		if ($(ev.target).is('a, input, label')) {
@@ -18,4 +19,5 @@ $('.clickable').each(function(i, el) {
 		}
 		target.click();
 	});
+
 });

@@ -1,4 +1,5 @@
-$('.uploadable').each(function(i, el) {
+Ayre.component('.uploadable', function(i, el) {
+	
 	var button		= $(el).find('.uploadable-button');
 	var list		= $(el).find('.uploadable-list');
 	var template	= $(el).find('.uploadable-template').html();
@@ -39,4 +40,5 @@ $('.uploadable').each(function(i, el) {
 	button.click(function(ev) {
 		$(el).find('.uploadable-input').trigger('click');
 	});
+	
 });

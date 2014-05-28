@@ -1,1 +1,4 @@
-<?= $this->render('/content/browser') ?>
+<?= $this->render('/content/browser', [
+	'close'		=> true,
+	'thumbs'	=> true,
+]) ?>

@@ -1,4 +1,5 @@
-$('.thumbs').each(function(i, el) {
+Ayre.component('.thumbs', function(i, el) {
+	
 	var className = 'thumbs-' + new Date().valueOf();
 	$(el).addClass(className);
 
@@ -21,4 +22,5 @@ $('.thumbs').each(function(i, el) {
 	refresh();
 	$(window).resize(refresh);
 	$(el).css('visibility', 'visible');
+
 });

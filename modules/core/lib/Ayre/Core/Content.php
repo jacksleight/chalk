@@ -22,6 +22,11 @@ use Ayre,
 */
 abstract class Content extends \Toast\Entity implements Loggable, Publishable, Searchable, Trackable, Versionable
 {
+	public static $info = [
+		'singular'	=> 'Content',
+		'plural'	=> 'Content',
+	];
+	
     use Publishable\Implementation,
     	Trackable\Implementation,
     	Versionable\Implementation {

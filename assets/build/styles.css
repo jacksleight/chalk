@@ -718,10 +718,6 @@ table .col-status:last-child,
 table .col-role:last-child {
   text-align: right;
 }
-table .col-name img {
-  float: left;
-  margin: 0 10px 0 0;
-}
 table .col-type {
   width: 100px;
 }
@@ -779,7 +775,8 @@ input[type=url],
 input[type=week],
 textarea,
 select,
-.value {
+.value,
+.content {
   display: inline-block;
   font-size: 16px;
   font-size: 1rem;
@@ -817,7 +814,8 @@ input[type=url][disabled],
 input[type=week][disabled],
 textarea[disabled],
 select[disabled],
-.value[disabled] {
+.value[disabled],
+.content[disabled] {
   background-color: #f1f1f2;
 }
 input[type=date]:focus:invalid,
@@ -835,7 +833,8 @@ input[type=url]:focus:invalid,
 input[type=week]:focus:invalid,
 textarea:focus:invalid,
 select:focus:invalid,
-.value:focus:invalid {
+.value:focus:invalid,
+.content:focus:invalid {
   border-color: #fc6042;
 }
 input[type=date]::-webkit-input-placeholder,
@@ -853,7 +852,8 @@ input[type=url]::-webkit-input-placeholder,
 input[type=week]::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder,
 select::-webkit-input-placeholder,
-.value::-webkit-input-placeholder {
+.value::-webkit-input-placeholder,
+.content::-webkit-input-placeholder {
   color: #cdcfd2;
 }
 input[type=date]:-moz-placeholder,
@@ -871,7 +871,8 @@ input[type=url]:-moz-placeholder,
 input[type=week]:-moz-placeholder,
 textarea:-moz-placeholder,
 select:-moz-placeholder,
-.value:-moz-placeholder {
+.value:-moz-placeholder,
+.content:-moz-placeholder {
   color: #cdcfd2;
 }
 input[type=date]::-moz-placeholder,
@@ -889,7 +890,8 @@ input[type=url]::-moz-placeholder,
 input[type=week]::-moz-placeholder,
 textarea::-moz-placeholder,
 select::-moz-placeholder,
-.value::-moz-placeholder {
+.value::-moz-placeholder,
+.content::-moz-placeholder {
   color: #cdcfd2;
 }
 input[type=date]:-ms-input-placeholder,
@@ -907,7 +909,8 @@ input[type=url]:-ms-input-placeholder,
 input[type=week]:-ms-input-placeholder,
 textarea:-ms-input-placeholder,
 select:-ms-input-placeholder,
-.value:-ms-input-placeholder {
+.value:-ms-input-placeholder,
+.content:-ms-input-placeholder {
   color: #cdcfd2;
 }
 .sidebar input[type=date], .sidebar
@@ -925,7 +928,8 @@ input[type=url], .sidebar
 input[type=week], .sidebar
 textarea, .sidebar
 select, .sidebar
-.value {
+.value, .sidebar
+.content {
   border-color: #3a424c;
   border-bottom-color: #282e35;
   background-color: #3a424c;
@@ -1035,6 +1039,15 @@ textarea.monospaced {
   color: #cdcfd2;
 }
 
+.content {
+  height: auto;
+  padding: 6px;
+  line-height: 1.5;
+}
+.content .toolbar {
+  margin: 0;
+}
+
 input[type=reset],
 input[type=submit],
 input[type=button],
@@ -1090,6 +1103,13 @@ input[type=button]:active,
 button:active,
 .btn:active {
   color: #4d545d;
+}
+input[type=reset] .fa,
+input[type=submit] .fa,
+input[type=button] .fa,
+button .fa,
+.btn .fa {
+  padding-right: 0.1em;
 }
 input[type=reset][disabled],
 input[type=submit][disabled],
@@ -2140,6 +2160,12 @@ legend {
 .stackable .stackable-item input:last-child {
   flex: 1;
   border-left: 0;
+}
+
+/* Card */
+.card img {
+  float: left;
+  margin: 0 10px 0 0;
 }
 
 /* Page */

@@ -1,3 +1,7 @@
-Ayre.set = function(prefs) {
-	$.ajax(Ayre.baseUrl + 'prefs', {data: prefs});
-};
+(function() {
+
+	Ayre.set = function(prefs) {
+		$.ajax(Ayre.baseUrl + 'prefs', {data: prefs});
+	};
+
+})();

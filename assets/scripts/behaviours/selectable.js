@@ -1,4 +1,5 @@
-$('.selectable').each(function(i, el) {
+Ayre.component('.selectable', function(i, el) {
+	
 	var checkbox = $(el).find('input[type=checkbox]');
 	var select = function(ev) {
 		if ($(checkbox).prop('checked')) {
@@ -9,9 +10,11 @@ $('.selectable').each(function(i, el) {
 	};
 	checkbox.change(select);
 	select();
+
 });
 
-$('.multiselectable').each(function(i, el) {
+Ayre.component('.multiselectable', function(i, el) {
+	
 	var active	= false;
 	var checked	= null;
 	$(el).find('.multiselectable-all').change(function(ev) {
@@ -46,4 +49,5 @@ $('.multiselectable').each(function(i, el) {
 	};
 	$(el).mouseover(select);
 	$(el).mouseout(select);
+	
 });

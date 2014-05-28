@@ -13532,15 +13532,30 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 
 
-/* Initialize */
-
-FastClick.attach(document.body);
-
 /* Utilities */
 
-Ayre.set = function(prefs) {
-	$.ajax(Ayre.baseUrl + 'prefs', {data: prefs});
-};
+(function() {
+
+	Ayre.components = [];
+	Ayre.component = function(selector, func) {
+		Ayre.components.push([selector, func]);
+	};
+	Ayre.initialize = function(el) {
+		el = $(el);
+		$(Ayre.components).each(function(i, component) {
+			el.find(component[0]).each(component[1]);
+		});
+	};
+
+})();
+
+(function() {
+
+	Ayre.set = function(prefs) {
+		$.ajax(Ayre.baseUrl + 'prefs', {data: prefs});
+	};
+
+})();
 
 (function() {
 
@@ -13580,6 +13595,7 @@ Ayre.set = function(prefs) {
 		};
 		var update = function(data) {
 			content.html(data);
+			Ayre.initialize(content);
 		};
 		var close = function(data) {
 			modal.addClass('hideable-hidden');
@@ -13620,14 +13636,17 @@ Ayre.set = function(prefs) {
 
 /* Behaviours */
 
-$('.autosubmitable').each(function(i, el) {
+Ayre.component('.autosubmitable', function(i, el) {
+
 	var inputs = $(el).find('input, textarea, select');
 	$(inputs).change(function(ev) {
 		ev.target.form.submit();
 	});
+	
 });
 
-$('.clickable').each(function(i, el) {
+Ayre.component('.clickable', function(i, el) {
+	
 	var target = $(el).find('a')[0];
 	$(el).mouseover(function(ev) {
 		if ($(ev.target).is('a, input, label')) {
@@ -13647,24 +13666,30 @@ $('.clickable').each(function(i, el) {
 		}
 		target.click();
 	});
+
 });
 
-$('.confirmable').each(function(i, el) {
+Ayre.component('.confirmable', function(i, el) {
+	
 	var message = $(el).attr('data-message') || 'Are you sure?';
 	$(el).click(function(ev) {
 		if (!confirm(message)) {
 			ev.preventDefault();
 		}	
 	});
+	
 }); 
 
-$('.expandable').each(function(i, el) {
+Ayre.component('.expandable', function(i, el) {
+	
 	$(el).find('.expandable-toggle').click(function(ev) {
 		$(el).toggleClass('active');
 	});
+
 });
 
-$('.uploadable').each(function(i, el) {
+Ayre.component('.uploadable', function(i, el) {
+	
 	var button		= $(el).find('.uploadable-button');
 	var list		= $(el).find('.uploadable-list');
 	var template	= $(el).find('.uploadable-template').html();
@@ -13705,9 +13730,11 @@ $('.uploadable').each(function(i, el) {
 	button.click(function(ev) {
 		$(el).find('.uploadable-input').trigger('click');
 	});
+	
 });
 
-$('.selectable').each(function(i, el) {
+Ayre.component('.selectable', function(i, el) {
+	
 	var checkbox = $(el).find('input[type=checkbox]');
 	var select = function(ev) {
 		if ($(checkbox).prop('checked')) {
@@ -13718,9 +13745,11 @@ $('.selectable').each(function(i, el) {
 	};
 	checkbox.change(select);
 	select();
+
 });
 
-$('.multiselectable').each(function(i, el) {
+Ayre.component('.multiselectable', function(i, el) {
+	
 	var active	= false;
 	var checked	= null;
 	$(el).find('.multiselectable-all').change(function(ev) {
@@ -13755,9 +13784,11 @@ $('.multiselectable').each(function(i, el) {
 	};
 	$(el).mouseover(select);
 	$(el).mouseout(select);
+	
 });
 
-$('.stackable').each(function(i, el) {
+Ayre.component('.stackable', function(i, el) {
+	
 	var list		= $(el).find('.stackable-list');
 	var template	= $(el).find('.stackable-template').html();
 	var i			= list.children().length;
@@ -13766,12 +13797,14 @@ $('.stackable').each(function(i, el) {
 		list.append(html);
 	}
 	add();
+
 });
 
 
 /* Elements */
 
-$('.thumbs').each(function(i, el) {
+Ayre.component('.thumbs', function(i, el) {
+	
 	var className = 'thumbs-' + new Date().valueOf();
 	$(el).addClass(className);
 
@@ -13794,9 +13827,11 @@ $('.thumbs').each(function(i, el) {
 	refresh();
 	$(window).resize(refresh);
 	$(el).css('visibility', 'visible');
+
 });
 
-$('.structure').each(function(i, el) {
+Ayre.component('.structure', function(i, el) {
+    
     var tree = $(el).find('.tree');
     tree.nestable({
         maxDepth        : 100,
@@ -13843,17 +13878,25 @@ $('.structure').each(function(i, el) {
             nodes: nodes
         });
     });
+    
 });
 
-$('.content').each(function(i, el) {
+Ayre.component('.content', function(i, el) {
+	
 	var select	= $(el).find('.content-select');
-	var name	= $(el).find('.content-name');
+	var holder	= $(el).find('.content-holder');
 	var input	= $(el).find('input[type=hidden]');
-	name.html(input.val());
 	select.click(function(ev) {
 		Ayre.modal(Ayre.baseUrl + 'content/select', function(data) {
-			input.val(data.contents[0]);
-			name.html(data.contents[0]);
+			input.val(data.contents[0].id);
+			holder.html(data.contents[0].card);
 		});
 	});
+	
 });
+
+
+/* Initialize */
+
+FastClick.attach(document.body);
+Ayre.initialize(document.body);

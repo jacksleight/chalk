@@ -15,6 +15,11 @@ use Ayre\Core,
 */
 class Page extends Document
 {
+	public static $info = [
+		'singular'	=> 'Page',
+		'plural'	=> 'Pages',
+	];
+
 	protected $contents = [
 		'primary'	=> '',
 		'secondary'	=> '',

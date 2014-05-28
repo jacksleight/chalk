@@ -14,6 +14,11 @@ use Ayre\Core,
  */
 class File extends Content
 {
+	public static $info = [
+		'singular'	=> 'File',
+		'plural'	=> 'Files',
+	];
+
 	protected static $_baseDir;
 	protected static $_mimeTypes = [];
 	

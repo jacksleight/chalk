@@ -1,4 +1,5 @@
-$('.structure').each(function(i, el) {
+Ayre.component('.structure', function(i, el) {
+    
     var tree = $(el).find('.tree');
     tree.nestable({
         maxDepth        : 100,
@@ -45,4 +46,5 @@ $('.structure').each(function(i, el) {
             nodes: nodes
         });
     });
+    
 });

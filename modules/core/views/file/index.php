@@ -18,14 +18,14 @@ $contents = $this->em($entityType->class)
 	<ul class="thumbs uploadable-list multiselectable">
 		<? if (count($contents)) { ?>
 			<? foreach ($contents as $content) { ?>
-				<?= $this->render('thumb', ['content' => $content]) ?>
+				<li><?= $this->render('/content/thumb', ['content' => $content]) ?></li>
 			<? } ?>
 		<? } else { ?>
-			<?= $this->render('thumb', ['template' => true]) ?>
+			<li><?= $this->render('/content/thumb', ['template' => true]) ?></li>
 		<? } ?>		
 	</ul>
 	<input class="uploadable-input" type="file" name="files[]" data-url="<?= $this->url(['action' => 'upload']) ?>" multiple>
 	<script type="x-tmpl-mustache" class="uploadable-template">
-		<?= $this->render('thumb', ['template' => true]) ?>
+		<?= $this->render('/content/thumb', ['template' => true]) ?>
 	</script>
 </form>

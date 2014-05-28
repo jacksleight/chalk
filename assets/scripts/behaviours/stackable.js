@@ -1,4 +1,5 @@
-$('.stackable').each(function(i, el) {
+Ayre.component('.stackable', function(i, el) {
+	
 	var list		= $(el).find('.stackable-list');
 	var template	= $(el).find('.stackable-template').html();
 	var i			= list.children().length;
@@ -7,4 +8,5 @@ $('.stackable').each(function(i, el) {
 		list.append(html);
 	}
 	add();
+
 });

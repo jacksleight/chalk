@@ -532,12 +532,6 @@ table {
 			text-align: right;
 		}
 	}
-	.col-name {
-		img {
-			float: left;
-			margin: 0 $gutter * 0.5 0 0;
-		}
-	}
 	.col-type {
 		width: 100px;
 	}
@@ -605,7 +599,8 @@ input[type=url],
 input[type=week],
 textarea,
 select,
-.value { 
+.value,
+.content { 
 	display: inline-block;
 	@include font-size(0);
 	font-family: $font-family;
@@ -725,6 +720,14 @@ textarea {
 		color: $color-quieter;
 	}
 }
+.content {
+	height: auto;
+	padding: $input-padding;
+	line-height: $line-height;
+	.toolbar {
+		margin: 0;
+	}
+}
 
 input[type=reset],
 input[type=submit],
@@ -750,6 +753,9 @@ button,
 	text-decoration: none !important;
 	-webkit-appearance: none;
 	display: inline-block;
+	.fa {
+		padding-right: 0.1em;
+	}
 	&[disabled] {
 		opacity: 0.25;
 	}
@@ -1371,5 +1377,14 @@ legend {
 			flex: 1;
 			border-left: 0;
 		}
+	}
+}
+
+/* Card */
+
+.card {
+	img {
+		float: left;
+		margin: 0 $gutter * 0.5 0 0;
 	}
 }
