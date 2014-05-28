@@ -20,20 +20,33 @@ html, body {
 		display: flex;
 		flex-direction: column;
 	}
-	.fill {
-		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		display: flex;
-		flex-direction: column;
-		> .flex {
-			flex: 1;
-			overflow: auto;
+}
+
+.fill {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	> .flex {
+		flex: 1;
+		overflow: auto;
+		padding: $gutter $gutter * 1.5;
+		position: relative;
+		@include flush();
+	}
+	> .fix {
+		@include flush;
+		padding: $gutter $gutter * 1.5;
+		@include flush();
+		position: relative;
+		&:first-child {
+			border-bottom: 1px solid $color-divide;
 		}
-		> .fix {
-			@include flush;
+		&:last-child {
+			border-top: 1px solid $color-divide;
 		}
 	}
 }
@@ -103,23 +116,6 @@ html, body {
 	.body {
 		position: relative;
 		padding: $gutter $gutter * 1.5;
-		.flex {
-			padding: $gutter $gutter * 1.5;
-			@include flush();
-			position: relative;
-			overflow: auto;
-		}
-		.fix {
-			padding: $gutter $gutter * 1.5;
-			@include flush();
-			position: relative;
-			&:first-child {
-				border-bottom: 1px solid $color-divide;
-			}
-			&:last-child {
-				border-top: 1px solid $color-divide;
-			}
-		}
 	}
 }
 .body {

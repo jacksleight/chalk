@@ -19,8 +19,8 @@ class Node extends Repository
         }
         return $this->createQueryBuilder('n')
             ->addSelect('c', 'cv')
-            ->innerJoin('n.contentMaster', 'c')
-            ->innerJoin('c.versions', 'cv')
+            ->leftJoin('n.contentMaster', 'c')
+            ->leftJoin('c.versions', 'cv')
             ->andWhere('cv.next IS NULL')
             ->andWhere('n.id = :id')
             ->getQuery()
@@ -35,8 +35,8 @@ class Node extends Repository
         $params = [];
         $qb = $this->createQueryBuilder('n')
             ->addSelect('c', 'cv')
-            ->innerJoin('n.contentMaster', 'c')
-            ->innerJoin('c.versions', 'cv')
+            ->leftJoin('n.contentMaster', 'c')
+            ->leftJoin('c.versions', 'cv')
             ->andWhere('cv.next IS NULL');
         
         if (isset($criteria['node'])) {
@@ -95,8 +95,8 @@ class Node extends Repository
         ];
         $qb = $this->createQueryBuilder('n')
             ->addSelect('c', 'cv')
-            ->innerJoin('n.contentMaster', 'c')
-            ->innerJoin('c.versions', 'cv')
+            ->leftJoin('n.contentMaster', 'c')
+            ->leftJoin('c.versions', 'cv')
             ->andWhere('cv.next IS NULL')
             ->from($this->_entityName, 'nc')
             ->andWhere('n.structure = :structure
@@ -145,9 +145,10 @@ class Node extends Repository
             'path'      => $path,
         ];
         $qb = $this->createQueryBuilder("n")
+            ->setMaxResults(1)
             ->addSelect('c', 'cv')
-            ->innerJoin("n.contentMaster", "c")
-            ->innerJoin("c.versions", "cv")
+            ->leftJoin("n.contentMaster", "c")
+            ->leftJoin("c.versions", "cv")
             ->andWhere("n.structure = :structure")
             ->andWhere("n.path = :path");
         if ($published) {

@@ -15,13 +15,16 @@
 		}, 1);
 
 		var xhr;
-		var request = function(url, type) {
+		var request = function(url, type, data) {
 			if (xhr) {
 				xhr.abort();
 				xhr = null;
 			}
 			loader.removeClass('hideable-hidden');		
-			xhr = $.ajax(url, {type: type || 'GET'})
+			xhr = $.ajax(url, {
+					type: type || 'GET',
+					data: data || {}
+				})
 				.done(function(data) {
 					if (typeof data == 'object') {
 						close(data);
@@ -44,12 +47,20 @@
 
 		request(url);
 		content.click(function(ev) {
-			if ($(ev.target).is('a')) {
+			var target = $(ev.target);
+			if (target.is('a')) {
 				ev.preventDefault();
-				request($(ev.target).attr('href'));
-			} else if ($(ev.target).hasClass('modal-close')) {
+				request(target.attr('href'));
+			} else if (target.hasClass('modal-close')) {
 				ev.preventDefault();
 				close();
+			}
+		});	
+		content.submit(function(ev) {
+			var target = $(ev.target);
+			if (target.is('form')) {
+				ev.preventDefault();
+				request(target.attr('action'), target.attr('mode'), target.serialize());
 			}
 		});	
 

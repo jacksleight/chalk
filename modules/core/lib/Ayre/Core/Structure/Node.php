@@ -99,13 +99,13 @@ class Node extends \Toast\Entity
         return !isset($this->parent);
     }
 
-    public function contentMaster(Content $content = null)
+    public function contentMaster(Content $contentMaster = null)
     {
-        if (isset($content)) {
-            if (!$content->isMaster()) {
+        if (isset($contentMaster)) {
+            if (!$contentMaster->isMaster()) {
                 throw new \Ayre\Exception("Content master can only be set to a master content version");
             }
-            $this->contentMaster = $content;
+            $this->contentMaster = $contentMaster;
             $this->contentMaster->nodes->add($this);
         }
         return $this->contentMaster;
@@ -115,14 +115,14 @@ class Node extends \Toast\Entity
     {
         return isset($this->name)
             ? $this->name
-            : $this->content->name;
+            : (isset($this->contentMaster) ? $this->content->name : $this->id);
     }
 
     public function slugSmart()
     {
         return isset($this->slug)
             ? $this->slug
-            : $this->content->slug;
+            : (isset($this->contentMaster) ? $this->content->slug : $this->id);
     }
 
     public function name($name = null)

@@ -9,6 +9,15 @@ use Ayre,
 
 class Structure extends Action
 {
+	public function redirect(Request $req, Response $res)
+	{
+		$structure = $this->em('Ayre\Core\Domain')->fetchFirst();
+		return $res->redirect($this->url([
+			'action'	=> 'index',
+			'structure'	=> $structure->id,
+		]));
+	}
+
 	public function index(Request $req, Response $res)
 	{}
 

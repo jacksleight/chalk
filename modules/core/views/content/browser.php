@@ -64,7 +64,7 @@ $contents = $this->em($entityType->class)
 		<ul class="toolbar">
 			<li>
 				<button class="btn btn-focus" formmethod="post">
-					<i class="fa fa-plus"></i> Add to <?= $struct->label ?>	
+					<i class="fa fa-plus"></i> Add Content
 				</button>
 			</li>
 		</ul>

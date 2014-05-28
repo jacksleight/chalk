@@ -44,7 +44,7 @@ $contents = $this->em($entityType->class)
 					<th class="col-name" scope="row">
 						<a href="<?= $this->url([
 							'action'	=> 'edit',
-							'id'		=> $content->id,
+							'content'	=> $content->id,
 						]) ?>"><?= $content->name ?></a><br>
 						<small><?= $content->subname ?></small>
 					</th>

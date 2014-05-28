@@ -34,3 +34,4 @@ FastClick.attach(document.body);
 
 //= require elements/thumbs.js
 //= require elements/tree.js
+//= require elements/content.js

@@ -22,7 +22,7 @@ $contents = $this->em($entityType->class)
 	</colgroup>
 	<thead>
 		<tr>
-			<th scope="col" class="col-name">URL</th>
+			<th scope="col" class="col-name">Route</th>
 			<th scope="col" class="col-date">Updated</th>
 			<th scope="col" class="col-status">Status</th>
 		</tr>

@@ -63,7 +63,7 @@
 				), 'core') ?>
 			</div>
 		</fieldset>
-		<?= $this->render('/content/node') ?>
+		<?= $this->render('/content/node', [], 'core') ?>
 	</div>
 	<fieldset class="fix">
 		<ul class="toolbar">

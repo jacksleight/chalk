@@ -7,10 +7,34 @@
 namespace Ayre\Core\Repository;
 
 use Ayre\Repository,
+	Ayre\Core\Domain,
+	Ayre\Core\Menu,
 	Ayre\Core\Structure as CoreStructure;
 
 class Structure extends Repository
 {
+	public function fetchAll(array $criteria = array())
+	{
+		$structures = parent::fetchAll($criteria);
+		usort($structures, function($a, $b) {
+			$aClass = get_class($a);
+			$bClass = get_class($b);
+			return $aClass == $bClass
+				? strcmp($a->name, $b->name)
+				: strcmp($aClass, $bClass);
+		});
+		return $structures;
+	}
+
+	public function fetchFirst()
+	{
+		return $this->createQueryBuilder('s')
+			->setMaxResults(1)
+			->orderBy("s.id")
+			->getQuery()
+			->getOneOrNullResult();
+	}
+
 	public function fetchAllForPublish()
 	{
 		return $this->createQueryBuilder("s")

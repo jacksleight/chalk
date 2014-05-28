@@ -26,6 +26,7 @@
 				)) ?>
 			</div>
 		</fieldset>
+		<?= $this->render('/content/node') ?>
 	</div>
 	<fieldset class="fix">
 		<ul class="toolbar">

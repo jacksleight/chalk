@@ -58,7 +58,7 @@ $contents = $this->em($entityType->class)
 						<a href="<?= $this->url([
 							'action'	=> 'edit',
 							'entityType'=> \Ayre::type($content)->slug,
-							'id'		=> $content->id,
+							'content'	=> $content->id,
 						]) ?>"><?= $content->name ?></a><br>
 						<small><?= $content->subname ?></small>
 					</th>

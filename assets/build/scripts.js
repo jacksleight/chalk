@@ -13559,13 +13559,16 @@ Ayre.set = function(prefs) {
 		}, 1);
 
 		var xhr;
-		var request = function(url, type) {
+		var request = function(url, type, data) {
 			if (xhr) {
 				xhr.abort();
 				xhr = null;
 			}
 			loader.removeClass('hideable-hidden');		
-			xhr = $.ajax(url, {type: type || 'GET'})
+			xhr = $.ajax(url, {
+					type: type || 'GET',
+					data: data || {}
+				})
 				.done(function(data) {
 					if (typeof data == 'object') {
 						close(data);
@@ -13588,12 +13591,20 @@ Ayre.set = function(prefs) {
 
 		request(url);
 		content.click(function(ev) {
-			if ($(ev.target).is('a')) {
+			var target = $(ev.target);
+			if (target.is('a')) {
 				ev.preventDefault();
-				request($(ev.target).attr('href'));
-			} else if ($(ev.target).hasClass('modal-close')) {
+				request(target.attr('href'));
+			} else if (target.hasClass('modal-close')) {
 				ev.preventDefault();
 				close();
+			}
+		});	
+		content.submit(function(ev) {
+			var target = $(ev.target);
+			if (target.is('form')) {
+				ev.preventDefault();
+				request(target.attr('action'), target.attr('mode'), target.serialize());
 			}
 		});	
 
@@ -13832,4 +13843,17 @@ $('.structure').each(function(i, el) {
             nodes: nodes
         });
     });
+});
+
+$('.content').each(function(i, el) {
+	var select	= $(el).find('.content-select');
+	var name	= $(el).find('.content-name');
+	var input	= $(el).find('input[type=hidden]');
+	name.html(input.val());
+	select.click(function(ev) {
+		Ayre.modal(Ayre.baseUrl + 'content/select', function(data) {
+			input.val(data.contents[0]);
+			name.html(data.contents[0]);
+		});
+	});
 });

@@ -23,31 +23,32 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
 
     public function execute(Request $req, Response $res)
     {        
-        $domain = $this->_ayre->em('Ayre\Core\Domain')->fetch(3);
+        $domain = $this->_ayre->em('Ayre\Core\Structure')->fetch(1);
         $node   = $this->_ayre->em('Ayre\Core\Structure\Node')
             ->fetchByPath($domain, $req->path(), true);
         if (!$node) {
             return;
         }
         
+        $req->node = $node;
         $method = \Ayre::type($node->content)->entity->var;
-        return $this->$method($node, $req, $res);
+        return $this->$method($req, $res);
     }
 
-    public function page(Node $node, Request $req, Response $res)
+    public function page(Request $req, Response $res)
     {
         return $res
             ->html($this->view->render('index', [
                 'req'  => $req,
                 'res'  => $res,
                 'node' => $node,
-                'page' => $node->content->last
+                'page' => $node->content
             ]));
     }
 
-    public function file(Node $node, Request $req, Response $res)
+    public function file(Request $req, Response $res)
     {
-        $file = $node->content->last->file();
+        $file = $node->content->file();
         if (!$file->exists()) {
             return false;
         }
@@ -55,10 +56,15 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
             ->redirect($this->app->url($file));
     }
 
-    public function url(Node $node, Request $req, Response $res)
+    public function url(Request $req, Response $res)
     {
-        $url = $node->content->last->url();
+        $url = $node->content->url();
         return $res
             ->redirect($url);       
+    }
+
+    public function route(Request $req, Response $res)
+    {
+        return $this->router->execute($req, $res);
     }
 }

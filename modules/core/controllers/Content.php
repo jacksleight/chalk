@@ -16,11 +16,16 @@ class Content extends Ayre\Controller\Basic
 	{
 		$req->view->entityType
 			= $req->entityType
-			= Ayre::type(isset($req->entityType) ? $req->entityType : 'Ayre\Core\Content');
+			= Ayre::type(isset($req->entityType) ? $req->entityType : 'core_content');
 	}
 
-	public function postDispatch(Request $req, Response $res)
-	{}
+	public function redirect(Request $req, Response $res)
+	{
+		return $res->redirect($this->url([
+			'action'		=> 'index',
+			'entityType'	=> 'core-page',
+		]));
+	}
 
 	public function index(Request $req, Response $res)
 	{
@@ -29,9 +34,24 @@ class Content extends Ayre\Controller\Basic
 		$req->view->index = $wrap;
 	}
 
+	public function select(Request $req, Response $res)
+	{
+		$wrap = $this->em->wrap($index = new \Ayre\Core\Model\Index());
+		$wrap->graphFromArray($req->queryParams());
+		$req->view->index = $wrap;
+
+		if (count($index->contents)) {
+			$contents = [];
+			foreach ($index->contents as $content) {
+				$contents[] = $content->master->id;
+			}
+			return $res->json(['contents' => $contents]);
+		}
+	}
+
 	public function edit(Request $req, Response $res)
 	{
-		$content = $this->em($req->entityType->class)->fetchOrCreate($req->id);
+		$content = $this->em($req->entityType->class)->fetchOrCreate($req->content);
 		$req->view->content = $wrap = $this->em->wrap($content);
 
 		if (!$req->isPost()) {
@@ -49,8 +69,8 @@ class Content extends Ayre\Controller\Basic
 		$this->em->flush();
 
 		return $res->redirect($this->url(array(
-			'action'	=> null,
-			'id'		=> null,
+			'action'	=> 'index',
+			'content'	=> null,
 		)));
 	}
 
@@ -94,8 +114,8 @@ class Content extends Ayre\Controller\Basic
 
 		if ($content->status == \Ayre::STATUS_ARCHIVED) {
 			return $res->redirect($this->url(array(
-				'action' => null,
-				'id'	 => null,
+				'action'	=> 'index',
+				'content'	=> null,
 			)));
 		} else {
 			return $res->redirect($this->url(array(
@@ -112,8 +132,8 @@ class Content extends Ayre\Controller\Basic
 		$this->em->flush();
 
 		return $res->redirect($this->url(array(
-			'action' => 'edit',
-			'id'	 => $content->id,
+			'action'	=> 'edit',
+			'content'	=> $content->id,
 		)));
 	}
 

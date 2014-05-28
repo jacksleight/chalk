@@ -6,7 +6,7 @@ $covered  = isset($covered)  && $covered;
 	<a href="<?= !$template ? $this->url([
 		'entityType'=> $entityType->slug,
 		'action'	=> 'edit',
-		'id'		=> $content->id,
+		'content'	=> $content->id,
 	]) : '#' ?>">
 		<figure class="thumb selectable">
 			<? if (!$template) { ?>

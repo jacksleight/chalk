@@ -1,7 +1,7 @@
 <?php
 $repo		= $this->em('Ayre\Core\Structure');
 $structures	= $repo->fetchAll();
-$structure	= $repo->fetch($req->structure ?: 3);
+$structure	= $repo->fetch($req->structure);
 $repo->fetchTree($structure);
 ?>
 <? $this->layout('/layouts/body') ?>
@@ -30,8 +30,9 @@ $repo->fetchTree($structure);
 					<? foreach ($structures as $listStructure) { ?>
 						<li>
 							<a href="<?= $this->url([
-								'structure' => $listStructure->id,
-							]) ?>" class="item">
+								'structure'	=> $listStructure->id,
+								'action'	=> 'index',
+							], 'structure') ?>" class="item">
 								<? if ($listStructure instanceof \Ayre\Core\Domain) { ?>
 									<i class="fa fa-globe fa-fw"></i>
 								<? } else if ($listStructure instanceof \Ayre\Core\Menu) { ?>
