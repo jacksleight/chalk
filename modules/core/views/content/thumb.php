@@ -10,7 +10,7 @@ $selectOnly	= isset($selectOnly) ? $selectOnly : false;
 		'action'	=> 'edit',
 		'content'	=> $content->id,
 ]) : '#' ?>">
-		<? if (!$template) { ?>
+		<? if (!$template && isset($index)) { ?>
 			<?= $this->render('/content/checkbox', [
 				'entity'	=> $index,
 				'value'		=> $content,

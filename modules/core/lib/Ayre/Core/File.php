@@ -23,6 +23,11 @@ class File extends Content
 	protected static $_mimeTypes = [];
 	
     /**
+     * @Column(type="string")
+     */
+	protected $baseName;
+	
+    /**
      * @Column(type="integer")
      */
 	protected $size;
@@ -60,6 +65,7 @@ class File extends Content
 
 		$this->remove();
 			
+		$this->name(ucwords(trim(preg_replace('/[^\w]+/', ' ', $file->fileName()))));
 		$this->size	= $file->size();
 		$this->hash	= $file->hash('md5');
 
@@ -86,8 +92,8 @@ class File extends Content
 			$i++;
 		} while ($dir->file($temp->baseName())->exists());
 		
-		$this->name($temp->baseName());
-		$this->file	= $file->move($dir, $this->name);
+		$this->baseName($temp->baseName());
+		$this->file	= $file->move($dir, $this->baseName);
 		
 		return $this;
 	}
@@ -104,7 +110,7 @@ class File extends Content
 		}
 
 		$this->file		= null;
-		$this->name		= null;
+		$this->baseName	= null;
 		$this->subtype	= null;
 		$this->size		= null;
 		$this->hash		= null;
@@ -114,7 +120,7 @@ class File extends Content
 
 	public function init()
 	{
-		$this->file = $this->dir()->file($this->name);
+		$this->file = $this->dir()->file($this->baseName);
 		return $this;
 	}
 
@@ -142,5 +148,12 @@ class File extends Content
 			'WebP Support'			=> 'image/webp',
 		], $info);
 		return in_array($this->subtype, $mimeTypes);
+	}
+
+	public function searchFields()
+	{
+		return array_merge(parent::searchFields(), [
+			'baseName',
+		]);
 	}
 }

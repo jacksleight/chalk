@@ -11,7 +11,7 @@ Ayre.component('.uploadable', function(i, el) {
 		limitConcurrentUploads: 3
 	}).bind('fileuploadadd', function (e, data) {
 		var file = data.files[0];
-		data.context = $($.parseHTML(Mustache.render(template, file).trim())[0]);
+		data.context = $($.parseHTML('<li>' + Mustache.render(template, file).trim() + '</li>')[0]);
 		list.prepend(data.context);
 	}).bind('fileuploadprogress', function (e, data) {
 		var perc = parseInt(data.loaded / data.total * 100, 10);
@@ -21,7 +21,7 @@ Ayre.component('.uploadable', function(i, el) {
 			.text(perc == 100 ? 'Processing…' : perc + '%' + ' Uploaded');
 	}).bind('fileuploaddone', function (e, data) {
 		var result	= data.result.files[0];
-		var replace	= $($.parseHTML(result.html.trim())[0]);
+		var replace	= $($.parseHTML('<li>' + result.html.trim() + '</li>')[0]);
 		data.context.replaceWith(replace);
 		data.context = replace;
 		var reveal = function() {

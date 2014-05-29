@@ -97,7 +97,7 @@ class Content extends Ayre\Controller\Basic
 				$this->em->persist($content);
 				$this->em->flush();
 				unset($upload->path);
-				$upload->html = $this->view->render('file/thumb', [
+				$upload->html = $this->view->render('content/thumb', [
 					'content'	=> $content,
 					'covered'	=> true,
 				] + (array) $req->view)->toString();
