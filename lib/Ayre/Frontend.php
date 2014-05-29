@@ -23,7 +23,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
 
     public function execute(Request $req, Response $res)
     {        
-        $domain = $this->_ayre->em('Ayre\Core\Structure')->fetch(1);
+        $domain = $this->_ayre->em('Ayre\Core\Structure')->fetchFirst();
         $node   = $this->_ayre->em('Ayre\Core\Structure\Node')
             ->fetchByPath($domain, $req->path(), true);
         if (!$node) {
@@ -41,19 +41,19 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
             ->html($this->view->render('index', [
                 'req'  => $req,
                 'res'  => $res,
-                'node' => $node,
-                'page' => $node->content
+                'node' => $req->node,
+                'page' => $req->node->content
             ]));
     }
 
     public function file(Request $req, Response $res)
     {
-        $file = $node->content->file();
+        $file = $req->node->content->file();
         if (!$file->exists()) {
             return false;
         }
         return $res
-            ->redirect($this->app->url($file));
+            ->redirect($this->app->url->file($file));
     }
 
     public function url(Request $req, Response $res)
@@ -65,6 +65,6 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
 
     public function route(Request $req, Response $res)
     {
-        return $this->router->execute($req, $res);
+        return;
     }
 }
