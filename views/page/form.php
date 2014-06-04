@@ -29,11 +29,36 @@
 				<div class="expandable">
 					<div class="expandable-body">
 						<?= $this->render('/elements/form-item', array(
-							'type'		=> 'array',
+							'type'		=> 'array_pairs',
 							'entity'	=> $content,
 							'name'		=> 'metas',
 							'label'		=> 'Metadata',
 							'disabled'	=> $content->isArchived(),
+							'datalist'	=> [
+							    'application-name',
+							    'author',
+							    'bingbot',
+							    'copyright',
+							    'description',
+							    'fb:admins',
+							    'generator',
+							    'google-site-verification',
+							    'googlebot',
+							    'keywords',
+							    'language',
+							    'msvalidate.01',
+							    'og:description',
+							    'og:image',
+							    'og:title',
+							    'og:type',
+							    'p:domain_verify',
+							    'robots',
+							    'twitter:card',
+							    'twitter:description',
+							    'twitter:image',
+							    'twitter:title',
+							    'twitter:url',
+							],
 						)) ?>
 						<?= $this->render('/elements/form-item', array(
 							'type'		=> 'select',
@@ -59,7 +84,7 @@
 				<?= $this->render('/elements/form-input', array(
 					'entity'	=> $content,
 					'name'		=> 'contents',
-					'type'		=> 'textarea_multiple',
+					'type'		=> 'array_textareas',
 					'class'		=> 'monospaced html',
 					'rows'		=> 15,
 					'disabled'	=> $content->isArchived(),
