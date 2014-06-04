@@ -13639,8 +13639,13 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 Ayre.component('.autosubmitable', function(i, el) {
 
 	var inputs = $(el).find('input, textarea, select');
+	var button = el.ownerDocument.createElement('input');
+    button.style.display = 'none';
+    button.type = 'submit';
+    el.appendChild(button);
+
 	$(inputs).change(function(ev) {
-		ev.target.form.submit();
+		button.click();
 	});
 	
 });
@@ -13688,12 +13693,16 @@ Ayre.component('.expandable', function(i, el) {
 
 });
 
+$(document).bind('drop dragover', function (ev) {
+    ev.preventDefault();
+});
 Ayre.component('.uploadable', function(i, el) {
 	
 	var button		= $(el).find('.uploadable-button');
 	var list		= $(el).find('.uploadable-list');
 	var template	= $(el).find('.uploadable-template').html();
 	Mustache.parse(template);
+
 	$(el).find('.uploadable-input').fileupload({
 		dropZone: el,
 		dataType: 'json',
@@ -13727,10 +13736,11 @@ Ayre.component('.uploadable', function(i, el) {
 			setTimeout(reveal, 0);
 		}
 	});
+	
 	button.click(function(ev) {
 		$(el).find('.uploadable-input').trigger('click');
 	});
-	
+
 });
 
 Ayre.component('.selectable', function(i, el) {
@@ -13745,10 +13755,6 @@ Ayre.component('.selectable', function(i, el) {
 	};
 	checkbox.change(select);
 	select();
-
-	if ($(el).hasClass('selectable-only')) {
-		$(el).find('a').attr('href', '#');
-	}
 
 });
 
@@ -13830,7 +13836,6 @@ Ayre.component('.thumbs', function(i, el) {
 	};
 	refresh();
 	$(window).resize(refresh);
-	$(el).css('visibility', 'visible');
 
 });
 

@@ -16,6 +16,11 @@ use Ayre\Core,
 */
 class User extends \Toast\Entity implements Trackable, Searchable
 {
+	public static $info = [
+		'singular'	=> 'User',
+		'plural'	=> 'Users',
+	];
+	
     use Trackable\Implementation;
 
 	const ROLE_ROOT				= 'root';

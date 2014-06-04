@@ -11,10 +11,6 @@ Ayre.component('.selectable', function(i, el) {
 	checkbox.change(select);
 	select();
 
-	if ($(el).hasClass('selectable-only')) {
-		$(el).find('a').attr('href', '#');
-	}
-
 });
 
 Ayre.component('.multiselectable', function(i, el) {

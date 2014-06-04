@@ -15,6 +15,11 @@ use Ayre\Core,
 */
 class Index extends \Toast\Entity
 {
+    public static $info = [
+        'singular'  => 'Index',
+        'plural'    => 'Indexes',
+    ];
+
 	/**
      * @Id
      * @Column(type="integer")

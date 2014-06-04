@@ -6,38 +6,17 @@
 <? $this->block('sidebar') ?>
 
 <nav class="menu menu-simple" role="navigation">
-	<?= $this->render('nav', ['items' => [
-		[
-			'label' => 'Pages',
+	<?php
+	$items = [];
+	foreach ($this->app->contentClasses() as $contentClass) {
+		$contentType = \Ayre::type($contentClass);
+		$items[] = [
+			'label' => $contentType->plural,
 			'name'	=> 'content',
-			'params'=> ['action' => 'index', 'entityType' => 'core-page'],
+			'params'=> ['action' => 'index', 'entityType' => $contentType->slug],
 			// 'badge'	=> 120,
-		], [
-			'label' => 'Articles',
-			'name'	=> 'content',
-			'params'=> ['action' => 'index', 'entityType' => 'article-article'],
-			// 'badge'	=> 12,
-		], [
-			'label' => 'People',
-			'name'	=> 'content',
-			'params'=> ['action' => 'index', 'entityType' => 'app-person'],
-			// 'badge'	=> 12,
-		], [
-			'label' => 'Features',
-			'name'	=> 'content',
-			'params'=> ['action' => 'index', 'entityType' => 'app-feature'],
-			// 'badge'	=> 12,
-		], [
-			'label' => 'Files',
-			'name'	=> 'content',
-			'params'=> ['action' => 'index', 'entityType' => 'core-file'],
-			// 'badge'	=> 12,
-		], 
-		// [
-		// 	'label' => 'URLs',
-		// 	'name'	=> 'content',
-		// 	'params'=> ['action' => 'index', 'entityType' => 'core-url'],
-		// 	// 'badge'	=> 12,
-		// ], 
-	]]) ?>
+		];
+	}
+	?>
+	<?= $this->render('nav', ['items' => $items]) ?>
 </nav>

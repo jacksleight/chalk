@@ -36,7 +36,7 @@ class Index extends Repository
         $query   = $conn->quote($query);
         $classes = (array) $classes;
         foreach ($classes as $i => $class) {
-            $classes[$i] = $conn->quote($class);
+            $classes[$i] = $conn->quote(\Ayre::type($class)->name);
         }
 
         $where  = count($classes)

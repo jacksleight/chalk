@@ -21,6 +21,11 @@ use Ayre\Core\Structure\Node,
 */
 class Structure extends \Toast\Entity implements Loggable, Publishable, Trackable, Versionable
 {
+    public static $info = [
+        'singular'  => 'Structure',
+        'plural'    => 'Structures',
+    ];
+    
     use Publishable\Implementation,
     	Trackable\Implementation,
     	Versionable\Implementation {

@@ -16,6 +16,11 @@ use Ayre\Core,
 */
 class Log extends \Toast\Entity implements Trackable
 {
+    public static $info = [
+        'singular'  => 'Log',
+        'plural'    => 'Logs',
+    ];
+
     use Trackable\Implementation;
 
 	const TYPE_CREATE			= 'create';

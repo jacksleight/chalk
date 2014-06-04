@@ -6,8 +6,12 @@
 
 namespace Ayre;
 
+use Ayre;
+
 interface Module
 {
+    public function init(Ayre $ayre);
+
     public function libDir();
 
     public function viewDir();

@@ -14,7 +14,7 @@
 					'entity'	=> $content,
 					'name'		=> 'name',
 					'label'		=> 'Name',
-					'disabled'	=> true,
+					'disabled'	=> $content->isArchived(),
 				)) ?>
 			</div>
 		</fieldset>

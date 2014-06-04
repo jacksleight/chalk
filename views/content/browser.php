@@ -7,11 +7,18 @@ $contents = $this->em($entityType->class)
 	->fetchAll($index->toArray());
 ?>
 <form action="<?= $this->url->route() ?>" class="fill">
-	<div class="flex">
+	<div class="flex uploadable">
+		<ul class="toolbar">
+			<li>
+				<span class="btn btn-focus uploadable-button">
+					<i class="fa fa-upload"></i> Upload <?= $entityType->singular ?>
+				</span>
+			</li>
+		</ul>
 		<h1>Browse <?= $entityType->plural ?></h1>
 		<?= $this->render('filters', ['filter' => $index]) ?>
 		<? if ($thumbs) { ?>
-			<ul class="thumbs multiselectable">
+			<ul class="thumbs uploadable-list multiselectable">
 				<? if (count($contents)) { ?>
 					<? foreach ($contents as $content) { ?>
 						<li><?= $this->render('thumb', [
@@ -56,6 +63,10 @@ $contents = $this->em($entityType->class)
 				</tbody>
 			</table>
 		<? } ?>
+		<input class="uploadable-input" type="file" name="files[]" data-url="<?= $this->url(['action' => 'upload']) ?>" multiple>
+		<script type="x-tmpl-mustache" class="uploadable-template">
+			<?= $this->render('/content/thumb', ['template' => true]) ?>
+		</script>
 	</div>
 	<div class="fix">
 		<ul class="toolbar">

@@ -6,7 +6,14 @@
 
 namespace Ayre;
 
-use Ayre\Module\Basic;
+use Ayre,
+	Ayre\Module\Basic;
 
 class Article extends Basic
-{}
+{
+	public function init(Ayre $ayre)
+	{
+		$ayre
+			->contentClass('Ayre\Article\Article');
+	}
+}

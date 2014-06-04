@@ -14,6 +14,11 @@ use Ayre\Core\Document,
 */
 class Article extends Document
 {
+	public static $info = [
+		'singular'	=> 'Article',
+		'plural'	=> 'Articles',
+	];
+
 	protected $contents = [
 		'primary'	=> '',
 	];

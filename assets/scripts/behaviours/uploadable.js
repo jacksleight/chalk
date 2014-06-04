@@ -1,9 +1,13 @@
+$(document).bind('drop dragover', function (ev) {
+    ev.preventDefault();
+});
 Ayre.component('.uploadable', function(i, el) {
 	
 	var button		= $(el).find('.uploadable-button');
 	var list		= $(el).find('.uploadable-list');
 	var template	= $(el).find('.uploadable-template').html();
 	Mustache.parse(template);
+
 	$(el).find('.uploadable-input').fileupload({
 		dropZone: el,
 		dataType: 'json',
@@ -37,8 +41,9 @@ Ayre.component('.uploadable', function(i, el) {
 			setTimeout(reveal, 0);
 		}
 	});
+	
 	button.click(function(ev) {
 		$(el).find('.uploadable-input').trigger('click');
 	});
-	
+
 });

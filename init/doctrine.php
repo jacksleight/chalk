@@ -15,12 +15,8 @@ use Doctrine\ORM\Configuration,
 
 \Coast\Doctrine\register_dbal_types();
 
-$paths = [];
-foreach ($app->modules() as $name => $module) {
-	$paths[] = $module->libDir()->name();
-}
 $config = new Configuration();
-$config->setMetadataDriverImpl($config->newDefaultAnnotationDriver($paths));
+$config->setMetadataDriverImpl($config->newDefaultAnnotationDriver());
 $config->setProxyDir($app->root->dir('data/proxies'));
 $config->setProxyNamespace('Ayre\Proxy');
 $config->setAutoGenerateProxyClasses(true);
@@ -47,7 +43,7 @@ $evm->addEventSubscriber($trackable = new TrackableListener());
 
 global $em;
 $em = new AyreEntityManager(EntityManager::create(
-	$app->config->root->database + [
+	$app->config->database + [
 		'driver'  => 'pdo_mysql',
 		'charset' => 'utf8'
 	],
@@ -56,7 +52,6 @@ $em = new AyreEntityManager(EntityManager::create(
 ));
 $em->trackable($trackable);
 $em->getConnection()->exec("SET NAMES utf8");
-$em->getMetadataFactory()->getAllMetadata();
 
 Toast\Wrapper\Collection::$em = $em;
 

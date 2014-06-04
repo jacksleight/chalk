@@ -1,6 +1,5 @@
 <?php
 use Coast\App,
-    Ayre\Core,
     Ayre\Module;
 
 class Ayre extends App
@@ -23,22 +22,20 @@ class Ayre extends App
 
     protected $_modules = [];
 
+    protected $_contentClasses = [];
+
     public static function type($class)
     {
         if (is_object($class)) {
             $class = get_class($class);
-        } else if (strpos($class, '_') !== false) {
-            $class = isset(self::$_types[$class])
-                ? self::$_types[$class]
-                : null;
-        } else if (strpos($class, '-') !== false) {
-            $class = isset(self::$_slugs[$class])
-                ? self::$_slugs[$class]
-                : null;
-        } else if (strpos($class, '/') !== false) {
-            $class = isset(self::$_paths[$class])
-                ? self::$_paths[$class]
-                : null;
+        } else if (strpos($class, '\\') === false) {
+            $parts = preg_split('/[_\-\/]/', $class);
+            if (!isset(self::$_namespaces[$parts[0]])) {
+                throw new Exception("Class '{$class}' does not belong to a registered module");
+            }
+            $namespace = self::$_namespaces[array_shift($parts)];
+            $parts = array_map('ucfirst', $parts);
+            $class = "{$namespace}\\" . implode('\\', $parts);
         }
         if (isset(self::$_classes[$class])) {
             return self::$_classes[$class];
@@ -67,8 +64,8 @@ class Ayre extends App
         $slug = implode('-', $entityLower);
         $path = implode('/', $entityLower);
         $info = [
-            'singular'  => $local[count($local) - 1],
-            'plural'    => $local[count($local) - 1] . 's',
+            'singular'  => $name,
+            'plural'    => $name,
         ];
         self::$_types[$name] = $class;
         self::$_slugs[$slug] = $class;
@@ -89,14 +86,12 @@ class Ayre extends App
                 'path'  => implode('/', $localLower),
                 'var'   => lcfirst(implode('', $local)),
             ],
-        ] + (isset($class::$info) ? $class::$info + $info : $info));
+        ] + $class::$info + $info);
     }
 
     public function __construct($baseDir, array $envs = array())
     {
-        $baseDir = (new Coast\Dir(__DIR__ . '/..'))->toReal();
         parent::__construct($baseDir, $envs);
-        $this->module(new Core());
     }
 
     public function baseDir(\Coast\Dir $baseDir = null)
@@ -121,11 +116,29 @@ class Ayre extends App
             }
             $this->_modules[$name]    = $module;
             self::$_namespaces[$name] = get_class($module);
+            $this->view
+                ->baseDir($name, $module->viewDir());
+            $this->controller
+                ->classNamespace($name, $module->controllerNamespace());
+            $this->em->getConfiguration()->getMetadataDriverImpl()
+                ->addPaths([$name => $module->libDir()]);
+            $module->init($this);
             return $this;
         }
         return isset($this->_modules[$name])
             ? $this->_modules[$name]
             : null;
+    }
+
+    public function contentClass($contentClass)
+    {
+        $this->_contentClasses[] = $contentClass;
+        return $this;
+    }
+
+    public function contentClasses()
+    {
+        return $this->_contentClasses;
     }
 
     public function modules()

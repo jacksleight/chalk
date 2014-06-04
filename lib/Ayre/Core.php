@@ -6,7 +6,15 @@
 
 namespace Ayre;
 
-use Ayre\Module\Basic;
+use Ayre,
+	Ayre\Module\Basic;
 
 class Core extends Basic
-{}
+{
+	public function init(Ayre $ayre)
+	{
+		$ayre
+			->contentClass('Ayre\Core\Page')
+			->contentClass('Ayre\Core\File');
+	}
+}

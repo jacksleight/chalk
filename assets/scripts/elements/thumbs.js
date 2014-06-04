@@ -21,6 +21,5 @@ Ayre.component('.thumbs', function(i, el) {
 	};
 	refresh();
 	$(window).resize(refresh);
-	$(el).css('visibility', 'visible');
 
 });

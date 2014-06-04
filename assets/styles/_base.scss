@@ -339,7 +339,6 @@ figure {
 	margin-top: $gutter;
 	@include no-bullets;
 	@include inline-blocks('li', $gutter * 0.75, $gutter * 0.75);
-	visibility: hidden;
 	li {
 		width: 200px;
 		figure {
@@ -398,6 +397,7 @@ figure {
 			}
 			&.out {
 				background-color: transparent;
+				pointer-events: none;
 				span {
 					bottom: auto;
 					top: 0;
@@ -550,8 +550,11 @@ table {
 
 /* Selectable */
 
-.selectable-only * {
-	cursor: default;
+.selectable-only {
+	a {
+		pointer-events: none;
+		cursor: default;
+	}
 }
 .selected {
 	input[type=checkbox] + label:before {

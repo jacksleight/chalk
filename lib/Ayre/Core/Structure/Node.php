@@ -16,6 +16,11 @@ use Ayre\Core\Content,
 */
 class Node extends \Toast\Entity
 {
+    public static $info = [
+        'singular'  => 'Node',
+        'plural'    => 'Nodes',
+    ];
+
     const SORT_MAX = 99999;
 
     /**

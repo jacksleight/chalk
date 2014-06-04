@@ -8,60 +8,52 @@ use Coast\App\Controller,
     Coast\Config,
     Coast\Path,
     Coast\Url,
+    Ayre\Core,
     Toast\App\Image,
     Toast\App\Locale;
 
 $root = $app;
-$app  = (new Ayre(null, $config->root->envs))
-    ->path(new Path("{$config->path}"));
+$app  = new Ayre(__DIR__, $config->envs);
 
-$viewDirs = [];
-$controllerNamespaces = [];
-foreach ($app->modules() as $name => $module) {
-    $viewDirs[$name] = $module->viewDir();
-    $controllerNamespaces[$name] = $module->controllerNamespace();
-}
-
-$router = new Router(new Controller($controllerNamespaces));
-$view   = new View($viewDirs);
-
-$urlResolver = new UrlResolver(
-    new Url("{$config->root->baseUrl}{$app->path()}/"),
-    $app->dir(),
-    $router);
-
-$rootUrlResolver = new UrlResolver(
-    new Url("{$config->root->baseUrl}"),
-    $root->dir());
-
-$image = (new Image(
-    $root->dir('public/data/file'),
-    $root->dir('public/data/image', true),
-    $urlResolver,
-    $app->import($app->file('init/transforms.php'))))
-    ->outputUrlResolver($rootUrlResolver);
-
-$app->set('root',       $root)
+$app->path(new Path("{$config->path}"))
+    ->set('root',       $root)
     ->set('config',     $config)
+    ->set('controller', new Controller())
+    ->set('router',     new Router($app->controller))
+    ->set('view',       new View())
     ->set('memcached',  $app->import($app->file('init/memcached.php')))
     ->set('em',         $app->import($app->file('init/doctrine.php')))
     ->set('swift',      $app->import($app->file('init/swift.php')))
-    ->set('view', $view)
-    ->add('image', $image)
-    ->add('locale', new Locale([
-        'cookie'  => 'locale',
-        'locales' => [
-            'en-GB' => 'en-GB@timezone=Europe/London;currency=GBP',
-        ]]))
-    ->add('router', $router)
-    ->set('url', $urlResolver)
-    ->set('rootUrl', $rootUrlResolver)
-    ->notFoundHandler(function(Request $req, Response $res) {
-        return $res
-            ->status(404)
-            ->html($this->view->render('error/not-found'));
-    });
+    ->set('url',        new UrlResolver(
+            new Url("{$config->baseUrl}{$app->path()}/"),
+            $app->dir(),
+            $app->router) )
+    ->set('rootUrl',    new UrlResolver(
+            new Url("{$config->baseUrl}"),
+            $root->dir()) )
+    ->set('image',      (new Image(
+            $root->dir('public/data/file'),
+            $root->dir('public/data/image', true),
+            $app->url,
+            $app->import($app->file('init/transforms.php'))))
+        ->outputUrlResolver($app->rootUrl))
+    ->set('locale', new Locale([
+            'cookie'  => 'locale',
+            'locales' => [
+                'en-GB' => 'en-GB@timezone=Europe/London;currency=GBP',
+            ]]));
 
+$app->module(new Core());
+
+$app->add($app->image)
+    ->add($app->locale)
+    ->add($app->router);
+
+$app->notFoundHandler(function(Request $req, Response $res) {
+    return $res
+        ->status(404)
+        ->html($this->view->render('error/not-found'));
+});
 if (!$app->isDebug()) {
     $app->errorHandler(function(Request $req, Response $res, Exception $e) {
         return $res
