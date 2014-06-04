@@ -4024,6 +4024,18 @@ legend {
   color: #00a6b5;
 }
 
+.mce-menu-item:hover,
+.mce-menu-item.mce-selected,
+.mce-menu-item:focus,
+.mce-menu-item:hover i[style],
+.mce-menu-item.mce-selected i[style],
+.mce-menu-item:focus i[style],
+.mce-menu-item:hover span[style],
+.mce-menu-item.mce-selected span[style],
+.mce-menu-item:focus span[style] {
+  color: white !important;
+}
+
 /* Page */
 html {
   background: white;
