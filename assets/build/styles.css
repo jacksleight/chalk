@@ -2802,7 +2802,6 @@ table .col-select input[type=checkbox] + label:before {
 input,
 select,
 textarea,
-button,
 .btn {
   -moz-transition: all 0.1s ease;
   -o-transition: all 0.1s ease;
@@ -3110,7 +3109,6 @@ textarea.monospaced {
 input[type=reset],
 input[type=submit],
 input[type=button],
-button,
 .btn {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -3138,49 +3136,42 @@ button,
 input[type=reset]:visited,
 input[type=submit]:visited,
 input[type=button]:visited,
-button:visited,
 .btn:visited {
   color: white !important;
 }
 input[type=reset]:focus,
 input[type=submit]:focus,
 input[type=button]:focus,
-button:focus,
 .btn:focus {
   color: white !important;
 }
 input[type=reset]:hover,
 input[type=submit]:hover,
 input[type=button]:hover,
-button:hover,
 .btn:hover {
   color: white !important;
 }
 input[type=reset]:active,
 input[type=submit]:active,
 input[type=button]:active,
-button:active,
 .btn:active {
   color: white !important;
 }
 input[type=reset] .fa,
 input[type=submit] .fa,
 input[type=button] .fa,
-button .fa,
 .btn .fa {
   padding-right: 0.1em;
 }
 input[type=reset][disabled],
 input[type=submit][disabled],
 input[type=button][disabled],
-button[disabled],
 .btn[disabled] {
   opacity: 0.25;
 }
 input[type=reset]:hover,
 input[type=submit]:hover,
 input[type=button]:hover,
-button:hover,
 .btn:hover {
   background-color: #8c9094 !important;
   border-color: #8c9094 !important;
@@ -3188,14 +3179,12 @@ button:hover,
 input[type=reset].active,
 input[type=submit].active,
 input[type=button].active,
-button.active,
 .btn.active {
   position: relative;
 }
 input[type=reset].active:after,
 input[type=submit].active:after,
 input[type=button].active:after,
-button.active:after,
 .btn.active:after {
   content: '';
   position: absolute;
@@ -3207,14 +3196,12 @@ button.active:after,
 input[type=reset].btn-collapse,
 input[type=submit].btn-collapse,
 input[type=button].btn-collapse,
-button.btn-collapse,
 .btn.btn-collapse {
   max-height: 40px;
 }
 input[type=reset].btn-collapse[disabled],
 input[type=submit].btn-collapse[disabled],
 input[type=button].btn-collapse[disabled],
-button.btn-collapse[disabled],
 .btn.btn-collapse[disabled] {
   opacity: 1;
   border-top-width: 0;
@@ -3224,7 +3211,6 @@ button.btn-collapse[disabled],
 input[type=reset].btn-block,
 input[type=submit].btn-block,
 input[type=button].btn-block,
-button.btn-block,
 .btn.btn-block {
   display: block;
   width: 100%;
@@ -3234,14 +3220,12 @@ button.btn-block,
 input[type=reset].btn-block + .btn-block,
 input[type=submit].btn-block + .btn-block,
 input[type=button].btn-block + .btn-block,
-button.btn-block + .btn-block,
 .btn.btn-block + .btn-block {
   margin-top: 0;
 }
 input[type=reset].btn-inline,
 input[type=submit].btn-inline,
 input[type=button].btn-inline,
-button.btn-inline,
 .btn.btn-inline {
   display: inline;
   height: auto;
@@ -3252,7 +3236,6 @@ button.btn-inline,
 input[type=reset].btn-focus,
 input[type=submit].btn-focus,
 input[type=button].btn-focus,
-button.btn-focus,
 .btn.btn-focus {
   background-color: #00a6b5;
   border-color: #00a6b5;
@@ -3260,7 +3243,6 @@ button.btn-focus,
 input[type=reset].btn-focus:hover,
 input[type=submit].btn-focus:hover,
 input[type=button].btn-focus:hover,
-button.btn-focus:hover,
 .btn.btn-focus:hover {
   background-color: #0095a2 !important;
   border-color: #0095a2 !important;
@@ -3268,7 +3250,6 @@ button.btn-focus:hover,
 input[type=reset].btn-pending,
 input[type=submit].btn-pending,
 input[type=button].btn-pending,
-button.btn-pending,
 .btn.btn-pending {
   background-color: #fc6042;
   border-color: #fc6042;
@@ -3276,7 +3257,6 @@ button.btn-pending,
 input[type=reset].btn-pending:hover,
 input[type=submit].btn-pending:hover,
 input[type=button].btn-pending:hover,
-button.btn-pending:hover,
 .btn.btn-pending:hover {
   background-color: #e2563b !important;
   border-color: #e2563b !important;
@@ -3284,7 +3264,6 @@ button.btn-pending:hover,
 input[type=reset].btn-positive,
 input[type=submit].btn-positive,
 input[type=button].btn-positive,
-button.btn-positive,
 .btn.btn-positive {
   background-color: #2cc95c;
   border-color: #2cc95c;
@@ -3292,7 +3271,6 @@ button.btn-positive,
 input[type=reset].btn-positive:hover,
 input[type=submit].btn-positive:hover,
 input[type=button].btn-positive:hover,
-button.btn-positive:hover,
 .btn.btn-positive:hover {
   background-color: #27b452 !important;
   border-color: #27b452 !important;
@@ -3300,7 +3278,6 @@ button.btn-positive:hover,
 input[type=reset].btn-negative,
 input[type=submit].btn-negative,
 input[type=button].btn-negative,
-button.btn-negative,
 .btn.btn-negative {
   background-color: #fc6042;
   border-color: #fc6042;
@@ -3308,7 +3285,6 @@ button.btn-negative,
 input[type=reset].btn-negative:hover,
 input[type=submit].btn-negative:hover,
 input[type=button].btn-negative:hover,
-button.btn-negative:hover,
 .btn.btn-negative:hover {
   background-color: #e2563b !important;
   border-color: #e2563b !important;
@@ -3316,7 +3292,6 @@ button.btn-negative:hover,
 input[type=reset].btn-quiet,
 input[type=submit].btn-quiet,
 input[type=button].btn-quiet,
-button.btn-quiet,
 .btn.btn-quiet {
   background-color: #9ca0a5;
   border-color: #9ca0a5;
@@ -3349,8 +3324,6 @@ select optgroup[disabled],
 select optgroup.disabled,
 textarea[disabled],
 textarea.disabled,
-button[disabled],
-button.disabled,
 .btn[disabled],
 .btn.disabled {
   -webkit-user-select: none;
@@ -3914,6 +3887,7 @@ legend {
   cursor: pointer;
   border: 0;
   background-color: transparent !important;
+  outline: 0;
 }
 .tree-node button span {
   position: absolute;
@@ -4043,6 +4017,11 @@ legend {
 .card img {
   float: left;
   margin: 0 10px 0 0;
+}
+
+/* Editor */
+.mce-btn-ayre i:before {
+  color: #00a6b5;
 }
 
 /* Page */
@@ -4305,6 +4284,7 @@ html, body {
 
 .modal {
   position: fixed;
+  z-index: 2000;
   top: 0;
   right: 0;
   bottom: 0;

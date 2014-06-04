@@ -580,7 +580,6 @@ $input-toggle-size:		$input-height - 10px;
 input,
 select,
 textarea,
-button,
 .btn { 
 	@include transition(all $speed ease);
 }
@@ -742,7 +741,6 @@ textarea {
 input[type=reset],
 input[type=submit],
 input[type=button],
-button,
 .btn { 
 	font-family: $font-family;
 	@include font-size;
@@ -864,7 +862,6 @@ select,
 select option,
 select optgroup,
 textarea,
-button,
 .btn {
 	&[disabled], &.disabled {
 		@include experimental(user-select, none);
@@ -1292,6 +1289,7 @@ legend {
 		cursor: pointer;
 		border: 0;
 		background-color: transparent !important;
+		outline: 0;
 		span {
 			position: absolute;
 			top: 9px;
@@ -1386,5 +1384,13 @@ legend {
 	img {
 		float: left;
 		margin: 0 $gutter * 0.5 0 0;
+	}
+}
+
+/* Editor */
+
+.mce-btn-ayre {
+	i:before {
+		color: $color-focus;
 	}
 }

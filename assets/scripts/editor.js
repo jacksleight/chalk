@@ -14,6 +14,7 @@
 //= require ../tinymce/plugins/hr/plugin.min.js
 //= require ../tinymce/plugins/visualblocks/plugin.min.js
 //= require ../tinymce/plugins/searchreplace/plugin.min.js
+//= require ../tinymce-plugin/plugin.js
 
 /* Initialize */
 
@@ -22,8 +23,8 @@ tinyMCE.init({
 	content_css: Ayre.rootBaseUrl + 'vendor/jacksleight/ayre/assets/styles/editor.css',
 	selector: '.html:not([disabled])',
 	menubar: false,
-	plugins: 'code paste table contextmenu charmap link image autoresize fullscreen hr visualblocks searchreplace',
-	toolbar: 'styleselect bold italic removeformat | bullist numlist table hr | link image charmap | pastetext searchreplace | fullscreen visualblocks code',
+	plugins: 'code paste table contextmenu charmap link image autoresize fullscreen hr visualblocks searchreplace ayre',
+	toolbar: 'styleselect bold italic removeformat | bullist numlist table hr | ayrelink link unlink image charmap | pastetext searchreplace | fullscreen visualblocks code',
 	contextmenu: "cell row column deletetable",
 	statusbar: false,
 	autoresize_max_height: 800, 

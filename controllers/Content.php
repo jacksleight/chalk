@@ -46,6 +46,7 @@ class Content extends Ayre\Controller\Basic
 				$contentMaster = $content->master;
 				$contents[] = [
 					'id'	=> $contentMaster->id,
+					'name'	=> $contentMaster->name,
 					'card'	=> $this->view->render('content/card', ['content' => $content])->toString(),
 				];
 			}

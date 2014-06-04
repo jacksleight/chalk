@@ -26,6 +26,7 @@
 		</ul>
 		<ul class="toolbar">
 			<?= $this->render('/content/actions-secondary') ?>
+			<?= $this->render('/content/actions-node') ?>
 		</ul>
 	</fieldset>
 </form>

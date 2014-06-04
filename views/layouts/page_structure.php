@@ -100,7 +100,7 @@ $repo->fetchTree($structure);
 		</div>
 	</div>
 	<div class="fix">
-		<button class="btn-positive btn-block structure-submit btn-collapse" disabled>
+		<button class="btn btn-positive btn-block structure-submit btn-collapse" disabled>
 			<i class="fa fa-check"></i> Save Changes
 		</button>
 		<a href="<?= $this->url([

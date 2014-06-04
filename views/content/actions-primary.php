@@ -1,5 +1,5 @@
 <? if (!$content->isArchived()) { ?>
-	<li><button class="btn-focus">
+	<li><button class="btn btn-focus">
 		<i class="fa fa-check"></i>
 		Save <?= $entityType->singular ?>
 	</button></li>

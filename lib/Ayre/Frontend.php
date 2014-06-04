@@ -6,7 +6,9 @@
 
 namespace Ayre;
 
-use Coast\App\Request,
+use DOMDocument,
+    DOMXPath,
+    Coast\App\Request,
     Coast\App\Response,
     Ayre\Core\Structure\Node;
 
@@ -37,13 +39,35 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
 
     public function page(Request $req, Response $res)
     {
+        $html = $this->view->render('index', [
+            'req'  => $req,
+            'res'  => $res,
+            'node' => $req->node,
+            'page' => $req->node->content
+        ]);
+       
+        $dom = new DOMDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($html);
+        libxml_use_internal_errors(false);
+        $xpath = new DOMXPath($dom);
+
+        $els = $xpath->query('//*[@data-ayre]');
+        foreach ($els as $el) {
+            $data = json_decode($el->getAttribute('data-ayre'));
+            if (isset($data->attrs)) {
+                foreach ($data->attrs as $name => $callback) {
+                    $el->setAttribute($name, '123');
+                }
+            }
+            // $el->removeAttribute('data-ayre');
+        }
+
+        $html = $dom->saveHTML();
+
+
         return $res
-            ->html($this->view->render('index', [
-                'req'  => $req,
-                'res'  => $res,
-                'node' => $req->node,
-                'page' => $req->node->content
-            ]));
+            ->html($html);
     }
 
     public function file(Request $req, Response $res)

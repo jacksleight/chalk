@@ -12,6 +12,11 @@ use Coast\App\Controller,
     Toast\App\Image,
     Toast\App\Locale;
 
+
+//var_dump(json_encode(['ayre' => ['url_content', 34]]));
+//die;
+
+
 $root = $app;
 $app  = new Ayre(__DIR__, $config->envs);
 

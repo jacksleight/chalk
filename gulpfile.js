@@ -119,7 +119,10 @@ gulp.task('watch', function() {
 		}
 		gulp.watch([stylesDir + '/**/*.scss'], ['styles']);
 		gulp.watch([scriptsDir + '/**/*.js', '!**/editor.js'], ['scripts']);
-		gulp.watch([scriptsDir + '/**/editor.js'], ['scripts-editor']);
+		gulp.watch([
+			scriptsDir + '/**/editor.js',
+			assetsDir + '/tinymce-plugin/plugin.js'
+		], ['scripts-editor']);
 		gulp.watch([
 			controllersDir + '/**/*.php',
 			libDir + '/**/*.php',

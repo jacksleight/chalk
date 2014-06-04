@@ -27,7 +27,7 @@
 	<fieldset class="fix">
 		<ul class="toolbar">
 			<li>
-				<button class="btn-focus">
+				<button class="btn btn-focus">
 					<i class="fa fa-check"></i>
 					Save <?= $entityType->singular ?>
 				</button>

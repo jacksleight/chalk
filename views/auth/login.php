@@ -17,7 +17,7 @@
 				'label'		=> 'Password',
 				'autofocus'	=> true,
 			)) ?>
-			<button class="btn-block btn-focus">Login</button>
+			<button class="btn btn-block btn-focus">Login</button>
 		</fieldset>
 	</form>
 	<footer class="footer c" role="contentinfo">
