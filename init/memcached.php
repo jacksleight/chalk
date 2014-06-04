@@ -1,5 +1,5 @@
 <?php
 $memcached = new \Memcached();
-$memcached->addServer($app->config->memcached['host'], $app->config->memcached['port']);
+$memcached->addServer($app->config->root->memcached['host'], $app->config->root->memcached['port']);
 
 return $memcached;

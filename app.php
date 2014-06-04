@@ -1,85 +1,73 @@
 <?php
 use Coast\App\Controller, 
-	Coast\App\Request, 
-	Coast\App\Response, 
-	Coast\App\Router, 
-	Coast\App\UrlResolver,
-	Coast\App\View,
-	Coast\Config,
-	Coast\Path,
-	Coast\Url,
-	Toast\App\Image,
-	Toast\App\Locale;
+    Coast\App\Request, 
+    Coast\App\Response, 
+    Coast\App\Router, 
+    Coast\App\UrlResolver,
+    Coast\App\View,
+    Coast\Config,
+    Coast\Path,
+    Coast\Url,
+    Toast\App\Image,
+    Toast\App\Locale;
 
-$options = (new \Coast\Config())
-	->fromArray(isset($options) ? $options : []);
-if (!isset($app)) {
-	throw new \Exception('Ayre can only run as middleware');
-} else if (!isset($options->path)) {
-	throw new \Exception('You must specify a path');
-}
 $root = $app;
+$app  = (new Ayre(null, $config->root->envs))
+    ->path(new Path("{$config->path}"));
 
-$app = (new Ayre(null, $config->envs))
-	->path(new Path("{$options->path}"));
-
-foreach ($modules as $module) {
-	$app->module($module);
-}
 $viewDirs = [];
 $controllerNamespaces = [];
 foreach ($app->modules() as $name => $module) {
-	$viewDirs[$name] = $module->viewDir();
-	$controllerNamespaces[$name] = $module->controllerNamespace();
+    $viewDirs[$name] = $module->viewDir();
+    $controllerNamespaces[$name] = $module->controllerNamespace();
 }
 
-$router	= new Router(new Controller($controllerNamespaces));
-$view	= new View($viewDirs);
+$router = new Router(new Controller($controllerNamespaces));
+$view   = new View($viewDirs);
 
 $urlResolver = new UrlResolver(
-	new Url("{$config->baseUrl}{$app->path()}/"),
-	$app->dir(),
-	$router);
+    new Url("{$config->root->baseUrl}{$app->path()}/"),
+    $app->dir(),
+    $router);
 
 $rootUrlResolver = new UrlResolver(
-	new Url("{$config->baseUrl}"),
-	$root->dir());
+    new Url("{$config->root->baseUrl}"),
+    $root->dir());
 
 $image = (new Image(
-	$root->dir('public/data/file'),
-	$root->dir('public/data/image', true),
-	$urlResolver,
-	$app->import($app->file('init/transforms.php'))))
-	->outputUrlResolver($rootUrlResolver);
+    $root->dir('public/data/file'),
+    $root->dir('public/data/image', true),
+    $urlResolver,
+    $app->import($app->file('init/transforms.php'))))
+    ->outputUrlResolver($rootUrlResolver);
 
-$app->set('root', 		$root)
-	->set('config',		$config)
-	->set('options',	$options)
-	->set('memcached',	$app->import($app->file('init/memcached.php')))
-	->set('em',			$app->import($app->file('init/doctrine.php')))
-	->set('swift',		$app->import($app->file('init/swift.php')))
-	->set('view', $view)
-	->add('image', $image)
-	->add('locale', new Locale([
-		'cookie'  => 'locale',
-		'locales' => [
-			'en-GB' => 'en-GB@timezone=Europe/London;currency=GBP',
-		]]))
-	->add('router', $router)
-	->set('url', $urlResolver)
-	->set('rootUrl', $rootUrlResolver)
-	->notFoundHandler(function(Request $req, Response $res) {
-		return $res
-			->status(404)
-			->html($this->view->render('error/not-found'));
-	});
+$app->set('root',       $root)
+    ->set('config',     $config)
+    ->set('memcached',  $app->import($app->file('init/memcached.php')))
+    ->set('em',         $app->import($app->file('init/doctrine.php')))
+    ->set('swift',      $app->import($app->file('init/swift.php')))
+    ->set('view', $view)
+    ->add('image', $image)
+    ->add('locale', new Locale([
+        'cookie'  => 'locale',
+        'locales' => [
+            'en-GB' => 'en-GB@timezone=Europe/London;currency=GBP',
+        ]]))
+    ->add('router', $router)
+    ->set('url', $urlResolver)
+    ->set('rootUrl', $rootUrlResolver)
+    ->notFoundHandler(function(Request $req, Response $res) {
+        return $res
+            ->status(404)
+            ->html($this->view->render('error/not-found'));
+    });
 
 if (!$app->isDebug()) {
-	$app->errorHandler(function(Request $req, Response $res, Exception $e) {
-		return $res
-			->status(500)
-			->html($this->view->render('error/index', array('e' => $e)));
-	});
+    $app->errorHandler(function(Request $req, Response $res, Exception $e) {
+        return $res
+            ->status(500)
+            ->html($this->view->render('error/index', array('e' => $e)));
+    });
 }
 
 \Ayre\Core\File::baseDir($root->dir('public/data/file', true));

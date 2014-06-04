@@ -26,12 +26,11 @@
   "autoload": {
     "psr-0": {
       "Ayre": "lib",
-      "Ayre\\Core": "modules/core/lib",
       "Ayre\\Article": "modules/article/lib",
       "Ayre\\Proxy": "data/proxies"
     },
     "psr-4": {
-      "Ayre\\Core\\Controller\\": "modules/core/controllers/",
+      "Ayre\\Core\\Controller\\": "controllers/",
       "Ayre\\Article\\Controller\\": "modules/article/controllers/"
     }
   }

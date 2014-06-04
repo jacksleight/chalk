@@ -72,7 +72,7 @@ $count = $this->em('Ayre\Core\Content')->fetchCountForPublish();
 					<a href="<?= $this->url([], 'logout', true) ?>">Logout</a>
 				</li>
 			</ul>
-			<p class="title"><?= $this->options->name ?></p>
+			<p class="title"><?= $this->config->name ?></p>
 		</div>
 		<section class="body" role="main">
 			<?= $content->main ?>

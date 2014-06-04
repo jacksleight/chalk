@@ -47,7 +47,7 @@ $evm->addEventSubscriber($trackable = new TrackableListener());
 
 global $em;
 $em = new AyreEntityManager(EntityManager::create(
-	$app->config->database + [
+	$app->config->root->database + [
 		'driver'  => 'pdo_mysql',
 		'charset' => 'utf8'
 	],
