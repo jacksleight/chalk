@@ -15,6 +15,7 @@ class Index extends \Toast\Entity
 		\Ayre::STATUS_PUBLISHED,
 	];
 	protected $contents = [];
+	protected $entityType;
 
 	protected static function _defineMetadata($class)
 	{

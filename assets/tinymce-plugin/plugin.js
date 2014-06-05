@@ -14,8 +14,8 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
             }
             var content = data.contents[0];
             var attrs = {
-                href: '.',
-                'data-ayre': JSON.stringify({attrs: {href: ['url_content', content.id]}})
+                href: Ayre.rootBaseUrl + '_c' + content.id,
+                'data-ayre': JSON.stringify({attrs: {href: ['url', content.id]}})
             };
             if (!text.length) {
                 text = content.name;

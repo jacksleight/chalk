@@ -1,6 +1,9 @@
+<? if (!$req->isAjax()) { ?>
+	<? $this->layout('/layouts/page_content') ?>
+	<? $this->block('main') ?>
+<? } ?>
+
 <?= $this->render('/content/browser', [
 	'close'			=> true,
-	'thumbs'		=> true,
-	'selectOnly'	=> true,
-	'entityType'	=> \Ayre::type('core_file'),
+	'thumbs'		=> $entityType->name == 'core_file',
 ]) ?>

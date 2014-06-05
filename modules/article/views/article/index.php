@@ -47,8 +47,7 @@ $contents = $this->em($entityType->class)
 						<a href="<?= $this->url([
 							'action'	=> 'edit',
 							'content'	=> $content->id,
-						]) ?>"><?= $content->name ?></a><br>
-						<small><?= $content->subname ?></small>
+						]) ?>"><?= $content->name ?></a>
 					</th>
 					<td class="col-name">
 						<?= $content->activeDate->toFormattedDateString() ?>

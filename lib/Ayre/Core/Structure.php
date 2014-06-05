@@ -56,8 +56,7 @@ class Structure extends \Toast\Entity implements Loggable, Publishable, Trackabl
 	
 	public function __construct()
 	{	
-		$this->nodes	= new ArrayCollection();
-		$this->actions	= new ArrayCollection();
+		$this->nodes = new ArrayCollection();
 		
 		$node = new Node();
 		$node->structure = $this;
@@ -106,8 +105,8 @@ class Structure extends \Toast\Entity implements Loggable, Publishable, Trackabl
 		}
 	}
 
-	public function __clone()
-	{
-		// throw new \Exception('TODO');
-	}
+	// public function __clone()
+	// {
+	// 	throw new \Exception('TODO');
+	// }
 }

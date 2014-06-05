@@ -46,7 +46,6 @@ $contents = $this->em($entityType->class)
 							'action'	=> 'edit',
 							'content'	=> $content->id,
 						]) ?>"><?= $content->name ?></a><br>
-						<small><?= $content->subname ?></small>
 					</th>
 					<td class="col-date">
 						<?= $content->modifyDate->diffForHumans() ?>

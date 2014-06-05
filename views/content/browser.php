@@ -1,35 +1,36 @@
 <?php
 $close		= isset($close) ? $close : false;
 $thumbs		= isset($thumbs) ? $thumbs : false;
-$selectOnly	= isset($selectOnly) ? $selectOnly : false;
 
 $contents = $this->em($entityType->class)
 	->fetchAll($index->toArray());
 ?>
 <form action="<?= $this->url->route() ?>" class="fill">
-	<div class="flex uploadable">
+	<div class="flex <?= $entityType->name == 'core_file' ? 'uploadable' : null ?>">
 		<ul class="toolbar">
-			<li>
-				<span class="btn btn-focus uploadable-button">
-					<i class="fa fa-upload"></i> Upload <?= $entityType->singular ?>
-				</span>
-			</li>
+			<? if ($entityType->name == 'core_file') { ?>
+				<li>
+					<span class="btn btn-focus uploadable-button">
+						<i class="fa fa-upload"></i> Upload <?= $entityType->singular ?>
+					</span>
+				</li>
+			<? } ?>
 		</ul>
-		<h1>Browse <?= $entityType->plural ?></h1>
+		<h1><?= $entityType->plural ?></h1>
 		<?= $this->render('filters', ['filter' => $index]) ?>
 		<? if ($thumbs) { ?>
-			<ul class="thumbs uploadable-list multiselectable">
+			<ul class="thumbs multiselectable <?= $entityType->name == 'core_file' ? 'uploadable-list' : null ?>">
 				<? if (count($contents)) { ?>
 					<? foreach ($contents as $content) { ?>
 						<li><?= $this->render('thumb', [
-							'content'		=> $content,
-							'selectOnly'	=> $selectOnly
+							'content'	=> $content,
+							'link'		=> false
 						]) ?></li>
 					<? } ?>
 				<? } else { ?>
 					<li><?= $this->render('thumb', [
-						'template'		=> true,
-						'selectOnly'	=> $selectOnly
+						'template'	=> true,
+						'link'		=> false
 					]) ?></li>
 				<? } ?>		
 			</ul>
@@ -38,7 +39,6 @@ $contents = $this->em($entityType->class)
 				<colgroup>
 					<col class="col-select">
 					<col class="col-name">
-					<col class="col-type">
 					<col class="col-date">
 					<col class="col-status">
 				</colgroup>
@@ -48,7 +48,6 @@ $contents = $this->em($entityType->class)
 							<input type="checkbox" id="select" class="multiselectable-all"><label for="select"></label>
 						</th>
 						<th scope="col" class="col-name">Content</th>
-						<th scope="col" class="col-name">Type</th>
 						<th scope="col" class="col-date">Modified</th>
 						<th scope="col" class="col-status">Status</th>
 					</tr>
@@ -56,17 +55,19 @@ $contents = $this->em($entityType->class)
 				<tbody>
 					<? foreach ($contents as $content) { ?>
 						<?= $this->render('row', [
-							'content'		=> $content,
-							'selectOnly'	=> $selectOnly
+							'content'	=> $content,
+							'link'		=> false
 						]) ?>
 					<? } ?>
 				</tbody>
 			</table>
 		<? } ?>
-		<input class="uploadable-input" type="file" name="files[]" data-url="<?= $this->url(['action' => 'upload']) ?>" multiple>
-		<script type="x-tmpl-mustache" class="uploadable-template">
-			<?= $this->render('/content/thumb', ['template' => true]) ?>
-		</script>
+		<? if ($entityType->name == 'core_file') { ?>
+			<input class="uploadable-input" type="file" name="files[]" data-url="<?= $this->url(['action' => 'upload']) ?>" multiple>
+			<script type="x-tmpl-mustache" class="uploadable-template">
+				<?= $this->render('/content/thumb', ['template' => true]) ?>
+			</script>
+		<? } ?>
 	</div>
 	<div class="fix">
 		<ul class="toolbar">

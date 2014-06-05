@@ -1,12 +1,12 @@
-<div class="content">
+<div class="content" data-entityType="<?= $entityType->slug ?>">
 	<ul class="toolbar">
 		<li><span class="content-remove btn btn-negative btn-quiet">
 			<i class="fa fa-times"></i>
-			Remove Content
+			Remove <?= $entityType->singular ?>
 		</span></li>
 		<li><span class="content-select btn btn-focus btn-quiet">
 			<i class="fa fa-folder"></i>
-			Browse Content
+			Browse <?= $entityType->singular ?>
 		</span></li>
 	</ul>
 	<div class="content-holder">

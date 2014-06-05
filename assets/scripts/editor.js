@@ -27,6 +27,7 @@
 		content_css: assetsUrl + '/styles/editor.css',
 		selector: '.html:not([disabled])',
 		menubar: false,
+		convert_urls: false,
 		plugins:[
 			'code',
 			'paste',

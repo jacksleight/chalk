@@ -1,9 +1,9 @@
 <?php
 $template	= isset($template) ? $template : false;
 $covered	= isset($covered) ? $covered : false;
-$selectOnly	= isset($selectOnly) ? $selectOnly : false;
+$link		= isset($link) ? $link : true;
 ?>
-<tr class="selectable <?= $selectOnly ? 'selectable-only' : null ?> clickable">
+<tr class="selectable clickable">
 	<td class="col-select">
 		<?= $this->render('/content/checkbox', [
 			'entity'	=> $index,
@@ -19,20 +19,21 @@ $selectOnly	= isset($selectOnly) ? $selectOnly : false;
 					['size' => '48', 'crop' => true]
 				) ?>">
 			<? } ?>
-			<a href="<?= $this->url([
-				'action'	=> 'edit',
-				'entityType'=> \Ayre::type($content)->slug,
-				'content'	=> $content->id,
-			]) ?>"><?= $content->name ?></a><br>
-			<small><?= $content->subname ?></small>
+			<? if ($link) { ?>
+				<a href="<?= $this->url([
+					'action'	=> 'edit',
+					'entityType'=> \Ayre::type($content)->slug,
+					'content'	=> $content->id,
+				]) ?>">
+			<? } ?>
+			<?= $content->name ?>
+			<? if ($link) { ?>
+				</a>
+			<? } ?>
+			<br>
+			<small><?= $content->subname($entityType->name != 'core_content') ?></small>
 		</div>
 	</th>
-	<td>
-		<a href="<?= $this->url([
-			'action'	=> 'index',
-			'entityType'=> \Ayre::type($content)->slug,
-		]) ?>"><?= $content->typeLabel ?></a>
-	</td>
 	<td class="col-date">
 		<?= $content->modifyDate->diffForHumans() ?><br>
 		<small>by <?= $content->modifyUserName ?></small>

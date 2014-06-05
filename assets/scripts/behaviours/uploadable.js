@@ -21,7 +21,7 @@ Ayre.component('.uploadable', function(i, el) {
 		var perc = parseInt(data.loaded / data.total * 100, 10);
 		data.context.find('.progress span')
 			.css('height', perc + '%');
-		data.context.find('.info')
+		data.context.find('small')
 			.text(perc == 100 ? 'Processing…' : perc + '%' + ' Uploaded');
 	}).bind('fileuploaddone', function (e, data) {
 		var result	= data.result.files[0];

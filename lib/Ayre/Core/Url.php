@@ -40,7 +40,7 @@ class Url extends Content
 		return strtoupper($this->subtype);
 	}
 
-	public function subname()
+	public function subname($context = false)
 	{
 		return $this->url->toString();
 	}

@@ -1,11 +1,11 @@
 <?php
 $template	= isset($template) ? $template : false;
 $covered	= isset($covered) ? $covered : false;
-$selectOnly	= isset($selectOnly) ? $selectOnly : false;
+$link		= isset($link) ? $link : true;
 ?>
 
 <figure class="thumb selectable">
-	<? if (!$selectOnly) { ?>
+	<? if ($link) { ?>
 		<a href="<?= !$template ? $this->url([
 			'entityType'=> $entityType->slug,
 			'action'	=> 'edit',
@@ -43,18 +43,16 @@ $selectOnly	= isset($selectOnly) ? $selectOnly : false;
 			<? } ?>
 		</div>
 		<figcaption>
-			<strong class="name">
-				<?= $template ? '{{name}}' : $content->name ?>
-			</strong><br>
-			<? if ($template) { ?>
-				Waiting…
-			<? } else { ?>
-				<span class="info">
-					<?= $content->subtypeLabel ?>
-				</span>
-			<? } ?>
+			<?= $template ? '{{name}}' : $content->name ?><br>
+			<small>
+				<? if ($template) { ?>
+					Waiting…
+				<? } else { ?>
+					<?= $content->subname($entityType->name != 'core_content') ?>
+				<? } ?>
+			</small>
 		</figcaption>
-	<? if (!$selectOnly) { ?>
+	<? if ($link) { ?>
 		</a>
 	<? } ?>
 </figure>

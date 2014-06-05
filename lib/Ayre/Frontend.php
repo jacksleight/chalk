@@ -8,8 +8,10 @@ namespace Ayre;
 
 use DOMDocument,
     DOMXPath,
+    Coast\Url,
     Coast\App\Request,
     Coast\App\Response,
+    Ayre\Core\Content,
     Ayre\Core\Structure\Node;
 
 class Frontend implements \Coast\App\Access, \Coast\App\Executable
@@ -17,6 +19,10 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
     use \Coast\App\Access\Implementation;
 
     protected $_ayre;
+    protected $_domain;
+    protected $_nodes;
+    protected $_paths;
+    protected $_contents;
 
     public function __construct(\Ayre $ayre)
     {
@@ -25,25 +31,48 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
 
     public function execute(Request $req, Response $res)
     {        
-        $domain = $this->_ayre->em('Ayre\Core\Structure')->fetchFirst();
-        $node   = $this->_ayre->em('Ayre\Core\Structure\Node')
-            ->fetchByPath($domain, $req->path(), true);
-        if (!$node) {
-            return;
+        $this->_domain = $this->_ayre->em('Ayre\Core\Domain')->fetchFirst();
+        $nodes = $this->_ayre->em('Ayre\Core\Domain')->fetchNodes($this->_domain);
+        foreach ($nodes as $node) {
+            $this->_nodes[$node->id]                   = $node;
+            $this->_paths[$node->path]                 = $node;
+            $this->_contents[$node->contentMaster->id] = $node;
         }
-        
-        $req->node = $node;
-        $method = \Ayre::type($node->content)->entity->var;
+
+        $path = $req->path();
+        if (preg_match('/^_c([\d+])$/', $path, $match)) {
+            $node    = null;
+            $content = $match[1];
+            if (isset($this->_contents[$content])) {
+                return $res->redirect($this->app->url($this->_contents[$content]->path));
+            }
+            $content = $this->_ayre->em('Ayre\Core\Content')->fetch($content);
+            if (!$content) {
+                return;
+            }
+        } else {
+            $node = isset($this->_paths[$path])
+                ? $this->_paths[$path]
+                : null;
+            if (!$node) {
+                return;
+            }
+            $content = $node->content;
+        }
+                
+        $req->node    = $node;
+        $req->content = $content;
+        $method = '_' . \Ayre::type($content)->entity->var;
         return $this->$method($req, $res);
     }
 
-    public function page(Request $req, Response $res)
+    protected function _page(Request $req, Response $res)
     {
         $html = $this->view->render('index', [
             'req'  => $req,
             'res'  => $res,
             'node' => $req->node,
-            'page' => $req->node->content
+            'page' => $req->content
         ]);
        
         $dom = new DOMDocument();
@@ -55,24 +84,26 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
         $els = $xpath->query('//*[@data-ayre]');
         foreach ($els as $el) {
             $data = json_decode($el->getAttribute('data-ayre'));
+            $el->removeAttribute('data-ayre');
+            if (!$data) {
+                continue;
+            }
             if (isset($data->attrs)) {
-                foreach ($data->attrs as $name => $callback) {
-                    $el->setAttribute($name, '123');
+                foreach ($data->attrs as $name => $args) {
+                    $method = array_shift($args);
+                    $el->setAttribute($name, call_user_func_array([$this, $method], $args));
                 }
             }
-            // $el->removeAttribute('data-ayre');
         }
 
         $html = $dom->saveHTML();
-
-
         return $res
             ->html($html);
     }
 
-    public function file(Request $req, Response $res)
+    protected function _file(Request $req, Response $res)
     {
-        $file = $req->node->content->file();
+        $file = $req->content->file();
         if (!$file->exists()) {
             return false;
         }
@@ -80,15 +111,29 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
             ->redirect($this->app->url->file($file));
     }
 
-    public function url(Request $req, Response $res)
+    protected function _url(Request $req, Response $res)
     {
         $url = $node->content->url();
         return $res
             ->redirect($url);       
     }
 
-    public function route(Request $req, Response $res)
+    protected function _route(Request $req, Response $res)
     {
         return;
+    }
+
+    public function url($content)
+    {
+        if ($content instanceof Content) {
+            $content = $content->id;
+        }
+        $node = isset($this->_contents[$content])
+            ? $this->_contents[$content]
+            : null;
+        $path = isset($node)
+            ? $node->path
+            : "_c{$content}";
+        return $this->app->url($path);
     }
 }

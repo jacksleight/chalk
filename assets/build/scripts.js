@@ -13716,7 +13716,7 @@ Ayre.component('.uploadable', function(i, el) {
 		var perc = parseInt(data.loaded / data.total * 100, 10);
 		data.context.find('.progress span')
 			.css('height', perc + '%');
-		data.context.find('.info')
+		data.context.find('small')
 			.text(perc == 100 ? 'Processing…' : perc + '%' + ' Uploaded');
 	}).bind('fileuploaddone', function (e, data) {
 		var result	= data.result.files[0];
@@ -13896,13 +13896,14 @@ Ayre.component('.structure', function(i, el) {
 
 Ayre.component('.content', function(i, el) {
 	
-	var select	= $(el).find('.content-select');
-	var remove	= $(el).find('.content-remove');
-	var holder	= $(el).find('.content-holder');
-	var input	= $(el).find('input[type=hidden]');
+	var select		= $(el).find('.content-select');
+	var remove		= $(el).find('.content-remove');
+	var holder		= $(el).find('.content-holder');
+	var input		= $(el).find('input[type=hidden]');
+	var entityType	= $(el).attr('data-entityType');
 	
 	select.click(function(ev) {
-		Ayre.modal(Ayre.baseUrl + 'content/select', function(data) {
+		Ayre.modal(Ayre.baseUrl + 'content/select?entityType=' + entityType, function(data) {
 			input.val(data.contents[0].id);
 			holder.html(data.contents[0].card);
 			remove.show();

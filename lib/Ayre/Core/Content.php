@@ -62,8 +62,7 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 	
 	public function __construct()
 	{	
-		$this->nodes	= new ArrayCollection();
-		$this->actions	= new ArrayCollection();
+		$this->nodes = new ArrayCollection();
 		
 		$this->__constructVersionable();
 	}
@@ -100,9 +99,17 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 		return $this->slug;
 	}
 
-	public function subname()
+	public function subname($context = false)
 	{
-		return $this->subtypeLabel;
+		$subname = '';
+		if (!$context) {
+			$subname .= $this->typeLabel;
+			if (isset($this->subtype)) {
+				$subname .= ' – ';
+			}
+		}
+		$subname .= $this->subtypeLabel;
+		return $subname;
 	}
 
 	public function type()

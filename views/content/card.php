@@ -7,5 +7,5 @@
 		) ?>">
 	<? } ?>
 	<?= $content->name ?><br>
-	<small><?= $content->subname ?></small>
+	<small><?= $content->subname() ?></small>
 </div>
