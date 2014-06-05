@@ -1,5 +1,7 @@
 <?php 
-$entityType = \Ayre::type($browser['entityType']);
+$entityType = \Ayre::type(isset($browser['entityType'])
+	? $browser['entityType']
+	: 'core_content');
 ?>
 <div class="content" data-entityType="<?= $entityType->slug ?>">
 	<ul class="toolbar">
