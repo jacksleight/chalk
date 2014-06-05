@@ -16,7 +16,7 @@ class Content extends Ayre\Controller\Basic
 	{
 		$req->view->entityType
 			= $req->entityType
-			= Ayre::type(isset($req->entityType) ? $req->entityType : 'core_content');
+			= Ayre::type($req->entityType ? $req->entityType : 'core_content');
 	}
 
 	public function redirect(Request $req, Response $res)

@@ -44,8 +44,13 @@ class Content extends Repository
 		}
 
 		if (isset($criteria['search'])) {
+			if ($this->_class->name == 'Ayre\Core\Content') {
+				$classes = $this->_em->getClassMetadata($this->_class->name)->subClasses;
+			} else {
+				$classes = [$this->_class->name];
+			}
 			$results = $this->_em->getRepository('Ayre\Core\Index')
-				->search($criteria['search'], $this->_class->name);
+				->search($criteria['search'], $classes);
 			$ids = \Coast\array_column($results, 'entityId');
 			$qb ->andWhere("c.id IN (:ids)")
 				->addSelect("FIELD(c.id, :ids) AS HIDDEN sort")

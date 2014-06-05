@@ -50,6 +50,10 @@ class Index extends \Toast\Entity
 						\Ayre::STATUS_ARCHIVED	=> 'Archived',
 					],
 				),
+				'entityType' => array(
+					'type'		=> 'text',
+					'nullable'	=> true,
+				),
 			),
 			'associations' => [
 				'contents' => array(

@@ -6,6 +6,11 @@ $contents = $this->em($entityType->class)
 	->fetchAll($index->toArray());
 ?>
 <form action="<?= $this->url->route() ?>" class="fill">
+	<?= $this->render('/elements/form-input', array(
+		'type'			=> 'input_hidden',
+		'entity'		=> $index,
+		'name'			=> 'entityType',
+	)) ?>
 	<div class="flex <?= $entityType->name == 'core_file' ? 'uploadable' : null ?>">
 		<ul class="toolbar">
 			<? if ($entityType->name == 'core_file') { ?>
