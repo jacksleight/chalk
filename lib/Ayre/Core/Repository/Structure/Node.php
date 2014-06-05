@@ -37,7 +37,8 @@ class Node extends Repository
             ->addSelect('c', 'cv')
             ->leftJoin('n.contentMaster', 'c')
             ->leftJoin('c.versions', 'cv')
-            ->andWhere('cv.next IS NULL');
+            ->andWhere('cv.next IS NULL')
+            ->orderBy('n.sort');
         
         if (isset($criteria['node'])) {
             $qb->andWhere('n.structure = :structure
