@@ -77,11 +77,13 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
        
         $doc = new DOMDocument();
         libxml_use_internal_errors(true);
+        // @hack Ensures correct encoding as libxml doesn't understand <meta charset="utf-8">
         $doc->loadHTML('<?xml encoding="utf-8">' . $html);
         libxml_use_internal_errors(false);
         foreach ($doc->childNodes as $node) {
             if ($node->nodeType == XML_PI_NODE) {
                 $doc->removeChild($node);
+                break;
             }
         }
         $xpath = new DOMXPath($doc);
