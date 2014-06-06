@@ -26,7 +26,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
 
     public function __construct(\Ayre $ayre)
     {
-    	$this->_ayre = $ayre;
+        $this->_ayre = $ayre;
     }
 
     public function execute(Request $req, Response $res)
@@ -40,7 +40,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
         }
 
         $path = $req->path();
-        if (preg_match('/^_c([\d+])$/', $path, $match)) {
+        if (preg_match('/^_c([\d]+)$/', $path, $match)) {
             $node    = null;
             $content = $match[1];
             if (isset($this->_contents[$content])) {
@@ -75,11 +75,16 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
             'page' => $req->content
         ]);
        
-        $dom = new DOMDocument();
+        $doc = new DOMDocument();
         libxml_use_internal_errors(true);
-        $dom->loadHTML($html);
+        $doc->loadHTML('<?xml encoding="utf-8">' . $html);
         libxml_use_internal_errors(false);
-        $xpath = new DOMXPath($dom);
+        foreach ($doc->childNodes as $node) {
+            if ($node->nodeType == XML_PI_NODE) {
+                $doc->removeChild($node);
+            }
+        }
+        $xpath = new DOMXPath($doc);
 
         $els = $xpath->query('//*[@data-ayre]');
         foreach ($els as $el) {
@@ -96,7 +101,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
             }
         }
 
-        $html = $dom->saveHTML();
+        $html = $doc->saveHTML();
         return $res
             ->html($html);
     }
@@ -113,7 +118,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
 
     protected function _url(Request $req, Response $res)
     {
-        $url = $node->content->url();
+        $url = $req->content->url();
         return $res
             ->redirect($url);       
     }

@@ -73,10 +73,7 @@ class Content extends Ayre\Controller\Basic
 		}
 		$this->em->flush();
 
-		return $res->redirect($this->url(array(
-			'action'	=> 'index',
-			'content'	=> null,
-		)));
+		return $res->redirect($this->url([]));
 	}
 
 	public function upload(Request $req, Response $res)
