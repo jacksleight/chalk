@@ -24,7 +24,7 @@ $config->setAutoGenerateProxyClasses(true);
 
 if ($app->isDevelopment()) {
 	$cache = new ArrayCache();
-} else if (isset($app->memcached)) {
+} else if (isset($app->memcached) && $app->memcached) {
 	$cache = new MemcachedCache();
 	$cache->setMemcached($app->memcached);
 }

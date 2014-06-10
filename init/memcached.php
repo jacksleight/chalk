@@ -1,6 +1,6 @@
 <?php
 if (!extension_loaded('memcached')) {
-	return;
+	return false;
 }
 
 $memcached = new \Memcached();
