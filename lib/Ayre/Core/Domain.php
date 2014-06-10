@@ -13,6 +13,11 @@ use Ayre\Core;
 */
 class Domain extends Structure
 {
+	public static $info = [
+		'singular'	=> 'Domain',
+		'plural'	=> 'Domains',
+	];
+
 	protected static function _defineMetadata($class)
 	{
 		return array(

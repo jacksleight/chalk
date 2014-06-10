@@ -2487,7 +2487,6 @@ table .col-type {
   width: 100px;
 }
 table .col-date {
-  width: 250px;
   text-align: right;
 }
 table .col-select {
@@ -2736,6 +2735,10 @@ input[type=radio] + label:before {
 input[type=checkbox]:focus + label:before,
 input[type=radio]:focus + label:before {
   border-color: #9ca0a5;
+}
+input[type=checkbox][disabled] + label:before,
+input[type=radio][disabled] + label:before {
+  background-color: #f1f1f2;
 }
 
 input[type=radio] + label:before {
@@ -3821,7 +3824,8 @@ html, body {
 }
 
 .sidebar {
-  width: 280px;
+  width: 22%;
+  min-width: 280px;
   background: #3a424c;
 }
 .sidebar, .sidebar a {

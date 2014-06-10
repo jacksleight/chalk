@@ -4,10 +4,10 @@
 			<?= $content->status ?>
 		</span>
 	</li>
-	<li>
+	<!-- <li>
 		<i class="fa fa-asterisk"></i>
 		Version <em><?= $content->version ?></em>
-	</li>
+	</li> -->
 	<? if (!$content->isNew()) { ?>
 		<li>
 			<i class="fa fa-calendar"></i>

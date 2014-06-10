@@ -19,28 +19,39 @@
 					'entity'	=> $user,
 					'name'		=> 'isEnabled',
 					'label'		=> 'Enabled',
+					'disabled'	=> $user->isRoot(),
 				)) ?>
 				<?= $this->render('/elements/form-item', array(
 					'entity'	=> $user,
 					'name'		=> 'name',
 					'label'		=> 'Name',
+					'disabled'	=> $user->isRoot(),
 				)) ?>
 				<?= $this->render('/elements/form-item', array(
 					'entity'	=> $user,
 					'type'		=> 'input_email',
 					'name'		=> 'emailAddress',
 					'label'		=> 'Email Address',
+					'disabled'	=> $user->isRoot(),
 				)) ?>
 				<?= $this->render('/elements/form-item', array(
 					'entity'	=> $user,
 					'name'		=> 'passwordPlain',
 					'label'		=> 'Password',
+					'type'		=> 'input_password',
+					'disabled'	=> $user->isRoot(),
 				)) ?>
 				<?= $this->render('/elements/form-item', array(
 					'entity'	=> $user,
 					'name'		=> 'role',
 					'label'		=> 'Role',
 					'type'		=> 'input_radio',
+					'disabled'	=> $user->isRoot(),
+					'values'	=> $user->isRoot() ? [
+						\Ayre\Core\User::ROLE_CONTRIBUTOR	=> 'Contributor',
+						\Ayre\Core\User::ROLE_EDITOR		=> 'Editor',
+						\Ayre\Core\User::ROLE_ROOT			=> 'Administrator',
+					] : null,
 				)) ?>
 			</div>
 		</fieldset>
@@ -48,14 +59,14 @@
 	<fieldset class="fix">
 		<ul class="toolbar">
 			<li>
-				<button class="btn btn-focus">
+				<button class="btn btn-focus" <?= $user->isRoot() ? 'disabled' : null ?>>
 					<i class="fa fa-check"></i>
 					Save <?= $entityType->singular ?>
 				</button>
 			</li>
 		</ul>
 		<ul class="toolbar">
-			<? if (!$user->isNew()) { ?>
+			<? if (!$user->isNew() && !$user->isRoot()) { ?>
 				<li>
 					<a href="<?= $this->url([
 						'action' => 'delete1',

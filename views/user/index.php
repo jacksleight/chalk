@@ -66,7 +66,9 @@ $users = $this->em($entityType->class)
 					</a>
 				</td>
 				<td class="col-role">
-					<?= ucfirst($user->role) ?>
+					<?= ucfirst($user->isRoot()
+						? \Ayre\Core\User::ROLE_ADMINISTRATOR
+						: $user->role) ?>
 				</td>
 			</tr>
 		<? } ?>

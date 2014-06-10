@@ -7,7 +7,7 @@
 	<li><a href="<?= $this->url([
 		'entityType'	=> $entityType->slug,
 		'action'		=> 'restore',
-		'id'			=> $content->id,
+		'content'		=> $content->id,
 	], 'content', true) ?>" class="btn btn-focus">
 		<i class="fa fa-repeat"></i>
 		Restore <?= $entityType->singular ?>

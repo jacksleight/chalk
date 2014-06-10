@@ -532,7 +532,6 @@ table {
 		width: 100px;
 	}
 	.col-date {
-		width: 250px;
 		text-align: right;
 	}
 	.col-select {
@@ -660,6 +659,9 @@ input[type=radio] {
 	}
 	&:focus + label:before {
 		border-color: tint($color-primary, 50%);
+	}
+	&[disabled] + label:before {
+		background-color: $color-shade;
 	}
 }
 input[type=radio] + label:before {

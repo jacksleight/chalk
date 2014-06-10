@@ -62,7 +62,8 @@ html, body {
 	}
 }
 .sidebar {
-	width: 280px;
+	width: 22%;
+	min-width: 280px;
 	background: $color-primary;
 	&, a {
 		@include link-color(tint($color-primary, 70%));

@@ -8,7 +8,9 @@ use Coast\App\Controller\Action,
 class Index extends Action
 {
 	public function index(Request $req, Response $res)
-	{}
+	{
+		return $res->redirect($this->url([], 'content', true));
+	}
 	
 	public function respond(Request $req, Response $res)
 	{

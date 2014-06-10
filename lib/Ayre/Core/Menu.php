@@ -13,6 +13,11 @@ use Ayre\Core;
 */
 class Menu extends Structure
 {
+	public static $info = [
+		'singular'	=> 'Menu',
+		'plural'	=> 'Menus',
+	];
+
 	public function label()
 	{
 		return $this->name . ' ' . \Ayre::type($this)->singular;

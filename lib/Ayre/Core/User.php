@@ -150,4 +150,14 @@ class User extends \Toast\Entity implements Trackable, Searchable
 	{
 		return $this->name;
 	}
+	
+	public function isRoot()
+	{
+		return $this->role == self::ROLE_ROOT;
+	}
+	
+	public function isAdministrator()
+	{
+		return $this->role == self::ROLE_ADMINISTRATOR || $this->role == self::ROLE_ROOT;
+	}
 }

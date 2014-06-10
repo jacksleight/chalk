@@ -11,30 +11,35 @@ $count = $this->em('Ayre\Core\Content')->fetchCountForPublish();
 				'label' => 'Content',
 				'icon'	=> 'fa fa-file-text-o',
 				'name'	=> 'content',
-			], [
+			],
+			[
 				'label' => 'Structure',
 				'icon'	=> 'fa fa-sitemap',
 				'params'=> ['controller' => 'structure'],
-			], [
-				'label' => 'Live',
-				'icon'	=> 'fa fa-eye',
-				'params'=> ['controller' => null],
-			]
+			],
+			// [
+			// 	'label' => 'Live',
+			// 	'icon'	=> 'fa fa-eye',
+			// 	'params'=> ['controller' => null],
+			// ]
 		], 'class' => 'toggle']) ?>
 		<div class="body">
 			<?= $content->sidebar ?>
 		</div>
-		<?= $this->render('nav', ['items' => [
-			[
-				'label' => 'Settings',
-				'icon'	=> 'fa fa-gear fa-fw',
-				'params'=> ['controller' => 'user'],
-			], [
-				'label' => 'Activity',
-				'icon'	=> 'fa fa-bar-chart-o fa-fw',
-				'params'=> ['controller' => null],
-			]
-		], 'class' => 'toggle']) ?>
+		<? if ($req->user->isAdministrator()) { ?>
+			<?= $this->render('nav', ['items' => [
+				[
+					'label' => 'Settings',
+					'icon'	=> 'fa fa-gear fa-fw',
+					'params'=> ['controller' => 'user'],
+				],
+				// [
+				// 	'label' => 'Activity',
+				// 	'icon'	=> 'fa fa-bar-chart-o fa-fw',
+				// 	'params'=> ['controller' => null],
+				// ]
+			], 'class' => 'toggle']) ?>
+		<? } ?>
 		<footer class="footer c" role="contentinfo">
 			<p>Ayre 0.1.0 © <?= date('Y') ?> <a href="http://jacksleight.com/">Jack Sleight</a></p>
 		</footer>

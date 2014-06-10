@@ -2,7 +2,7 @@
 	<li><a href="<?= $this->url([
 		'entityType'	=> $entityType->slug,
 		'action'		=> 'status',
-		'id'			=> $content->id,
+		'content'		=> $content->id,
 	], 'content', true) . $this->url->query([
 		'status' => \Ayre::STATUS_ARCHIVED,
 	]) ?>" class="btn btn-negative btn-quiet">
