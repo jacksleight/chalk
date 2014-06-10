@@ -87,7 +87,7 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
 	tinyMCE.baseURL	= assetsUrl + '/tinymce';
 	
 	tinyMCE.init({
-		content_css: assetsUrl + '/styles/editor.css',
+		content_css: assetsUrl + '/build/editor.css',
 		selector: '.html:not([disabled])',
 		menubar: false,
 		convert_urls: false,
@@ -113,6 +113,7 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
 			'fullscreen', 'visualblocks', 'code'].join(' '),
 		statusbar: false,
 		browser_spellcheck: true,
+		element_format: 'html',
 		autoresize_max_height: 800, 
 		paste_retain_style_properties: 'none',
 		paste_word_valid_elements: [

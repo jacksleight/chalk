@@ -9,13 +9,13 @@ html {
 	line-height: $line-height;
 	font-family: $font-family;
 	color: $color-foreground;
-	font-weight: 300;
+	font-weight: normal;
 }
 
 /* Header */
 
 #{headers(1, 6)} { 
-	font-weight: 300;
+	font-weight: normal;
 	color: $color-loud;
 	margin: $gutter 0 0 0;
 	line-height: 1;
@@ -85,7 +85,7 @@ ol {
 dl { 
 	margin: $gutter 0 0 0;
 	dt { 
-		font-weight: 400;
+		font-weight: bold;
 		float: left;
 		width: (100px - $gutter);
 	}
@@ -109,7 +109,7 @@ em {
 	color: $color-primary;
 }
 strong { 
-	font-weight: 400;
+	font-weight: bold;
 }
 mark { 
 	background-color: $color-highlight;
@@ -197,11 +197,12 @@ small {
 	background-color: $color-quiet;
 	border: 1px solid $color-quiet;
 	color: white;
-	font-weight: 300;
+	font-weight: normal;
 	@include font-size(-1);
 	padding: 0 $gutter * 0.25;
+	padding-bottom: 1px;
+	vertical-align: 1px;
 	display: inline-block;
-	line-height: 1.6;
 	td &, th & {
 		width: 100%;
 	}
@@ -469,7 +470,7 @@ table {
 	}
 	thead {
 		th {
-			font-weight: 400;
+			font-weight: bold;
 		}
 		tr:last-child {
 			th, td {
@@ -492,7 +493,7 @@ table {
 		}
 	}
 	th { 
-		font-weight: 300;
+		font-weight: normal;
 		text-align: left;
 		&, a {
 			@include link-color($color-loud);
@@ -606,7 +607,7 @@ select,
 	font-family: $font-family;
 	color: $color-foreground;
 	text-align: left;
-	font-weight: 300;
+	font-weight: normal;
 	height: $input-height;
 	line-height: $input-height - ($input-border-width * 2);
 	vertical-align: baseline;
@@ -753,7 +754,7 @@ input[type=button],
 	width: auto;
 	padding: 0 $input-padding-horiz;
 	margin: 0;
-	font-weight: 300;
+	font-weight: normal;
 	@include link-color(white !important);
 	background-color: $color-quiet;
 	border: $input-border-width solid;
@@ -779,6 +780,7 @@ input[type=button],
 	}
 	&.btn-collapse {
 		max-height: 40px;
+		overflow: hidden;
 		&[disabled] {
 			opacity: 1;
 			border-top-width: 0; 
@@ -969,7 +971,7 @@ legend {
 	> label {
 		color: $color-loud;
 		display: block;
-		font-weight: 400;
+		font-weight: bold;
 	}
 	> div { 
 		margin: $gutter  * 0.25 0 0 0;
@@ -991,7 +993,7 @@ legend {
 			color: tint($color-quiet, 0%);
 			margin-left: 0.25em;
 			float: right;
-			font-weight: 300;
+			font-weight: normal;
 		}
 	}
 }

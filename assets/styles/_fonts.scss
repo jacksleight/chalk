@@ -1,32 +1,30 @@
 /* Fonts */
 
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300);
-
-// @include font-face(
-// 	'Helvetica',
-// 	font-files('helvetica-regular.woff', 'helvetica-regular.ttf', 'helvetica-regular.svg'),
-// 	'helvetica-regular.eot',
-// 	normal,
-// 	normal
-// );
-// @include font-face(
-// 	'Helvetica',
-// 	font-files('helvetica-bold.woff', 'helvetica-bold.ttf', 'helvetica-bold.svg'),
-// 	'helvetica-bold.eot',
-// 	bold,
-// 	normal
-// );
-// @include font-face(
-// 	'Helvetica',
-// 	font-files('helvetica-italic.woff', 'helvetica-italic.ttf', 'helvetica-italic.svg'),
-// 	'helvetica-italic.eot',
-// 	normal,
-// 	italic
-// );
-// @include font-face(
-// 	'Helvetica',
-// 	font-files('helvetica-bold-talic.woff', 'helvetica-bold-talic.ttf', 'helvetica-bold-talic.svg'),
-// 	'helvetica-bold-talic.eot',
-// 	bold,
-// 	italic
-// );
+@include font-face(
+	'Open Sans',
+	font-files('OpenSans-Light-webfont.woff', 'OpenSans-Light-webfont.ttf', 'OpenSans-Light-webfont.svg'),
+	'OpenSans-Light-webfont.eot',
+	normal,
+	normal
+);
+@include font-face(
+	'Open Sans',
+	font-files('OpenSans-Regular-webfont.woff', 'OpenSans-Regular-webfont.ttf', 'OpenSans-Regular-webfont.svg'),
+	'OpenSans-Regular-webfont.eot',
+	bold,
+	normal
+);
+@include font-face(
+	'Open Sans',
+	font-files('OpenSans-LightItalic-webfont.woff', 'OpenSans-LightItalic-webfont.ttf', 'OpenSans-LightItalic-webfont.svg'),
+	'OpenSans-LightItalic-webfont.eot',
+	normal,
+	italic
+);
+@include font-face(
+	'Open Sans',
+	font-files('OpenSans-Italic-webfont.woff', 'OpenSans-Italic-webfont.ttf', 'OpenSans-Italic-webfont.svg'),
+	'OpenSans-Italic-webfont.eot',
+	bold,
+	italic
+);

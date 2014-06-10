@@ -3,9 +3,6 @@
 		<ul class="toolbar">
 			<?= $this->render('/content/tools') ?>
 		</ul>
-
-
-
 		<?= $this->render('/content/header') ?>
 		<?= $this->render('/content/meta') ?>
 		<fieldset class="form-block">
@@ -37,6 +34,7 @@
 		</ul>
 		<ul class="toolbar">
 			<?= $this->render('/content/actions-secondary') ?>
+			<?= $this->render('/content/actions-node') ?>
 		</ul>
 	</fieldset>
 </form>

@@ -50,7 +50,7 @@ $users = $this->em($entityType->class)
 				<td class="col-status">
 					<span class="badge badge-status badge-<?= (int) $user->isEnabled ?>">
 						<i class="fa fa-<?= $user->isEnabled ? 'check' : 'times' ?>"></i>
-					</span>					
+					</span>	
 				</td>
 				<th class="col-name" scope="row">
 					<a href="<?= $this->url([

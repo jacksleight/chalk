@@ -1,15 +1,26 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300);
+@charset 'utf-8';
+
+/* Configuration */
+
+@import 'compass.scss';
+@import 'compass/layout.scss';
+
+/* Partials */
+
+@import '_fonts.scss';
+
+/* Styles */
 
 body {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 16px;
 	margin: 0 1em;
 	color: #4d545d;
-	font-weight: 300;
+	font-weight: normal;
 }
 
 h1, h2, h3, h4, h5, h6, th, strong, b {
-	font-weight: 400;
+	font-weight: bold;
 }
 
 h1 {
