@@ -5,7 +5,7 @@ $thumbs		= isset($thumbs) ? $thumbs : false;
 $contents = $this->em($entityType->class)
 	->fetchAll($index->toArray());
 ?>
-<form action="<?= $this->url->route() ?>" class="fill">
+<form action="<?= $this->url->route() ?>" class="fill" data-modal-size="fullscreen">
 	<?= $this->render('/elements/form-input', array(
 		'type'			=> 'input_hidden',
 		'entity'		=> $index,

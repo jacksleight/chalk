@@ -45,6 +45,13 @@ $app->path(new Path("{$config->path}"))
 
 $app->module(new Core());
 
+if ($config->styles) {
+    $app->styles($config->styles);
+}
+if ($config->widgets) {
+    $app->widgets($config->widgets);
+}
+
 $app->add($app->image)
     ->add($app->locale)
     ->add($app->router);

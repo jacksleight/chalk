@@ -948,7 +948,7 @@ legend {
 	border-top: 1px solid $color-divide;
 	.form-legend {
 		float: left;
-		width: 260px - ($gutter * 3);
+		width: 240px - ($gutter * 3);
 		@include flush;
 		@include font-size(-1);
 		h2 {
@@ -959,7 +959,7 @@ legend {
 		}
 	}
 	.form-items {
-		margin-left: 260px - ($gutter * 1.5);
+		margin-left: 240px - ($gutter * 1.5);
 		@include flush;
 	}
 }
@@ -1394,7 +1394,7 @@ legend {
 
 /* Editor */
 
-.mce-btn-ayre {
+.mce-menu-item-ayre {
 	i:before {
 		color: $color-focus;
 	}

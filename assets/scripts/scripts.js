@@ -2,6 +2,7 @@
 
 //= require ../../bower_components/log/log.js
 //= require ../../bower_components/fastclick/lib/fastclick.js
+//= require ../../bower_components/js-base64/base64.js
 
 //= require ../../bower_components/jquery/dist/jquery.js
 //= require ../../bower_components/Nestable/jquery.nestable.js

@@ -12,10 +12,8 @@ class Index extends Action
 		return $res->redirect($this->url([], 'content', true));
 	}
 	
-	public function respond(Request $req, Response $res)
-	{
-		return $res->json(['test' => 123]);
-	}
+	public function about(Request $req, Response $res)
+	{}
 
 	public function prefs(Request $req, Response $res)
 	{

@@ -24,11 +24,13 @@ $title	= (isset($title)
 			'baseUrl'		=> (string) $this->url->baseUrl(),
 			'rootBaseUrl'	=> (string) $this->rootUrl->baseUrl(),
 			'prefs'			=> $req->user->prefs(),
+			'styles'		=> $this->app->styles(),
+			'widgets'		=> $this->app->widgets(),
 		]) ?>;
 	</script>
 	<script type="x-tmpl-mustache" class="modal-template">
 		<div class="modal hideable hideable-hidden">
-			<div class="modal-content"></div>
+			<div class="modal-content hideable hideable-hidden"></div>
 			<div class="modal-loader hideable hideable-hidden"></div>
 		</div>
 	</script>

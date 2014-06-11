@@ -54,6 +54,30 @@ class Content extends Ayre\Controller\Basic
 		}
 	}
 
+	public function widget(Request $req, Response $res)
+	{
+		$widgets = $this->app->widgets();
+		foreach ($widgets as $widget) {
+			if ($widget['name'] == $req->widget) {
+				break;
+			}
+		}
+
+		$file		= $this->root->view->file($widget['name']);
+		$formFile	= clone $file;
+		$formFile	= $formFile->suffix('_form');
+
+		if (!$formFile->exists()) {
+			return $res->json(['widget' => $widget]);
+		}
+
+		$req->view->widget = $widget;
+
+		if ($req->isPost()) {
+			// return $res->json(['widget' => $widget]);
+		}
+	}
+
 	public function edit(Request $req, Response $res)
 	{
 		$content = $this->em($req->entityType->class)->fetchOrCreate($req->content);

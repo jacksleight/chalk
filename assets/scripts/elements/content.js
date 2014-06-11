@@ -7,9 +7,9 @@ Ayre.component('.content', function(i, el) {
 	var entityType	= $(el).attr('data-entityType');
 	
 	select.click(function(ev) {
-		Ayre.modal(Ayre.baseUrl + 'content/select?entityType=' + entityType, function(data) {
-			input.val(data.contents[0].id);
-			holder.html(data.contents[0].card);
+		Ayre.modal(Ayre.baseUrl + 'content/select?entityType=' + entityType, {}, function(res) {
+			input.val(res.contents[0].id);
+			holder.html(res.contents[0].card);
 			remove.show();
 		});
 	});

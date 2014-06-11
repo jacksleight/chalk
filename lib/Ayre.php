@@ -24,6 +24,10 @@ class Ayre extends App
 
     protected $_contentClasses = [];
 
+    protected $_styles = [];
+    
+    protected $_widgets = [];
+
     public static function type($class)
     {
         if (is_object($class)) {
@@ -130,6 +134,29 @@ class Ayre extends App
             : null;
     }
 
+    public function modules()
+    {
+        return $this->_modules;
+    }
+
+    public function styles(array $styles = null)
+    {
+        if (isset($styles)) {
+            $this->_styles = array_merge($this->_styles, $styles);
+            return $this;
+        }
+        return $this->_styles;
+    }
+
+    public function widgets(array $widgets = null)
+    {
+        if (isset($widgets)) {
+            $this->_widgets = array_merge($this->_widgets, $widgets);
+            return $this;
+        }
+        return $this->_widgets;
+    }
+
     public function contentClass($contentClass)
     {
         $this->_contentClasses[] = $contentClass;
@@ -139,11 +166,6 @@ class Ayre extends App
     public function contentClasses()
     {
         return $this->_contentClasses;
-    }
-
-    public function modules()
-    {
-        return $this->_modules;
     }
 
     public function isDebug()

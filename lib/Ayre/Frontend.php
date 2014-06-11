@@ -97,15 +97,38 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
             }
             if (isset($data->attrs)) {
                 foreach ($data->attrs as $name => $args) {
-                    $method = array_shift($args);
-                    $el->setAttribute($name, call_user_func_array([$this, $method], $args));
+                    $el->setAttribute($name, $this->_parse($args));
                 }
+            }
+            if (isset($data->html)) {
+                while ($el->childNodes->length) {
+                    $el->removeChild($el->firstChild);
+                }
+                $temp = new DOMDocument();
+                $temp->loadHTML('<?xml encoding="utf-8">' . $this->_parse($data->html));
+                $body = $temp->getElementsByTagName('body')->item(0);
+                foreach ($body->childNodes as $node) {
+                    $node = $doc->importNode($node, true);
+                    $el->appendChild($node);
+                }
+            }
+            if (isset($data->text)) {
+                while ($el->childNodes->length) {
+                    $el->removeChild($el->firstChild);
+                }
+                $el->appendChild($doc->createTextNode($this->_parse($data->html)));
             }
         }
 
         $html = $doc->saveHTML();
         return $res
             ->html($html);
+    }
+
+    protected function _parse($args)
+    {
+        $method = array_shift($args);
+        return call_user_func_array([$this, $method], $args);
     }
 
     protected function _file(Request $req, Response $res)
@@ -142,5 +165,10 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
             ? $node->path
             : "_c{$content}";
         return $this->app->url($path);
+    }
+
+    public function render($name, array $params = array(), $set = null)
+    {
+        return $this->app->view->render($name, $params, $set);
     }
 }

@@ -9,6 +9,7 @@
     "fontawesome": "~4.1.0",
     "mustache": "~0.8.1",
     "jquery.ui": "~1.10.4",
-    "Nestable": "git://github.com/lukasoppermann/Nestable#master"
+    "Nestable": "git://github.com/lukasoppermann/Nestable#master",
+    "js-base64": "~2.1.5"
   }
 }

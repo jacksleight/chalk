@@ -3,7 +3,7 @@
 	var template = $('.modal-template').html();
 	Mustache.parse(template);
 
-	Ayre.modal = function(url, cb) {
+	Ayre.modal = function(url, options, cb) {
 		
 		cb = cb || function() {};
 		var modal	= $($.parseHTML(Mustache.render(template).trim())[0]);
@@ -15,28 +15,42 @@
 		}, 1);
 
 		var xhr;
-		var request = function(url, type, data) {
+		var request = function(url, options) {
 			if (xhr) {
 				xhr.abort();
 				xhr = null;
 			}
-			loader.removeClass('hideable-hidden');		
-			xhr = $.ajax(url, {
-					type: type || 'GET',
-					data: data || {}
-				})
-				.done(function(data) {
-					if (typeof data == 'object') {
-						close(data);
+			loader.removeClass('hideable-hidden');
+			xhr = $.ajax(url, options)
+				.done(function(res) {
+					if (typeof res == 'object') {
+						close(res);
 						return;
 					}
 					loader.addClass('hideable-hidden');
-					update(data);
+					content.removeClass('hideable-hidden');
+					update(res);
 				});
 		};
-		var update = function(data) {
-			content.html(data);
+		var update = function(html) {
+			content.html(html);
 			Ayre.initialize(content);
+			var size = content.find('> :first-child').attr('data-modal-size');
+			content.removeClass('modal-fullscreen');
+			content.removeAttr('style');
+			if (size == 'fullscreen') {
+				content.addClass('modal-fullscreen');
+			} else if (size) {
+				size = size.split('x');
+				content.css({
+					maxWidth: size[0] + 'px'
+				});
+				if (size[1]) {
+					content.css({
+						height: size[1] + 'px'
+					});
+				}
+			}
 		};
 		var close = function(data) {
 			modal.addClass('hideable-hidden');
@@ -46,7 +60,7 @@
 			cb(data || false);
 		};
 
-		request(url);
+		request(url, options);
 		content.click(function(ev) {
 			var target = $(ev.target);
 			if (target.is('a')) {
@@ -61,7 +75,10 @@
 			var target = $(ev.target);
 			if (target.is('form')) {
 				ev.preventDefault();
-				request(target.attr('action'), target.attr('mode'), target.serialize());
+				request(target.attr('action'), {
+					method: target.attr('method'),
+					data: target.serialize()
+				});
 			}
 		});	
 
