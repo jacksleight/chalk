@@ -22,7 +22,7 @@ $link		= isset($link) ? $link : true;
 			<? if ($link) { ?>
 				<a href="<?= $this->url([
 					'action'	=> 'edit',
-					'entityType'=> \Ayre::type($content)->slug,
+					'entity'=> \Ayre::entity($content)->slug,
 					'content'	=> $content->id,
 				]) ?>">
 			<? } ?>
@@ -31,7 +31,7 @@ $link		= isset($link) ? $link : true;
 				</a>
 			<? } ?>
 			<br>
-			<small><?= $content->subname($entityType->name != 'core_content') ?></small>
+			<small><?= $content->subname($entity->name != 'core_content') ?></small>
 		</div>
 	</th>
 	<td class="col-date">

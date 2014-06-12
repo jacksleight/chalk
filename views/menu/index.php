@@ -1,7 +1,7 @@
 <? $this->layout('/layouts/page_settings') ?>
 <? $this->block('main') ?>
 <?php
-$menus = $this->em($entityType->class)
+$menus = $this->em($entity->class)
 	->fetchAll();
 ?>
 
@@ -10,11 +10,11 @@ $menus = $this->em($entityType->class)
 		<a href="<?= $this->url([
 			'action' => 'edit',
 		]) ?>" class="btn btn-focus">
-			<i class="fa fa-plus"></i> New <?= $entityType->singular ?>
+			<i class="fa fa-plus"></i> New <?= $entity->singular ?>
 		</a>
 	</li>
 </ul>
-<h1><?= $entityType->plural ?></h1>
+<h1><?= $entity->plural ?></h1>
 <table>
 	<colgroup>
 		<col class="col-name">

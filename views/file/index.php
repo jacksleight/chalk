@@ -1,7 +1,7 @@
 <?php
 $filter = $this->em->wrap(new \Ayre\Core\Model\Index())
 	->graphFromArray($req->queryParams());
-$contents = $this->em($entityType->class)
+$contents = $this->em($entity->class)
 	->fetchAll($filter->toArray());
 ?>
 
@@ -9,11 +9,11 @@ $contents = $this->em($entityType->class)
 	<ul class="toolbar">
 		<li>
 			<span class="btn btn-focus uploadable-button">
-				<i class="fa fa-upload"></i> Upload <?= $entityType->singular ?>
+				<i class="fa fa-upload"></i> Upload <?= $entity->singular ?>
 			</span>
 		</li>
 	</ul>
-	<h1><?= $entityType->plural ?></h1>
+	<h1><?= $entity->plural ?></h1>
 	<?= $this->render('/content/filters', ['filter' => $filter]) ?>
 	<ul class="thumbs uploadable-list multiselectable">
 		<? if (count($contents)) { ?>

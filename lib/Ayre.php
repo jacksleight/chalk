@@ -20,15 +20,12 @@ class Ayre extends App
     //  'Ayre\Core\Content',
     // ];
 
-    protected $_modules = [];
-
+    protected $_modules        = [];
     protected $_contentClasses = [];
+    protected $_widgetClasses  = [];
+    protected $_styles         = [];
 
-    protected $_styles = [];
-    
-    protected $_widgets = [];
-
-    public static function type($class)
+    public static function entity($class)
     {
         if (is_object($class)) {
             $class = get_class($class);
@@ -139,33 +136,55 @@ class Ayre extends App
         return $this->_modules;
     }
 
+    public function style($value = null)
+    {
+        $this->_styles[] = $value;
+        return $this;
+    }
+
     public function styles(array $styles = null)
     {
         if (isset($styles)) {
-            $this->_styles = array_merge($this->_styles, $styles);
+            foreach ($styles as $value) {
+                $this->style($value);
+            }
             return $this;
         }
         return $this->_styles;
     }
 
-    public function widgets(array $widgets = null)
+    public function contentClass($value = null)
     {
-        if (isset($widgets)) {
-            $this->_widgets = array_merge($this->_widgets, $widgets);
-            return $this;
-        }
-        return $this->_widgets;
-    }
-
-    public function contentClass($contentClass)
-    {
-        $this->_contentClasses[] = $contentClass;
+        $this->_contentClasses[] = $value;
         return $this;
     }
 
-    public function contentClasses()
+    public function contentClasses(array $contentClasses = null)
     {
+        if (isset($contentClasses)) {
+            foreach ($contentClasses as $value) {
+                $this->contentClass($value);
+            }
+            return $this;
+        }
         return $this->_contentClasses;
+    }
+
+    public function widgetClass($value = null)
+    {
+        $this->_widgetClasses[] = $value;
+        return $this;
+    }
+
+    public function widgetClasses(array $widgetClasses = null)
+    {
+        if (isset($widgetClasses)) {
+            foreach ($widgetClasses as $value) {
+                $this->widgetClass($value);
+            }
+            return $this;
+        }
+        return $this->_widgetClasses;
     }
 
     public function isDebug()

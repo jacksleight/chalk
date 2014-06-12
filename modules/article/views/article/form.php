@@ -76,7 +76,7 @@
 					'action' => 'delete'
 				]) ?>" class="btn btn-negative btn-quiet confirmable">
 					<i class="fa fa-times"></i>
-					Remove <?= $entityType->singular ?>
+					Remove <?= $entity->singular ?>
 				</a>
 				<small>&nbsp;from <?= $structure->label ?></small>
 				</li>

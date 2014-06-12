@@ -20,9 +20,9 @@ class Log extends Repository
             ->select("l")
             ->from("\Ayre\Core\Log", "l");
         if (isset($critera['entity'])) {
-            $qb ->andWhere("l.entityType = :entityType")
+            $qb ->andWhere("l.entity = :entity")
                 ->andWhere("l.entityId = :entityId");
-            $params['entityType'] = \Ayre::type($entity)->name;
+            $params['entity'] = \Ayre::entity($entity)->name;
             $params['entityId']   = $entity->id;
         }
         return $qb

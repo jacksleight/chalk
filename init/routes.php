@@ -17,11 +17,14 @@ $app->router
 		'controller' => 'index',
 		'action'     => 'prefs',
 	])
-	->all('content', "content/{action}?/{entityType}?/{content}?", [
+	->all('content', "content/{action}?/{entity}?/{content}?", [
 		'controller' => 'content',
 		'action'     => 'redirect',
-		'entityType' => null,
+		'entity' => null,
 		'content'    => null,
+	])
+	->all('widget', "widget/{action}/{entity}", [
+		'controller' => 'widget',
 	])
 	->all('structure', "structure/{action}?/{structure}?", [
 		'controller' => 'structure',

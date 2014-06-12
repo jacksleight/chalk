@@ -11,7 +11,7 @@ class Node extends Action
 {
 	public function add(Request $req, Response $res)
 	{
-		$req->view->entityType = Ayre::type('Ayre\Core\Content');
+		$req->view->entity = Ayre::entity('Ayre\Core\Content');
 
 		$wrap = $this->em->wrap($index = new \Ayre\Core\Model\Index());
 		$wrap->graphFromArray($req->queryParams());

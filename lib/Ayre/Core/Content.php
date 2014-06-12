@@ -114,12 +114,12 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 
 	public function type()
 	{
-		return \Ayre::type($this)->name;
+		return \Ayre::entity($this)->name;
 	}
 
 	public function typeLabel()
 	{
-		return \Ayre::type($this)->singular;
+		return \Ayre::entity($this)->singular;
 	}
 
 	public function subtypeLabel()

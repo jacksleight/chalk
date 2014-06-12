@@ -5,5 +5,5 @@
 
 <?= $this->render('/content/browser', [
 	'close'			=> true,
-	'thumbs'		=> $entityType->name == 'core_file',
+	'thumbs'		=> $entity->name == 'core_file',
 ]) ?>

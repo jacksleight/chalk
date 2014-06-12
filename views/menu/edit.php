@@ -7,7 +7,7 @@
 			<? if (!$menu->isNew()) { ?>
 				<?= $menu->name ?>
 			<? } else { ?>
-				New <?= $entityType->singular ?>
+				New <?= $entity->singular ?>
 			<? } ?>
 		</h1>
 		<fieldset class="form-block">
@@ -29,7 +29,7 @@
 			<li>
 				<button class="btn btn-focus">
 					<i class="fa fa-check"></i>
-					Save <?= $entityType->singular ?>
+					Save <?= $entity->singular ?>
 				</button>
 			</li>
 		</ul>
@@ -39,7 +39,7 @@
 					<a href="<?= $this->url([
 						'action' => 'delete',
 					]) ?>" class="btn btn-negative btn-quiet confirmable">
-						<i class="fa fa-trash-o"></i> Delete <?= $entityType->singular ?>
+						<i class="fa fa-trash-o"></i> Delete <?= $entity->singular ?>
 					</a>
 				</li>
 			<? } ?>

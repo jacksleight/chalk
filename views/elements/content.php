@@ -1,23 +1,21 @@
 <?php 
-$entityType = \Ayre::type(isset($browser['entityType'])
-	? $browser['entityType']
+$browser['entity'] = \Ayre::entity(isset($browser['entity'])
+	? $browser['entity']
 	: 'core_content');
 ?>
-<div class="content" data-entityType="<?= $entityType->slug ?>">
+<div class="content" data-entity="<?= $browser['entity']->slug ?>">
 	<ul class="toolbar">
-		<li><span class="content-remove btn btn-negative btn-quiet">
+		<li><span class="content-remove btn btn-quieter btn-icon">
 			<i class="fa fa-times"></i>
-			Remove <?= $entityType->singular ?>
 		</span></li>
-		<li><span class="content-select btn btn-focus btn-quiet">
-			<i class="fa fa-folder"></i>
-			Browse <?= $entityType->plural ?>
+		<li><span class="content-select btn btn-quieter btn-icon">
+			<i class="fa fa-folder-o"></i>
 		</span></li>
 	</ul>
 	<div class="content-holder">
 		<? if (isset($entity->{$name})) { ?>
 			<?= $this->render('/content/card', [
-				'content' => $this->em('Ayre\Core\Content')->fetchByMasterId($entity->{$name}->id)
+				'content' => $this->em('Ayre\Core\Content')->fetchByMasterId((string) $entity->{$name})
 			]) ?>		
 		<? } else { ?>
 			<span class="placeholder">Nothing Selected</span>

@@ -57,7 +57,11 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
             var content = res.contents[0];
             var attrs = {
                 href: Ayre.rootBaseUrl + '_c' + content.id,
-                'data-ayre': JSON.stringify({attrs: {href: ['url', content.id]}})
+                'data-ayre': JSON.stringify({
+                    attrs: {
+                        href: ['url', content.id]
+                    }
+                })
             };
             if (!text.length) {
                 text = content.name;
@@ -71,23 +75,36 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
 
     };
 
-    var openWidgetModal = function(name) {
-        
-        var dom             = editor.dom,
-            selection       = editor.selection,
-            html            = selection.getContent()
-            text            = selection.getContent({format: 'text'});
+    var openWidgetModal = function(entity, params, el) {
+
+        var params    = params || {}, 
+            el        = el || null,
+            dom       = editor.dom,
+            selection = editor.selection,
+            html      = selection.getContent()
+            text      = selection.getContent({format: 'text'});
+
+        log(entity);
+        log(params);
     
-        Ayre.modal(Ayre.baseUrl + 'content/widget', {data: {widget: name}}, function(res) {
+        Ayre.modal(Ayre.baseUrl + 'widget/edit/' + entity, {data: params}, function(res) {
             if (!res) {
                 return;
             }
             var attrs = {
-                'class': 'ayre-widget',
-                'data-ayre': JSON.stringify({html: ['render', res.widget.name]})
+                'data-ayre-widget': JSON.stringify({
+                    entity: res.entity,
+                    params: res.params
+                })
             };
-            var el = editor.dom.create('div', attrs, res.widget.label);
-            editor.execCommand('mceInsertContent', false, el.outerHTML);
+            if (!el) {
+                el = editor.dom.create('div', attrs);
+                editor.execCommand('mceInsertContent', false, el.outerHTML);
+            } else {
+                for (var name in attrs) {
+                    el.attr(name, attrs[name]);
+                }
+            }
         });
 
     };
@@ -109,25 +126,25 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
 
     if (Ayre.widgets) {
 
-        var groups = {}, group, widget;
+        var groups = {}, group, entity;
         for (var i = 0; i < Ayre.widgets.length; i++) {
-            widget = Ayre.widgets[i];
-            name   = widget.name;
-            group  = widget.group;
-            widget = {
-                text: widget.label || undefined,
-                onclick: function() { openWidgetModal(name); }
+            entity = Ayre.widgets[i];
+            group  = entity.group;
+            item = {
+                text: entity.singular || undefined,
+                onclick: function(entity) { openWidgetModal(entity); }.bind(this, entity.name)
             };
             if (group && groups[group]) {
-                menu[groups[group]].menu.push(widget);
+                menu[groups[group]].menu.push(item);
             } else if (group) {
-                menu.push({text: group, menu: [widget]});
+                menu.push({text: group, menu: [item]});
                 groups[group] = menu.length - 1;
             } else {
-                menu.push(widget);
+                menu.push(item);
             }
         }
         menu.push(menu.splice(2, 1)[0]);
+
     }
 
     editor.addButton('ayreinsert', {
@@ -135,6 +152,16 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
         text: 'Insert',
         icon: false,
         menu: menu
+    });
+
+    editor.on('click', function(ev) {
+        ev.preventDefault();
+        var target = $(ev.target);
+        var data = target.attr('data-ayre-widget');
+        if (data) {
+            data = JSON.parse(data);
+            openWidgetModal(data.entity, data.params, target);
+        }
     });
 
 });
@@ -258,9 +285,9 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
             '-table', '-tr', '-td[colspan|rowspan]', '-th', '-thead', '-tfoot', '-tbody',
             '-a[href]', 'sub', 'sup', 'strike', 'br', 'del'].join(','),
         style_formats: styles,
-        noneditable_noneditable_class: 'ayre-widget',
+        // noneditable_noneditable_class: 'ayre-widget',
         setup: function(editor) {
-            editor.on('init', function(e) {
+            editor.on('init', function(ev) {
                 editor.theme.resizeTo(null, $(editor.getElement()).height());
             });
        }

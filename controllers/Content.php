@@ -14,16 +14,16 @@ class Content extends Ayre\Controller\Basic
 {
 	public function preDispatch(Request $req, Response $res)
 	{
-		$req->view->entityType
-			= $req->entityType
-			= Ayre::type($req->entityType ? $req->entityType : 'core_content');
+		$req->view->entity
+			= $req->entity
+			= Ayre::entity($req->entity ? $req->entity : 'core_content');
 	}
 
 	public function redirect(Request $req, Response $res)
 	{
 		return $res->redirect($this->url([
 			'action'		=> 'index',
-			'entityType'	=> 'core-page',
+			'entity'	=> 'core-page',
 		]));
 	}
 
@@ -54,33 +54,9 @@ class Content extends Ayre\Controller\Basic
 		}
 	}
 
-	public function widget(Request $req, Response $res)
-	{
-		$widgets = $this->app->widgets();
-		foreach ($widgets as $widget) {
-			if ($widget['name'] == $req->widget) {
-				break;
-			}
-		}
-
-		$file		= $this->root->view->file($widget['name']);
-		$formFile	= clone $file;
-		$formFile	= $formFile->suffix('_form');
-
-		if (!$formFile->exists()) {
-			return $res->json(['widget' => $widget]);
-		}
-
-		$req->view->widget = $widget;
-
-		if ($req->isPost()) {
-			// return $res->json(['widget' => $widget]);
-		}
-	}
-
 	public function edit(Request $req, Response $res)
 	{
-		$content = $this->em($req->entityType->class)->fetchOrCreate($req->content);
+		$content = $this->em($req->entity->class)->fetchOrCreate($req->content);
 		$req->view->content = $wrap = $this->em->wrap($content);
 
 		if (!$req->isPost()) {
@@ -133,7 +109,7 @@ class Content extends Ayre\Controller\Basic
 
 	public function status(Request $req, Response $res)
 	{
-		$content = $this->em($req->entityType->class)->find($req->id);
+		$content = $this->em($req->entity->class)->find($req->id);
 
 		$content->status = $req->status;
 		$this->em->flush();
@@ -152,7 +128,7 @@ class Content extends Ayre\Controller\Basic
 
 	public function restore(Request $req, Response $res)
 	{
-		$content = $this->em($req->entityType->class)->find($req->id);
+		$content = $this->em($req->entity->class)->find($req->id);
 
 		$content->status = \Ayre::STATUS_PUBLISHED;
 		$this->em->flush();

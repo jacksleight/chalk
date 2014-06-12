@@ -1,13 +1,13 @@
 <? $this->layout('/layouts/page_content') ?>
 <? $this->block('main') ?>
 
-<? if ($entityType->name != 'core_content') { ?>
-	<?= $this->render("/{$entityType->entity->path}/index", [], $entityType->module->name) ?>
+<? if ($entity->name != 'core_content') { ?>
+	<?= $this->render("/{$entity->entity->path}/index", [], $entity->module->name) ?>
 	<?php return; ?>
 <? } ?>
 
 <?php
-$contents = $this->em($entityType->class)
+$contents = $this->em($entity->class)
 	->fetchAll($index->toArray());
 ?>
 <form action="<?= $this->url->route() ?>">

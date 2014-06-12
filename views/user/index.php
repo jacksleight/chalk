@@ -3,7 +3,7 @@
 <?php
 $filter = $this->em->wrap(new \Ayre\Core\Model\Index())
 	->graphFromArray($req->queryParams());
-$users = $this->em($entityType->class)
+$users = $this->em($entity->class)
 	->fetchAll($filter->toArray());
 ?>
 
@@ -12,11 +12,11 @@ $users = $this->em($entityType->class)
 		<a href="<?= $this->url([
 			'action' => 'edit',
 		]) ?>" class="btn btn-focus">
-			<i class="fa fa-plus"></i> Add <?= $entityType->singular ?>
+			<i class="fa fa-plus"></i> Add <?= $entity->singular ?>
 		</a>
 	</li>
 </ul>
-<h1><?= $entityType->plural ?></h1>
+<h1><?= $entity->plural ?></h1>
 <form action="<?= $this->url->route() ?>" class="submitable">
 	<ul class="filters">
 		<li>

@@ -4,10 +4,10 @@ Ayre.component('.content', function(i, el) {
 	var remove		= $(el).find('.content-remove');
 	var holder		= $(el).find('.content-holder');
 	var input		= $(el).find('input[type=hidden]');
-	var entityType	= $(el).attr('data-entityType');
+	var entity	= $(el).attr('data-entity');
 	
 	select.click(function(ev) {
-		Ayre.modal(Ayre.baseUrl + 'content/select?entityType=' + entityType, {}, function(res) {
+		Ayre.modal(Ayre.baseUrl + 'content/select?entity=' + entity, {}, function(res) {
 			input.val(res.contents[0].id);
 			holder.html(res.contents[0].card);
 			remove.show();

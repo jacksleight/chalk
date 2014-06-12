@@ -62,7 +62,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
                 
         $req->node    = $node;
         $req->content = $content;
-        $method = '_' . \Ayre::type($content)->entity->var;
+        $method = '_' . \Ayre::entity($content)->entity->var;
         return $this->$method($req, $res);
     }
 
@@ -88,35 +88,42 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
         }
         $xpath = new DOMXPath($doc);
 
+        $els = $xpath->query('//*[@data-ayre-widget]');
+        foreach ($els as $el) {
+            $data = json_decode($el->getAttribute('data-ayre-widget'), true);
+            $el->removeAttribute('data-ayre-widget');
+            if (!$data) {
+                continue;
+            }
+            $entity = \Ayre::entity($data['entity']);
+            $el->setAttribute('data-ayre', json_encode([
+                'html' => ['render', $entity->entity->path, $data['params']],
+            ]));
+        }
+
         $els = $xpath->query('//*[@data-ayre]');
         foreach ($els as $el) {
-            $data = json_decode($el->getAttribute('data-ayre'));
+            $data = json_decode($el->getAttribute('data-ayre'), true);
             $el->removeAttribute('data-ayre');
             if (!$data) {
                 continue;
             }
-            if (isset($data->attrs)) {
-                foreach ($data->attrs as $name => $args) {
+            if (isset($data['attrs'])) {
+                foreach ($data['attrs'] as $name => $args) {
                     $el->setAttribute($name, $this->_parse($args));
                 }
             }
-            if (isset($data->html)) {
+            if (isset($data['html'])) {
                 while ($el->childNodes->length) {
                     $el->removeChild($el->firstChild);
                 }
                 $temp = new DOMDocument();
-                $temp->loadHTML('<?xml encoding="utf-8">' . $this->_parse($data->html));
+                $temp->loadHTML('<?xml encoding="utf-8">' . $this->_parse($data['html']));
                 $body = $temp->getElementsByTagName('body')->item(0);
                 foreach ($body->childNodes as $node) {
                     $node = $doc->importNode($node, true);
                     $el->appendChild($node);
                 }
-            }
-            if (isset($data->text)) {
-                while ($el->childNodes->length) {
-                    $el->removeChild($el->firstChild);
-                }
-                $el->appendChild($doc->createTextNode($this->_parse($data->html)));
             }
         }
 

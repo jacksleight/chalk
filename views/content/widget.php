@@ -1,1 +1,0 @@
-<?= $this->root->view->render("{$widget['name']}_form") ?>

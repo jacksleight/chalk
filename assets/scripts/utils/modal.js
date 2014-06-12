@@ -34,7 +34,10 @@
 		};
 		var update = function(html) {
 			content.html(html);
-			Ayre.initialize(content);
+			setTimeout(function() {
+				Ayre.initialize(content);
+			}, 1);			
+			
 			var size = content.find('> :first-child').attr('data-modal-size');
 			content.removeClass('modal-fullscreen');
 			content.removeAttr('style');

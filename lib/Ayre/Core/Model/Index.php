@@ -15,7 +15,7 @@ class Index extends \Toast\Entity
 		\Ayre::STATUS_PUBLISHED,
 	];
 	protected $contents = [];
-	protected $entityType;
+	protected $entity;
 
 	protected static function _defineMetadata($class)
 	{
@@ -50,7 +50,7 @@ class Index extends \Toast\Entity
 						\Ayre::STATUS_ARCHIVED	=> 'Archived',
 					],
 				),
-				'entityType' => array(
+				'entity' => array(
 					'type'		=> 'text',
 					'nullable'	=> true,
 				),

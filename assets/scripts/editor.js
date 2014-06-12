@@ -135,9 +135,9 @@
             '-table', '-tr', '-td[colspan|rowspan]', '-th', '-thead', '-tfoot', '-tbody',
             '-a[href]', 'sub', 'sup', 'strike', 'br', 'del'].join(','),
         style_formats: styles,
-        noneditable_noneditable_class: 'ayre-widget',
+        // noneditable_noneditable_class: 'ayre-widget',
         setup: function(editor) {
-            editor.on('init', function(e) {
+            editor.on('init', function(ev) {
                 editor.theme.resizeTo(null, $(editor.getElement()).height());
             });
        }

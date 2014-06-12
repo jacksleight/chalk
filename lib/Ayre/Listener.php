@@ -25,7 +25,7 @@ class Listener implements EventSubscriber
         $meta      = $args->getClassMetadata();
         $class     = $meta->name;
         $rootClass = $meta->rootEntityName;
-        $type      = Ayre::type($class);
+        $type      = Ayre::entity($class);
         
         if ($class == $rootClass || $meta->inheritanceType == 2) {
             $meta->setTableName($type->name);
@@ -68,8 +68,8 @@ class Listener implements EventSubscriber
  
         $repositoryClasses = [
             $type->module->class . '\\Repository\\' . $type->entity->class,
-            $type->module->class . '\\Repository\\' . Ayre::type($rootClass)->entity->class,
-            Ayre::type($rootClass)->module->class . '\\Repository\\' . Ayre::type($rootClass)->entity->class,
+            $type->module->class . '\\Repository\\' . Ayre::entity($rootClass)->entity->class,
+            Ayre::entity($rootClass)->module->class . '\\Repository\\' . Ayre::entity($rootClass)->entity->class,
             'Ayre\\Repository',
         ];        
 
@@ -83,7 +83,7 @@ class Listener implements EventSubscriber
         if (isset($meta->discriminatorMap)) {
             foreach ($meta->discriminatorMap as $discriminatorId => $discriminatorClass) {
                 unset($meta->discriminatorMap[$discriminatorId]);
-                $meta->discriminatorMap[Ayre::type($discriminatorClass)->name] = $discriminatorClass;
+                $meta->discriminatorMap[Ayre::entity($discriminatorClass)->name] = $discriminatorClass;
             }
         }
 

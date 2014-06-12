@@ -840,6 +840,20 @@ input[type=button],
 		background-color: $color-quiet;
 		border-color: $color-quiet;
 	}
+	&.btn-quieter {
+		background-color: $color-quieter;
+		border-color: $color-quieter;
+	}
+	&.btn-icon {
+		width: 48px;
+		height: 48px;
+		line-height: 48px;
+		text-align: center;
+		i {
+			font-size: 22px;
+			vertical-align: -1px;
+		}
+	}
 }
 
 input[type=date],

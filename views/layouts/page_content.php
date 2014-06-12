@@ -9,12 +9,11 @@
 	<?php
 	$items = [];
 	foreach ($this->app->contentClasses() as $contentClass) {
-		$contentType = \Ayre::type($contentClass);
+		$entity = \Ayre::entity($contentClass);
 		$items[] = [
-			'label' => $contentType->plural,
+			'label' => $entity->plural,
 			'name'	=> 'content',
-			'params'=> ['action' => 'index', 'entityType' => $contentType->slug],
-			// 'badge'	=> 120,
+			'params'=> ['action' => 'index', 'entity' => $entity->slug],
 		];
 	}
 	?>

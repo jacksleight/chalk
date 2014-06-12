@@ -1,15 +1,15 @@
 <? if (!$content->isArchived()) { ?>
 	<li><button class="btn btn-focus">
 		<i class="fa fa-check"></i>
-		Save <?= $entityType->singular ?>
+		Save <?= $entity->singular ?>
 	</button></li>
 <? } else { ?>
 	<li><a href="<?= $this->url([
-		'entityType'	=> $entityType->slug,
+		'entity'	=> $entity->slug,
 		'action'		=> 'restore',
 		'content'		=> $content->id,
 	], 'content', true) ?>" class="btn btn-focus">
 		<i class="fa fa-repeat"></i>
-		Restore <?= $entityType->singular ?>
+		Restore <?= $entity->singular ?>
 	</a></li>
 <? } ?>

@@ -20,6 +20,6 @@ class Menu extends Structure
 
 	public function label()
 	{
-		return $this->name . ' ' . \Ayre::type($this)->singular;
+		return $this->name . ' ' . \Ayre::entity($this)->singular;
 	}
 }

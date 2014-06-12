@@ -12,13 +12,12 @@ use Coast\App\Controller,
     Toast\App\Image,
     Toast\App\Locale;
 
-$root = $app;
-$app  = new Ayre(__DIR__, $config->envs);
+$app = (new Ayre(__DIR__, $config->envs))
+    ->path(new Path("{$config->path}"))
+    ->set('root',       $app)
+    ->set('config',     $config);
 
-$app->path(new Path("{$config->path}"))
-    ->set('root',       $root)
-    ->set('config',     $config)
-    ->set('controller', new Controller())
+$app->set('controller', new Controller())
     ->set('router',     new Router($app->controller))
     ->set('view',       new View())
     ->set('memcached',  $app->import($app->file('init/memcached.php')))
@@ -30,10 +29,10 @@ $app->path(new Path("{$config->path}"))
             $app->router) )
     ->set('rootUrl',    new UrlResolver(
             new Url("{$config->baseUrl}"),
-            $root->dir()) )
+            $app->root->dir()) )
     ->set('image',      (new Image(
-            $root->dir('public/data/file'),
-            $root->dir('public/data/image', true),
+            $app->root->dir('public/data/file'),
+            $app->root->dir('public/data/image', true),
             $app->url,
             $app->import($app->file('init/transforms.php'))))
         ->outputUrlResolver($app->rootUrl))
@@ -44,13 +43,9 @@ $app->path(new Path("{$config->path}"))
             ]]));
 
 $app->module(new Core());
+$app->module('root', $app->root);
 
-if ($config->styles) {
-    $app->styles($config->styles);
-}
-if ($config->widgets) {
-    $app->widgets($config->widgets);
-}
+$app->styles($config->styles);
 
 $app->add($app->image)
     ->add($app->locale)
@@ -69,7 +64,7 @@ if (!$app->isDebug()) {
     });
 }
 
-\Ayre\Core\File::baseDir($root->dir('public/data/file', true));
+\Ayre\Core\File::baseDir($app->root->dir('public/data/file', true));
 \Ayre\Core\File::mimeTypes($app->import($app->file('init/mime-types.php')));
 
 $app->import($app->file('init/routes.php'));

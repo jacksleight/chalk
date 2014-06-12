@@ -12,9 +12,9 @@ class Basic extends Action
 
 	public function preDispatch(Request $req, Response $res)
 	{
-		$req->view->entityType
-			= $req->entityType
-			= Ayre::type($this->_entityClass);
+		$req->view->entity
+			= $req->entity
+			= Ayre::entity($this->_entityClass);
 	}
 
 	public function index(Request $req, Response $res)
@@ -22,9 +22,9 @@ class Basic extends Action
 
 	public function edit(Request $req, Response $res)
 	{
-		$var = $req->entityType->entity->var;
+		$var = $req->entity->entity->var;
 		$req->view->$var = $wrap = $this->em->wrap(
-			$entity = $this->em($req->entityType->class)->fetchOrCreate($req->id)
+			$entity = $this->em($req->entity->class)->fetchOrCreate($req->id)
 		);
 
 		if (!$req->isPost()) {
@@ -49,7 +49,7 @@ class Basic extends Action
 
 	public function delete(Request $req, Response $res)
 	{
-		$entity = $this->em($req->entityType->class)->find($req->id);
+		$entity = $this->em($req->entity->class)->find($req->id);
 
 		$this->em->remove($entity);
 		$this->em->flush();
