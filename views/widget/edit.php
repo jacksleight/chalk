@@ -15,7 +15,7 @@
 			<li>
 				<button class="btn btn-focus">
 					<i class="fa fa-check"></i>
-					Save <?= $entity->singular ?>
+					Update <?= $entity->singular ?>
 				</button>
 			</li>
 		</ul>

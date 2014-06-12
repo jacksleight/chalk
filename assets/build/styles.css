@@ -3149,8 +3149,8 @@ textarea.monospaced {
 }
 .content .placeholder {
   color: #cdcfd2;
-  height: 38px;
-  line-height: 36px;
+  height: 48px;
+  line-height: 46px;
   vertical-align: baseline;
   padding: 0 10px;
   border: transparent 1px solid;

@@ -83,9 +83,6 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
             selection = editor.selection,
             html      = selection.getContent()
             text      = selection.getContent({format: 'text'});
-
-        log(entity);
-        log(params);
     
         Ayre.modal(Ayre.baseUrl + 'widget/edit/' + entity, {data: params}, function(res) {
             if (!res) {
@@ -113,12 +110,10 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
         {
             text: 'Internal Link',
             onclick: openLinkModal
-        }, 
-        {
+        }, {
             text: 'External Link',
             onclick: function() { tinyMCE.activeEditor.buttons.link.onclick(); }
-        },           
-        {
+        }, {
             text: 'Special Character',
             onclick: function() { tinyMCE.activeEditor.buttons.charmap.onclick(); }
         }

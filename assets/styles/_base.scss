@@ -733,8 +733,8 @@ textarea {
 	}
 	.placeholder {
 		color: $color-quieter;
-		height: $input-height;
-		line-height: $input-height - ($input-border-width * 2);
+		height: 48px;
+		line-height: 48px - ($input-border-width * 2);
 		vertical-align: baseline;
 		padding: 0 $input-padding-horiz;
 		border: transparent $input-border-width solid;

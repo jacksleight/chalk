@@ -118,7 +118,9 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
                     $el->removeChild($el->firstChild);
                 }
                 $temp = new DOMDocument();
+                libxml_use_internal_errors(true);
                 $temp->loadHTML('<?xml encoding="utf-8">' . $this->_parse($data['html']));
+                libxml_use_internal_errors(false);
                 $body = $temp->getElementsByTagName('body')->item(0);
                 foreach ($body->childNodes as $node) {
                     $node = $doc->importNode($node, true);
