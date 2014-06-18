@@ -8,7 +8,7 @@
 		<h1>
 			<?= $entity->singular ?>
 		</h1>
-		<?= $this->render($entity->entity->path, [], $entity->module->name) ?>
+		<?= $this->render($entity->local->path, [], $entity->module->name) ?>
 	</div>
 	<fieldset class="fix">
 		<ul class="toolbar">

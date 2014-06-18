@@ -13,7 +13,7 @@
 		$items[] = [
 			'label' => $entity->plural,
 			'name'	=> 'content',
-			'params'=> ['action' => 'index', 'entity' => $entity->slug],
+			'params'=> ['action' => 'index', 'entity' => $entity->name],
 		];
 	}
 	?>

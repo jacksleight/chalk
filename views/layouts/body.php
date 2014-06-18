@@ -40,9 +40,9 @@ $count = $this->em('Ayre\Core\Content')->fetchCountForPublish();
 				// ]
 			], 'class' => 'toggle']) ?>
 		<? } ?>
-		<footer class="footer c" role="contentinfo">
+		<?php /*<footer class="footer c" role="contentinfo">
 			<p>Ayre 0.1.0 © <?= date('Y') ?> <a href="http://jacksleight.com/">Jack Sleight</a></p>
-		</footer>
+		</footer> */ ?>
 	</div>
 	<div class="main">
 		<div class="topbar">

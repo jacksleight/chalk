@@ -2,5 +2,5 @@
 <? $this->block('main') ?>
 
 <? if ($entity->name != 'core_content') { ?>
-	<?= $this->render("/{$entity->entity->path}/form", [], $entity->module->name) ?>
+	<?= $this->render("/{$entity->local->path}/form", [], $entity->module->name) ?>
 <? } ?>

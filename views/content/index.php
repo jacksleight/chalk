@@ -2,7 +2,7 @@
 <? $this->block('main') ?>
 
 <? if ($entity->name != 'core_content') { ?>
-	<?= $this->render("/{$entity->entity->path}/index", [], $entity->module->name) ?>
+	<?= $this->render("/{$entity->local->path}/index", [], $entity->module->name) ?>
 	<?php return; ?>
 <? } ?>
 

@@ -18,12 +18,7 @@ $repo->fetchTree($structure);
 	<div class="fix">
 		<div class="dropdown">
 			<div class="value">
-				<? if ($structure instanceof \Ayre\Core\Domain) { ?>
-					<i class="fa fa-globe fa-fw"></i>
-				<? } else if ($structure instanceof \Ayre\Core\Menu) { ?>
-					<i class="fa fa-bars fa-fw"></i>
-				<? } ?>
-				<strong><?= $structure->label ?></strong>
+				<strong><?= $structure->name ?></strong>
 			</div>
 			<nav class="menu">
 				<ul>
@@ -33,12 +28,7 @@ $repo->fetchTree($structure);
 								'structure'	=> $listStructure->id,
 								'action'	=> 'index',
 							], 'structure') ?>" class="item">
-								<? if ($listStructure instanceof \Ayre\Core\Domain) { ?>
-									<i class="fa fa-globe fa-fw"></i>
-								<? } else if ($listStructure instanceof \Ayre\Core\Menu) { ?>
-									<i class="fa fa-bars fa-fw"></i>
-								<? } ?>
-								<?= $listStructure->label ?>
+								<?= $listStructure->name ?>
 							</a>
 						</li>
 					<? } ?>

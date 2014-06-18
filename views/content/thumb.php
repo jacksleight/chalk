@@ -7,7 +7,7 @@ $link		= isset($link) ? $link : true;
 <figure class="thumb selectable">
 	<? if ($link) { ?>
 		<a href="<?= !$template ? $this->url([
-			'entity'=> $entity->slug,
+			'entity'=> $entity->name,
 			'action'	=> 'edit',
 			'content'	=> $content->id,
 		]) : '#' ?>">

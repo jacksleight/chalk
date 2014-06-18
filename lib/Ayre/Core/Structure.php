@@ -16,8 +16,6 @@ use Ayre\Core\Structure\Node,
 
 /**
  * @Entity
- * @InheritanceType("SINGLE_TABLE")
- * @DiscriminatorColumn(name="type", type="string")
 */
 class Structure extends \Toast\Entity implements Loggable, Publishable, Trackable, Versionable
 {
@@ -43,50 +41,27 @@ class Structure extends \Toast\Entity implements Loggable, Publishable, Trackabl
      * @Column(type="string")
      */
 	protected $name;
-		
-	/**
-     * @Column(type="string")
-     */
-	protected $slug;
-
+	
 	/**
      * @OneToMany(targetEntity="\Ayre\Core\Structure\Node", mappedBy="structure", cascade={"persist"})
      */
 	protected $nodes;
 	
+	/**
+     * @OneToMany(targetEntity="\Ayre\Core\Domain", mappedBy="structure")
+     */
+	protected $domains;
+	
 	public function __construct()
 	{	
-		$this->nodes = new ArrayCollection();
+		$this->nodes	= new ArrayCollection();
+		$this->domains	= new ArrayCollection();
 		
 		$node = new Node();
 		$node->structure = $this;
 		$this->nodes->add($node);
 
 		$this->__constructVersionable();
-	}
-
-	public function name($name = null)
-	{
-		if (isset($name)) {
-			$this->name = $name;
-			$this->slug($this->name);
-			return $this;
-		}
-		return $this->name;
-	}
-
-	public function slug($slug = null)
-	{
-		if (isset($slug)) {
-			$this->slug = \Coast\str_simplify(iconv('utf-8', 'ascii//translit//ignore', $slug), '-');
-			return $this;
-		}
-		return $this->slug;
-	}
-
-	public function label()
-	{
-		return $this->name;
 	}
 
 	public function iterator()
@@ -103,6 +78,11 @@ class Structure extends \Toast\Entity implements Loggable, Publishable, Trackabl
 				return $node;
 			}
 		}
+	}
+
+	public function __toString()
+	{
+		return (string) $this->name;
 	}
 
 	// public function __clone()

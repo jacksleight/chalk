@@ -14,8 +14,8 @@
 			'label' => 'Domains',
 			'params'=> ['controller' => 'domain'],
 		], [
-			'label' => 'Menus',
-			'params'=> ['controller' => 'menu'],
+			'label' => 'Structures',
+			'params'=> ['controller' => 'setting_structure'],
 		]
 	]]) ?>
 </nav>

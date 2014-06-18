@@ -5,7 +5,7 @@
 	</button></li>
 <? } else { ?>
 	<li><a href="<?= $this->url([
-		'entity'	=> $entity->slug,
+		'entity'	=> $entity->name,
 		'action'		=> 'restore',
 		'content'		=> $content->id,
 	], 'content', true) ?>" class="btn btn-focus">

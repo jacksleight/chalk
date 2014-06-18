@@ -131,4 +131,11 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 	{
 		return (string) $this->id;
 	}
+
+	public function restore()
+	{
+		$this->status = \Ayre::STATUS_DRAFT;
+		$this->archiveDate = null;
+		return $this;
+	}
 }

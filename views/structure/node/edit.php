@@ -8,9 +8,9 @@ $entity	= \Ayre::entity($content->getObject());
 <? $this->block('main') ?>
 
 <? if ($entity->name != 'core_content') { ?>
-	<?= $this->render("/{$entity->entity->path}/form", [
-		'structure'		=> $structure,
-		'content'		=> $content,
+	<?= $this->render("/{$entity->local->path}/form", [
+		'structure'	=> $structure,
+		'content'	=> $content,
 		'entity'	=> $entity,
 	]) ?>
 <? } ?>

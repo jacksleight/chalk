@@ -11,7 +11,7 @@ class Index extends \Toast\Entity
 	protected $search;
 	protected $modifyDateMin;
 	protected $statuses = [
-		\Ayre::STATUS_PENDING,
+		\Ayre::STATUS_DRAFT,
 		\Ayre::STATUS_PUBLISHED,
 	];
 	protected $contents = [];
@@ -45,7 +45,7 @@ class Index extends \Toast\Entity
 					'type'		=> 'array',
 					'nullable'	=> true,
 					'values'	=> [
-						\Ayre::STATUS_PENDING	=> 'Pending',
+						\Ayre::STATUS_DRAFT   	=> 'Draft',
 						\Ayre::STATUS_PUBLISHED	=> 'Published',
 						\Ayre::STATUS_ARCHIVED	=> 'Archived',
 					],

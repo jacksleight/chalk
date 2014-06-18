@@ -220,6 +220,7 @@ small {
 	background-color: white;
 	color: $color-quiet;
 }
+.badge-draft,
 .badge-pending {
 	@extend .badge;
 	background-color: $color-pending;

@@ -13,18 +13,6 @@ use Ayre\Repository,
 
 class Structure extends Repository
 {
-	public function fetchAll(array $criteria = array())
-	{
-		$structures = parent::fetchAll($criteria);
-		usort($structures, function($a, $b) {
-			$aClass = get_class($a);
-			$bClass = get_class($b);
-			return $aClass == $bClass
-				? strcmp($a->name, $b->name)
-				: strcmp($aClass, $bClass);
-		});
-		return $structures;
-	}
 
 	public function fetchFirst()
 	{

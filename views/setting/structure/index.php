@@ -1,7 +1,7 @@
 <? $this->layout('/layouts/page_settings') ?>
 <? $this->block('main') ?>
 <?php
-$menus = $this->em($entity->class)
+$structures = $this->em($entity->class)
 	->fetchAll();
 ?>
 
@@ -27,18 +27,18 @@ $menus = $this->em($entity->class)
 		</tr>
 	</thead>
 	<tbody>
-		<? foreach ($menus as $menu) { ?>
+		<? foreach ($structures as $structure) { ?>
 			<tr class="linkable">
 				<th class="col-name" scope="row">
 					<a href="<?= $this->url([
 						'action'	=> 'edit',
-						'id'		=> $menu->id,
+						'id'		=> $structure->id,
 					]) ?>">
-						<?= $menu->name ?>
+						<?= $structure->name ?>
 					</a>
 				</th>
 				<td class="col-date">
-					<?= $menu->createDate->diffForHumans() ?>
+					<?= $structure->createDate->diffForHumans() ?>
 				</td>
 			</tr>
 		<? } ?>

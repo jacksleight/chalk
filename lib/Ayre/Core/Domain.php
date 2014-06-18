@@ -6,17 +6,22 @@
 
 namespace Ayre\Core;
 
-use Ayre\Core;
+use Ayre\Core,
+    Ayre\Behaviour\Trackable,
+	Coast\Model,
+	Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity
 */
-class Domain extends Structure
+class Domain extends \Toast\Entity implements Trackable
 {
 	public static $info = [
 		'singular'	=> 'Domain',
 		'plural'	=> 'Domains',
 	];
+	
+    use Trackable\Implementation;
 
 	protected static function _defineMetadata($class)
 	{
@@ -30,4 +35,22 @@ class Domain extends Structure
 			),
 		);
 	}
+
+	/**
+     * @Id
+     * @Column(type="integer")
+     * @GeneratedValue
+     */
+    protected $id;
+	
+    /**
+     * @Column(type="string")
+     */
+	protected $name;
+
+    /**
+     * @ManyToOne(targetEntity="\Ayre\Core\Structure", inversedBy="domains", cascade={"persist"})
+     * @JoinColumn(nullable=false)
+     */
+    protected $structure;
 }

@@ -11,16 +11,17 @@
 			</div>
 			<div class="form-items">
 				<?= $this->render('/elements/form-item', array(
+					'type'	    => 'input_radio',
 					'entity'	=> $content,
-					'name'		=> 'name',
-					'label'		=> 'Title',
-					'autofocus'	=> true,
+					'name'		=> 'status',
+					'label'		=> 'Status',
 					'disabled'	=> $content->isArchived(),
 				), 'core') ?>
 				<?= $this->render('/elements/form-item', array(
 					'entity'	=> $content,
-					'name'		=> 'activeDate',
-					'label'		=> 'Active Date',
+					'name'		=> 'name',
+					'label'		=> 'Title',
+					'autofocus'	=> true,
 					'disabled'	=> $content->isArchived(),
 				), 'core') ?>
 				<?= $this->render('/elements/form-item', array(
@@ -35,11 +36,48 @@
 				<div class="expandable">
 					<div class="expandable-body">
 						<?= $this->render('/elements/form-item', array(
-							'type'		=> 'array',
+							'entity'	=> $content,
+							'name'		=> 'publishDate',
+							'label'		=> 'Publish Date',
+							'disabled'	=> $content->isArchived(),
+						), 'core') ?>
+						<?= $this->render('/elements/form-item', array(
+							'entity'	=> $content,
+							'name'		=> 'archiveDate',
+							'label'		=> 'Archive Date',
+							'disabled'	=> $content->isArchived(),
+						), 'core') ?>
+						<?= $this->render('/elements/form-item', array(
+							'type'		=> 'array_pairs',
 							'entity'	=> $content,
 							'name'		=> 'metas',
 							'label'		=> 'Metadata',
 							'disabled'	=> $content->isArchived(),
+							'datalist'	=> [
+							    'application-name',
+							    'author',
+							    'bingbot',
+							    'copyright',
+							    'description',
+							    'fb:admins',
+							    'generator',
+							    'google-site-verification',
+							    'googlebot',
+							    'keywords',
+							    'language',
+							    'msvalidate.01',
+							    'og:description',
+							    'og:image',
+							    'og:title',
+							    'og:type',
+							    'p:domain_verify',
+							    'robots',
+							    'twitter:card',
+							    'twitter:description',
+							    'twitter:image',
+							    'twitter:title',
+							    'twitter:url',
+							],
 						), 'core') ?>
 					</div>
 					<div class="expandable-toggle">
@@ -56,7 +94,7 @@
 				<?= $this->render('/elements/form-input', array(
 					'entity'	=> $content,
 					'name'		=> 'contents',
-					'type'		=> 'textarea_multiple',
+					'type'		=> 'array_textareas',
 					'class'		=> 'monospaced html',
 					'rows'		=> 15,
 					'disabled'	=> $content->isArchived(),

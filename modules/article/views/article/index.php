@@ -2,7 +2,7 @@
 $filter = $this->em->wrap(new \Ayre\Core\Model\Index())
 	->graphFromArray($req->queryParams());
 $contents = $this->em($entity->class)
-	->fetchAll($filter->toArray(), ['activeDate', 'DESC']);
+	->fetchAll($filter->toArray(), ['publishDate', 'DESC']);
 ?>
 
 <form action="<?= $this->url->route() ?>">
@@ -29,7 +29,7 @@ $contents = $this->em($entity->class)
 					<input type="checkbox" id="select" class="multiselectable-all"><label for="select"></label>
 				</th>
 				<th scope="col" class="col-name"><?= $entity->singular ?></th>
-				<th scope="col" class="col-name">Active</th>
+				<th scope="col" class="col-name">Published</th>
 				<th scope="col" class="col-date">Updated</th>
 				<th scope="col" class="col-status">Status</th>
 			</tr>
@@ -50,7 +50,7 @@ $contents = $this->em($entity->class)
 						]) ?>"><?= $content->name ?></a>
 					</th>
 					<td class="col-name">
-						<?= $content->activeDate->toFormattedDateString() ?>
+						<?= isset($content->publishDate) ? $content->publishDate->toFormattedDateString() : '–' ?>
 					</td>	
 					<td class="col-date">
 						<?= $content->modifyDate->diffForHumans() ?>

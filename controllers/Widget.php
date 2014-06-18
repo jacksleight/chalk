@@ -18,7 +18,7 @@ class Widget extends Ayre\Controller\Basic
 
 	public function edit(Request $req, Response $res)
 	{
-		if (!$this->view->has($req->entity->entity->path, $req->entity->module->name)) {
+		if (!$this->view->has($req->entity->local->path, $req->entity->module->name)) {
 			return $res->json(['widget' => $widget]);
 		}
 

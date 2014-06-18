@@ -4,8 +4,8 @@
 <form action="<?= $this->url->route() ?>" method="post" class="fill">
 	<div class="flex">
 		<h1>
-			<? if (!$menu->isNew()) { ?>
-				<?= $menu->name ?>
+			<? if (!$structure->isNew()) { ?>
+				<?= $structure->name ?>
 			<? } else { ?>
 				New <?= $entity->singular ?>
 			<? } ?>
@@ -16,7 +16,7 @@
 			</div>
 			<div class="form-items">
 				<?= $this->render('/elements/form-item', array(
-					'entity'	=> $menu,
+					'entity'	=> $structure,
 					'name'		=> 'name',
 					'label'		=> 'Name',
 					'autofocus'	=> true,
@@ -34,7 +34,7 @@
 			</li>
 		</ul>
 		<ul class="toolbar">
-			<? if (!$menu->isNew()) { ?>
+			<? if (!$structure->isNew()) { ?>
 				<li>
 					<a href="<?= $this->url([
 						'action' => 'delete',

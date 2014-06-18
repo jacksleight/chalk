@@ -22,7 +22,7 @@ class Basic extends Action
 
 	public function edit(Request $req, Response $res)
 	{
-		$var = $req->entity->entity->var;
+		$var = $req->entity->local->var;
 		$req->view->$var = $wrap = $this->em->wrap(
 			$entity = $this->em($req->entity->class)->fetchOrCreate($req->id)
 		);

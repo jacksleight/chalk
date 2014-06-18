@@ -23,15 +23,8 @@ class Article extends Document
 		'primary'	=> '',
 	];
 
-    /**
-     * @Column(type="date")
-     */
-	protected $activeDate;
-
 	public function __construct()
 	{
 		parent::__construct();
-
-		$this->activeDate = new \Carbon\Carbon();
 	}
 }

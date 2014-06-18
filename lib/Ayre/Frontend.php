@@ -97,7 +97,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
             }
             $entity = \Ayre::entity($data['entity']);
             $el->setAttribute('data-ayre', json_encode([
-                'html' => ['render', $entity->entity->path, $data['params']],
+                'html' => ['render', $entity->local->path, $data['params']],
             ]));
         }
 

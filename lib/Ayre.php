@@ -6,6 +6,7 @@ class Ayre extends App
 {
     const FORMAT_DATE       = 'jS F Y';
 
+    const STATUS_DRAFT      = 'draft';
     const STATUS_PENDING    = 'pending';
     const STATUS_PUBLISHED  = 'published';
     const STATUS_ARCHIVED   = 'archived';
@@ -78,12 +79,10 @@ class Ayre extends App
             'module' => (object) [
                 'class' => implode('\\', $namespace),
                 'name'  => implode('_', $moduleLower),
-                'slug'  => implode('-', $moduleLower),
             ],
-            'entity' => (object) [
+            'local' => (object) [
                 'class' => implode('\\', $local),
                 'name'  => implode('_', $localLower),
-                'slug'  => implode('-', $localLower),
                 'path'  => implode('/', $localLower),
                 'var'   => lcfirst(implode('', $local)),
             ],

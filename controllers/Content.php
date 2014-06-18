@@ -63,7 +63,11 @@ class Content extends Ayre\Controller\Basic
 			return;
 		}
 
-		$wrap->graphFromArray($req->bodyParams());
+		$params = $req->bodyParams();
+		$status = $params['status'];
+		unset($params['status']);
+		$wrap->graphFromArray($params);
+		$wrap->graphFromArray(['status' => $status]); // @hack setting dates should be a listener
 		if (!$wrap->isValid()) {
 			return;
 		}
@@ -73,7 +77,10 @@ class Content extends Ayre\Controller\Basic
 		}
 		$this->em->flush();
 
-		return $res->redirect($this->url([]));
+		return $res->redirect($this->url(array(
+			'action'	=> 'edit',
+			'content'	=> $content->id,
+		)));
 	}
 
 	public function upload(Request $req, Response $res)
@@ -109,28 +116,22 @@ class Content extends Ayre\Controller\Basic
 
 	public function status(Request $req, Response $res)
 	{
-		$content = $this->em($req->entity->class)->find($req->id);
+		$content = $this->em($req->entity->class)->find($req->content);
 
 		$content->status = $req->status;
 		$this->em->flush();
 
-		if ($content->status == \Ayre::STATUS_ARCHIVED) {
-			return $res->redirect($this->url(array(
-				'action'	=> 'index',
-				'content'	=> null,
-			)));
-		} else {
-			return $res->redirect($this->url(array(
-				'action' => 'edit',
-			)));
-		}
+		return $res->redirect($this->url(array(
+			'action'	=> 'edit',
+			'content'	=> $content->id,
+		)));
 	}
 
 	public function restore(Request $req, Response $res)
 	{
-		$content = $this->em($req->entity->class)->find($req->id);
+		$content = $this->em($req->entity->class)->find($req->content);
 
-		$content->status = \Ayre::STATUS_PUBLISHED;
+		$content->restore();
 		$this->em->flush();
 
 		return $res->redirect($this->url(array(
@@ -141,6 +142,14 @@ class Content extends Ayre\Controller\Basic
 
 	public function delete(Request $req, Response $res)
 	{
-		throw new \Exception();
+		$entity = $this->em($req->entity->class)->find($req->content);
+
+		$this->em->remove($entity);
+		$this->em->flush();
+
+		return $res->redirect($this->url(array(
+			'action'	=> 'index',
+			'id'		=> null,
+		)));
 	}
 }

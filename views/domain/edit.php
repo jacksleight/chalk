@@ -21,6 +21,13 @@
 					'label'		=> 'Name',
 					'autofocus'	=> true,
 				)) ?>
+				<?= $this->render('/elements/form-item', array(
+					'entity'	=> $domain,
+					'type'		=> 'select_objects',
+					'name'		=> 'structure',
+					'label'		=> 'Structure',
+					'values'    => $this->em('Ayre\Core\Structure')->fetchAll(),
+				)) ?>
 			</div>
 		</fieldset>
 	</div>

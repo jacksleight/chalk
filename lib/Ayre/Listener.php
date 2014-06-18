@@ -25,10 +25,10 @@ class Listener implements EventSubscriber
         $meta      = $args->getClassMetadata();
         $class     = $meta->name;
         $rootClass = $meta->rootEntityName;
-        $type      = Ayre::entity($class);
+        $entity      = Ayre::entity($class);
         
         if ($class == $rootClass || $meta->inheritanceType == 2) {
-            $meta->setTableName($type->name);
+            $meta->setTableName($entity->name);
         }
 
         $names = $meta->getAssociationNames();
@@ -50,7 +50,7 @@ class Listener implements EventSubscriber
                 if (isset($mapping['inherited'])) {
                     continue;
                 }
-                $mapping['columnName'] = "{$type->name}_" . trim($mapping['columnName'], '`');
+                $mapping['columnName'] = "{$entity->name}_" . trim($mapping['columnName'], '`');
                 $meta->setAttributeOverride($name, $mapping);
             }
             $names = $meta->getAssociationNames();
@@ -60,16 +60,16 @@ class Listener implements EventSubscriber
                     continue;
                 }
                 foreach ($mapping['joinColumns'] as $i => $joinColumn) {
-                    $mapping['joinColumns'][$i]['name'] = "{$type->name}_" . trim($joinColumn['name'], '`');
+                    $mapping['joinColumns'][$i]['name'] = "{$entity->name}_" . trim($joinColumn['name'], '`');
                 }
                 $meta->setAssociationOverride($name, $mapping);
             }
         }
  
         $repositoryClasses = [
-            $type->module->class . '\\Repository\\' . $type->entity->class,
-            $type->module->class . '\\Repository\\' . Ayre::entity($rootClass)->entity->class,
-            Ayre::entity($rootClass)->module->class . '\\Repository\\' . Ayre::entity($rootClass)->entity->class,
+            $entity->module->class . '\\Repository\\' . $entity->local->class,
+            $entity->module->class . '\\Repository\\' . Ayre::entity($rootClass)->local->class,
+            Ayre::entity($rootClass)->module->class . '\\Repository\\' . Ayre::entity($rootClass)->local->class,
             'Ayre\\Repository',
         ];        
 
