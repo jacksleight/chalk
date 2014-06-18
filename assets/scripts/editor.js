@@ -120,7 +120,7 @@
         toolbar: [
             'styleselect', 'bold', 'italic', 'removeformat', '|',
             'bullist', 'numlist', 'table', 'hr', '|',
-            'ayreinsert', 'unlink', '|',
+            'ayreinsert', 'unlink', 'unlink', '|',
             'pastetext', 'searchreplace', '|',
             'fullscreen', 'visualblocks', 'code'].join(' '),
         statusbar: false,

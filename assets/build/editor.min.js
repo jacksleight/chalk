@@ -96,7 +96,7 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
             };
             if (!el) {
                 el = editor.dom.create('div', attrs);
-                editor.execCommand('mceInsertContent', false, el.outerHTML);
+                editor.execCommand('mceInsertContent', false, el.outerHTML + '<p></p>');
             } else {
                 for (var name in attrs) {
                     el.attr(name, attrs[name]);
@@ -265,7 +265,7 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
         toolbar: [
             'styleselect', 'bold', 'italic', 'removeformat', '|',
             'bullist', 'numlist', 'table', 'hr', '|',
-            'ayreinsert', 'unlink', '|',
+            'ayreinsert', 'unlink', 'unlink', '|',
             'pastetext', 'searchreplace', '|',
             'fullscreen', 'visualblocks', 'code'].join(' '),
         statusbar: false,

@@ -54,7 +54,7 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
             };
             if (!el) {
                 el = editor.dom.create('div', attrs);
-                editor.execCommand('mceInsertContent', false, el.outerHTML);
+                editor.execCommand('mceInsertContent', false, el.outerHTML + '<p></p>');
             } else {
                 for (var name in attrs) {
                     el.attr(name, attrs[name]);
