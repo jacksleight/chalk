@@ -67,19 +67,18 @@ hr {
 
 *[data-ayre-widget] {
 	margin: 1em 0;
-	border: 1px dotted $color-divide;
+	border: 1px solid $color-quieter;
 	color: $color-quieter;
 	padding: 10px;
 	cursor: pointer;
 	text-align: center;
 	font-weight: bold;
 	&:hover {
-		border-style: solid;
 		border-color: $color-focus;
 		color: $color-focus;
 	}
 	&:before {
-		content: 'Placeholder';
+		content: 'Placeholder – Click to Edit';
 		// content: attr(data-ayre-widget);
 	}
 }

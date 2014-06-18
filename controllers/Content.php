@@ -19,14 +19,6 @@ class Content extends Ayre\Controller\Basic
 			= Ayre::entity($req->entity ? $req->entity : 'core_content');
 	}
 
-	public function redirect(Request $req, Response $res)
-	{
-		return $res->redirect($this->url([
-			'action'		=> 'index',
-			'entity'	=> 'core-page',
-		]));
-	}
-
 	public function index(Request $req, Response $res)
 	{
 		$wrap = $this->em->wrap($index = new \Ayre\Core\Model\Index());
@@ -114,11 +106,11 @@ class Content extends Ayre\Controller\Basic
 			->json(['files' => $uploads]);
 	}
 
-	public function status(Request $req, Response $res)
+	public function archive(Request $req, Response $res)
 	{
 		$content = $this->em($req->entity->class)->find($req->content);
 
-		$content->status = $req->status;
+		$content->status = \Ayre::STATUS_ARCHIVED;
 		$this->em->flush();
 
 		return $res->redirect($this->url(array(

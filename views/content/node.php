@@ -7,7 +7,7 @@
 			<?= $this->render('/elements/form-item', array(
 				'entity'		=> $node,
 				'name'			=> 'isHidden',
-				'label'			=> 'Hidden',
+				'label'			=> 'Hidden in navigation',
 			)) ?>	
 			<?= $this->render('/elements/form-item', array(
 				'entity'		=> $node,

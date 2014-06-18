@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* Configuration */
 /* Partials */
 /* Fonts */
@@ -90,7 +91,7 @@ hr {
 
 *[data-ayre-widget] {
   margin: 1em 0;
-  border: 1px dotted #dddee0;
+  border: 1px solid #cdcfd2;
   color: #cdcfd2;
   padding: 10px;
   cursor: pointer;
@@ -98,10 +99,9 @@ hr {
   font-weight: bold;
 }
 *[data-ayre-widget]:hover {
-  border-style: solid;
   border-color: #00a6b5;
   color: #00a6b5;
 }
 *[data-ayre-widget]:before {
-  content: 'Placeholder';
+  content: 'Placeholder – Click to Edit';
 }

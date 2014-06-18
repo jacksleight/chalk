@@ -1,11 +1,9 @@
 <? if (!$content->isArchived() && !$content->isNewMaster()) { ?>
 	<li><a href="<?= $this->url([
 		'entity'	=> $entity->name,
-		'action'	=> 'status',
+		'action'	=> 'archive',
 		'content'	=> $content->id,
-	], 'content', true) . $this->url->query([
-		'status' => \Ayre::STATUS_ARCHIVED,
-	]) ?>" class="btn btn-negative btn-quiet confirmable">
+	], 'content', true) ?>" class="btn btn-negative btn-quiet confirmable">
 		<i class="fa fa-archive"></i>
 		Archive <?= $entity->singular ?>
 	</a></li>

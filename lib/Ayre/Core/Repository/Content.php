@@ -88,38 +88,37 @@ class Content extends Repository
 			->getResult();
 	}
 
-	public function fetchAllForPublish()
-	{
-		return $this->_em->createQueryBuilder()
-			->select("c")
-			->from($this->_class->name, "c")
-			->where("c.status IN (:statuses)")
-			->addOrderBy("c.master")
-			->addOrderBy("c.version", "DESC")
-			->getQuery()
-			->setParameters([
-				'statuses' => [
-					\Ayre::STATUS_PENDING,
-					\Ayre::STATUS_PUBLISHED,
-				],
-			])
-			->getResult();
-	}
-
 	public function fetchCountForPublish()
 	{
 		return $this->_em->createQueryBuilder()
 			->select("COUNT(c)")
 			->from($this->_class->name, "c")
 			->where("c.status IN (:statuses)")
-			->addOrderBy("c.master")
-			->addOrderBy("c.version", "DESC")
 			->getQuery()
 			->setParameters([
 				'statuses' => [
+					\Ayre::STATUS_DRAFT,
 					\Ayre::STATUS_PENDING,
 				],
 			])
-			->getSingleScalarResult();
+			->getSIngleScalarResult();
+	}
+
+	public function fetchAllForPublish()
+	{
+		return $this->_em->createQueryBuilder()
+			->select("c")
+			->from($this->_class->name, "c")
+			->where("c.status IN (:statuses)")
+			// ->addOrderBy("c.master")
+			// ->addOrderBy("c.version", "DESC")
+			->getQuery()
+			->setParameters([
+				'statuses' => [
+					\Ayre::STATUS_DRAFT,
+					\Ayre::STATUS_PENDING,
+				],
+			])
+			->getResult();
 	}
 }

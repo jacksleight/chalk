@@ -209,6 +209,8 @@ small {
 }
 .badge-figure {
 	border-radius: 1000px;
+	min-width: 24px;
+	text-align: center;
 }
 .badge-status {
 	@extend .badge;
@@ -1253,12 +1255,6 @@ legend {
 	.tree {
 		margin-top: 0;
 	}
-	.tree-status-pending {
-		@include link-color($color-pending);
-	}
-	.tree-status-archived {
-		@include link-color(transparentize(white, 0.7));
-	}
 }
 .tree {
 	-webkit-user-select: none;
@@ -1340,6 +1336,16 @@ legend {
 		}
 		&.active {
 			@include arrow(28px);
+		}
+		&.tree-item-draft,
+		&.tree-item-pending {
+			@include link-color($color-pending);
+		}
+		&.tree-item-archived {
+			@include link-color(transparentize(white, 0.7));
+		}
+		&.tree-item-hidden {
+			text-decoration: line-through;
 		}
 	}
 }

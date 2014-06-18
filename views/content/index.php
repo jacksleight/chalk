@@ -17,7 +17,6 @@ $contents = $this->em($entity->class)
 		<colgroup>
 			<col class="col-select">
 			<col class="col-name">
-			<col class="col-type">
 			<col class="col-date">
 			<col class="col-status">
 		</colgroup>
@@ -27,7 +26,6 @@ $contents = $this->em($entity->class)
 					<input type="checkbox" id="select" class="multiselectable-all"><label for="select"></label>
 				</th>
 				<th scope="col" class="col-name">Content</th>
-				<th scope="col" class="col-name">Type</th>
 				<th scope="col" class="col-date">Modified</th>
 				<th scope="col" class="col-status">Status</th>
 			</tr>

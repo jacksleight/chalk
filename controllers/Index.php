@@ -9,7 +9,7 @@ class Index extends Action
 {
 	public function index(Request $req, Response $res)
 	{
-		return $res->redirect($this->url([], 'content', true));
+		return $res->redirect($this->url(['entity' => 'core_page'], 'content', true));
 	}
 	
 	public function about(Request $req, Response $res)

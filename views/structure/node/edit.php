@@ -12,5 +12,5 @@ $entity	= \Ayre::entity($content->getObject());
 		'structure'	=> $structure,
 		'content'	=> $content,
 		'entity'	=> $entity,
-	]) ?>
+	], $entity->module->name) ?>
 <? } ?>

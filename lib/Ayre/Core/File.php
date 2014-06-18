@@ -21,6 +21,8 @@ class File extends Content
 
 	protected static $_baseDir;
 	protected static $_mimeTypes = [];
+
+	protected $status = \Ayre::STATUS_PUBLISHED;
 	
     /**
      * @Column(type="string")

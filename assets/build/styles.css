@@ -2383,6 +2383,8 @@ th .badge-pending, th .badge-1, th .badge-published {
 
 .badge-figure {
   border-radius: 1000px;
+  min-width: 24px;
+  text-align: center;
 }
 
 .badge-status {
@@ -3858,36 +3860,6 @@ legend {
 .structure .tree {
   margin-top: 0;
 }
-.structure .tree-status-pending {
-  color: #fc6042;
-}
-.structure .tree-status-pending:visited {
-  color: #fc6042;
-}
-.structure .tree-status-pending:focus {
-  color: #fc6042;
-}
-.structure .tree-status-pending:hover {
-  color: #fc6042;
-}
-.structure .tree-status-pending:active {
-  color: #fc6042;
-}
-.structure .tree-status-archived {
-  color: rgba(255, 255, 255, 0.3);
-}
-.structure .tree-status-archived:visited {
-  color: rgba(255, 255, 255, 0.3);
-}
-.structure .tree-status-archived:focus {
-  color: rgba(255, 255, 255, 0.3);
-}
-.structure .tree-status-archived:hover {
-  color: rgba(255, 255, 255, 0.3);
-}
-.structure .tree-status-archived:active {
-  color: rgba(255, 255, 255, 0.3);
-}
 
 .tree {
   -webkit-user-select: none;
@@ -4005,6 +3977,39 @@ legend {
   right: 0;
   border: 14px solid;
   border-color: transparent white transparent transparent;
+}
+.tree-node .tree-item.tree-item-draft, .tree-node .tree-item.tree-item-pending {
+  color: #fc6042;
+}
+.tree-node .tree-item.tree-item-draft:visited, .tree-node .tree-item.tree-item-pending:visited {
+  color: #fc6042;
+}
+.tree-node .tree-item.tree-item-draft:focus, .tree-node .tree-item.tree-item-pending:focus {
+  color: #fc6042;
+}
+.tree-node .tree-item.tree-item-draft:hover, .tree-node .tree-item.tree-item-pending:hover {
+  color: #fc6042;
+}
+.tree-node .tree-item.tree-item-draft:active, .tree-node .tree-item.tree-item-pending:active {
+  color: #fc6042;
+}
+.tree-node .tree-item.tree-item-archived {
+  color: rgba(255, 255, 255, 0.3);
+}
+.tree-node .tree-item.tree-item-archived:visited {
+  color: rgba(255, 255, 255, 0.3);
+}
+.tree-node .tree-item.tree-item-archived:focus {
+  color: rgba(255, 255, 255, 0.3);
+}
+.tree-node .tree-item.tree-item-archived:hover {
+  color: rgba(255, 255, 255, 0.3);
+}
+.tree-node .tree-item.tree-item-archived:active {
+  color: rgba(255, 255, 255, 0.3);
+}
+.tree-node .tree-item.tree-item-hidden {
+  text-decoration: line-through;
 }
 
 .tree-handle {

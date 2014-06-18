@@ -3,7 +3,7 @@ $browser['entity'] = \Ayre::entity(isset($browser['entity'])
 	? $browser['entity']
 	: 'core_content');
 ?>
-<div class="content" data-entity="<?= $browser['entity']->slug ?>">
+<div class="content" data-entity="<?= $browser['entity']->name ?>">
 	<ul class="toolbar">
 		<li><span class="content-remove btn btn-quieter btn-icon">
 			<i class="fa fa-times"></i>

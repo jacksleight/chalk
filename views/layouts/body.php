@@ -11,6 +11,7 @@ $count = $this->em('Ayre\Core\Content')->fetchCountForPublish();
 				'label' => 'Content',
 				'icon'	=> 'fa fa-file-text-o',
 				'name'	=> 'content',
+				'params'=> ['entity' => 'core_page'],
 			],
 			[
 				'label' => 'Structure',
@@ -56,7 +57,7 @@ $count = $this->em('Ayre\Core\Content')->fetchCountForPublish();
 							<i class="fa fa-globe"></i>
 							Publish
 						</a>
-						<small>&nbsp;&nbsp;<strong><?= $count ?></strong> pending items</small>
+						<small>&nbsp;&nbsp;<strong><?= $count ?></strong> draft items</small>
 					</li>
 				<? } else { ?>
 					<li>

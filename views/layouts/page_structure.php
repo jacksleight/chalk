@@ -46,7 +46,7 @@ $repo->fetchTree($structure);
 					'structure'	=> $structure->id,
 					'action'	=> 'edit',
 					'node'		=> $structure->root->id,
-				], 'structure_node') ?>" class="tree-item <?= $structure->root->id == $req->node ? 'active' : '' ?>">
+				], 'structure_node') ?>" class="tree-item <?= $structure->root->id == $req->node ? 'active' : '' ?> tree-item-<?= $structure->root->content->status ?> <?= $structure->root->isHidden ? 'tree-item-hidden' : '' ?>">
 					<?= $structure->root->nameSmart ?>
 				</a>
 			</li>
@@ -74,7 +74,7 @@ $repo->fetchTree($structure);
 							'structure'	=> $structure->id,
 							'action'	=> 'edit',
 							'node'		=> $node->id,
-						], 'structure_node') ?>" class="tree-item <?= $node->id == $req->node ? 'active' : '' ?> tree-status-<?= $content->status ?>">
+						], 'structure_node') ?>" class="tree-item <?= $node->id == $req->node ? 'active' : '' ?> tree-item-<?= $content->status ?> <?= $node->isHidden ? 'tree-item-hidden' : '' ?>">
 							<?= $node->nameSmart ?>
 						</a>
 						<span class="tree-handle"></span>

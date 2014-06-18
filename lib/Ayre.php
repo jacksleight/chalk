@@ -230,24 +230,27 @@ class Ayre extends App
         return $layouts;
     }
 
-    // public function publish()
-    // {
-    //  foreach (self::$_publishables as $class) {
-    //      $entitys = $this->em($class)->fetchAllForPublish();
-    //      if (is_subclass_of($class, 'Ayre\Behaviour\Versionable')) {
-    //          $last = null;
-    //          foreach ($entitys as $entity) {
-    //              $entity->status = $entity->master === $last
-    //                  ? Ayre::STATUS_ARCHIVED
-    //                  : Ayre::STATUS_PUBLISHED;
-    //              $last = $entity->master;
-    //          }
-    //      } else {
-    //          foreach ($entitys as $entity) {
-    //              $entity->status = Ayre::STATUS_PUBLISHED;
-    //          }
-    //      }
-    //  }
-    //  $this->em->flush();
-    // }
+    public function publish()
+    {
+        // foreach (self::$_publishables as $class) {
+           $entitys = $this->em('Ayre\Core\Content')->fetchAllForPublish();
+           // if (is_subclass_of($class, 'Ayre\Behaviour\Versionable')) {
+           //     $last = null;
+           //     foreach ($entitys as $entity) {
+           //         $entity->status = $entity->master === $last
+           //         ? Ayre::STATUS_ARCHIVED
+           //         : Ayre::STATUS_PUBLISHED;
+           //         $last = $entity->master;
+           //     }
+           // } else {
+           //     foreach ($entitys as $entity) {
+           //         $entity->status = Ayre::STATUS_PUBLISHED;
+           //     }
+           // }
+           foreach ($entitys as $entity) {
+               $entity->status = Ayre::STATUS_PUBLISHED;
+           }
+       // }
+       $this->em->flush();
+   }
 }

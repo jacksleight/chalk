@@ -13,7 +13,8 @@
 		$items[] = [
 			'label' => $entity->plural,
 			'name'	=> 'content',
-			'params'=> ['action' => 'index', 'entity' => $entity->name],
+			'params'=> ['action' => null, 'entity' => $entity->name],
+			'badge' => $this->em($contentClass)->fetchCountForPublish() ?: null,
 		];
 	}
 	?>

@@ -22,7 +22,7 @@ $link		= isset($link) ? $link : true;
 			<? if ($link) { ?>
 				<a href="<?= $this->url([
 					'action'	=> 'edit',
-					'entity'=> \Ayre::entity($content)->slug,
+					'entity'	=> \Ayre::entity($content)->name,
 					'content'	=> $content->id,
 				]) ?>">
 			<? } ?>

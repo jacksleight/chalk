@@ -5,6 +5,6 @@
 		<i class="fa fa-times"></i>
 		Remove <?= $entity->singular ?>
 	</a>
-	<small>&nbsp;from <?= $structure->label ?></small>
+	<small>&nbsp;from <?= $structure->name ?></small>
 	</li>
 <? } ?>

@@ -14114,7 +14114,7 @@ Ayre.component('.content', function(i, el) {
 	var entity	= $(el).attr('data-entity');
 	
 	select.click(function(ev) {
-		Ayre.modal(Ayre.baseUrl + 'content/select?entity=' + entity, {}, function(res) {
+		Ayre.modal(Ayre.baseUrl + 'content/' + entity + '/select', {}, function(res) {
 			input.val(res.contents[0].id);
 			holder.html(res.contents[0].card);
 			remove.show();
