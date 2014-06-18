@@ -32,7 +32,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
     public function execute(Request $req, Response $res)
     {        
         $this->_domain = $this->_ayre->em('Ayre\Core\Domain')->fetchFirst();
-        $nodes = $this->_ayre->em('Ayre\Core\Domain')->fetchNodes($this->_domain);
+        $nodes = $this->_ayre->em('Ayre\Core\Structure')->fetchNodes($this->_domain->structure);
         foreach ($nodes as $node) {
             $this->_nodes[$node->id]                   = $node;
             $this->_paths[$node->path]                 = $node;
@@ -62,7 +62,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
                 
         $req->node    = $node;
         $req->content = $content;
-        $method = '_' . \Ayre::entity($content)->entity->var;
+        $method = '_' . \Ayre::entity($content)->local->var;
         return $this->$method($req, $res);
     }
 

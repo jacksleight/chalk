@@ -28,7 +28,7 @@ $app->router
 	])
 	->all('structure', "structure/{action}?/{structure}?", [
 		'controller' => 'structure',
-		'action'     => 'redirect',
+		'action'     => 'index',
 		'structure'	 => null,
 	])
 	->all('structure_node', "structure/node/{structure}/{action}?/{node}?", [
