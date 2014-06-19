@@ -2,5 +2,11 @@
 $md	= isset($md)
 	? $md
 	: $entity->getMetadata(\Toast\Entity::MD_PROPERTY, $name);
+$disabled = isset($disabled)
+	? $disabled
+	: ($entity->getObject() instanceof \Ayre\Behaviour\Publishable && $entity->isArchived());
 ?>
-<?= $this->render("{$type}", ['md' => $md]) ?>
+<?= $this->render("{$type}", [
+	'md' 		=> $md,
+	'disabled' 	=> $disabled
+]) ?>

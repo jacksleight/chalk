@@ -63,16 +63,18 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
         $req->node    = $node;
         $req->content = $content;
         $method = '_' . \Ayre::entity($content)->local->var;
-        return $this->$method($req, $res);
+        return method_exists($this, $method)
+            ? $this->$method($req, $res)
+            : $this->_render($req, $res, \Ayre::entity($content)->local->var);
     }
 
-    protected function _page(Request $req, Response $res)
+    protected function _render(Request $req, Response $res, $var)
     {
-        $html = $this->view->render('index', [
+        $html = $this->view->render($var, [
             'req'  => $req,
             'res'  => $res,
             'node' => $req->node,
-            'page' => $req->content
+            $var   => $req->content
         ]);
        
         $doc = new DOMDocument();

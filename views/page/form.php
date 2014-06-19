@@ -15,7 +15,6 @@
 					'name'		=> 'name',
 					'label'		=> 'Title',
 					'autofocus'	=> true,
-					'disabled'	=> $content->isArchived(),
 				), 'core') ?>
 				<?= $this->render('/elements/form-item', array(
 					'type'		=> 'textarea',
@@ -24,16 +23,14 @@
 					'label'		=> 'Summary',
 					'class'		=> 'monospaced html',
 					'rows'		=> 5,
-					'disabled'	=> $content->isArchived(),
 				), 'core') ?>
 				<div class="expandable">
 					<div class="expandable-body">
 						<?= $this->render('/elements/form-item', array(
-							'type'		=> 'array_pairs',
+							'type'		=> 'array_input',
 							'entity'	=> $content,
 							'name'		=> 'metas',
 							'label'		=> 'Metadata',
-							'disabled'	=> $content->isArchived(),
 							'datalist'	=> [
 							    'application-name',
 							    'author',
@@ -67,7 +64,6 @@
 							'label'		=> 'Layout',
 							'null'		=> 'Default',
 							'values'	=> $this->app->layouts(),
-							'disabled'	=> $content->isArchived(),
 						), 'core') ?>
 					</div>
 					<div class="expandable-toggle">
@@ -81,13 +77,14 @@
 				<h2>Content</h2>
 			</div>
 			<div class="form-items">
-				<?= $this->render('/elements/form-input', array(
+				<?= $this->render('/elements/form-item', array(
 					'entity'	=> $content,
 					'name'		=> 'contents',
-					'type'		=> 'array_textareas',
+					'label'		=> 'Blocks',
+					'type'		=> 'array_textarea',
 					'class'		=> 'monospaced html',
 					'rows'		=> 15,
-					'disabled'	=> $content->isArchived(),
+					'stackable'	=> false,
 				), 'core') ?>
 			</div>
 		</fieldset>

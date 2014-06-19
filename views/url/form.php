@@ -15,14 +15,12 @@
 					'name'		=> 'name',
 					'label'		=> 'Name',
 					'autofocus'	=> true,
-					'disabled'	=> $content->isArchived(),
 				), 'core') ?>
 				<?= $this->render('/elements/form-item', array(
 					'entity'		=> $content,
 					'name'			=> 'url',
 					'label'			=> 'URL',
 					'placeholder'	=> 'http://example.com/',
-					'disabled'		=> $content->isArchived(),
 				), 'core') ?>
 			</div>
 		</fieldset>

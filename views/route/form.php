@@ -15,7 +15,6 @@
 					'name'		=> 'name',
 					'label'		=> 'Name',
 					'autofocus'	=> true,
-					'disabled'	=> $content->isArchived(),
 				), 'core') ?>
 			</div>
 		</fieldset>

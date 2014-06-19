@@ -72,6 +72,9 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
             text: 'External Link',
             onclick: function() { tinyMCE.activeEditor.buttons.link.onclick(); }
         }, {
+            text: 'Horizontal Rule',
+            onclick: function() { tinyMCE.activeEditor.buttons.hr.onclick(); }
+        }, {
             text: 'Special Character',
             onclick: function() { tinyMCE.activeEditor.buttons.charmap.onclick(); }
         }
@@ -96,6 +99,7 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
                 menu.push(item);
             }
         }
+        menu.push(menu.splice(2, 1)[0]);
         menu.push(menu.splice(2, 1)[0]);
 
     }
