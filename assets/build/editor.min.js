@@ -164,7 +164,7 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
 
 /* Initialize */
 
-(function() {
+Ayre.component(null, function(i, el) {
 
     var assetsUrl   = Ayre.rootBaseUrl + 'vendor/jacksleight/ayre/assets';
     tinyMCE.baseURL = assetsUrl + '/tinymce';
@@ -238,7 +238,7 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
         css = css.join();
 
     }
-    
+
     tinyMCE.init({
         content_css: [
             assetsUrl + '/build/editor.css',
@@ -280,7 +280,6 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
             '-table', '-tr', '-td[colspan|rowspan]', '-th', '-thead', '-tfoot', '-tbody',
             '-a[href]', 'sub', 'sup', 'strike', 'br', 'del'].join(','),
         style_formats: styles,
-        // noneditable_noneditable_class: 'ayre-widget',
         setup: function(editor) {
             editor.on('init', function(ev) {
                 editor.theme.resizeTo(null, $(editor.getElement()).height());
@@ -288,4 +287,4 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
        }
     });
 
-})();
+});

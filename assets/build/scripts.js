@@ -13733,8 +13733,13 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 	};
 	Ayre.initialize = function(el) {
 		el = $(el);
+		log(Ayre.components);
 		$(Ayre.components).each(function(i, component) {
-			el.find(component[0]).each(component[1]);
+			if (component[0] !== null) {
+				el.find(component[0]).each(component[1]);
+			} else {
+				component[1](0, el);
+			}
 		});
 	};
 
@@ -14015,10 +14020,15 @@ Ayre.component('.stackable', function(i, el) {
 	var template	= $(el).find('.stackable-template').html();
 	var i			= list.children().length;
 	var add = function() {
-		var html = $(temp = $.parseHTML(Mustache.render(template, {i: i++}).trim())[0]);
-		list.append(html);
+		var content = $($.parseHTML(Mustache.render(template, {i: i++}).trim())[0]);
+		list.append(content);
+		setTimeout(function() {
+			Ayre.initialize(content);
+		}, 1);		
 	}
-	add();
+	if (i == 0) {
+		add();
+	}
 	button.click(function(ev) {
 		add();
 	});
@@ -14131,9 +14141,3 @@ Ayre.component('.content', function(i, el) {
 	}
 	
 });
-
-
-/* Initialize */
-
-FastClick.attach(document.body);
-Ayre.initialize(document.body);

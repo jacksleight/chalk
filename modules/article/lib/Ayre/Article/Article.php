@@ -20,7 +20,7 @@ class Article extends Document
 	];
 
 	protected $contents = [
-		'primary'	=> '',
+		['name' => 'primary', 'value' => ''],
 	];
 
 	public function __construct()

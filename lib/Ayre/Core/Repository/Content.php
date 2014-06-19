@@ -16,6 +16,7 @@ class Content extends Repository
             ->innerJoin('c.master', 'cm')
             ->andWhere('c.next IS NULL')
 			->andWhere("cm.id = :id")
+			->setMaxResults(1)
 			->getQuery()
 			->setParameters([
 				'id' => $id,

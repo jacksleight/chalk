@@ -33,8 +33,3 @@
 //= require elements/thumbs.js
 //= require elements/tree.js
 //= require elements/content.js
-
-/* Initialize */
-
-FastClick.attach(document.body);
-Ayre.initialize(document.body);

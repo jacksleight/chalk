@@ -11,40 +11,15 @@
 			</div>
 			<div class="form-items">
 				<?= $this->render('/elements/form-item', array(
-					'type'	    => 'input_radio',
-					'entity'	=> $content,
-					'name'		=> 'status',
-					'label'		=> 'Status',
-					'disabled'	=> $content->isArchived(),
-				), 'core') ?>
-				<?= $this->render('/elements/form-item', array(
 					'entity'	=> $content,
 					'name'		=> 'name',
 					'label'		=> 'Name',
 					'autofocus'	=> true,
 					'disabled'	=> $content->isArchived(),
 				), 'core') ?>
-				<div class="expandable">
-					<div class="expandable-body">
-						<?= $this->render('/elements/form-item', array(
-							'entity'	=> $content,
-							'name'		=> 'publishDate',
-							'label'		=> 'Publish Date',
-							'disabled'	=> $content->isArchived(),
-						), 'core') ?>
-						<?= $this->render('/elements/form-item', array(
-							'entity'	=> $content,
-							'name'		=> 'archiveDate',
-							'label'		=> 'Archive Date',
-							'disabled'	=> $content->isArchived(),
-						), 'core') ?>
-					</div>
-					<div class="expandable-toggle">
-						Advanced
-					</div>
-				</div>
 			</div>
 		</fieldset>
+		<?= $this->render('/behaviour/publishable/form', ['publishable' => $content], 'core') ?>
 		<?= $this->render('/content/node', [], 'core') ?>
 	</div>
 	<fieldset class="fix">

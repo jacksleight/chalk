@@ -21,8 +21,8 @@ class Page extends Document
 	];
 
 	protected $contents = [
-		'primary'	=> '',
-		'secondary'	=> '',
+		['name' => 'primary',   'value' => ''],
+		['name' => 'secondary', 'value' => ''],
 	];
 
     /**

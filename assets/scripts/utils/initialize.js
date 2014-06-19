@@ -6,8 +6,13 @@
 	};
 	Ayre.initialize = function(el) {
 		el = $(el);
+		log(Ayre.components);
 		$(Ayre.components).each(function(i, component) {
-			el.find(component[0]).each(component[1]);
+			if (component[0] !== null) {
+				el.find(component[0]).each(component[1]);
+			} else {
+				component[1](0, el);
+			}
 		});
 	};
 

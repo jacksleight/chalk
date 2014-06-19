@@ -5,10 +5,15 @@ Ayre.component('.stackable', function(i, el) {
 	var template	= $(el).find('.stackable-template').html();
 	var i			= list.children().length;
 	var add = function() {
-		var html = $(temp = $.parseHTML(Mustache.render(template, {i: i++}).trim())[0]);
-		list.append(html);
+		var content = $($.parseHTML(Mustache.render(template, {i: i++}).trim())[0]);
+		list.append(content);
+		setTimeout(function() {
+			Ayre.initialize(content);
+		}, 1);		
 	}
-	add();
+	if (i == 0) {
+		add();
+	}
 	button.click(function(ev) {
 		add();
 	});

@@ -2,9 +2,9 @@
 $items = $entity->{$name};
 ?>
 <div class="stackable">
-    <div class="stackable-list">
+    <div class="stackable-list pairs">
         <? foreach ($items as $i => $item) { ?>
-            <div class="stackable-item">
+            <div class="stackable-item pairs-item">
                 <input
                     type="text"
                     name="<?= "{$md['contextName']}[{$i}][name]" ?>"
@@ -30,7 +30,7 @@ $items = $entity->{$name};
         Add
     </span>
     <script type="x-tmpl-mustache" class="stackable-template">
-         <div class="stackable-item">
+         <div class="stackable-item pairs-item">
             <input
                 type="text"
                 name="<?= "{$md['contextName']}[{{i}}][name]" ?>"

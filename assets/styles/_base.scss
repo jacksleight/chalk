@@ -1134,7 +1134,7 @@ legend {
 		background-color: $color-shade;
 		color: $color-quiet;
 		text-align: center;
-		padding: $gutter * 0.2 $gutter;
+		padding: $gutter * 0.3 $gutter;
 		cursor: pointer;
 		@include transition(background $speed ease);
 		&:hover {
@@ -1331,20 +1331,23 @@ legend {
 		padding: $gutter * 0.1 $gutter $gutter * 0.1 $gutter * 2;
 		&:hover,
 		&.active {
-			color: white;
+			@include link-color(white);
 			background-color: shade($color-primary, 10%);
 		}
 		&.active {
 			@include arrow(28px);
 		}
+		&.tree-item-hidden {
+			@include link-color(transparentize(white, 0.6));
+		}
 		&.tree-item-draft,
 		&.tree-item-pending {
 			@include link-color($color-pending);
+			&.tree-item-hidden {
+				@include link-color(transparentize($color-pending, 0.6));
+			}
 		}
 		&.tree-item-archived {
-			@include link-color(transparentize(white, 0.7));
-		}
-		&.tree-item-hidden {
 			text-decoration: line-through;
 		}
 	}
@@ -1390,8 +1393,17 @@ legend {
 /* Stackable */
 
 .stackable {
-	.stackable-item {
-		margin: 0 0 3px 0;
+	.stackable-list {
+		margin-bottom: 3px;
+		@include flush();
+	}
+}
+
+/* Pairs */
+
+.pairs {
+	.pairs-item {
+		margin: 3px 0 0 0;
 		display: flex;
 		flex-direction: row;
 		input:first-child {

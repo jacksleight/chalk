@@ -35,6 +35,10 @@ $title	= (isset($title)
 		</div>
 	</script>
 	<script src="<?= $this->rootUrl->file("vendor/jacksleight/ayre/assets/build/scripts{$code}.js") ?>"></script>
-   	<script src="<?= $this->rootUrl->file("vendor/jacksleight/ayre/assets/build/editor{$code}.js") ?>" async></script>
+   	<script src="<?= $this->rootUrl->file("vendor/jacksleight/ayre/assets/build/editor{$code}.js") ?>"></script>
+   	<script>
+   		FastClick.attach(document.body);
+		Ayre.initialize(document.body);
+   	</script>
 </body>
 </html>
