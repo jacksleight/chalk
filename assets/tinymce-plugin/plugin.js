@@ -8,7 +8,7 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
             text            = selection.getContent({format: 'text'})
             richSelection   = /</.test(html) && (!/^<a [^>]+>[^<]+<\/a>$/.test(html) || html.indexOf('href=') == -1);
     
-        Ayre.modal(Ayre.baseUrl + 'content/select', {}, function(res) {
+        Ayre.modal(Ayre.baseUrl + 'content/core_content/select', {}, function(res) {
             if (!res) {
                 return;
             }
