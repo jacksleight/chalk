@@ -12,7 +12,9 @@ Ayre.component('.stackable', function(i, el) {
 		}, 1);		
 	}
 	if (i == 0) {
-		add();
+		setTimeout(function() {
+			add();
+		}, 1);	
 	}
 	button.click(function(ev) {
 		add();
