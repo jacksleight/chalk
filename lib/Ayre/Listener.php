@@ -22,10 +22,11 @@ class Listener implements EventSubscriber
 
     public function loadClassMetadata(LoadClassMetadataEventArgs $args)
     {
+        $em        = $args->getEntityManager();
         $meta      = $args->getClassMetadata();
         $class     = $meta->name;
         $rootClass = $meta->rootEntityName;
-        $entity      = Ayre::entity($class);
+        $entity    = Ayre::entity($class);
         
         if ($class == $rootClass || $meta->inheritanceType == 2) {
             $meta->setTableName($entity->name);
@@ -72,7 +73,6 @@ class Listener implements EventSubscriber
             Ayre::entity($rootClass)->module->class . '\\Repository\\' . Ayre::entity($rootClass)->local->class,
             'Ayre\\Repository',
         ];        
-
         foreach ($repositoryClasses as $repositoryClass) {
             if (class_exists($repositoryClass)) {
                 $meta->setCustomRepositoryClass($repositoryClass);
@@ -80,10 +80,15 @@ class Listener implements EventSubscriber
             }
         }
 
-        if (isset($meta->discriminatorMap)) {
-            foreach ($meta->discriminatorMap as $discriminatorId => $discriminatorClass) {
-                unset($meta->discriminatorMap[$discriminatorId]);
-                $meta->discriminatorMap[Ayre::entity($discriminatorClass)->name] = $discriminatorClass;
+        if ($meta->discriminatorMap) {
+            $allClasses = $em->getConfiguration()->getMetadataDriverImpl()->getAllClassNames();
+            foreach ($allClasses as $allClass) {
+                if (is_subclass_of($allClass, $rootClass)) {
+                    $meta->discriminatorMap[Ayre::entity($allClass)->name] = $allClass;
+                }
+                if (is_subclass_of($allClass, $class) && !in_array($allClass, $meta->subClasses)) {
+                    $meta->subClasses[] = $allClass;
+                }
             }
         }
 

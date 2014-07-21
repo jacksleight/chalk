@@ -9,7 +9,10 @@ class Index extends Action
 {
 	public function index(Request $req, Response $res)
 	{
-		return $res->redirect($this->url(['entity' => 'core_page'], 'content', true));
+		$contentClasses = $this->app->contentClasses();
+		return $res->redirect($this->url([
+			'entity' => \Ayre::entity($contentClasses[0])->name,
+		], 'content', true));
 	}
 	
 	public function about(Request $req, Response $res)

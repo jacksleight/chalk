@@ -19,6 +19,7 @@ use Ayre,
  * @Entity
  * @InheritanceType("SINGLE_TABLE")
  * @DiscriminatorColumn(name="type", type="string")
+ * @DiscriminatorMap({"core_content" = "Ayre\Core\Content"})
 */
 abstract class Content extends \Toast\Entity implements Loggable, Publishable, Searchable, Trackable, Versionable
 {

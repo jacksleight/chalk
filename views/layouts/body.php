@@ -6,12 +6,15 @@ $count = $this->em('Ayre\Core\Content')->fetchCountForPublish();
 
 <div class="frame">
 	<div class="sidebar">
+		<?php 
+		$contentClasses = $this->app->contentClasses();
+		?>
 		<?= $this->render('nav', ['items' => [
 			[
 				'label' => 'Content',
 				'icon'	=> 'fa fa-file-text-o',
 				'name'	=> 'content',
-				'params'=> ['entity' => 'core_page'],
+				'params'=> ['entity' => \Ayre::entity($contentClasses[0])->name],
 			],
 			[
 				'label' => 'Structure',

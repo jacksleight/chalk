@@ -157,7 +157,14 @@ class Ayre extends App
 
     public function contentClass($value = null)
     {
-        $this->_contentClasses[] = $value;
+        $key = count($this->_contentClasses);
+        foreach ($this->_contentClasses as $i => $contentClass) {
+            if (is_subclass_of($value, $contentClass)) {
+                $key = $i;
+                break;
+            }
+        }
+        $this->_contentClasses[$key] = $value;
         return $this;
     }
 
