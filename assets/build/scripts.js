@@ -13869,8 +13869,9 @@ Ayre.component('.thumbs', function(i, el) {
 			width  = 100 / count;
 		if (index != -1) {
 			style.sheet.deleteRule(index);
+			index = -1;
 		}
-		index = style.sheet.insertRule('.' + className + ' > * { width: ' + width + '% !important; }');
+		index = style.sheet.insertRule('.' + className + ' > * { width: ' + width + '% !important; }', 0);
 	};
 	refresh();
 	$(window).resize(refresh);
