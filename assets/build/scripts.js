@@ -13733,7 +13733,6 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 	};
 	Ayre.initialize = function(el) {
 		el = $(el);
-		log(Ayre.components);
 		$(Ayre.components).each(function(i, component) {
 			if (component[0] !== null) {
 				el.find(component[0]).each(component[1]);
@@ -13848,6 +13847,115 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 	});
 
 })();
+
+
+/* Elements */
+
+Ayre.component('.thumbs', function(i, el) {
+	
+	var className = 'thumbs-' + new Date().valueOf();
+	$(el).addClass(className);
+
+	var style = document.createElement('style');
+	style.setAttribute('media', 'screen')
+	style.appendChild(document.createTextNode(''));
+	document.head.appendChild(style);
+
+	var min = $(el).children(':first-child').outerWidth();
+	var index = -1;
+	var refresh = function() {
+		var total = $(el).innerWidth(),
+			count = Math.floor(total / min),
+			width  = 100 / count;
+		if (index != -1) {
+			style.sheet.deleteRule(index);
+		}
+		index = style.sheet.insertRule('.' + className + ' > * { width: ' + width + '% !important; }');
+	};
+	refresh();
+	$(window).resize(refresh);
+
+});
+
+Ayre.component('.structure', function(i, el) {
+    
+    var tree = $(el).find('.tree');
+    tree.nestable({
+        maxDepth        : 100,
+        rootClass       : 'tree',
+        listClass       : 'tree-list',
+        itemClass       : 'tree-node',
+        dragClass       : 'tree-drag',
+        handleClass     : 'tree-handle',
+        collapsedClass  : 'tree-collapsed',
+        placeClass      : 'tree-placeholder',
+        emptyClass      : 'tree-empty',
+        expandBtnHTML   : '<button type="button" data-action="expand"><span>Expand</span></button>',
+        collapseBtnHTML : '<button type="button" data-action="collapse"><span>Collapse</span></button>',
+        dropCallback: function(data) {
+            $(el).find('.structure-submit').prop('disabled', false);
+            $(el).find('.structure-data').val(JSON.stringify(this.serialize()));
+            nodes[data.destId] = 1;
+            Ayre.set({
+                nodes: nodes
+            });
+        }
+    })
+    var nodes = Ayre.prefs.nodes || {};
+    tree.find('li').each(function() {
+        var id = $(this).attr('data-id');
+        if (!nodes[id] || nodes[id] == 0) {
+            var button = $(this).find('> [data-action=collapse]');
+            if (button.length) {
+                button[0].click();
+            }
+        }
+    });
+    tree.click(function(ev) {
+        var target = $(ev.target).is('span')
+            ? $(ev.target).parent()
+            : $(ev.target);
+        if (!target.is('button')) {
+            return;
+        }
+        var id     = target.closest('li').attr('data-id');
+        var expand = target.attr('data-action') == 'expand';
+        nodes[id]  = expand ? 1 : 0;
+        Ayre.set({
+            nodes: nodes
+        });
+    });
+    
+});
+
+Ayre.component('.content', function(i, el) {
+	
+	var select	= $(el).find('.content-select');
+	var remove	= $(el).find('.content-remove');
+	var holder	= $(el).find('.content-holder');
+	var input	= $(el).find('input[type=hidden]');
+	var entity	= $(el).attr('data-entity');
+	
+	select.click(function(ev) {
+		Ayre.modal(Ayre.baseUrl + 'content/' + entity + '/select', {}, function(res) {
+			if (res.contents) {
+				input.val(res.contents[0].id);
+				holder.html(res.contents[0].card);
+				remove.show();
+			}
+		});
+	});
+	remove.click(function(ev) {
+		input.val('');
+		holder.html('<span class="placeholder">Nothing Selected</span>');
+		remove.hide();
+	});
+
+	if (!input.val()) {
+		remove.hide();
+	}
+	
+});
 
 
 /* Behaviours */
@@ -14033,111 +14141,4 @@ Ayre.component('.stackable', function(i, el) {
 		add();
 	});
 
-});
-
-
-/* Elements */
-
-Ayre.component('.thumbs', function(i, el) {
-	
-	var className = 'thumbs-' + new Date().valueOf();
-	$(el).addClass(className);
-
-	var style = document.createElement('style');
-	style.setAttribute('media', 'screen')
-	style.appendChild(document.createTextNode(''));
-	document.head.appendChild(style);
-
-	var min = $(el).children(':first-child').outerWidth();
-	var index = -1;
-	var refresh = function() {
-		var total = $(el).innerWidth(),
-			count = Math.floor(total / min),
-			width  = 100 / count;
-		if (index != -1) {
-			style.sheet.deleteRule(index);
-		}
-		index = style.sheet.insertRule('.' + className + ' > * { width: ' + width + '% !important; }');
-	};
-	refresh();
-	$(window).resize(refresh);
-
-});
-
-Ayre.component('.structure', function(i, el) {
-    
-    var tree = $(el).find('.tree');
-    tree.nestable({
-        maxDepth        : 100,
-        rootClass       : 'tree',
-        listClass       : 'tree-list',
-        itemClass       : 'tree-node',
-        dragClass       : 'tree-drag',
-        handleClass     : 'tree-handle',
-        collapsedClass  : 'tree-collapsed',
-        placeClass      : 'tree-placeholder',
-        emptyClass      : 'tree-empty',
-        expandBtnHTML   : '<button type="button" data-action="expand"><span>Expand</span></button>',
-        collapseBtnHTML : '<button type="button" data-action="collapse"><span>Collapse</span></button>',
-        dropCallback: function(data) {
-            $(el).find('.structure-submit').prop('disabled', false);
-            $(el).find('.structure-data').val(JSON.stringify(this.serialize()));
-            nodes[data.destId] = 1;
-            Ayre.set({
-                nodes: nodes
-            });
-        }
-    })
-    var nodes = Ayre.prefs.nodes || {};
-    tree.find('li').each(function() {
-        var id = $(this).attr('data-id');
-        if (!nodes[id] || nodes[id] == 0) {
-            var button = $(this).find('> [data-action=collapse]');
-            if (button.length) {
-                button[0].click();
-            }
-        }
-    });
-    tree.click(function(ev) {
-        var target = $(ev.target).is('span')
-            ? $(ev.target).parent()
-            : $(ev.target);
-        if (!target.is('button')) {
-            return;
-        }
-        var id     = target.closest('li').attr('data-id');
-        var expand = target.attr('data-action') == 'expand';
-        nodes[id]  = expand ? 1 : 0;
-        Ayre.set({
-            nodes: nodes
-        });
-    });
-    
-});
-
-Ayre.component('.content', function(i, el) {
-	
-	var select		= $(el).find('.content-select');
-	var remove		= $(el).find('.content-remove');
-	var holder		= $(el).find('.content-holder');
-	var input		= $(el).find('input[type=hidden]');
-	var entity	= $(el).attr('data-entity');
-	
-	select.click(function(ev) {
-		Ayre.modal(Ayre.baseUrl + 'content/' + entity + '/select', {}, function(res) {
-			input.val(res.contents[0].id);
-			holder.html(res.contents[0].card);
-			remove.show();
-		});
-	});
-	remove.click(function(ev) {
-		input.val('');
-		holder.html('<span class="placeholder">Nothing Selected</span>');
-		remove.hide();
-	});
-
-	if (!input.val()) {
-		remove.hide();
-	}
-	
 });

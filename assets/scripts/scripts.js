@@ -18,6 +18,12 @@
 //= require utils/prefs.js
 //= require utils/modal.js
 
+/* Elements */
+
+//= require elements/thumbs.js
+//= require elements/tree.js
+//= require elements/content.js
+
 /* Behaviours */
 
 //= require behaviours/autosubmitable.js
@@ -27,9 +33,3 @@
 //= require behaviours/uploadable.js
 //= require behaviours/selectable.js
 //= require behaviours/stackable.js
-
-/* Elements */
-
-//= require elements/thumbs.js
-//= require elements/tree.js
-//= require elements/content.js

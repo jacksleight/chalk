@@ -4,7 +4,7 @@ $stackable = isset($stackable) ? $stackable : true;
 <div class="<?= $stackable ? 'stackable' : null ?>">
 	<div class="stackable-list">
 		<? foreach ($entity->{$name} as $i => $item) { ?>
-			<div class="stackable-item form-namevalue-vertical">
+			<div class="stackable-item form-group form-group-vertical">
 				<? if ($stackable) { ?>
 					<input
 	                    type="text"
@@ -40,7 +40,7 @@ $stackable = isset($stackable) ? $stackable : true;
 	        Add Item
 	    </span>
 	    <script type="x-tmpl-mustache" class="stackable-template">
-	         <div class="stackable-item form-namevalue-vertical optional">
+	         <div class="stackable-item form-group form-group-vertical optional">
 				<input
 	                type="text"
 	                name="<?= "{$md['contextName']}[{{i}}][name]" ?>"
