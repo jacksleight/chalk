@@ -123,15 +123,18 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
                 libxml_use_internal_errors(true);
                 $temp->loadHTML('<?xml encoding="utf-8">' . $this->_parse($data['html']));
                 libxml_use_internal_errors(false);
-                $body = $temp->getElementsByTagName('body')->item(0);
-                foreach ($body->childNodes as $node) {
-                    $node = $doc->importNode($node, true);
-                    $el->appendChild($node);
+                $body = $temp->getElementsByTagName('body');
+                if ($body->length) {
+                    foreach ($body->item(0)->childNodes as $node) {
+                        $node = $doc->importNode($node, true);
+                        $el->appendChild($node);
+                    }
                 }
             }
         }
 
         $html = $doc->saveHTML();
+        $html = str_replace('<p>&nbsp;</p>', '', $html);
         return $res
             ->html($html);
     }
