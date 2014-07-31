@@ -23,9 +23,9 @@ class Node extends Action
 
 		$wrap->graphFromArray($req->bodyParams());
 		if (isset($req->node)) {
-			$parent = $this->em('Ayre\Core\Structure\Node')->fetch($req->node);
+			$parent = $this->em('core_structureNode')->id($req->node);
 		} else {
-			$parent = $this->em('Ayre\Core\Structure')->fetch($req->structure)->root;
+			$parent = $this->em('core_structure')->id($req->structure)->root;
 		}
 
 		foreach ($index->contents as $content) {
@@ -50,7 +50,7 @@ class Node extends Action
 
 	public function edit(Request $req, Response $res)
 	{
-		$node = $this->em('Ayre\Core\Structure\Node')->fetch($req->node);
+		$node = $this->em('core_structureNode')->id($req->node);
 		$req->view->node = $wrap = $this->em->wrap($node);
 
 		if (!$req->isPost()) {
@@ -72,7 +72,7 @@ class Node extends Action
 
 	public function delete(Request $req, Response $res)
 	{
-		$node = $this->em('Ayre\Core\Structure\Node')->fetch($req->node);
+		$node = $this->em('core_structureNode')->id($req->node);
 
 		$parent = $node->parent;
 		$parent->id;

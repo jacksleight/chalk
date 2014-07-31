@@ -1,5 +1,5 @@
 <?php
-$count = $this->em('Ayre\Core\Content')->fetchCountForPublish();
+$count = $this->em('core_content')->fetchCountForPublish();
 ?>
 <? $this->layout('/layouts/html') ?>
 <? $this->block('body') ?>

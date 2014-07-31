@@ -23,9 +23,10 @@ class Basic extends Action
 	public function edit(Request $req, Response $res)
 	{
 		$var = $req->entity->local->var;
-		$req->view->$var = $wrap = $this->em->wrap(
-			$entity = $this->em($req->entity->class)->fetchOrCreate($req->id)
-		);
+		$entity = isset($req->id)
+			? $this->em($req->entity)->id($req->id)
+			: $this->em($req->entity)->create();
+		$req->view->$var = $wrap = $this->em->wrap($entity);
 
 		if (!$req->isPost()) {
 			return;
@@ -49,7 +50,7 @@ class Basic extends Action
 
 	public function delete(Request $req, Response $res)
 	{
-		$entity = $this->em($req->entity->class)->find($req->id);
+		$entity = $this->em($req->entity)->find($req->id);
 
 		$this->em->remove($entity);
 		$this->em->flush();

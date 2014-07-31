@@ -6,10 +6,17 @@
 
 namespace Ayre\Core\Repository;
 
-use Ayre\Repository;
+use Ayre\Repository,
+	Ayre\Behaviour\Publishable;
 
 class Content extends Repository
 {
+	use Publishable\Repository {
+       	Publishable\Repository::query as publishableQuery;
+    }
+
+	protected $_alias = 'c';
+
 	public function fetchByMasterId($id)
 	{
 		return $this->createQueryBuilder("c")
@@ -24,24 +31,27 @@ class Content extends Repository
 			->getSingleResult();
 	}
 
-	public function fetchAll(array $criteria = array(), $sort = null, $page = null)
+	public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
 	{
+		$query = parent::query($criteria, $sort, $limit, $offset);
+
 		$criteria = $criteria + [
 			'search'		=> null,
 			'createDateMin'	=> null,
+			'createDateMax'	=> null,
+			'modifyDateMin'	=> null,
+			'modifyDateMax'	=> null,
 			'createUsers'	=> [],
 			'statuses'		=> [],
+			'isPublished'	=> false,
 		];
-
-		$params = [];
-		$qb = $this->createQueryBuilder('c');
 		
-		$qb->andWhere("c.next IS NULL");
+		$query->andWhere("c.next IS NULL");
 		
 		if (isset($sort)) {
-			$qb->addOrderBy("c.{$sort[0]}", "{$sort[1]}");
+			$query->addOrderBy("c.{$sort[0]}", "{$sort[1]}");
 		} else {
-			$qb->addOrderBy("c.modifyDate", "DESC");
+			$query->addOrderBy("c.modifyDate", "DESC");
 		}
 
 		if (isset($criteria['search'])) {
@@ -53,40 +63,42 @@ class Content extends Repository
 			$results = $this->_em->getRepository('Ayre\Core\Index')
 				->search($criteria['search'], $classes);
 			$ids = \Coast\array_column($results, 'entityId');
-			$qb ->andWhere("c.id IN (:ids)")
+			$query ->andWhere("c.id IN (:ids)")
 				->addSelect("FIELD(c.id, :ids) AS HIDDEN sort")
 				->orderBy("sort");
-			$params['ids'] = $ids;
+			$query->setParameter('ids', $ids);
 		}
 		if (isset($criteria['createDateMin'])) {
-			$qb->andWhere("c.createDate >= :createDateMin");
-			$params['createDateMin'] = new \DateTime("{$criteria['createDateMin']}");
+			$query->andWhere("c.createDate >= :createDateMin");
+			$query->setParameter('createDateMin', new \DateTime("{$criteria['createDateMin']}"));
 		}
 		if (isset($criteria['createDateMax'])) {
-			$qb->andWhere("c.createDate <= :createDateMax");
-			$params['createDateMax'] = new \DateTime("{$criteria['createDateMax']}");
+			$query->andWhere("c.createDate <= :createDateMax");
+			$query->setParameter('createDateMax', new \DateTime("{$criteria['createDateMax']}"));
 		}
 		if (isset($criteria['modifyDateMin'])) {
-			$qb->andWhere("c.modifyDate >= :modifyDateMin");
-			$params['modifyDateMin'] = new \DateTime("{$criteria['modifyDateMin']}");
+			$query->andWhere("c.modifyDate >= :modifyDateMin");
+			$query->setParameter('modifyDateMin', new \DateTime("{$criteria['modifyDateMin']}"));
 		}
 		if (isset($criteria['modifyDateMax'])) {
-			$qb->andWhere("c.modifyDate <= :modifyDateMax");
-			$params['modifyDateMax'] = new \DateTime("{$criteria['modifyDateMax']}");
+			$query->andWhere("c.modifyDate <= :modifyDateMax");
+			$query->setParameter('modifyDateMax', new \DateTime("{$criteria['modifyDateMax']}"));
 		}
 		if (count($criteria['createUsers'])) {
-			$qb->andWhere("c.createUser IN (:createUsers)");
-			$params['createUsers'] = $criteria['createUsers'];
+			$query->andWhere("c.createUser IN (:createUsers)");
+			$query->setParameter('createUsers', $criteria['createUsers']);
 		}
 		if (count($criteria['statuses'])) {
-			$qb->andWhere("c.status IN (:statuses)");
-			$params['statuses'] = $criteria['statuses'];
+			$query->andWhere("c.status IN (:statuses)");
+			$query->setParameter('statuses', $criteria['statuses']);
+		}
+		if ($criteria['isPublished']) {
+			$query->andWhere("c.status IN ('published') AND c.publishDate >= UTC_DATETIME()");
 		}
 
-		return $qb
-			->getQuery()
-			->setParameters($params)
-			->getResult();
+		$this->publishableQuery($query, $criteria);
+
+		return $query;
 	}
 
 	public function fetchCountForPublish()

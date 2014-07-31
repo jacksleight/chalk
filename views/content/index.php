@@ -7,8 +7,8 @@
 <? } ?>
 
 <?php
-$contents = $this->em($entity->class)
-	->fetchAll($index->toArray());
+$contents = $this->em($entity)
+	->all($index->toArray());
 ?>
 <form action="<?= $this->url->route() ?>">
 	<h1>Content</h1>

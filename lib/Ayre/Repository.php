@@ -6,10 +6,14 @@
 
 namespace Ayre;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\EntityRepository,
+	Doctrine\ORM\QueryBuilder,
+	Doctrine\ORM\Query;
 
 class Repository extends EntityRepository
 {
+	protected $_alias = 'e';
+
 	public function create()
 	{
 		$args = func_get_args();
@@ -17,31 +21,60 @@ class Repository extends EntityRepository
 		return $reflection->newInstanceArgs($args);
 	}
 
-	public function fetchOrCreate($id)
+	public function id($id, $field = 'id')
 	{
-		$entity = $this->fetch($id);
-		if (!isset($entity)) {
-			$entity = $this->create();
-		}
-		return $entity;
+		$query = $this->query();
+		
+		$query->where("{$this->_alias}.{$field} = :id");
+		$query->setParameter('id', $id);
+
+		return $query
+			->getQuery()
+			->getSingleResult();
 	}
 
-	public function fetch($id)
+	public function one(array $criteria = array(), $sort, $offset)
 	{
-		if (!isset($id)) {
-			return;
-		}
-		return $this->createQueryBuilder('e')
-			->andWhere("e.id = :id")
+		$query = $this->query($criteria, $sort, null, $offset);
+		
+		return $query
+			->setMaxResults(1)
 			->getQuery()
-			->setParameters(['id' => $id])
 			->getOneOrNullResult();
 	}
 
-	public function fetchAll(array $criteria = array())
+	public function all(array $criteria = array(), $sort = null, $limit = null, $offset = null)
 	{
-		return $this->createQueryBuilder('e')
+		$query = $this->query($criteria, $sort, $limit, $offset);
+		
+		return $query
 			->getQuery()
 			->getResult();
+	}
+
+	// @todo DELETE this, BC
+	public function fetchAll(array $criteria = array())
+	{
+		return $this->all($criteria);
+	}
+
+	public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
+	{
+		$query = $this->createQueryBuilder($this->_alias);
+		
+		if (isset($sort)) {
+			if (!is_array($sort)) {
+				$sort = [$sort, 'ASC'];
+			}
+			$query->orderBy("{$this->_alias}.{$sort[0]}", $sort[1]);
+		}
+		if (isset($limit)) {
+			$query->setMaxResults($limit);
+		}
+		if (isset($offset)) {
+			$query->setFirstResult($offset);
+		}
+		
+		return $query;
 	}
 }

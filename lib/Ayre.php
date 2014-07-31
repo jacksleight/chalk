@@ -243,7 +243,7 @@ class Ayre extends App
     public function publish()
     {
         // foreach (self::$_publishables as $class) {
-           $entitys = $this->em('Ayre\Core\Content')->fetchAllForPublish();
+           $entitys = $this->em('core_content')->fetchAllForPublish();
            // if (is_subclass_of($class, 'Ayre\Behaviour\Versionable')) {
            //     $last = null;
            //     foreach ($entitys as $entity) {

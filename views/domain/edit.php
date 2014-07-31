@@ -26,7 +26,7 @@
 					'type'		=> 'select_objects',
 					'name'		=> 'structure',
 					'label'		=> 'Structure',
-					'values'    => $this->em('Ayre\Core\Structure')->fetchAll(),
+					'values'    => $this->em('core_structure')->fetchAll(),
 				)) ?>
 			</div>
 		</fieldset>

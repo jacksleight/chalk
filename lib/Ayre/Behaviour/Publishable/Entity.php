@@ -8,7 +8,7 @@ namespace Ayre\Behaviour\Publishable;
 
 use Ayre;
 
-trait Implementation
+trait Entity
 {
 	/**
      * @Column(type="string", length=10)

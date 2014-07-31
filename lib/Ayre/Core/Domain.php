@@ -21,7 +21,7 @@ class Domain extends \Toast\Entity implements Trackable
 		'plural'	=> 'Domains',
 	];
 	
-    use Trackable\Implementation;
+    use Trackable\Entity;
 
 	protected static function _defineMetadata($class)
 	{

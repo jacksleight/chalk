@@ -48,7 +48,9 @@ class Content extends Ayre\Controller\Basic
 
 	public function edit(Request $req, Response $res)
 	{
-		$content = $this->em($req->entity->class)->fetchOrCreate($req->content);
+		$content = isset($req->content)
+			? $this->em($req->entity)->id($req->content)
+			: $this->em($req->entity)->create();
 		$req->view->content = $wrap = $this->em->wrap($content);
 
 		if (!$req->isPost()) {
@@ -108,7 +110,7 @@ class Content extends Ayre\Controller\Basic
 
 	public function archive(Request $req, Response $res)
 	{
-		$content = $this->em($req->entity->class)->find($req->content);
+		$content = $this->em($req->entity)->find($req->content);
 
 		$content->status = \Ayre::STATUS_ARCHIVED;
 		$this->em->flush();
@@ -121,7 +123,7 @@ class Content extends Ayre\Controller\Basic
 
 	public function restore(Request $req, Response $res)
 	{
-		$content = $this->em($req->entity->class)->find($req->content);
+		$content = $this->em($req->entity)->find($req->content);
 
 		$content->restore();
 		$this->em->flush();
@@ -134,7 +136,7 @@ class Content extends Ayre\Controller\Basic
 
 	public function delete(Request $req, Response $res)
 	{
-		$entity = $this->em($req->entity->class)->find($req->content);
+		$entity = $this->em($req->entity)->find($req->content);
 
 		$this->em->remove($entity);
 		$this->em->flush();

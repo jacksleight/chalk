@@ -1,7 +1,7 @@
 <? $this->layout('/layouts/page_settings') ?>
 <? $this->block('main') ?>
 <?php
-$domains = $this->em($entity->class)
+$domains = $this->em($entity)
 	->fetchAll();
 ?>
 

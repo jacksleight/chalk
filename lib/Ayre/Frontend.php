@@ -46,7 +46,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
             if (isset($this->_contents[$content])) {
                 return $res->redirect($this->app->url($this->_contents[$content]->path));
             }
-            $content = $this->_ayre->em('Ayre\Core\Content')->fetch($content);
+            $content = $this->_ayre->em('Ayre\Core\Content')->id($content);
             if (!$content) {
                 return;
             }

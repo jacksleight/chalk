@@ -12,7 +12,7 @@ class Structure extends Action
 	public function index(Request $req, Response $res)
 	{
 		if (!$req->structure) {
-			$structure = $this->em('Ayre\Core\Domain')->fetchFirst();
+			$structure = $this->em('core_domain')->fetchFirst();
 			return $res->redirect($this->url([
 				'action'	=> 'index',
 				'structure'	=> $structure->id,
@@ -32,8 +32,8 @@ class Structure extends Action
 		}
 
 		$data		= json_decode($req->data);
-		$repo		= $this->em('Ayre\Core\Structure');
-		$structure	= $repo->fetch($req->structure);
+		$repo		= $this->em('core_structure');
+		$structure	= $repo->id($req->structure);
 		$nodes		= $repo->fetchNodes($structure);
 
 		$map = [];

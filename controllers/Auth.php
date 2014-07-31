@@ -22,7 +22,7 @@ class Auth extends Action
 			return;
 		}
 
-		$user = $this->em('Ayre\Core\User')->fetchByEmailAddress($login->emailAddress);
+		$user = $this->em('core_user')->fetchByEmailAddress($login->emailAddress);
 		if (!isset($user)) {
 			$login->password = null;
 			$login->addError('emailAddress', 'validator_login_invalid');

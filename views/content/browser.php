@@ -2,8 +2,8 @@
 $close		= isset($close) ? $close : false;
 $thumbs		= isset($thumbs) ? $thumbs : false;
 
-$contents = $this->em($entity->class)
-	->fetchAll($index->toArray());
+$contents = $this->em($entity)
+	->all($index->toArray());
 ?>
 <form action="<?= $this->url->route() ?>" class="fill" data-modal-size="fullscreen">
 	<?= $this->render('/elements/form-input', array(

@@ -15,7 +15,7 @@ $browser['entity'] = \Ayre::entity(isset($browser['entity'])
 	<div class="content-holder">
 		<? if (isset($entity->{$name})) { ?>
 			<?= $this->render('/content/card', [
-				'content' => $this->em('Ayre\Core\Content')->fetchByMasterId((string) $entity->{$name})
+				'content' => $this->em('core_content')->fetchByMasterId((string) $entity->{$name})
 			]) ?>		
 		<? } else { ?>
 			<span class="placeholder">Nothing Selected</span>

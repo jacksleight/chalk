@@ -6,7 +6,7 @@
 
 namespace Ayre\Behaviour\Trackable;
 
-trait Implementation
+trait Entity
 {
     /**
      * @Column(type="datetime", nullable=true)

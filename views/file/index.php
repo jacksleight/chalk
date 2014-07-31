@@ -1,8 +1,8 @@
 <?php
 $filter = $this->em->wrap(new \Ayre\Core\Model\Index())
 	->graphFromArray($req->queryParams());
-$contents = $this->em($entity->class)
-	->fetchAll($filter->toArray());
+$contents = $this->em($entity)
+	->all($filter->toArray());
 ?>
 
 <form action="<?= $this->url->route() ?>" class="uploadable">

@@ -1,5 +1,5 @@
 <?php
-$struct = $this->em('Ayre\Core\Structure')->fetch($req->structure);
+$struct = $this->em('core_structure')->id($req->structure);
 ?>
 <? $this->layout('/layouts/page_structure') ?>
 <? $this->block('main') ?>

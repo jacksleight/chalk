@@ -3,7 +3,7 @@
 <?php
 $filter = $this->em->wrap(new \Ayre\Core\Model\Index())
 	->graphFromArray($req->queryParams());
-$users = $this->em($entity->class)
+$users = $this->em($entity)
 	->fetchAll($filter->toArray());
 ?>
 

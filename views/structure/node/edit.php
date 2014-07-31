@@ -1,5 +1,5 @@
 <?php
-$structure	= $this->em('Ayre\Core\Structure')->fetch($req->structure);
+$structure	= $this->em('core_structure')->id($req->structure);
 $content	= $node->content;
 $entity	= \Ayre::entity($content->getObject());
 ?>

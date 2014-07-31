@@ -1,7 +1,7 @@
 <?php
 $filter = $this->em->wrap(new \Ayre\Core\Model\Index())
 	->graphFromArray($req->queryParams());
-$contents = $this->em($entity->class)
+$contents = $this->em($entity)
 	->fetchAll($filter->toArray());
 ?>
 

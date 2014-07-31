@@ -10,7 +10,7 @@ use Ayre,
     Ayre\Behaviour\Publishable,
     Doctrine\Common\Collections\ArrayCollection;
 
-trait Implementation
+trait Entity
 {
     /**
      * @Column(type="integer")

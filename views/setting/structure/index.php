@@ -1,7 +1,7 @@
 <? $this->layout('/layouts/page_settings') ?>
 <? $this->block('main') ?>
 <?php
-$structures = $this->em($entity->class)
+$structures = $this->em($entity)
 	->fetchAll();
 ?>
 

@@ -24,10 +24,10 @@ class Structure extends \Toast\Entity implements Loggable, Publishable, Trackabl
         'plural'    => 'Structures',
     ];
     
-    use Publishable\Implementation,
-    	Trackable\Implementation,
-    	Versionable\Implementation {
-        	Versionable\Implementation::__construct as __constructVersionable;
+    use Publishable\Entity,
+    	Trackable\Entity,
+    	Versionable\Entity {
+        	Versionable\Entity::__construct as __constructVersionable;
     	}
 
 	/**

@@ -21,7 +21,7 @@ class Log extends \Toast\Entity implements Trackable
         'plural'    => 'Logs',
     ];
 
-    use Trackable\Implementation;
+    use Trackable\Entity;
 
 	const TYPE_CREATE			= 'create';
 	const TYPE_MODIFY			= 'modify';

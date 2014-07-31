@@ -10,6 +10,11 @@ class EntityManager extends \Coast\Doctrine\ORM\EntityManager
 {
     protected $_trackable;
 
+    public function __invoke($class)
+    {
+        return $this->getRepository(\Ayre::entity($class)->class);
+    }
+
     public function wrap($object, $allowed = null, array $md = null)
     {
         if ($object instanceof \Toast\Entity) {

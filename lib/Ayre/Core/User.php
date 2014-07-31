@@ -21,7 +21,7 @@ class User extends \Toast\Entity implements Trackable, Searchable
 		'plural'	=> 'Users',
 	];
 	
-    use Trackable\Implementation;
+    use Trackable\Entity;
 
 	const ROLE_ROOT				= 'root';
 	const ROLE_ADMINISTRATOR	= 'administrator';
