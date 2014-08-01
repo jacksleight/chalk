@@ -48,8 +48,8 @@ class Content extends Ayre\Controller\Basic
 
 	public function edit(Request $req, Response $res)
 	{
-		$content = isset($req->content)
-			? $this->em($req->entity)->id($req->content)
+		$content = isset($req->route['params']['content'])
+			? $this->em($req->entity)->id($req->route['params']['content'])
 			: $this->em($req->entity)->create();
 		$req->view->content = $wrap = $this->em->wrap($content);
 

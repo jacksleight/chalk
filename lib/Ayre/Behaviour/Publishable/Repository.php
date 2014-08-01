@@ -7,8 +7,8 @@
 namespace Ayre\Behaviour\Publishable;
 
 use Doctrine\ORM\EntityRepository,
-	Doctrine\ORM\QueryBuilder,
-	Doctrine\ORM\Query;
+    Doctrine\ORM\QueryBuilder,
+    Doctrine\ORM\Query;
 
 trait Repository
 {
@@ -19,7 +19,7 @@ trait Repository
         ];
         
         if ($criteria['isPublished']) {
-            $qb->andWhere("c.status IN ('published') AND c.publishDate >= UTC_DATETIME()");
+            $query->andWhere("c.status IN ('published') AND UTC_TIMESTAMP() >= c.publishDate");
         }
     }
 }

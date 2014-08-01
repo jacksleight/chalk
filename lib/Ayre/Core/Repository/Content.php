@@ -48,10 +48,8 @@ class Content extends Repository
 		
 		$query->andWhere("c.next IS NULL");
 		
-		if (isset($sort)) {
-			$query->addOrderBy("c.{$sort[0]}", "{$sort[1]}");
-		} else {
-			$query->addOrderBy("c.modifyDate", "DESC");
+		if (!isset($sort)) {
+			$query->orderBy("c.modifyDate", "DESC");
 		}
 
 		if (isset($criteria['search'])) {
@@ -91,9 +89,6 @@ class Content extends Repository
 		if (count($criteria['statuses'])) {
 			$query->andWhere("c.status IN (:statuses)");
 			$query->setParameter('statuses', $criteria['statuses']);
-		}
-		if ($criteria['isPublished']) {
-			$query->andWhere("c.status IN ('published') AND c.publishDate >= UTC_DATETIME()");
 		}
 
 		$this->publishableQuery($query, $criteria);

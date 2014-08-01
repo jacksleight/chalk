@@ -22,15 +22,18 @@ $config->setProxyNamespace('Ayre\Proxy');
 $config->setAutoGenerateProxyClasses(true);
 // $config->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger());
 
+$cache = null;
 if ($app->isDevelopment()) {
 	$cache = new ArrayCache();
-} else if (isset($app->memcached) && $app->memcached) {
+} else if (isset($app->memcached)) {
 	$cache = new MemcachedCache();
 	$cache->setMemcached($app->memcached);
 }
-$config->setQueryCacheImpl($cache);
-$config->setResultCacheImpl($cache);
-$config->setMetadataCacheImpl($cache);
+if (isset($cache)) {
+	$config->setQueryCacheImpl($cache);
+	$config->setResultCacheImpl($cache);
+	$config->setMetadataCacheImpl($cache);
+}
 
 $evm = new EventManager();
 $evm->addEventSubscriber(new Listener());
