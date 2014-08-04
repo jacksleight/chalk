@@ -106,26 +106,18 @@ class Ayre extends App
         return $this->_baseDir;
     }
 
-    public function module($name, $module = null)
+    public function module($name, Module $value = null)
     {
-        if ($name instanceof Module) {
-            $module = $name;
-            $parts  = explode('\\', get_class($module));           
-            $name   = lcfirst($parts[count($parts) - 1]);
-        }
-        if (isset($module)) {
-            if (!$module instanceof Module) {
-                throw new Ayre\Exception("Module must be an instance of Ayre\Module");
-            }
-            $this->_modules[$name]    = $module;
-            self::$_namespaces[$name] = get_class($module);
+        if (func_num_args() > 1) {
+            $this->_modules[$name]    = $value;
+            self::$_namespaces[$name] = get_class($value);
             $this->view
-                ->baseDir($name, $module->viewDir());
+                ->baseDir($name, $value->viewDir());
             $this->controller
-                ->classNamespace($name, $module->controllerNamespace());
+                ->classNamespace($name, $value->controllerNamespace());
             $this->em->getConfiguration()->getMetadataDriverImpl()
-                ->addPaths([$name => $module->libDir()]);
-            $module->init($this);
+                ->addPaths([$name => $value->libDir()]);
+            $value->init($this);
             return $this;
         }
         return isset($this->_modules[$name])

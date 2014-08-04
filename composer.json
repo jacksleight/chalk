@@ -9,8 +9,7 @@
       {"name": "Jack Sleight", "email": "jacksleight@gmail.com"}
   ],
   "repositories": [
-    {"type": "vcs", "url": "git@github.com:jacksleight/toast.git"},
-    {"type": "vcs", "url": "git@github.com:jacksleight/coast-doctrine.git"}
+    {"type": "vcs", "url": "git@github.com:jacksleight/toast.git"}
   ],
   "require": {
     "php": ">=5.5.0",
