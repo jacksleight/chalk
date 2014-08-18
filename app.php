@@ -1,10 +1,10 @@
 <?php
-use Coast\App\Controller, 
-    Coast\App\Request, 
-    Coast\App\Response, 
-    Coast\App\Router, 
-    Coast\App\UrlResolver,
-    Coast\App\View,
+use Coast\Controller, 
+    Coast\Request, 
+    Coast\Response, 
+    Coast\Router, 
+    Coast\UrlResolver,
+    Coast\View,
     Coast\Config,
     Coast\Path,
     Coast\Url,
@@ -18,29 +18,34 @@ $app = (new Ayre(__DIR__, $config->envs))
     ->param('config', $config);
 
 $app->param('controller', new Controller())
-    ->param('router',     new Router($app->controller))
-    ->param('view',       new View())
-    ->param('memcached',  $app->import($app->file('init/memcached.php')))
-    ->param('em',         $app->import($app->file('init/doctrine.php')))
-    ->param('swift',      $app->import($app->file('init/swift.php')))
-    ->param('url',        new UrlResolver(
-            new Url("{$config->baseUrl}{$app->path()}/"),
-            $app->dir(),
-            $app->router) )
-    ->param('rootUrl',    new UrlResolver(
-            new Url("{$config->baseUrl}"),
-            $app->root->dir()) )
-    ->param('image',      (new Image(
-            $app->root->dir('public/data/file'),
-            $app->root->dir('public/data/image', true),
-            $app->url,
-            $app->import($app->file('init/transforms.php'))))
-        ->outputUrlResolver($app->rootUrl))
+    ->param('router', new Router([
+        'target' => $app->controller,
+    ]))
+    ->param('view', new View())
+    ->param('memcached', $app->import($app->file('init/memcached.php')))
+    ->param('em', $app->import($app->file('init/doctrine.php')))
+    ->param('swift', $app->import($app->file('init/swift.php')))
+    ->param('url', new UrlResolver([
+        'baseUrl' => new Url("{$config->baseUrl}{$app->path()}/"),
+        'baseDir' => $app->dir(),
+        'router'  => $app->router,
+    ]))
+    ->param('rootUrl', new UrlResolver([
+        'baseUrl' => new Url("{$config->baseUrl}"),
+        'baseDir' => $app->root->dir(),
+    ]))
+    ->param('image', new Image([
+        'baseDir'           => $app->root->dir('public/data/file'),
+        'outputDir'         => $app->root->dir('public/data/image', true),
+        'urlResolver'       => $app->url,
+        'outputUrlResolver' => $app->rootUrl,
+        'transforms'        => $app->import($app->file('init/transforms.php'))
+    ]))
     ->param('locale', new Locale([
-            'cookie'  => 'locale',
-            'locales' => [
-                'en-GB' => 'en-GB@timezone=Europe/London;currency=GBP',
-            ]]));
+        'cookie'  => 'locale',
+        'locales' => [
+            'en-GB' => 'en-GB@timezone=Europe/London;currency=GBP',
+        ]]));
 
 
 $app->module('core', new Core());

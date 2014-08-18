@@ -6,9 +6,9 @@ use Ayre,
 	FileUpload\FileUpload,
 	FileUpload\PathResolver,
 	FileUpload\FileSystem,
-	Coast\App\Controller\Action,
-	Coast\App\Request,
-	Coast\App\Response;
+	Coast\Controller\Action,
+	Coast\Request,
+	Coast\Response;
 
 class Content extends Ayre\Controller\Basic
 {

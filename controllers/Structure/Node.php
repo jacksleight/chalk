@@ -3,9 +3,9 @@ namespace Ayre\Core\Controller\Structure;
 
 use Ayre,
 	Ayre\Core,
-	Coast\App\Controller\Action,
-	Coast\App\Request,
-	Coast\App\Response;
+	Coast\Controller\Action,
+	Coast\Request,
+	Coast\Response;
 
 class Node extends Action
 {

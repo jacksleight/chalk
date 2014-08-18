@@ -1,9 +1,9 @@
 <?php
 namespace Ayre\Core\Controller;
 
-use Coast\App\Controller\Action,
-	Coast\App\Request,
-	Coast\App\Response;
+use Coast\Controller\Action,
+	Coast\Request,
+	Coast\Response;
 
 class All extends Action
 {

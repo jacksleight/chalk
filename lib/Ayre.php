@@ -112,7 +112,7 @@ class Ayre extends App
             $this->_modules[$name]    = $value;
             self::$_namespaces[$name] = get_class($value);
             $this->view
-                ->baseDir($name, $value->viewDir());
+                ->dir($name, $value->viewDir());
             $this->controller
                 ->classNamespace($name, $value->controllerNamespace());
             $this->em->getConfiguration()->getMetadataDriverImpl()

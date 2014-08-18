@@ -9,8 +9,8 @@ namespace Ayre;
 use DOMDocument,
     DOMXPath,
     Coast\Url,
-    Coast\App\Request,
-    Coast\App\Response,
+    Coast\Request,
+    Coast\Response,
     Ayre\Core\Content,
     Ayre\Core\Structure\Node;
 

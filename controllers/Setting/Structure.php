@@ -2,9 +2,9 @@
 namespace Ayre\Core\Controller\Setting;
 
 use Ayre,
-	Coast\App\Controller\Action,
-	Coast\App\Request,
-	Coast\App\Response;
+	Coast\Controller\Action,
+	Coast\Request,
+	Coast\Response;
 
 class Structure extends Ayre\Controller\Basic
 {

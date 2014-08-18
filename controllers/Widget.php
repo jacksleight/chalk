@@ -3,9 +3,9 @@ namespace Ayre\Core\Controller;
 
 use Ayre,
 	Ayre\Core,
-	Coast\App\Controller\Action,
-	Coast\App\Request,
-	Coast\App\Response;
+	Coast\Controller\Action,
+	Coast\Request,
+	Coast\Response;
 
 class Widget extends Ayre\Controller\Basic
 {

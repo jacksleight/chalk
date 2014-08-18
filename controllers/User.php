@@ -2,9 +2,9 @@
 namespace Ayre\Core\Controller;
 
 use Ayre,
-	Coast\App\Controller\Action,
-	Coast\App\Request,
-	Coast\App\Response;
+	Coast\Controller\Action,
+	Coast\Request,
+	Coast\Response;
 
 class User extends Ayre\Controller\Basic
 {

@@ -3,9 +3,9 @@ namespace Ayre\Core\Controller;
 
 use Ayre,
 	Ayre\Core\Structure\Iterator,
-	Coast\App\Controller\Action,
-	Coast\App\Request,
-	Coast\App\Response;
+	Coast\Controller\Action,
+	Coast\Request,
+	Coast\Response;
 
 class Structure extends Action
 {
