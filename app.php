@@ -1,15 +1,16 @@
 <?php
-use Coast\Controller, 
-    Coast\Request, 
-    Coast\Response, 
-    Coast\Router, 
-    Coast\UrlResolver,
-    Coast\View,
+use 
+    Ayre\Core,
+    Coast\App\Controller, 
+    Coast\App\Image,
+    Coast\App\Router, 
+    Coast\App\UrlResolver,
+    Coast\App\View,
     Coast\Config,
     Coast\Path,
+    Coast\Request, 
+    Coast\Response, 
     Coast\Url,
-    Ayre\Core,
-    Toast\App\Image,
     Toast\App\Locale;
 
 $app = (new Ayre(__DIR__, $config->envs))

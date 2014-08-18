@@ -3,7 +3,7 @@ namespace Ayre\Core\Controller;
 
 use Ayre,
 	Ayre\Core,
-	Coast\Controller\Action,
+	Coast\App\Controller\Action,
 	Coast\Request,
 	Coast\Response;
 

@@ -6,7 +6,7 @@ use Ayre,
 	FileUpload\FileUpload,
 	FileUpload\PathResolver,
 	FileUpload\FileSystem,
-	Coast\Controller\Action,
+	Coast\App\Controller\Action,
 	Coast\Request,
 	Coast\Response;
 

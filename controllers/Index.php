@@ -1,7 +1,7 @@
 <?php
 namespace Ayre\Core\Controller;
 
-use Coast\Controller\Action,
+use Coast\App\Controller\Action,
 	Coast\Request,
 	Coast\Response;
 
