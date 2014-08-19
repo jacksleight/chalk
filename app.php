@@ -54,9 +54,9 @@ $app->module('root', $app->root);
 
 $app->styles($config->styles);
 
-$app->stack($app->image)
-    ->stack($app->locale)
-    ->stack($app->router);
+$app->executable($app->image)
+    ->executable($app->locale)
+    ->executable($app->router);
 
 $app->notFoundHandler(function(Request $req, Response $res) {
     return $res

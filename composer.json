@@ -15,7 +15,7 @@
     "php": ">=5.5.0",
     "doctrine/orm": "2.4.*",
     "swiftmailer/swiftmailer": "5.1.*",
-    "intervention/image": "1.6.*",
+    "intervention/image": "2.0.*",
     "gargron/fileupload": "1.0.*",
     "nesbot/carbon": "1.8.*",
     "jacksleight/coast": "dev-master",
