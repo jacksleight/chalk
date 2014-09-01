@@ -40,17 +40,19 @@ $repo->fetchTree($structure);
 		<?php
 		$repo->fetchTree($structure);
 		?>
-		<ol class="tree-root">
-			<li class="tree-node" data-id="<?= $structure->root->id ?>">
-				<a href="<?= $this->url([
-					'structure'	=> $structure->id,
-					'action'	=> 'edit',
-					'node'		=> $structure->root->id,
-				], 'structure_node') ?>" class="tree-item <?= $structure->root->id == $req->node ? 'active' : '' ?> tree-item-<?= $structure->root->content->status ?> <?= $structure->root->isHidden ? 'tree-item-hidden' : '' ?>">
-					<?= $structure->root->nameSmart ?>
-				</a>
-			</li>
-		</ol>
+		<? if (isset($structure->root->contentMaster)) { ?>
+			<ol class="tree-root">
+				<li class="tree-node" data-id="<?= $structure->root->id ?>">
+					<a href="<?= $this->url([
+						'structure'	=> $structure->id,
+						'action'	=> 'edit',
+						'node'		=> $structure->root->id,
+					], 'structure_node') ?>" class="tree-item <?= $structure->root->id == $req->node ? 'active' : '' ?> tree-item-<?= $structure->root->content->status ?> <?= $structure->root->isHidden ? 'tree-item-hidden' : '' ?>">
+						<?= $structure->root->nameSmart ?>
+					</a>
+				</li>
+			</ol>
+		<? } ?>
 		<div class="tree">
 			<?php  
 			$it		= $structure->root->iterator();

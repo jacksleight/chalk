@@ -28,7 +28,7 @@ class Content extends Repository
 			->setParameters([
 				'id' => $id,
 			])
-			->getSingleResult();
+			->getOneOrNullResult();
 	}
 
 	public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)

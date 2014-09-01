@@ -216,7 +216,7 @@ class Ayre extends App
     public function layouts()
     {
         $layouts = [];
-        $dir = $this->root->dir('views/layouts/page');
+        $dir = $this->root->dir('app/views/layouts/page');
         if ($dir->exists()) {
             $it = $dir->iterator(null, true);
             foreach ($it as $file) {
