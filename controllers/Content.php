@@ -35,10 +35,9 @@ class Content extends Ayre\Controller\Basic
 		if (count($index->contents)) {
 			$contents = [];
 			foreach ($index->contents as $content) {
-				$contentMaster = $content->master;
 				$contents[] = [
-					'id'	=> $contentMaster->id,
-					'name'	=> $contentMaster->name,
+					'id'	=> $content->master->id,
+					'name'	=> $content->master->name,
 					'card'	=> $this->view->render('content/card', ['content' => $content])->toString(),
 				];
 			}

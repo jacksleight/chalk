@@ -1,8 +1,9 @@
 <?php
+use Coast\Cli;
+
 require __DIR__ . '/../../../../app.php';
 
-header('Content-Type: text/plain');
-$cli = new \Toast\CLI();
+$cli = new Cli();
 
 $em		= $app->ayre->em;
 $conn	= $em->getConnection();
@@ -12,7 +13,7 @@ try {
 
 	$em->beginTransaction();
 	
-	$cli->message('Updating schema..');
+	$cli->output('Updating schema..', true);
 	$updateSchemaSql = $schema->getUpdateSchemaSql($em->getMetadataFactory()->getAllMetadata(), false);
 	$key = array_search('DROP INDEX content ON core_index', $updateSchemaSql);
 	if ($key !== false) {
@@ -20,19 +21,17 @@ try {
 	}
 	if (count($updateSchemaSql)) {
 		foreach ($updateSchemaSql as $sql) {
-			$cli->status("Executing '{$sql}'", 1);
+			$cli->output("  Executing '{$sql}'", true);
 			$conn->exec($sql);
-			$cli->ok();
 		}
 		
-		$cli->status('Comitting to database');
+		$cli->output('Comitting to database', true);
 		$em->commit();
-		$cli->ok();
 	} else {
-		$cli->message('Nothing to update.', 1);
+		$cli->output('Nothing to update', true);
 	}
 
-	$cli->message('DONE');
+	$cli->output('DONE', true);
 
 } catch (Exception $e) {
 

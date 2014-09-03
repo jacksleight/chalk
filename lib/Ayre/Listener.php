@@ -97,6 +97,14 @@ class Listener implements EventSubscriber
 
     protected function _injectMetadata($class, $meta)
     {
+        $types = [
+            1  => 'oneToOne',
+            2  => 'manyToOne',
+            4  => 'oneToMany',
+            8  => 'manyToMany',
+            3  => 'toOne',
+            12 => 'toMany',
+        ];
         $md = [];
         foreach ($meta->fieldMappings as $mapping) {
             $md['fields'][$mapping['fieldName']] = [
@@ -107,7 +115,7 @@ class Listener implements EventSubscriber
         }
         foreach ($meta->associationMappings as $mapping) {
             $md['associations'][$mapping['fieldName']] = [
-                'type'     => $mapping['type'],
+                'type'     => $types[$mapping['type']],
                 'entity'   => $mapping['targetEntity'],
                 'nullable' => isset($mapping['joinColumns'][0]['nullable']) ? $mapping['joinColumns'][0]['nullable'] : false,
             ];

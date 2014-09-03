@@ -30,7 +30,7 @@ trait Entity
         return array(
             'fields' => array(
                 'status' => array(
-                    'values' => [
+                'values' => [
                         Ayre::STATUS_DRAFT     => 'Draft',
                         Ayre::STATUS_PUBLISHED => 'Published',
                         Ayre::STATUS_ARCHIVED  => 'Archived',
@@ -52,5 +52,20 @@ trait Entity
             return $this;
         }
         return $this->status;
+    }
+
+    public function isPending()
+    {
+        return $this->status == Ayre::STATUS_PENDING;
+    }
+
+    public function isPublished()
+    {
+        return $this->status == Ayre::STATUS_PUBLISHED && $this->publishDate <= new \DateTime('now');
+    }
+
+    public function isArchived()
+    {
+        return $this->status == Ayre::STATUS_ARCHIVED;
     }
 }

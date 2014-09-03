@@ -92,21 +92,6 @@ trait Entity
         return !isset($this->next);
     }
 
-    public function isPending()
-    {
-        return $this->status == Ayre::STATUS_PENDING;
-    }
-
-    public function isPublished()
-    {
-        return $this->status == Ayre::STATUS_PUBLISHED;
-    }
-
-    public function isArchived()
-    {
-        return $this->status == Ayre::STATUS_ARCHIVED;
-    }
-
     public function isNewMaster()
     {
         return $this->isNew() && $this->isMaster();

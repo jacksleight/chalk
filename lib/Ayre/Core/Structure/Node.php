@@ -72,7 +72,7 @@ class Node extends \Toast\Entity
      * @ManyToOne(targetEntity="\Ayre\Core\Content", inversedBy="nodes")
      * @JoinColumn(nullable=true)
      */
-    protected $contentMaster;
+    protected $content;
 
     /**
      * @Column(type="string", nullable=true)
@@ -104,30 +104,30 @@ class Node extends \Toast\Entity
         return !isset($this->parent);
     }
 
-    public function contentMaster(Content $contentMaster = null)
+    public function content(Content $content = null)
     {
-        if (isset($contentMaster)) {
-            if (!$contentMaster->isMaster()) {
-                throw new \Ayre\Exception("Content master can only be set to a master content version");
+        if (isset($content)) {
+            if (!$content->isMaster()) {
+                throw new \Ayre\Exception("Content can only be set to a master content version");
             }
-            $this->contentMaster = $contentMaster;
-            $this->contentMaster->nodes->add($this);
+            $this->content = $content;
+            $this->content->nodes->add($this);
         }
-        return $this->contentMaster;
+        return $this->content;
     }
 
     public function nameSmart()
     {
         return isset($this->name)
             ? $this->name
-            : (isset($this->contentMaster) ? $this->content->name : $this->id);
+            : (isset($this->content->last) ? $this->content->name : $this->id);
     }
 
     public function slugSmart()
     {
         return isset($this->slug)
             ? $this->slug
-            : (isset($this->contentMaster) ? $this->content->slug : $this->id);
+            : (isset($this->content->last) ? $this->content->slug : $this->id);
     }
 
     public function name($name = null)
@@ -164,11 +164,6 @@ class Node extends \Toast\Entity
         return new \RecursiveIteratorIterator(
             new \Ayre\Core\Structure\Iterator($include ? [$this] : $this->children),
             \RecursiveIteratorIterator::SELF_FIRST);
-    }
-
-    public function content()
-    {
-        return $this->contentMaster->last;
     }
 
     public function __clone()

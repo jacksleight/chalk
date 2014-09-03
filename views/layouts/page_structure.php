@@ -40,7 +40,7 @@ $repo->fetchTree($structure);
 		<?php
 		$repo->fetchTree($structure);
 		?>
-		<? if (isset($structure->root->contentMaster)) { ?>
+		<? if (isset($structure->root->content)) { ?>
 			<ol class="tree-root">
 				<li class="tree-node" data-id="<?= $structure->root->id ?>">
 					<a href="<?= $this->url([

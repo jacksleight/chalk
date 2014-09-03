@@ -34,12 +34,12 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
         $this->_domain = $this->_ayre->em('Ayre\Core\Domain')->fetchFirst();
         $nodes = $this->_ayre->em('Ayre\Core\Structure')->fetchNodes($this->_domain->structure);
         foreach ($nodes as $node) {
-            $this->_nodes[$node->id]                   = $node;
-            $this->_paths[$node->path]                 = $node;
-            $this->_contents[$node->contentMaster->id] = $node;
+            $this->_nodes[$node->id]             = $node;
+            $this->_paths[$node->path]           = $node;
+            $this->_contents[$node->content->id] = $node;
         }
 
-        $path = $req->path();
+        $path = rtrim($req->path(), '/');
         if (preg_match('/^_c([\d]+)$/', $path, $match)) {
             $node    = null;
             $content = $match[1];
@@ -54,6 +54,9 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
             $node = isset($this->_paths[$path])
                 ? $this->_paths[$path]
                 : null;
+            if ($req->path() != $node->path) {
+                return $res->redirect($this->app->url($node->path));
+            }
             if (!$node) {
                 return;
             }
