@@ -74,7 +74,7 @@ $count = $this->em('core_content')->fetchCountForPublish();
 			<ul class="toolbar">
 				<li>
 					<i class="fa fa-user"></i>
-					<?= $req->user->name ?>
+					<a href="<?= $this->url([], 'profile', true) ?>"><?= $req->user->name ?></a>
 				</li>
 				<li class="space">
 					<i class="fa fa-sign-out"></i>

@@ -158,6 +158,13 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
             ->redirect($this->app->url->file($file));
     }
 
+    protected function _alias(Request $req, Response $res)
+    {
+        $content = $req->content->content();
+        return $res
+            ->redirect($this->url($content));
+    }
+
     protected function _url(Request $req, Response $res)
     {
         $url = $req->content->url();

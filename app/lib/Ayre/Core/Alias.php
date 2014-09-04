@@ -18,4 +18,10 @@ class Alias extends Content
 		'singular'	=> 'Alias',
 		'plural'	=> 'Aliases',
 	];
+
+    /**
+     * @ManyToOne(targetEntity="\Ayre\Core\Content")
+     * @JoinColumn(nullable=true)
+     */
+    protected $content;
 }

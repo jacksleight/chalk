@@ -13,6 +13,10 @@ $app->router
 		'controller' => 'auth',
 		'action'     => 'logout',
 	])
+	->all('profile', "profile", [
+		'controller' => 'profile',
+		'action'     => 'edit',
+	])
 	->all('prefs', "prefs", [
 		'controller' => 'index',
 		'action'     => 'prefs',

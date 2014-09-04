@@ -15,6 +15,15 @@
 					'name'		=> 'name',
 					'label'		=> 'Name',
 					'autofocus'	=> true,
+					'disabled'	=> $content->isArchived(),
+				), 'core') ?>
+				<?= $this->render('/elements/form-item', array(
+					'type'		=> 'content',
+					'entity'	=> $content,
+					'name'		=> 'content',
+					'label'		=> 'Content',
+					'browser'	=> ['entity' => 'core_content'],
+					'disabled'	=> $content->isArchived(),
 				), 'core') ?>
 			</div>
 		</fieldset>

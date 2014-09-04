@@ -36,7 +36,7 @@ try {
 } catch (Exception $e) {
 
 	$em->rollback();
-	$cli->error();
+	$cli->error('ERROR: ' . $e->getMessage());
 	throw $e;
 
 }
