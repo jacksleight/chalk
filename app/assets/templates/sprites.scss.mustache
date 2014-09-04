@@ -1,0 +1,10 @@
+${{options.cssClass}}-names:
+	{{#items}}
+	'{{name}}',
+	{{/items}}
+	'';
+${{options.cssClass}}-values:
+	{{#items}}
+	{{px.offset_x}} {{px.offset_y}} {{px.width}} {{px.height}},
+	{{/items}}
+	'';

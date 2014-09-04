@@ -23,12 +23,12 @@ $app->param('controller', new Controller())
         'target' => $app->controller,
     ]))
     ->param('view', new View())
-    ->param('memcached', $app->import($app->file('init/memcached.php')))
-    ->param('em', $app->import($app->file('init/doctrine.php')))
-    ->param('swift', $app->import($app->file('init/swift.php')))
+    ->param('memcached', $app->import($app->file('app/memcached.php')))
+    ->param('em', $app->import($app->file('app/doctrine.php')))
+    ->param('swift', $app->import($app->file('app/swift.php')))
     ->param('url', new UrlResolver([
         'baseUrl' => new Url("{$config->baseUrl}{$app->path()}/"),
-        'baseDir' => $app->dir(),
+        'baseDir' => $app->dir('public'),
         'router'  => $app->router,
     ]))
     ->param('rootUrl', new UrlResolver([
@@ -40,7 +40,7 @@ $app->param('controller', new Controller())
         'outputDir'         => $app->root->dir('public/data/image', true),
         'urlResolver'       => $app->url,
         'outputUrlResolver' => $app->rootUrl,
-        'transforms'        => $app->import($app->file('init/transforms.php'))
+        'transforms'        => $app->import($app->file('app/transforms.php'))
     ]))
     ->param('locale', new Locale([
         'cookie'  => 'locale',
@@ -72,8 +72,8 @@ if (!$app->isDebug()) {
 }
 
 \Ayre\Core\File::baseDir($app->root->dir('public/data/file', true));
-\Ayre\Core\File::mimeTypes($app->import($app->file('init/mime-types.php')));
+\Ayre\Core\File::mimeTypes($app->import($app->file('app/mime-types.php')));
 
-$app->import($app->file('init/routes.php'));
+$app->import($app->file('app/routes.php'));
 
 return $app;
