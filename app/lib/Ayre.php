@@ -4,6 +4,8 @@ use Coast\App,
 
 class Ayre extends App
 {
+    const VERSION           = '0.1';
+
     const FORMAT_DATE       = 'jS F Y';
 
     const STATUS_DRAFT      = 'draft';
@@ -11,11 +13,8 @@ class Ayre extends App
     const STATUS_PUBLISHED  = 'published';
     const STATUS_ARCHIVED   = 'archived';
 
-    protected static $_namespaces   = [];
-    protected static $_classes      = [];
-    protected static $_types        = [];
-    protected static $_slugs        = [];
-    protected static $_paths        = [];
+    protected static $_namespaces = [];
+    protected static $_classes    = [];
 
     // protected static $_publishables  = [
     //  'Ayre\Core\Content',
@@ -57,39 +56,45 @@ class Ayre extends App
             throw new Exception("Class '{$class}' does not belong to a registered module");   
         }
 
-        $alias       = [$alias];       
-        $namespace   = explode('\\', $namespace);
-        $local       = array_slice(explode('\\', $class), count($namespace));
-        $entity      = array_merge($alias, $local);
-        $moduleLower = array_map('lcfirst', $alias);
-        $localLower  = array_map('lcfirst', $local);
-        $entityLower = array_map('lcfirst', $entity);
-
-        $name = implode('_', $entityLower);
-        $slug = implode('-', $entityLower);
-        $path = implode('/', $entityLower);
-        $info = [
-            'singular'  => $name,
-            'plural'    => $name,
-        ];
-        self::$_types[$name] = $class;
-        self::$_slugs[$slug] = $class;
-        self::$_paths[$path] = $class;
+        $alias         = [$alias];       
+        $namespace     = explode('\\', $namespace);
+        $local         = array_slice(explode('\\', $class), count($namespace));
+        $entity        = array_merge($alias, $local);
+        
+        $aliasLcFirst  = array_map('lcfirst', $alias);
+        $aliasLcSplit  = array_map(function($value) {
+            return strtolower(\Coast\str_camel_split($value, '-'));
+        }, $alias);
+        $localLcFirst  = array_map('lcfirst', $local);
+        $localLcSplit  = array_map(function($value) {
+            return strtolower(\Coast\str_camel_split($value, '-'));
+        }, $local);
+        $entityLcFirst = array_map('lcfirst', $entity);
+        $entityLcSplit = array_map(function($value) {
+            return strtolower(\Coast\str_camel_split($value, '-'));
+        }, $entity);
+        
         return self::$_classes[$class] = (object) ([
             'class' => $class,
-            'name'  => $name,
-            'slug'  => $slug,
+            'name'  => implode('_', $entityLcFirst),
+            'path'  => implode('/', $entityLcSplit),
+            'var'   => lcfirst(implode('', $entity)),
             'module' => (object) [
                 'class' => implode('\\', $namespace),
-                'name'  => implode('_', $moduleLower),
+                'name'  => implode('_', $aliasLcFirst),
+                'path'  => implode('/', $aliasLcSplit),
+                'var'   => lcfirst(implode('', $alias)),
             ],
             'local' => (object) [
                 'class' => implode('\\', $local),
-                'name'  => implode('_', $localLower),
-                'path'  => implode('/', $localLower),
+                'name'  => implode('_', $localLcFirst),
+                'path'  => implode('/', $localLcSplit),
                 'var'   => lcfirst(implode('', $local)),
             ],
-        ] + $class::$info + $info);
+        ] + $class::$info + [
+            'singular'  => implode('_', $entityLcFirst),
+            'plural'    => implode('_', $entityLcFirst),
+        ]);
     }
 
     public function __construct($baseDir, array $envs = array())
