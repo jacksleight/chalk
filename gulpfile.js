@@ -159,7 +159,9 @@ gulp.task('scripts-editor', function() {
 		.pipe(include({extensions: ['js']}))
 		.pipe(cached('scripts'))
 		.pipe(gulp.dest(targetPath + scriptsDir))
-		.pipe(livereload(server));
+		.pipe(livereload(server))
+		.pipe(rename({suffix: '.min'}))
+		.pipe(gulp.dest(targetPath + scriptsDir));
 });
 
 /* Styles */
