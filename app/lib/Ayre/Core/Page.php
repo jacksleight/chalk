@@ -20,7 +20,7 @@ class Page extends Document
 		'plural'	=> 'Pages',
 	];
 
-	protected $contents = [
+	protected $blocks = [
 		['name' => 'primary',   'value' => ''],
 		['name' => 'secondary', 'value' => ''],
 	];

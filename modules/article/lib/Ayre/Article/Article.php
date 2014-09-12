@@ -19,7 +19,7 @@ class Article extends Document
 		'plural'	=> 'Articles',
 	];
 
-	protected $contents = [
+	protected $blocks = [
 		['name' => 'primary', 'value' => ''],
 	];
 

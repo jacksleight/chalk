@@ -20,37 +20,20 @@ class Document extends Content
 	];
 
     /**
-     * @Column(type="coast_json")
-     */
-	protected $metas = [];
-
-    /**
-     * @Column(type="coast_json")
-     */
-	protected $contents = [];
-
-    /**
      * @Column(type="text", nullable=true)
      */
 	protected $summary;
 
-	public function metas(array $metas = null)
-	{
-		if (isset($metas)) {
-			foreach ($metas as $i => $meta) {
-				if (!strlen($meta['value'])) {
-					unset($metas[$i]);
-				}
-			}
-			$this->metas = $metas;
-		}
-		return $this->metas;
-	}
+    /**
+     * @Column(type="coast_json")
+     */
+	protected $blocks = [];
 	
 	public function searchFields()
 	{
 		return array_merge(parent::searchFields(), [
-			'contents',
+			'summary',
+			'blocks',
 		]);
 	}
 }
