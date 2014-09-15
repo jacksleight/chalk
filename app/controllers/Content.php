@@ -29,7 +29,7 @@ class Content extends Ayre\Controller\Basic
 	public function select(Request $req, Response $res)
 	{
 		$wrap = $this->em->wrap($index = new \Ayre\Core\Model\Index());
-		$wrap->graphFromArray($req->queryParams());
+		$wrap->graphFromArray($req->bodyParams());
 		$req->view->index = $wrap;
 
 		if (count($index->contents)) {

@@ -1,11 +1,12 @@
 <?php
+$method		= isset($method) ? $method : 'get';
 $close		= isset($close) ? $close : false;
 $thumbs		= isset($thumbs) ? $thumbs : false;
 
 $contents = $this->em($entity)
 	->all($index->toArray());
 ?>
-<form action="<?= $this->url->route() ?>" class="fill" data-modal-size="fullscreen">
+<form action="<?= $this->url->route() ?>" class="fill" data-modal-size="fullscreen" method="<?= $method ?>">
 	<?= $this->render('/elements/form-input', array(
 		'type'			=> 'input_hidden',
 		'entity'		=> $index,

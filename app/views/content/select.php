@@ -4,6 +4,7 @@
 <? } ?>
 
 <?= $this->render('/content/browser', [
-	'close'			=> true,
-	'thumbs'		=> $entity->name == 'core_file',
+	'method'	=> 'post',
+	'close'		=> true,
+	'thumbs'	=> $entity->name == 'core_file',
 ]) ?>
