@@ -3,7 +3,7 @@ $code	= $this->app->isDebug() ? '' : '.min';
 $lang	= $this->locale->getLanguage() . '-' . $this->locale->getRegion();
 $title	= (isset($title) 
 	? $title . ' – '
-	: null) . 'CMS';
+	: null) . 'Chalk';
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="<?= $lang ?>">

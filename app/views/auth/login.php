@@ -21,6 +21,6 @@
 		</fieldset>
 	</form>
 	<footer class="footer c" role="contentinfo">
-		<p>CMS 0.1.0</p>
+		<p>Chalk 0.1.0</p>
 	</footer>
 </div></div>

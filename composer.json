@@ -1,9 +1,9 @@
 {
   "name": "jacksleight/chalk",
   "type": "project",
-  "description": "CMS",
+  "description": "Content management system built on Coast",
   "keywords": ["cms"],
-  "homepage": "http://jacksleight.com/",
+  "homepage": "http://chalk.jacksleight.com/",
   "license": "MIT",
   "authors": [
       {"name": "Jack Sleight", "email": "jacksleight@gmail.com"}
