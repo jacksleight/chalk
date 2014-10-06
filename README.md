@@ -1,6 +1,6 @@
 # Chalk
 
-[![License](https://poser.pugx.org/jacksleight/coast/license.png)](https://packagist.org/packages/jacksleight/coast)
+[![License](https://poser.pugx.org/jacksleight/chalk/license.png)](https://packagist.org/packages/jacksleight/chalk)
 
 Chalk is a content management system built on Coast. **This project is currently in development, set up installation instructions will be added here in due course.**
 
