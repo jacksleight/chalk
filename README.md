@@ -1,24 +1,8 @@
 # Chalk
 
-Chalk is a content management system built on Coast.
+[![License](https://poser.pugx.org/jacksleight/coast/license.png)](https://packagist.org/packages/jacksleight/coast)
 
-## Installation
-
-The easiest way to install Chalk is through [Composer](https://getcomposer.org/doc/00-intro.md), by creating a file called `composer.json` containing:
-
-```json
-{
-    "require": {
-        "jacksleight/chalk": "dev-master"
-    }
-}
-```
-
-And then running:
-
-```bash
-composer.phar install
-```
+Chalk is a content management system built on Coast. **This project is currently in development, set up installation instructions will be added here in due course.**
 
 ## Licence
 
