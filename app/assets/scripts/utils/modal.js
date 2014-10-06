@@ -3,7 +3,7 @@
 	var template = $('.modal-template').html();
 	Mustache.parse(template);
 
-	Ayre.modal = function(url, options, cb) {
+	Chalk.modal = function(url, options, cb) {
 		
 		cb = cb || function() {};
 		var modal	= $($.parseHTML(Mustache.render(template).trim())[0]);
@@ -35,7 +35,7 @@
 		var update = function(html) {
 			content.html(html);
 			setTimeout(function() {
-				Ayre.initialize(content);
+				Chalk.initialize(content);
 			}, 1);			
 			
 			var size = content.find('> :first-child').attr('data-modal-size');
@@ -89,7 +89,7 @@
 
 	$('[rel=modal]').click(function(ev) {
 		ev.preventDefault();
-		Ayre.modal($(ev.target).attr('href'));
+		Chalk.modal($(ev.target).attr('href'));
 	});
 
 })();

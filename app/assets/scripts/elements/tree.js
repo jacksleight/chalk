@@ -1,4 +1,4 @@
-Ayre.component('.structure', function(i, el) {
+Chalk.component('.structure', function(i, el) {
     
     var tree = $(el).find('.tree');
     tree.nestable({
@@ -17,12 +17,12 @@ Ayre.component('.structure', function(i, el) {
             $(el).find('.structure-submit').prop('disabled', false);
             $(el).find('.structure-data').val(JSON.stringify(this.serialize()));
             nodes[data.destId] = 1;
-            Ayre.set({
+            Chalk.set({
                 nodes: nodes
             });
         }
     })
-    var nodes = Ayre.prefs.nodes || {};
+    var nodes = Chalk.prefs.nodes || {};
     tree.find('li').each(function() {
         var id = $(this).attr('data-id');
         if (!nodes[id] || nodes[id] == 0) {
@@ -42,7 +42,7 @@ Ayre.component('.structure', function(i, el) {
         var id     = target.closest('li').attr('data-id');
         var expand = target.attr('data-action') == 'expand';
         nodes[id]  = expand ? 1 : 0;
-        Ayre.set({
+        Chalk.set({
             nodes: nodes
         });
     });

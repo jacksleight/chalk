@@ -1,5 +1,5 @@
 <?php 
-$browser['entity'] = \Ayre::entity(isset($browser['entity'])
+$browser['entity'] = \Chalk::entity(isset($browser['entity'])
 	? $browser['entity']
 	: 'core_content');
 ?>

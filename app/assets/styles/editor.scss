@@ -65,7 +65,7 @@ hr {
 	border-top: 1px solid $color-divide;
 }
 
-*[data-ayre-widget] {
+*[data-chalk-widget] {
 	margin: 1em 0;
 	border: 1px solid $color-quieter;
 	color: $color-quieter;
@@ -79,6 +79,6 @@ hr {
 	}
 	&:before {
 		content: 'Placeholder – Click to Edit';
-		// content: attr(data-ayre-widget);
+		// content: attr(data-chalk-widget);
 	}
 }

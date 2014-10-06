@@ -1,8 +1,8 @@
 <?php
-namespace Ayre\Core\Controller;
+namespace Chalk\Core\Controller;
 
-use Ayre,
-	Ayre\Core\Structure\Iterator,
+use Chalk,
+	Chalk\Core\Structure\Iterator,
 	Coast\App\Controller\Action,
 	Coast\Request,
 	Coast\Response;
@@ -23,7 +23,7 @@ class Structure extends Action
 	public function reorder(Request $req, Response $res)
 	{
 		if (!$req->isPost()) {
-			throw new \Ayre\Exception("Reorder action only accepts POST requests");
+			throw new \Chalk\Exception("Reorder action only accepts POST requests");
 		}
 		if (!$req->data) {
 			return $res->redirect($this->url(array(

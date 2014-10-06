@@ -9,7 +9,7 @@
 	<?php
 	$items = [];
 	foreach ($this->app->contentClasses() as $contentClass) {
-		$entity = \Ayre::entity($contentClass);
+		$entity = \Chalk::entity($contentClass);
 		$items[] = [
 			'label' => $entity->plural,
 			'name'	=> 'content',

@@ -5,7 +5,7 @@ require __DIR__ . '/../../../../app.php';
 
 $cli = new Cli();
 
-$em		= $app->ayre->em;
+$em		= $app->chalk->em;
 $conn	= $em->getConnection();
 $schema	= new \Doctrine\ORM\Tools\SchemaTool($em);
 

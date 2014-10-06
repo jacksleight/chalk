@@ -1,5 +1,5 @@
 <?php
-$filter = $this->em->wrap(new \Ayre\Core\Model\Index())
+$filter = $this->em->wrap(new \Chalk\Core\Model\Index())
 	->graphFromArray($req->queryParams());
 $contents = $this->em($entity)
 	->fetchAll($filter->toArray());

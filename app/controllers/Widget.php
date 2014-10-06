@@ -1,19 +1,19 @@
 <?php
-namespace Ayre\Core\Controller;
+namespace Chalk\Core\Controller;
 
-use Ayre,
-	Ayre\Core,
+use Chalk,
+	Chalk\Core,
 	Coast\App\Controller\Action,
 	Coast\Request,
 	Coast\Response;
 
-class Widget extends Ayre\Controller\Basic
+class Widget extends Chalk\Controller\Basic
 {
 	public function preDispatch(Request $req, Response $res)
 	{
 		$req->view->entity
 			= $req->entity
-			= Ayre::entity($req->entity);
+			= Chalk::entity($req->entity);
 	}
 
 	public function edit(Request $req, Response $res)

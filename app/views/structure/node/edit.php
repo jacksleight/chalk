@@ -1,7 +1,7 @@
 <?php
 $structure	= $this->em('core_structure')->id($req->structure);
 $content	= $node->content;
-$entity	= \Ayre::entity($content->getObject());
+$entity	= \Chalk::entity($content->getObject());
 ?>
 
 <? $this->layout('/layouts/page_structure') ?>

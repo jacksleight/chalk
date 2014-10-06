@@ -1,7 +1,7 @@
 <? $this->layout('/layouts/page_settings') ?>
 <? $this->block('main') ?>
 <?php
-$filter = $this->em->wrap(new \Ayre\Core\Model\Index())
+$filter = $this->em->wrap(new \Chalk\Core\Model\Index())
 	->graphFromArray($req->queryParams());
 $users = $this->em($entity)
 	->fetchAll($filter->toArray());
@@ -67,7 +67,7 @@ $users = $this->em($entity)
 				</td>
 				<td class="col-role">
 					<?= ucfirst($user->isRoot()
-						? \Ayre\Core\User::ROLE_ADMINISTRATOR
+						? \Chalk\Core\User::ROLE_ADMINISTRATOR
 						: $user->role) ?>
 				</td>
 			</tr>

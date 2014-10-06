@@ -1,5 +1,5 @@
 <div class="card">	
-	<? if ($content instanceof \Ayre\Core\File && $content->file->exists() && $content->isGdCompatible()) { ?>
+	<? if ($content instanceof \Chalk\Core\File && $content->file->exists() && $content->isGdCompatible()) { ?>
 		<img src="<?= $this->image(
 			$content->file,
 			'resize',

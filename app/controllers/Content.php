@@ -1,8 +1,8 @@
 <?php
-namespace Ayre\Core\Controller;
+namespace Chalk\Core\Controller;
 
-use Ayre,
-	Ayre\Core,
+use Chalk,
+	Chalk\Core,
 	FileUpload\FileUpload,
 	FileUpload\PathResolver,
 	FileUpload\FileSystem,
@@ -10,25 +10,25 @@ use Ayre,
 	Coast\Request,
 	Coast\Response;
 
-class Content extends Ayre\Controller\Basic
+class Content extends Chalk\Controller\Basic
 {
 	public function preDispatch(Request $req, Response $res)
 	{
 		$req->view->entity
 			= $req->entity
-			= Ayre::entity($req->entity ? $req->entity : 'core_content');
+			= Chalk::entity($req->entity ? $req->entity : 'core_content');
 	}
 
 	public function index(Request $req, Response $res)
 	{
-		$wrap = $this->em->wrap($index = new \Ayre\Core\Model\Index());
+		$wrap = $this->em->wrap($index = new \Chalk\Core\Model\Index());
 		$wrap->graphFromArray($req->queryParams());
 		$req->view->index = $wrap;
 	}
 
 	public function select(Request $req, Response $res)
 	{
-		$wrap = $this->em->wrap($index = new \Ayre\Core\Model\Index());
+		$wrap = $this->em->wrap($index = new \Chalk\Core\Model\Index());
 		$wrap->graphFromArray($req->bodyParams());
 		$req->view->index = $wrap;
 
@@ -79,7 +79,7 @@ class Content extends Ayre\Controller\Basic
 	public function upload(Request $req, Response $res)
 	{
 		if (!$req->isPost()) {
-			throw new \Ayre\Exception("Upload action only accepts POST requests");
+			throw new \Chalk\Exception("Upload action only accepts POST requests");
 		}
 
 		$dir      = $this->root->dir('data/upload', true);
@@ -90,7 +90,7 @@ class Content extends Ayre\Controller\Basic
 		list($uploads, $headers) = $uploader->processAll();
 		foreach ($uploads as $upload) {
 			if (isset($upload->path)) {
-				$content = new \Ayre\Core\File();
+				$content = new \Chalk\Core\File();
 				$content->newFile = new \Coast\File($upload->path);
 				$this->em->persist($content);
 				$this->em->flush();
@@ -111,7 +111,7 @@ class Content extends Ayre\Controller\Basic
 	{
 		$content = $this->em($req->entity)->find($req->content);
 
-		$content->status = \Ayre::STATUS_ARCHIVED;
+		$content->status = \Chalk::STATUS_ARCHIVED;
 		$this->em->flush();
 
 		return $res->redirect($this->url(array(

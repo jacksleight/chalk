@@ -48,9 +48,9 @@
 					'type'		=> 'input_radio',
 					'disabled'	=> $user->isRoot(),
 					'values'	=> $user->isRoot() ? [
-						\Ayre\Core\User::ROLE_CONTRIBUTOR	=> 'Contributor',
-						\Ayre\Core\User::ROLE_EDITOR		=> 'Editor',
-						\Ayre\Core\User::ROLE_ROOT			=> 'Administrator',
+						\Chalk\Core\User::ROLE_CONTRIBUTOR	=> 'Contributor',
+						\Chalk\Core\User::ROLE_EDITOR		=> 'Editor',
+						\Chalk\Core\User::ROLE_ROOT			=> 'Administrator',
 					] : null,
 				)) ?>
 			</div>

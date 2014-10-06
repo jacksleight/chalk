@@ -1,7 +1,7 @@
 $(document).bind('drop dragover', function (ev) {
     ev.preventDefault();
 });
-Ayre.component('.uploadable', function(i, el) {
+Chalk.component('.uploadable', function(i, el) {
 	
 	var button		= $(el).find('.uploadable-button');
 	var list		= $(el).find('.uploadable-list');

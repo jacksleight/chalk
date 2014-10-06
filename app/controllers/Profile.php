@@ -1,12 +1,12 @@
 <?php
-namespace Ayre\Core\Controller;
+namespace Chalk\Core\Controller;
 
-use Ayre,
+use Chalk,
 	Coast\App\Controller\Action,
 	Coast\Request,
 	Coast\Response;
 
-class Profile extends Ayre\Core\Controller\User
+class Profile extends Chalk\Core\Controller\User
 {
 	public function edit(Request $req, Response $res)
 	{

@@ -1,5 +1,5 @@
 {
-  "name": "jacksleight/ayre",
+  "name": "jacksleight/chalk",
   "type": "project",
   "description": "CMS",
   "keywords": ["cms"],
@@ -20,13 +20,13 @@
   },
   "autoload": {
     "psr-0": {
-      "Ayre": "app/lib",
-      "Ayre\\Article": "modules/article/lib",
-      "Ayre\\Proxy": "data/proxies"
+      "Chalk": "app/lib",
+      "Chalk\\Article": "modules/article/lib",
+      "Chalk\\Proxy": "data/proxies"
     },
     "psr-4": {
-      "Ayre\\Core\\Controller\\": "app/controllers/",
-      "Ayre\\Article\\Controller\\": "modules/article/controllers/"
+      "Chalk\\Core\\Controller\\": "app/controllers/",
+      "Chalk\\Article\\Controller\\": "modules/article/controllers/"
     }
   }
 }

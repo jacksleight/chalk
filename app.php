@@ -1,6 +1,6 @@
 <?php
 use 
-    Ayre\Core,
+    Chalk\Core,
     Coast\App\Controller, 
     Coast\App\Image,
     Coast\App\Router, 
@@ -13,7 +13,7 @@ use
     Coast\Url,
     Toast\App\Locale;
 
-$app = (new Ayre(__DIR__, $config->envs))
+$app = (new Chalk(__DIR__, $config->envs))
     ->path(new Path("{$config->path}"))
     ->param('root',   $app)
     ->param('config', $config);
@@ -71,8 +71,8 @@ if (!$app->isDebug()) {
     });
 }
 
-\Ayre\Core\File::baseDir($app->root->dir('public/data/file', true));
-\Ayre\Core\File::mimeTypes($app->import($app->file('app/mime-types.php')));
+\Chalk\Core\File::baseDir($app->root->dir('public/data/file', true));
+\Chalk\Core\File::mimeTypes($app->import($app->file('app/mime-types.php')));
 
 $app->import($app->file('app/routes.php'));
 

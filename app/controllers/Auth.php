@@ -1,5 +1,5 @@
 <?php
-namespace Ayre\Core\Controller;
+namespace Chalk\Core\Controller;
 
 use Coast\App\Controller\Action,
 	Coast\Request,
@@ -10,7 +10,7 @@ class Auth extends Action
 	public function login(Request $req, Response $res)
 	{
 		$req->view->login = $wrap = $this->em->wrap(
-			$login = new \Ayre\Login()
+			$login = new \Chalk\Login()
 		);
 
 		if (!$req->isPost()) {
@@ -36,7 +36,7 @@ class Auth extends Action
 		$user->loginDate = new \Carbon\Carbon();
 		$this->em->flush();
 
-		$session =& $req->session('ayre');
+		$session =& $req->session('chalk');
 		$session->user = $user->id;
 
 		return $res->redirect($this->url(array(), 'index', true));
@@ -44,7 +44,7 @@ class Auth extends Action
 
 	public function logout(Request $req, Response $res)
 	{
-		$session =& $req->session('ayre');
+		$session =& $req->session('chalk');
 		$session->user = null;
 
 		return $res->redirect($this->url(array(), 'login', true));

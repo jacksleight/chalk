@@ -1,12 +1,12 @@
 <?php
-namespace Ayre\Core\Controller;
+namespace Chalk\Core\Controller;
 
-use Ayre,
+use Chalk,
 	Coast\App\Controller\Action,
 	Coast\Request,
 	Coast\Response;
 
-class Domain extends Ayre\Controller\Basic
+class Domain extends Chalk\Controller\Basic
 {
-	protected $_entityClass = 'Ayre\Core\Domain';
+	protected $_entityClass = 'Chalk\Core\Domain';
 }

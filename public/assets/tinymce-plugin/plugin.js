@@ -1,4 +1,4 @@
-tinymce.PluginManager.add('ayre', function(editor, url) {
+tinymce.PluginManager.add('chalk', function(editor, url) {
 
     var openLinkModal = function() {
         
@@ -8,14 +8,14 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
             text            = selection.getContent({format: 'text'})
             richSelection   = /</.test(html) && (!/^<a [^>]+>[^<]+<\/a>$/.test(html) || html.indexOf('href=') == -1);
     
-        Ayre.modal(Ayre.baseUrl + 'content/core_content/select', {}, function(res) {
+        Chalk.modal(Chalk.baseUrl + 'content/core_content/select', {}, function(res) {
             if (!res) {
                 return;
             }
             var content = res.contents[0];
             var attrs = {
-                href: Ayre.rootBaseUrl + '_c' + content.id,
-                'data-ayre': JSON.stringify({
+                href: Chalk.rootBaseUrl + '_c' + content.id,
+                'data-chalk': JSON.stringify({
                     attrs: {
                         href: ['url', content.id]
                     }
@@ -42,12 +42,12 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
             html      = selection.getContent()
             text      = selection.getContent({format: 'text'});
     
-        Ayre.modal(Ayre.baseUrl + 'widget/edit/' + entity, {data: params}, function(res) {
+        Chalk.modal(Chalk.baseUrl + 'widget/edit/' + entity, {data: params}, function(res) {
             if (!res) {
                 return;
             }
             var attrs = {
-                'data-ayre-widget': JSON.stringify({
+                'data-chalk-widget': JSON.stringify({
                     entity: res.entity,
                     params: res.params
                 })
@@ -80,11 +80,11 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
         }
     ];
 
-    if (Ayre.widgets) {
+    if (Chalk.widgets) {
 
         var groups = {}, group, entity;
-        for (var i = 0; i < Ayre.widgets.length; i++) {
-            entity = Ayre.widgets[i];
+        for (var i = 0; i < Chalk.widgets.length; i++) {
+            entity = Chalk.widgets[i];
             group  = entity.group;
             item = {
                 text: entity.singular || undefined,
@@ -104,7 +104,7 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
 
     }
 
-    editor.addButton('ayreinsert', {
+    editor.addButton('chalkinsert', {
         type: 'menubutton',
         text: 'Insert',
         icon: false,
@@ -114,7 +114,7 @@ tinymce.PluginManager.add('ayre', function(editor, url) {
     editor.on('click', function(ev) {
         ev.preventDefault();
         var target = $(ev.target);
-        var data = target.attr('data-ayre-widget');
+        var data = target.attr('data-chalk-widget');
         if (data) {
             data = JSON.parse(data);
             openWidgetModal(data.entity, data.params, target);

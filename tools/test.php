@@ -1,9 +1,9 @@
 <?php
 require __DIR__ . '/../../app.php';
 
-$em = $app->ayre->em;
+$em = $app->chalk->em;
 
-$file = new \Ayre\Core\File();
-$file->newFile = $app->file('ayre/assets/images/logo.svg');
+$file = new \Chalk\Core\File();
+$file->newFile = $app->file('chalk/assets/images/logo.svg');
 $em->persist($file);
 $em->flush();

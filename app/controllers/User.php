@@ -1,12 +1,12 @@
 <?php
-namespace Ayre\Core\Controller;
+namespace Chalk\Core\Controller;
 
-use Ayre,
+use Chalk,
 	Coast\App\Controller\Action,
 	Coast\Request,
 	Coast\Response;
 
-class User extends Ayre\Controller\Basic
+class User extends Chalk\Controller\Basic
 {
-	protected $_entityClass = 'Ayre\Core\User';
+	protected $_entityClass = 'Chalk\Core\User';
 }

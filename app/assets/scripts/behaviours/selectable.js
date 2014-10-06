@@ -1,4 +1,4 @@
-Ayre.component('.selectable', function(i, el) {
+Chalk.component('.selectable', function(i, el) {
 	
 	var checkbox = $(el).find('input[type=checkbox]');
 	var select = function(ev) {
@@ -13,7 +13,7 @@ Ayre.component('.selectable', function(i, el) {
 
 });
 
-Ayre.component('.multiselectable', function(i, el) {
+Chalk.component('.multiselectable', function(i, el) {
 	
 	var active	= false;
 	var checked	= null;

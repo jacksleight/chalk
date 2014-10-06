@@ -1,4 +1,4 @@
-Ayre.component('.thumbs', function(i, el) {
+Chalk.component('.thumbs', function(i, el) {
 	
 	var className = 'thumbs-' + new Date().valueOf();
 	$(el).addClass(className);

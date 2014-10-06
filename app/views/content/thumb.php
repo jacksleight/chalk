@@ -23,7 +23,7 @@ $link		= isset($link) ? $link : true;
 					<span style="height: 0%;"></span>
 				</div>
 			<? } else { ?>
-				<? if ($content instanceof \Ayre\Core\File && $content->file->exists() && $content->isGdCompatible()) { ?>
+				<? if ($content instanceof \Chalk\Core\File && $content->file->exists() && $content->isGdCompatible()) { ?>
 					<img src="<?= $this->image(
 						$content->file,
 						'resize',

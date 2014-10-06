@@ -19,9 +19,9 @@
 
 /* Initialize */
 
-Ayre.component(null, function(i, el) {
+Chalk.component(null, function(i, el) {
 
-    var assetsUrl   = Ayre.rootBaseUrl + 'vendor/jacksleight/ayre/public/assets';
+    var assetsUrl   = Chalk.rootBaseUrl + 'vendor/jacksleight/chalk/public/assets';
     tinyMCE.baseURL = assetsUrl + '/tinymce';
 
     var css = '';
@@ -49,15 +49,15 @@ Ayre.component(null, function(i, el) {
             {title: "Code", format: "code"}
         ]}
     ];
-    if (Ayre.styles) {
+    if (Chalk.styles) {
 
         var groups = {}, group, style;
         for (var i = 0; i < styles.length; i++) {
             group = styles[i];
             groups[group.title] = i;
         }
-        for (var i = 0; i < Ayre.styles.length; i++) {
-            style = Ayre.styles[i];
+        for (var i = 0; i < Chalk.styles.length; i++) {
+            style = Chalk.styles[i];
             group = style.group;
             style = {
                 title:    style.label    || undefined,
@@ -79,8 +79,8 @@ Ayre.component(null, function(i, el) {
         styles.push(styles.splice(2, 1)[0]);
     
         var css = [], selector, block, inline, classes;
-        for (var i = 0; i < Ayre.styles.length; i++) {
-            style    = Ayre.styles[i];
+        for (var i = 0; i < Chalk.styles.length; i++) {
+            style    = Chalk.styles[i];
             selector = style.selector || '',
             block    = style.block    || '',
             inline   = style.inline   || '',
@@ -116,11 +116,11 @@ Ayre.component(null, function(i, el) {
             'visualblocks',
             'searchreplace',
             'lists',
-            'ayre'].join(' '),
+            'chalk'].join(' '),
         toolbar: [
             'styleselect', 'bold', 'italic', '|',
             'bullist', 'numlist', 'table', '|',
-            'ayreinsert', 'unlink', '|',
+            'chalkinsert', 'unlink', '|',
             'pastetext', '|',
             'fullscreen', 'code'].join(' '),
         statusbar: false,

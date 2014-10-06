@@ -1,4 +1,4 @@
-Ayre.component('.content', function(i, el) {
+Chalk.component('.content', function(i, el) {
 	
 	var select	= $(el).find('.content-select');
 	var remove	= $(el).find('.content-remove');
@@ -7,7 +7,7 @@ Ayre.component('.content', function(i, el) {
 	var entity	= $(el).attr('data-entity');
 	
 	select.click(function(ev) {
-		Ayre.modal(Ayre.baseUrl + 'content/' + entity + '/select', {}, function(res) {
+		Chalk.modal(Chalk.baseUrl + 'content/' + entity + '/select', {}, function(res) {
 			if (res.contents) {
 				input.val(res.contents[0].id);
 				holder.html(res.contents[0].card);

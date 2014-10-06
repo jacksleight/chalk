@@ -1,5 +1,4 @@
 /* Libraries */
-
 (function() {
   var exportedLog, ffSupport, formats, getOrderedMatches, hasMatches, isFF, isIE, isOpera, isSafari, log, makeArray, operaSupport, safariSupport, stringToArgs, _log;
 
@@ -165,7 +164,7 @@
 /**
  * @preserve FastClick: polyfill to remove click delays on browsers with touch UIs.
  *
- * @version 1.0.1
+ * @version 1.0.3
  * @codingstandard ftlabs-jsv2
  * @copyright The Financial Times Limited [All Rights Reserved]
  * @license MIT License (see LICENSE.txt)
@@ -176,7 +175,7 @@
 
 
 /**
- * Instantiate fast-clicking listeners on the specificed layer.
+ * Instantiate fast-clicking listeners on the specified layer.
  *
  * @constructor
  * @param {Element} layer The layer to listen on
@@ -361,6 +360,12 @@ var deviceIsIOS4 = deviceIsIOS && (/OS 4_\d(_\d)?/).test(navigator.userAgent);
  */
 var deviceIsIOSWithBadTarget = deviceIsIOS && (/OS ([6-9]|\d{2})_\d/).test(navigator.userAgent);
 
+/**
+ * BlackBerry requires exceptions.
+ *
+ * @type boolean
+ */
+var deviceIsBlackBerry10 = navigator.userAgent.indexOf('BB10') > 0;
 
 /**
  * Determine whether a given element requires a native click.
@@ -565,7 +570,10 @@ FastClick.prototype.onTouchStart = function(event) {
 			// with the same identifier as the touch event that previously triggered the click that triggered the alert.
 			// Sadly, there is an issue on iOS 4 that causes some normal touch events to have the same identifier as an
 			// immediately preceeding touch event (issue #52), so this fix is unavailable on that platform.
-			if (touch.identifier === this.lastTouchIdentifier) {
+			// Issue 120: touch.identifier is 0 when Chrome dev tools 'Emulate touch events' is set with an iOS device UA string,
+			// which causes all touch events to be ignored. As this block only applies to iOS, and iOS identifiers are always long,
+			// random integers, it's safe to to continue if the identifier is 0 here.
+			if (touch.identifier && touch.identifier === this.lastTouchIdentifier) {
 				event.preventDefault();
 				return false;
 			}
@@ -887,6 +895,7 @@ FastClick.notNeeded = function(layer) {
 	'use strict';
 	var metaViewport;
 	var chromeVersion;
+	var blackberryVersion;
 
 	// Devices that don't support touch don't need FastClick
 	if (typeof window.ontouchstart === 'undefined') {
@@ -907,7 +916,7 @@ FastClick.notNeeded = function(layer) {
 					return true;
 				}
 				// Chrome 32 and above with width=device-width or less don't need FastClick
-				if (chromeVersion > 31 && window.innerWidth <= window.screen.width) {
+				if (chromeVersion > 31 && document.documentElement.scrollWidth <= window.outerWidth) {
 					return true;
 				}
 			}
@@ -915,6 +924,27 @@ FastClick.notNeeded = function(layer) {
 		// Chrome desktop doesn't need FastClick (issue #15)
 		} else {
 			return true;
+		}
+	}
+
+	if (deviceIsBlackBerry10) {
+		blackberryVersion = navigator.userAgent.match(/Version\/([0-9]*)\.([0-9]*)/);
+
+		// BlackBerry 10.3+ does not require Fastclick library.
+		// https://github.com/ftlabs/fastclick/issues/251
+		if (blackberryVersion[1] >= 10 && blackberryVersion[2] >= 3) {
+			metaViewport = document.querySelector('meta[name=viewport]');
+
+			if (metaViewport) {
+				// user-scalable=no eliminates click delay.
+				if (metaViewport.content.indexOf('user-scalable=no') !== -1) {
+					return true;
+				}
+				// width=device-width (or less than device-width) eliminates click delay.
+				if (document.documentElement.scrollWidth <= window.outerWidth) {
+					return true;
+				}
+			}
 		}
 	}
 
@@ -939,7 +969,7 @@ FastClick.attach = function(layer, options) {
 };
 
 
-if (typeof define !== 'undefined' && define.amd) {
+if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) {
 
 	// AMD. Register as an anonymous module.
 	define(function() {
@@ -1143,7 +1173,6 @@ if (typeof define !== 'undefined' && define.amd) {
 if (this['Meteor']) {
     Base64 = global.Base64; // for normal export in Meteor.js
 }
-
 
 
 /*!
@@ -11722,7 +11751,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 
 /*
- * jQuery File Upload Plugin 5.40.1
+ * jQuery File Upload Plugin 5.40.3
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2010, Sebastian Tschan
@@ -12775,7 +12804,25 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     // to be returned together in one set:
                     dfd.resolve([e]);
                 },
-                dirReader;
+                successHandler = function (entries) {
+                    that._handleFileTreeEntries(
+                        entries,
+                        path + entry.name + '/'
+                    ).done(function (files) {
+                        dfd.resolve(files);
+                    }).fail(errorHandler);
+                },
+                readEntries = function () {
+                    dirReader.readEntries(function (results) {
+                        if (!results.length) {
+                            successHandler(entries);
+                        } else {
+                            entries = entries.concat(results);
+                            readEntries();
+                        }
+                    }, errorHandler);
+                },
+                dirReader, entries = [];
             path = path || '';
             if (entry.isFile) {
                 if (entry._file) {
@@ -12790,14 +12837,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 }
             } else if (entry.isDirectory) {
                 dirReader = entry.createReader();
-                dirReader.readEntries(function (entries) {
-                    that._handleFileTreeEntries(
-                        entries,
-                        path + entry.name + '/'
-                    ).done(function (files) {
-                        dfd.resolve(files);
-                    }).fail(errorHandler);
-                }, errorHandler);
+                readEntries();
             } else {
                 // Return an empy list for file system items
                 // other than files or directories:
@@ -13124,7 +13164,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                                 return;
                             }
                             data.files = files;
-                            jqXHR = that._onSend(null, data).then(
+                            jqXHR = that._onSend(null, data);
+                            jqXHR.then(
                                 function (result, textStatus, jqXHR) {
                                     dfd.resolve(result, textStatus, jqXHR);
                                 },
@@ -13149,7 +13190,6 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 }));
 
 
-
 /*!
  * mustache.js - Logic-less {{mustache}} templates with JavaScript
  * http://github.com/janl/mustache.js
@@ -13171,13 +13211,6 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
   }
 }(this, function (mustache) {
 
-  var whiteRe = /\s*/;
-  var spaceRe = /\s+/;
-  var nonSpaceRe = /\S/;
-  var eqRe = /\s*=/;
-  var curlyRe = /\s*\}/;
-  var tagRe = /#|\^|\/|>|\{|&|=|!/;
-
   // Workaround for https://issues.apache.org/jira/browse/COUCHDB-577
   // See https://github.com/janl/mustache.js/issues/189
   var RegExp_test = RegExp.prototype.test;
@@ -13185,6 +13218,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     return RegExp_test.call(re, string);
   }
 
+  var nonSpaceRe = /\S/;
   function isWhitespace(string) {
     return !testRegExp(nonSpaceRe, string);
   }
@@ -13228,6 +13262,12 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     ];
   }
 
+  var whiteRe = /\s*/;
+  var spaceRe = /\s+/;
+  var equalsRe = /\s*=/;
+  var curlyRe = /\s*\}/;
+  var tagRe = /#|\^|\/|>|\{|&|=|!/;
+
   /**
    * Breaks up the given `template` string into a tree of tokens. If the `tags`
    * argument is given here it must be an array with two string values: the
@@ -13237,18 +13277,18 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
    * A token is an array with at least 4 elements. The first element is the
    * mustache symbol that was used inside the tag, e.g. "#" or "&". If the tag
    * did not contain a symbol (i.e. {{myValue}}) this element is "name". For
-   * all template text that appears outside a symbol this element is "text".
+   * all text that appears outside a symbol this element is "text".
    *
    * The second element of a token is its "value". For mustache tags this is
    * whatever else was inside the tag besides the opening symbol. For text tokens
    * this is the text itself.
    *
-   * The third and fourth elements of the token are the start and end indices
-   * in the original template of the token, respectively.
+   * The third and fourth elements of the token are the start and end indices,
+   * respectively, of the token in the original template.
    *
-   * Tokens that are the root node of a subtree contain two more elements: an
-   * array of tokens in the subtree and the index in the original template at which
-   * the closing tag for that section begins.
+   * Tokens that are the root node of a subtree contain two more elements: 1) an
+   * array of tokens in the subtree and 2) the index in the original template at
+   * which the closing tag for that section begins.
    */
   function parseTemplate(template, tags) {
     tags = tags || mustache.tags;
@@ -13318,8 +13358,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
       // Get the tag value.
       if (type === '=') {
-        value = scanner.scanUntil(eqRe);
-        scanner.scan(eqRe);
+        value = scanner.scanUntil(equalsRe);
+        scanner.scan(equalsRe);
         scanner.scanUntil(tagRes[1]);
       } else if (type === '{') {
         value = scanner.scanUntil(new RegExp('\\s*' + escapeRegExp('}' + tags[1])));
@@ -13724,16 +13764,15 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 
 /* Utilities */
-
 (function() {
 
-	Ayre.components = [];
-	Ayre.component = function(selector, func) {
-		Ayre.components.push([selector, func]);
+	Chalk.components = [];
+	Chalk.component = function(selector, func) {
+		Chalk.components.push([selector, func]);
 	};
-	Ayre.initialize = function(el) {
+	Chalk.initialize = function(el) {
 		el = $(el);
-		$(Ayre.components).each(function(i, component) {
+		$(Chalk.components).each(function(i, component) {
 			if (component[0] !== null) {
 				el.find(component[0]).each(component[1]);
 			} else {
@@ -13746,8 +13785,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 (function() {
 
-	Ayre.set = function(prefs) {
-		$.ajax(Ayre.baseUrl + 'prefs', {data: prefs});
+	Chalk.set = function(prefs) {
+		$.ajax(Chalk.baseUrl + 'prefs', {data: prefs});
 	};
 
 })();
@@ -13757,7 +13796,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 	var template = $('.modal-template').html();
 	Mustache.parse(template);
 
-	Ayre.modal = function(url, options, cb) {
+	Chalk.modal = function(url, options, cb) {
 		
 		cb = cb || function() {};
 		var modal	= $($.parseHTML(Mustache.render(template).trim())[0]);
@@ -13789,7 +13828,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 		var update = function(html) {
 			content.html(html);
 			setTimeout(function() {
-				Ayre.initialize(content);
+				Chalk.initialize(content);
 			}, 1);			
 			
 			var size = content.find('> :first-child').attr('data-modal-size');
@@ -13843,15 +13882,14 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 	$('[rel=modal]').click(function(ev) {
 		ev.preventDefault();
-		Ayre.modal($(ev.target).attr('href'));
+		Chalk.modal($(ev.target).attr('href'));
 	});
 
 })();
 
 
 /* Elements */
-
-Ayre.component('.thumbs', function(i, el) {
+Chalk.component('.thumbs', function(i, el) {
 	
 	var className = 'thumbs-' + new Date().valueOf();
 	$(el).addClass(className);
@@ -13878,7 +13916,7 @@ Ayre.component('.thumbs', function(i, el) {
 
 });
 
-Ayre.component('.structure', function(i, el) {
+Chalk.component('.structure', function(i, el) {
     
     var tree = $(el).find('.tree');
     tree.nestable({
@@ -13897,12 +13935,12 @@ Ayre.component('.structure', function(i, el) {
             $(el).find('.structure-submit').prop('disabled', false);
             $(el).find('.structure-data').val(JSON.stringify(this.serialize()));
             nodes[data.destId] = 1;
-            Ayre.set({
+            Chalk.set({
                 nodes: nodes
             });
         }
     })
-    var nodes = Ayre.prefs.nodes || {};
+    var nodes = Chalk.prefs.nodes || {};
     tree.find('li').each(function() {
         var id = $(this).attr('data-id');
         if (!nodes[id] || nodes[id] == 0) {
@@ -13922,14 +13960,14 @@ Ayre.component('.structure', function(i, el) {
         var id     = target.closest('li').attr('data-id');
         var expand = target.attr('data-action') == 'expand';
         nodes[id]  = expand ? 1 : 0;
-        Ayre.set({
+        Chalk.set({
             nodes: nodes
         });
     });
     
 });
 
-Ayre.component('.content', function(i, el) {
+Chalk.component('.content', function(i, el) {
 	
 	var select	= $(el).find('.content-select');
 	var remove	= $(el).find('.content-remove');
@@ -13938,7 +13976,7 @@ Ayre.component('.content', function(i, el) {
 	var entity	= $(el).attr('data-entity');
 	
 	select.click(function(ev) {
-		Ayre.modal(Ayre.baseUrl + 'content/' + entity + '/select', {}, function(res) {
+		Chalk.modal(Chalk.baseUrl + 'content/' + entity + '/select', {}, function(res) {
 			if (res.contents) {
 				input.val(res.contents[0].id);
 				holder.html(res.contents[0].card);
@@ -13960,8 +13998,7 @@ Ayre.component('.content', function(i, el) {
 
 
 /* Behaviours */
-
-Ayre.component('.autosubmitable', function(i, el) {
+Chalk.component('.autosubmitable', function(i, el) {
 
 	var inputs = $(el).find('input, textarea, select');
 	var button = el.ownerDocument.createElement('input');
@@ -13975,7 +14012,7 @@ Ayre.component('.autosubmitable', function(i, el) {
 	
 });
 
-Ayre.component('.clickable', function(i, el) {
+Chalk.component('.clickable', function(i, el) {
 	
 	var target = $(el).find('a')[0];
 	$(el).mouseover(function(ev) {
@@ -13999,7 +14036,7 @@ Ayre.component('.clickable', function(i, el) {
 
 });
 
-Ayre.component('.confirmable', function(i, el) {
+Chalk.component('.confirmable', function(i, el) {
 	
 	var message = $(el).attr('data-message') || 'Are you sure?';
 	$(el).click(function(ev) {
@@ -14010,7 +14047,7 @@ Ayre.component('.confirmable', function(i, el) {
 	
 }); 
 
-Ayre.component('.expandable', function(i, el) {
+Chalk.component('.expandable', function(i, el) {
 	
 	$(el).find('.expandable-toggle').click(function(ev) {
 		$(el).toggleClass('active');
@@ -14021,7 +14058,7 @@ Ayre.component('.expandable', function(i, el) {
 $(document).bind('drop dragover', function (ev) {
     ev.preventDefault();
 });
-Ayre.component('.uploadable', function(i, el) {
+Chalk.component('.uploadable', function(i, el) {
 	
 	var button		= $(el).find('.uploadable-button');
 	var list		= $(el).find('.uploadable-list');
@@ -14068,7 +14105,7 @@ Ayre.component('.uploadable', function(i, el) {
 
 });
 
-Ayre.component('.selectable', function(i, el) {
+Chalk.component('.selectable', function(i, el) {
 	
 	var checkbox = $(el).find('input[type=checkbox]');
 	var select = function(ev) {
@@ -14083,7 +14120,7 @@ Ayre.component('.selectable', function(i, el) {
 
 });
 
-Ayre.component('.multiselectable', function(i, el) {
+Chalk.component('.multiselectable', function(i, el) {
 	
 	var active	= false;
 	var checked	= null;
@@ -14122,7 +14159,7 @@ Ayre.component('.multiselectable', function(i, el) {
 	
 });
 
-Ayre.component('.stackable', function(i, el) {
+Chalk.component('.stackable', function(i, el) {
 	
 	var list		= $(el).find('.stackable-list');
 	var button		= $(el).find('.stackable-button');
@@ -14132,7 +14169,7 @@ Ayre.component('.stackable', function(i, el) {
 		var content = $($.parseHTML(Mustache.render(template, {i: i++}).trim())[0]);
 		list.append(content);
 		setTimeout(function() {
-			Ayre.initialize(content);
+			Chalk.initialize(content);
 		}, 1);		
 	}
 	if (i == 0) {

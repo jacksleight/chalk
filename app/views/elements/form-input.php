@@ -4,7 +4,7 @@ $md	= isset($md)
 	: $entity->getMetadata(\Toast\Entity::MD_PROPERTY, $name);
 $disabled = isset($disabled)
 	? $disabled
-	: ($entity->getObject() instanceof \Ayre\Behaviour\Publishable && $entity->isArchived());
+	: ($entity->getObject() instanceof \Chalk\Behaviour\Publishable && $entity->isArchived());
 $render = isset($input)
 	? $input
 	: [$type, null];

@@ -1,4 +1,4 @@
-Ayre.component('.clickable', function(i, el) {
+Chalk.component('.clickable', function(i, el) {
 	
 	var target = $(el).find('a')[0];
 	$(el).mouseover(function(ev) {

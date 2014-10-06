@@ -6,7 +6,7 @@ require __DIR__ . '/../../../../app.php';
 header('Content-Type: text/plain');
 $cli = new Cli();
 
-$em = $app->ayre->em;
+$em = $app->chalk->em;
 
 try {
 

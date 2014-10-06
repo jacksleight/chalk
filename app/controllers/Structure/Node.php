@@ -1,8 +1,8 @@
 <?php
-namespace Ayre\Core\Controller\Structure;
+namespace Chalk\Core\Controller\Structure;
 
-use Ayre,
-	Ayre\Core,
+use Chalk,
+	Chalk\Core,
 	Coast\App\Controller\Action,
 	Coast\Request,
 	Coast\Response;
@@ -11,9 +11,9 @@ class Node extends Action
 {
 	public function add(Request $req, Response $res)
 	{
-		$req->view->entity = Ayre::entity('Ayre\Core\Content');
+		$req->view->entity = Chalk::entity('Chalk\Core\Content');
 
-		$wrap = $this->em->wrap($index = new \Ayre\Core\Model\Index());
+		$wrap = $this->em->wrap($index = new \Chalk\Core\Model\Index());
 		$wrap->graphFromArray($req->queryParams());
 		$req->view->index = $wrap;
 
@@ -29,7 +29,7 @@ class Node extends Action
 		}
 
 		foreach ($index->contents as $content) {
-			$node = new \Ayre\Core\Structure\Node();
+			$node = new \Chalk\Core\Structure\Node();
 			$node->parent  = $parent;
 			$node->content = $content->master;
 			$this->em->persist($node);
@@ -79,7 +79,7 @@ class Node extends Action
 		foreach ($node->children as $child) {
 			$node->children->removeElement($child);
 			$child->parent	= $parent;
-			$child->sort	= \Ayre\Core\Structure\Node::SORT_MAX;
+			$child->sort	= \Chalk\Core\Structure\Node::SORT_MAX;
 		}
 		$this->em->remove($node);
 		$this->em->flush();

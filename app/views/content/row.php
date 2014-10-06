@@ -12,7 +12,7 @@ $link		= isset($link) ? $link : true;
 	</td>
 	<th class="col-name" scope="row">
 		<div class="card">
-			<? if ($content instanceof \Ayre\Core\File && $content->file->exists() && $content->isGdCompatible()) { ?>
+			<? if ($content instanceof \Chalk\Core\File && $content->file->exists() && $content->isGdCompatible()) { ?>
 				<img src="<?= $this->image(
 					$content->file,
 					'resize',
@@ -22,7 +22,7 @@ $link		= isset($link) ? $link : true;
 			<? if ($link) { ?>
 				<a href="<?= $this->url([
 					'action'	=> 'edit',
-					'entity'	=> \Ayre::entity($content)->name,
+					'entity'	=> \Chalk::entity($content)->name,
 					'content'	=> $content->id,
 				]) ?>">
 			<? } ?>

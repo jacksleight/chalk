@@ -4,21 +4,21 @@ use Doctrine\ORM\Configuration,
 	Doctrine\Common\Cache\MemcachedCache,
 	Doctrine\Common\EventManager,
 	Doctrine\ORM\EntityManager,
-	Ayre\Doctrine\ORM\EntityManager as AyreEntityManager,
-	Ayre\Listener as Listener,
-	Ayre\Core\File\Listener as FileListener,
-	Ayre\Core\Structure\Node\Listener as NodeListener,
-	Ayre\Behaviour\Loggable\Listener as LoggableListener,
-	Ayre\Behaviour\Searchable\Listener as SearchableListener,
-	Ayre\Behaviour\Trackable\Listener as TrackableListener,
-	Ayre\Behaviour\Versionable\Listener as VersionableListener;
+	Chalk\Doctrine\ORM\EntityManager as ChalkEntityManager,
+	Chalk\Listener as Listener,
+	Chalk\Core\File\Listener as FileListener,
+	Chalk\Core\Structure\Node\Listener as NodeListener,
+	Chalk\Behaviour\Loggable\Listener as LoggableListener,
+	Chalk\Behaviour\Searchable\Listener as SearchableListener,
+	Chalk\Behaviour\Trackable\Listener as TrackableListener,
+	Chalk\Behaviour\Versionable\Listener as VersionableListener;
 
 \Coast\Doctrine\register_dbal_types();
 
 $config = new Configuration();
 $config->setMetadataDriverImpl($config->newDefaultAnnotationDriver());
 $config->setProxyDir($app->root->dir('data/proxies'));
-$config->setProxyNamespace('Ayre\Proxy');
+$config->setProxyNamespace('Chalk\Proxy');
 $config->setAutoGenerateProxyClasses(true);
 // $config->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger());
 
@@ -45,7 +45,7 @@ $evm->addEventSubscriber(new VersionableListener());
 $evm->addEventSubscriber($trackable = new TrackableListener());
 
 global $em;
-$em = new AyreEntityManager(EntityManager::create(
+$em = new ChalkEntityManager(EntityManager::create(
 	$app->config->database + [
 		'driver'  => 'pdo_mysql',
 		'charset' => 'utf8'

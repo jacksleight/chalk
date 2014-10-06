@@ -1,5 +1,5 @@
 <?php
-namespace Ayre\Core\Controller;
+namespace Chalk\Core\Controller;
 
 use Coast\App\Controller\Action,
 	Coast\Request,
@@ -11,7 +11,7 @@ class Index extends Action
 	{
 		$contentClasses = $this->app->contentClasses();
 		return $res->redirect($this->url([
-			'entity' => \Ayre::entity($contentClasses[0])->name,
+			'entity' => \Chalk::entity($contentClasses[0])->name,
 		], 'content', true));
 	}
 	

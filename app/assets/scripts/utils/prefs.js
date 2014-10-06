@@ -1,7 +1,7 @@
 (function() {
 
-	Ayre.set = function(prefs) {
-		$.ajax(Ayre.baseUrl + 'prefs', {data: prefs});
+	Chalk.set = function(prefs) {
+		$.ajax(Chalk.baseUrl + 'prefs', {data: prefs});
 	};
 
 })();

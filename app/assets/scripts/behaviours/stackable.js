@@ -1,4 +1,4 @@
-Ayre.component('.stackable', function(i, el) {
+Chalk.component('.stackable', function(i, el) {
 	
 	var list		= $(el).find('.stackable-list');
 	var button		= $(el).find('.stackable-button');
@@ -8,7 +8,7 @@ Ayre.component('.stackable', function(i, el) {
 		var content = $($.parseHTML(Mustache.render(template, {i: i++}).trim())[0]);
 		list.append(content);
 		setTimeout(function() {
-			Ayre.initialize(content);
+			Chalk.initialize(content);
 		}, 1);		
 	}
 	if (i == 0) {

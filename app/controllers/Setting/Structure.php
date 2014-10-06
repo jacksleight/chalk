@@ -1,12 +1,12 @@
 <?php
-namespace Ayre\Core\Controller\Setting;
+namespace Chalk\Core\Controller\Setting;
 
-use Ayre,
+use Chalk,
 	Coast\App\Controller\Action,
 	Coast\Request,
 	Coast\Response;
 
-class Structure extends Ayre\Controller\Basic
+class Structure extends Chalk\Controller\Basic
 {
-	protected $_entityClass = 'Ayre\Core\Structure';
+	protected $_entityClass = 'Chalk\Core\Structure';
 }

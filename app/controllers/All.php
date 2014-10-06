@@ -1,5 +1,5 @@
 <?php
-namespace Ayre\Core\Controller;
+namespace Chalk\Core\Controller;
 
 use Coast\App\Controller\Action,
 	Coast\Request,
@@ -9,7 +9,7 @@ class All extends Action
 {
 	public function preDispatch(Request $req, Response $res)
 	{
-		$session =& $req->session('ayre');
+		$session =& $req->session('chalk');
 		if (!isset($session->user) && $req->controller !== 'auth') {
 			return $res->redirect($this->url(array(), 'login', true));
 		}

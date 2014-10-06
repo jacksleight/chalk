@@ -1,12 +1,12 @@
 (function() {
 
-	Ayre.components = [];
-	Ayre.component = function(selector, func) {
-		Ayre.components.push([selector, func]);
+	Chalk.components = [];
+	Chalk.component = function(selector, func) {
+		Chalk.components.push([selector, func]);
 	};
-	Ayre.initialize = function(el) {
+	Chalk.initialize = function(el) {
 		el = $(el);
-		$(Ayre.components).each(function(i, component) {
+		$(Chalk.components).each(function(i, component) {
 			if (component[0] !== null) {
 				el.find(component[0]).each(component[1]);
 			} else {
