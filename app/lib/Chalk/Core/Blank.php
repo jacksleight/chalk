@@ -12,10 +12,10 @@ use Chalk\Core,
 /**
  * @Entity
 */
-class Route extends Content
+class Blank extends Content
 {
 	public static $info = [
-		'singular'	=> 'Route',
-		'plural'	=> 'Routes',
+		'singular'	=> 'Blank',
+		'plural'	=> 'Blanks',
 	];
 }

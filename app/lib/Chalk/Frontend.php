@@ -183,7 +183,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
             ->redirect($url);       
     }
 
-    protected function _route(Request $req, Response $res)
+    protected function _blank(Request $req, Response $res)
     {
         return;
     }
