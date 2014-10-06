@@ -8,9 +8,6 @@
   "authors": [
       {"name": "Jack Sleight", "email": "jacksleight@gmail.com"}
   ],
-  "repositories": [
-    {"type": "vcs", "url": "git@github.com:jacksleight/toast.git"}
-  ],
   "require": {
     "php": ">=5.5.0",
     "doctrine/orm": "2.4.*",
@@ -19,8 +16,7 @@
     "gargron/fileupload": "1.0.*",
     "nesbot/carbon": "1.8.*",
     "jacksleight/coast": "dev-master",
-    "jacksleight/coast-doctrine": "dev-master",
-    "jacksleight/toast": "dev-master"
+    "jacksleight/coast-doctrine": "dev-master"
   },
   "autoload": {
     "psr-0": {
