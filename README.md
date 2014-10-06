@@ -2,6 +2,24 @@
 
 Chalk is a content management system built on Coast.
 
+## Installation
+
+The easiest way to install Chalk is through [Composer](https://getcomposer.org/doc/00-intro.md), by creating a file called `composer.json` containing:
+
+```json
+{
+    "require": {
+        "jacksleight/chalk": "dev-master"
+    }
+}
+```
+
+And then running:
+
+```bash
+composer.phar install
+```
+
 ## Licence
 
 The MIT License
