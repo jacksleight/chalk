@@ -70,7 +70,7 @@ class User extends \Toast\Entity implements Trackable, Searchable
 	protected $role = 'contributor';
 	
 	/**
-     * @Column(type="coast_json")
+     * @Column(type="coast_array")
      */
 	protected $prefs = [];
 

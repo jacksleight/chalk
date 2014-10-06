@@ -25,7 +25,7 @@ class Document extends Content
 	protected $summary;
 
     /**
-     * @Column(type="coast_json")
+     * @Column(type="coast_array")
      */
 	protected $blocks = [];
 	
