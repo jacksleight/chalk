@@ -13,7 +13,7 @@
 		'entity'	=> $entity->name,
 		'action'	=> 'delete',
 		'content'	=> $content->id,
-	], 'content', true) ?>" class="btn btn-negative btn-quiet confirmable" data-message="Are you sure?<?= "\n\n" ?>This will delete the <?= strtolower($entity->singular) ?>  and cannot be undone.">
+	], 'content', true) ?>" class="btn btn-negative btn-quiet confirmable" data-message="Are you sure?<?= "\n" ?>This will delete the <?= strtolower($entity->singular) ?> and cannot be undone.">
 		<i class="fa fa-trash-o"></i>
 		Delete <?= $entity->singular ?>
 	</a></li>

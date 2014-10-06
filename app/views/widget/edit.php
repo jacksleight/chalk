@@ -5,6 +5,12 @@
 
 <form action="<?= $this->url->route() ?>" method="post" class="fill">
 	<div class="flex">
+		<ul class="toolbar">
+			<li><span class="btn btn-quieter modal-close">
+				<i class="fa fa-times"></i>
+				Close
+			</span></li>
+		</ul>
 		<h1>
 			<?= $entity->singular ?>
 		</h1>
@@ -20,10 +26,12 @@
 			</li>
 		</ul>
 		<ul class="toolbar">
-			<li><span class="btn modal-close">
-				<i class="fa fa-times"></i>
-				Close
-			</span></li>
+			<li><a href="<?= $this->url([
+				'action'	=> 'delete',
+			]) ?>" class="btn btn-negative btn-quiet confirmable" data-message="Are you sure?<?= "\n" ?>This will delete the <?= strtolower($entity->singular) ?> and cannot be undone.">
+				<i class="fa fa-trash-o"></i>
+				Delete <?= $entity->singular ?>
+			</a></li>
 		</ul>
 	</fieldset>
 </form>

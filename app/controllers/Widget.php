@@ -43,4 +43,11 @@ class Widget extends Chalk\Controller\Basic
 			}, $widget->toArray()),
 		]);
 	}
+
+	public function delete(Request $req, Response $res)
+	{
+		return $res->json([
+			'delete' => 1,
+		]);
+	}
 }

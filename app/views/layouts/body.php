@@ -11,15 +11,15 @@ $count = $this->em('core_content')->fetchCountForPublish();
 		?>
 		<?= $this->render('nav', ['items' => [
 			[
+				'label' => 'Structure',
+				'icon'	=> 'fa fa-sitemap',
+				'params'=> ['controller' => 'structure'],
+			],
+			[
 				'label' => 'Content',
 				'icon'	=> 'fa fa-file-text-o',
 				'name'	=> 'content',
 				'params'=> ['entity' => \Chalk::entity($contentClasses[0])->name],
-			],
-			[
-				'label' => 'Structure',
-				'icon'	=> 'fa fa-sitemap',
-				'params'=> ['controller' => 'structure'],
 			],
 			// [
 			// 	'label' => 'Live',

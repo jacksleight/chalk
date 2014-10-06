@@ -46,6 +46,12 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
             if (!res) {
                 return;
             }
+            if (res.delete) {
+                if (el) {
+                    el.remove();
+                }
+                return;
+            }
             var attrs = {
                 'data-chalk-widget': JSON.stringify({
                     entity: res.entity,

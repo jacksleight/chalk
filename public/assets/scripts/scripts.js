@@ -1,4 +1,5 @@
 /* Libraries */
+
 (function() {
   var exportedLog, ffSupport, formats, getOrderedMatches, hasMatches, isFF, isIE, isOpera, isSafari, log, makeArray, operaSupport, safariSupport, stringToArgs, _log;
 
@@ -1173,6 +1174,7 @@ if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) 
 if (this['Meteor']) {
     Base64 = global.Base64; // for normal export in Meteor.js
 }
+
 
 
 /*!
@@ -13190,6 +13192,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 }));
 
 
+
 /*!
  * mustache.js - Logic-less {{mustache}} templates with JavaScript
  * http://github.com/janl/mustache.js
@@ -13764,6 +13767,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 
 /* Utilities */
+
 (function() {
 
 	Chalk.components = [];
@@ -13889,6 +13893,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 
 /* Elements */
+
 Chalk.component('.thumbs', function(i, el) {
 	
 	var className = 'thumbs-' + new Date().valueOf();
@@ -13998,6 +14003,7 @@ Chalk.component('.content', function(i, el) {
 
 
 /* Behaviours */
+
 Chalk.component('.autosubmitable', function(i, el) {
 
 	var inputs = $(el).find('input, textarea, select');
@@ -14041,6 +14047,7 @@ Chalk.component('.confirmable', function(i, el) {
 	var message = $(el).attr('data-message') || 'Are you sure?';
 	$(el).click(function(ev) {
 		if (!confirm(message)) {
+			ev.stopPropagation();
 			ev.preventDefault();
 		}	
 	});

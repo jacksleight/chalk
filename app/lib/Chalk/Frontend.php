@@ -101,9 +101,21 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
                 continue;
             }
             $entity = \Chalk::entity($data['entity']);
-            $el->setAttribute('data-chalk', json_encode([
-                'html' => ['render', $entity->local->path, $data['params']],
-            ]));
+            $class  = $entity->class;
+            $widget = (new $class())->fromArray($data['params']);
+            $temp   = new DOMDocument();
+            libxml_use_internal_errors(true);
+            $temp->loadHTML('<?xml encoding="utf-8">' . $this->render($entity->local->path, ['widget' => $widget]));
+            libxml_use_internal_errors(false);
+            $body = $temp->getElementsByTagName('body');
+            if ($body->length) {
+                $nodes = $body->item(0)->childNodes;
+                for ($i = $nodes->length - 1; $i >= 0; --$i) {
+                    $node = $doc->importNode($nodes->item($i), true);
+                    $el->parentNode->insertBefore($node, $el);
+                }
+            }
+            $el->parentNode->removeChild($el);
         }
 
         $els = $xpath->query('//*[@data-chalk]');
@@ -119,20 +131,19 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
                 }
             }
             if (isset($data['html'])) {
-                while ($el->childNodes->length) {
-                    $el->removeChild($el->firstChild);
-                }
                 $temp = new DOMDocument();
                 libxml_use_internal_errors(true);
                 $temp->loadHTML('<?xml encoding="utf-8">' . $this->_parse($data['html']));
                 libxml_use_internal_errors(false);
                 $body = $temp->getElementsByTagName('body');
                 if ($body->length) {
-                    foreach ($body->item(0)->childNodes as $node) {
-                        $node = $doc->importNode($node, true);
-                        $el->appendChild($node);
+                    $nodes = $body->item(0)->childNodes;
+                    for ($i = $nodes->length - 1; $i >= 0; --$i) {
+                        $node = $doc->importNode($nodes->item($i), true);
+                        $el->parentNode->insertBefore($node, $el);
                     }
                 }
+                $el->parentNode->removeChild($el);
             }
         }
 

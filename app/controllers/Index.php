@@ -12,7 +12,7 @@ class Index extends Action
 		$contentClasses = $this->app->contentClasses();
 		return $res->redirect($this->url([
 			'entity' => \Chalk::entity($contentClasses[0])->name,
-		], 'content', true));
+		], 'structure', true));
 	}
 	
 	public function about(Request $req, Response $res)
