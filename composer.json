@@ -21,12 +21,10 @@
   "autoload": {
     "psr-0": {
       "Chalk": "app/lib",
-      "Chalk\\Article": "modules/article/lib",
       "Chalk\\Proxy": "data/proxies"
     },
     "psr-4": {
-      "Chalk\\Core\\Controller\\": "app/controllers/",
-      "Chalk\\Article\\Controller\\": "modules/article/controllers/"
+      "Chalk\\Core\\Controller\\": "app/controllers/"
     }
   }
 }
