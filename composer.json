@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Chalk\\": "app/lib",
+      "Chalk\\": "app/lib/",
       "Chalk\\Core\\Controller\\": "app/controllers/"
     }
   }
