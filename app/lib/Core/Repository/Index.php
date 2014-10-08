@@ -22,8 +22,8 @@ class Index extends Repository
             ->andWhere("i.entityId = :entityId")
             ->getQuery()
             ->setParameters([
-                'entity' => \Chalk\Chalk::entity($id)->name,
-                'entityId'   => $id->id,
+                'entity'   => \Chalk\Chalk::entity($id)->name,
+                'entityId' => $id->id,
             ])          
             ->getOneOrNullResult();
         return $index;

@@ -91,7 +91,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
         $req->node    = $node;
         $req->content = $content;
 
-        $name = \Chalk\Chalk::entity($content)->name;
+        $name = \Chalk\Chalk::entity($content)->class;
         if (!isset($this->_handlers[$name])) {
             throw new \Exception("No handler exists for '{$name}' content");
         }

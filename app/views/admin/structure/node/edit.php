@@ -7,7 +7,7 @@ $entity	= \Chalk\Chalk::entity($content->getObject());
 <?php $this->layout('/layouts/page_structure') ?>
 <?php $this->block('main') ?>
 
-<?php if ($entity->name != 'Chalk\Core\Content') { ?>
+<?php if ($entity->class != 'Chalk\Core\Content') { ?>
 	<?= $this->render("/{$entity->local->path}/form", [
 		'structure'	=> $structure,
 		'content'	=> $content,

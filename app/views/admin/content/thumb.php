@@ -48,7 +48,7 @@ $link		= isset($link) ? $link : true;
 				<?php if ($template) { ?>
 					Waiting…
 				<?php } else { ?>
-					<?= $content->subname($entity->name != 'Chalk\Core\Content') ?>
+					<?= $content->subname($entity->class != 'Chalk\Core\Content') ?>
 				<?php } ?>
 			</small>
 		</figcaption>

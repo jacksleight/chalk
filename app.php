@@ -1,6 +1,5 @@
 <?php
 use Chalk\Chalk,
-    Chalk\Core,
     Chalk\Core\File,
     Chalk\Frontend,
     Coast\App\Controller, 
@@ -57,9 +56,6 @@ if (isset($config->styles)) {
 if (isset($config->layoutDir)) {
     $app->layoutDir($config->layoutDir);
 }
-
-$app->module('score', new Core())
-    ->module('root', $app->root);
 
 $app->executable($app->image)
     ->executable($app->locale)
