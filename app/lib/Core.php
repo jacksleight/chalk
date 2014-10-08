@@ -19,11 +19,11 @@ class Core extends Standard
 
         $chalk->em->dir($entity->name, $this->dir('app/lib'));
 		$chalk->view->dir($entity->name, $this->dir('app/views/admin'));
-        $chalk->controller->nspace($entity->name, "{$entity->class}\\Controller");
+        $chalk->controller->nspace($entity->name, "Chalk\\Core\\Controller");
 		
 		$chalk
-			->contentClass("{$entity->class}\\Page")
-			->contentClass("{$entity->class}\\File");
+			->contentClass("Chalk\\Core\\Page")
+			->contentClass("Chalk\\Core\\File");
 
 		$chalk->frontend->handlers([
 			"{$entity->name}_page" => function(Request $req, Response $res) {

@@ -2,8 +2,8 @@
 namespace Chalk;
 
 use Coast\App,
-    Chalk\Module,
-    Chalk\Frontend;
+    Chalk\Core,
+    Chalk\Module;
 
 class Chalk extends App
 {
@@ -99,12 +99,6 @@ class Chalk extends App
             'singular'  => implode('_', $entityLcFirst),
             'plural'    => implode('_', $entityLcFirst),
         ]);
-    }
-
-    public function __construct($baseDir, array $envs = array())
-    {
-        parent::__construct($baseDir, $envs);
-        $this->param('frontend', new Frontend($this));
     }
 
     public function layoutDir(\Coast\Dir $layoutDir = null)

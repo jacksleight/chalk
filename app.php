@@ -1,6 +1,8 @@
 <?php
 use Chalk\Chalk,
     Chalk\Core,
+    Chalk\Core\File,
+    Chalk\Frontend,
     Coast\App\Controller, 
     Coast\App\Image,
     Coast\App\Router, 
@@ -18,7 +20,8 @@ $app = (new Chalk(__DIR__, $config->envs))
     ->param('root',   $app)
     ->param('config', $config);
 
-$app->param('controller', new Controller())
+$app->param('frontend', new Frontend($app))
+    ->param('controller', new Controller())
     ->param('router', new Router([
         'target' => $app->controller,
     ]))
@@ -48,15 +51,15 @@ $app->param('controller', new Controller())
             'en-GB' => 'en-GB@timezone=Europe/London;currency=GBP',
         ]]));
 
-$app->module('core', new Core());
-$app->module('root', $app->root);
-
 if (isset($config->styles)) {
     $app->styles($config->styles);
 }
 if (isset($config->layoutDir)) {
     $app->layoutDir($config->layoutDir);
 }
+
+$app->module('core', new Core())
+    ->module('root', $app->root);
 
 $app->executable($app->image)
     ->executable($app->locale)
@@ -75,8 +78,8 @@ if (!$app->isDebug()) {
     });
 }
 
-\Chalk\Core\File::baseDir($app->root->dir('public/data/file', true));
-\Chalk\Core\File::mimeTypes($app->import($app->file('app/mime-types.php')));
+File::baseDir($app->root->dir('public/data/file', true));
+File::mimeTypes($app->import($app->file('app/mime-types.php')));
 
 $app->import($app->file('app/routes.php'));
 
