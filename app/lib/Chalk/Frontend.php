@@ -8,6 +8,7 @@ namespace Chalk;
 
 use DOMDocument,
     DOMXPath,
+    Closure,
     Coast\Url,
     Coast\Request,
     Coast\Response,
@@ -23,10 +24,33 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
     protected $_nodes;
     protected $_paths;
     protected $_contents;
+    protected $_handlers = [];
 
     public function __construct(\Chalk $chalk)
     {
         $this->_chalk = $chalk;
+    }
+
+    public function handler($name, Closure $value = null)
+    {
+        if (func_num_args() > 1) {
+            $this->_handlers[$name] = $value->bindTo($this);
+            return $this;
+        }
+        return isset($this->_handlers[$name])
+            ? $this->_handlers[$name]
+            : null;
+    }
+
+    public function handlers(array $handlers = null)
+    {
+        if (func_num_args() > 0) {
+            foreach ($handlers as $name => $value) {
+                $this->handler($name, $value);
+            }
+            return $this;
+        }
+        return $this->_handlers;
     }
 
     public function execute(Request $req, Response $res)
@@ -65,21 +89,17 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
                 
         $req->node    = $node;
         $req->content = $content;
-        $method = '_' . \Chalk::entity($content)->local->var;
-        return method_exists($this, $method)
-            ? $this->$method($req, $res)
-            : $this->_render($req, $res, \Chalk::entity($content));
+
+        $name = \Chalk::entity($content)->name;
+        if (!isset($this->_handlers[$name])) {
+            throw new \Exception("No handler exists for '{$name}' content");
+        }
+        $hander = $this->_handlers[$name];
+        return $hander($req, $res);
     }
 
-    protected function _render(Request $req, Response $res, $entity)
-    {
-        $html = $this->view->render('chalk/' . $entity->path, [
-            'req'               => $req,
-            'res'               => $res,
-            'node'              => $req->node,
-            $entity->local->var => $req->content
-        ]);
-       
+    public function parse($html)
+    {       
         $doc = new DOMDocument();
         libxml_use_internal_errors(true);
         // @hack Ensures correct encoding as libxml doesn't understand <meta charset="utf-8">
@@ -127,13 +147,13 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
             }
             if (isset($data['attrs'])) {
                 foreach ($data['attrs'] as $name => $args) {
-                    $el->setAttribute($name, $this->_parse($args));
+                    $el->setAttribute($name, $this->_resolve($args));
                 }
             }
             if (isset($data['html'])) {
                 $temp = new DOMDocument();
                 libxml_use_internal_errors(true);
-                $temp->loadHTML('<?xml encoding="utf-8">' . $this->_parse($data['html']));
+                $temp->loadHTML('<?xml encoding="utf-8">' . $this->_resolve($data['html']));
                 libxml_use_internal_errors(false);
                 $body = $temp->getElementsByTagName('body');
                 if ($body->length) {
@@ -149,43 +169,13 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
 
         $html = $doc->saveHTML();
         $html = str_replace('<p>&nbsp;</p>', '', $html);
-        return $res
-            ->html($html);
+        return $html;
     }
 
-    protected function _parse($args)
+    protected function _resolve($args)
     {
         $method = array_shift($args);
         return call_user_func_array([$this, $method], $args);
-    }
-
-    protected function _file(Request $req, Response $res)
-    {
-        $file = $req->content->file();
-        if (!$file->exists()) {
-            return false;
-        }
-        return $res
-            ->redirect($this->app->url->file($file));
-    }
-
-    protected function _alias(Request $req, Response $res)
-    {
-        $content = $req->content->content();
-        return $res
-            ->redirect($this->url($content));
-    }
-
-    protected function _url(Request $req, Response $res)
-    {
-        $url = $req->content->url();
-        return $res
-            ->redirect($url);       
-    }
-
-    protected function _blank(Request $req, Response $res)
-    {
-        return;
     }
 
     public function url($content)

@@ -1,6 +1,7 @@
 <?php
 use Coast\App,
-    Chalk\Module;
+    Chalk\Module,
+    Chalk\Frontend;
 
 class Chalk extends App
 {
@@ -100,6 +101,7 @@ class Chalk extends App
     public function __construct($baseDir, array $envs = array())
     {
         parent::__construct($baseDir, $envs);
+        $this->param('frontend', new Frontend($this));
     }
 
     public function viewDir(\Coast\Dir $viewDir = null)
@@ -214,7 +216,7 @@ class Chalk extends App
 
     public function frontend()
     {
-        return new \Chalk\Frontend($this);
+        return $this->_frontend;
     }
 
     public function layouts()
