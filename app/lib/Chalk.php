@@ -228,7 +228,7 @@ class Chalk extends App
                 $path   = $file->toRelative($dir);
                 $path   = $path->extName('');
                 $name   = trim($path, './');
-                $label  = ucwords(str_replace(['-', '/'], [' ', ' – '], $name));
+                $label  = ucwords(str_replace(['-', '/', '_'], [' ', ' – ', ' – '], $name));
                 $layouts[$name] = $label;
             }
             unset($layouts['default']);
