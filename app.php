@@ -48,11 +48,15 @@ $app->param('controller', new Controller())
             'en-GB' => 'en-GB@timezone=Europe/London;currency=GBP',
         ]]));
 
-
 $app->module('core', new Core());
 $app->module('root', $app->root);
 
-$app->styles($config->styles);
+if (isset($config->styles)) {
+    $app->styles($config->styles);
+}
+if (isset($config->layoutDir)) {
+    $app->layoutDir($config->layoutDir);
+}
 
 $app->executable($app->image)
     ->executable($app->locale)

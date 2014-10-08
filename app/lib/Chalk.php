@@ -27,6 +27,7 @@ class Chalk extends App
     protected $_contentClasses = [];
     protected $_widgetClasses  = [];
     protected $_styles         = [];
+    protected $_layoutDir;
 
     public static function entity($class)
     {
@@ -106,13 +107,13 @@ class Chalk extends App
         $this->param('frontend', new Frontend($this));
     }
 
-    public function viewDir(\Coast\Dir $viewDir = null)
+    public function layoutDir(\Coast\Dir $layoutDir = null)
     {
-        if (isset($viewDir)) {
-            $this->_viewDir = $viewDir;
+        if (isset($layoutDir)) {
+            $this->_layoutDir = $layoutDir;
             return $this;
         }
-        return $this->_viewDir;
+        return $this->_layoutDir;
     }
 
     public function module($name, Module $module = null)
@@ -223,20 +224,21 @@ class Chalk extends App
 
     public function layouts()
     {
-        $layouts = [];
-        $dir = $this->root->dir('app/views/layouts/page');
-        if ($dir->exists()) {
-            $it = $dir->iterator(null, true);
-            foreach ($it as $file) {
-                $path   = $file->toRelative($dir);
-                $path   = $path->extName('');
-                $name   = trim($path, './');
-                $label  = ucwords(str_replace(['-', '/', '_'], [' ', ' – ', ' – '], $name));
-                $layouts[$name] = $label;
-            }
-            unset($layouts['default']);
-            ksort($layouts);
+        if (!isset($this->_layoutDir) || !$this->_layoutDir->exists()) {
+            return [];
         }
+
+        $layouts = [];
+        $it = $this->_layoutDir->iterator(null, true);
+        foreach ($it as $file) {
+            $path   = $file->toRelative($this->_layoutDir);
+            $path   = $path->extName('');
+            $name   = trim($path, './');
+            $label  = ucwords(str_replace(['-', '/', '_'], [' ', ' – ', ' – '], $name));
+            $layouts[$name] = $label;
+        }
+        unset($layouts['default']);
+        ksort($layouts);
         return $layouts;
     }
 

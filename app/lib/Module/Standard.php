@@ -16,7 +16,7 @@ abstract class Standard implements Module
 {
     protected $_baseDir;
 
-    public function __construct($baseDir = '../../..')
+    public function __construct($baseDir = '../..')
     {
     	if (!$baseDir instanceof Dir) {
     		$reflection	= new ReflectionClass(get_class($this));
