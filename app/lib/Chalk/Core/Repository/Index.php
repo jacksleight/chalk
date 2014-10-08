@@ -6,7 +6,7 @@
 
 namespace Chalk\Core\Repository;
 
-use Chalk,
+use Chalk\Chalk,
     Chalk\Core,
     Chalk\Behaviour\Searchable,
     Chalk\Repository;
@@ -22,7 +22,7 @@ class Index extends Repository
             ->andWhere("i.entityId = :entityId")
             ->getQuery()
             ->setParameters([
-                'entity' => \Chalk::entity($id)->name,
+                'entity' => \Chalk\Chalk::entity($id)->name,
                 'entityId'   => $id->id,
             ])          
             ->getOneOrNullResult();

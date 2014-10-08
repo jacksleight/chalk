@@ -19,7 +19,7 @@ $count = $this->em('core_content')->fetchCountForPublish();
 				'label' => 'Content',
 				'icon'	=> 'fa fa-file-text-o',
 				'name'	=> 'content',
-				'params'=> ['entity' => \Chalk::entity($contentClasses[0])->name],
+				'params'=> ['entity' => \Chalk\Chalk::entity($contentClasses[0])->name],
 			],
 			// [
 			// 	'label' => 'Live',

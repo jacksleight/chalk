@@ -1,12 +1,12 @@
 <?php
 namespace Chalk\Core\Controller;
 
-use Chalk,
-	Coast\App\Controller\Action,
+use Chalk\Chalk,
+	Chalk\Controller\Basic,
 	Coast\Request,
 	Coast\Response;
 
-class Domain extends Chalk\Controller\Basic
+class Domain extends Basic
 {
 	protected $_entityClass = 'Chalk\Core\Domain';
 }

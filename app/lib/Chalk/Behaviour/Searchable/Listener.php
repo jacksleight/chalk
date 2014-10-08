@@ -6,7 +6,7 @@
 
 namespace Chalk\Behaviour\Searchable;
 
-use Chalk,
+use Chalk\Chalk,
     Chalk\Core\Index,
     Chalk\Behaviour\Searchable,
     Doctrine\Common\EventSubscriber,
@@ -50,7 +50,7 @@ class Listener implements EventSubscriber
             $index  = $em->getRepository('Chalk\Core\Index')->fetch($entity);
             if (!isset($index)) {
                 $index               = new Index();
-                $index->entity   = \Chalk::entity($entity)->name;
+                $index->entity   = \Chalk\Chalk::entity($entity)->name;
                 $index->entityObject = $entity;
             }
             $content = [];

@@ -1,4 +1,6 @@
 <?php
+namespace Chalk;
+
 use Coast\App,
     Chalk\Module,
     Chalk\Frontend;

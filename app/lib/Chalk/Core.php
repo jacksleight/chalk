@@ -6,7 +6,7 @@
 
 namespace Chalk;
 
-use Chalk,
+use Chalk\Chalk,
 	Chalk\Module\Standard,
     Coast\Request,
     Coast\Response;

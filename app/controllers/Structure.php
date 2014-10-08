@@ -1,7 +1,7 @@
 <?php
 namespace Chalk\Core\Controller;
 
-use Chalk,
+use Chalk\Chalk,
 	Chalk\Core\Structure\Iterator,
 	Coast\App\Controller\Action,
 	Coast\Request,

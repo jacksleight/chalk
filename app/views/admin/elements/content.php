@@ -1,5 +1,5 @@
 <?php 
-$browser['entity'] = \Chalk::entity(isset($browser['entity'])
+$browser['entity'] = \Chalk\Chalk::entity(isset($browser['entity'])
 	? $browser['entity']
 	: 'core_content');
 ?>

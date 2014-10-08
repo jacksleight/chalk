@@ -6,13 +6,15 @@
 
 namespace Chalk\Doctrine\ORM;
 
+use Chalk\Chalk;
+
 class EntityManager extends \Coast\Doctrine\ORM\EntityManager
 {
     protected $_trackable;
 
     public function __invoke($class)
     {
-        return $this->getRepository(\Chalk::entity($class)->class);
+        return $this->getRepository(Chalk::entity($class)->class);
     }
 
     public function wrap($object, $allowed = null, array $md = null)

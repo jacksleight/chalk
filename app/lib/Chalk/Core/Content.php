@@ -6,7 +6,7 @@
 
 namespace Chalk\Core;
 
-use Chalk,
+use Chalk\Chalk,
 	Chalk\Core,
     Chalk\Behaviour\Loggable,
     Chalk\Behaviour\Publishable,
@@ -115,12 +115,12 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 
 	public function type()
 	{
-		return \Chalk::entity($this)->name;
+		return \Chalk\Chalk::entity($this)->name;
 	}
 
 	public function typeLabel()
 	{
-		return \Chalk::entity($this)->singular;
+		return \Chalk\Chalk::entity($this)->singular;
 	}
 
 	public function subtypeLabel()
@@ -135,7 +135,7 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 
 	public function restore()
 	{
-		$this->status = \Chalk::STATUS_DRAFT;
+		$this->status = \Chalk\Chalk::STATUS_DRAFT;
 		$this->archiveDate = null;
 		return $this;
 	}

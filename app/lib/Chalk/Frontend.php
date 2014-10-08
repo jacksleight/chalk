@@ -12,6 +12,7 @@ use DOMDocument,
     Coast\Url,
     Coast\Request,
     Coast\Response,
+    Chalk\Chalk,
     Chalk\Core\Content,
     Chalk\Core\Structure\Node;
 
@@ -26,7 +27,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
     protected $_contents;
     protected $_handlers = [];
 
-    public function __construct(\Chalk $chalk)
+    public function __construct(Chalk $chalk)
     {
         $this->_chalk = $chalk;
     }
@@ -90,7 +91,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
         $req->node    = $node;
         $req->content = $content;
 
-        $name = \Chalk::entity($content)->name;
+        $name = \Chalk\Chalk::entity($content)->name;
         if (!isset($this->_handlers[$name])) {
             throw new \Exception("No handler exists for '{$name}' content");
         }
@@ -120,7 +121,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
             if (!$data) {
                 continue;
             }
-            $entity = \Chalk::entity($data['entity']);
+            $entity = \Chalk\Chalk::entity($data['entity']);
             $class  = $entity->class;
             $widget = (new $class())->fromArray($data['params']);
             $temp   = new DOMDocument();

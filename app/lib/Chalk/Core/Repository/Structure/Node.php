@@ -154,7 +154,7 @@ class Node extends Repository
             ->andWhere("n.path = :path");
         if ($published) {
             $qb->andWhere("cv.status = :status");
-            $params['status'] = \Chalk::STATUS_PUBLISHED;
+            $params['status'] = \Chalk\Chalk::STATUS_PUBLISHED;
         } else {
             $qb->andWhere("cv.next IS NULL");
         }

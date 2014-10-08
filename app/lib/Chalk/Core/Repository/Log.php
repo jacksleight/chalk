@@ -6,7 +6,7 @@
 
 namespace Chalk\Core\Repository;
 
-use Chalk,
+use Chalk\Chalk,
     Chalk\Core,
     Chalk\Behaviour\Loggable,
     Chalk\Repository;
@@ -22,7 +22,7 @@ class Log extends Repository
         if (isset($critera['entity'])) {
             $qb ->andWhere("l.entity = :entity")
                 ->andWhere("l.entityId = :entityId");
-            $params['entity'] = \Chalk::entity($entity)->name;
+            $params['entity'] = \Chalk\Chalk::entity($entity)->name;
             $params['entityId']   = $entity->id;
         }
         return $qb

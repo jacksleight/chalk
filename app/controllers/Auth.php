@@ -10,7 +10,7 @@ class Auth extends Action
 	public function login(Request $req, Response $res)
 	{
 		$req->view->login = $wrap = $this->em->wrap(
-			$login = new \Chalk\Login()
+			$login = new \Chalk\Core\Login()
 		);
 
 		if (!$req->isPost()) {

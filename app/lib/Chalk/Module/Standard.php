@@ -6,7 +6,7 @@
 
 namespace Chalk\Module;
 
-use Chalk,
+use Chalk\Chalk,
     Chalk\Module,
 	Coast\File,
 	Coast\Dir,

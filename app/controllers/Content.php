@@ -1,16 +1,16 @@
 <?php
 namespace Chalk\Core\Controller;
 
-use Chalk,
+use Chalk\Chalk,
 	Chalk\Core,
 	FileUpload\FileUpload,
 	FileUpload\PathResolver,
 	FileUpload\FileSystem,
-	Coast\App\Controller\Action,
+	Chalk\Controller\Basic,
 	Coast\Request,
 	Coast\Response;
 
-class Content extends Chalk\Controller\Basic
+class Content extends Basic
 {
 	public function preDispatch(Request $req, Response $res)
 	{
@@ -111,7 +111,7 @@ class Content extends Chalk\Controller\Basic
 	{
 		$content = $this->em($req->entity)->find($req->content);
 
-		$content->status = \Chalk::STATUS_ARCHIVED;
+		$content->status = \Chalk\Chalk::STATUS_ARCHIVED;
 		$this->em->flush();
 
 		return $res->redirect($this->url(array(

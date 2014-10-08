@@ -1,5 +1,5 @@
 <?php
-use 
+use Chalk\Chalk,
     Chalk\Core,
     Coast\App\Controller, 
     Coast\App\Image,

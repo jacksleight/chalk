@@ -7,6 +7,7 @@
 namespace Chalk\Core;
 
 use Chalk\Core,
+    Chalk\Chalk,
 	Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -22,7 +23,7 @@ class File extends Content
 	protected static $_baseDir;
 	protected static $_mimeTypes = [];
 
-	protected $status = \Chalk::STATUS_PUBLISHED;
+	protected $status = Chalk::STATUS_PUBLISHED;
 	
     /**
      * @Column(type="string")

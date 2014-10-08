@@ -19,11 +19,8 @@
     "jacksleight/coast-doctrine": "dev-master"
   },
   "autoload": {
-    "psr-0": {
-      "Chalk": "app/lib",
-      "Chalk\\Proxy": "data/proxies"
-    },
     "psr-4": {
+      "Chalk\\": "app/lib",
       "Chalk\\Core\\Controller\\": "app/controllers/"
     }
   }

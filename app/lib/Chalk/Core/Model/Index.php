@@ -11,8 +11,8 @@ class Index extends \Toast\Entity
 	protected $search;
 	protected $modifyDateMin;
 	protected $statuses = [
-		\Chalk::STATUS_DRAFT,
-		\Chalk::STATUS_PUBLISHED,
+		\Chalk\Chalk::STATUS_DRAFT,
+		\Chalk\Chalk::STATUS_PUBLISHED,
 	];
 	protected $contents = [];
 	protected $entity;
@@ -45,9 +45,9 @@ class Index extends \Toast\Entity
 					'type'		=> 'array',
 					'nullable'	=> true,
 					'values'	=> [
-						\Chalk::STATUS_DRAFT   	=> 'Draft',
-						\Chalk::STATUS_PUBLISHED	=> 'Published',
-						\Chalk::STATUS_ARCHIVED	=> 'Archived',
+						\Chalk\Chalk::STATUS_DRAFT   	=> 'Draft',
+						\Chalk\Chalk::STATUS_PUBLISHED	=> 'Published',
+						\Chalk\Chalk::STATUS_ARCHIVED	=> 'Archived',
 					],
 				),
 				'entity' => array(

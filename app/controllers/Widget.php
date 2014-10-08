@@ -1,13 +1,13 @@
 <?php
 namespace Chalk\Core\Controller;
 
-use Chalk,
+use Chalk\Chalk,
 	Chalk\Core,
-	Coast\App\Controller\Action,
+	Chalk\Controller\Basic,
 	Coast\Request,
 	Coast\Response;
 
-class Widget extends Chalk\Controller\Basic
+class Widget extends Basic
 {
 	public function preDispatch(Request $req, Response $res)
 	{
@@ -18,7 +18,6 @@ class Widget extends Chalk\Controller\Basic
 
 	public function edit(Request $req, Response $res)
 	{
-
 		$class = $req->entity->class;
 		$widget = new $class();
 		$req->view->widget = $wrap = $this->em->wrap($widget);

@@ -6,7 +6,7 @@
 
 namespace Chalk;
 
-use Chalk;
+use Chalk\Chalk;
 
 interface Module
 {

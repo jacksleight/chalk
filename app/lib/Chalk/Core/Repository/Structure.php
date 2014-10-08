@@ -13,7 +13,6 @@ use Chalk\Repository,
 
 class Structure extends Repository
 {
-
 	public function fetchFirst()
 	{
 		return $this->createQueryBuilder('s')
@@ -32,8 +31,8 @@ class Structure extends Repository
 			->getQuery()
 			->setParameters([
 				'statuses' => [
-					\Chalk::STATUS_PENDING,
-					\Chalk::STATUS_PUBLISHED,
+					\Chalk\Chalk::STATUS_PENDING,
+					\Chalk\Chalk::STATUS_PUBLISHED,
 				],
 			])
 			->getResult();
@@ -47,7 +46,7 @@ class Structure extends Repository
 			->getQuery()
 			->setParameters([
 				'statuses' => [
-					\Chalk::STATUS_PENDING,
+					\Chalk\Chalk::STATUS_PENDING,
 				],
 			])
 			->getResult();

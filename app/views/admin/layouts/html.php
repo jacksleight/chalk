@@ -25,7 +25,7 @@ $title	= (isset($title)
 			'rootBaseUrl'	=> (string) $this->rootUrl->baseUrl(),
 			'prefs'			=> $req->user->prefs(),
 			'styles'		=> $this->app->styles(),
-			'widgets'		=> array_map('Chalk::entity', $this->app->widgetClasses()),
+			'widgets'		=> array_map('\Chalk\Chalk::entity', $this->app->widgetClasses()),
 		]) ?>;
 	</script>
 	<script type="x-tmpl-mustache" class="modal-template">

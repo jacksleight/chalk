@@ -11,7 +11,7 @@ class Index extends Action
 	{
 		$contentClasses = $this->app->contentClasses();
 		return $res->redirect($this->url([
-			'entity' => \Chalk::entity($contentClasses[0])->name,
+			'entity' => \Chalk\Chalk::entity($contentClasses[0])->name,
 		], 'structure', true));
 	}
 	

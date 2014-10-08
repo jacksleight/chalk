@@ -22,7 +22,7 @@ $link		= isset($link) ? $link : true;
 			<?php if ($link) { ?>
 				<a href="<?= $this->url([
 					'action'	=> 'edit',
-					'entity'	=> \Chalk::entity($content)->name,
+					'entity'	=> \Chalk\Chalk::entity($content)->name,
 					'content'	=> $content->id,
 				]) ?>">
 			<?php } ?>

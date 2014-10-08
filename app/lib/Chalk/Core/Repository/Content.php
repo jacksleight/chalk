@@ -6,7 +6,8 @@
 
 namespace Chalk\Core\Repository;
 
-use Chalk\Repository,
+use Chalk\Chalk,
+	Chalk\Repository,
 	Chalk\Behaviour\Publishable;
 
 class Content extends Repository
@@ -105,8 +106,8 @@ class Content extends Repository
 			->getQuery()
 			->setParameters([
 				'statuses' => [
-					\Chalk::STATUS_DRAFT,
-					\Chalk::STATUS_PENDING,
+					Chalk::STATUS_DRAFT,
+					Chalk::STATUS_PENDING,
 				],
 			])
 			->getSIngleScalarResult();
@@ -123,8 +124,8 @@ class Content extends Repository
 			->getQuery()
 			->setParameters([
 				'statuses' => [
-					\Chalk::STATUS_DRAFT,
-					\Chalk::STATUS_PENDING,
+					Chalk::STATUS_DRAFT,
+					Chalk::STATUS_PENDING,
 				],
 			])
 			->getResult();
