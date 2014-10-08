@@ -31,7 +31,7 @@ $link		= isset($link) ? $link : true;
 				</a>
 			<?php } ?>
 			<br>
-			<small><?= $content->subname($entity->name != 'core_content') ?></small>
+			<small><?= $content->subname($entity->name != 'Chalk\Core\Content') ?></small>
 		</div>
 	</th>
 	<td class="col-date">

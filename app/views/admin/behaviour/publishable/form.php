@@ -8,19 +8,19 @@
 			'entity'	=> $publishable,
 			'name'		=> 'status',
 			'label'		=> 'Status',
-		), 'core') ?>
+		), 'Chalk\Core') ?>
 		<div class="expandable">
 			<div class="expandable-body">
 				<?= $this->render('/elements/form-item', array(
 					'entity'	=> $publishable,
 					'name'		=> 'publishDate',
 					'label'		=> 'Publish Date',
-				), 'core') ?>
+				), 'Chalk\Core') ?>
 				<?= $this->render('/elements/form-item', array(
 					'entity'	=> $publishable,
 					'name'		=> 'archiveDate',
 					'label'		=> 'Archive Date',
-				), 'core') ?>
+				), 'Chalk\Core') ?>
 			</div>
 			<div class="expandable-toggle">
 				Advanced

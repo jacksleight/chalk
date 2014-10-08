@@ -12,9 +12,9 @@ $contents = $this->em($entity)
 		'entity'		=> $index,
 		'name'			=> 'entity',
 	)) ?>
-	<div class="flex <?= $entity->name == 'core_file' ? 'uploadable' : null ?>">
+	<div class="flex <?= $entity->class == 'Chalk\Core\File' ? 'uploadable' : null ?>">
 		<ul class="toolbar">
-			<?php if ($entity->name == 'core_file') { ?>
+			<?php if ($entity->class == 'Chalk\Core\File') { ?>
 				<li>
 					<span class="btn btn-focus uploadable-button">
 						<i class="fa fa-upload"></i> Upload <?= $entity->singular ?>
@@ -25,7 +25,7 @@ $contents = $this->em($entity)
 		<h1><?= $entity->plural ?></h1>
 		<?= $this->render('filters', ['filter' => $index]) ?>
 		<?php if ($thumbs) { ?>
-			<ul class="thumbs multiselectable <?= $entity->name == 'core_file' ? 'uploadable-list' : null ?>">
+			<ul class="thumbs multiselectable <?= $entity->class == 'Chalk\Core\File' ? 'uploadable-list' : null ?>">
 				<?php if (count($contents)) { ?>
 					<?php foreach ($contents as $content) { ?>
 						<li><?= $this->render('thumb', [
@@ -68,7 +68,7 @@ $contents = $this->em($entity)
 				</tbody>
 			</table>
 		<?php } ?>
-		<?php if ($entity->name == 'core_file') { ?>
+		<?php if ($entity->class == 'Chalk\Core\File') { ?>
 			<input class="uploadable-input" type="file" name="files[]" data-url="<?= $this->url(['action' => 'upload']) ?>" multiple>
 			<script type="x-tmpl-mustache" class="uploadable-template">
 				<?= $this->render('/content/thumb', ['template' => true]) ?>

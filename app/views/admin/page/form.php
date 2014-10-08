@@ -1,10 +1,10 @@
 <form action="<?= $this->url->route() ?>" method="post" class="fill">
 	<div class="flex">
 		<ul class="toolbar">
-			<?= $this->render('/content/tools', [], 'core') ?>
+			<?= $this->render('/content/tools', [], 'Chalk\Core') ?>
 		</ul>
-		<?= $this->render('/content/header', [], 'core') ?>
-		<?= $this->render('/content/meta', [], 'core') ?>
+		<?= $this->render('/content/header', [], 'Chalk\Core') ?>
+		<?= $this->render('/content/meta', [], 'Chalk\Core') ?>
 		<fieldset class="form-block">
 			<div class="form-legend">
 				<h2>General</h2>
@@ -15,7 +15,7 @@
 					'name'		=> 'name',
 					'label'		=> 'Title',
 					'autofocus'	=> true,
-				), 'core') ?>
+				), 'Chalk\Core') ?>
 				<?= $this->render('/elements/form-item', array(
 					'type'		=> 'textarea',
 					'entity'	=> $content,
@@ -23,7 +23,7 @@
 					'label'		=> 'Summary',
 					'class'		=> 'monospaced html',
 					'rows'		=> 5,
-				), 'core') ?>
+				), 'Chalk\Core') ?>
 				<div class="expandable">
 					<div class="expandable-body">
 						<?= $this->render('/elements/form-item', array(
@@ -33,7 +33,7 @@
 							'label'		=> 'Layout',
 							'null'		=> 'Default',
 							'values'	=> $this->app->layouts(),
-						), 'core') ?>
+						), 'Chalk\Core') ?>
 					</div>
 					<div class="expandable-toggle">
 						Advanced
@@ -54,19 +54,19 @@
 					'class'		=> 'monospaced html',
 					'rows'		=> 15,
 					'stackable'	=> false,
-				), 'core') ?>
+				), 'Chalk\Core') ?>
 			</div>
 		</fieldset>
-		<?= $this->render('/behaviour/publishable/form', ['publishable' => $content], 'core') ?>
-		<?= $this->render('/content/node', [], 'core') ?>
+		<?= $this->render('/behaviour/publishable/form', ['publishable' => $content], 'Chalk\Core') ?>
+		<?= $this->render('/content/node', [], 'Chalk\Core') ?>
 	</div>
 	<fieldset class="fix">
 		<ul class="toolbar">
-			<?= $this->render('/content/actions-primary', [], 'core') ?>
+			<?= $this->render('/content/actions-primary', [], 'Chalk\Core') ?>
 		</ul>
 		<ul class="toolbar">
-			<?= $this->render('/content/actions-secondary', [], 'core') ?>
-			<?= $this->render('/content/actions-node', [], 'core') ?>
+			<?= $this->render('/content/actions-secondary', [], 'Chalk\Core') ?>
+			<?= $this->render('/content/actions-node', [], 'Chalk\Core') ?>
 		</ul>
 	</fieldset>
 </form>

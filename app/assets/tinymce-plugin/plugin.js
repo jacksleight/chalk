@@ -8,7 +8,7 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
             text            = selection.getContent({format: 'text'})
             richSelection   = /</.test(html) && (!/^<a [^>]+>[^<]+<\/a>$/.test(html) || html.indexOf('href=') == -1);
     
-        Chalk.modal(Chalk.baseUrl + 'content/core_content/select', {}, function(res) {
+        Chalk.modal(Chalk.selectUrl.replace('{entity}', Chalk.contentName), {}, function(res) {
             if (!res) {
                 return;
             }
@@ -42,7 +42,7 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
             html      = selection.getContent()
             text      = selection.getContent({format: 'text'});
     
-        Chalk.modal(Chalk.baseUrl + 'widget/edit/' + entity, {data: params}, function(res) {
+        Chalk.modal(Chalk.widgetUrl.replace('{entity}', entity), {data: params}, function(res) {
             if (!res) {
                 return;
             }

@@ -1,5 +1,5 @@
 <?php
-$structure	= $this->em('core_structure')->id($req->structure);
+$structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 $content	= $node->content;
 $entity	= \Chalk\Chalk::entity($content->getObject());
 ?>
@@ -7,10 +7,10 @@ $entity	= \Chalk\Chalk::entity($content->getObject());
 <?php $this->layout('/layouts/page_structure') ?>
 <?php $this->block('main') ?>
 
-<?php if ($entity->name != 'core_content') { ?>
+<?php if ($entity->name != 'Chalk\Core\Content') { ?>
 	<?= $this->render("/{$entity->local->path}/form", [
 		'structure'	=> $structure,
 		'content'	=> $content,
 		'entity'	=> $entity,
-	], $entity->module->name) ?>
+	], $entity->module->class) ?>
 <?php } ?>

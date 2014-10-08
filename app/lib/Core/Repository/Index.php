@@ -42,10 +42,11 @@ class Index extends Repository
         $where  = count($classes)
             ? "AND i.entity IN(" . implode(', ', $classes) . ")"
             : null;
+        $table = \Chalk\Chalk::entity('Chalk\Core\Index')->name;
         return $conn->query("
             SELECT i.entity, i.entityId,
                 MATCH(i.content) AGAINST ({$query} IN BOOLEAN MODE) AS score
-            FROM core_index AS i
+            FROM {$table} AS i
             WHERE MATCH(i.content) AGAINST ({$query} IN BOOLEAN MODE)
                 {$where}
             ORDER BY score DESC

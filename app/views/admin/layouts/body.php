@@ -1,5 +1,5 @@
 <?php
-$count = $this->em('core_content')->fetchCountForPublish();
+$count = $this->em('Chalk\Core\Content')->fetchCountForPublish();
 ?>
 <?php $this->layout('/layouts/html') ?>
 <?php $this->block('body') ?>

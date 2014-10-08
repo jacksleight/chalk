@@ -14,7 +14,7 @@
 		<h1>
 			<?= $entity->singular ?>
 		</h1>
-		<?= $this->render("{$entity->local->path}", [], $entity->module->name) ?>
+		<?= $this->render("{$entity->local->path}", [], $entity->module->class) ?>
 	</div>
 	<fieldset class="fix">
 		<ul class="toolbar">

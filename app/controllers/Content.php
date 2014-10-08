@@ -16,7 +16,7 @@ class Content extends Basic
 	{
 		$req->view->entity
 			= $req->entity
-			= Chalk::entity($req->entity ? $req->entity : 'core_content');
+			= Chalk::entity($req->entity ? $req->entity : 'Chalk\Core\Content');
 	}
 
 	public function index(Request $req, Response $res)

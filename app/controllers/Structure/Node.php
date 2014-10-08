@@ -23,9 +23,9 @@ class Node extends Action
 
 		$wrap->graphFromArray($req->bodyParams());
 		if (isset($req->node)) {
-			$parent = $this->em('core_structure_node')->id($req->node);
+			$parent = $this->em('Chalk\Core\Structure\Node')->id($req->node);
 		} else {
-			$parent = $this->em('core_structure')->id($req->structure)->root;
+			$parent = $this->em('Chalk\Core\Structure')->id($req->structure)->root;
 		}
 
 		foreach ($index->contents as $content) {
@@ -50,7 +50,7 @@ class Node extends Action
 
 	public function edit(Request $req, Response $res)
 	{
-		$node = $this->em('core_structure_node')->id($req->node);
+		$node = $this->em('Chalk\Core\Structure\Node')->id($req->node);
 		$req->view->node = $wrap = $this->em->wrap($node);
 
 		if (!$req->isPost()) {
@@ -72,7 +72,7 @@ class Node extends Action
 
 	public function delete(Request $req, Response $res)
 	{
-		$node = $this->em('core_structure_node')->id($req->node);
+		$node = $this->em('Chalk\Core\Structure\Node')->id($req->node);
 
 		$parent = $node->parent;
 		$parent->id;

@@ -20,7 +20,7 @@ class All extends Action
 			return;
 		}
 
-		$req->user = $this->em('core_user')->id($session->user);
+		$req->user = $this->em('Chalk\Core\User')->id($session->user);
 		if (!isset($req->user)) {
 			$session->user = null;
 			return $res->redirect($this->url(array(), 'login', true));

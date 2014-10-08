@@ -58,7 +58,7 @@ if (isset($config->layoutDir)) {
     $app->layoutDir($config->layoutDir);
 }
 
-$app->module('core', new Core())
+$app->module('score', new Core())
     ->module('root', $app->root);
 
 $app->executable($app->image)

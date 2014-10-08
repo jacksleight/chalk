@@ -81,6 +81,9 @@ class Listener implements EventSubscriber
         }
 
         if ($meta->discriminatorMap) {
+            $meta->discriminatorMap = [
+                Chalk::entity($rootClass)->name => $rootClass,
+            ];
             $allClasses = $em->getConfiguration()->getMetadataDriverImpl()->getAllClassNames();
             foreach ($allClasses as $allClass) {
                 if (is_subclass_of($allClass, $rootClass)) {

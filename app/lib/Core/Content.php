@@ -19,7 +19,7 @@ use Chalk\Chalk,
  * @Entity
  * @InheritanceType("SINGLE_TABLE")
  * @DiscriminatorColumn(name="type", type="string")
- * @DiscriminatorMap({"core_content" = "Chalk\Core\Content"})
+ * @DiscriminatorMap({"content" = "Chalk\Core\Content"})
 */
 abstract class Content extends \Toast\Entity implements Loggable, Publishable, Searchable, Trackable, Versionable
 {

@@ -15,18 +15,18 @@ class Core extends Standard
 {
 	public function chalk(Chalk $chalk)
 	{
-		$entity = Chalk::entity($this);
+		$class = get_class($this);
 
-        $chalk->em->dir($entity->name, $this->dir('app/lib'));
-		$chalk->view->dir($entity->name, $this->dir('app/views/admin'));
-        $chalk->controller->nspace($entity->name, "Chalk\\Core\\Controller");
+        $chalk->em->dir($class, $this->dir('app/lib'));
+		$chalk->view->dir($class, $this->dir('app/views/admin'));
+        $chalk->controller->nspace($class, "{$class}\\Controller");
 		
 		$chalk
-			->contentClass("Chalk\\Core\\Page")
-			->contentClass("Chalk\\Core\\File");
+			->contentClass("{$class}\\Page")
+			->contentClass("{$class}\\File");
 
 		$chalk->frontend->handlers([
-			"{$entity->name}_page" => function(Request $req, Response $res) {
+			"{$class}\\Page" => function(Request $req, Response $res) {
 				$entity = Chalk::entity($req->content);
 				return $res->html($this->parse($this->view->render('chalk/' . $entity->path, [
 					'req'	=> $req,
@@ -35,22 +35,22 @@ class Core extends Standard
 					'page'	=> $req->content
 		        ])));
 			},
-			"{$entity->name}_file" => function(Request $req, Response $res) {
+			"{$class}\\File" => function(Request $req, Response $res) {
 		        $file = $req->content->file();
 		        if (!$file->exists()) {
 		            return false;
 		        }
 		        return $res->redirect($this->app->url->file($file));
 			},
-			"{$entity->name}_alias" => function(Request $req, Response $res) {
+			"{$class}\\Alias" => function(Request $req, Response $res) {
 		        $content = $req->content->content();
 		        return $res->redirect($this->url($content));
 			},
-			"{$entity->name}_url" => function(Request $req, Response $res) {
+			"{$class}\\Url" => function(Request $req, Response $res) {
 		        $url = $req->content->url();
 		        return $res->redirect($url);
 			},
-			"{$entity->name}_blank" => function(Request $req, Response $res) {
+			"{$class}\\Blank" => function(Request $req, Response $res) {
 				return;
 			},
 		]);
