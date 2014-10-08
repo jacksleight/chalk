@@ -6,25 +6,26 @@
 
 namespace Chalk\Module;
 
-use Chalk\Module,
-    Coast\Dir,
-	Coast\File;
+use Chalk,
+    Chalk\Module,
+	Coast\File,
+	Coast\Dir,
+	ReflectionClass;
 
-abstract class Basic implements Module
+abstract class Standard implements Module
 {
     protected $_baseDir;
 
-    public function __construct()
+    public function __construct($baseDir = '../../..')
     {
-		$reflection	= new \ReflectionClass(get_class($this));
-		$baseDir = (new File($reflection->getFileName()))
-			->dir()
-            ->dir('..')
-			->dir('..')
-			->toReal();
-        $this->baseDir(!$baseDir instanceof Dir
-            ? new Dir("{$baseDir}")
-            : $baseDir);
+    	if (!$baseDir instanceof Dir) {
+    		$reflection	= new ReflectionClass(get_class($this));
+			$baseDir = (new File($reflection->getFileName()))
+				->dir()
+	            ->dir("{$baseDir}")
+				->toReal();
+    	}
+        $this->baseDir($baseDir);
     }
 
     public function baseDir(\Coast\Dir $baseDir = null)
@@ -46,20 +47,5 @@ abstract class Basic implements Module
     public function file($path)
     {
         return $this->_baseDir->file($path);
-    }
-
-    public function libDir()
-    {
-        return $this->dir('lib');
-    }
-
-    public function viewDir()
-    {
-        return $this->dir('views/admin');
-    }
-
-    public function controllerNamespace()
-    {
-        return get_class($this) . '\\Controller';
     }
 }

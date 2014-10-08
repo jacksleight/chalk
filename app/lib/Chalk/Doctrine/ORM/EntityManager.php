@@ -34,4 +34,12 @@ class EntityManager extends \Coast\Doctrine\ORM\EntityManager
         }
         return $this->_trackable;
     }
+
+    public function dir($name, \Coast\Dir $dir)
+    {
+        $this
+            ->getConfiguration()
+            ->getMetadataDriverImpl()
+            ->addPaths([$name => $dir->name()]);
+    }
 }

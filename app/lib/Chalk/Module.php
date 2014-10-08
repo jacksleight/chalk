@@ -10,11 +10,5 @@ use Chalk;
 
 interface Module
 {
-    public function init(Chalk $chalk);
-
-    public function libDir();
-
-    public function viewDir();
-
-    public function controllerNamespace();
+    public function chalk(Chalk $chalk);
 }

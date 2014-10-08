@@ -13,8 +13,8 @@ class Chalk extends App
     const STATUS_PUBLISHED  = 'published';
     const STATUS_ARCHIVED   = 'archived';
 
-    protected static $_namespaces = [];
-    protected static $_classes    = [];
+    protected static $_nspaces = [];
+    protected static $_classes = [];
 
     // protected static $_publishables  = [
     //  'Chalk\Core\Content',
@@ -34,21 +34,21 @@ class Chalk extends App
             $class = get_class($class);
         } else if (strpos($class, '\\') === false) {
             $parts = preg_split('/[_\/]/', $class);
-            if (!isset(self::$_namespaces[$parts[0]])) {
+            if (!isset(self::$_nspaces[$parts[0]])) {
                 throw new Exception("Class '{$class}' does not belong to a registered module");
             }
-            $namespace = self::$_namespaces[array_shift($parts)];
+            $nspace = self::$_nspaces[array_shift($parts)];
             $parts = array_map('ucfirst', $parts);
-            $class = "{$namespace}\\" . implode('\\', $parts);
+            $class = "{$nspace}\\" . implode('\\', $parts);
         }
         if (isset(self::$_classes[$class])) {
             return self::$_classes[$class];
         }
 
         $module = null;
-        foreach (self::$_namespaces as $alias => $namespace) {
-            if (preg_match("/^". preg_quote($namespace) ."\\\/", $class, $match)) {
-                $module = [$alias, $namespace];
+        foreach (self::$_nspaces as $alias => $nspace) {
+            if (preg_match("/^". preg_quote($nspace) ."(?:\\\|$)/", $class, $match)) {
+                $module = [$alias, $nspace];
                 break;
             }
         }
@@ -57,8 +57,8 @@ class Chalk extends App
         }
 
         $alias         = [$alias];       
-        $namespace     = explode('\\', $namespace);
-        $local         = array_slice(explode('\\', $class), count($namespace));
+        $nspace        = explode('\\', $nspace);
+        $local         = array_slice(explode('\\', $class), count($nspace));
         $entity        = array_merge($alias, $local);
         
         $aliasLcFirst  = array_map('lcfirst', $alias);
@@ -80,7 +80,7 @@ class Chalk extends App
             'path'  => implode('/', $entityLcSplit),
             'var'   => lcfirst(implode('', $entity)),
             'module' => (object) [
-                'class' => implode('\\', $namespace),
+                'class' => implode('\\', $nspace),
                 'name'  => implode('_', $aliasLcFirst),
                 'path'  => implode('/', $aliasLcSplit),
                 'var'   => lcfirst(implode('', $alias)),
@@ -91,7 +91,7 @@ class Chalk extends App
                 'path'  => implode('/', $localLcSplit),
                 'var'   => lcfirst(implode('', $local)),
             ],
-        ] + $class::$info + [
+        ] + (isset($class::$info) ? $class::$info : []) + [
             'singular'  => implode('_', $entityLcFirst),
             'plural'    => implode('_', $entityLcFirst),
         ]);
@@ -102,27 +102,21 @@ class Chalk extends App
         parent::__construct($baseDir, $envs);
     }
 
-    public function baseDir(\Coast\Dir $baseDir = null)
+    public function viewDir(\Coast\Dir $viewDir = null)
     {
-        if (isset($baseDir)) {
-            $this->_baseDir = $baseDir;
+        if (isset($viewDir)) {
+            $this->_viewDir = $viewDir;
             return $this;
         }
-        return $this->_baseDir;
+        return $this->_viewDir;
     }
 
-    public function module($name, Module $value = null)
+    public function module($name, Module $module = null)
     {
         if (func_num_args() > 1) {
-            $this->_modules[$name]    = $value;
-            self::$_namespaces[$name] = get_class($value);
-            $this->view
-                ->dir($name, $value->viewDir());
-            $this->controller
-                ->classNamespace($name, $value->controllerNamespace());
-            $this->em->getConfiguration()->getMetadataDriverImpl()
-                ->addPaths([$name => $value->libDir()]);
-            $value->init($this);
+            $this->_modules[$name] = $module;
+            self::$_nspaces[$name] = get_class($module);
+            $module->chalk($this);
             return $this;
         }
         return isset($this->_modules[$name])
@@ -133,6 +127,11 @@ class Chalk extends App
     public function modules()
     {
         return $this->_modules;
+    }
+
+    public function moduleName(Module $module)
+    {
+        return $this->_moduleNames[get_class($module)];
     }
 
     public function style($value = null)

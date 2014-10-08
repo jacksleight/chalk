@@ -7,14 +7,19 @@
 namespace Chalk;
 
 use Chalk,
-	Chalk\Module\Basic;
+	Chalk\Module\Standard;
 
-class Core extends Basic
+class Core extends Standard
 {
-	public function init(Chalk $chalk)
+	public function chalk(Chalk $chalk)
 	{
+		$entity = Chalk::entity($this);
+
+        $chalk->em->dir($entity->name, $this->dir('app/lib'));
+		$chalk->view->dir($entity->name, $this->dir('app/views/admin'));
+        $chalk->controller->nspace($entity->name, "{$entity->class}\\Controller");
 		$chalk
-			->contentClass('Chalk\Core\Page')
-			->contentClass('Chalk\Core\File');
+			->contentClass("{$entity->class}\\Page")
+			->contentClass("{$entity->class}\\File");
 	}
 }
