@@ -55,7 +55,7 @@ abstract class Basic implements Module
 
     public function viewDir()
     {
-        return $this->dir('views');
+        return $this->dir('views/admin');
     }
 
     public function controllerNamespace()

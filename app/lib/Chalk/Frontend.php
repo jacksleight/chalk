@@ -68,16 +68,16 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
         $method = '_' . \Chalk::entity($content)->local->var;
         return method_exists($this, $method)
             ? $this->$method($req, $res)
-            : $this->_render($req, $res, \Chalk::entity($content)->local->var);
+            : $this->_render($req, $res, \Chalk::entity($content));
     }
 
-    protected function _render(Request $req, Response $res, $var)
+    protected function _render(Request $req, Response $res, $entity)
     {
-        $html = $this->view->render($var, [
-            'req'  => $req,
-            'res'  => $res,
-            'node' => $req->node,
-            $var   => $req->content
+        $html = $this->view->render('chalk/' . $entity->path, [
+            'req'               => $req,
+            'res'               => $res,
+            'node'              => $req->node,
+            $entity->local->var => $req->content
         ]);
        
         $doc = new DOMDocument();
@@ -105,7 +105,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
             $widget = (new $class())->fromArray($data['params']);
             $temp   = new DOMDocument();
             libxml_use_internal_errors(true);
-            $temp->loadHTML('<?xml encoding="utf-8">' . $this->render($entity->local->path, ['widget' => $widget]));
+            $temp->loadHTML('<?xml encoding="utf-8">' . $this->render('chalk/' . $entity->path, ['widget' => $widget]));
             libxml_use_internal_errors(false);
             $body = $temp->getElementsByTagName('body');
             if ($body->length) {

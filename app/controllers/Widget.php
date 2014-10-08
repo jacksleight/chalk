@@ -18,9 +18,6 @@ class Widget extends Chalk\Controller\Basic
 
 	public function edit(Request $req, Response $res)
 	{
-		if (!$this->view->has($req->entity->local->path, $req->entity->module->name)) {
-			return $res->json(['widget' => $widget]);
-		}
 
 		$class = $req->entity->class;
 		$widget = new $class();
