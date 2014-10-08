@@ -4,7 +4,7 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Chalk\Core;
+namespace Chalk\Core\Model;
 
 class Login extends \Toast\Entity
 {

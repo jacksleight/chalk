@@ -4,7 +4,7 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Chalk;
+namespace Chalk\Core;
 
 use Chalk\Chalk,
 	Toast\Entity;
