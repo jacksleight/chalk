@@ -15,7 +15,7 @@ use Chalk\Core,
 */
 class Url extends Content
 {
-	public static $info = [
+	public static $chalk = [
 		'singular'	=> 'URL',
 		'plural'	=> 'URLs',
 	];

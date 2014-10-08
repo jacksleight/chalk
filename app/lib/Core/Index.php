@@ -15,7 +15,7 @@ use Chalk\Core,
 */
 class Index extends \Toast\Entity
 {
-    public static $info = [
+    public static $chalk = [
         'singular'  => 'Index',
         'plural'    => 'Indexes',
     ];

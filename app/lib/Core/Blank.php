@@ -14,7 +14,7 @@ use Chalk\Core,
 */
 class Blank extends Content
 {
-	public static $info = [
+	public static $chalk = [
 		'singular'	=> 'Blank',
 		'plural'	=> 'Blanks',
 	];

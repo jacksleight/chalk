@@ -95,7 +95,7 @@ class Chalk extends App
                 'path'  => implode('/', $localLcSplit),
                 'var'   => lcfirst(implode('', $local)),
             ],
-        ] + (isset($class::$info) ? $class::$info : []) + [
+        ] + (isset($class::$chalk) ? $class::$chalk : []) + [
             'singular'  => implode('_', $entityLcFirst),
             'plural'    => implode('_', $entityLcFirst),
         ]);

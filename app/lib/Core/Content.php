@@ -23,7 +23,7 @@ use Chalk\Chalk,
 */
 abstract class Content extends \Toast\Entity implements Loggable, Publishable, Searchable, Trackable, Versionable
 {
-	public static $info = [
+	public static $chalk = [
 		'singular'	=> 'Content',
 		'plural'	=> 'Content',
 	];

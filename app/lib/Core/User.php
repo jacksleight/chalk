@@ -16,7 +16,7 @@ use Chalk\Core,
 */
 class User extends \Toast\Entity implements Trackable, Searchable
 {
-	public static $info = [
+	public static $chalk = [
 		'singular'	=> 'User',
 		'plural'	=> 'Users',
 	];

@@ -16,7 +16,7 @@ use Chalk\Core,
 */
 class Domain extends \Toast\Entity implements Trackable
 {
-	public static $info = [
+	public static $chalk = [
 		'singular'	=> 'Domain',
 		'plural'	=> 'Domains',
 	];

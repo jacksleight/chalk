@@ -15,18 +15,18 @@ class Core extends Standard
 {
 	public function chalk(Chalk $chalk)
 	{
-		$class = get_class($this);
+		$entity = Chalk::entity($this);
 
-        $chalk->em->dir($class, $this->dir('app/lib'));
-		$chalk->view->dir($class, $this->dir('app/views/admin'));
-        $chalk->controller->nspace($class, "{$class}\\Controller");
+        $chalk->em->dir($entity->class, $this->dir('app/lib'));
+		$chalk->view->dir($entity->class, $this->dir('app/views/admin'));
+        $chalk->controller->nspace($entity->class, "{$entity->class}\\Controller");
 		
 		$chalk
-			->contentClass("{$class}\\Page")
-			->contentClass("{$class}\\File");
+			->contentClass("{$entity->class}\\Page")
+			->contentClass("{$entity->class}\\File");
 
 		$chalk->frontend->handlers([
-			"{$class}\\Page" => function(Request $req, Response $res) {
+			"{$entity->class}\\Page" => function(Request $req, Response $res) {
 				$entity = Chalk::entity($req->content);
 				return $res->html($this->parse($this->view->render('chalk/' . $entity->path, [
 					'req'	=> $req,
@@ -35,22 +35,22 @@ class Core extends Standard
 					'page'	=> $req->content
 		        ])));
 			},
-			"{$class}\\File" => function(Request $req, Response $res) {
+			"{$entity->class}\\File" => function(Request $req, Response $res) {
 		        $file = $req->content->file();
 		        if (!$file->exists()) {
 		            return false;
 		        }
 		        return $res->redirect($this->app->url->file($file));
 			},
-			"{$class}\\Alias" => function(Request $req, Response $res) {
+			"{$entity->class}\\Alias" => function(Request $req, Response $res) {
 		        $content = $req->content->content();
 		        return $res->redirect($this->url($content));
 			},
-			"{$class}\\Url" => function(Request $req, Response $res) {
+			"{$entity->class}\\Url" => function(Request $req, Response $res) {
 		        $url = $req->content->url();
 		        return $res->redirect($url);
 			},
-			"{$class}\\Blank" => function(Request $req, Response $res) {
+			"{$entity->class}\\Blank" => function(Request $req, Response $res) {
 				return;
 			},
 		]);

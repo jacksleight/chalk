@@ -16,7 +16,7 @@ use Chalk\Core,
 */
 class Page extends Content
 {
-	public static $info = [
+	public static $chalk = [
 		'singular'	=> 'Page',
 		'plural'	=> 'Pages',
 	];

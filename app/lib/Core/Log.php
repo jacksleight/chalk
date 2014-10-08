@@ -16,7 +16,7 @@ use Chalk\Core,
 */
 class Log extends \Toast\Entity implements Trackable
 {
-    public static $info = [
+    public static $chalk = [
         'singular'  => 'Log',
         'plural'    => 'Logs',
     ];
