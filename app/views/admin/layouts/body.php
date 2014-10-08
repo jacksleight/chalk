@@ -45,7 +45,7 @@ $count = $this->em('core_content')->fetchCountForPublish();
 			], 'class' => 'toggle']) ?>
 		<?php } ?>
 		<footer class="footer c" role="contentinfo">
-			<p>Chalk 0.1.0</p>
+			<p>Chalk <?= \Chalk\Chalk::VERSION ?></p>
 		</footer>
 	</div>
 	<div class="main">

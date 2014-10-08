@@ -7,7 +7,7 @@ use Coast\App,
 
 class Chalk extends App
 {
-    const VERSION           = '0.1';
+    const VERSION           = '0.1.0';
 
     const FORMAT_DATE       = 'jS F Y';
 
@@ -126,11 +126,6 @@ class Chalk extends App
     public function modules()
     {
         return $this->_modules;
-    }
-
-    public function moduleName(Module $module)
-    {
-        return $this->_moduleNames[get_class($module)];
     }
 
     public function style($value = null)

@@ -7,7 +7,7 @@
 	<div class="flex">
 		<h1>
 			Chalk
-			<small>v0.1.0</small>
+			<small><?= \Chalk\Chalk::VERSION ?></small>
 		</h1>
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, quod, corporis nostrum aspernatur impedit possimus provident! Ex, accusamus, dolorem magni provident quo necessitatibus deserunt molestiae quisquam atque quibusdam. Ipsam, fugiat.</p>
 	</div>
