@@ -10,13 +10,13 @@
 				<h2>General</h2>
 			</div>
 			<div class="form-items">
-				<?= $this->render('/elements/form-item', array(
+				<?= $this->render('/element/form-item', array(
 					'entity'	=> $content,
 					'name'		=> 'name',
 					'label'		=> 'Name',
 					'autofocus'	=> true,
 				), 'Chalk\Core') ?>
-				<?= $this->render('/elements/form-item', array(
+				<?= $this->render('/element/form-item', array(
 					'entity'		=> $content,
 					'name'			=> 'url',
 					'label'			=> 'URL',

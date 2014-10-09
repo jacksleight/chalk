@@ -3,7 +3,7 @@
 		<h2>Publish</h2>
 	</div>
 	<div class="form-items">
-		<?= $this->render('/elements/form-item', array(
+		<?= $this->render('/element/form-item', array(
 			'type'	    => 'input_radio',
 			'entity'	=> $publishable,
 			'name'		=> 'status',
@@ -11,12 +11,12 @@
 		), 'Chalk\Core') ?>
 		<div class="expandable">
 			<div class="expandable-body">
-				<?= $this->render('/elements/form-item', array(
+				<?= $this->render('/element/form-item', array(
 					'entity'	=> $publishable,
 					'name'		=> 'publishDate',
 					'label'		=> 'Publish Date',
 				), 'Chalk\Core') ?>
-				<?= $this->render('/elements/form-item', array(
+				<?= $this->render('/element/form-item', array(
 					'entity'	=> $publishable,
 					'name'		=> 'archiveDate',
 					'label'		=> 'Archive Date',

@@ -4,7 +4,7 @@ $content	= $node->content;
 $entity	= \Chalk\Chalk::entity($content->getObject());
 ?>
 
-<?php $this->layout('/layouts/page_structure') ?>
+<?php $this->layout('/layout/page_structure') ?>
 <?php $this->block('main') ?>
 
 <?php if ($entity->class != 'Chalk\Core\Content') { ?>

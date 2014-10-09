@@ -1,4 +1,4 @@
-<?php $this->layout('/layouts/body') ?>
+<?php $this->layout('/layout/body') ?>
 <?php $this->block('main') ?>
 
 <?= $content->main ?>

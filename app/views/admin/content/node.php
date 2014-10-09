@@ -4,12 +4,12 @@
 			<h2><?= $node->structure->name ?></h2>
 		</div>
 		<div class="form-items">
-			<?= $this->render('/elements/form-item', array(
+			<?= $this->render('/element/form-item', array(
 				'entity'		=> $node,
 				'name'			=> 'isHidden',
 				'label'			=> 'Hidden in navigation',
 			)) ?>	
-			<?= $this->render('/elements/form-item', array(
+			<?= $this->render('/element/form-item', array(
 				'entity'		=> $node,
 				'name'			=> 'name',
 				'label'			=> 'Label',

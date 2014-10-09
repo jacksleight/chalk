@@ -1,16 +1,16 @@
-<?php $this->layout('/layouts/html') ?>
+<?php $this->layout('/layout/html') ?>
 <?php $this->block('body') ?>
 
 <div class="center"><div>
 	<form action="" class="login" method="post">
 		<fieldset>
-			<?= $this->render('/elements/form-item', array(
+			<?= $this->render('/element/form-item', array(
 				'entity'	=> $login,
 				'name'		=> 'emailAddress',
 				'label'		=> 'Email Address',
 				'autofocus'	=> true,
 			)) ?>
-			<?= $this->render('/elements/form-item', array(
+			<?= $this->render('/element/form-item', array(
 				'entity'	=> $login,
 				'type'		=> 'input_password',
 				'name'		=> 'password',

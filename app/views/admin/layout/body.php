@@ -1,7 +1,7 @@
 <?php
 $count = $this->em('Chalk\Core\Content')->fetchCountForPublish();
 ?>
-<?php $this->layout('/layouts/html') ?>
+<?php $this->layout('/layout/html') ?>
 <?php $this->block('body') ?>
 
 <div class="frame">

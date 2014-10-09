@@ -1,4 +1,4 @@
-<?php $this->layout('/layouts/page_settings') ?>
+<?php $this->layout('/layout/page_settings') ?>
 <?php $this->block('main') ?>
 
 <form action="<?= $this->url->route() ?>" method="post" class="fill">
@@ -11,18 +11,18 @@
 				<h2>General</h2>
 			</div>
 			<div class="form-items">
-				<?= $this->render('/elements/form-item', array(
+				<?= $this->render('/element/form-item', array(
 					'entity'	=> $user,
 					'name'		=> 'name',
 					'label'		=> 'Name',
 				)) ?>
-				<?= $this->render('/elements/form-item', array(
+				<?= $this->render('/element/form-item', array(
 					'entity'	=> $user,
 					'type'		=> 'input_email',
 					'name'		=> 'emailAddress',
 					'label'		=> 'Email Address',
 				)) ?>
-				<?= $this->render('/elements/form-item', array(
+				<?= $this->render('/element/form-item', array(
 					'entity'	=> $user,
 					'name'		=> 'passwordPlain',
 					'label'		=> 'Password',

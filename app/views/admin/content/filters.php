@@ -1,6 +1,6 @@
 <ul class="filters autosubmitable">
 	<li>
-		<?= $this->render('/elements/form-input', array(
+		<?= $this->render('/element/form-input', array(
 			'type'			=> 'input_search',
 			'entity'		=> $filter,
 			'name'			=> 'search',
@@ -9,7 +9,7 @@
 		)) ?>
 	</li>
 	<li>
-		<?= $this->render('/elements/form-input', array(
+		<?= $this->render('/element/form-input', array(
 			'type'			=> 'dropdown_single',
 			'entity'		=> $filter,
 			'null'			=> 'Any',
@@ -19,7 +19,7 @@
 		)) ?>
 	</li>
 	<li>
-		<?= $this->render('/elements/form-input', array(
+		<?= $this->render('/element/form-input', array(
 			'type'			=> 'dropdown_multiple',
 			'entity'		=> $filter,
 			'name'			=> 'statuses',

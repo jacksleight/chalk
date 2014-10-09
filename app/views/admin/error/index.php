@@ -1,4 +1,4 @@
-<?php $this->layout('/layouts/page', [
+<?php $this->layout('/layout/page', [
 	'title'	=> 'Error',
 ]) ?>
 <?php $this->block('main') ?>

@@ -7,7 +7,7 @@ $contents = $this->em($entity)
 	->all($index->toArray());
 ?>
 <form action="<?= $this->url->route() ?>" class="fill" data-modal-size="fullscreen" method="<?= $method ?>">
-	<?= $this->render('/elements/form-input', array(
+	<?= $this->render('/element/form-input', array(
 		'type'			=> 'input_hidden',
 		'entity'		=> $index,
 		'name'			=> 'entity',

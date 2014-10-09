@@ -1,4 +1,4 @@
-<?php $this->layout('/layouts/page_settings') ?>
+<?php $this->layout('/layout/page_settings') ?>
 <?php $this->block('main') ?>
 <?php
 $filter = $this->em->wrap(new \Chalk\Core\Model\Index())
@@ -20,7 +20,7 @@ $users = $this->em($entity)
 <form action="<?= $this->url->route() ?>" class="submitable">
 	<ul class="filters">
 		<li>
-			<?= $this->render('/elements/form-input', array(
+			<?= $this->render('/element/form-input', array(
 				'type'			=> 'input_search',
 				'entity'		=> $filter,
 				'name'			=> 'search',

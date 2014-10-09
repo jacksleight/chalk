@@ -4,7 +4,7 @@ $structures	= $repo->fetchAll();
 $structure	= $repo->id($req->structure);
 $repo->fetchTree($structure);
 ?>
-<?php $this->layout('/layouts/body') ?>
+<?php $this->layout('/layout/body') ?>
 <?php $this->block('main') ?>
 
 <?= $content->main ?>
