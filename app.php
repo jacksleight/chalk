@@ -1,7 +1,6 @@
 <?php
 use Chalk\Chalk,
     Chalk\Core\File,
-    Chalk\Frontend,
     Coast\App\Controller, 
     Coast\App\Image,
     Coast\App\Router, 
@@ -19,8 +18,7 @@ $app = (new Chalk(__DIR__, $config->envs))
     ->param('root',   $app)
     ->param('config', $config);
 
-$app->param('frontend', new Frontend($app))
-    ->param('controller', new Controller())
+$app->param('controller', new Controller())
     ->param('router', new Router([
         'target' => $app->controller,
     ]))
@@ -48,7 +46,9 @@ $app->param('frontend', new Frontend($app))
         'cookie'  => 'locale',
         'locales' => [
             'en-GB' => 'en-GB@timezone=Europe/London;currency=GBP',
-        ]]));
+        ]
+    ]))
+    ->param('frontend', $app->import($app->file('app/frontend.php')));
 
 if (isset($config->styles)) {
     $app->styles($config->styles);

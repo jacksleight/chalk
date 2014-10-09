@@ -1,37 +1,18 @@
 <?php
-/*
- * Copyright 2014 Jack Sleight <http://jacksleight.com/>
- * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
- */
-
 namespace Chalk;
 
-use DOMDocument,
-    DOMXPath,
+use Coast\App,
     Closure,
-    Coast\Url,
-    Coast\App\Router,
-    Coast\App\UrlResolver,
-    Coast\Request,
-    Coast\Response,
-    Chalk\Chalk,
-    Chalk\Core\Content,
-    Chalk\Core\Structure\Node;
+    DOMDocument,
+    DOMXPath,
+    Coast\Request, 
+    Coast\Response, 
+    Chalk\Core;
 
-class Frontend implements \Coast\App\Access, \Coast\App\Executable
+class Frontend extends App
 {
-    use \Coast\App\Access\Implementation;
-
-    protected $_chalk;
-    protected $_router;
     protected $_domain;
     protected $_handlers = [];
-
-    public function __construct(Chalk $chalk)
-    {
-        $this->_chalk = $chalk;
-        $this->_router = new Router();
-    }
 
     public function handler($name, Closure $value = null)
     {
@@ -57,14 +38,14 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
 
     public function execute(Request $req, Response $res)
     {        
-        $this->_domain = $this->_chalk
+        $this->_domain = $this->chalk
             ->em('Chalk\Core\Domain')
             ->fetchFirst();
-        $nodes = $this->_chalk
+        $nodes = $this->chalk
             ->em('Chalk\Core\Structure')
             ->fetchNodes($this->_domain->structure);
         foreach ($nodes as $node) {
-            $this->_router->all($node->content->id, $node->path, [
+            $this->router->all($node->content->id, $node->path, [
                 'node'    => $node,
                 'content' => $node->content,
             ]);
@@ -74,21 +55,21 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
         if (preg_match('/^_c([\d]+)$/', $path, $match)) {
             $node    = null;
             $content = $match[1];
-            if ($this->_router->has($content)) {
-                $route = $this->_router->route($content);
-                return $res->redirect($this->app->url($route['path']));
+            if ($this->router->has($content)) {
+                $route = $this->router->route($content);
+                return $res->redirect($this->url($route['path']));
             }
-            $content = $this->_chalk->em('Chalk\Core\Content')->id($content);
+            $content = $this->chalk->em('Chalk\Core\Content')->id($content);
             if (!$content) {
                 return;
             }
         } else {
-            $route = $this->_router->match($req->method(), $path);
+            $route = $this->router->match($req->method(), $path);
             if (!$route) {
                 return;
             }
             if ($route['path'] != $req->path()) {
-                return $res->redirect($this->app->url($route['path']));
+                return $res->redirect($this->url($route['path']));
             }
             $node    = $route['params']['node'];
             $content = $route['params']['content'];
@@ -190,17 +171,17 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
         if ($content instanceof Content) {
             $content = $content->id;
         }
-        $route = $this->_router->has($content)
-            ? $this->_router->route($content)
+        $route = $this->router->has($content)
+            ? $this->router->route($content)
             : null;
         $path = isset($route)
             ? $route['path']
             : "_c{$content}";
-        return $this->app->url($path);
+        return $this->url($path);
     }
 
     public function render($name, array $params = array(), $set = null)
     {
-        return $this->app->view->render($name, $params, $set);
+        return $this->root->view->render($name, $params, $set);
     }
 }

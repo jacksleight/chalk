@@ -33,7 +33,7 @@ class Core extends Standard
 		$chalk->frontend->handlers([
 			'Chalk\Core\Page' => function(Request $req, Response $res) {
 				$entity = Chalk::entity($req->content);
-				return $res->html($this->parse($this->view->render('chalk/' . $entity->path, [
+				return $res->html($this->parse($this->root->view->render('chalk/' . $entity->path, [
 					'req'	=> $req,
 					'res'	=> $res,
 					'node'	=> $req->node,
