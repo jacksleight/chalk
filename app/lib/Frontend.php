@@ -75,8 +75,8 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
             $node    = null;
             $content = $match[1];
             if ($this->_router->has($content)) {
-                $route = $this->_router->get($content);
-                return $res->redirect($this->app->rootUrl($route['path']));
+                $route = $this->_router->route($content);
+                return $res->redirect($this->app->url($route['path']));
             }
             $content = $this->_chalk->em('Chalk\Core\Content')->id($content);
             if (!$content) {
@@ -88,7 +88,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
                 return;
             }
             if ($route['path'] != $req->path()) {
-                return $res->redirect($this->app->rootUrl($route['path']));
+                return $res->redirect($this->app->url($route['path']));
             }
             $node    = $route['params']['node'];
             $content = $route['params']['content'];
@@ -196,7 +196,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
         $path = isset($route)
             ? $route['path']
             : "_c{$content}";
-        return $this->app->rootUrl($path);
+        return $this->app->url($path);
     }
 
     public function render($name, array $params = array(), $set = null)
