@@ -9,9 +9,9 @@ class Index extends Action
 {
 	public function index(Request $req, Response $res)
 	{
-		$contentClasses = $this->app->contentClasses();
+		$contents = $this->app->fire('Chalk\Core\Event\ListContents')->contents();
 		return $res->redirect($this->url([
-			'entity' => \Chalk\Chalk::entity($contentClasses[0])->name,
+			'entity' => \Chalk\Chalk::entity($contents[0])->name,
 		], 'structure', true));
 	}
 	

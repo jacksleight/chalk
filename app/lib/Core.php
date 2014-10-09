@@ -7,6 +7,7 @@
 namespace Chalk;
 
 use Chalk\Chalk,
+	Chalk\Event,
 	Chalk\Module\Standard,
     Coast\Request,
     Coast\Response;
@@ -15,18 +16,22 @@ class Core extends Standard
 {
 	public function chalk(Chalk $chalk)
 	{
-		$entity = Chalk::entity($this);
-
-        $chalk->em->dir($entity->class, $this->dir('app/lib'));
-		$chalk->view->dir($entity->class, $this->dir('app/views/admin'));
-        $chalk->controller->nspace($entity->class, "{$entity->class}\\Controller");
+        $chalk->em->dir('Chalk\Core', $this->dir('app/lib'));
+		$chalk->view->dir('Chalk\Core', $this->dir('app/views/admin'));
+        $chalk->controller->nspace('Chalk\Core', 'Chalk\Core\Controller');
 		
-		$chalk
-			->contentClass("{$entity->class}\\Page")
-			->contentClass("{$entity->class}\\File");
+        $chalk
+        	->register('Chalk\Core\Event\ListWidgets')
+        	->register('Chalk\Core\Event\ListContents')
+        	->listen('Chalk\Core\Event\ListContents', function(Event $event) {
+        		$event->contents([
+	        		'Chalk\Core\Page',
+	        		'Chalk\Core\File',
+        		]);
+        	});
 
 		$chalk->frontend->handlers([
-			"{$entity->class}\\Page" => function(Request $req, Response $res) {
+			'Chalk\Core\Page' => function(Request $req, Response $res) {
 				$entity = Chalk::entity($req->content);
 				return $res->html($this->parse($this->view->render('chalk/' . $entity->path, [
 					'req'	=> $req,
@@ -35,22 +40,22 @@ class Core extends Standard
 					'page'	=> $req->content
 		        ])));
 			},
-			"{$entity->class}\\File" => function(Request $req, Response $res) {
+			'Chalk\Core\File' => function(Request $req, Response $res) {
 		        $file = $req->content->file();
 		        if (!$file->exists()) {
 		            return false;
 		        }
 		        return $res->redirect($this->app->url->file($file));
 			},
-			"{$entity->class}\\Alias" => function(Request $req, Response $res) {
+			'Chalk\Core\Alias' => function(Request $req, Response $res) {
 		        $content = $req->content->content();
 		        return $res->redirect($this->url($content));
 			},
-			"{$entity->class}\\Url" => function(Request $req, Response $res) {
+			'Chalk\Core\Url' => function(Request $req, Response $res) {
 		        $url = $req->content->url();
 		        return $res->redirect($url);
 			},
-			"{$entity->class}\\Blank" => function(Request $req, Response $res) {
+			'Chalk\Core\Blank' => function(Request $req, Response $res) {
 				return;
 			},
 		]);

@@ -126,7 +126,7 @@ class Frontend implements \Coast\App\Access, \Coast\App\Executable
             $widget = (new $class())->fromArray($data['params']);
             $temp   = new DOMDocument();
             libxml_use_internal_errors(true);
-            $temp->loadHTML('<?xml encoding="utf-8">' . $this->render('chalk/' . $entity->path, $widget->toArray()));
+            $temp->loadHTML('<?xml encoding="utf-8">' . $this->render('chalk/' . $entity->module->path . '/' . $entity->local->path, $widget->toArray()));
             libxml_use_internal_errors(false);
             $body = $temp->getElementsByTagName('body');
             if ($body->length) {

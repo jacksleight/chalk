@@ -7,7 +7,7 @@ $count = $this->em('Chalk\Core\Content')->fetchCountForPublish();
 <div class="frame">
 	<div class="sidebar">
 		<?php 
-		$contentClasses = $this->app->contentClasses();
+		$contents = $this->app->fire('Chalk\Core\Event\ListContents')->contents();
 		?>
 		<?= $this->render('nav', ['items' => [
 			[
@@ -19,7 +19,7 @@ $count = $this->em('Chalk\Core\Content')->fetchCountForPublish();
 				'label' => 'Content',
 				'icon'	=> 'fa fa-file-text-o',
 				'name'	=> 'content',
-				'params'=> ['entity' => \Chalk\Chalk::entity($contentClasses[0])->name],
+				'params'=> ['entity' => \Chalk\Chalk::entity($contents[0])->name],
 			],
 			// [
 			// 	'label' => 'Live',

@@ -34,7 +34,7 @@ $title  = (isset($title)
             'contentName'   => \Chalk\Chalk::entity('Chalk\Core\Content')->name,
             'prefs'         => $req->user->prefs(),
             'styles'        => $this->app->styles(),
-            'widgets'       => array_map('\Chalk\Chalk::entity', $this->app->widgetClasses()),
+            'widgets'       => array_map('\Chalk\Chalk::entity', $this->app->fire('Chalk\Core\Event\ListWidgets')->widgets()),
         ]) ?>;
     </script>
     <script type="x-tmpl-mustache" class="modal-template">

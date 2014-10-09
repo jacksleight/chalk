@@ -8,13 +8,14 @@
 <nav class="menu menu-simple" role="navigation">
 	<?php
 	$items = [];
-	foreach ($this->app->contentClasses() as $contentClass) {
-		$entity = \Chalk\Chalk::entity($contentClass);
+	$contents = $this->app->fire('Chalk\Core\Event\ListContents')->contents();
+	foreach ($contents as $content) {
+		$entity = \Chalk\Chalk::entity($content);
 		$items[] = [
 			'label' => $entity->plural,
 			'name'	=> 'content',
 			'params'=> ['action' => null, 'entity' => $entity->name],
-			'badge' => $this->em($contentClass)->fetchCountForPublish() ?: null,
+			'badge' => $this->em($content)->fetchCountForPublish() ?: null,
 		];
 	}
 	?>

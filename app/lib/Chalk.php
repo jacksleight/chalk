@@ -3,6 +3,7 @@ namespace Chalk;
 
 use Coast\App,
     Chalk\Core,
+    Closure,
     Chalk\Module;
 
 class Chalk extends App
@@ -23,10 +24,9 @@ class Chalk extends App
     //  'Chalk\Core\Content',
     // ];
 
-    protected $_modules        = [];
-    protected $_contentClasses = [];
-    protected $_widgetClasses  = [];
-    protected $_styles         = [];
+    protected $_events  = [];
+    protected $_modules = [];
+    protected $_styles  = [];
     protected $_layoutDir;
 
     public static function entity($class)
@@ -78,27 +78,26 @@ class Chalk extends App
             return strtolower(\Coast\str_camel_split($value, '-'));
         }, $entity);
         
-        return self::$_classes[$class] = (object) ([
+        return self::$_classes[$class] = \Coast\to_object(\Coast\array_merge_smart([
             'class' => $class,
             'name'  => implode('_', $entityLcFirst),
             'path'  => implode('/', $entityLcSplit),
             'var'   => lcfirst(implode('', $entity)),
-            'module' => (object) [
+            'module' => [
                 'class' => implode('\\', $nspace),
                 'name'  => implode('_', $aliasLcFirst),
                 'path'  => implode('/', $aliasLcSplit),
                 'var'   => lcfirst(implode('', $alias)),
             ],
-            'local' => (object) [
+            'local' => [
                 'class' => implode('\\', $local),
                 'name'  => implode('_', $localLcFirst),
                 'path'  => implode('/', $localLcSplit),
                 'var'   => lcfirst(implode('', $local)),
             ],
-        ] + (isset($class::$chalk) ? $class::$chalk : []) + [
             'singular'  => implode('_', $entityLcFirst),
             'plural'    => implode('_', $entityLcFirst),
-        ]);
+        ], isset($class::$chalk) ? $class::$chalk : []));
     }
 
     public function layoutDir(\Coast\Dir $layoutDir = null)
@@ -145,47 +144,6 @@ class Chalk extends App
         return $this->_styles;
     }
 
-    public function contentClass($value = null)
-    {
-        $key = count($this->_contentClasses);
-        foreach ($this->_contentClasses as $i => $contentClass) {
-            if (is_subclass_of($value, $contentClass)) {
-                $key = $i;
-                break;
-            }
-        }
-        $this->_contentClasses[$key] = $value;
-        return $this;
-    }
-
-    public function contentClasses(array $contentClasses = null)
-    {
-        if (isset($contentClasses)) {
-            foreach ($contentClasses as $value) {
-                $this->contentClass($value);
-            }
-            return $this;
-        }
-        return $this->_contentClasses;
-    }
-
-    public function widgetClass($value = null)
-    {
-        $this->_widgetClasses[] = $value;
-        return $this;
-    }
-
-    public function widgetClasses(array $widgetClasses = null)
-    {
-        if (isset($widgetClasses)) {
-            foreach ($widgetClasses as $value) {
-                $this->widgetClass($value);
-            }
-            return $this;
-        }
-        return $this->_widgetClasses;
-    }
-
     public function isDebug()
     {
         return (bool) $this->env('DEBUG');
@@ -229,6 +187,36 @@ class Chalk extends App
         unset($layouts['default']);
         ksort($layouts);
         return $layouts;
+    }
+
+    public function register($class)
+    {
+        if (!is_subclass_of($class, 'Chalk\Event')) {
+            throw new \Exception("Class '{$class}' is not a subclass of Chalk\Event");
+        }
+        $this->_events[$class] = [];
+        return $this;
+    }
+
+    public function listen($class, Closure $listener)
+    {
+        if (!isset($this->_events[$class])) {
+            return $this;
+        }
+        $this->_events[$class][] = $listener->bindTo($this);
+        return $this;
+    }
+
+    public function fire($class)
+    {
+        if (!isset($this->_events[$class])) {
+            return $this;
+        }
+        $event = new $class();
+        foreach ($this->_events[$class] as $listener) {
+            $listener($event);
+        }
+        return $event;
     }
 
     public function publish()
