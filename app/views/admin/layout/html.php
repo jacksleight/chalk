@@ -15,7 +15,6 @@ $title  = (isset($title)
     <link rel="stylesheet" href="<?= $this->rootUrl->file("vendor/jacksleight/chalk/public/assets/styles/styles{$code}.css") ?>">
     <link rel="shortcut icon" href="<?= $this->rootUrl->file("vendor/jacksleight/chalk/public/assets/images/favicon.ico") ?>">
     <link rel="apple-touch-icon-precomposed" href="<?= $this->rootUrl->file("vendor/jacksleight/chalk/public/assets/images/touch-icon-precomposed.png") ?>">
-    <script src="<?= $this->rootUrl->file("vendor/jacksleight/chalk/public/assets/scripts/polyfills{$code}.js") ?>"></script>
 </head>
 <body class="<?= isset($class) ? $class : '' ?>">
     <?= $content ?>
