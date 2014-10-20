@@ -99,49 +99,24 @@ class Frontend extends App
                 break;
             }
         }
-        $xpath = new DOMXPath($doc);
 
-        $els = $xpath->query('//*[@data-chalk-widget]');
-        foreach ($els as $el) {
-            $data = json_decode($el->getAttribute('data-chalk-widget'), true);
-            $el->removeAttribute('data-chalk-widget');
-            if (!$data) {
-                continue;
-            }
-            $entity = \Chalk\Chalk::entity($data['entity']);
-            $class  = $entity->class;
-            $widget = (new $class())->fromArray($data['params']);
-            $temp   = new DOMDocument();
-            libxml_use_internal_errors(true);
-            $temp->loadHTML('<?xml encoding="utf-8">' . $this->render('chalk/' . $entity->module->path . '/' . $entity->local->path, $widget->toArray()));
-            libxml_use_internal_errors(false);
-            $body = $temp->getElementsByTagName('body');
-            if ($body->length) {
-                $nodes = $body->item(0)->childNodes;
-                for ($i = $nodes->length - 1; $i >= 0; --$i) {
-                    $node = $doc->importNode($nodes->item($i), true);
-                    $el->parentNode->insertBefore($node, $el);
-                }
-            }
-            $el->parentNode->removeChild($el);
-        }
-
-        $els = $xpath->query('//*[@data-chalk]');
+        $els = (new DOMXPath($doc))->query('//*[@data-chalk]');
         foreach ($els as $el) {
             $data = json_decode($el->getAttribute('data-chalk'), true);
             $el->removeAttribute('data-chalk');
             if (!$data) {
                 continue;
             }
-            if (isset($data['attrs'])) {
-                foreach ($data['attrs'] as $name => $args) {
-                    $el->setAttribute($name, $this->_resolve($args));
-                }
-            }
-            if (isset($data['html'])) {
-                $temp = new DOMDocument();
+            if (isset($data['content'])) {
+                $el->setAttribute('href', $this->url($data['content']['id']));
+            } else if (isset($data['widget'])) {
+                $entity = \Chalk\Chalk::entity($data['widget']['name']);
+                $class  = $entity->class;
+                $widget = (new $class())->fromArray($data['widget']['params']);
+                $temp   = new DOMDocument();
                 libxml_use_internal_errors(true);
-                $temp->loadHTML('<?xml encoding="utf-8">' . $this->_resolve($data['html']));
+                // @hack Ensures correct encoding as libxml doesn't understand <meta charset="utf-8">
+                $temp->loadHTML('<?xml encoding="utf-8">' . $this->render('chalk/' . $entity->module->path . '/' . $entity->local->path, $widget->toArray()));
                 libxml_use_internal_errors(false);
                 $body = $temp->getElementsByTagName('body');
                 if ($body->length) {
@@ -177,7 +152,7 @@ class Frontend extends App
         $path = isset($route)
             ? $route['path']
             : "_c{$content}";
-        return $this->url($path);
+        return $this->root->url($path);
     }
 
     public function render($name, array $params = array(), $set = null)

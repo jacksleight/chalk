@@ -89,7 +89,7 @@ hr {
   border-top: 1px solid #dddee0;
 }
 
-*[data-chalk-widget] {
+div[data-chalk] {
   margin: 1em 0;
   border: 1px solid #cdcfd2;
   color: #cdcfd2;
@@ -98,11 +98,11 @@ hr {
   text-align: center;
   font-weight: bold;
 }
-*[data-chalk-widget]:hover {
+div[data-chalk]:hover {
   border-color: #00a6b5;
   color: #00a6b5;
 }
-*[data-chalk-widget]:before {
+div[data-chalk]:before {
   content: 'Placeholder – Click to Edit';
 }
 

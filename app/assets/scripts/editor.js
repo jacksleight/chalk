@@ -34,10 +34,10 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
             }
             var content = res.contents[0];
             var attrs = {
-                href: Chalk.rootBaseUrl + '_c' + content.id,
+                href: '#',
                 'data-chalk': JSON.stringify({
-                    attrs: {
-                        href: ['url', content.id]
+                    content: {
+                        id: content.id
                     }
                 })
             };
@@ -73,9 +73,11 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
                 return;
             }
             var attrs = {
-                'data-chalk-widget': JSON.stringify({
-                    entity: res.entity,
-                    params: res.params
+                'data-chalk': JSON.stringify({
+                    widget: {
+                        name: res.entity,
+                        params: res.params
+                    }
                 })
             };
             if (!el) {
