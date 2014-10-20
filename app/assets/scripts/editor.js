@@ -1,20 +1,20 @@
 /* Libraries */
 
-//= require ../tinymce/tinymce.min.js
-//= require ../tinymce/themes/modern/theme.min.js
-//= require ../tinymce/plugins/autoresize/plugin.min.js
-//= require ../tinymce/plugins/charmap/plugin.min.js
-//= require ../tinymce/plugins/code/plugin.min.js
-//= require ../tinymce/plugins/fullscreen/plugin.min.js
-//= require ../tinymce/plugins/hr/plugin.min.js
-//= require ../tinymce/plugins/image/plugin.min.js
-//= require ../tinymce/plugins/link/plugin.min.js
-//= require ../tinymce/plugins/lists/plugin.min.js
-//= require ../tinymce/plugins/paste/plugin.min.js
-//= require ../tinymce/plugins/searchreplace/plugin.min.js
-//= require ../tinymce/plugins/table/plugin.min.js
-//= require ../tinymce/plugins/visualblocks/plugin.min.js
-//= require ../tinymce/plugins/noneditable/plugin.min.js
+//= require ../../../bower_components/tinymce/tinymce.min.js
+//= require ../../../bower_components/tinymce/themes/modern/theme.min.js
+//= require ../../../bower_components/tinymce/plugins/autoresize/plugin.min.js
+//= require ../../../bower_components/tinymce/plugins/charmap/plugin.min.js
+//= require ../../../bower_components/tinymce/plugins/code/plugin.min.js
+//= require ../../../bower_components/tinymce/plugins/fullscreen/plugin.min.js
+//= require ../../../bower_components/tinymce/plugins/hr/plugin.min.js
+//= require ../../../bower_components/tinymce/plugins/image/plugin.min.js
+//= require ../../../bower_components/tinymce/plugins/link/plugin.min.js
+//= require ../../../bower_components/tinymce/plugins/lists/plugin.min.js
+//= require ../../../bower_components/tinymce/plugins/paste/plugin.min.js
+//= require ../../../bower_components/tinymce/plugins/searchreplace/plugin.min.js
+//= require ../../../bower_components/tinymce/plugins/table/plugin.min.js
+//= require ../../../bower_components/tinymce/plugins/visualblocks/plugin.min.js
+//= require ../../../bower_components/tinymce/plugins/noneditable/plugin.min.js
 //= require ../tinymce-plugin/plugin.js
 
 /* Initialize */
@@ -95,6 +95,7 @@ Chalk.component(null, function(i, el) {
     }
 
     tinyMCE.init({
+        skin_url: assetsUrl + '/vendor/tinymce/skins/lightgray',
         content_css: [
             assetsUrl + '/styles/editor.css',
             'data:text/css;charset=utf-8;base64,' + Base64.encode(css)

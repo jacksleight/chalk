@@ -10,6 +10,7 @@
     "mustache": "~0.8.1",
     "jquery.ui": "~1.10.4",
     "Nestable": "git://github.com/lukasoppermann/Nestable#master",
-    "js-base64": "~2.1.5"
+    "js-base64": "~2.1.5",
+    "tinymce": "~4.1.6"
   }
 }
