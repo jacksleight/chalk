@@ -15,7 +15,7 @@
 //= require ../../../bower_components/tinymce/plugins/table/plugin.min.js
 //= require ../../../bower_components/tinymce/plugins/visualblocks/plugin.min.js
 //= require ../../../bower_components/tinymce/plugins/noneditable/plugin.min.js
-//= require ../tinymce-plugin/plugin.js
+//= require editor-plugin.js
 
 /* Initialize */
 
