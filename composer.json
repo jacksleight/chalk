@@ -15,6 +15,7 @@
     "intervention/image": "2.0.*",
     "gargron/fileupload": "1.0.*",
     "nesbot/carbon": "1.8.*",
+    "respect/validation": "0.6.*",
     "jacksleight/coast": "dev-master",
     "jacksleight/coast-doctrine": "dev-master"
   },
