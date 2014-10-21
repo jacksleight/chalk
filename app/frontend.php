@@ -2,7 +2,7 @@
 use Chalk\Frontend,
     Coast\App\Controller, 
     Coast\App\Router, 
-    Coast\App\UrlResolver,
+    Chalk\Frontend\UrlResolver,
     Coast\App\View,
     Coast\Request, 
     Coast\Response, 
@@ -10,7 +10,6 @@ use Chalk\Frontend,
 
 $app = (new Frontend($app->root->dir(), $app->config->envs))
 	->param('root',   $app->root)
-    ->param('chalk',  $app)
 	->param('em',     $app->em)
 	->param('config', $app->config);
 
@@ -21,7 +20,7 @@ $app
     ]))
     ->param('url', new UrlResolver([
         'baseUrl' => new Url("{$app->config->baseUrl}"),
-        'baseDir' => $app->chalk->dir(),
+        'baseDir' => $app->root->dir(),
     ]));
 
 return $app;

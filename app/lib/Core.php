@@ -17,7 +17,7 @@ class Core extends Standard
 	public function chalk(Chalk $chalk)
 	{
         $chalk->em->dir('Chalk\Core', $this->dir('app/lib'));
-		$chalk->view->dir('Chalk\Core', $this->dir('app/views/admin'));
+		$chalk->view->dir('Chalk\Core', $this->dir('app/views'));
         $chalk->controller->nspace('Chalk\Core', 'Chalk\Core\Controller');
 		
         $chalk

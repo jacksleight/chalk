@@ -64,7 +64,7 @@ $count = $this->em('Chalk\Core\Content')->fetchCountForPublish();
 					</li>
 				<?php } else { ?>
 					<li>
-						<a href="<?= $this->rootUrl->baseUrl() ?>" target="_blank" class="btn btn-inline btn-quiet">
+						<a href="<?= $this->frontent->url->baseUrl() ?>" target="_blank" class="btn btn-inline btn-quiet">
 							<i class="fa fa-external-link"></i>
 							View Site
 						</a>

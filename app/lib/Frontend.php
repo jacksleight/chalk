@@ -38,10 +38,10 @@ class Frontend extends App
 
     public function execute(Request $req, Response $res)
     {        
-        $this->_domain = $this->chalk
+        $this->_domain = $this
             ->em('Chalk\Core\Domain')
             ->fetchFirst();
-        $nodes = $this->chalk
+        $nodes = $this
             ->em('Chalk\Core\Structure')
             ->fetchNodes($this->_domain->structure);
         foreach ($nodes as $node) {
@@ -59,7 +59,7 @@ class Frontend extends App
                 $route = $this->router->route($content);
                 return $res->redirect($this->url($route['path']));
             }
-            $content = $this->chalk->em('Chalk\Core\Content')->id($content);
+            $content = $this->em('Chalk\Core\Content')->id($content);
             if (!$content) {
                 return;
             }
@@ -133,26 +133,6 @@ class Frontend extends App
         $html = $doc->saveHTML();
         $html = str_replace('<p>&nbsp;</p>', '', $html);
         return $html;
-    }
-
-    protected function _resolve($args)
-    {
-        $method = array_shift($args);
-        return call_user_func_array([$this, $method], $args);
-    }
-
-    public function url($content)
-    {
-        if ($content instanceof Content) {
-            $content = $content->id;
-        }
-        $route = $this->router->has($content)
-            ? $this->router->route($content)
-            : null;
-        $path = isset($route)
-            ? $route['path']
-            : "_c{$content}";
-        return $this->root->url($path);
     }
 
     public function render($name, array $params = array(), $set = null)

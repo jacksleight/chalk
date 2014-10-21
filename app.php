@@ -31,10 +31,6 @@ $app->param('controller', new Controller())
         'baseDir' => $app->dir('public'),
         'router'  => $app->router,
     ]))
-    ->param('rootUrl', new UrlResolver([
-        'baseUrl' => new Url("{$config->baseUrl}"),
-        'baseDir' => $app->root->dir(),
-    ]))
     ->param('image', new Image([
         'baseDir'           => $app->root->dir('public/data/file'),
         'outputDir'         => $app->root->dir('public/data/image', true),
