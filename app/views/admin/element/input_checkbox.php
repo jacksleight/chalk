@@ -1,5 +1,5 @@
 <?php
-$required = $md['validator']->hasValidator('Toast\Validator\Set');
+$required = !$md['nullable'];
 ?>
 <input
 	type="hidden"

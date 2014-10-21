@@ -6,6 +6,8 @@
 
 namespace Chalk\Core\Model;
 
+use Respect\Validation\Validator;
+
 class Login extends \Toast\Entity
 {
 	protected $emailAddress;
@@ -18,9 +20,7 @@ class Login extends \Toast\Entity
 			'fields' => array(
 				'emailAddress' => array(
 					'type'		=> 'string',
-					'validator'	=> new \Toast\Validator\Chain(array(
-						new \Toast\Validator\EmailAddress(),
-					)),
+					'validator'	=> Validator::email(),
 				),
 				'password' => array(
 					'type'		=> 'string',

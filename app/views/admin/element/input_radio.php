@@ -1,5 +1,5 @@
 <?php
-$required = $md['validator']->hasValidator('Toast\Validator\Set');
+$required = !$md['nullable'];
 $values = isset($values)
 	? $values
 	: $md['values'];

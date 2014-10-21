@@ -10,6 +10,7 @@ use Chalk\Core,
     Chalk\Behaviour\Trackable,
 	Coast\Model,
 	Doctrine\Common\Collections\ArrayCollection;
+use Respect\Validation\Validator;
 
 /**
  * @Entity
@@ -28,9 +29,7 @@ class Domain extends \Toast\Entity implements Trackable
 		return array(
 			'fields' => array(
 				'name' => array(
-					'validator'	=> new \Toast\Validator\Chain(array(
-						new \Toast\Validator\Hostname(),
-					)),
+					'validator'	=> Validator::domain(),
 				),
 			),
 		);

@@ -67,12 +67,6 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 		
 		$this->__constructVersionable();
 	}
-
-	protected function _alterSlugMetadata($md)
-	{
-		$md['validator']->removeValidator('Toast\Validator\Set');
-		return $md;
-	}
 			
 	public function searchFields()
 	{

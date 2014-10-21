@@ -10,6 +10,7 @@ use Chalk\Core,
     Chalk\Behaviour\Trackable,
     Chalk\Behaviour\Searchable,
 	Doctrine\Common\Collections\ArrayCollection;
+use Respect\Validation\Validator;
 
 /**
  * @Entity
@@ -93,9 +94,7 @@ class User extends \Toast\Entity implements Trackable, Searchable
 				'passwordPlain' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
-					'validator'	=> new \Toast\Validator\Chain(array(
-						new \Toast\Validator\Length(6),
-					)),
+					'validator'	=> Validator::length(6),
 				),
 				'passwordPlainConfirm' => array(
 					'type'		=> 'string',
@@ -103,14 +102,6 @@ class User extends \Toast\Entity implements Trackable, Searchable
 				),
 			),
 		);
-	}
-
-	protected function _alterMetadata($name, $data)
-	{
-		if (!isset($this->password) && in_array($name, ['passwordPlain', 'passwordPlainConfirm'])) {
-			$data['validator']->addValidator(new \Toast\Validator\Set());
-		}
-		return $data;
 	}
 
 	public function passwordPlain($passwordPlain = null)

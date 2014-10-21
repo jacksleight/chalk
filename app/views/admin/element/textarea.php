@@ -1,8 +1,6 @@
 <?php
-$required	= $md['validator']->hasValidator('Toast\Validator\Set');
-$maxlength	= $md['validator']->hasValidator('Toast\Validator\Length')
-	? $md['validator']->getValidator('Toast\Validator\Length')->getMax()
-	: null;
+$required	= !$md['nullable'];
+$maxlength	= isset($md['length']) ? $md['length'] : null;
 ?>
 <textarea
 	name="<?= "{$md['contextName']}" ?>"
