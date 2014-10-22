@@ -20,14 +20,8 @@ class Chalk extends App
     protected static $_nspaces = [];
     protected static $_classes = [];
 
-    // protected static $_publishables  = [
-    //  'Chalk\Core\Content',
-    // ];
-
     protected $_events  = [];
     protected $_modules = [];
-    protected $_styles  = [];
-    protected $_layoutDir;
 
     public static function entity($class)
     {
@@ -100,15 +94,6 @@ class Chalk extends App
         ], isset($class::$chalk) ? $class::$chalk : []));
     }
 
-    public function layoutDir(\Coast\Dir $layoutDir = null)
-    {
-        if (isset($layoutDir)) {
-            $this->_layoutDir = $layoutDir;
-            return $this;
-        }
-        return $this->_layoutDir;
-    }
-
     public function module($name, Module $module = null)
     {
         if (func_num_args() > 1) {
@@ -125,23 +110,6 @@ class Chalk extends App
     public function modules()
     {
         return $this->_modules;
-    }
-
-    public function style($value = null)
-    {
-        $this->_styles[] = $value;
-        return $this;
-    }
-
-    public function styles(array $styles = null)
-    {
-        if (isset($styles)) {
-            foreach ($styles as $value) {
-                $this->style($value);
-            }
-            return $this;
-        }
-        return $this->_styles;
     }
 
     public function isDebug()
@@ -171,14 +139,14 @@ class Chalk extends App
 
     public function layouts()
     {
-        if (!isset($this->_layoutDir) || !$this->_layoutDir->exists()) {
+        if (!isset($this->config->layoutDir) || !$this->config->layoutDir->exists()) {
             return [];
         }
 
         $layouts = [];
-        $it = $this->_layoutDir->iterator(null, true);
+        $it = $this->config->layoutDir->iterator(null, true);
         foreach ($it as $file) {
-            $path   = $file->toRelative($this->_layoutDir);
+            $path   = $file->toRelative($this->config->layoutDir);
             $path   = $path->extName('');
             $name   = trim($path, './');
             $label  = ucwords(str_replace(['-', '/', '_'], [' ', ' – ', ' – '], $name));

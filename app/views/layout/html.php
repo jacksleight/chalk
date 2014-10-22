@@ -32,7 +32,7 @@ $title  = (isset($title)
             ], 'widget', true),
             'contentName'   => \Chalk\Chalk::entity('Chalk\Core\Content')->name,
             'prefs'         => $req->user->prefs(),
-            'styles'        => $this->app->styles(),
+            'styles'        => $this->config->styles,
             'widgets'       => array_map('\Chalk\Chalk::entity', $this->app->fire('Chalk\Core\Event\ListWidgets')->widgets()),
         ]) ?>;
     </script>

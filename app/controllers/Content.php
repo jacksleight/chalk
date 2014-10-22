@@ -82,7 +82,7 @@ class Content extends Basic
 			throw new \Chalk\Exception("Upload action only accepts POST requests");
 		}
 
-		$dir      = $this->root->dir('data/upload', true);
+		$dir      = $this->frontend->dir('data/upload', true);
 		$uploader = new FileUpload($req->bodyParam('files'), $req->servers());
 		$uploader->setPathResolver(new PathResolver\Simple($dir->name()));
 		$uploader->setFileSystem(new FileSystem\Simple());

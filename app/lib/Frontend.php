@@ -88,18 +88,7 @@ class Frontend extends App
 
     public function parse($html)
     {       
-        $doc = new DOMDocument();
-        libxml_use_internal_errors(true);
-        // @hack Ensures correct encoding as libxml doesn't understand <meta charset="utf-8">
-        $doc->loadHTML('<?xml encoding="utf-8">' . $html);
-        libxml_use_internal_errors(false);
-        foreach ($doc->childNodes as $node) {
-            if ($node->nodeType == XML_PI_NODE) {
-                $doc->removeChild($node);
-                break;
-            }
-        }
-
+        $doc = $this->_htmlToDom($html);
         $els = (new DOMXPath($doc))->query('//*[@data-chalk]');
         foreach ($els as $el) {
             $data = json_decode($el->getAttribute('data-chalk'), true);
@@ -113,12 +102,9 @@ class Frontend extends App
                 $entity = \Chalk\Chalk::entity($data['widget']['name']);
                 $class  = $entity->class;
                 $widget = (new $class())->fromArray($data['widget']['params']);
-                $temp   = new DOMDocument();
-                libxml_use_internal_errors(true);
-                // @hack Ensures correct encoding as libxml doesn't understand <meta charset="utf-8">
-                $temp->loadHTML('<?xml encoding="utf-8">' . $this->render('chalk/' . $entity->module->path . '/' . $entity->local->path, $widget->toArray()));
-                libxml_use_internal_errors(false);
-                $body = $temp->getElementsByTagName('body');
+                $html   = $this->view->render('chalk/' . $entity->module->path . '/' . $entity->local->path, $widget->toArray());
+                $temp   = $this->_htmlToDom($html);
+                $body   = $temp->getElementsByTagName('body');
                 if ($body->length) {
                     $nodes = $body->item(0)->childNodes;
                     for ($i = $nodes->length - 1; $i >= 0; --$i) {
@@ -129,14 +115,22 @@ class Frontend extends App
                 $el->parentNode->removeChild($el);
             }
         }
-
-        $html = $doc->saveHTML();
-        $html = str_replace('<p>&nbsp;</p>', '', $html);
-        return $html;
+        return $doc->saveHTML();
     }
 
-    public function render($name, array $params = array(), $set = null)
+    protected function _htmlToDom($html)
     {
-        return $this->root->view->render($name, $params, $set);
+        $doc = new DOMDocument();
+        libxml_use_internal_errors(true);
+        // @hack Ensures correct encoding as libxml doesn't understand <meta charset="utf-8">
+        $doc->loadHTML('<?xml encoding="utf-8">' . $html);
+        libxml_use_internal_errors(false);
+        foreach ($doc->childNodes as $node) {
+            if ($node->nodeType == XML_PI_NODE) {
+                $doc->removeChild($node);
+                break;
+            }
+        }
+        return $doc;
     }
 }

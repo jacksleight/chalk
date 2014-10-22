@@ -16,6 +16,8 @@ class Core extends Standard
 {
 	public function chalk(Chalk $chalk)
 	{
+		$chalk->frontend->view->dir('Chalk\Core', $chalk->config->viewDir->dir('core'));
+
         $chalk->em->dir('Chalk\Core', $this->dir('app/lib'));
 		$chalk->view->dir('Chalk\Core', $this->dir('app/views'));
         $chalk->controller->nspace('Chalk\Core', 'Chalk\Core\Controller');
@@ -33,12 +35,12 @@ class Core extends Standard
 		$chalk->frontend->handlers([
 			'Chalk\Core\Page' => function(Request $req, Response $res) {
 				$entity = Chalk::entity($req->content);
-				return $res->html($this->parse($this->root->view->render('chalk/' . $entity->path, [
+				return $res->html($this->parse($this->view->render($entity->local->path, [
 					'req'	=> $req,
 					'res'	=> $res,
 					'node'	=> $req->node,
 					'page'	=> $req->content
-		        ])));
+		        ], 'Chalk\Core')));
 			},
 			'Chalk\Core\File' => function(Request $req, Response $res) {
 		        $file = $req->content->file();

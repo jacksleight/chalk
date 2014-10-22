@@ -1,42 +1,49 @@
 <?php
-use Chalk\Chalk,
-    Chalk\Core\File,
-    Coast\App\Controller, 
-    Coast\App\Image,
-    Coast\App\Router, 
-    Coast\App\UrlResolver,
-    Coast\App\View,
-    Coast\Config,
-    Coast\Path,
-    Coast\Request, 
-    Coast\Response, 
-    Coast\Url,
-    Toast\App\Locale;
+use Chalk\Chalk;
+use Chalk\Core\File;
+use Chalk\Frontend;
+use Coast\App\Controller;
+use Coast\App\Image;
+use Coast\App\Router;
+use Coast\App\UrlResolver;
+use Coast\App\View;
+use Coast\Config;
+use Coast\Path;
+use Coast\Request;
+use Coast\Response;
+use Coast\Url;
+use Toast\App\Locale;
 
-$app = (new Chalk(__DIR__, $config->envs))
+$chalk = (new Chalk(__DIR__, $config->envs))
     ->path(new Path("{$config->path}"))
-    ->param('root',   $app)
+    ->param('root', $app)
     ->param('config', $config);
 
-$app->param('controller', new Controller())
+$frontend = (new Frontend($app->dir(), $config->envs))
+    ->param('root', $app)
+    ->param('config', $config);
+
+$chalk
+    ->param('frontend', $frontend)
+    ->param('controller', new Controller())
     ->param('router', new Router([
-        'target' => $app->controller,
+        'target' => $chalk->controller,
     ]))
     ->param('view', new View())
-    ->param('memcached', $app->import($app->file('app/memcached.php')))
-    ->param('em', $app->import($app->file('app/doctrine.php')))
-    ->param('swift', $app->import($app->file('app/swift.php')))
+    ->param('memcached', $chalk->import($chalk->file('app/memcached.php')))
+    ->param('em', $chalk->import($chalk->file('app/doctrine.php')))
+    ->param('swift', $chalk->import($chalk->file('app/swift.php')))
     ->param('url', new UrlResolver([
-        'baseUrl' => new Url("{$config->baseUrl}{$app->path()}/"),
-        'baseDir' => $app->dir('public'),
-        'router'  => $app->router,
+        'baseUrl' => new Url("{$config->baseUrl}{$chalk->path()}/"),
+        'baseDir' => $chalk->dir('public'),
+        'router'  => $chalk->router,
     ]))
     ->param('image', new Image([
-        'baseDir'           => $app->root->dir('public/data/file'),
-        'outputDir'         => $app->root->dir('public/data/image', true),
-        'urlResolver'       => $app->url,
-        'outputUrlResolver' => $app->rootUrl,
-        'transforms'        => $app->import($app->file('app/transforms.php'))
+        'baseDir'           => $app->dir('public/data/file'),
+        'outputDir'         => $app->dir('public/data/image', true),
+        'urlResolver'       => $chalk->url,
+        'outputUrlResolver' => $frontend->url,
+        'transforms'        => $chalk->import($chalk->file('app/transforms.php'))
     ]))
     ->param('locale', new Locale([
         'cookie'  => 'locale',
@@ -44,35 +51,40 @@ $app->param('controller', new Controller())
             'en-GB' => 'en-GB@timezone=Europe/London;currency=GBP',
         ]
     ]))
-    ->param('frontend', $app->import($app->file('app/frontend.php')));
-
-if (isset($config->styles)) {
-    $app->styles($config->styles);
-}
-if (isset($config->layoutDir)) {
-    $app->layoutDir($config->layoutDir);
-}
-
-$app->executable($app->image)
-    ->executable($app->locale)
-    ->executable($app->router);
-
-$app->notFoundHandler(function(Request $req, Response $res) {
-    return $res
-        ->status(404)
-        ->html($this->view->render('error/not-found', ['req' => $req, 'res' => $res]));
-});
-if (!$app->isDebug()) {
-    $app->errorHandler(function(Request $req, Response $res, Exception $e) {
+    ->notFoundHandler(function(Request $req, Response $res) {
+        return $res
+            ->status(404)
+            ->html($this->view->render('error/not-found', ['req' => $req, 'res' => $res]));
+    })
+    ->errorHandler(function(Request $req, Response $res, Exception $e) {
+        if ($this->isDebug()) {
+            throw $e;
+        }
         return $res
             ->status(500)
             ->html($this->view->render('error/index', ['req' => $req, 'res' => $res, 'e' => $e]));
     });
-}
 
-File::baseDir($app->root->dir('public/data/file', true));
-File::mimeTypes($app->import($app->file('app/mime-types.php')));
+$frontend
+    ->param('controller', new Controller())
+    ->param('em', $chalk->em)
+    ->param('view', $config->view)
+    ->param('router', new Router([
+        // 'target' => $chalk->controller,
+    ]))
+    ->param('url', new UrlResolver([
+        'baseUrl' => new Url("{$config->baseUrl}"),
+        'baseDir' => $app->dir(),
+    ]));
 
-$app->import($app->file('app/routes.php'));
+$chalk
+    ->executable($chalk->image)
+    ->executable($chalk->locale)
+    ->executable($chalk->router);
 
-return $app;
+File::baseDir($app->dir('public/data/file', true));
+File::mimeTypes($chalk->import($chalk->file('app/mime-types.php')));
+
+$chalk->import($chalk->file('app/routes.php'));
+
+return $chalk;
