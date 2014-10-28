@@ -13,4 +13,4 @@ $maxlength	= isset($md['length']) ? $md['length'] : null;
 	<?= false && isset($required) && $required ? "required" : null ?>
 	<?= isset($maxlength) ? "maxlength=\"{$maxlength}\"" : null ?>
 	<?= isset($wrap) ? "wrap=\"{$wrap}\"" : null ?>
-	<?= isset($placeholder) ? "placeholder=\"" . $this->escape($this->locale->message($placeholder)) . "\"" : null ?>><?= $this->escape($entity->{$name}) ?></textarea>
+	<?= isset($placeholder) ? "placeholder=\"" . $this->escape($placeholder) . "\"" : null ?>><?= $this->escape($entity->{$name}) ?></textarea>

@@ -3,7 +3,7 @@ $values = isset($values)
 	? $values
 	: $md['values'];
 ?>
-<?php foreach ($values as $value) { ?>
+<?php foreach ($values as $value => $label) { ?>
 	<input
 		type="hidden"
 		name="<?= "{$md['contextName']}[{$value}]" ?>"
@@ -20,8 +20,6 @@ $values = isset($values)
 			: $entity->{$name}) ? 'checked' : null ?>
 		<?= isset($class) ? "class=\"{$class}\"" : null ?>> 
 	<label for="<?= "_{$md['contextName']}[{$value}]" ?>" class="checkbox">
-		<?= $this->escape($this->locale->message((is_object($value)
-			? $value->name
-			: $this->locale->message("label_{$name}_{$value}")))) ?>
+		<?= $this->escape((is_object($value) ? $value->name : $label)) ?>
 	</label>
 <?php } ?>

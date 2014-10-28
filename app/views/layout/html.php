@@ -1,6 +1,6 @@
 <?php
 $code   = $this->app->isDebug() ? '' : '.min';
-$lang   = $this->locale->getLanguage() . '-' . $this->locale->getRegion();
+$lang   = 'en-GB';
 $title  = (isset($title) 
     ? $title . ' – '
     : null) . 'Chalk';

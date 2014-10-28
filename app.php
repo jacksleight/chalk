@@ -12,7 +12,6 @@ use Coast\Path;
 use Coast\Request;
 use Coast\Response;
 use Coast\Url;
-use Toast\App\Locale;
 
 $frontend = (new Frontend($app->dir(), $config->envs))
     ->param('root', $app)
@@ -53,12 +52,6 @@ $chalk
         'outputUrlResolver' => $frontend->url,
         'transforms'        => $chalk->import($chalk->file('app/transforms.php'))
     ]))
-    ->param('locale', new Locale([
-        'cookie'  => 'locale',
-        'locales' => [
-            'en-GB' => 'en-GB@timezone=Europe/London;currency=GBP',
-        ]
-    ]))
     ->notFoundHandler(function(Request $req, Response $res) {
         return $res
             ->status(404)
@@ -78,7 +71,6 @@ $frontend
 
 $chalk
     ->executable($chalk->image)
-    ->executable($chalk->locale)
     ->executable($chalk->router);
 
 File::baseDir($config->fileBaseDir);
