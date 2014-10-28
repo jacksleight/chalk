@@ -1,7 +1,7 @@
 <?php
 $filter = $this->em->wrap(new \Chalk\Core\Model\Index())
 	->graphFromArray($req->queryParams());
-$contents = $this->em($entity)
+$contents = $this->em($info)
 	->all($filter->toArray());
 ?>
 
@@ -10,10 +10,10 @@ $contents = $this->em($entity)
 		<li><a href="<?= $this->url([
 				'action' => 'edit',
 			]) ?>" class="btn btn-focus">
-				<i class="fa fa-plus"></i> New <?= $entity->singular ?>
+				<i class="fa fa-plus"></i> New <?= $info->singular ?>
 		</a></li>
 	</ul>
-	<h1><?= $entity->plural ?></h1>
+	<h1><?= $info->plural ?></h1>
 	<?= $this->render('/content/filters', ['filter' => $filter]) ?>
 	<table class="multiselectable">
 		<colgroup>

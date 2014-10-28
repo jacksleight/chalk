@@ -1,13 +1,13 @@
 <?php $this->layout('/layout/page_content') ?>
 <?php $this->block('main') ?>
 
-<?php if ($entity->class != 'Chalk\Core\Content') { ?>
-	<?= $this->render("/{$entity->local->path}/index", [], $entity->module->class) ?>
+<?php if ($info->class != 'Chalk\Core\Content') { ?>
+	<?= $this->render("/{$info->local->path}/index", [], $info->module->class) ?>
 	<?php return; ?>
 <?php } ?>
 
 <?php
-$contents = $this->em($entity)
+$contents = $this->em($info)
 	->all($index->toArray());
 ?>
 <form action="<?= $this->url->route() ?>">

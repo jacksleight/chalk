@@ -14,7 +14,7 @@ class EntityManager extends \Coast\Doctrine\ORM\EntityManager
 
     public function __invoke($class)
     {
-        return $this->getRepository(Chalk::entity($class)->class);
+        return $this->getRepository(Chalk::info($class)->class);
     }
 
     public function wrap($object, $allowed = null, array $md = null)

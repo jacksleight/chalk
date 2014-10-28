@@ -109,12 +109,12 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 
 	public function type()
 	{
-		return \Chalk\Chalk::entity($this)->name;
+		return \Chalk\Chalk::info($this)->name;
 	}
 
 	public function typeLabel()
 	{
-		return \Chalk\Chalk::entity($this)->singular;
+		return \Chalk\Chalk::info($this)->singular;
 	}
 
 	public function subtypeLabel()

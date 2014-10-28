@@ -3,7 +3,7 @@
 <?php
 $filter = $this->em->wrap(new \Chalk\Core\Model\Index())
 	->graphFromArray($req->queryParams());
-$users = $this->em($entity)
+$users = $this->em($info)
 	->fetchAll($filter->toArray());
 ?>
 
@@ -12,11 +12,11 @@ $users = $this->em($entity)
 		<a href="<?= $this->url([
 			'action' => 'edit',
 		]) ?>" class="btn btn-focus">
-			<i class="fa fa-plus"></i> Add <?= $entity->singular ?>
+			<i class="fa fa-plus"></i> Add <?= $info->singular ?>
 		</a>
 	</li>
 </ul>
-<h1><?= $entity->plural ?></h1>
+<h1><?= $info->plural ?></h1>
 <form action="<?= $this->url->route() ?>" class="submitable">
 	<ul class="filters">
 		<li>

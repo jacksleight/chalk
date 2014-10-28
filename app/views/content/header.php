@@ -2,6 +2,6 @@
 	<?php if (!$content->isNewMaster()) { ?>
 		<?= $content->name ?>
 	<?php } else { ?>
-		New <?= $entity->singular ?>
+		New <?= $info->singular ?>
 	<?php } ?>
 </h1>

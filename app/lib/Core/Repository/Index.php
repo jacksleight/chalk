@@ -22,7 +22,7 @@ class Index extends Repository
             ->andWhere("i.entityId = :entityId")
             ->getQuery()
             ->setParameters([
-                'entity'   => \Chalk\Chalk::entity($id)->name,
+                'entity'   => \Chalk\Chalk::info($id)->name,
                 'entityId' => $id->id,
             ])          
             ->getOneOrNullResult();
@@ -36,13 +36,13 @@ class Index extends Repository
         $query   = $conn->quote($query);
         $classes = (array) $classes;
         foreach ($classes as $i => $class) {
-            $classes[$i] = $conn->quote(\Chalk::entity($class)->name);
+            $classes[$i] = $conn->quote(\Chalk::info($class)->name);
         }
 
         $where  = count($classes)
             ? "AND i.entity IN(" . implode(', ', $classes) . ")"
             : null;
-        $table = \Chalk\Chalk::entity('Chalk\Core\Index')->name;
+        $table = \Chalk\Chalk::info('Chalk\Core\Index')->name;
         return $conn->query("
             SELECT i.entity, i.entityId,
                 MATCH(i.content) AGAINST ({$query} IN BOOLEAN MODE) AS score

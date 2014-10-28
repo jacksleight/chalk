@@ -15,7 +15,7 @@ try {
 	
 	$cli->output('Updating schema..', true);
 	$updateSchemaSql = $schema->getUpdateSchemaSql($em->getMetadataFactory()->getAllMetadata(), false);
-    $table = \Chalk\Chalk::entity('Chalk\Core\Index')->name;
+    $table = \Chalk\Chalk::info('Chalk\Core\Index')->name;
 	$key = array_search("DROP INDEX content ON {$table}", $updateSchemaSql);
 	if ($key !== false) {
 		unset($updateSchemaSql[$key]);

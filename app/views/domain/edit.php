@@ -7,7 +7,7 @@
 			<?php if (!$domain->isNew()) { ?>
 				<?= $domain->name ?>
 			<?php } else { ?>
-				New <?= $entity->singular ?>
+				New <?= $info->singular ?>
 			<?php } ?>
 		</h1>
 		<fieldset class="form-block">
@@ -36,7 +36,7 @@
 			<li>
 				<button class="btn btn-focus">
 					<i class="fa fa-check"></i>
-					Save <?= $entity->singular ?>
+					Save <?= $info->singular ?>
 				</button>
 			</li>
 		</ul>
@@ -46,7 +46,7 @@
 					<a href="<?= $this->url([
 						'action' => 'delete',
 					]) ?>" class="btn btn-negative btn-quiet confirmable">
-						<i class="fa fa-trash-o"></i> Delete <?= $entity->singular ?>
+						<i class="fa fa-trash-o"></i> Delete <?= $info->singular ?>
 					</a>
 				</li>
 			<?php } ?>

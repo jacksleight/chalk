@@ -63,7 +63,7 @@ class Listener implements EventSubscriber
 			}
 			$changeSet			= $uow->getEntityChangeSet($entity);
 			$log				= new Log();
-			$log->entity		= \Chalk\Chalk::entity($entity)->name;
+			$log->entity		= \Chalk\Chalk::info($entity)->name;
 			$log->entityObject	= $entity;
 			if (!isset($entity->id)) {
 				$log->type = Log::TYPE_CREATE;

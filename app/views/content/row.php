@@ -22,7 +22,7 @@ $link		= isset($link) ? $link : true;
 			<?php if ($link) { ?>
 				<a href="<?= $this->url([
 					'action'	=> 'edit',
-					'entity'	=> \Chalk\Chalk::entity($content)->name,
+					'entity'	=> \Chalk\Chalk::info($content)->name,
 					'content'	=> $content->id,
 				]) ?>">
 			<?php } ?>
@@ -31,7 +31,7 @@ $link		= isset($link) ? $link : true;
 				</a>
 			<?php } ?>
 			<br>
-			<small><?= $content->subname($entity->class != 'Chalk\Core\Content') ?></small>
+			<small><?= $content->subname($info->class != 'Chalk\Core\Content') ?></small>
 		</div>
 	</th>
 	<td class="col-date">

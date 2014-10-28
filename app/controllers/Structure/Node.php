@@ -11,7 +11,7 @@ class Node extends Action
 {
 	public function add(Request $req, Response $res)
 	{
-		$req->view->entity = Chalk::entity('Chalk\Core\Content');
+		$req->view->info = Chalk::info('Chalk\Core\Content');
 
 		$wrap = $this->em->wrap($index = new \Chalk\Core\Model\Index());
 		$wrap->graphFromArray($req->queryParams());

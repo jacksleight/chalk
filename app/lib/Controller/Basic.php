@@ -12,9 +12,9 @@ class Basic extends Action
 
 	public function preDispatch(Request $req, Response $res)
 	{
-		$req->view->entity
-			= $req->entity
-			= Chalk::entity($this->_entityClass);
+		$req->view->info
+			= $req->info
+			= Chalk::info($this->_entityClass);
 	}
 
 	public function index(Request $req, Response $res)
@@ -22,10 +22,10 @@ class Basic extends Action
 
 	public function edit(Request $req, Response $res)
 	{
-		$var = $req->entity->local->var;
+		$var = $req->info->local->var;
 		$entity = isset($req->id)
-			? $this->em($req->entity)->id($req->id)
-			: $this->em($req->entity)->create();
+			? $this->em($req->info)->id($req->id)
+			: $this->em($req->info)->create();
 		$req->view->$var = $wrap = $this->em->wrap($entity);
 
 		if (!$req->isPost()) {
@@ -50,7 +50,7 @@ class Basic extends Action
 
 	public function delete(Request $req, Response $res)
 	{
-		$entity = $this->em($req->entity)->find($req->id);
+		$entity = $this->em($req->info)->find($req->id);
 
 		$this->em->remove($entity);
 		$this->em->flush();

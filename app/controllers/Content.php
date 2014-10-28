@@ -14,9 +14,9 @@ class Content extends Basic
 {
 	public function preDispatch(Request $req, Response $res)
 	{
-		$req->view->entity
-			= $req->entity
-			= Chalk::entity($req->entity ? $req->entity : 'Chalk\Core\Content');
+		$req->view->info
+			= $req->info
+			= Chalk::info($req->entity ? $req->entity : 'Chalk\Core\Content');
 	}
 
 	public function index(Request $req, Response $res)
@@ -48,8 +48,8 @@ class Content extends Basic
 	public function edit(Request $req, Response $res)
 	{
 		$content = isset($req->route['params']['content'])
-			? $this->em($req->entity)->id($req->route['params']['content'])
-			: $this->em($req->entity)->create();
+			? $this->em($req->info)->id($req->route['params']['content'])
+			: $this->em($req->info)->create();
 		$req->view->content = $wrap = $this->em->wrap($content);
 
 		if (!$req->isPost()) {
@@ -109,7 +109,7 @@ class Content extends Basic
 
 	public function archive(Request $req, Response $res)
 	{
-		$content = $this->em($req->entity)->find($req->content);
+		$content = $this->em($req->info)->find($req->content);
 
 		$content->status = \Chalk\Chalk::STATUS_ARCHIVED;
 		$this->em->flush();
@@ -122,7 +122,7 @@ class Content extends Basic
 
 	public function restore(Request $req, Response $res)
 	{
-		$content = $this->em($req->entity)->find($req->content);
+		$content = $this->em($req->info)->find($req->content);
 
 		$content->restore();
 		$this->em->flush();
@@ -135,7 +135,7 @@ class Content extends Basic
 
 	public function delete(Request $req, Response $res)
 	{
-		$entity = $this->em($req->entity)->find($req->content);
+		$entity = $this->em($req->info)->find($req->content);
 
 		$this->em->remove($entity);
 		$this->em->flush();

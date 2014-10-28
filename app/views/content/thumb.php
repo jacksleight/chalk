@@ -7,7 +7,7 @@ $link		= isset($link) ? $link : true;
 <figure class="thumb selectable">
 	<?php if ($link) { ?>
 		<a href="<?= !$template ? $this->url([
-			'entity'=> $entity->name,
+			'entity'=> $info->name,
 			'action'	=> 'edit',
 			'content'	=> $content->id,
 		]) : '#' ?>">
@@ -48,7 +48,7 @@ $link		= isset($link) ? $link : true;
 				<?php if ($template) { ?>
 					Waiting…
 				<?php } else { ?>
-					<?= $content->subname($entity->class != 'Chalk\Core\Content') ?>
+					<?= $content->subname($info->class != 'Chalk\Core\Content') ?>
 				<?php } ?>
 			</small>
 		</figcaption>

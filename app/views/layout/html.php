@@ -30,10 +30,10 @@ $title  = (isset($title)
                 'action' => 'edit',
                 'entity' => '{entity}',
             ], 'widget', true),
-            'contentName'   => \Chalk\Chalk::entity('Chalk\Core\Content')->name,
+            'contentName'   => \Chalk\Chalk::info('Chalk\Core\Content')->name,
             'prefs'         => $req->user->prefs(),
             'styles'        => $this->config->styles,
-            'widgets'       => array_map('\Chalk\Chalk::entity', $this->app->fire('Chalk\Core\Event\ListWidgets')->widgets()),
+            'widgets'       => array_map('\Chalk\Chalk::info', $this->app->fire('Chalk\Core\Event\ListWidgets')->widgets()),
         ]) ?>;
     </script>
     <script type="x-tmpl-mustache" class="modal-template">

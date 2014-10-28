@@ -78,7 +78,7 @@ class Frontend extends App
         $req->node    = $node;
         $req->content = $content;
 
-        $name = \Chalk\Chalk::entity($content)->class;
+        $name = \Chalk\Chalk::info($content)->class;
         if (!isset($this->_handlers[$name])) {
             throw new \Exception("No handler exists for '{$name}' content");
         }
@@ -97,12 +97,17 @@ class Frontend extends App
                 continue;
             }
             if (isset($data['content'])) {
-                $el->setAttribute('href', $this->url($data['content']['id']));
+                if ($this->router->has($data['content']['id'])) {
+                    $url = $this->url([], $data['content']['id'], true);
+                } else {
+                    $url = "_c{$data['content']['id']}";
+                }
+                $el->setAttribute('href', $url);
             } else if (isset($data['widget'])) {
-                $entity = \Chalk\Chalk::entity($data['widget']['name']);
-                $class  = $entity->class;
+                $info   = \Chalk\Chalk::info($data['widget']['name']);
+                $class  = $info->class;
                 $widget = (new $class())->fromArray($data['widget']['params']);
-                $html   = $this->view->render('chalk/' . $entity->module->path . '/' . $entity->local->path, $widget->toArray());
+                $html   = $this->view->render('chalk/' . $info->module->path . '/' . $info->local->path, $widget->toArray());
                 $temp   = $this->_htmlToDom($html);
                 $body   = $temp->getElementsByTagName('body');
                 if ($body->length) {

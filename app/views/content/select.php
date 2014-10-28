@@ -6,5 +6,5 @@
 <?= $this->render('/content/browser', [
 	'method'	=> 'post',
 	'close'		=> true,
-	'thumbs'	=> $entity->class == 'Chalk\Core\File',
+	'thumbs'	=> $info->class == 'Chalk\Core\File',
 ]) ?>

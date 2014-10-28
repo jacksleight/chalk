@@ -1,7 +1,7 @@
 <?php $this->layout('/layout/page_settings') ?>
 <?php $this->block('main') ?>
 <?php
-$structures = $this->em($entity)
+$structures = $this->em($info)
 	->fetchAll();
 ?>
 
@@ -10,11 +10,11 @@ $structures = $this->em($entity)
 		<a href="<?= $this->url([
 			'action' => 'edit',
 		]) ?>" class="btn btn-focus">
-			<i class="fa fa-plus"></i> New <?= $entity->singular ?>
+			<i class="fa fa-plus"></i> New <?= $info->singular ?>
 		</a>
 	</li>
 </ul>
-<h1><?= $entity->plural ?></h1>
+<h1><?= $info->plural ?></h1>
 <table>
 	<colgroup>
 		<col class="col-name">

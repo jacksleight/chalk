@@ -7,7 +7,7 @@
 			<?php if (!$user->isNew()) { ?>
 				<?= $user->name ?>
 			<?php } else { ?>
-				New <?= $entity->singular ?>
+				New <?= $info->singular ?>
 			<?php } ?>
 		</h1>
 		<fieldset class="form-block">
@@ -61,7 +61,7 @@
 			<li>
 				<button class="btn btn-focus" <?= $user->isRoot() ? 'disabled' : null ?>>
 					<i class="fa fa-check"></i>
-					Save <?= $entity->singular ?>
+					Save <?= $info->singular ?>
 				</button>
 			</li>
 		</ul>
@@ -71,7 +71,7 @@
 					<a href="<?= $this->url([
 						'action' => 'delete1',
 					]) ?>" class="btn btn-negative btn-quiet confirmable" data-message="Are you sure?<?= "\n\n" ?>If you delete <?= $user->name ?> you will no longer be able to see which changes they made. If you just want to prevent this user from accessing the system you can disable the account by unchecking the Enabled box.">
-						<i class="fa fa-trash-o"></i> Delete <?= $entity->singular ?>
+						<i class="fa fa-trash-o"></i> Delete <?= $info->singular ?>
 					</a>
 				</li>
 			<?php } ?>

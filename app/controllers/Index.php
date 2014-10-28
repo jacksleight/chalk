@@ -11,7 +11,7 @@ class Index extends Action
 	{
 		$contents = $this->app->fire('Chalk\Core\Event\ListContents')->contents();
 		return $res->redirect($this->url([
-			'entity' => \Chalk\Chalk::entity($contents[0])->name,
+			'info' => \Chalk\Chalk::info($contents[0])->name,
 		], 'structure', true));
 	}
 	

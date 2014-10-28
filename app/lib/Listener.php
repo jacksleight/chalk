@@ -26,10 +26,10 @@ class Listener implements EventSubscriber
         $meta      = $args->getClassMetadata();
         $class     = $meta->name;
         $rootClass = $meta->rootEntityName;
-        $entity    = Chalk::entity($class);
+        $info      = Chalk::info($class);
         
         if ($class == $rootClass || $meta->inheritanceType == 2) {
-            $meta->setTableName($entity->name);
+            $meta->setTableName($info->name);
         }
 
         $names = $meta->getAssociationNames();
@@ -51,7 +51,7 @@ class Listener implements EventSubscriber
                 if (isset($mapping['inherited'])) {
                     continue;
                 }
-                $mapping['columnName'] = "{$entity->name}_" . trim($mapping['columnName'], '`');
+                $mapping['columnName'] = "{$info->name}_" . trim($mapping['columnName'], '`');
                 $meta->setAttributeOverride($name, $mapping);
             }
             $names = $meta->getAssociationNames();
@@ -61,16 +61,16 @@ class Listener implements EventSubscriber
                     continue;
                 }
                 foreach ($mapping['joinColumns'] as $i => $joinColumn) {
-                    $mapping['joinColumns'][$i]['name'] = "{$entity->name}_" . trim($joinColumn['name'], '`');
+                    $mapping['joinColumns'][$i]['name'] = "{$info->name}_" . trim($joinColumn['name'], '`');
                 }
                 $meta->setAssociationOverride($name, $mapping);
             }
         }
  
         $repositoryClasses = [
-            $entity->module->class . '\\Repository\\' . $entity->local->class,
-            $entity->module->class . '\\Repository\\' . Chalk::entity($rootClass)->local->class,
-            Chalk::entity($rootClass)->module->class . '\\Repository\\' . Chalk::entity($rootClass)->local->class,
+            $info->module->class . '\\Repository\\' . $info->local->class,
+            $info->module->class . '\\Repository\\' . Chalk::info($rootClass)->local->class,
+            Chalk::info($rootClass)->module->class . '\\Repository\\' . Chalk::info($rootClass)->local->class,
             'Chalk\\Repository',
         ];        
         foreach ($repositoryClasses as $repositoryClass) {
@@ -82,12 +82,12 @@ class Listener implements EventSubscriber
 
         if ($meta->discriminatorMap) {
             $meta->discriminatorMap = [
-                Chalk::entity($rootClass)->name => $rootClass,
+                Chalk::info($rootClass)->name => $rootClass,
             ];
             $allClasses = $em->getConfiguration()->getMetadataDriverImpl()->getAllClassNames();
             foreach ($allClasses as $allClass) {
                 if (is_subclass_of($allClass, $rootClass)) {
-                    $meta->discriminatorMap[Chalk::entity($allClass)->name] = $allClass;
+                    $meta->discriminatorMap[Chalk::info($allClass)->name] = $allClass;
                 }
                 if (is_subclass_of($allClass, $class) && !in_array($allClass, $meta->subClasses)) {
                     $meta->subClasses[] = $allClass;

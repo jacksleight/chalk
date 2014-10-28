@@ -14,19 +14,23 @@ use Coast\Response;
 use Coast\Url;
 use Toast\App\Locale;
 
+$frontend = (new Frontend($app->dir(), $config->envs))
+    ->param('root', $app)
+    ->param('config', $config);
+$frontend
+    ->param('router', new Router())
+    ->param('controller', new Controller())
+    ->param('view', $config->view)
+    ->param('url', new UrlResolver([
+        'baseUrl' => new Url("{$config->baseUrl}"),
+        'baseDir' => $app->dir(),
+        'router'  => $frontend->router,
+    ]));
+
 $chalk = (new Chalk(__DIR__, $config->envs))
     ->path(new Path("{$config->path}"))
     ->param('root', $app)
     ->param('config', $config);
-
-$frontend = (new Frontend($app->dir(), $config->envs))
-    ->param('root', $app)
-    ->param('config', $config)
-    ->param('url', new UrlResolver([
-        'baseUrl' => new Url("{$config->baseUrl}"),
-        'baseDir' => $app->dir(),
-    ]));
-
 $chalk
     ->param('frontend', $frontend)
     ->param('controller', new Controller())
@@ -68,14 +72,9 @@ $chalk
             ->status(500)
             ->html($this->view->render('error/index', ['req' => $req, 'res' => $res, 'e' => $e]));
     });
-
+    
 $frontend
-    ->param('controller', new Controller())
-    ->param('em', $chalk->em)
-    ->param('view', $config->view)
-    ->param('router', new Router([
-        // 'target' => $chalk->controller,
-    ]));
+    ->param('em', $chalk->em);
 
 $chalk
     ->executable($chalk->image)

@@ -12,25 +12,25 @@
 			</span></li>
 		</ul>
 		<h1>
-			<?= $entity->singular ?>
+			<?= $info->singular ?>
 		</h1>
-		<?= $this->render("{$entity->local->path}", [], $entity->module->class) ?>
+		<?= $this->render("{$info->local->path}", [], $info->module->class) ?>
 	</div>
 	<fieldset class="fix">
 		<ul class="toolbar">
 			<li>
 				<button class="btn btn-focus">
 					<i class="fa fa-check"></i>
-					Update <?= $entity->singular ?>
+					Update <?= $info->singular ?>
 				</button>
 			</li>
 		</ul>
 		<ul class="toolbar">
 			<li><a href="<?= $this->url([
 				'action'	=> 'delete',
-			]) ?>" class="btn btn-negative btn-quiet confirmable" data-message="Are you sure?<?= "\n" ?>This will delete the <?= strtolower($entity->singular) ?> and cannot be undone.">
+			]) ?>" class="btn btn-negative btn-quiet confirmable" data-message="Are you sure?<?= "\n" ?>This will delete the <?= strtolower($info->singular) ?> and cannot be undone.">
 				<i class="fa fa-trash-o"></i>
-				Delete <?= $entity->singular ?>
+				Delete <?= $info->singular ?>
 			</a></li>
 		</ul>
 	</fieldset>

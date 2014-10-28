@@ -10,11 +10,11 @@
 	$items = [];
 	$contents = $this->app->fire('Chalk\Core\Event\ListContents')->contents();
 	foreach ($contents as $content) {
-		$entity = \Chalk\Chalk::entity($content);
+		$info = \Chalk\Chalk::info($content);
 		$items[] = [
-			'label' => $entity->plural,
+			'label' => $info->plural,
 			'name'	=> 'content',
-			'params'=> ['action' => null, 'entity' => $entity->name],
+			'params'=> ['action' => null, 'entity' => $info->name],
 			'badge' => $this->em($content)->fetchCountForPublish() ?: null,
 		];
 	}

@@ -50,7 +50,7 @@ class Listener implements EventSubscriber
             $index  = $em->getRepository('Chalk\Core\Index')->fetch($entity);
             if (!isset($index)) {
                 $index               = new Index();
-                $index->entity       = \Chalk\Chalk::entity($entity)->name;
+                $index->entity       = \Chalk\Chalk::info($entity)->name;
                 $index->entityObject = $entity;
             }
             $content = [];

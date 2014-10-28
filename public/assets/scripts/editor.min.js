@@ -167,10 +167,10 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
     editor.on('click', function(ev) {
         ev.preventDefault();
         var target = $(ev.target);
-        var data = target.attr('data-chalk-widget');
+        var data = target.attr('data-chalk');
         if (data) {
-            data = JSON.parse(data);
-            openWidgetModal(data.entity, data.params, target);
+            data = JSON.parse(data).widget;
+            openWidgetModal(data.name, data.params, target);
         }
     });
 

@@ -1,7 +1,7 @@
 <?php
 $filter = $this->em->wrap(new \Chalk\Core\Model\Index())
 	->graphFromArray($req->queryParams());
-$contents = $this->em($entity)
+$contents = $this->em($info)
 	->all($filter->toArray());
 ?>
 
@@ -9,11 +9,11 @@ $contents = $this->em($entity)
 	<ul class="toolbar">
 		<li>
 			<span class="btn btn-focus uploadable-button">
-				<i class="fa fa-upload"></i> Upload <?= $entity->singular ?>
+				<i class="fa fa-upload"></i> Upload <?= $info->singular ?>
 			</span>
 		</li>
 	</ul>
-	<h1><?= $entity->plural ?></h1>
+	<h1><?= $info->plural ?></h1>
 	<?= $this->render('/content/filters', ['filter' => $filter]) ?>
 	<ul class="thumbs uploadable-list multiselectable">
 		<?php if (count($contents)) { ?>

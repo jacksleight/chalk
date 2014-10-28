@@ -3,7 +3,7 @@ $method		= isset($method) ? $method : 'get';
 $close		= isset($close) ? $close : false;
 $thumbs		= isset($thumbs) ? $thumbs : false;
 
-$contents = $this->em($entity)
+$contents = $this->em($info)
 	->all($index->toArray());
 ?>
 <form action="<?= $this->url->route() ?>" class="fill" data-modal-size="fullscreen" method="<?= $method ?>">
@@ -12,20 +12,20 @@ $contents = $this->em($entity)
 		'entity'		=> $index,
 		'name'			=> 'entity',
 	)) ?>
-	<div class="flex <?= $entity->class == 'Chalk\Core\File' ? 'uploadable' : null ?>">
+	<div class="flex <?= $info->class == 'Chalk\Core\File' ? 'uploadable' : null ?>">
 		<ul class="toolbar">
-			<?php if ($entity->class == 'Chalk\Core\File') { ?>
+			<?php if ($info->class == 'Chalk\Core\File') { ?>
 				<li>
 					<span class="btn btn-focus uploadable-button">
-						<i class="fa fa-upload"></i> Upload <?= $entity->singular ?>
+						<i class="fa fa-upload"></i> Upload <?= $info->singular ?>
 					</span>
 				</li>
 			<?php } ?>
 		</ul>
-		<h1><?= $entity->plural ?></h1>
+		<h1><?= $info->plural ?></h1>
 		<?= $this->render('filters', ['filter' => $index]) ?>
 		<?php if ($thumbs) { ?>
-			<ul class="thumbs multiselectable <?= $entity->class == 'Chalk\Core\File' ? 'uploadable-list' : null ?>">
+			<ul class="thumbs multiselectable <?= $info->class == 'Chalk\Core\File' ? 'uploadable-list' : null ?>">
 				<?php if (count($contents)) { ?>
 					<?php foreach ($contents as $content) { ?>
 						<li><?= $this->render('thumb', [
@@ -68,7 +68,7 @@ $contents = $this->em($entity)
 				</tbody>
 			</table>
 		<?php } ?>
-		<?php if ($entity->class == 'Chalk\Core\File') { ?>
+		<?php if ($info->class == 'Chalk\Core\File') { ?>
 			<input class="uploadable-input" type="file" name="files[]" data-url="<?= $this->url(['action' => 'upload']) ?>" multiple>
 			<script type="x-tmpl-mustache" class="uploadable-template">
 				<?= $this->render('/content/thumb', ['template' => true]) ?>
@@ -79,7 +79,7 @@ $contents = $this->em($entity)
 		<ul class="toolbar">
 			<li>
 				<button class="btn btn-focus" formmethod="post">
-					<i class="fa fa-check"></i> Select <?= $entity->singular ?>
+					<i class="fa fa-check"></i> Select <?= $info->singular ?>
 				</button>
 			</li>
 		</ul>

@@ -11,14 +11,14 @@ class Widget extends Basic
 {
 	public function preDispatch(Request $req, Response $res)
 	{
-		$req->view->entity
-			= $req->entity
-			= Chalk::entity($req->entity);
+		$req->view->info
+			= $req->info
+			= Chalk::info($req->entity);
 	}
 
 	public function edit(Request $req, Response $res)
 	{
-		$class = $req->entity->class;
+		$class = $req->info->class;
 		$widget = new $class();
 		$req->view->widget = $wrap = $this->em->wrap($widget);
 		$wrap->graphFromArray($req->queryParams());
@@ -33,7 +33,7 @@ class Widget extends Basic
 		}
 
 		return $res->json([
-			'entity'	=> $req->entity->name,
+			'entity'	=> $req->info->name,
 			'params'	=> array_map(function($value) {
 				return is_object($value) ? (string) $value : $value;
 			}, $widget->toArray()),

@@ -23,7 +23,7 @@ class Chalk extends App
     protected $_events  = [];
     protected $_modules = [];
 
-    public static function entity($class)
+    public static function info($class)
     {
         if (is_object($class)) {
             if ($class instanceof \stdClass) {

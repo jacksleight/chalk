@@ -6,7 +6,7 @@ use Chalk\Chalk,
 	Coast\Request,
 	Coast\Response;
 
-class Profile extends Chalk\Core\Controller\User
+class Profile extends \Chalk\Core\Controller\User
 {
 	public function edit(Request $req, Response $res)
 	{

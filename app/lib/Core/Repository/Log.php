@@ -22,7 +22,7 @@ class Log extends Repository
         if (isset($critera['entity'])) {
             $qb ->andWhere("l.entity = :entity")
                 ->andWhere("l.entityId = :entityId");
-            $params['entity']   = \Chalk\Chalk::entity($entity)->name;
+            $params['entity']   = \Chalk\Chalk::info($entity)->name;
             $params['entityId'] = $entity->id;
         }
         return $qb

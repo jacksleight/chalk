@@ -17,7 +17,7 @@ try {
 	
 	$cli->output('Creating schema', true);
 	$schema->createSchema($em->getMetadataFactory()->getAllMetadata());
-    $table = \Chalk\Chalk::entity('Chalk\Core\Index')->name;
+    $table = \Chalk\Chalk::info('Chalk\Core\Index')->name;
 	$em->getConnection()->exec("ALTER TABLE {$table} ADD FULLTEXT(content)");
 	
 	$cli->output('Creating default user', true);

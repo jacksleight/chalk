@@ -1,16 +1,16 @@
 <?php
 $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 $content	= $node->content;
-$entity	= \Chalk\Chalk::entity($content->getObject());
+$info	    = \Chalk\Chalk::info($content->getObject());
 ?>
 
 <?php $this->layout('/layout/page_structure') ?>
 <?php $this->block('main') ?>
 
-<?php if ($entity->class != 'Chalk\Core\Content') { ?>
-	<?= $this->render("/{$entity->local->path}/form", [
+<?php if ($info->class != 'Chalk\Core\Content') { ?>
+	<?= $this->render("/{$info->local->path}/form", [
 		'structure'	=> $structure,
 		'content'	=> $content,
-		'entity'	=> $entity,
-	], $entity->module->class) ?>
+		'info'	    => $info,
+	], $info->module->class) ?>
 <?php } ?>
