@@ -21,7 +21,11 @@ $chalk = (new Chalk(__DIR__, $config->envs))
 
 $frontend = (new Frontend($app->dir(), $config->envs))
     ->param('root', $app)
-    ->param('config', $config);
+    ->param('config', $config)
+    ->param('url', new UrlResolver([
+        'baseUrl' => new Url("{$config->baseUrl}"),
+        'baseDir' => $app->dir(),
+    ]));
 
 $chalk
     ->param('frontend', $frontend)
@@ -71,10 +75,6 @@ $frontend
     ->param('view', $config->view)
     ->param('router', new Router([
         // 'target' => $chalk->controller,
-    ]))
-    ->param('url', new UrlResolver([
-        'baseUrl' => new Url("{$config->baseUrl}"),
-        'baseDir' => $app->dir(),
     ]));
 
 $chalk
