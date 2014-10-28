@@ -1,9 +1,9 @@
-.sass-cache/
-vendor/
-bower_components/
-node_modules/
-composer.lock
-npm-debug.log
+/.sass-cache/
+/vendor/
+/bower_components/
+/node_modules/
+/composer.lock
+/npm-debug.log
 
 .DS_Store
 .AppleDouble
