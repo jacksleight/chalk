@@ -23,7 +23,7 @@
     "psr-4": {
       "Chalk\\": "app/lib/",
       "Chalk\\Core\\Controller\\": "app/conts/",
-      "Toast": "app/toast"
+      "Toast\\": "app/toast/"
     }
   }
 }
