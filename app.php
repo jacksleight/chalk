@@ -39,8 +39,8 @@ $chalk
         'router'  => $chalk->router,
     ]))
     ->param('image', new Image([
-        'baseDir'           => $app->dir('public/data/file'),
-        'outputDir'         => $app->dir('public/data/image', true),
+        'baseDir'           => $config->fileBaseDir,
+        'outputDir'         => $config->imageOutputDir,
         'urlResolver'       => $chalk->url,
         'outputUrlResolver' => $frontend->url,
         'transforms'        => $chalk->import($chalk->file('app/transforms.php'))
@@ -82,7 +82,7 @@ $chalk
     ->executable($chalk->locale)
     ->executable($chalk->router);
 
-File::baseDir($app->dir('public/data/file', true));
+File::baseDir($config->fileBaseDir);
 File::mimeTypes($chalk->import($chalk->file('app/mime-types.php')));
 
 $chalk->import($chalk->file('app/routes.php'));
