@@ -98,8 +98,8 @@ class Chalk extends App
     {
         if (func_num_args() > 1) {
             $this->_modules[$name] = $module;
-            self::$_nspaces[$name] = get_class($module);
-            $module->chalk($this);
+            self::$_nspaces[$name] = $module->nspace();
+            $module->init($this);
             return $this;
         }
         return isset($this->_modules[$name])

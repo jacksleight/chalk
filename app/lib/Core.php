@@ -8,13 +8,13 @@ namespace Chalk;
 
 use Chalk\Chalk,
 	Chalk\Event,
-	Chalk\Module\Standard,
+	Chalk\Module,
     Coast\Request,
     Coast\Response;
 
-class Core extends Standard
+class Core extends Module
 {
-	public function chalk(Chalk $chalk)
+	public function init(Chalk $chalk)
 	{
 		$chalk->frontend->view->dir('Chalk\Core', $chalk->config->viewDir->dir('core'));
 

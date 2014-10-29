@@ -6,9 +6,56 @@
 
 namespace Chalk;
 
-use Chalk\Chalk;
+use Chalk\Chalk,
+    Chalk\Module,
+	Coast\File,
+	Coast\Dir,
+	ReflectionClass;
 
-interface Module
+abstract class Module
 {
-    public function chalk(Chalk $chalk);
+    protected $_baseDir;
+
+    public function __construct($baseDir = '../..')
+    {
+    	if (!$baseDir instanceof Dir) {
+    		$reflection	= new ReflectionClass(get_class($this));
+			$baseDir = (new File($reflection->getFileName()))
+				->dir()
+	            ->dir("{$baseDir}")
+				->toReal();
+    	}
+        $this->baseDir($baseDir);
+    }
+
+    public function baseDir(\Coast\Dir $baseDir = null)
+    {
+        if (isset($baseDir)) {
+            $this->_baseDir = $baseDir;
+            return $this;
+        }
+        return $this->_baseDir;
+    }
+
+    public function nspace($nspace = null)
+    {
+        return isset($nspace)
+            ? get_class($this) . '\\' . $nspace
+            : get_class($this);
+    }
+
+    public function dir($path = null, $create = false)
+    {
+        return isset($path)
+            ? $this->_baseDir->dir($path, $create)
+            : $this->_baseDir;
+    }
+
+    public function file($path)
+    {
+        return $this->_baseDir->file($path);
+    }
+
+    public function init(Chalk $chalk)
+    {}
 }
