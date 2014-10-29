@@ -91,7 +91,7 @@ class Chalk extends App
             ],
             'singular'  => implode('_', $entityLcFirst),
             'plural'    => implode('_', $entityLcFirst),
-        ], isset($class::$chalk) ? $class::$chalk : []));
+        ], isset($class::$_chalkInfo) ? $class::$_chalkInfo : []));
     }
 
     public function module($name, Module $module = null)

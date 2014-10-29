@@ -16,7 +16,7 @@ use Chalk\Core\Content,
 */
 class Node extends \Toast\Entity
 {
-    public static $chalk = [
+    public static $_chalkInfo = [
         'singular'  => 'Node',
         'plural'    => 'Nodes',
     ];

@@ -15,7 +15,7 @@ use Chalk\Core,
  */
 class File extends Content
 {
-	public static $chalk = [
+	public static $_chalkInfo = [
 		'singular'	=> 'File',
 		'plural'	=> 'Files',
 	];

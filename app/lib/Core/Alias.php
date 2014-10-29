@@ -14,7 +14,7 @@ use Chalk\Core,
 */
 class Alias extends Content
 {
-	public static $chalk = [
+	public static $_chalkInfo = [
 		'singular'	=> 'Alias',
 		'plural'	=> 'Aliases',
 	];

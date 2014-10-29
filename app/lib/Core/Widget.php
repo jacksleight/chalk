@@ -11,7 +11,7 @@ use Chalk\Chalk,
 
 class Widget extends Entity
 {
-	public static $chalk = [];
+	public static $_chalkInfo = [];
 
 	public function name()
 	{

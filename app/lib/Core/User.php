@@ -17,7 +17,7 @@ use Respect\Validation\Validator;
 */
 class User extends \Toast\Entity implements Trackable, Searchable
 {
-	public static $chalk = [
+	public static $_chalkInfo = [
 		'singular'	=> 'User',
 		'plural'	=> 'Users',
 	];
