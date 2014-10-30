@@ -6,15 +6,15 @@
   "homepage": "http://chalk.jacksleight.com/",
   "license": "MIT",
   "authors": [
-      {"name": "Jack Sleight", "email": "jacksleight@gmail.com"}
+    {"name": "Jack Sleight", "email": "jacksleight@gmail.com"}
   ],
   "require": {
     "php": ">=5.5.0",
     "doctrine/orm": "2.4.*",
-    "swiftmailer/swiftmailer": "5.1.*",
+    "swiftmailer/swiftmailer": "5.3.*",
     "intervention/image": "2.0.*",
     "gargron/fileupload": "1.0.*",
-    "nesbot/carbon": "1.8.*",
+    "nesbot/carbon": "1.13.*",
     "respect/validation": "0.6.*",
     "jacksleight/coast": "dev-master",
     "jacksleight/coast-doctrine": "dev-master"
