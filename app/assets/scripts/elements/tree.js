@@ -14,14 +14,32 @@ Chalk.component('.structure', function(i, el) {
         expandBtnHTML   : '<button type="button" data-action="expand"><span>Expand</span></button>',
         collapseBtnHTML : '<button type="button" data-action="collapse"><span>Collapse</span></button>',
         dropCallback: function(data) {
-            $(el).find('.structure-submit').prop('disabled', false);
-            $(el).find('.structure-data').val(JSON.stringify(this.serialize()));
+            $(el).find('.structure-save')
+                .prop('disabled', false);
+            $(el).find('.structure-cancel')
+                .prop('disabled', true);
+            $(el).find('.structure-data')
+                .val(JSON.stringify(this.serialize()));
             nodes[data.destId] = 1;
             Chalk.set({
                 nodes: nodes
             });
         }
     })
+    $(el).find('.structure-edit').click(function() {
+        $(el).find('.structure-edit')
+            .prop('disabled', true);
+        $(el).find('.structure-cancel')
+            .prop('disabled', false);
+        tree.addClass('tree-move');
+    });
+    $(el).find('.structure-cancel').click(function() {
+        $(el).find('.structure-edit')
+            .prop('disabled', false);
+        $(el).find('.structure-cancel')
+            .prop('disabled', true);
+        tree.removeClass('tree-move');
+    });
     var nodes = Chalk.prefs.nodes || {};
     tree.find('li').each(function() {
         var id = $(this).attr('data-id');

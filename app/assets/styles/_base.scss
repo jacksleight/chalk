@@ -585,7 +585,7 @@ input,
 select,
 textarea,
 .btn { 
-	@include transition(all $speed ease);
+	@include transition(all $speed linear);
 }
 
 input[type=date],
@@ -1288,7 +1288,7 @@ legend {
 	&:before {
 		content: '';
 		position: absolute;
-		top: 9px;
+		top: 8px;
 		left: $gutter;
 		opacity: 0.1;
 		z-index: 1;
@@ -1301,7 +1301,7 @@ legend {
 		top: 0;
 		left: 0;
 		width: $gutter * 2;
-		height: 28px;
+		height: 26px;
 		text-align: center;
 		cursor: pointer;
 		border: 0;
@@ -1309,7 +1309,7 @@ legend {
 		outline: 0;
 		span {
 			position: absolute;
-			top: 9px;
+			top: 8px;
 			left: $gutter;
 			opacity: 0.75;
 		}
@@ -1324,19 +1324,20 @@ legend {
 		}
 	}
 	.tree-item {
+		@include font-size(-1);
 		text-decoration: none;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
 		display: block;
-		padding: $gutter * 0.1 $gutter $gutter * 0.1 $gutter * 2;
+		padding: $gutter * 0.1 $gutter $gutter * 0.15 $gutter * 2;
 		&:hover,
 		&.active {
 			@include link-color(white);
 			background-color: shade($color-primary, 10%);
 		}
 		&.active {
-			@include arrow(28px);
+			@include arrow(26px);
 		}
 		&.tree-item-hidden {
 			@include link-color(transparentize(white, 0.6));
@@ -1351,25 +1352,40 @@ legend {
 		&.tree-item-archived {
 			text-decoration: line-through;
 		}
+		.tree-move & {
+			padding-right: $gutter * 1.25 + 16px;
+		}
 	}
 }
 .tree-handle {
+	display: none;
 	cursor: move;
 	position: absolute;
 	top: 0;
+	left: $gutter * 1.65;
 	right: 0;
-	height: 28px;
-	width: $gutter + 16px;
-	background-position: left;
-	background-repeat: no-repeat;
-	@include image(move);
-	opacity: 0;
-	@include transition(opacity $speed ease);
-	.tree-item:hover + & {
+	height: 26px;
+	&::before {
+		content: '';
+		display: block;
+		position: absolute;
+		z-index: 1;
+		top: 0;
+		right: 0;
+		width: $gutter + 16px;
+		height: 26px;
+		@include image(move);
+		background-position: left;
+		background-repeat: no-repeat;
 		opacity: 0.5;
 	}
 	&:hover {
-		opacity: 1 !important;
+		&::before {
+			opacity: 1;
+		}
+	}
+	.tree-move & {
+		display: block;
 	}
 }
 .tree-placeholder,
@@ -1384,7 +1400,7 @@ legend {
 	z-index: 1000;
 	margin-left: -127px;
 	&[style] {
-		opacity: 0.6 !important
+		opacity: 0.4 !important
 	}
 	&, a {
 		@include link-color(white);

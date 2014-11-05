@@ -57,7 +57,7 @@ html, body {
 	}
 	.sidebar & {
 		> .flex {
-			padding: $gutter 0;
+			padding: $gutter * 0.5 0;
 		}
 	}
 }

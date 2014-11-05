@@ -92,7 +92,13 @@ $repo->fetchTree($structure);
 		</div>
 	</div>
 	<div class="fix">
-		<button class="btn btn-positive btn-block structure-submit btn-collapse" disabled>
+		<button class="btn btn-block structure-edit btn-collapse" type="button">
+			<i class="fa fa-arrows"></i> Move Content
+		</button>
+		<button class="btn btn-block structure-cancel btn-collapse" disabled type="button">
+			<i class="fa fa-times"></i> Cancel
+		</button>
+		<button class="btn btn-positive btn-block structure-save btn-collapse" disabled>
 			<i class="fa fa-check"></i> Save Changes
 		</button>
 		<a href="<?= $this->url([
