@@ -1,0 +1,30 @@
+/* Icons */
+
+$icons: (
+	ok:			check-mark,
+	add:		plus-2,
+	archive:	archive,
+	cancel:		x-mark,
+	content:	text-file-4,
+	delete:		trash-can-9,
+	drag:		menu,
+	history:	time,
+	logout:		eject-2,
+	move:		cursor-move-2,
+	publish:	globe-4,
+	remove:		minus-2,
+	restore:	refresh-2,
+	search:		magnifier-2,
+	settings:	gear,
+	status:		check-mark-5,
+	structure:	sitemap,
+	updated:	calendar,
+	upload:		upload-6,
+	user:		user-2,
+	view:		share-4
+);
+@each $class, $icon in $icons {
+	.icon-#{$class} {
+		@include attach(before, 0.2em, -0.15em) { @include icon($icon); };
+	}
+}

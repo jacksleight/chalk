@@ -18,54 +18,26 @@
 	}
 }
 
-/* Background */
+/* Image */
 
 @mixin image($name) {
 	background-image: inline-image($name + '.svg');
 }
 
-/* Sprite */
+/* Icon */
 
-%sprite {
-	display: inline-block;
-	background-repeat: no-repeat;
+%icon {
 	@include hide-text;
+	display: inline-block;
+	-webkit-mask-position: center;
+	-webkit-mask-size: 118%;
 }
-@mixin sprite($name, $width, $height) {
-	@extend %sprite;
-	background-image: inline-image($name + '.svg');
-	width: $width;
-	height: $height;
-}
-
-@function sprite-position-x($name, $high-dpi: false) {
-	$nth: index($sprite-1x-names, $name);
- 	@return nth(nth(sprite-values($high-dpi), $nth), 1);
-}
-@function sprite-position-y($name, $high-dpi: false) {
-	$nth: index($sprite-1x-names, $name);
- 	@return nth(nth(sprite-values($high-dpi), $nth), 2);
-}
-@function sprite-width($name, $high-dpi: false) {
-	$nth: index($sprite-1x-names, $name);
- 	@return nth(nth(sprite-values($high-dpi), $nth), 3);
-}
-@function sprite-height($name, $high-dpi: false) {
-	$nth: index($sprite-1x-names, $name);
- 	@return nth(nth(sprite-values($high-dpi), $nth), 4);
-}
-@function sprite-offset-x($name, $high-dpi: false) {
- 	@return sprite-width($name, $high-dpi) * -0.5;
-}
-@function sprite-offset-y($name, $high-dpi: false) {
- 	@return sprite-height($name, $high-dpi) * -0.5;
-}
-@function sprite-values($high-dpi: false) {
- 	@if $high-dpi {
-		@return $sprite-2x-values;
-	} @else {
-		@return $sprite-1x-values;
-	}
+@mixin icon($name, $size: 16px, $color: currentColor) {
+	@extend %icon;
+	background-color: $color;
+	-webkit-mask-image: inline-image('icon/iconmonstr-' + $name + '-icon.svg');
+	width: $size;
+	height: $size;
 }
 
 /* Flush */
@@ -184,7 +156,7 @@
 
 /* Arrow */
 
-@mixin arrow($size, $offset: 0) {
+@mixin arrow($size, $offset: 0, $color: white) {
 	position: relative;
 	&:after {
 		content: '';
@@ -192,7 +164,7 @@
 		top: $offset * -1;
 		right: $offset * -1;
 		border: $size * 0.5 solid;
-		border-color: transparent white transparent transparent;
+		border-color: transparent $color transparent transparent;
 	}
 }
 

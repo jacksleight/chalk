@@ -12,18 +12,18 @@ $count = $this->em('Chalk\Core\Content')->fetchCountForPublish();
 		<?= $this->render('nav', ['items' => [
 			[
 				'label' => 'Structure',
-				'icon'	=> 'fa fa-sitemap',
+				'icon'	=> 'icon-structure',
 				'params'=> ['controller' => 'structure'],
 			],
 			[
 				'label' => 'Content',
-				'icon'	=> 'fa fa-file-text-o',
+				'icon'	=> 'icon-content',
 				'name'	=> 'content',
 				'params'=> ['entity' => \Chalk\Chalk::info($contents[0])->name],
 			],
 			// [
 			// 	'label' => 'Live',
-			// 	'icon'	=> 'fa fa-eye',
+			// 	'icon'	=> '',
 			// 	'params'=> ['controller' => null],
 			// ]
 		], 'class' => 'toggle']) ?>
@@ -34,12 +34,12 @@ $count = $this->em('Chalk\Core\Content')->fetchCountForPublish();
 			<?= $this->render('nav', ['items' => [
 				[
 					'label' => 'Settings',
-					'icon'	=> 'fa fa-gear fa-fw',
+					'icon'	=> 'icon-settings',
 					'params'=> ['controller' => 'user'],
 				],
 				// [
 				// 	'label' => 'Activity',
-				// 	'icon'	=> 'fa fa-bar-chart-o fa-fw',
+				// 	'icon'	=> '',
 				// 	'params'=> ['controller' => null],
 				// ]
 			], 'class' => 'toggle']) ?>
@@ -56,16 +56,14 @@ $count = $this->em('Chalk\Core\Content')->fetchCountForPublish();
 						<a href="<?= $this->url([
 							'controller' => 'index',
 							'action'	 => 'publish',
-						], 'index', true) ?>" class="btn btn-inline btn-pending">
-							<i class="fa fa-globe"></i>
+						], 'index', true) ?>" class="btn btn-pending icon-publish">
 							Publish
 						</a>
 						<small>&nbsp;&nbsp;<strong><?= $count ?></strong> draft items</small>
 					</li>
 				<?php } else { ?>
 					<li>
-						<a href="<?= $this->frontend->url->baseUrl() ?>" target="_blank" class="btn btn-inline btn-quiet">
-							<i class="fa fa-external-link"></i>
+						<a href="<?= $this->frontend->url->baseUrl() ?>" target="_blank" class="btn btn-quiet icon-view">
 							View Site
 						</a>
 					</li>					
@@ -73,12 +71,10 @@ $count = $this->em('Chalk\Core\Content')->fetchCountForPublish();
 			</ul>
 			<ul class="toolbar">
 				<li>
-					<i class="fa fa-user"></i>
-					<a href="<?= $this->url([], 'profile', true) ?>"><?= $req->user->name ?></a>
+					<a href="<?= $this->url([], 'profile', true) ?>" class="icon-user"><?= $req->user->name ?></a>
 				</li>
 				<li class="space">
-					<i class="fa fa-sign-out"></i>
-					<a href="<?= $this->url([], 'logout', true) ?>">Logout</a>
+					<a href="<?= $this->url([], 'logout', true) ?>" class="icon-logout">Logout</a>
 				</li>
 			</ul>
 			<p class="title"><?= $this->config->name ?></p>

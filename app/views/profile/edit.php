@@ -34,8 +34,7 @@
 	<fieldset class="fix">
 		<ul class="toolbar">
 			<li>
-				<button class="btn btn-focus">
-					<i class="fa fa-check"></i>
+				<button class="btn btn-focus icon-ok">
 					Save Profile
 				</button>
 			</li>

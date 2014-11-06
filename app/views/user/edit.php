@@ -59,8 +59,7 @@
 	<fieldset class="fix">
 		<ul class="toolbar">
 			<li>
-				<button class="btn btn-focus" <?= $user->isRoot() ? 'disabled' : null ?>>
-					<i class="fa fa-check"></i>
+				<button class="btn btn-focus icon-ok" <?= $user->isRoot() ? 'disabled' : null ?>>
 					Save <?= $info->singular ?>
 				</button>
 			</li>
@@ -70,8 +69,8 @@
 				<li>
 					<a href="<?= $this->url([
 						'action' => 'delete1',
-					]) ?>" class="btn btn-negative btn-quiet confirmable" data-message="Are you sure?<?= "\n\n" ?>If you delete <?= $user->name ?> you will no longer be able to see which changes they made. If you just want to prevent this user from accessing the system you can disable the account by unchecking the Enabled box.">
-						<i class="fa fa-trash-o"></i> Delete <?= $info->singular ?>
+					]) ?>" class="btn btn-negative btn-quiet confirmable icon-delete" data-message="Are you sure?<?= "\n\n" ?>If you delete <?= $user->name ?> you will no longer be able to see which changes they made. If you just want to prevent this user from accessing the system you can disable the account by unchecking the Enabled box.">
+						Delete <?= $info->singular ?>
 					</a>
 				</li>
 			<?php } ?>

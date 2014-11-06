@@ -8,8 +8,8 @@ $contents = $this->em($info)
 <form action="<?= $this->url->route() ?>" class="uploadable">
 	<ul class="toolbar">
 		<li>
-			<span class="btn btn-focus uploadable-button">
-				<i class="fa fa-upload"></i> Upload <?= $info->singular ?>
+			<span class="btn btn-focus uploadable-button icon-upload">
+				Upload <?= $info->singular ?>
 			</span>
 		</li>
 	</ul>

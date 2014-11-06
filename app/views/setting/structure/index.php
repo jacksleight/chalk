@@ -9,8 +9,8 @@ $structures = $this->em($info)
 	<li>
 		<a href="<?= $this->url([
 			'action' => 'edit',
-		]) ?>" class="btn btn-focus">
-			<i class="fa fa-plus"></i> New <?= $info->singular ?>
+		]) ?>" class="btn btn-focus icon-add">
+			New <?= $info->singular ?>
 		</a>
 	</li>
 </ul>

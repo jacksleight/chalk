@@ -13,8 +13,6 @@ $title  = (isset($title)
     <meta name="apple-mobile-web-app-title" content="Foundation">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/styles/styles{$code}.css") ?>">
-    <link rel="shortcut icon" href="<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/images/favicon.ico") ?>">
-    <link rel="apple-touch-icon-precomposed" href="<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/images/touch-icon-precomposed.png") ?>">
 </head>
 <body class="<?= isset($class) ? $class : '' ?>">
     <?= $content ?>

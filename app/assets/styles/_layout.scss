@@ -46,7 +46,7 @@ html, body {
 			padding: $gutter $gutter * 1.5;
 		}
 		> .fix {
-			padding: $gutter $gutter * 1.5;
+			padding: $gutter * 0.75 $gutter * 1.5;
 			&:first-child {
 				border-bottom: 1px solid $color-divide;
 			}
@@ -69,7 +69,7 @@ html, body {
 		@include link-color(tint($color-primary, 70%));
 	}
 	.toggle {
-		background: shade($color-primary, 30%);
+		background: shade($color-primary, 50%);
 		margin: 0;
 		@include no-bullets;
 		@include inline-blocks('li');
@@ -83,11 +83,13 @@ html, body {
 			text-decoration: none;
 			text-align: center;
 			display: block;
-			padding: 12px 0 10px 0;
-			line-height: 1.5;
+			padding: 16px 0 12px 0;
+			line-height: 1.4;
 			@include link-color(tint($color-primary, 50%));
-			i {
-				@include font-size(2);
+			&::before {
+				margin: 0;
+				width: 22px;
+				height: 22px;
 			}
 			span {
 				display: block;
@@ -115,8 +117,11 @@ html, body {
 .main {
 	flex: 1;
 	.topbar {
-		padding: $gutter $gutter * 1.5;
-		background: $color-shade;
+		padding: $gutter * 0.75 $gutter * 1.5;
+		background-color: white;
+		a {
+			@include link-color($color-foreground);
+		}
 		@include flush;
 		.toolbar {
 			float: right;
@@ -139,6 +144,7 @@ html, body {
 	margin-top: 0;
 	text-align: center;
 	font-weight: bold;
+	line-height: $input-height;
 }
 .center {
 	width: 100%;
@@ -210,7 +216,7 @@ html, body {
 /* Footer */
 
 .footer	{
-	background: shade($color-primary, 45%);
+	background: shade($color-primary, 65%);
 	text-align: center;
 	padding: $gutter * 0.5;
 	@include font-size(-2);

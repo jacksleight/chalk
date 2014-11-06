@@ -1,14 +1,10 @@
 <?php if (isset($node)) { ?>
 	<fieldset class="form-block">
 		<div class="form-legend">
-			<h2><?= $node->structure->name ?></h2>
+			<h2>Structure</h2>
+			<p>These settings only apply when the <?= strtolower($info->singular) ?> is used in the <strong><?= $node->structure->name ?></strong> structure.</p>
 		</div>
 		<div class="form-items">
-			<?= $this->render('/element/form-item', array(
-				'entity'		=> $node,
-				'name'			=> 'isHidden',
-				'label'			=> 'Hidden in navigation',
-			)) ?>	
 			<?= $this->render('/element/form-item', array(
 				'entity'		=> $node,
 				'name'			=> 'name',
@@ -16,6 +12,11 @@
 				'placeholder'	=> $content->name,
 				'note'			=> 'Text used in navigation and URLs',
 			)) ?>
+			<?= $this->render('/element/form-item', array(
+				'entity'		=> $node,
+				'name'			=> 'isHidden',
+				'label'			=> 'Hidden',
+			)) ?>	
 		</div>
 	</fieldset>
 <?php } ?>

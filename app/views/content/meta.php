@@ -5,12 +5,10 @@
 		</span>
 	</li>
 	<!-- <li>
-		<i class="fa fa-asterisk"></i>
 		Version <em><?= $content->version ?></em>
 	</li> -->
 	<?php if (!$content->isNew()) { ?>
-		<li>
-			<i class="fa fa-calendar"></i>
+		<li class="icon-updated">
 			Updated <em><?= $content->modifyDate->diffForHumans() ?></em>
 			by <em><?= $content->modifyUserName ?></em>
 		</li>

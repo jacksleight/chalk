@@ -4,10 +4,7 @@ $values = isset($values)
 	: $md['values'];
 ?>
 <div class="dropdown">
-	<div class="value">
-		<?php if (isset($icon)) { ?>
-			<i class="fa fa-<?= $icon ?>"></i>
-		<?php } ?>
+	<div class="value <?= isset($icon) ? "icon {$icon}" : null ?>">
 		<?php if (count($entity->{$name})) { ?>
 			<?= implode(', ', array_intersect_key($values, array_flip($entity->{$name}))) ?>
 		<?php } else { ?>

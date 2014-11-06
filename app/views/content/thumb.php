@@ -30,7 +30,7 @@ $link		= isset($link) ? $link : true;
 						['size' => '400', 'crop' => true]
 					) ?>">
 				<?php } else { ?>
-					<div class="text"><span><i class="fa fa-file"></i></span></div>
+					<div class="text"><span>ICON</span></div>
 				<?php } ?>
 				<span class="badge badge-status badge-<?= $content->status ?>">
 					<?= $content->status ?>

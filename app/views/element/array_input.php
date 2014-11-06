@@ -37,8 +37,7 @@ $stackable = isset($stackable) ? $stackable : true;
         <?php } ?>
     </div>
     <?php if ($stackable) { ?>
-        <span class="btn stackable-button">
-            <i class="fa fa-plus"></i>
+        <span class="btn stackable-button icon-add">
             Add Item
         </span>
         <script type="x-tmpl-mustache" class="stackable-template">

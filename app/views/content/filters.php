@@ -14,7 +14,7 @@
 			'entity'		=> $filter,
 			'null'			=> 'Any',
 			'name'			=> 'modifyDateMin',
-			'icon'			=> 'calendar',
+			'icon'			=> 'icon-updated',
 			'placeholder'	=> 'Updated',
 		)) ?>
 	</li>
@@ -23,7 +23,7 @@
 			'type'			=> 'dropdown_multiple',
 			'entity'		=> $filter,
 			'name'			=> 'statuses',
-			'icon'			=> 'check-circle',
+			'icon'			=> 'icon-status',
 			'placeholder'	=> 'Status',
 		)) ?>
 	</li>

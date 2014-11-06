@@ -11,8 +11,8 @@ $users = $this->em($info)
 	<li>
 		<a href="<?= $this->url([
 			'action' => 'edit',
-		]) ?>" class="btn btn-focus">
-			<i class="fa fa-plus"></i> Add <?= $info->singular ?>
+		]) ?>" class="btn btn-focus icon-add">
+			Add <?= $info->singular ?>
 		</a>
 	</li>
 </ul>
@@ -49,7 +49,7 @@ $users = $this->em($info)
 			<tr class="clickable">
 				<td class="col-status">
 					<span class="badge badge-status badge-<?= (int) $user->isEnabled ?>">
-						<i class="fa fa-<?= $user->isEnabled ? 'check' : 'times' ?>"></i>
+						<i class="icon-<?= $user->isEnabled ? 'check' : 'times' ?>"></i>ICON
 					</span>	
 				</td>
 				<th class="col-name" scope="row">

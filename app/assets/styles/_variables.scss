@@ -9,25 +9,28 @@ $line-height-tight:		$line-height - 0.2;
 
 /* Colors */
 
-$color-primary:			shade(#3E4651, 5%);
-$color-focus:			adjust-hue(#00B5B5, 5deg);
+$color-source:			desaturate(#2d353c, 0%);
+
+$color-primary:			$color-source;
+$color-focus:			#00a6b5;
 $color-active:			#FCB941;
 
-$color-positive:		adjust-hue(#2CC990, -20deg);
+$color-positive:		#09bd72;
 $color-negative:		#FC6042;
 $color-highlight:		#ffff00;
 
 $color-published:		$color-positive;
 $color-pending:			$color-negative;
 
-$color-foreground:		tint($color-primary, 10%);
-$color-quiet:			tint($color-primary, 50%);
-$color-quieter:			tint($color-primary, 75%);
-$color-loud:			shade($color-primary, 0%);
-
-$color-background:		white;
-$color-shade:			tint($color-primary, 93%);
-$color-divide:			tint($color-primary, 83%);
+$color-background:		tint($color-primary, 92%);
+$color-foreground:		$color-source;
+$color-quiet:			tint($color-foreground, 50%);
+$color-quieter:			tint($color-foreground, 75%);
+$color-loud:			shade($color-foreground, 20%);
+$color-louder:			shade($color-foreground, 20%);
+$color-shade:			tint($color-background, 75%);
+$color-divide:			tint($color-foreground, 80%);
+$color-input:			tint($color-foreground, 75%);
 
 /* Sizes */
 

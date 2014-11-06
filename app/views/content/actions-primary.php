@@ -1,6 +1,5 @@
 <?php if (!$content->isArchived()) { ?>
-	<li><button class="btn btn-focus">
-		<i class="fa fa-check"></i>
+	<li><button class="btn btn-positive icon-ok">
 		Save <?= $info->singular ?>
 	</button></li>
 <?php } else { ?>
@@ -8,8 +7,7 @@
 		'entity'	=> $info->name,
 		'action'		=> 'restore',
 		'content'		=> $content->id,
-	], 'content', true) ?>" class="btn btn-focus">
-		<i class="fa fa-repeat"></i>
+	], 'content', true) ?>" class="btn btn-positive icon-restore">
 		Restore <?= $info->singular ?>
 	</a></li>
 <?php } ?>

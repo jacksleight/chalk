@@ -42,9 +42,6 @@ gulp.task('default', function() {
 		'copy-bower',
 		'images-copy',
 		'images-sprites-min',
-		'images-sprites-1x',
-		'images-sprites-2x',
-		'images-min',
 		'scripts-default',
 		'scripts-editor',
 		'styles'
@@ -85,7 +82,6 @@ gulp.task('copy-default', function() {
 gulp.task('copy-bower', function() {
 	return gulp.src([
 			bowerPath + '/tinymce/skins/lightgray' + '/**/*.*',
-			bowerPath + '/fontawesome/fonts' + '/**/*.*',
 		], {base: bowerPath})
 		.pipe(gulp.dest(targetPath + '/vendor'));
 });
@@ -96,10 +92,7 @@ gulp.task('images', function() {
 	return sequence(
 		'images-clean',
 		'images-copy',
-		'images-sprites-min',
-		'images-sprites-1x',
-		'images-sprites-2x',
-		'images-min'
+		'images-sprites-min'
 	);
 });
 gulp.task('images-clean', function() {
@@ -111,43 +104,8 @@ gulp.task('images-copy', function() {
 		.pipe(gulp.dest(targetPath + imagesDir));
 });
 gulp.task('images-sprites-min', function() {
-	return gulp.src(sourcePath + imagesDir + '/*.svg')
+	return gulp.src(sourcePath + imagesDir + '/**/*.svg')
 		.pipe(svgmin([{removeViewBox: true}]))
-		.pipe(gulp.dest(targetPath + imagesDir));
-});
-gulp.task('images-sprites-1x', function() {
-	return gulp.src(targetPath + imagesDir + '/*.svg')
-		.pipe(svg2png(1.0))
-		.pipe(gulp.dest(targetPath + imagesDir + '/1x'))
-		.pipe(sprite({
-			name: 		 'all.png',
-			style: 		 'all.png.scss',
-			cssPath: 	 '../images',
-			template: 	 sourceName + templatesDir + '/sprites.scss.mustache',
-			prefix: 	 'sprite-1x',
-			orientation: 'binary-tree',
-			margin:      5
-		}))
-		.pipe(gulp.dest(targetPath + imagesDir + '/1x'));
-});
-gulp.task('images-sprites-2x', function() {
-	return gulp.src(targetPath + imagesDir + '/*.svg')
-		.pipe(svg2png(2.0))
-		.pipe(gulp.dest(targetPath + imagesDir + '/2x'))
-		.pipe(sprite({
-			name: 		 'all.png',
-			style: 		 'all.png.scss',
-			cssPath:   	 '../images',
-			template:  	 sourceName + templatesDir + '/sprites.scss.mustache',
-			prefix: 	 'sprite-2x',
-			orientation: 'binary-tree',
-			margin:      10
-		}))
-		.pipe(gulp.dest(targetPath + imagesDir + '/2x'));
-});
-gulp.task('images-min', function() {
-	return gulp.src(targetPath + imagesDir + '/**/*.{gif,png,jpg}', {base: targetPath + imagesDir})
-		.pipe(imagemin({progressive: true, interlaced: true}))
 		.pipe(gulp.dest(targetPath + imagesDir));
 });
 
@@ -182,18 +140,14 @@ gulp.task('scripts-editor', function() {
 /* Styles */
 
 gulp.task('styles', function() {
-	var c = compass({
-		config_file: projectPath + '/compass.rb',
-		project: projectPath,
-		sass: sourceName + stylesDir,
-		css: targetName + stylesDir
-	});
-	c.on('error', function(e) {
-		gutil.log(e);
-		c.end();
-	});
+	var c;
 	return gulp.src([sourcePath + stylesDir + '/*.scss', '!**/_*.scss'])
-		.pipe(c)
+		.pipe(c = compass({
+			config_file: projectPath + '/compass.rb',
+			project: projectPath,
+			sass: sourceName + stylesDir,
+			css: targetName + stylesDir
+		}).on('error', function(e) { c.end; this.emit('end'); }))
 		.pipe(cached('styles'))
 		.pipe(livereload(server))
 		.pipe(minifycss())

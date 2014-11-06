@@ -6,8 +6,7 @@
 <form action="<?= $this->url->route() ?>" method="post" class="fill">
 	<div class="flex">
 		<ul class="toolbar">
-			<li><span class="btn btn-quieter modal-close">
-				<i class="fa fa-times"></i>
+			<li><span class="btn btn-quieter modal-close icon-cancel">
 				Close
 			</span></li>
 		</ul>
@@ -19,8 +18,7 @@
 	<fieldset class="fix">
 		<ul class="toolbar">
 			<li>
-				<button class="btn btn-focus">
-					<i class="fa fa-check"></i>
+				<button class="btn btn-focus icon-ok">
 					Update <?= $info->singular ?>
 				</button>
 			</li>
@@ -28,8 +26,7 @@
 		<ul class="toolbar">
 			<li><a href="<?= $this->url([
 				'action'	=> 'delete',
-			]) ?>" class="btn btn-negative btn-quiet confirmable" data-message="Are you sure?<?= "\n" ?>This will delete the <?= strtolower($info->singular) ?> and cannot be undone.">
-				<i class="fa fa-trash-o"></i>
+			]) ?>" class="btn btn-negative btn-quiet confirmable icon-delete" data-message="Are you sure?<?= "\n" ?>This will delete the <?= strtolower($info->singular) ?> and cannot be undone.">
 				Delete <?= $info->singular ?>
 			</a></li>
 		</ul>

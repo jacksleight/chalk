@@ -11,13 +11,11 @@
 		$current = isset($req) ? $req->path() : '';
 		$class = [
 			strlen($path->toString()) && strpos($current, $path->toString()) === 0 ? 'active' : null,
+			isset($item['icon']) ? "{$item['icon']}" : null,
 		];
 		?>
 		<li>
 			<a href="<?= $this->url() . $path ?>" class="item <?= implode(' ', $class) ?>">
-				<?php if (isset($item['icon'])) { ?>
-					<i class="<?= $item['icon'] ?>"></i>
-				<?php } ?>
 				<?php if (isset($item['label'])) { ?>
 					<span><?= $item['label'] ?></span>
 				<?php } ?>

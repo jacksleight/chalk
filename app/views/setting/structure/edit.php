@@ -27,8 +27,7 @@
 	<fieldset class="fix">
 		<ul class="toolbar">
 			<li>
-				<button class="btn btn-focus">
-					<i class="fa fa-check"></i>
+				<button class="btn btn-focus icon-ok">
 					Save <?= $info->singular ?>
 				</button>
 			</li>
@@ -38,8 +37,8 @@
 				<li>
 					<a href="<?= $this->url([
 						'action' => 'delete',
-					]) ?>" class="btn btn-negative btn-quiet confirmable">
-						<i class="fa fa-trash-o"></i> Delete <?= $info->singular ?>
+					]) ?>" class="btn btn-negative btn-quiet confirmable icon-delete">
+						Delete <?= $info->singular ?>
 					</a>
 				</li>
 			<?php } ?>

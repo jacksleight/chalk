@@ -97,7 +97,7 @@ dl {
 /* Link */
 
 a { 
-	@include link-color($color-primary);
+	@include link-color($color-focus);
 	@include transition(all $speed ease);
 	text-decoration: underline;
 }
@@ -106,7 +106,7 @@ a {
 
 em { 
 	font-style: normal;
-	color: $color-primary;
+	color: $color-foreground;
 }
 strong { 
 	font-weight: bold;
@@ -205,6 +205,10 @@ small {
 	display: inline-block;
 	td &, th & {
 		width: 100%;
+	}
+	.sidebar & {
+		color: $color-primary;
+		font-weight: bold;
 	}
 }
 .badge-figure {
@@ -358,7 +362,7 @@ figure {
 	@include link-color($color-foreground);
 	@include transition(background-color $speed ease, outline-color $speed ease);
 	.preview {
-		background-color: tint($color-primary, 80%);
+		background-color: $color-shade;
 		position: relative;
 		&:before {
 			content: '';
@@ -416,9 +420,11 @@ figure {
 		}
 	}
 	figcaption {
+		margin-top: 0;
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
+		padding: $gutter * 0.3 $gutter * 0.5 $gutter * 0.4 $gutter * 0.5;
 	}
 	input[type=checkbox] + label {
 		position: absolute;
@@ -458,41 +464,11 @@ table {
 	margin: $gutter 0 0 0;
 	border-spacing: 0;
 	@include border-radius($radius);
-	tr {
-		th, td {
-			border-bottom: 1px solid $color-shade;
-			&:first-child {
-				border-left: 0;
-			}
-		}
-		&:first-child {
-			th, td {
-				border-top: 0;
-			}
-		}
-	}
-	thead {
-		th {
-			font-weight: bold;
-		}
-		tr:last-child {
-			th, td {
-				border-bottom: 1px solid $color-divide;
-			}
-		}
-	}
-	tfoot {
-		tr:first-child {
-			th, td {
-				border-top: 1px solid $color-divide;
-			}
-		}
-	}
 	th, td { 
 		vertical-align: top;
-		padding: $gutter * 0.25 0 $gutter * 0.25 $gutter * 0.75;
+		padding: $gutter * 0.35 $gutter * 0.75 $gutter * 0.35 0;
 		&:first-child {
-			padding-left: 0;
+			padding-left: $gutter * 0.75;
 		}
 	}
 	th { 
@@ -502,11 +478,29 @@ table {
 			@include link-color($color-loud);
 		}
 	}
+	thead {
+		background: white;
+		th {
+			font-weight: bold;
+		}
+		tr:last-child {
+			th, td {
+				border-bottom: $gutter * 0.25 solid $color-background;
+			}
+		}
+	}
 	tbody {
+		background: white;
 		th, td { 
+			border-top: 1px solid $color-background;
 			@include transition(all $speed ease);
 		}
 		tr {
+			&:first-child {
+				th, td {
+					border-top: 0;
+				}
+			}
 			&:hover { 
 				th, td { 
 					background-color: tint($color-shade, 75%);
@@ -540,13 +534,15 @@ table {
 	}
 	.col-select {
 		width: 1px;
-		padding: 0;
+		padding-left: $gutter * 0.3 !important;
+		padding-top: $gutter * 0.3;
+		padding-bottom: $gutter * 0.3;
 		input[type=checkbox] + label {
 			display: block;
-			&:before {
-				margin: $gutter * 0.25 0;
-				height: 24px;
-				width: 24px;
+			&::before {
+				margin: 0;
+				width: 26px;
+				height: 26px;
 			}
 		}
 	}
@@ -619,7 +615,7 @@ select,
 	padding: 0 $input-padding-horiz;
 	background-color: white;
 	border: $input-border-width solid;
-	border-color: $color-quieter;
+	border-color: $color-input;
 	@include border-radius($radius);
 	outline: 0;
 	-webkit-appearance: none;
@@ -652,7 +648,7 @@ input[type=radio] {
 			display: inline-block;
 			width: $input-toggle-size;
 			height: $input-toggle-size;
-			border: 1px solid $color-quieter;
+			border: 1px solid $color-input;
 			background: white;
 			vertical-align: -8px;
 			margin-right: 0.25em;
@@ -662,7 +658,7 @@ input[type=radio] {
 		}
 	}
 	&:focus + label:before {
-		border-color: tint($color-primary, 50%);
+		border-color: $color-focus;
 	}
 	&[disabled] + label:before {
 		background-color: $color-shade;
@@ -800,13 +796,6 @@ input[type=button],
 			margin-top: 0;
 		}
 	}
-	&.btn-inline {
-		display: inline;
-		height: auto;
-		line-height: 1;
-		padding-top: $input-padding * 1.1;
-		padding-bottom: $input-padding * 1.1;
-	}
 	&.btn-focus {
 		background-color: $color-focus;
 		border-color: $color-focus;
@@ -875,7 +864,7 @@ input[type=week],
 textarea,
 select { 
 	&:focus {
-		border-color: tint($color-primary, 50%);
+		border-color: $color-focus;
 	}
 }
 
@@ -961,12 +950,15 @@ legend {
 	display: none;
 }
 .form-block {
-	margin: $gutter 0 0 0;
-	padding-top: $gutter;
-	border-top: 1px solid $color-divide;
+	margin: $gutter * 1.25 0 0 0;
+	background-color: white;
+	& + .form-block {
+		margin-top: $gutter * 0.25;
+	}
 	.form-legend {
+		padding: $gutter;
 		float: left;
-		width: 240px - ($gutter * 3);
+		width: 220px - ($gutter * 3);
 		@include flush;
 		@include font-size(-1);
 		h2 {
@@ -977,14 +969,18 @@ legend {
 		}
 	}
 	.form-items {
-		margin-left: 240px - ($gutter * 1.5);
+		border-left: 1px solid $color-background;
+		margin-left: 220px - ($gutter * 1.5);
 		@include flush;
 	}
 }
 .form-item { 
 	margin: $gutter 0 0 0;
+	background: white;
+	padding: $gutter;
 	+ .form-item {
-		margin-top: $gutter * 0.75;
+		margin-top: 0;
+		border-top: 1px solid $color-background;
 	}
 	> label {
 		color: $color-loud;
@@ -1061,6 +1057,7 @@ legend {
 		@include flush-next;
 	}
 	> li {
+		line-height: $input-height;
 		vertical-align: middle;
 		& + li.space {
 			padding-left: $gutter * 0.75;
@@ -1087,11 +1084,11 @@ legend {
 			flex: 3;
 		}
 	}
-	i {
-		color: $color-quiet;
-	}
 	.value {
 		border-left: 0;
+		&::before {
+			color: $color-quiet;
+		}
 	}
 	.dropdown .menu {
 		left: -1px;
@@ -1110,7 +1107,8 @@ legend {
 
 .search {
 	position: relative;
-	i {
+	&::before {
+		color: $color-quiet;
 		position: absolute;
 		top: 50%;
 		left: $input-padding-horiz + $input-border-width;
@@ -1128,19 +1126,20 @@ legend {
 		max-height: 0;
 		overflow: hidden;
 		@include transition(max-height $speed ease);
+		@include flush;
 	}
 	.expandable-toggle {
-		margin: $gutter 0 0 0;
+		border-top: 1px solid $color-background;
 		display: block;
-		background-color: $color-shade;
-		color: $color-quiet;
-		text-align: center;
+		background-color: white;
+		text-align: right;
+		color: $color-focus;
 		padding: $gutter * 0.3 $gutter;
 		cursor: pointer;
 		@include transition(background $speed ease);
 		&:hover {
 			color: white;
-			background-color: $color-quieter;
+			background-color: $color-focus;
 		}
 		i {
 			@include transition(transform $speed ease);
@@ -1148,6 +1147,7 @@ legend {
 	}
 	&.active {
 		.expandable-body {
+			border-top: 1px solid $color-background;
 			max-height: 500px;
 		}
 		.expandable-toggle i {
@@ -1235,15 +1235,7 @@ legend {
 				background-color: shade($color-primary, 10%);
 			}
 			&.active {
-				position: relative;
-				&:after {
-					content: '';
-					position: absolute;
-					top: 0;
-					right: 0;
-					border: 17px solid;
-					border-color: transparent white transparent transparent;
-				}
+				@include arrow(34px, 0, $color-background);
 			}
 		}
 	}
@@ -1285,14 +1277,15 @@ legend {
 	padding: 0;
 }
 .tree-node {
-	&:before {
+	&::before {
 		content: '';
 		position: absolute;
-		top: 8px;
+		top: 7px;
+		height: 12px;
+		width: 12px;
 		left: $gutter;
-		opacity: 0.1;
 		z-index: 1;
-		@include sprite(blank, 10px, 10px);
+		background-color: transparentize(white, 0.9);
 	}
 	button {
 		position: absolute;
@@ -1301,26 +1294,38 @@ legend {
 		top: 0;
 		left: 0;
 		width: $gutter * 2;
+		z-index: 2;
 		height: 26px;
 		text-align: center;
 		cursor: pointer;
 		border: 0;
-		background-color: transparent !important;
+		background-color: $color-primary !important;
 		outline: 0;
+		&[data-action=expand] span::before {
+			@include icon(plus, 8px, $color-primary);
+		}
+		&[data-action=collapse] span::before {
+			@include icon(minus, 8px, $color-primary);
+		}
 		span {
 			position: absolute;
-			top: 8px;
-			left: $gutter;
-			opacity: 0.75;
+			top: 7px;
+			height: 12px;
+			width: 12px;
+			background-color: transparentize(white, 0.2);
+			@include hide-text;
+			&::before {
+				content: '';
+				display: block !important;
+				position: absolute;
+				top: 50%; 
+				left: 50%;
+				margin-top: -4px;
+				margin-left: -4px;
+			}
 		}
 		&:hover span {
-			opacity: 1;
-		}
-		&[data-action=expand] span {
-			@include sprite(plus, 10px, 10px);
-		}
-		&[data-action=collapse] span {
-			@include sprite(minus, 10px, 10px);
+			background-color: white;
 		}
 	}
 	.tree-item {
@@ -1337,7 +1342,7 @@ legend {
 			background-color: shade($color-primary, 10%);
 		}
 		&.active {
-			@include arrow(26px);
+			@include arrow(26px, 0, $color-background);
 		}
 		&.tree-item-hidden {
 			@include link-color(transparentize(white, 0.6));
@@ -1427,7 +1432,12 @@ legend {
 /* Form Name Value */
 
 .form-group {
-	margin: $gutter * 0.25 0 0 0;
+	margin: 0 0 0 0;
+	background: white;
+	padding: $gutter;
+	& + .form-group {
+		border-top: 1px solid $color-background;
+	}
 	&.form-group-horizontal {
 		display: flex;
 		flex-direction: row;

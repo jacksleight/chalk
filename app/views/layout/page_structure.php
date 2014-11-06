@@ -92,21 +92,21 @@ $repo->fetchTree($structure);
 		</div>
 	</div>
 	<div class="fix">
-		<button class="btn btn-block structure-edit btn-collapse" type="button">
-			<i class="fa fa-arrows"></i> Move Content
+		<button class="btn btn-block structure-edit btn-collapse icon-move" type="button">
+			Move Content
 		</button>
-		<button class="btn btn-block structure-cancel btn-collapse" disabled type="button">
-			<i class="fa fa-times"></i> Cancel
+		<button class="btn btn-block structure-cancel btn-collapse icon-cancel" disabled type="button">
+			Cancel
 		</button>
-		<button class="btn btn-positive btn-block structure-save btn-collapse" disabled>
-			<i class="fa fa-check"></i> Save Changes
+		<button class="btn btn-positive btn-block structure-save btn-collapse icon-ok" disabled>
+			Save Changes
 		</button>
 		<a href="<?= $this->url([
 			'action'	=> 'add',
 			'structure'	=> $structure->id,
 			'node'		=> $req->node,
-		], 'structure_node', true) ?>" class="btn btn-focus btn-block">
-			<i class="fa fa-plus"></i> Add Content
+		], 'structure_node', true) ?>" class="btn btn-focus btn-block icon-add">
+			Add Content
 		</a>
 	</div>
 	<input type="hidden" name="data" class="structure-data">

@@ -8,10 +8,7 @@ if (isset($null)) {
 }
 ?>
 <div class="dropdown">
-	<div class="value">
-		<?php if (isset($icon)) { ?>
-			<i class="fa fa-<?= $icon ?>"></i>
-		<?php } ?>
+	<div class="value <?= isset($icon) ? "icon {$icon}" : null ?>">
 		<?php if (count($entity->{$name})) { ?>
 			<?= $values[$entity->{$name}] ?>
 		<?php } else { ?>

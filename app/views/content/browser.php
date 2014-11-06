@@ -16,8 +16,8 @@ $contents = $this->em($info)
 		<ul class="toolbar">
 			<?php if ($info->class == 'Chalk\Core\File') { ?>
 				<li>
-					<span class="btn btn-focus uploadable-button">
-						<i class="fa fa-upload"></i> Upload <?= $info->singular ?>
+					<span class="btn btn-focus uploadable-button icon-upload">
+						Upload <?= $info->singular ?>
 					</span>
 				</li>
 			<?php } ?>
@@ -78,15 +78,14 @@ $contents = $this->em($info)
 	<div class="fix">
 		<ul class="toolbar">
 			<li>
-				<button class="btn btn-focus" formmethod="post">
-					<i class="fa fa-check"></i> Select <?= $info->singular ?>
+				<button class="btn btn-focus icon-ok" formmethod="post">
+					Select <?= $info->singular ?>
 				</button>
 			</li>
 		</ul>
 		<?php if ($close) { ?>
 			<ul class="toolbar">
-				<li><span class="btn modal-close">
-					<i class="fa fa-times"></i>
+				<li><span class="btn modal-close icon-cancel">
 					Close
 				</span></li>
 			</ul>

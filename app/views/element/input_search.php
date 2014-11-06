@@ -1,5 +1,4 @@
-<span class="search">
-	<i class="fa fa-search"></i>
+<span class="search icon-search">
 	<?php
 	echo $this->render('input', [
 		'type'		=> 'search',

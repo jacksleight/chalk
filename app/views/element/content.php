@@ -5,11 +5,11 @@ $browser['entity'] = \Chalk\Chalk::entity(isset($browser['entity'])
 ?>
 <div class="content" data-entity="<?= $browser['entity']->name ?>">
 	<ul class="toolbar">
-		<li><span class="content-remove btn btn-quieter btn-icon">
-			<i class="fa fa-times"></i>
+		<li><span class="content-remove btn btn-quieter btn-icon icon-remove">
+			
 		</span></li>
-		<li><span class="content-select btn btn-quieter btn-icon">
-			<i class="fa fa-folder-o"></i>
+		<li><span class="content-select btn btn-quieter btn-icon icon-select">
+			
 		</span></li>
 	</ul>
 	<div class="content-holder">

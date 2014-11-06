@@ -13,8 +13,7 @@
 	</div>
 	<div class="fix">
 		<ul class="toolbar">
-			<li><span class="btn modal-close">
-				<i class="fa fa-times"></i>
+			<li><span class="btn modal-close icon-cancel">
 				Close
 			</span></li>
 		</ul>
