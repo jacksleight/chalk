@@ -21,27 +21,27 @@ $count = $this->em('Chalk\Core\Content')->fetchCountForPublish();
 				'name'	=> 'content',
 				'params'=> ['entity' => \Chalk\Chalk::info($contents[0])->name],
 			],
-			// [
-			// 	'label' => 'Live',
-			// 	'icon'	=> '',
-			// 	'params'=> ['controller' => null],
-			// ]
+			[
+				'label' => 'Settings',
+				'icon'	=> 'icon-settings',
+				'params'=> ['controller' => 'user'],
+			],
 		], 'class' => 'toggle']) ?>
 		<div class="body">
 			<?= $content->sidebar ?>
 		</div>
-		<?php if ($req->user->isAdministrator()) { ?>
+		<?php if (false && $req->user->isAdministrator()) { ?>
 			<?= $this->render('nav', ['items' => [
 				[
-					'label' => 'Settings',
-					'icon'	=> 'icon-settings',
-					'params'=> ['controller' => 'user'],
+					'label' => 'Live',
+					'icon'	=> '',
+					'params'=> ['controller' => null],
 				],
-				// [
-				// 	'label' => 'Activity',
-				// 	'icon'	=> '',
-				// 	'params'=> ['controller' => null],
-				// ]
+				[
+					'label' => 'Activity',
+					'icon'	=> '',
+					'params'=> ['controller' => null],
+				]
 			], 'class' => 'toggle']) ?>
 		<?php } ?>
 		<footer class="footer c" role="contentinfo">
