@@ -1500,26 +1500,35 @@ legend {
 
 /* TinyMCE */
 
-.mce-tinymce.mce-tinymce {
-	border-radius: 0;
-	border-color: $color-input;
+.mce-tinymce * {
+	background-image: none !important;
+	box-shadow: none !important;
 }
-
-.mce-menu-item-chalk {
-	i:before {
-		color: $color-focus;
+.mce-tinymce {
+	&.mce-panel,
+	.mce-panel {
+		border-radius: 0;
+		border-color: $color-input;
 	}
-}
-.mce-menu-item:hover,
-.mce-menu-item.mce-selected,
-.mce-menu-item:focus,
-.mce-menu-item:hover i[style],
-.mce-menu-item.mce-selected i[style],
-.mce-menu-item:focus i[style],
-.mce-menu-item:hover span[style],
-.mce-menu-item.mce-selected span[style],
-.mce-menu-item:focus span[style] {
-	color: white !important;
+	.mce-menu-item-chalk {
+		i:before {
+			color: $color-focus;
+		}
+	}
+	.mce-menu-item:hover,
+	.mce-menu-item.mce-selected,
+	.mce-menu-item:focus,
+	.mce-menu-item:hover i[style],
+	.mce-menu-item.mce-selected i[style],
+	.mce-menu-item:focus i[style],
+	.mce-menu-item:hover span[style],
+	.mce-menu-item.mce-selected span[style],
+	.mce-menu-item:focus span[style] {
+		color: white !important;
+	}
+	.mce-btn-group .mce-first {
+		border-radius: 0;
+	}
 }
 
 /* Ace */
