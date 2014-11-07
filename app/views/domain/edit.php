@@ -18,7 +18,7 @@
 				<?= $this->render('/element/form-item', array(
 					'entity'	=> $domain,
 					'name'		=> 'name',
-					'label'		=> 'Name',
+					'label'		=> 'Domain Name',
 					'autofocus'	=> true,
 				)) ?>
 				<?= $this->render('/element/form-item', array(
@@ -33,7 +33,7 @@
 		<fieldset class="form-block">
 			<div class="form-legend">
 				<h2>HTML</h2>
-				<p>This will be inserted in the bottom of the <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> elements of every page.</p>
+				<p>This will be inserted at the end of the <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> elements of every page.</p>
 			</div>
 			<div class="form-items">
 				<?= $this->render('/element/form-item', array(

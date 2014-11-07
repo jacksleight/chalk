@@ -11,7 +11,7 @@
 			'label' => 'Users',
 			'params'=> ['controller' => 'user'],
 		], [
-			'label' => 'Domains',
+			'label' => 'Sites',
 			'params'=> ['controller' => 'domain'],
 		], [
 			'label' => 'Structures',

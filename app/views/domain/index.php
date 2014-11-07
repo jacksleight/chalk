@@ -9,7 +9,7 @@ $domains = $this->em($info)
 	<li>
 		<a href="<?= $this->url([
 			'action' => 'edit',
-		]) ?>" class="btn btn-focus icon0-add">
+		]) ?>" class="btn btn-focus icon-add">
 			New <?= $info->singular ?>
 		</a>
 	</li>
@@ -22,7 +22,7 @@ $domains = $this->em($info)
 	</colgroup>
 	<thead>
 		<tr>
-			<th scope="col" class="col-name">Name</th>
+			<th scope="col" class="col-name">Domain Name</th>
 			<th scope="col" class="col-date">Added</th>
 		</tr>
 	</thead>
