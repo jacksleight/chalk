@@ -1498,7 +1498,7 @@ legend {
 	}
 }
 
-/* Editor */
+/* TinyMCE */
 
 .mce-menu-item-chalk {
 	i:before {
@@ -1515,6 +1515,13 @@ legend {
 .mce-menu-item.mce-selected span[style],
 .mce-menu-item:focus span[style] {
 	color: white !important;
+}
+
+/* Ace */
+
+.ace_editor {
+	height: 200px;
+	border: 1px solid $color-input;
 }
 
 /* Widths */

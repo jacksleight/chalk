@@ -21,7 +21,7 @@
 					'entity'	=> $content,
 					'name'		=> 'summary',
 					'label'		=> 'Summary',
-					'class'		=> 'monospaced html',
+					'class'		=> 'monospaced editor-content',
 					'rows'		=> 5,
 				), 'Chalk\Core') ?>
 				<div class="expandable">
@@ -51,7 +51,7 @@
 					'name'		=> 'blocks',
 					'label'		=> 'Blocks',
 					'type'		=> 'array_textarea',
-					'class'		=> 'monospaced html',
+					'class'		=> 'monospaced editor-content',
 					'rows'		=> 15,
 					'stackable'	=> false,
 				), 'Chalk\Core') ?>

@@ -1,5 +1,5 @@
 <?php
-$code   = $this->app->isDebug() ? '' : '.min';
+$mode   = $this->app->isDebug() ? '' : '.min';
 $lang   = 'en-GB';
 $title  = (isset($title) 
     ? $title . ' – '
@@ -12,7 +12,7 @@ $title  = (isset($title)
     <title><?= $title ?></title>
     <meta name="apple-mobile-web-app-title" content="Foundation">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/styles/styles{$code}.css") ?>">
+    <link rel="stylesheet" href="<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/styles/styles{$mode}.css") ?>">
 </head>
 <body class="<?= isset($class) ? $class : '' ?>">
     <?= $content ?>
@@ -40,8 +40,9 @@ $title  = (isset($title)
             <div class="modal-loader hideable hideable-hidden"></div>
         </div>
     </script>
-    <script src="<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/scripts{$code}.js") ?>"></script>
-    <script src="<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/editor{$code}.js") ?>"></script>
+    <script src="<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/scripts{$mode}.js") ?>"></script>
+    <script src="<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/editor-content{$mode}.js") ?>"></script>
+    <script src="<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/editor-code{$mode}.js") ?>"></script>
     <script>
         FastClick.attach(document.body);
         Chalk.initialize(document.body);

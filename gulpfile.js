@@ -43,7 +43,8 @@ gulp.task('default', function() {
 		'images-copy',
 		'images-sprites-min',
 		'scripts-default',
-		'scripts-editor',
+		'scripts-editor-content',
+		'scripts-editor-code',
 		'styles'
 	);
 });
@@ -114,11 +115,12 @@ gulp.task('images-sprites-min', function() {
 gulp.task('scripts', function() {
 	return sequence(
 		'scripts-default',
-		'scripts-editor'
+		'scripts-editor-content',
+		'scripts-editor-code'
 	);
 });
 gulp.task('scripts-default', function() {
-	return gulp.src([sourcePath + scriptsDir + '/*.js', '!**/_*.js', '!**/editor.js'])
+	return gulp.src([sourcePath + scriptsDir + '/*.js', '!**/_*.js', '!**/editor-*.js'])
 		.pipe(include({extensions: ['js']}))
 		.pipe(cached('scripts'))
 		.pipe(gulp.dest(targetPath + scriptsDir))
@@ -127,8 +129,17 @@ gulp.task('scripts-default', function() {
 		.pipe(rename({suffix: '.min'}))
 		.pipe(gulp.dest(targetPath + scriptsDir));
 });
-gulp.task('scripts-editor', function() {
-	return gulp.src([sourcePath + scriptsDir + '/editor.js', '!**/_*.js'])
+gulp.task('scripts-editor-content', function() {
+	return gulp.src([sourcePath + scriptsDir + '/editor-content.js', '!**/_*.js'])
+		.pipe(include({extensions: ['js']}))
+		.pipe(cached('scripts'))
+		.pipe(gulp.dest(targetPath + scriptsDir))
+		.pipe(livereload(server))
+		.pipe(rename({suffix: '.min'}))
+		.pipe(gulp.dest(targetPath + scriptsDir));
+});
+gulp.task('scripts-editor-code', function() {
+	return gulp.src([sourcePath + scriptsDir + '/editor-code.js', '!**/_*.js'])
 		.pipe(include({extensions: ['js']}))
 		.pipe(cached('scripts'))
 		.pipe(gulp.dest(targetPath + scriptsDir))

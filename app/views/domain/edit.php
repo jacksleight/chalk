@@ -39,15 +39,15 @@
 				<?= $this->render('/element/form-item', array(
 					'entity'	=> $domain,
 					'name'		=> 'head',
-					'class'		=> 'monospaced',
-					'rows'		=> 8,
+					'class'		=> 'monospaced editor-code',
+					'rows'		=> 10,
 					'label'		=> 'Head',
 				)) ?>
 				<?= $this->render('/element/form-item', array(
 					'entity'	=> $domain,
 					'name'		=> 'body',
-					'class'		=> 'monospaced',
-					'rows'		=> 8,
+					'class'		=> 'monospaced editor-code',
+					'rows'		=> 10,
 					'label'		=> 'Body',
 				)) ?>
 			</div>

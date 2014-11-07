@@ -234,7 +234,7 @@ Chalk.component(null, function(i, el) {
             assetsUrl + '/styles/editor.css',
             'data:text/css;charset=utf-8;base64,' + Base64.encode(css)
         ],
-        selector: '.html:not([disabled])',
+        selector: '.editor-content:not([disabled])',
         menubar: false,
         convert_urls: false,
         plugins:[
