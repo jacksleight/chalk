@@ -69,7 +69,7 @@ html, body {
 		@include link-color(tint($color-primary, 70%));
 	}
 	.toggle {
-		background: shade($color-primary, 50%);
+		background: shade($color-primary, 40%);
 		margin: 0;
 		@include no-bullets;
 		@include inline-blocks('li');
@@ -220,7 +220,7 @@ html, body {
 /* Footer */
 
 .footer	{
-	background: shade($color-primary, 65%);
+	background: shade($color-primary, 60%);
 	text-align: center;
 	padding: $gutter * 0.5;
 	@include font-size(-2);

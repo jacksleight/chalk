@@ -2634,7 +2634,7 @@ html, body {
   color: #c0c2c4;
 }
 .sidebar .toggle {
-  background: #161a1e;
+  background: #1b1f24;
   margin: 0;
   list-style: none;
   font-size: 0;
@@ -2896,7 +2896,7 @@ html, body {
 
 /* Footer */
 .footer {
-  background: #0f1215;
+  background: #121518;
   text-align: center;
   padding: 10px;
   font-size: 12.0983px;
