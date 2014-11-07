@@ -139,19 +139,13 @@ q {
 
 pre, code { 
 	font-family: $font-family-monospace;
-	@include font-size;
-	@include border-radius($radius);
+	@include font-size(-1);
+	line-height: 1;
 }
 pre { 
 	margin: $gutter 0 0 0; padding: $gutter;
 	@include experimental(tab-size, 4);
 	background: $color-shade;
-}
-code { 
-	padding: 0 0.2em;
-}
-pre code { 
-	padding: 0;
 }
 
 /* Abbreviation */
@@ -723,7 +717,8 @@ textarea {
 	padding-top: $input-padding;
 	padding-bottom: $input-padding;
 	&.monospaced {
-		font-family: Consolas, monospace;
+		font-family: $font-family-monospace;
+		@include font-size(-1);
 	}
 }
 .value {
@@ -970,7 +965,7 @@ legend {
 	.form-legend {
 		padding: $gutter;
 		float: left;
-		width: 220px - ($gutter * 3);
+		width: 240px - ($gutter * 3);
 		@include flush;
 		@include font-size(-1);
 		h2 {
@@ -982,7 +977,7 @@ legend {
 	}
 	.form-items {
 		border-left: 1px solid $color-background;
-		margin-left: 220px - ($gutter * 1.5);
+		margin-left: 240px - ($gutter * 1.5);
 		@include flush;
 	}
 }

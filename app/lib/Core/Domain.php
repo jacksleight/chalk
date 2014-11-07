@@ -46,6 +46,16 @@ class Domain extends \Toast\Entity implements Trackable
      * @Column(type="string")
      */
 	protected $name;
+	
+    /**
+     * @Column(type="text", nullable=true)
+     */
+	protected $head;
+	
+    /**
+     * @Column(type="text", nullable=true)
+     */
+	protected $body;
 
     /**
      * @ManyToOne(targetEntity="\Chalk\Core\Structure", inversedBy="domains", cascade={"persist"})

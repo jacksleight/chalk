@@ -30,6 +30,28 @@
 				)) ?>
 			</div>
 		</fieldset>
+		<fieldset class="form-block">
+			<div class="form-legend">
+				<h2>HTML</h2>
+				<p>This will be inserted in the bottom of the <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> elements of every page.</p>
+			</div>
+			<div class="form-items">
+				<?= $this->render('/element/form-item', array(
+					'entity'	=> $domain,
+					'name'		=> 'head',
+					'class'		=> 'monospaced',
+					'rows'		=> 8,
+					'label'		=> 'Head',
+				)) ?>
+				<?= $this->render('/element/form-item', array(
+					'entity'	=> $domain,
+					'name'		=> 'body',
+					'class'		=> 'monospaced',
+					'rows'		=> 8,
+					'label'		=> 'Body',
+				)) ?>
+			</div>
+		</fieldset>
 	</div>
 	<fieldset class="fix">
 		<ul class="toolbar">

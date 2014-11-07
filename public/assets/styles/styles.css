@@ -503,11 +503,9 @@ q:after {
 /* Preformatted & Code */
 pre, code {
   font-family: Consolas, "Courier New", Courier, monospace;
-  font-size: 16px;
-  font-size: 1rem;
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-  border-radius: 0;
+  font-size: 13.91304px;
+  font-size: 0.86957rem;
+  line-height: 1;
 }
 
 pre {
@@ -519,14 +517,6 @@ pre {
   -o-tab-size: 4;
   tab-size: 4;
   background: #fafafb;
-}
-
-code {
-  padding: 0 0.2em;
-}
-
-pre code {
-  padding: 0;
 }
 
 /* Abbreviation */
@@ -1359,7 +1349,9 @@ textarea {
   padding-bottom: 6px;
 }
 textarea.monospaced {
-  font-family: Consolas, monospace;
+  font-family: Consolas, "Courier New", Courier, monospace;
+  font-size: 13.91304px;
+  font-size: 0.86957rem;
 }
 
 .value {
@@ -1725,7 +1717,7 @@ legend {
 .form-block .form-legend {
   padding: 20px;
   float: left;
-  width: 160px;
+  width: 180px;
   font-size: 13.91304px;
   font-size: 0.86957rem;
 }
@@ -1747,7 +1739,7 @@ legend {
 }
 .form-block .form-items {
   border-left: 1px solid #eeeeef;
-  margin-left: 190px;
+  margin-left: 210px;
 }
 .form-block .form-items > *:first-child {
   margin-top: 0 !important;
