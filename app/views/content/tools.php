@@ -3,7 +3,7 @@
 		View <?= $info->singular ?> History
 	</a></li>
 <?php } ?>
-<?php if (!$content->isNewMaster()) { ?>
+<?php if (!$content->isNewMaster() && $info->class != 'Chalk\Core\File') { ?>
 	<li><a href="<?= $this->url([
 			'entity'	=> $info->name,
 			'action'	=> 'edit',

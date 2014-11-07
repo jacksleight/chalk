@@ -28,7 +28,7 @@ $domains = $this->em($info)
 	</thead>
 	<tbody>
 		<?php foreach ($domains as $domain) { ?>
-			<tr class="linkable">
+			<tr class="clickable">
 				<th class="col-name" scope="row">
 					<a href="<?= $this->url([
 						'action'	=> 'edit',
