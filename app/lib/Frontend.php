@@ -11,7 +11,6 @@ use Coast\App,
 
 class Frontend extends App
 {
-    protected $_domain;
     protected $_handlers = [];
 
     public function handler($name, Closure $value = null)
@@ -38,12 +37,12 @@ class Frontend extends App
 
     public function execute(Request $req, Response $res)
     {        
-        $this->_domain = $this
+        $req->domain = $this
             ->em('Chalk\Core\Domain')
             ->fetchFirst();
         $nodes = $this
             ->em('Chalk\Core\Structure')
-            ->fetchNodes($this->_domain->structure);
+            ->fetchNodes($req->domain->structure);
         foreach ($nodes as $node) {
             $this->router->all($node->content->id, $node->path, [
                 'node'    => $node,

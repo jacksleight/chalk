@@ -1478,12 +1478,12 @@ legend {
 	&.form-group-vertical {
 		input,
 		select,
-		.mce-tinymce,
+		.mce-tinymce.mce-tinymce[style],
 		.content,
 		.value {
-			border-top-width: 0;
+			border-top-width: 0 !important;
 			&:first-child {
-				border-top-width: 1px;
+				border-top-width: 1px !important;
 			}
 		}
 	}
@@ -1499,6 +1499,11 @@ legend {
 }
 
 /* TinyMCE */
+
+.mce-tinymce.mce-tinymce {
+	border-radius: 0;
+	border-color: $color-input;
+}
 
 .mce-menu-item-chalk {
 	i:before {

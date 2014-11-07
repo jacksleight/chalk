@@ -2448,17 +2448,17 @@ legend {
 }
 .form-group.form-group-vertical input,
 .form-group.form-group-vertical select,
-.form-group.form-group-vertical .mce-tinymce,
+.form-group.form-group-vertical .mce-tinymce.mce-tinymce[style],
 .form-group.form-group-vertical .content,
 .form-group.form-group-vertical .value {
-  border-top-width: 0;
+  border-top-width: 0 !important;
 }
 .form-group.form-group-vertical input:first-child,
 .form-group.form-group-vertical select:first-child,
-.form-group.form-group-vertical .mce-tinymce:first-child,
+.form-group.form-group-vertical .mce-tinymce.mce-tinymce[style]:first-child,
 .form-group.form-group-vertical .content:first-child,
 .form-group.form-group-vertical .value:first-child {
-  border-top-width: 1px;
+  border-top-width: 1px !important;
 }
 
 /* Card */
@@ -2468,6 +2468,11 @@ legend {
 }
 
 /* TinyMCE */
+.mce-tinymce.mce-tinymce {
+  border-radius: 0;
+  border-color: #caccce;
+}
+
 .mce-menu-item-chalk i:before {
   color: #00a6b5;
 }
