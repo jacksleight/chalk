@@ -59,7 +59,7 @@
 	<fieldset class="fix">
 		<ul class="toolbar">
 			<li>
-				<button class="btn btn-focus icon-ok" <?= $user->isRoot() ? 'disabled' : null ?>>
+				<button class="btn btn-positive icon-ok" <?= $user->isRoot() ? 'disabled' : null ?>>
 					Save <?= $info->singular ?>
 				</button>
 			</li>

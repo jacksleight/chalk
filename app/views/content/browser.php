@@ -78,7 +78,7 @@ $contents = $this->em($info)
 	<div class="fix">
 		<ul class="toolbar">
 			<li>
-				<button class="btn btn-focus icon-ok" formmethod="post">
+				<button class="btn btn-positive icon-ok" formmethod="post">
 					Select <?= $info->singular ?>
 				</button>
 			</li>

@@ -56,7 +56,7 @@
 	<fieldset class="fix">
 		<ul class="toolbar">
 			<li>
-				<button class="btn btn-focus icon-ok">
+				<button class="btn btn-positive icon-ok">
 					Save <?= $info->singular ?>
 				</button>
 			</li>
