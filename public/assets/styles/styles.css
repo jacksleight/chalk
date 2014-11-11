@@ -633,8 +633,8 @@ th .badge-pending, th .badge-1, th .badge-published {
 }
 
 .badge-1 {
-  background-color: #09bd72;
-  border-color: #09bd72;
+  background-color: #09bd5e;
+  border-color: #09bd5e;
 }
 
 .status-pending {
@@ -1552,15 +1552,15 @@ input[type=reset].btn-positive,
 input[type=submit].btn-positive,
 input[type=button].btn-positive,
 .btn.btn-positive {
-  background-color: #09bd72;
-  border-color: #09bd72;
+  background-color: #09bd5e;
+  border-color: #09bd5e;
 }
 input[type=reset].btn-positive:hover,
 input[type=submit].btn-positive:hover,
 input[type=button].btn-positive:hover,
 .btn.btn-positive:hover {
-  background-color: #08aa66 !important;
-  border-color: #08aa66 !important;
+  background-color: #08aa54 !important;
+  border-color: #08aa54 !important;
 }
 input[type=reset].btn-negative,
 input[type=submit].btn-negative,
@@ -2831,7 +2831,7 @@ html, body {
   cursor: pointer;
 }
 .notification.notification-positive {
-  background-color: rgba(9, 189, 114, 0.9);
+  background-color: rgba(9, 189, 94, 0.9);
 }
 .notification.notification-negative {
   background-color: rgba(239, 91, 62, 0.9);
