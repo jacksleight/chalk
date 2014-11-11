@@ -2822,13 +2822,39 @@ html, body {
 
 .login {
   width: 360px;
+}
+.login fieldset {
   background-color: white;
   padding: 20px;
 }
 .login .form-item {
-  margin-top: 10px;
+  margin-top: 8px;
   padding: 0;
   border-top: 0;
+}
+.login .btn {
+  margin-top: 15px;
+}
+.login .login-password {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 13.91304px;
+  font-size: 0.86957rem;
+}
+.login .login-password a {
+  color: #969a9d;
+}
+.login .login-password a:visited {
+  color: #969a9d;
+}
+.login .login-password a:focus {
+  color: #969a9d;
+}
+.login .login-password a:hover {
+  color: #969a9d;
+}
+.login .login-password a:active {
+  color: #969a9d;
 }
 
 .modal {
@@ -2906,19 +2932,19 @@ html, body {
   margin-top: 0 !important;
 }
 .footer, .footer a {
-  color: #6c7176;
+  color: #969a9d;
 }
 .footer:visited, .footer a:visited {
-  color: #6c7176;
+  color: #969a9d;
 }
 .footer:focus, .footer a:focus {
-  color: #6c7176;
+  color: #969a9d;
 }
 .footer:hover, .footer a:hover {
-  color: #6c7176;
+  color: #969a9d;
 }
 .footer:active, .footer a:active {
-  color: #6c7176;
+  color: #969a9d;
 }
 
 /* Hacks */

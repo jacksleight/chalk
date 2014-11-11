@@ -5,6 +5,14 @@ $app->router
 		'action'     => 'index',
 		'id'    	 => null,
 	])
+	->all('passwordRequest', "password-request", [
+		'controller' => 'auth',
+		'action'     => 'password-request',
+	])
+	->all('passwordReset', "password-reset/{token}", [
+		'controller' => 'auth',
+		'action'     => 'password-reset',
+	])
 	->all('login', "login", [
 		'controller' => 'auth',
 		'action'     => 'login',

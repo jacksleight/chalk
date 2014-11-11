@@ -162,12 +162,25 @@ html, body {
 
 .login {
 	width: 360px;
-	background-color: white;
-	padding: $gutter;
+	fieldset {
+		background-color: white;
+		padding: $gutter;
+	}
 	.form-item {
-		margin-top: $gutter * 0.5;
+		margin-top: $gutter * 0.4;
 		padding: 0;
 		border-top: 0;
+	}
+	.btn {
+		margin-top: $gutter * 0.75;
+	}
+	.login-password {
+		text-align: center;
+		margin-top: $gutter * 0.4;
+		@include font-size(-1);
+		a {
+			@include link-color($color-quiet);
+		}
 	}
 }
 
@@ -226,6 +239,6 @@ html, body {
 	@include font-size(-2);
 	@include flush;
 	&, a {
-		@include link-color(tint($color-primary, 30%));
+		@include link-color($color-quiet);
 	}	
 }

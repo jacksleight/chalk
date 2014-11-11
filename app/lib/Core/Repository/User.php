@@ -18,4 +18,14 @@ class User extends Repository
 			->setParameters(['emailAddress' => $emailAddress])
 			->getOneOrNullResult();
 	}
+
+	public function fetchByToken($token)
+	{
+		return $this->createQueryBuilder('e')
+			->andWhere("e.token = :token")
+			->andWhere("e.tokenDate > :tokenDate")
+			->getQuery()
+			->setParameters(['token' => $token, 'tokenDate' => new \DateTime()])
+			->getOneOrNullResult();
+	}
 }

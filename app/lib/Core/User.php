@@ -58,7 +58,15 @@ class User extends \Toast\Entity implements Trackable, Searchable
 	
 	protected $passwordPlain;
 
-	protected $passwordPlainConfirm;
+	/**
+     * @Column(type="string", nullable=true)
+     */
+	protected $token;
+	
+	/**
+     * @Column(type="datetime", nullable=true)
+     */
+	protected $tokenDate;
 	
 	/**
      * @Column(type="datetime", nullable=true)
