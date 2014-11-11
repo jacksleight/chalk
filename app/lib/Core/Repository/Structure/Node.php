@@ -64,10 +64,10 @@ class Node extends Repository
             $params['depth'] = $depth;
         }
 
-        return $qb
+        return $this->_initializeChildren($qb
             ->getQuery()
             ->setParameters($params)
-            ->getResult();
+            ->getResult());
     }
 
     public function fetchDescendants(StructureNode $node, $include = false, $depth = null)
@@ -162,5 +162,19 @@ class Node extends Repository
             ->getQuery()
             ->setParameters($params)
             ->getOneOrNullResult();
+    }
+
+    protected function _initializeChildren($nodes)
+    {
+        foreach ($nodes as $node) {
+            $node->children->setInitialized(true);
+            $node->children->clear();
+        }
+        foreach ($nodes as $node) {
+            if (isset($node->parent)) {
+                $node->parent->children->add($node);
+            }
+        }
+        return $nodes;
     }
 }

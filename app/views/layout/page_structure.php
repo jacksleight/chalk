@@ -38,24 +38,24 @@ $repo->fetchTree($structure);
 	</div>
 	<div class="flex">
 		<?php
-		$repo->fetchTree($structure);
+		$root = $repo->fetchTree($structure)[0];
 		?>
-		<?php if (isset($structure->root->content)) { ?>
+		<?php if (isset($root->content)) { ?>
 			<ol class="tree-root">
-				<li class="tree-node" data-id="<?= $structure->root->id ?>">
+				<li class="tree-node" data-id="<?= $root->id ?>">
 					<a href="<?= $this->url([
 						'structure'	=> $structure->id,
 						'action'	=> 'edit',
-						'node'		=> $structure->root->id,
-					], 'structure_node') ?>" class="tree-item <?= $structure->root->id == $req->node ? 'active' : '' ?> tree-item-<?= $structure->root->content->status ?> <?= $structure->root->isHidden ? 'tree-item-hidden' : '' ?>">
-						<?= $structure->root->nameSmart ?>
+						'node'		=> $root->id,
+					], 'structure_node') ?>" class="tree-item <?= $root->id == $req->node ? 'active' : '' ?> tree-item-<?= $root->content->status ?> <?= $root->isHidden ? 'tree-item-hidden' : '' ?>">
+						<?= $root->nameSmart ?>
 					</a>
 				</li>
 			</ol>
 		<?php } ?>
 		<div class="tree">
 			<?php  
-			$it		= $structure->root->iterator();
+			$it		= $root->iterator();
 			$depth	= 0;
 			$i		= 0;
 			?>
