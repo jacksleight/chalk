@@ -2,6 +2,7 @@
 use Chalk\Chalk;
 use Chalk\Core\File;
 use Chalk\Frontend;
+use Chalk\Notifier;
 use Coast\App\Controller;
 use Coast\App\Image;
 use Coast\App\Router;
@@ -32,6 +33,7 @@ $chalk = (new Chalk(__DIR__, $config->envs))
     ->param('config', $config);
 $chalk
     ->param('frontend', $frontend)
+    ->param('notify', new Notifier())
     ->param('controller', new Controller())
     ->param('router', new Router([
         'target' => $chalk->controller,

@@ -42,6 +42,7 @@ class Basic extends Action
 		}
 		$this->em->flush();
 
+		$this->notify("{$req->info->singular} <strong>{$entity->name}</strong> was saved successfully", 'positive');
 		return $res->redirect($this->url(array(
 			'action'	=> null,
 			'id'		=> null,
@@ -55,6 +56,7 @@ class Basic extends Action
 		$this->em->remove($entity);
 		$this->em->flush();
 
+		$this->notify("{$req->info->singular} <strong>{$entity->name}</strong> was deleted successfully", 'positive');
 		return $res->redirect($this->url(array(
 			'action'	=> null,
 			'id'		=> null,

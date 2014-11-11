@@ -75,6 +75,7 @@ class Auth extends Action
                 'user' => $user,
             ])));
 
+        $this->notify('Please check your email for password reset instructions');
         return $res->redirect($this->url([], 'login', true));
     }
 
@@ -82,7 +83,8 @@ class Auth extends Action
     {
         $user = $this->em('Chalk\Core\User')->fetchByToken($req->token);
         if (!isset($user)) {
-            return $res->redirect($this->url([], 'login', true));
+          $this->notify('Sorry, your password reset link has expired, please request a new one', 'negative');
+            return $res->redirect($this->url([], 'passwordRequest', true));
         }
 
         $req->view->passwordReset = $wrap = $this->em->wrap(
@@ -103,6 +105,7 @@ class Auth extends Action
         $user->tokenDate     = null;
         $this->em->flush();
 
+        $this->notify('Your password has been reset successfully', 'positive');
         return $res->redirect($this->url([], 'login', true));
     }
 

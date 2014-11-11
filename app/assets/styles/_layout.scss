@@ -116,23 +116,65 @@ html, body {
 }
 .main {
 	flex: 1;
-	.topbar {
-		padding: $gutter * 0.75 $gutter * 1.5;
-		background-color: white;
-		a {
-			@include link-color($color-foreground);
-		}
-		@include flush;
-		.toolbar {
-			float: right;
-			&:first-child {
-				float: left;
-			}
-		}
-	}
 	.body {
 		position: relative;
 		padding: $gutter $gutter * 1.5;
+	}
+}
+.notifications {
+	margin-top: 0;
+	@include no-bullets;
+	position: relative;
+	.notification {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		@include transition(bottom $speed ease);
+		&.notification-show {
+			bottom: -68px;
+		}
+	}
+}
+.topbar {
+	padding: $gutter * 0.75 $gutter * 1.5;
+	background-color: white;
+	position: relative;
+	a {
+		@include link-color($color-foreground);
+	}
+	@include flush;
+	.notifications {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+	}
+	.toolbar {
+		float: right; 
+		&:first-child {
+			float: left;
+		}
+	}
+}
+.notification {
+	line-height: $input-height;
+	padding: $gutter * 0.75 $gutter * 1.5;
+	background-color: transparentize($color-quiet, 0.1);
+	text-align: center;
+	color: white;
+	cursor: pointer;
+	&.notification-positive {
+		background-color: transparentize($color-positive, 0.1);
+	}
+	&.notification-negative {
+		background-color: transparentize(shade($color-negative, 5%), 0.1);
+	}
+	&::before {
+		margin-right: 0.5em;
+		width: 22px;
+		height: 22px;
+		vertical-align: -4px;
 	}
 }
 .body {

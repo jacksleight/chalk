@@ -78,6 +78,7 @@ $count = $this->em('Chalk\Core\Content')->fetchCountForPublish();
 				</li>
 			</ul>
 			<p class="title"><?= $this->config->name ?></p>
+			<ul class="notifications"></ul>
 		</div>
 		<section class="body" role="main">
 			<?= $content->main ?>

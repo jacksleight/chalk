@@ -3,7 +3,7 @@
 /* Media */
 /* Image */
 /* Icon */
-.icon-add::before, .icon-archive::before, .icon-cancel::before, .icon-content::before, .icon-delete::before, .icon-drag::before, .icon-false::before, .icon-history::before, .icon-logout::before, .icon-move::before, .icon-ok::before, .icon-publish::before, .icon-remove::before, .icon-restore::before, .icon-search::before, .icon-settings::before, .icon-status::before, .icon-structure::before, .icon-true::before, .icon-updated::before, .icon-upload::before, .icon-user::before, .icon-view::before, .tree-node button[data-action=expand] span::before, .tree-node button[data-action=collapse] span::before {
+.icon-add::before, .icon-archive::before, .icon-cancel::before, .icon-content::before, .icon-delete::before, .icon-drag::before, .icon-false::before, .icon-history::before, .icon-logout::before, .icon-move::before, .icon-ok::before, .icon-publish::before, .icon-remove::before, .icon-restore::before, .icon-search::before, .icon-settings::before, .icon-status::before, .icon-structure::before, .icon-true::before, .icon-updated::before, .icon-upload::before, .icon-user::before, .icon-view::before, .icon-positive::before, .icon-negative::before, .tree-node button[data-action=expand] span::before, .tree-node button[data-action=collapse] span::before {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
@@ -325,6 +325,26 @@
   margin-right: 0.2em;
 }
 
+.icon-positive::before {
+  content: '';
+  background-color: currentColor;
+  -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cGF0aCBkPSJNMjU2IDUwQzE0Mi4yMyA1MCA1MCAxNDIuMjMgNTAgMjU2czkyLjIzIDIwNiAyMDYgMjA2IDIwNi05Mi4yMyAyMDYtMjA2UzM2OS43NyA1MCAyNTYgNTB6bS0zNS4wNDcgMzE2Ljk2bC05Ny4zMjYtOTcuMzUzIDQxLjQ0LTQxLjQ0OCA1NS44ODQgNTUuODk4TDM0OS45NyAxNTUuMDRsNDEuNDU4IDQxLjQzLTE3MC40NzUgMTcwLjQ5eiIvPjwvc3ZnPg==');
+  width: 16px;
+  height: 16px;
+  vertical-align: -0.15em;
+  margin-right: 0.2em;
+}
+
+.icon-negative::before {
+  content: '';
+  background-color: currentColor;
+  -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cGF0aCBkPSJNMjU2IDUwQzE0Mi4yMyA1MCA1MCAxNDIuMjMgNTAgMjU2czkyLjIzIDIwNiAyMDYgMjA2IDIwNi05Mi4yMyAyMDYtMjA2UzM2OS43NyA1MCAyNTYgNTB6bTc4LjEyNCAzMjguNTQ1bC03Ny4xMjItNzcuMTE3LTc3LjEyMyA3Ny4xMjctNDEuNDI2LTQxLjQ1IDc3LjEwNi03Ny4xMTYtNzcuMTE1LTc3LjExIDQxLjQ0OC00MS40MjUgNzcuMTAzIDc3LjA5MiA3Ny4wOS03Ny4xMDIgNDEuNDYgNDEuNDMyLTc3LjEwNSA3Ny4xMDggNzcuMTE0IDc3LjEwMi00MS40MyA0MS40NTh6Ii8+PC9zdmc+');
+  width: 16px;
+  height: 16px;
+  vertical-align: -0.15em;
+  margin-right: 0.2em;
+}
+
 /* General */
 *, *:before, *:after {
   -moz-box-sizing: border-box;
@@ -443,10 +463,10 @@ dl dd {
 /* Link */
 a {
   color: #00a6b5;
-  -moz-transition: all 0.1s ease;
-  -o-transition: all 0.1s ease;
-  -webkit-transition: all 0.1s ease;
-  transition: all 0.1s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
   text-decoration: underline;
 }
 a:visited {
@@ -780,10 +800,10 @@ figure figcaption {
   background-color: white;
   outline-color: white;
   color: #2d353c;
-  -moz-transition: background-color 0.1s ease, outline-color 0.1s ease;
-  -o-transition: background-color 0.1s ease, outline-color 0.1s ease;
-  -webkit-transition: background-color 0.1s ease, outline-color 0.1s ease;
-  transition: background-color 0.1s ease, outline-color 0.1s ease;
+  -moz-transition: background-color 0.2s ease, outline-color 0.2s ease;
+  -o-transition: background-color 0.2s ease, outline-color 0.2s ease;
+  -webkit-transition: background-color 0.2s ease, outline-color 0.2s ease;
+  transition: background-color 0.2s ease, outline-color 0.2s ease;
 }
 .thumb:visited {
   color: #2d353c;
@@ -864,10 +884,10 @@ figure figcaption {
   width: 100%;
   overflow: hidden;
   background-color: #FCB941;
-  -moz-transition: height 0.1s linear;
-  -o-transition: height 0.1s linear;
-  -webkit-transition: height 0.1s linear;
-  transition: height 0.1s linear;
+  -moz-transition: height 0.2s linear;
+  -o-transition: height 0.2s linear;
+  -webkit-transition: height 0.2s linear;
+  transition: height 0.2s linear;
 }
 .thumb .preview .progress.out {
   background-color: transparent;
@@ -979,10 +999,10 @@ table tbody {
 }
 table tbody th, table tbody td {
   border-top: 1px solid #eeeeef;
-  -moz-transition: all 0.1s ease;
-  -o-transition: all 0.1s ease;
-  -webkit-transition: all 0.1s ease;
-  transition: all 0.1s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 table tbody tr:first-child th, table tbody tr:first-child td {
   border-top: 0;
@@ -1052,10 +1072,10 @@ input,
 select,
 textarea,
 .btn {
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
-  -webkit-transition: all 0.1s linear;
-  transition: all 0.1s linear;
+  -moz-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
 }
 
 input[type=date],
@@ -1273,10 +1293,10 @@ input[type=radio] + label:before {
   margin-right: 0.25em;
   background-position: center;
   background-repeat: no-repeat;
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
-  -webkit-transition: all 0.1s linear;
-  transition: all 0.1s linear;
+  -moz-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
 }
 input[type=checkbox]:focus + label:before,
 input[type=radio]:focus + label:before {
@@ -1652,10 +1672,10 @@ textarea.disabled,
   border-top-width: 0;
   border-bottom-width: 0;
   overflow: hidden;
-  -moz-transition: max-height 0.1s ease;
-  -o-transition: max-height 0.1s ease;
-  -webkit-transition: max-height 0.1s ease;
-  transition: max-height 0.1s ease;
+  -moz-transition: max-height 0.2s ease;
+  -o-transition: max-height 0.2s ease;
+  -webkit-transition: max-height 0.2s ease;
+  transition: max-height 0.2s ease;
   -moz-box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.05);
   -webkit-box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.05);
   box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.05);
@@ -1954,10 +1974,10 @@ legend {
 .expandable .expandable-body {
   max-height: 0;
   overflow: hidden;
-  -moz-transition: max-height 0.1s ease;
-  -o-transition: max-height 0.1s ease;
-  -webkit-transition: max-height 0.1s ease;
-  transition: max-height 0.1s ease;
+  -moz-transition: max-height 0.2s ease;
+  -o-transition: max-height 0.2s ease;
+  -webkit-transition: max-height 0.2s ease;
+  transition: max-height 0.2s ease;
 }
 .expandable .expandable-body > *:first-child {
   margin-top: 0 !important;
@@ -1970,10 +1990,10 @@ legend {
   color: #00a6b5;
   padding: 6px 20px;
   cursor: pointer;
-  -moz-transition: background 0.1s ease;
-  -o-transition: background 0.1s ease;
-  -webkit-transition: background 0.1s ease;
-  transition: background 0.1s ease;
+  -moz-transition: background 0.2s ease;
+  -o-transition: background 0.2s ease;
+  -webkit-transition: background 0.2s ease;
+  transition: background 0.2s ease;
 }
 .expandable .expandable-toggle:hover {
   color: white;
@@ -1981,10 +2001,10 @@ legend {
   background-color: #00a6b5;
 }
 .expandable .expandable-toggle i {
-  -moz-transition: -moz-transform 0.1s ease;
-  -o-transition: -o-transform 0.1s ease;
-  -webkit-transition: -webkit-transform 0.1s ease;
-  transition: transform 0.1s ease;
+  -moz-transition: -moz-transform 0.2s ease;
+  -o-transition: -o-transform 0.2s ease;
+  -webkit-transition: -webkit-transform 0.2s ease;
+  transition: transform 0.2s ease;
 }
 .expandable.active .expandable-body {
   border-top: 1px solid #eeeeef;
@@ -2737,37 +2757,90 @@ html, body {
 .main {
   flex: 1;
 }
-.main .topbar {
-  padding: 15px 30px;
-  background-color: white;
-}
-.main .topbar a {
-  color: #2d353c;
-}
-.main .topbar a:visited {
-  color: #2d353c;
-}
-.main .topbar a:focus {
-  color: #2d353c;
-}
-.main .topbar a:hover {
-  color: #2d353c;
-}
-.main .topbar a:active {
-  color: #2d353c;
-}
-.main .topbar > *:first-child {
-  margin-top: 0 !important;
-}
-.main .topbar .toolbar {
-  float: right;
-}
-.main .topbar .toolbar:first-child {
-  float: left;
-}
 .main .body {
   position: relative;
   padding: 20px 30px;
+}
+
+.notifications {
+  margin-top: 0;
+  list-style: none;
+  position: relative;
+}
+.notifications li {
+  list-style-image: none;
+  list-style-type: none;
+  margin-left: 0;
+}
+.notifications .notification {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  -moz-transition: bottom 0.2s ease;
+  -o-transition: bottom 0.2s ease;
+  -webkit-transition: bottom 0.2s ease;
+  transition: bottom 0.2s ease;
+}
+.notifications .notification.notification-show {
+  bottom: -68px;
+}
+
+.topbar {
+  padding: 15px 30px;
+  background-color: white;
+  position: relative;
+}
+.topbar a {
+  color: #2d353c;
+}
+.topbar a:visited {
+  color: #2d353c;
+}
+.topbar a:focus {
+  color: #2d353c;
+}
+.topbar a:hover {
+  color: #2d353c;
+}
+.topbar a:active {
+  color: #2d353c;
+}
+.topbar > *:first-child {
+  margin-top: 0 !important;
+}
+.topbar .notifications {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.topbar .toolbar {
+  float: right;
+}
+.topbar .toolbar:first-child {
+  float: left;
+}
+
+.notification {
+  line-height: 38px;
+  padding: 15px 30px;
+  background-color: rgba(150, 154, 157, 0.9);
+  text-align: center;
+  color: white;
+  cursor: pointer;
+}
+.notification.notification-positive {
+  background-color: rgba(9, 189, 114, 0.9);
+}
+.notification.notification-negative {
+  background-color: rgba(239, 91, 62, 0.9);
+}
+.notification::before {
+  margin-right: 0.5em;
+  width: 22px;
+  height: 22px;
+  vertical-align: -4px;
 }
 
 .body {
@@ -2910,10 +2983,10 @@ html, body {
 }
 
 .hideable {
-  -moz-transition: opacity 0.1s ease;
-  -o-transition: opacity 0.1s ease;
-  -webkit-transition: opacity 0.1s ease;
-  transition: opacity 0.1s ease;
+  -moz-transition: opacity 0.2s ease;
+  -o-transition: opacity 0.2s ease;
+  -webkit-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
   opacity: 1;
 }
 .hideable.hideable-hidden {

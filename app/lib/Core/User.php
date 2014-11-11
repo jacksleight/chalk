@@ -104,10 +104,6 @@ class User extends \Toast\Entity implements Trackable, Searchable
 					'nullable'	=> true,
 					'validator'	=> Validator::length(6),
 				),
-				'passwordPlainConfirm' => array(
-					'type'		=> 'string',
-					'nullable'	=> true,
-				),
 			),
 		);
 	}

@@ -36,6 +36,7 @@ class Node extends Action
 			$this->em->flush();
 		}
 
+		$this->notify("Content was added successfully", 'positive');
 		if (isset($req->node)) {
 			return $res->redirect($this->url(array(
 				'action' => 'edit',
@@ -67,6 +68,7 @@ class Node extends Action
 		}
 		$this->em->flush();
 
+		$this->notify(\Chalk\Chalk::info($node->content)->singular . " <strong>{$node->content->name}</strong> was saved successfully", 'positive');
 		return $res->redirect($this->url(array()));
 	}
 
@@ -84,6 +86,7 @@ class Node extends Action
 		$this->em->remove($node);
 		$this->em->flush();
 
+		$this->notify(\Chalk\Chalk::info($node->content)->singular . " <strong>{$node->content->name}</strong> was removed successfully", 'positive');
 		return $res->redirect($this->url(array(
 			'action'	=> 'index',
 			'node'		=> null,

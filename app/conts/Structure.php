@@ -58,6 +58,7 @@ class Structure extends Action
 		}
 		$this->em->flush();
 
+		$this->notify("Content was moved successfully", 'positive');
 		return $res->redirect($this->url(array(
 			'action' => 'index',
 		)));

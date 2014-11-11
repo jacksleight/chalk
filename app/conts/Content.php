@@ -70,6 +70,7 @@ class Content extends Basic
 		}
 		$this->em->flush();
 
+		$this->notify("{$req->info->singular} <strong>{$content->name}</strong> was saved successfully", 'positive');
 		return $res->redirect($this->url(array(
 			'action'	=> 'edit',
 			'content'	=> $content->id,
@@ -114,6 +115,7 @@ class Content extends Basic
 		$content->status = \Chalk\Chalk::STATUS_ARCHIVED;
 		$this->em->flush();
 
+		$this->notify("{$req->info->singular} <strong>{$content->name}</strong> was archived successfully", 'positive');
 		return $res->redirect($this->url(array(
 			'action'	=> 'edit',
 			'content'	=> $content->id,
@@ -127,6 +129,7 @@ class Content extends Basic
 		$content->restore();
 		$this->em->flush();
 
+		$this->notify("{$req->info->singular} <strong>{$content->name}</strong> was restored successfully", 'positive');
 		return $res->redirect($this->url(array(
 			'action'	=> 'edit',
 			'content'	=> $content->id,
@@ -135,11 +138,12 @@ class Content extends Basic
 
 	public function delete(Request $req, Response $res)
 	{
-		$entity = $this->em($req->info)->find($req->content);
+		$content = $this->em($req->info)->find($req->content);
 
-		$this->em->remove($entity);
+		$this->em->remove($content);
 		$this->em->flush();
 
+		$this->notify("{$req->info->singular} <strong>{$content->name}</strong> was deleted successfully", 'positive');
 		return $res->redirect($this->url(array(
 			'action'	=> 'index',
 			'id'		=> null,

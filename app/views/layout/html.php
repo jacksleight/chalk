@@ -29,8 +29,9 @@ $title  = (isset($title)
                 'entity' => '{entity}',
             ], 'widget', true),
             'contentName'   => \Chalk\Chalk::info('Chalk\Core\Content')->name,
-            'prefs'         => $req->user->prefs(),
+            'prefs'         => isset($req->user) ? $req->user->prefs() : [],
             'styles'        => $this->config->styles,
+            'notifications' => $this->notify->notifications(),
             'widgets'       => array_map('\Chalk\Chalk::info', $this->app->fire('Chalk\Core\Event\ListWidgets')->widgets()),
         ]) ?>;
     </script>
