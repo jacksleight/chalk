@@ -7,10 +7,12 @@ $cli = new Cli();
 
 $em		= $app->chalk->em;
 $schema	= new \Doctrine\ORM\Tools\SchemaTool($em);
+$trans  = false;
 
 try {
 
 	$em->beginTransaction();
+	$trans = true;
 
 	$cli->output('Dropping existing database', true);
 	$schema->dropDatabase();
@@ -34,46 +36,51 @@ try {
 	$cli->output('Creating default page', true);
 	$page = new \Chalk\Core\Page();
 	$page->fromArray([
-		'name'			=> 'Example',
+		'name'			=> 'Home',
 	]);
 	$em->persist($page);
 	$em->flush();
 	
 	$cli->output('Creating default structures', true);
 	$em->flush();
-	$struct1 = new \Chalk\Core\Structure();
-	$struct1->fromArray([
+	$struct = new \Chalk\Core\Structure();
+	$struct->fromArray([
 		'name'			=> 'Primary',
 	]);
-	$struct1->root->content = $page;
-	$em->persist($struct1);
+	$struct->root->content = $page;
+	$em->persist($struct);
 	$em->flush();
-	$struct2 = new \Chalk\Core\Structure();
-	$struct2->fromArray([
-		'name'			=> 'Footer',
-	]);
-	$struct2->root->content = $page;
-	$em->persist($struct2);
+
+	$cli->output('Creating default domain', true);
 	$domain = new \Chalk\Core\Domain();
 	$domain->fromArray([
 		'name'			=> 'example.com',
-		'structure'		=> $struct1,
+		'structure'		=> $struct,
 	]);
 	$em->persist($domain);
 	$em->flush();
 
+	include __DIR__ . '/schema-data.php';
+
 	$cli->output('Comitting to database', true);
 	$em->commit();
+	$trans = false;
 
 	$cli->output('Deleting data', true);
-	$app->dir('data')->remove(true);
-	$app->dir('public/data')->remove(true);
+	if ($app->dir('data')->exists()) {
+		$app->dir('data')->remove(true);
+	}
+	if ($app->dir('public/data')->exists()) {
+		$app->dir('public/data')->remove(true);
+	}
 
 	$cli->output('DONE', true);
 
 } catch (Exception $e) {
 
-	$em->rollback();
+	if ($trans) {
+		$em->rollback();
+	}
 	$cli->error('ERROR: ' . $e->getMessage());
 	throw $e;
 

@@ -1,5 +1,5 @@
 <?php
-$count = $this->em('Chalk\Core\Content')->fetchCountForPublish();
+$count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
 ?>
 <?php $this->layout('/layout/html') ?>
 <?php $this->block('body') ?>
@@ -13,7 +13,7 @@ $count = $this->em('Chalk\Core\Content')->fetchCountForPublish();
 			[
 				'label' => 'Structure',
 				'icon'	=> 'icon-structure',
-				'params'=> ['controller' => 'structure'],
+				'params'=> ['controller' => 'structure', 'action' => 'index', 'id' => 1],
 			],
 			[
 				'label' => 'Content',

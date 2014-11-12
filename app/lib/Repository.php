@@ -21,47 +21,50 @@ class Repository extends EntityRepository
 		return $reflection->newInstanceArgs($args);
 	}
 
-	public function id($id, $field = 'id')
+	public function id($id)
 	{
-		$query = $this->query();
-		
-		$query->where("{$this->_alias}.{$field} = :id");
-		$query->setParameter('id', $id);
-
-		return $query
+		return $this->query(['ids' => [$id]])
 			->getQuery()
-			->getSingleResult();
+			->getOneOrNullResult();
 	}
 
-	public function one(array $criteria = array(), $sort, $offset)
-	{
-		$query = $this->query($criteria, $sort, null, $offset);
-		
-		return $query
+	public function one(array $criteria = array(), $sort = null, $offset = null)
+	{	
+		return $this->query($criteria, $sort, null, $offset)
 			->setMaxResults(1)
 			->getQuery()
 			->getOneOrNullResult();
 	}
 
 	public function all(array $criteria = array(), $sort = null, $limit = null, $offset = null)
-	{
-		$query = $this->query($criteria, $sort, $limit, $offset);
-		
-		return $query
+	{	
+		return $this->query($criteria, $sort, $limit, $offset)
 			->getQuery()
 			->getResult();
 	}
 
-	// @todo DELETE this, BC
-	public function fetchAll(array $criteria = array())
-	{
-		return $this->all($criteria);
+	public function count(array $criteria = array(), $limit = null, $offset = null)
+	{	
+		return $this->query($criteria, null, $limit, $offset)
+			->select("COUNT({$this->_alias})")
+			->getQuery()
+			->getSingleScalarResult();
 	}
 
 	public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
 	{
 		$query = $this->createQueryBuilder($this->_alias);
+
+		$criteria = $criteria + [
+			'ids' => null,
+		];
 		
+		if (isset($criteria['ids'])) {
+			$query
+				->andWhere("{$this->_alias}.id IN (:ids)")
+				->setParameter('ids', $criteria['ids']);
+		}
+
 		if (isset($sort)) {
 			if (!is_array($sort)) {
 				$sort = [$sort, 'ASC'];

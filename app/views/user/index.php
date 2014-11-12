@@ -4,7 +4,7 @@
 $filter = $this->em->wrap(new \Chalk\Core\Model\Index())
 	->graphFromArray($req->queryParams());
 $users = $this->em($info)
-	->fetchAll($filter->toArray());
+	->all($filter->toArray());
 ?>
 
 <ul class="toolbar">

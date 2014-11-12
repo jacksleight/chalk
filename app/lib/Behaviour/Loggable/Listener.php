@@ -86,7 +86,7 @@ class Listener implements EventSubscriber
 			if (!$entity instanceof Loggable) {
 				continue;
 			}
-			$logs = $em->getRepository('Chalk\Core\Log')->fetchAll(['entity' => $entity]);
+			$logs = $em->getRepository('Chalk\Core\Log')->all(['entity' => $entity]);
 			$this->_deletions = array_merge($this->_deletions, $logs);
 		}
 	}

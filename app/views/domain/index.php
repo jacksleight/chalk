@@ -2,7 +2,7 @@
 <?php $this->block('main') ?>
 <?php
 $domains = $this->em($info)
-	->fetchAll();
+	->all();
 ?>
 
 <ul class="toolbar">

@@ -15,7 +15,7 @@
 			'label' => $info->plural,
 			'name'	=> 'content',
 			'params'=> ['action' => null, 'entity' => $info->name],
-			'badge' => $this->em($content)->fetchCountForPublish() ?: null,
+			'badge' => $this->em($content)->count(['isPublishable' => true]) ?: null,
 		];
 	}
 	?>

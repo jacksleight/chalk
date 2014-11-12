@@ -9,48 +9,14 @@ namespace Chalk\Core\Repository;
 use Chalk\Repository,
 	Chalk\Core\Domain,
 	Chalk\Core\Menu,
+    Chalk\Behaviour\Publishable,
 	Chalk\Core\Structure as CoreStructure;
 
 class Structure extends Repository
 {
-	public function fetchFirst()
-	{
-		return $this->createQueryBuilder('s')
-			->setMaxResults(1)
-			->orderBy("s.id")
-			->getQuery()
-			->getOneOrNullResult();
-	}
-
-	public function fetchAllForPublish()
-	{
-		return $this->createQueryBuilder("s")
-			->where("s.status IN (:statuses)")
-			->addOrderBy("s.master")
-			->addOrderBy("s.version", "DESC")
-			->getQuery()
-			->setParameters([
-				'statuses' => [
-					\Chalk\Chalk::STATUS_PENDING,
-					\Chalk\Chalk::STATUS_PUBLISHED,
-				],
-			])
-			->getResult();
-	}
-
-	// @todo merge into fetchAll
-	public function fetchAllForSlugRefresh()
-	{
-		return $this->createQueryBuilder("s")
-			->where("s.status IN (:statuses)")
-			->getQuery()
-			->setParameters([
-				'statuses' => [
-					\Chalk\Chalk::STATUS_PENDING,
-				],
-			])
-			->getResult();
-	}
+	use Publishable\Repository {
+        Publishable\Repository::queryModifier as publishableQueryModifier;
+    }
 
     public function fetchNodes(CoreStructure $structure, $depth = null)
     {

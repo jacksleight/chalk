@@ -13,20 +13,24 @@ use Chalk\Chalk,
 
 class Index extends Repository
 {
-    public function fetch($id)
+    protected $_alias = 'i';
+
+    public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
     {
-        $index = $this->_em->createQueryBuilder()
-            ->select("i")
-            ->from("\Chalk\Core\Index", "i")
-            ->andWhere("i.entity = :entity")
-            ->andWhere("i.entityId = :entityId")
-            ->getQuery()
-            ->setParameters([
-                'entity'   => \Chalk\Chalk::info($id)->name,
-                'entityId' => $id->id,
-            ])          
-            ->getOneOrNullResult();
-        return $index;
+        $query = parent::query($criteria, $sort, $limit, $offset);
+
+        $criteria = $criteria + [
+            'entity' => null,
+        ];
+        
+        if (isset($criteria['entity'])) {
+            $query
+                ->andWhere("i.entity = :entity AND i.entityId = :entityId")
+                ->setParameter('entity', Chalk::info($criteria['entity'])->name)
+                ->setParameter('entityId', $criteria['entity']->id);
+        }
+
+        return $query;
     }
 
     public function search($query, $classes = array())

@@ -13,24 +13,10 @@ use Chalk\Chalk,
 class Content extends Repository
 {
 	use Publishable\Repository {
-       	Publishable\Repository::query as publishableQuery;
+       	Publishable\Repository::queryModifier as publishableQueryModifier;
     }
 
 	protected $_alias = 'c';
-
-	public function fetchByMasterId($id)
-	{
-		return $this->createQueryBuilder("c")
-            ->innerJoin('c.master', 'cm')
-            ->andWhere('c.next IS NULL')
-			->andWhere("cm.id = :id")
-			->setMaxResults(1)
-			->getQuery()
-			->setParameters([
-				'id' => $id,
-			])
-			->getOneOrNullResult();
-	}
 
 	public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
 	{
@@ -38,21 +24,17 @@ class Content extends Repository
 
 		$criteria = $criteria + [
 			'search'		=> null,
+			'master'		=> null,
 			'createDateMin'	=> null,
 			'createDateMax'	=> null,
 			'modifyDateMin'	=> null,
 			'modifyDateMax'	=> null,
-			'createUsers'	=> [],
-			'statuses'		=> [],
-			'isPublished'	=> false,
+			'createUsers'	=> null,
+			'statuses'		=> null,
 		];
 		
 		$query->andWhere("c.next IS NULL");
 		
-		if (!isset($sort)) {
-			$query->orderBy("c.modifyDate", "DESC");
-		}
-
 		if (isset($criteria['search'])) {
 			if ($this->_class->name == 'Chalk\Core\Content') {
 				$classes = $this->_em->getClassMetadata($this->_class->name)->subClasses;
@@ -62,72 +44,54 @@ class Content extends Repository
 			$results = $this->_em->getRepository('Chalk\Core\Index')
 				->search($criteria['search'], $classes);
 			$ids = \Coast\array_column($results, 'entityId');
-			$query ->andWhere("c.id IN (:ids)")
+			$query
 				->addSelect("FIELD(c.id, :ids) AS HIDDEN sort")
-				->orderBy("sort");
-			$query->setParameter('ids', $ids);
+				->andWhere("c.id IN (:ids)")
+				->orderBy("sort")
+				->setParameter('ids', $ids);
+		}
+		if (isset($criteria['master'])) {
+        	$query
+				->andWhere("c.master = :master")
+				->setParameter('master', $criteria['master']);
 		}
 		if (isset($criteria['createDateMin'])) {
-			$query->andWhere("c.createDate >= :createDateMin");
-			$query->setParameter('createDateMin', new \DateTime("{$criteria['createDateMin']}"));
+			$query
+				->andWhere("c.createDate >= :createDateMin")
+				->setParameter('createDateMin', new \DateTime("{$criteria['createDateMin']}"));
 		}
 		if (isset($criteria['createDateMax'])) {
-			$query->andWhere("c.createDate <= :createDateMax");
-			$query->setParameter('createDateMax', new \DateTime("{$criteria['createDateMax']}"));
+			$query
+				->andWhere("c.createDate <= :createDateMax")
+				->setParameter('createDateMax', new \DateTime("{$criteria['createDateMax']}"));
 		}
 		if (isset($criteria['modifyDateMin'])) {
-			$query->andWhere("c.modifyDate >= :modifyDateMin");
-			$query->setParameter('modifyDateMin', new \DateTime("{$criteria['modifyDateMin']}"));
+			$query
+				->andWhere("c.modifyDate >= :modifyDateMin")
+				->setParameter('modifyDateMin', new \DateTime("{$criteria['modifyDateMin']}"));
 		}
 		if (isset($criteria['modifyDateMax'])) {
-			$query->andWhere("c.modifyDate <= :modifyDateMax");
-			$query->setParameter('modifyDateMax', new \DateTime("{$criteria['modifyDateMax']}"));
+			$query
+				->andWhere("c.modifyDate <= :modifyDateMax")
+				->setParameter('modifyDateMax', new \DateTime("{$criteria['modifyDateMax']}"));
 		}
-		if (count($criteria['createUsers'])) {
-			$query->andWhere("c.createUser IN (:createUsers)");
-			$query->setParameter('createUsers', $criteria['createUsers']);
+		if (isset($criteria['createUsers'])) {
+			$query
+				->andWhere("c.createUser IN (:createUsers)")
+				->setParameter('createUsers', $criteria['createUsers']);
 		}
-		if (count($criteria['statuses'])) {
-			$query->andWhere("c.status IN (:statuses)");
-			$query->setParameter('statuses', $criteria['statuses']);
+		if (isset($criteria['statuses'])) {
+			$query
+				->andWhere("c.status IN (:statuses)")
+				->setParameter('statuses', $criteria['statuses']);
 		}
 
-		$this->publishableQuery($query, $criteria);
+		if (!isset($sort)) {
+			$query->orderBy("c.modifyDate", "DESC");
+		}
+
+		$this->publishableQueryModifier($query, $criteria);
 
 		return $query;
-	}
-
-	public function fetchCountForPublish()
-	{
-		return $this->_em->createQueryBuilder()
-			->select("COUNT(c)")
-			->from($this->_class->name, "c")
-			->where("c.status IN (:statuses)")
-			->getQuery()
-			->setParameters([
-				'statuses' => [
-					Chalk::STATUS_DRAFT,
-					Chalk::STATUS_PENDING,
-				],
-			])
-			->getSIngleScalarResult();
-	}
-
-	public function fetchAllForPublish()
-	{
-		return $this->_em->createQueryBuilder()
-			->select("c")
-			->from($this->_class->name, "c")
-			->where("c.status IN (:statuses)")
-			// ->addOrderBy("c.master")
-			// ->addOrderBy("c.version", "DESC")
-			->getQuery()
-			->setParameters([
-				'statuses' => [
-					Chalk::STATUS_DRAFT,
-					Chalk::STATUS_PENDING,
-				],
-			])
-			->getResult();
 	}
 }

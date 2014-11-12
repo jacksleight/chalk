@@ -17,7 +17,8 @@
     "nesbot/carbon": "1.13.*",
     "respect/validation": "0.6.*",
     "jacksleight/coast": "0.1.*",
-    "jacksleight/coast-doctrine": "0.1.*"
+    "jacksleight/coast-doctrine": "0.1.*",
+    "php-console/php-console": "3.*"
   },
   "autoload": {
     "psr-4": {

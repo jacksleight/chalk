@@ -12,7 +12,7 @@ class Structure extends Action
 	public function index(Request $req, Response $res)
 	{
 		if (!$req->structure) {
-			$domain = $this->em('Chalk\Core\Domain')->fetchFirst();
+			$domain = $this->em('Chalk\Core\Domain')->one([], 'id');
 			return $res->redirect($this->url([
 				'action'	=> 'index',
 				'structure'	=> $domain->structure->id,

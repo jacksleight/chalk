@@ -39,7 +39,7 @@ class Frontend extends App
     {        
         $req->domain = $this
             ->em('Chalk\Core\Domain')
-            ->fetchFirst();
+            ->one([], 'id');
         $nodes = $this
             ->em('Chalk\Core\Structure')
             ->fetchNodes($req->domain->structure);

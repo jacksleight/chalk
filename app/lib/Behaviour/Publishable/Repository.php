@@ -6,20 +6,27 @@
 
 namespace Chalk\Behaviour\Publishable;
 
-use Doctrine\ORM\EntityRepository,
+use Chalk\Chalk,
+    Doctrine\ORM\EntityRepository,
     Doctrine\ORM\QueryBuilder,
     Doctrine\ORM\Query;
 
 trait Repository
 {
-    public function query(QueryBuilder $query, array $criteria = array())
+    public function queryModifier(QueryBuilder $query, array $criteria = array())
     {
         $criteria = $criteria + [
-            'isPublished'   => false,
+            'isPublished'   => null,
+            'isPublishable' => null,
         ];
         
-        if ($criteria['isPublished']) {
-            $query->andWhere("c.status IN ('published') AND UTC_TIMESTAMP() >= c.publishDate");
+        if (isset($criteria['isPublished'])) {
+            $query->andWhere("c.status IN (:statuses) AND UTC_TIMESTAMP() >= c.publishDate");
+            $query->setParameter('statuses', [Chalk::STATUS_PUBLISHED]);
+        }
+        if (isset($criteria['isPublishable'])) {
+            $query->andWhere("c.status IN (:statuses)");
+            $query->setParameter('statuses', [Chalk::STATUS_DRAFT, Chalk::STATUS_PENDING]);
         }
     }
 }

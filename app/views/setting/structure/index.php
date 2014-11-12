@@ -2,7 +2,7 @@
 <?php $this->block('main') ?>
 <?php
 $structures = $this->em($info)
-	->fetchAll();
+	->all();
 ?>
 
 <ul class="toolbar">

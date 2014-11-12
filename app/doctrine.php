@@ -20,7 +20,7 @@ $config->setMetadataDriverImpl($config->newDefaultAnnotationDriver());
 $config->setProxyDir($app->root->dir('data/proxies'));
 $config->setProxyNamespace('Chalk\Proxy');
 $config->setAutoGenerateProxyClasses(true);
-// $config->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger());
+// $config->setSQLLogger(new \Chalk\ConsoleSQLLogger());
 
 $cache = null;
 if ($app->isDevelopment()) {

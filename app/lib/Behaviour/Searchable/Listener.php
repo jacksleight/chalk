@@ -47,7 +47,7 @@ class Listener implements EventSubscriber
             if (!count($changes)) {
                 continue;
             }
-            $index  = $em->getRepository('Chalk\Core\Index')->fetch($entity);
+            $index  = $em->getRepository('Chalk\Core\Index')->one(['entity' => $entity]);
             if (!isset($index)) {
                 $index               = new Index();
                 $index->entity       = \Chalk\Chalk::info($entity)->name;
@@ -76,7 +76,7 @@ class Listener implements EventSubscriber
             if (!$entity instanceof Searchable) {
                 continue;
             }
-            $index  = $em->getRepository('Chalk\Core\Index')->fetch($entity);
+            $index  = $em->getRepository('Chalk\Core\Index')->one(['entity' => $entity]);
             if (!isset($index)) {
                 continue;
             }

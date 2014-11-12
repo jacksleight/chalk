@@ -2,7 +2,7 @@
 $filter = $this->em->wrap(new \Chalk\Core\Model\Index())
 	->graphFromArray($req->queryParams());
 $contents = $this->em($info)
-	->fetchAll($filter->toArray());
+	->all($filter->toArray());
 ?>
 
 <ul class="toolbar">

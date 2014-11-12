@@ -15,7 +15,7 @@ $browser['entity'] = \Chalk\Chalk::entity(isset($browser['entity'])
 	<div class="content-holder">
 		<?php if (isset($entity->{$name})) { ?>
 			<?= $this->render('/content/card', [
-				'content' => $this->em('Chalk\Core\Content')->fetchByMasterId((string) $entity->{$name})
+				'content' => $this->em('Chalk\Core\Content')->idMaster((string) $entity->{$name})
 			]) ?>		
 		<?php } else { ?>
 			<span class="placeholder">Nothing Selected</span>

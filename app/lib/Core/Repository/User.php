@@ -10,22 +10,28 @@ use Chalk\Repository;
 
 class User extends Repository
 {
-	public function fetchByEmailAddress($emailAddress)
-	{
-		return $this->createQueryBuilder('e')
-			->andWhere("e.emailAddress = :emailAddress")
-			->getQuery()
-			->setParameters(['emailAddress' => $emailAddress])
-			->getOneOrNullResult();
-	}
+    protected $_alias = 'u';
 
-	public function fetchByToken($token)
-	{
-		return $this->createQueryBuilder('e')
-			->andWhere("e.token = :token")
-			->andWhere("e.tokenDate > :tokenDate")
-			->getQuery()
-			->setParameters(['token' => $token, 'tokenDate' => new \DateTime()])
-			->getOneOrNullResult();
-	}
+    public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
+    {
+        $query = parent::query($criteria, $sort, $limit, $offset);
+
+        $criteria = $criteria + [
+			'emailAddress'	=> null,
+			'token'			=> null,
+        ];
+        
+        if (isset($criteria['emailAddress'])) {
+            $query
+                ->andWhere("u.emailAddress = :emailAddress")
+                ->setParameter('emailAddress', $criteria['emailAddress']);
+        }
+        if (isset($criteria['token'])) {
+            $query
+                ->andWhere("u.token = :token AND u.tokenDate > UTC_TIMESTAMP()")
+                ->setParameter('token', $criteria['token']);
+        }
+
+        return $query;
+    }
 }

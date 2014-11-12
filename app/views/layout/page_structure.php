@@ -1,8 +1,7 @@
 <?php
 $repo		= $this->em('Chalk\Core\Structure');
-$structures	= $repo->fetchAll();
+$structures	= $repo->all();
 $structure	= $repo->id($req->structure);
-$repo->fetchTree($structure);
 ?>
 <?php $this->layout('/layout/body') ?>
 <?php $this->block('main') ?>

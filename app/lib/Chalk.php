@@ -190,7 +190,7 @@ class Chalk extends App
     public function publish()
     {
         // foreach (self::$_publishables as $class) {
-           $entitys = $this->em('Chalk\Core\Content')->fetchAllForPublish();
+           $entitys = $this->em('Chalk\Core\Content')->all(['isPublishable' => true]);
            // if (is_subclass_of($class, 'Chalk\Behaviour\Versionable')) {
            //     $last = null;
            //     foreach ($entitys as $entity) {

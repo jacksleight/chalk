@@ -13,21 +13,23 @@ use Chalk\Chalk,
 
 class Log extends Repository
 {
-    public function fetchAll(array $criteria = array())
+    protected $_alias = 'l';
+
+    public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
     {
-        $params = [];
-        $qb = $this->_em->createQueryBuilder()
-            ->select("l")
-            ->from("\Chalk\Core\Log", "l");
-        if (isset($critera['entity'])) {
-            $qb ->andWhere("l.entity = :entity")
-                ->andWhere("l.entityId = :entityId");
-            $params['entity']   = \Chalk\Chalk::info($entity)->name;
-            $params['entityId'] = $entity->id;
+        $query = parent::query($criteria, $sort, $limit, $offset);
+
+        $criteria = $criteria + [
+            'entity' => null,
+        ];
+        
+        if (isset($criteria['entity'])) {
+            $query
+                ->andWhere("l.entity = :entity AND l.entityId = :entityId")
+                ->setParameter('entity', Chalk::info($entity)->name)
+                ->setParameter('entityId', $entity->id);
         }
-        return $qb
-            ->getQuery()
-            ->setParameters($params)        
-            ->getResult();
+
+        return $query;
     }
 }
