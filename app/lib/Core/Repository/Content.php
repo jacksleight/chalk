@@ -33,7 +33,8 @@ class Content extends Repository
 			'statuses'		=> null,
 		];
 		
-		$query->andWhere("c.next IS NULL");
+		$query
+			->andWhere("c.next IS NULL");
 		
 		if (isset($criteria['search'])) {
 			if ($this->_class->name == 'Chalk\Core\Content') {

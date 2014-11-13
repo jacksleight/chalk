@@ -12,159 +12,116 @@ use Chalk\Core\Structure,
 
 class Node extends Repository
 {
-    public function fetch($id)
-    {
-        if (!isset($id)) {
-            return;
-        }
-        return $this->createQueryBuilder('n')
-            ->addSelect('c', 'cv')
-            ->leftJoin('n.content', 'c')
-            ->leftJoin('c.versions', 'cv')
-            ->andWhere('cv.next IS NULL')
-            ->andWhere('n.id = :id')
-            ->getQuery()
-            ->setParameters([
-                'id' => $id,
-            ])
-            ->getOneOrNullResult();
-    }
+    protected $_alias = 'n';
 
-    public function fetchAll(array $criteria = array())
+    public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
     {
-        $params = [];
-        $qb = $this->createQueryBuilder('n')
-            ->addSelect('c', 'cv')
-            ->leftJoin('n.content', 'c')
-            ->leftJoin('c.versions', 'cv')
-            ->andWhere('cv.next IS NULL')
-            ->orderBy('n.sort');
-        
-        if (isset($criteria['node'])) {
-            $qb->andWhere('n.structure = :structure
-                AND n.left >= :left
-                AND n.right <= :right');
-            $params['structure'] = $criteria['node']->structure;
-            $params['left']      = $criteria['node']->left;
-            $params['right']     = $criteria['node']->right;
-            if (!isset($criteria['include']) || !$criteria['include']) {
-                $qb->andWhere('n != :node');
-                $params['node'] = $criteria['node'];
+        $query = parent::query($criteria, $sort, $limit, $offset);
+
+        $criteria = $criteria + [
+            'structure'  => null,
+            'children'   => null,
+            'parents'    => null,
+            'depth'      => null,
+            'isIncluded' => false,
+        ];
+
+        $query
+            ->addSelect('c')
+            ->innerJoin('n.content', 'c')
+            ->andWhere('c.next IS NULL');
+
+        $depth = null;
+        if (isset($criteria['structure'])) {
+            $query
+                ->andWhere('n.structure = :structure')
+                ->setParameter('structure', $criteria['structure']);
+            if (isset($criteria['depth'])) {
+                $query
+                    ->andWhere('n.depth <= :depth')
+                    ->setParameter('depth', $criteria['depth']);
             }
-        } else if (isset($criteria['structure'])) {
-            $qb->andWhere('n.structure = :structure');
-            $params['structure'] = $criteria['structure'];
+        } else if (isset($criteria['children'])) {
+            $query
+                ->andWhere('n.structure = :structure AND n.left >= :left AND n.right <= :right')
+                ->setParameter('structure', $criteria['children']->structure)
+                ->setParameter('left', $criteria['children']->left)
+                ->setParameter('right', $criteria['children']->right);
+            if (isset($criteria['depth'])) {
+                $query
+                    ->andWhere('n.depth <= :depth')
+                    ->setParameter('depth', $criteria['children']->depth + $criteria['depth']);
+            }
+            if (!$criteria['isIncluded']) {
+                $query
+                    ->andWhere('n != :exclude')
+                    ->setParameter('exclude', $criteria['children']);
+            }
+        } else if (isset($criteria['parents'])) {
+            $query
+                ->from($this->_entityName, 'nt')
+                ->andWhere('n.structure = :structure AND nt.left >= n.left AND nt.left <= n.right')
+                ->andWhere('nt = :node')
+                ->setParameter('structure', $criteria['parents']->structure)
+                ->setParameter('node', $criteria['parents']);            
+            if (isset($criteria['depth'])) {
+                $query
+                    ->andWhere('n.depth >= :depth')
+                    ->setParameter('depth', $criteria['parents']->depth - $criteria['depth']);
+            }
+            if (!$criteria['isIncluded']) {
+                $query
+                    ->andWhere('n != :exclude')
+                    ->setParameter('exclude', $criteria['parents']);
+            }
+        } else if (isset($criteria['siblings'])) {
+            $query
+                ->andWhere('n.parent = :parent')
+                ->setParameter('parent', $criteria['siblings']->parent);
+            if (!$criteria['isIncluded']) {
+                $query
+                    ->andWhere('n != :exclude')
+                    ->setParameter('exclude', $criteria['siblings']);
+            }
         }
-        
-        if (isset($criteria['depth'])) {
-            $depth = isset($criteria['node'])
-                ? $criteria['node']->depth + $criteria['depth']
-                : $criteria['depth'];
-            $qb->andWhere('n.depth <= :depth');
-            $params['depth'] = $depth;
+
+        if (!isset($sort)) {
+            $query->orderBy("n.left");
         }
 
-        return $this->_initializeChildren($qb
-            ->getQuery()
-            ->setParameters($params)
-            ->getResult());
+        return $query;
     }
 
-    public function fetchDescendants(StructureNode $node, $include = false, $depth = null)
+    public function children(StructureNode $node, array $criteria = array())
     {
-        return $this->fetchAll([
-            'node'    => $node,
-            'include' => $include,
-            'depth'   => $depth,
-        ]);
+        return $this->all(array_merge($criteria, [
+            'children' => $node,
+        ]));
     }
 
-    public function fetchChildren(StructureNode $node, $include = false)
+    public function parents(StructureNode $node, array $criteria = array(), $reverse = false)
     {
-        return $this->fetchAll([
-            'node'    => $node,
-            'include' => $include,
-            'depth'   => 1,
-        ]);
+        return $this->all(array_merge($criteria, [
+            'parents' => $node,
+        ]), ['left', $reverse ? 'DESC' : 'ASC']);
     }
 
-    public function fetchParents(StructureNode $node, $include = false, $reverse = false)
+    public function siblings(StructureNode $node, array $criteria = array())
     {
-        $params = [
-            'structure' => $node->structure,
-            'node'      => $node,
-        ];
-        $qb = $this->createQueryBuilder('n')
-            ->addSelect('c', 'cv')
-            ->leftJoin('n.content', 'c')
-            ->leftJoin('c.versions', 'cv')
-            ->andWhere('cv.next IS NULL')
-            ->from($this->_entityName, 'nc')
-            ->andWhere('n.structure = :structure
-                AND nc.left >= n.left
-                AND nc.left <= n.right')
-            ->andWhere('nc = :node')
-            ->orderBy('n.left', $reverse ? 'DESC' : 'ASC');
-        if (!$include) {
-            $qb->andWhere('n != :node');
-            $params['node'] = $node;
-        }
-        $nodes = $qb
-            ->getQuery()
-            ->setParameters($params)
-            ->getResult();
-        return $nodes;
+        return $this->all(array_merge($criteria, [
+            'siblings' => $node,
+        ]));
     }
 
-    public function fetchSiblings(StructureNode $node, $include = false)
+    public function tree(StructureNode $node, array $criteria = array())
     {
-        $nodes = $node->isRoot()
-            ? [$node]
-            : $this->fetchChildren($node->parent);
-        if (!$include) {
-            $i = array_search($node, $nodes, true);
-            unset($nodes[$i]);
-            $nodes = array_values($nodes);
-        }
-        return $nodes;
+        return $this->initTree($this->all(array_merge($criteria, [
+            'children'   => $node,
+            'isIncluded' => true,
+        ])))[0];
     }
 
-    public function fetchTree(StructureNode $node, $include = false, $depth = null)
-    {
-        $nodes = $this->fetchAll([
-            'node'    => $node,
-            'include' => true,
-            'depth'   => $depth,
-        ]);
-        return $include ? [$nodes[0]] : $nodes[0]->children;
-    }
-
-    public function fetchByPath(Structure $structure, $path, $published = false)
-    {
-        $params = [
-            'structure' => $structure,
-            'path'      => $path,
-        ];
-        $qb = $this->createQueryBuilder("n")
-            ->setMaxResults(1)
-            ->addSelect('c', 'cv')
-            ->leftJoin("n.content", "c")
-            ->leftJoin("c.versions", "cv")
-            ->andWhere("n.structure = :structure")
-            ->andWhere("n.path = :path");
-        if ($published) {
-            $qb->andWhere("cv.status = :status");
-            $params['status'] = \Chalk\Chalk::STATUS_PUBLISHED;
-        } else {
-            $qb->andWhere("cv.next IS NULL");
-        }
-        return $qb
-            ->getQuery()
-            ->setParameters($params)
-            ->getOneOrNullResult();
-    }
-
-    protected function _initializeChildren($nodes)
+    public function initTree($nodes)
     {
         foreach ($nodes as $node) {
             $node->children->setInitialized(true);

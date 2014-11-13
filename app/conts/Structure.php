@@ -34,7 +34,7 @@ class Structure extends Action
 		$data		= json_decode($req->data);
 		$repo		= $this->em('Chalk\Core\Structure');
 		$structure	= $repo->id($req->structure);
-		$nodes		= $repo->fetchNodes($structure);
+		$nodes		= $repo->nodes($structure);
 
 		$map = [];
 		foreach ($nodes as $node) {

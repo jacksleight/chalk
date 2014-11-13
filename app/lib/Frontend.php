@@ -42,7 +42,7 @@ class Frontend extends App
             ->one([], 'id');
         $nodes = $this
             ->em('Chalk\Core\Structure')
-            ->fetchNodes($req->domain->structure);
+            ->nodes($req->domain->structure);
         foreach ($nodes as $node) {
             $this->router->all($node->content->id, $node->path, [
                 'node'    => $node,

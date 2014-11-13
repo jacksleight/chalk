@@ -18,22 +18,20 @@ class Structure extends Repository
         Publishable\Repository::queryModifier as publishableQueryModifier;
     }
 
-    public function fetchNodes(CoreStructure $structure, $depth = null)
+    public function nodes(CoreStructure $structure, array $criteria = array())
     {
     	$repo = $this->_em->getRepository('Chalk\Core\Structure\Node');
-        return $repo->fetchAll([
-			'structure'	=> $structure,
-			'depth'		=> $depth,
-        ]);
+        return $repo->all(array_merge($criteria, [
+            'structure' => $structure,
+        ]));
     }
 
-    public function fetchTree(CoreStructure $structure, $depth = null)
+    public function tree(CoreStructure $structure, array $criteria = array())
     {
         $repo = $this->_em->getRepository('Chalk\Core\Structure\Node');
-        $nodes = $repo->fetchAll([
-			'structure'	=> $structure,
-			'depth'		=> $depth,
-        ]);
-        return [$nodes[0]];
+        return $repo->initTree($repo->all(array_merge($criteria, [
+            'structure'  => $structure,
+            'isIncluded' => true,
+        ])))[0];
     }
 }

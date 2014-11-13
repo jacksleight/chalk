@@ -37,7 +37,7 @@ $structure	= $repo->id($req->structure);
 	</div>
 	<div class="flex">
 		<?php
-		$root = $repo->fetchTree($structure)[0];
+		$root = $repo->tree($structure);
 		?>
 		<?php if (isset($root->content)) { ?>
 			<ol class="tree-root">

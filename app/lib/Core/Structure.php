@@ -64,13 +64,6 @@ class Structure extends \Toast\Entity implements Loggable, Publishable, Trackabl
 		$this->__constructVersionable();
 	}
 
-	public function iterator()
-	{
-		return new \RecursiveIteratorIterator(
-			new \Chalk\Core\Structure\Iterator([$this->root]),
-			\RecursiveIteratorIterator::SELF_FIRST);
-	}
-
 	public function root()
 	{
 		foreach ($this->nodes as $node) {

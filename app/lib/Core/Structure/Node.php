@@ -159,10 +159,10 @@ class Node extends \Toast\Entity
         return $this->parent;
     }
 
-    public function iterator($include = false)
+    public function iterator($isIncluded = false)
     {
         return new \RecursiveIteratorIterator(
-            new \Chalk\Core\Structure\Iterator($include ? [$this] : $this->children),
+            new \Chalk\Core\Structure\Iterator($isIncluded ? [$this] : $this->children),
             \RecursiveIteratorIterator::SELF_FIRST);
     }
 

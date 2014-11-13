@@ -61,9 +61,8 @@ class Listener implements EventSubscriber
         $em  = $args->getEntityManager();
         $uow = $em->getUnitOfWork();
 
-        foreach ($this->_structures as $structure) {       
-            $em->getRepository('Chalk\Core\Structure')->fetchTree($structure);
-            $it    = $structure->iterator();
+        foreach ($this->_structures as $structure) {
+            $it    = $em->getRepository('Chalk\Core\Structure')->tree($structure)->iterator(true);
             $j     = 0;
             $stack = [];
             foreach ($it as $i => $node) {

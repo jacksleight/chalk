@@ -16,15 +16,15 @@ trait Repository
     public function queryModifier(QueryBuilder $query, array $criteria = array())
     {
         $criteria = $criteria + [
-            'isPublished'   => null,
-            'isPublishable' => null,
+            'isPublished'   => false,
+            'isPublishable' => false,
         ];
         
-        if (isset($criteria['isPublished'])) {
+        if ($criteria['isPublished']) {
             $query->andWhere("c.status IN (:statuses) AND UTC_TIMESTAMP() >= c.publishDate");
             $query->setParameter('statuses', [Chalk::STATUS_PUBLISHED]);
         }
-        if (isset($criteria['isPublishable'])) {
+        if ($criteria['isPublishable']) {
             $query->andWhere("c.status IN (:statuses)");
             $query->setParameter('statuses', [Chalk::STATUS_DRAFT, Chalk::STATUS_PENDING]);
         }
