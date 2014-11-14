@@ -44,11 +44,6 @@ class Node extends Repository
             $query
                 ->andWhere('n.structure = :structure')
                 ->setParameter('structure', $criteria['structure']);
-            if (isset($criteria['depth'])) {
-                $query
-                    ->andWhere('n.depth < :depth')
-                    ->setParameter('depth', $criteria['depth']);
-            }
         } else if (isset($criteria['children'])) {
             $query
                 ->andWhere('n.structure = :structure AND n.left >= :left AND n.right <= :right')
@@ -108,28 +103,49 @@ class Node extends Repository
 
     public function children(StructureNode $node, $isIncluded = false, $depth = null, array $criteria = array())
     {
-        return $this->all(array_merge($criteria, [
+        $nodes = $this->all(array_merge($criteria, [
             'children'   => $node,
             'isIncluded' => $isIncluded,
             'depth'      => $depth,
         ]));
+
+        foreach ($nodes as $node) {
+            $node->children->setInitialized(true);
+            $node->children->clear();
+        }
+
+        return $nodes;
     }
 
     public function parents(StructureNode $node, $isIncluded = false, $depth = null, $isReversed = false, array $criteria = array())
     {
-        return $this->all(array_merge($criteria, [
+        $nodes = $this->all(array_merge($criteria, [
             'parents'    => $node,
             'isIncluded' => $isIncluded,
             'depth'      => $depth,
         ]), ['left', $isReversed ? 'DESC' : 'ASC']);
+
+        foreach ($nodes as $node) {
+            $node->children->setInitialized(true);
+            $node->children->clear();
+        }
+
+        return $nodes;
     }
 
     public function siblings(StructureNode $node, $isIncluded = false, array $criteria = array())
     {
-        return $this->all(array_merge($criteria, [
+        $nodes = $this->all(array_merge($criteria, [
             'siblings'   => $node,
             'isIncluded' => $isIncluded,
         ]));
+
+        foreach ($nodes as $node) {
+            $node->children->setInitialized(true);
+            $node->children->clear();
+        }
+
+        return $nodes;
     }
 
     public function tree(StructureNode $node, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
@@ -149,7 +165,6 @@ class Node extends Repository
         foreach ($nodes as $node) {
             $node->children->setInitialized(true);
             $node->children->clear();
-            $this->_em->detach($node);
         }
         foreach ($nodes as $node) {
             if (isset($node->parent)) {

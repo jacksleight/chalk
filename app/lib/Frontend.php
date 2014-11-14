@@ -7,7 +7,8 @@ use Coast\App,
     DOMXPath,
     Coast\Request, 
     Coast\Response, 
-    Chalk\Core;
+    Chalk\Core,
+    Chalk\Core\Structure\Node;
 
 class Frontend extends App
 {
@@ -37,18 +38,22 @@ class Frontend extends App
 
     public function execute(Request $req, Response $res)
     {        
-        $req->domain = $this
+        $domain = $this
             ->em('Chalk\Core\Domain')
             ->one([], 'id');
         $nodes = $this
-            ->em('Chalk\Core\Structure')
-            ->nodes($req->domain->structure);
+            ->em('Chalk\Core\Structure\Node')
+            ->all(['structure' => $domain->structure]);
         foreach ($nodes as $node) {
             $this->router->all($node->content->id, $node->path, [
                 'node'    => $node,
                 'content' => $node->content,
             ]);
         }
+
+        $this->param('domain', $domain);
+        $this->param('structure', $domain->structure);
+        $this->param('node', $domain->structure->root);
 
         $path = rtrim($req->path(), '/');        
         if (preg_match('/^_c([\d]+)$/', $path, $match)) {
@@ -136,5 +141,75 @@ class Frontend extends App
             }
         }
         return $doc;
+    }
+
+    public function children(Node $node = null, $isIncluded = false, $depth = null, array $criteria = array())
+    {
+        $node = isset($node)
+            ? $node
+            : $this->node;
+        $criteria = array_merge($criteria, [
+            'isPublished' => true,
+            'isVisible'   => true,
+        ]);
+        return $this
+            ->em('Chalk\Core\Structure\Node')
+            ->children($node, $isIncluded, $depth, $criteria);
+    }
+
+    public function parents(Node $node = null, $isIncluded = false, $depth = null, $isReversed = false, array $criteria = array())
+    {
+        $node = isset($node)
+            ? $node
+            : $this->node;
+        $criteria = array_merge($criteria, [
+            'isPublished' => true,
+            'isVisible'   => true,
+        ]);
+        return $this
+            ->em('Chalk\Core\Structure\Node')
+            ->parents($node, $isIncluded, $depth, $isReversed, $criteria);
+    }
+
+    public function siblings(Node $node = null, $isIncluded = false, array $criteria = array())
+    {
+        $node = isset($node)
+            ? $node
+            : $this->node;
+        $criteria = array_merge($criteria, [
+            'isPublished' => true,
+            'isVisible'   => true,
+        ]);
+        return $this
+            ->em('Chalk\Core\Structure\Node')
+            ->siblings($node, $isIncluded, $criteria);
+    }
+
+    public function tree(Node $node = null, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
+    {
+        $node = isset($node)
+            ? $node
+            : $this->node;
+        $criteria = array_merge($criteria, [
+            'isPublished' => true,
+            'isVisible'   => true,
+        ]);
+        return $this
+            ->em('Chalk\Core\Structure\Node')
+            ->tree($node, $isIncluded, $isMerged, $depth, $criteria);
+    }
+
+    public function treeIterator(Node $node = null, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
+    {
+        $node = isset($node)
+            ? $node
+            : $this->node;
+        $criteria = array_merge($criteria, [
+            'isPublished' => true,
+            'isVisible'   => true,
+        ]);
+        return $this
+            ->em('Chalk\Core\Structure\Node')
+            ->treeIterator($node, $isIncluded, $isMerged, $depth, $criteria);
     }
 }

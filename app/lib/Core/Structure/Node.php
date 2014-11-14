@@ -13,6 +13,7 @@ use Chalk\Core\Content,
 
 /**
  * @Entity
+ * @Table(indexes={@Index(columns={"left", "right", "depth"})})
 */
 class Node extends \Toast\Entity
 {

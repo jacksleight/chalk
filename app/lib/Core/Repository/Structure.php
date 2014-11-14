@@ -7,7 +7,6 @@
 namespace Chalk\Core\Repository;
 
 use Chalk\Repository,
-	Chalk\Core\Domain,
 	Chalk\Core\Menu,
     Chalk\Behaviour\Publishable,
 	Chalk\Core\Structure as CoreStructure;
@@ -29,7 +28,7 @@ class Structure extends Repository
             ->leftJoin("s.nodes", "n")
             ->leftJoin("n.content", "c")
             ->leftJoin("c.versions", "cv")
-            ->andWhere("n.depth = 0")
+            ->andWhere("n.left = 0")
             ->andWhere("cv.next IS NULL");
 
         $this->publishableQueryModifier($query, $criteria);

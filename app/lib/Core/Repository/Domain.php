@@ -8,5 +8,23 @@ namespace Chalk\Core\Repository;
 
 use Chalk\Repository;
 
-class Domain extends Structure
-{}
+class Domain extends Repository
+{
+	protected $_alias = 'd';
+
+    public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
+    {
+        $query = parent::query($criteria, $sort, $limit, $offset);
+
+        $query
+            ->addSelect("s", "n", "c", "cv")
+            ->leftJoin("d.structure", "s")
+            ->leftJoin("s.nodes", "n")
+            ->leftJoin("n.content", "c")
+            ->leftJoin("c.versions", "cv")
+            ->andWhere("n.left = 0")
+            ->andWhere("cv.next IS NULL");
+
+        return $query;
+    }
+}
