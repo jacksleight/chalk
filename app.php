@@ -39,7 +39,7 @@ $chalk
         'target' => $chalk->controller,
     ]))
     ->param('view', new View())
-    ->param('memcached', $chalk->import($chalk->file('app/memcached.php')))
+    ->param('cache', $chalk->import($chalk->file('app/cache.php')))
     ->param('em', $chalk->import($chalk->file('app/doctrine.php')))
     ->param('swift', $chalk->import($chalk->file('app/swift.php')))
     ->param('url', new UrlResolver([
@@ -69,6 +69,7 @@ $chalk
     });
     
 $frontend
+    ->param('cache', $chalk->cache)
     ->param('em', $chalk->em);
 
 $chalk

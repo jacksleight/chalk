@@ -6,14 +6,10 @@ require __DIR__ . '/../../../../app.php';
 header('Content-Type: text/plain');
 $cli = new Cli();
 
-$em = $app->chalk->em;
-
 try {
 
-	$cli->output('Flushing Doctrine caches', true);
-	$em->getConfiguration()->getQueryCacheImpl()->deleteAll();
-	$em->getConfiguration()->getResultCacheImpl()->deleteAll();
-	$em->getConfiguration()->getMetadataCacheImpl()->deleteAll();
+	$cli->output('Flushing cache', true);
+	$app->chalk->cache->deleteAll();
 
 	$cli->output('DONE', true);
 

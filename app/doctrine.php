@@ -1,7 +1,5 @@
 <?php
 use Doctrine\ORM\Configuration,
-	Doctrine\Common\Cache\ArrayCache,
-	Doctrine\Common\Cache\MemcachedCache,
 	Doctrine\Common\EventManager,
 	Doctrine\ORM\EntityManager,
 	Chalk\Doctrine\ORM\EntityManager as ChalkEntityManager,
@@ -20,21 +18,11 @@ $config->setMetadataDriverImpl($config->newDefaultAnnotationDriver());
 $config->setProxyDir($app->root->dir('data/proxies'));
 $config->setProxyNamespace('Chalk\Proxy');
 $config->setAutoGenerateProxyClasses(true);
+$config->setQueryCacheImpl($app->cache);
+$config->setResultCacheImpl($app->cache);
+$config->setMetadataCacheImpl($app->cache);
 // $config->setSQLLogger(new \Chalk\ConsoleSQLLogger());
 // $config->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger());
-
-$cache = null;
-if ($app->isDevelopment()) {
-	$cache = new ArrayCache();
-} else if (isset($app->memcached)) {
-	$cache = new MemcachedCache();
-	$cache->setMemcached($app->memcached);
-}
-if (isset($cache)) {
-	$config->setQueryCacheImpl($cache);
-	$config->setResultCacheImpl($cache);
-	$config->setMetadataCacheImpl($cache);
-}
 
 $evm = new EventManager();
 $evm->addEventSubscriber(new Listener());
