@@ -8,10 +8,15 @@ namespace Chalk\Core\Repository\Structure;
 
 use Chalk\Core\Structure,
     Chalk\Repository,
+    Chalk\Behaviour\Publishable,
     Chalk\Core\Structure\Node as StructureNode;
 
 class Node extends Repository
 {
+    use Publishable\Repository {
+        Publishable\Repository::queryModifier as publishableQueryModifier;
+    }
+
     protected $_alias = 'n';
 
     public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
@@ -22,14 +27,17 @@ class Node extends Repository
             'structure'  => null,
             'children'   => null,
             'parents'    => null,
+            'siblings'   => null,
             'depth'      => null,
             'isIncluded' => false,
+            'isVisible'  => false,
         ];
 
         $query
-            ->addSelect('c')
-            ->innerJoin('n.content', 'c')
-            ->andWhere('c.next IS NULL');
+            ->addSelect("c", "cv")
+            ->leftJoin("n.content", "c")
+            ->leftJoin("c.versions", "cv")
+            ->andWhere("cv.next IS NULL");
 
         $depth = null;
         if (isset($criteria['structure'])) {
@@ -38,7 +46,7 @@ class Node extends Repository
                 ->setParameter('structure', $criteria['structure']);
             if (isset($criteria['depth'])) {
                 $query
-                    ->andWhere('n.depth <= :depth')
+                    ->andWhere('n.depth < :depth')
                     ->setParameter('depth', $criteria['depth']);
             }
         } else if (isset($criteria['children'])) {
@@ -84,54 +92,94 @@ class Node extends Repository
                     ->setParameter('exclude', $criteria['siblings']);
             }
         }
+        if ($criteria['isVisible']) {
+            $query
+                ->andWhere("n.isHidden = false");
+        }
 
         if (!isset($sort)) {
             $query->orderBy("n.left");
         }
 
+        $this->publishableQueryModifier($query, $criteria);
+
         return $query;
     }
 
-    public function children(StructureNode $node, array $criteria = array())
+    public function children(StructureNode $node, $isIncluded = false, $depth = null, array $criteria = array())
     {
         return $this->all(array_merge($criteria, [
-            'children' => $node,
-        ]));
-    }
-
-    public function parents(StructureNode $node, array $criteria = array(), $reverse = false)
-    {
-        return $this->all(array_merge($criteria, [
-            'parents' => $node,
-        ]), ['left', $reverse ? 'DESC' : 'ASC']);
-    }
-
-    public function siblings(StructureNode $node, array $criteria = array())
-    {
-        return $this->all(array_merge($criteria, [
-            'siblings' => $node,
-        ]));
-    }
-
-    public function tree(StructureNode $node, array $criteria = array())
-    {
-        return $this->initTree($this->all(array_merge($criteria, [
             'children'   => $node,
-            'isIncluded' => true,
-        ])))[0];
+            'isIncluded' => $isIncluded,
+            'depth'      => $depth,
+        ]));
     }
 
-    public function initTree($nodes)
+    public function parents(StructureNode $node, $isIncluded = false, $depth = null, $isReversed = false, array $criteria = array())
     {
+        return $this->all(array_merge($criteria, [
+            'parents'    => $node,
+            'isIncluded' => $isIncluded,
+            'depth'      => $depth,
+        ]), ['left', $isReversed ? 'DESC' : 'ASC']);
+    }
+
+    public function siblings(StructureNode $node, $isIncluded = false, array $criteria = array())
+    {
+        return $this->all(array_merge($criteria, [
+            'siblings'   => $node,
+            'isIncluded' => $isIncluded,
+        ]));
+    }
+
+    public function tree(StructureNode $node, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
+    {
+        $root = $node;
+
+        $nodes = $this->all(array_merge($criteria, [
+            'children'   => $root,
+            'isIncluded' => $isIncluded,
+            'depth'      => $depth,
+        ]));
+
+        $isFetched = in_array($root, $nodes, true);
+        if (!$isFetched) {
+            array_unshift($nodes, $root);
+        }
         foreach ($nodes as $node) {
             $node->children->setInitialized(true);
             $node->children->clear();
+            $this->_em->detach($node);
         }
         foreach ($nodes as $node) {
             if (isset($node->parent)) {
                 $node->parent->children->add($node);
             }
         }
-        return $nodes;
+
+        if ($isIncluded) {
+            if ($isMerged) {
+                $array = $root->children->toArray();
+                if ($isFetched) {
+                    $root->children->clear();
+                    array_unshift($array, $root);
+                }
+                return $array;
+            } else if ($isFetched) {
+                return [$root];
+            } else {
+                return [];
+            }
+        } else {
+            return $root->children->toArray();
+        }
+    }
+
+    public function treeIterator(StructureNode $node, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
+    {
+        $nodes = $this->tree($node, $isIncluded, $isMerged, $depth, $criteria);
+        return new \RecursiveIteratorIterator(
+            new \Chalk\Core\Structure\Node\Iterator($nodes),
+            \RecursiveIteratorIterator::SELF_FIRST);
     }
 }

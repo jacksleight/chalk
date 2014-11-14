@@ -66,11 +66,7 @@ class Structure extends \Toast\Entity implements Loggable, Publishable, Trackabl
 
 	public function root()
 	{
-		foreach ($this->nodes as $node) {
-			if (!isset($node->parent)) {
-				return $node;
-			}
-		}
+		return $this->nodes->first();
 	}
 
 	public function __toString()

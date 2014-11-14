@@ -2,7 +2,7 @@
 namespace Chalk\Core\Controller;
 
 use Chalk\Chalk,
-	Chalk\Core\Structure\Iterator,
+	Chalk\Core\Structure\Node\Iterator,
 	Coast\App\Controller\Action,
 	Coast\Request,
 	Coast\Response;
@@ -31,10 +31,13 @@ class Structure extends Action
 			)));
 		}
 
-		$data		= json_decode($req->data);
-		$repo		= $this->em('Chalk\Core\Structure');
-		$structure	= $repo->id($req->structure);
-		$nodes		= $repo->nodes($structure);
+		$data = json_decode($req->data);
+		$structure = $this
+			->em('Chalk\Core\Structure')
+			->id($req->structure);
+		$nodes = $this
+			->em('Chalk\Core\Structure\Node')
+			->all(['structure' => $structure]);
 
 		$map = [];
 		foreach ($nodes as $node) {

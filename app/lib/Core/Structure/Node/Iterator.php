@@ -1,7 +1,9 @@
 <?php
-namespace Chalk\Core\Structure;
-	
-class Iterator extends \RecursiveArrayIterator
+namespace Chalk\Core\Structure\Node;
+
+use RecursiveArrayIterator;
+
+class Iterator extends RecursiveArrayIterator
 {
 	public function __construct($array = array(), $flags = 0)
 	{

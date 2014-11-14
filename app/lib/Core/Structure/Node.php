@@ -51,22 +51,22 @@ class Node extends \Toast\Entity
     /**
      * @Column(type="integer")
      */
-    protected $sort = self::SORT_MAX;
+    protected $sort = PHP_INT_MAX;
 
     /**
      * @Column(name="`left`", type="integer")
      */
-    protected $left = -1;
+    protected $left = PHP_INT_MAX;
 
     /**
      * @Column(name="`right`", type="integer")
      */
-    protected $right = -1;
+    protected $right = PHP_INT_MAX;
 
     /**
      * @Column(type="integer")
      */
-    protected $depth = -1;
+    protected $depth = PHP_INT_MAX;
 
     /**
      * @ManyToOne(targetEntity="\Chalk\Core\Content", inversedBy="nodes")
@@ -157,13 +157,6 @@ class Node extends \Toast\Entity
             $parent->children->add($this);
         }
         return $this->parent;
-    }
-
-    public function iterator($isIncluded = false)
-    {
-        return new \RecursiveIteratorIterator(
-            new \Chalk\Core\Structure\Iterator($isIncluded ? [$this] : $this->children),
-            \RecursiveIteratorIterator::SELF_FIRST);
     }
 
     public function __clone()

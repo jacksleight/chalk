@@ -1,7 +1,6 @@
 <?php
-$repo		= $this->em('Chalk\Core\Structure');
-$structures	= $repo->all();
-$structure	= $repo->id($req->structure);
+$structures	= $this->em('Chalk\Core\Structure')->all();
+$structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 ?>
 <?php $this->layout('/layout/body') ?>
 <?php $this->block('main') ?>
@@ -36,37 +35,34 @@ $structure	= $repo->id($req->structure);
 		</div>
 	</div>
 	<div class="flex">
-		<?php
-		$root = $repo->tree($structure);
-		?>
-		<?php if (isset($root->content)) { ?>
+		<?php if (isset($structure->root->content)) { ?>
 			<ol class="tree-root">
-				<li class="tree-node" data-id="<?= $root->id ?>">
+				<li class="tree-node" data-id="<?= $structure->root->id ?>">
 					<a href="<?= $this->url([
 						'structure'	=> $structure->id,
 						'action'	=> 'edit',
-						'node'		=> $root->id,
-					], 'structure_node') ?>" class="tree-item <?= $root->id == $req->node ? 'active' : '' ?> tree-item-<?= $root->content->status ?> <?= $root->isHidden ? 'tree-item-hidden' : '' ?>">
-						<?= $root->nameSmart ?>
+						'node'		=> $structure->root->id,
+					], 'structure_node') ?>" class="tree-item <?= $structure->root->id == $req->node ? 'active' : '' ?> tree-item-<?= $structure->root->content->status ?> <?= $structure->root->isHidden ? 'tree-item-hidden' : '' ?>">
+						<?= $structure->root->nameSmart ?>
 					</a>
 				</li>
 			</ol>
 		<?php } ?>
 		<div class="tree">
 			<?php  
-			$it		= $root->iterator();
+			$nodes	= $this->em('Chalk\Core\Structure\Node')->children($structure->root);
 			$depth	= 0;
 			$i		= 0;
 			?>
 			<ol class="tree-list">
-				<?php foreach ($it as $node) { ?>
+				<?php foreach ($nodes as $node) { ?>
 					<?php
 					$content = $node->content->last;
 					?>
-					<?php if ($it->getDepth() > $depth) { ?>
+					<?php if (($node->depth - 1) > $depth) { ?>
 						<ol class="tree-list">
-					<?php } else if ($it->getDepth() < $depth) { ?>
-						<?= str_repeat('</li></ol>', $depth - $it->getDepth()) ?>
+					<?php } else if (($node->depth - 1) < $depth) { ?>
+						<?= str_repeat('</li></ol>', $depth - ($node->depth - 1)) ?>
 					<?php } else if ($i > 0) { ?>
 						</li>
 					<?php } ?>
@@ -80,7 +76,7 @@ $structure	= $repo->id($req->structure);
 						</a>
 						<span class="tree-handle"></span>
 					<?php				
-					$depth = $it->getDepth();
+					$depth = ($node->depth - 1);
 					$i++;
 					?>
 				<?php } ?>

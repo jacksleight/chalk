@@ -54,7 +54,7 @@ class Listener implements EventSubscriber
 
     public function postFlush(PostFlushEventArgs $args)
     {
-        if ($this->_isFlushing) {
+        if ($this->_isFlushing || !count($this->_structures)) {
             return;
         }
 
@@ -62,17 +62,35 @@ class Listener implements EventSubscriber
         $uow = $em->getUnitOfWork();
 
         foreach ($this->_structures as $structure) {
-            $it    = $em->getRepository('Chalk\Core\Structure')->tree($structure)->iterator(true);
+            $nodes = $em
+                ->getRepository('Chalk\Core\Structure\Node')
+                ->all(['structure' => $structure], 'sort');
+            $ids = [];
+            foreach ($nodes as $node) {
+                $ids[] = $node->id;
+            }
+            foreach ($nodes as $node) {
+                $node->children->setInitialized(true);
+                $node->children->clear();
+            }
+            foreach ($nodes as $node) {
+                if (isset($node->parent)) {
+                    $node->parent->children->add($node);
+                }
+            }
+            $tree = new \RecursiveIteratorIterator(
+                new \Chalk\Core\Structure\Node\Iterator([$nodes[0]]),
+                \RecursiveIteratorIterator::SELF_FIRST);
             $j     = 0;
             $stack = [];
-            foreach ($it as $i => $node) {
-                $slice = array_splice($stack, $it->getDepth(), count($stack), [$node]);
+            foreach ($tree as $i => $node) {
+                $slice = array_splice($stack, $tree->getDepth(), count($stack), [$node]);
                 foreach (array_reverse($slice) as $reverse) {
-                    $reverse->right = ++$j;
+                    $reverse->right = $j++;
                 }
-                $node->left  = ++$j;
+                $node->left  = $j++;
                 $node->sort  = $i;
-                $node->depth = $it->getDepth();
+                $node->depth = $tree->getDepth();
                 $nodes = $stack;
                 array_shift($nodes);
                 $node->path = implode('/', array_map(function($node) {
@@ -80,7 +98,7 @@ class Listener implements EventSubscriber
                 }, $nodes));
             }
             foreach (array_reverse($stack) as $reverse) {
-                $reverse->right = ++$j;
+                $reverse->right = $j++;
             }
         }
         $this->_structures = [];
