@@ -38,16 +38,25 @@ class Frontend extends App
 
     public function execute(Request $req, Response $res)
     {        
+        $conn  = $this->em->getConnection();
+        $table = Chalk::info('Chalk\Core\Structure\Node')->name;
+
         $domain = $this
             ->em('Chalk\Core\Domain')
-            ->one([], 'id');
-        $nodes = $this
-            ->em('Chalk\Core\Structure\Node')
-            ->all(['structure' => $domain->structure]);
+            ->one([], 'id');        
+        $nodes = $conn->query("
+            SELECT n.id,
+                n.sort, n.left, n.right, n.depth,
+                n.name, n.slug, n.path,
+                n.parentId AS parent,
+                n.contentId AS content
+            FROM {$table} AS n
+            WHERE n.structureId = {$domain->structure->id}
+        ")->fetchAll();
         foreach ($nodes as $node) {
-            $this->router->all($node->content->id, $node->path, [
+            $this->router->all($node['content'], $node['path'], [
                 'node'    => $node,
-                'content' => $node->content,
+                'content' => $node['content'],
             ]);
         }
 
@@ -59,14 +68,6 @@ class Frontend extends App
         if (preg_match('/^_c([\d]+)$/', $path, $match)) {
             $node    = null;
             $content = $match[1];
-            if ($this->router->has($content)) {
-                $route = $this->router->route($content);
-                return $res->redirect($this->url($route['path']));
-            }
-            $content = $this->em('Chalk\Core\Content')->id($content);
-            if (!$content) {
-                return;
-            }
         } else {
             $route = $this->router->match($req->method(), $path);
             if (!$route) {
@@ -78,7 +79,12 @@ class Frontend extends App
             $node    = $route['params']['node'];
             $content = $route['params']['content'];
         }
-                
+
+        $content = $this->em('Chalk\Core\Content')->id($content);
+        if (!$content || !$content->isPublished()) {
+            return;
+        }
+
         $req->node    = $node;
         $req->content = $content;
 
