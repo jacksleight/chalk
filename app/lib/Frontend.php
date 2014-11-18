@@ -80,8 +80,11 @@ class Frontend extends App
             $content = $route['params']['content'];
         }
 
-        $content = $this->em('Chalk\Core\Content')->id($content);
-        if (!$content || !$content->isPublished()) {
+        $content = $this->em('Chalk\Core\Content')->one([
+            'ids'         => [$content],
+            'isPublished' => true,
+        ]);
+        if (!$content) {
             return;
         }
 
