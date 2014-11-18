@@ -1606,6 +1606,12 @@ input[type=button].btn-icon i,
   font-size: 22px;
   vertical-align: -1px;
 }
+input[type=reset] small,
+input[type=submit] small,
+input[type=button] small,
+.btn small {
+  color: rgba(255, 255, 255, 0.65);
+}
 
 input[type=date]:focus,
 input[type=datetime]:focus,
@@ -2178,7 +2184,7 @@ legend {
   text-align: center;
   cursor: pointer;
   border: 0;
-  background-color: #2d353c !important;
+  background-color: transparent !important;
   outline: 0;
 }
 .tree-node button[data-action=expand] span::before {

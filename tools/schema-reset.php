@@ -45,7 +45,7 @@ try {
 	$em->flush();
 	$struct = new \Chalk\Core\Structure();
 	$struct->fromArray([
-		'name'			=> 'Primary',
+		'name'			=> 'Site Hierarchy',
 	]);
 	$struct->root->content = $page;
 	$em->persist($struct);

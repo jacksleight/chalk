@@ -853,6 +853,9 @@ input[type=button],
 			vertical-align: -1px;
 		}
 	}
+	small {
+		color: transparentize(white, 0.35);
+	}
 }
 
 input[type=date],
@@ -1307,7 +1310,7 @@ legend {
 		text-align: center;
 		cursor: pointer;
 		border: 0;
-		background-color: $color-primary !important;
+		background-color: transparent !important;
 		outline: 0;
 		&[data-action=expand] span::before {
 			@include icon(plus, 8px, $color-primary);
