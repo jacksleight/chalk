@@ -44,7 +44,7 @@ class Frontend extends App
         $domain = $this
             ->em('Chalk\Core\Domain')
             ->one([], 'id');        
-        $nodes = $conn->query("
+        $nodes = \Coast\array_object_smart($conn->query("
             SELECT n.id,
                 n.sort, n.left, n.right, n.depth,
                 n.name, n.slug, n.path,
@@ -52,17 +52,18 @@ class Frontend extends App
                 n.contentId AS content
             FROM {$table} AS n
             WHERE n.structureId = {$domain->structure->id}
-        ")->fetchAll();
+        ")->fetchAll());
         foreach ($nodes as $node) {
-            $this->router->all($node['content'], $node['path'], [
+            $this->router->all($node->content, $node->path, [
                 'node'    => $node,
-                'content' => $node['content'],
+                'content' => $node->content,
             ]);
         }
 
         $this->param('domain', $domain);
         $this->param('structure', $domain->structure);
-        $this->param('node', $domain->structure->root);
+        $this->param('root', $domain->structure->root);
+        $this->param('home', $domain->structure->root->content);
 
         $path = rtrim($req->path(), '/');        
         if (preg_match('/^_c([\d]+)$/', $path, $match)) {
@@ -156,7 +157,7 @@ class Frontend extends App
     {
         $node = isset($node)
             ? $node
-            : $this->node;
+            : $this->root;
         $criteria = array_merge($criteria, [
             'isPublished' => true,
             'isVisible'   => true,
@@ -170,7 +171,7 @@ class Frontend extends App
     {
         $node = isset($node)
             ? $node
-            : $this->node;
+            : $this->root;
         $criteria = array_merge($criteria, [
             'isPublished' => true,
             'isVisible'   => true,
@@ -184,7 +185,7 @@ class Frontend extends App
     {
         $node = isset($node)
             ? $node
-            : $this->node;
+            : $this->root;
         $criteria = array_merge($criteria, [
             'isPublished' => true,
             'isVisible'   => true,
@@ -198,7 +199,7 @@ class Frontend extends App
     {
         $node = isset($node)
             ? $node
-            : $this->node;
+            : $this->root;
         $criteria = array_merge($criteria, [
             'isPublished' => true,
             'isVisible'   => true,
@@ -212,7 +213,7 @@ class Frontend extends App
     {
         $node = isset($node)
             ? $node
-            : $this->node;
+            : $this->root;
         $criteria = array_merge($criteria, [
             'isPublished' => true,
             'isVisible'   => true,

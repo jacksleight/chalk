@@ -72,7 +72,7 @@ class Chalk extends App
             return strtolower(\Coast\str_camel_split($value, '-'));
         }, $entity);
         
-        return self::$_classes[$class] = \Coast\to_object(\Coast\array_merge_smart([
+        return self::$_classes[$class] = \Coast\array_object_smart(\Coast\array_merge_smart([
             'class' => $class,
             'name'  => implode('_', $entityLcFirst),
             'path'  => implode('/', $entityLcSplit),
