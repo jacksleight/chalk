@@ -48,15 +48,15 @@ class Frontend extends App
             SELECT n.id,
                 n.sort, n.left, n.right, n.depth,
                 n.name, n.slug, n.path,
-                n.parentId AS parent,
-                n.contentId AS content
+                n.parentId,
+                n.contentId
             FROM {$table} AS n
             WHERE n.structureId = {$domain->structure->id}
         ")->fetchAll());
         foreach ($nodes as $node) {
-            $this->router->all($node->content, $node->path, [
+            $this->router->all($node->contentId, $node->path, [
                 'node'    => $node,
-                'content' => $node->content,
+                'content' => $node->contentId,
             ]);
         }
 

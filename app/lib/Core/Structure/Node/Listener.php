@@ -94,7 +94,7 @@ class Listener implements EventSubscriber
                 $nodes = $stack;
                 array_shift($nodes);
                 $node->path = implode('/', array_map(function($node) {
-                    return $node->slugSmart;
+                    return isset($node->slug) ? $node->slug : $node->content->slug;
                 }, $nodes));
             }
             foreach (array_reverse($stack) as $reverse) {

@@ -43,7 +43,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 						'action'	=> 'edit',
 						'node'		=> $structure->root->id,
 					], 'structure_node') ?>" class="tree-item <?= $structure->root->id == $req->node ? 'active' : '' ?> tree-item-<?= $structure->root->content->status ?> <?= $structure->root->isHidden ? 'tree-item-hidden' : '' ?>">
-						<?= $structure->root->nameSmart ?>
+						<?= isset($structure->root->name) ? $structure->root->name : $structure->root->content->name ?>
 					</a>
 				</li>
 			</ol>
@@ -57,7 +57,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 			<ol class="tree-list">
 				<?php foreach ($nodes as $node) { ?>
 					<?php
-					$content = $node->content->last;
+					$content = $node->content;
 					?>
 					<?php if (($node->depth - 1) > $depth) { ?>
 						<ol class="tree-list">
@@ -72,7 +72,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 							'action'	=> 'edit',
 							'node'		=> $node->id,
 						], 'structure_node') ?>" class="tree-item <?= $node->id == $req->node ? 'active' : '' ?> tree-item-<?= $content->status ?> <?= $node->isHidden ? 'tree-item-hidden' : '' ?>">
-							<?= $node->nameSmart ?>
+							<?= isset($node->name) ? $node->name : $node->content->name ?>
 						</a>
 						<span class="tree-handle"></span>
 					<?php				

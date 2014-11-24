@@ -38,6 +38,11 @@ class Node extends \Toast\Entity
     protected $structure;
 
     /**
+     * @Column(type="integer")
+     */
+    protected $parentId;
+
+    /**
      * @ManyToOne(targetEntity="\Chalk\Core\Structure\Node", inversedBy="children")
      * @JoinColumn(onDelete="CASCADE")
      */
@@ -115,20 +120,6 @@ class Node extends \Toast\Entity
             $this->content->nodes->add($this);
         }
         return $this->content;
-    }
-
-    public function nameSmart()
-    {
-        return isset($this->name)
-            ? $this->name
-            : (isset($this->content->last) ? $this->content->name : $this->id);
-    }
-
-    public function slugSmart()
-    {
-        return isset($this->slug)
-            ? $this->slug
-            : (isset($this->content->last) ? $this->content->slug : $this->id);
     }
 
     public function name($name = null)

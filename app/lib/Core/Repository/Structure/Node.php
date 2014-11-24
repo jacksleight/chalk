@@ -103,80 +103,73 @@ class Node extends Repository
 
     public function children(StructureNode $node, $isIncluded = false, $depth = null, array $criteria = array())
     {
-        $nodes = $this->all(array_merge($criteria, [
-            'children'   => $node,
-            'isIncluded' => $isIncluded,
-            'depth'      => $depth,
-        ]));
-
-        foreach ($nodes as $node) {
-            $node->children->setInitialized(true);
-            $node->children->clear();
-        }
-
-        return $nodes;
+        return $this->query(array_merge($criteria, [
+                'children'   => $node,
+                'isIncluded' => $isIncluded,
+                'depth'      => $depth,
+            ]))
+            ->getQuery()
+            ->getResult('coast_array');
     }
 
     public function parents(StructureNode $node, $isIncluded = false, $depth = null, $isReversed = false, array $criteria = array())
     {
-        $nodes = $this->all(array_merge($criteria, [
-            'parents'    => $node,
-            'isIncluded' => $isIncluded,
-            'depth'      => $depth,
-        ]), ['left', $isReversed ? 'DESC' : 'ASC']);
-
-        foreach ($nodes as $node) {
-            $node->children->setInitialized(true);
-            $node->children->clear();
-        }
-
-        return $nodes;
+        return $this->query(array_merge($criteria, [
+                'parents'    => $node,
+                'isIncluded' => $isIncluded,
+                'depth'      => $depth,
+            ]), ['left', $isReversed ? 'DESC' : 'ASC'])
+            ->getQuery()
+            ->getResult('coast_array');
     }
 
     public function siblings(StructureNode $node, $isIncluded = false, array $criteria = array())
     {
-        $nodes = $this->all(array_merge($criteria, [
-            'siblings'   => $node,
-            'isIncluded' => $isIncluded,
-        ]));
-
-        foreach ($nodes as $node) {
-            $node->children->setInitialized(true);
-            $node->children->clear();
-        }
-
-        return $nodes;
+        return $this->query(array_merge($criteria, [
+                'siblings'   => $node,
+                'isIncluded' => $isIncluded,
+            ]))
+            ->getQuery()
+            ->getResult('coast_array');
     }
 
     public function tree(StructureNode $node, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
     {
-        $root = $node;
-
-        $nodes = $this->all(array_merge($criteria, [
-            'children'   => $root,
-            'isIncluded' => $isIncluded,
-            'depth'      => $depth,
-        ]));
-
-        $isFetched = in_array($root, $nodes, true);
+        $nodes = $this->query(array_merge($criteria, [
+                'children'   => $node,
+                'isIncluded' => $isIncluded,
+                'depth'      => $depth,
+            ]))
+            ->getQuery()
+            ->getResult('coast_array');
+        $map = [];
+        foreach ($nodes as $mapped) {
+            $map[$mapped->id] = $mapped;
+        }
+ 
+        $isFetched = isset($map[$node->id]);
         if (!$isFetched) {
+            $root = (object) $node->toArray();
             array_unshift($nodes, $root);
+            $map[$root->id] = $root;
+        } else {
+            $root = $nodes[0];
+        }
+
+        foreach ($nodes as $node) {
+            $node->children = [];
         }
         foreach ($nodes as $node) {
-            $node->children->setInitialized(true);
-            $node->children->clear();
-        }
-        foreach ($nodes as $node) {
-            if (isset($node->parent)) {
-                $node->parent->children->add($node);
+            if (isset($node->parentId)) {
+                $map[$node->parentId]->children[] = $node;
             }
         }
 
         if ($isIncluded) {
             if ($isMerged) {
-                $array = $root->children->toArray();
+                $array = $root->children;
                 if ($isFetched) {
-                    $root->children->clear();
+                    $root->children = [];
                     array_unshift($array, $root);
                 }
                 return $array;
@@ -186,7 +179,7 @@ class Node extends Repository
                 return [];
             }
         } else {
-            return $root->children->toArray();
+            return $root->children;
         }
     }
 
