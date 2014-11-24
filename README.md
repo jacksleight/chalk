@@ -1,8 +1,7 @@
 # Chalk
 
-[![Latest Stable Version](https://poser.pugx.org/jacksleight/chalk/v/stable.png)](https://packagist.org/packages/jacksleight/chalk)
-[![Latest Unstable Version](https://poser.pugx.org/jacksleight/chalk/v/unstable.png)](https://packagist.org/packages/jacksleight/chalk)
-[![License](https://poser.pugx.org/jacksleight/chalk/license.png)](https://packagist.org/packages/jacksleight/chalk)
+[![Packagist](http://img.shields.io/packagist/v/jacksleight/chalk.svg?style=flat-square)](https://packagist.org/packages/jacksleight/chalk)
+[![License](http://img.shields.io/packagist/l/jacksleight/chalk.svg?style=flat-square)](https://packagist.org/packages/jacksleight/chalk)
 
 **This project is currently in development, set up and installation instructions will be added here in due course.**
 
