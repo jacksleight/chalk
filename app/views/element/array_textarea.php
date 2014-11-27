@@ -20,7 +20,7 @@ $items = [];
 				</span>
 				<input
 	                type="hidden"
-	                name="<?= "{$md['contextName']}][{$i}][name]" ?>"
+	                name="<?= "{$md['contextName']}[{$i}][name]" ?>"
 	                value="<?= $this->escape($item->name) ?>">
 			<?php } ?>
 			<textarea
@@ -61,8 +61,10 @@ $items = [];
 <? } else { ?>
 	<?= implode(null, $items) ?>
 <? } ?>
-<datalist id="<?= "_{$md['contextName']}_datalist" ?>">
-    <?php foreach ($datalist as $value) { ?>
-        <option value="<?= $value ?>">
-    <?php } ?>
-</datalist>
+<? if (isset($datalist)) { ?>
+	<datalist id="<?= "_{$md['contextName']}_datalist" ?>">
+	    <?php foreach ($datalist as $value) { ?>
+	        <option value="<?= $value ?>">
+	    <?php } ?>
+	</datalist>
+<? } ?>

@@ -50,6 +50,26 @@ class All extends Action
 		$path = isset($req->view->path)
 			? $req->view->path
 			: "{$controller}/{$action}";
+
+		// if ($req->isAjax()) {
+		// 	$notifications = $this->notify->notifications(false);
+		// 	$negative = false;
+		// 	foreach ($notifications as $notification) {
+		// 		if ($notification[1] == 'negative') {
+		// 			$negative = true;
+		// 			break;
+		// 		}
+		// 	}
+		// 	return $res->json([
+		// 		'notifications' => $this->notify->notifications(),
+		// 		'html' => $negative
+		// 			? $res->html($this->view->render($path, [
+		// 				'req' => $req,
+		// 				'res' => $res,
+		// 			] + (array) $req->view))
+		// 			: null]);
+		// }
+
 		return $res->html($this->view->render($path, [
 			'req' => $req,
 			'res' => $res,

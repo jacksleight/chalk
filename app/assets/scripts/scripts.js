@@ -38,3 +38,4 @@
 //= require behaviours/uploadable.js
 //= require behaviours/selectable.js
 //= require behaviours/stackable.js
+//= require behaviours/ajaxable.js

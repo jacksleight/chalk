@@ -19,14 +19,16 @@ class Notifier implements \Coast\App\Access
 		$session->notifications[] = [$text, $type];
 	}
 	
-	public function notifications()
+	public function notifications($clear = true)
 	{
 		$session =& $this->req->session('chalk');
         if (!isset($session->notifications)) {
         	$session->notifications = [];
         }
         $notifications = $session->notifications;
-        $session->notifications = [];
+        if ($clear) {
+        	$session->notifications = [];
+        }
         return $notifications;
 	}
 }
