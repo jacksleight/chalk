@@ -45,12 +45,35 @@ class Page extends Content
 			['name' => 'secondary', 'value' => ''],
 		]);
 	}
-	
-	public function searchFields()
+
+    public function blocks(array $blocks = null)
+    {
+        if (func_num_args() > 0) {
+            foreach ($blocks as $i => $value) {
+                $this->block($i, $value);
+            }
+            return $this;
+        }
+        return $this->blocks;
+    }
+
+	public function block($i, $value = null)
 	{
-		return array_merge(parent::searchFields(), [
-			'summary',
-			'blocks',
-		]);
+		if (isset($value)) {
+			$this->blocks[$i] = (object) (array) $value;
+			return $this;
+		}
+		return isset($this->blocks[$i])
+			? $this->blocks[$i]
+			: null;
+	}
+	
+	public function searchContent()
+	{
+		return array_merge(parent::searchContent(), [
+			strip_tags($this->summary),
+		], array_map(function($block) {
+			return strip_tags($block->value);
+		}, $this->blocks));
 	}
 }

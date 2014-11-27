@@ -38,7 +38,7 @@ class Node extends \Toast\Entity
     protected $structure;
 
     /**
-     * @Column(type="integer")
+     * @Column(type="integer", nullable=true)
      */
     protected $parentId;
 

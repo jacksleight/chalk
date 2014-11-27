@@ -153,10 +153,10 @@ class File extends Content
 		return in_array($this->subtype, $mimeTypes);
 	}
 
-	public function searchFields()
+	public function searchContent()
 	{
-		return array_merge(parent::searchFields(), [
-			'baseName',
+		return array_merge(parent::searchContent(), [
+			$this->baseName,
 		]);
 	}
 }

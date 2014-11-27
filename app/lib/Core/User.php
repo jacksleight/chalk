@@ -141,11 +141,11 @@ class User extends \Toast\Entity implements Trackable, Searchable
 			: null;
 	}
 	
-	public function searchFields()
+	public function searchContent()
 	{
 		return [
-			'name',
-			'emailAddress',
+			$this->name,
+			$this->emailAddress,
 		];
 	}
 	

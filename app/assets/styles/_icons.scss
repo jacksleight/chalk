@@ -25,7 +25,8 @@ $icons: (
 	user:		user-2,
 	view:		share-4,
 	positive:	check-mark-3,
-	negative:	x-mark-3
+	negative:	x-mark-3,
+	browse:		folder-7
 );
 @each $class, $icon in $icons {
 	.icon-#{$class} {

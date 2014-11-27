@@ -41,31 +41,13 @@ class Listener implements EventSubscriber
             if (!$entity instanceof Searchable) {
                 continue;
             }
-            $changeSet  = $uow->getEntityChangeSet($entity);
-            $fields     = $entity->searchFields;
-            $changes    = array_intersect($fields, array_keys($changeSet));
-            if (!count($changes)) {
-                continue;
-            }
             $index  = $em->getRepository('Chalk\Core\Index')->one(['entity' => $entity]);
             if (!isset($index)) {
                 $index               = new Index();
                 $index->entity       = \Chalk\Chalk::info($entity)->name;
                 $index->entityObject = $entity;
             }
-            $content = [];
-            foreach ($fields as $field) {
-                $value = $entity->$field;
-                if (is_array($value)) {
-                    $temp = (object) ['temp' => []];
-                    array_walk_recursive($value, function($value, $name, $temp) {
-                        $temp->temp[] = $value;
-                    }, $temp);
-                    $value = implode(' ', $temp->temp);
-                }
-                $content[] = $value;
-            }
-            $index->content = implode(' ', $content);
+            $index->content = preg_replace('/\s+/su', ' ', implode(' ', $entity->searchContent));
             $this->_updates[] = $index;
         }
 

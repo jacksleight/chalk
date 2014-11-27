@@ -53,7 +53,7 @@
 					'type'		=> 'array_textarea',
 					'class'		=> 'monospaced editor-content',
 					'rows'		=> 15,
-					'stackable'	=> false,
+					'stackable'	=> true,
 				), 'Chalk\Core') ?>
 			</div>
 		</fieldset>

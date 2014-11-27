@@ -45,10 +45,10 @@ class Url extends Content
 		return $this->url->toString();
 	}
 	
-	public function searchFields()
+	public function searchContent()
 	{
-		return array_merge(parent::searchFields(), [
-			'url',
+		return array_merge(parent::searchContent(), [
+			$this->url,
 		]);
 	}
 }

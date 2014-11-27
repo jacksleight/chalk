@@ -734,8 +734,11 @@ textarea {
 	height: auto;
 	padding: $input-padding;
 	line-height: $line-height;
-	.toolbar {
-		margin-top: 0;
+	.content-controls {
+		float: right;
+		.btn {
+			vertical-align: middle;
+		}
 	}
 	.placeholder {
 		color: $color-quieter;
@@ -849,9 +852,11 @@ input[type=button],
 		line-height: 48px;
 		text-align: center;
 		overflow: hidden;
-		i {
-			font-size: 22px;
-			vertical-align: -1px;
+		&::before {
+			width: 20px;
+			height: 20px;
+			margin-right: 0;
+			vertical-align: -3px;
 		}
 	}
 	small {
@@ -1431,8 +1436,8 @@ legend {
 	}
 	.stackable-controls {
 		position: absolute;
-		bottom: $gutter * 0.25;
-		right: $gutter * 0.25;
+		bottom: $input-padding-horiz;
+		right: $input-padding-horiz;
 		z-index: 100;
 		opacity: 0;
 		pointer-events: none;
