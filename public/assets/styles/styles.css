@@ -2408,6 +2408,9 @@ legend {
   position: relative;
   margin-top: 5px;
 }
+.stackable .stackable-item > *:first-child {
+  margin-top: 0 !important;
+}
 .stackable .stackable-item:first-child {
   margin-top: 0;
 }
@@ -2431,6 +2434,9 @@ legend {
 }
 
 /* Form Name Value */
+.form-group {
+  margin: 5px 0 0 0;
+}
 .form-group.form-group-horizontal {
   display: flex;
   flex-direction: row;

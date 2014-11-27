@@ -14,9 +14,17 @@ class Structure extends Action
 		if (!$req->structure) {
 			$domain = $this->em('Chalk\Core\Domain')->one([], 'id');
 			return $res->redirect($this->url([
-				'action'	=> 'index',
 				'structure'	=> $domain->structure->id,
-			]));
+				'action'	=> 'edit',
+				'node'		=> $domain->structure->root->id,
+			], 'structure_node', true));
+		} if (!$req->node) {
+			$structure = $this->em('Chalk\Core\Structure')->id($req->structure);
+			return $res->redirect($this->url([
+				'structure'	=> $structure->id,
+				'action'	=> 'edit',
+				'node'		=> $structure->root->id,
+			], 'structure_node', true));
 		}
 	}
 

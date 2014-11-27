@@ -7,7 +7,7 @@
 		'entity'	=> $info->name,
 		'action'		=> 'restore',
 		'content'		=> $content->id,
-	], 'content', true) ?>" class="btn btn-positive icon-restore">
+	], 'content', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-positive icon-restore">
 		Restore <?= $info->singular ?>
 	</a></li>
 <?php } ?>

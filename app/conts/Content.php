@@ -21,6 +21,13 @@ class Content extends Basic
 
 	public function index(Request $req, Response $res)
 	{
+		if (!$req->entity) {
+			$contents = $this->app->fire('Chalk\Core\Event\ListContents')->contents();
+			return $res->redirect($this->url([
+				'entity' => Chalk::info($contents[0])->name,
+			]));
+		}
+
 		$wrap = $this->em->wrap($index = new \Chalk\Core\Model\Index());
 		$wrap->graphFromArray($req->queryParams());
 		$req->view->index = $wrap;
@@ -116,10 +123,14 @@ class Content extends Basic
 		$this->em->flush();
 
 		$this->notify("{$req->info->singular} <strong>{$content->name}</strong> was archived successfully", 'positive');
-		return $res->redirect($this->url(array(
-			'action'	=> 'edit',
-			'content'	=> $content->id,
-		)));
+		if (isset($req->redirect)) {
+			return $res->redirect($req->redirect);
+		} else {
+			return $res->redirect($this->url(array(
+				'action'	=> 'edit',
+				'content'	=> $content->id,
+			)));
+		}
 	}
 
 	public function restore(Request $req, Response $res)
@@ -130,10 +141,14 @@ class Content extends Basic
 		$this->em->flush();
 
 		$this->notify("{$req->info->singular} <strong>{$content->name}</strong> was restored successfully", 'positive');
-		return $res->redirect($this->url(array(
-			'action'	=> 'edit',
-			'content'	=> $content->id,
-		)));
+		if (isset($req->redirect)) {
+			return $res->redirect($req->redirect);
+		} else {
+			return $res->redirect($this->url(array(
+				'action'	=> 'edit',
+				'content'	=> $content->id,
+			)));
+		}
 	}
 
 	public function delete(Request $req, Response $res)

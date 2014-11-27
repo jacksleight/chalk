@@ -13,18 +13,17 @@ $count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
 			[
 				'label' => 'Structure',
 				'icon'	=> 'icon-structure',
-				'params'=> ['controller' => 'structure', 'action' => 'index', 'id' => 1],
+				'name'	=> 'structure',
 			],
 			[
 				'label' => 'Content',
 				'icon'	=> 'icon-content',
 				'name'	=> 'content',
-				'params'=> ['entity' => \Chalk\Chalk::info($contents[0])->name],
 			],
 			[
 				'label' => 'Settings',
 				'icon'	=> 'icon-settings',
-				'params'=> ['controller' => 'user'],
+				'name'	=> 'setting',
 			],
 		], 'class' => 'toggle']) ?>
 		<div class="body">

@@ -89,7 +89,7 @@ class Node extends Action
 		$this->notify(\Chalk\Chalk::info($node->content)->singular . " <strong>{$node->content->name}</strong> was removed successfully", 'positive');
 		return $res->redirect($this->url(array(
 			'action'	=> 'index',
-			'node'		=> null,
-		), 'structure'));
+			'structure'	=> $node->structure->id,
+		), 'structure', true));
 	}
 }

@@ -29,11 +29,16 @@ $app->router
 		'controller' => 'index',
 		'action'     => 'prefs',
 	])
-	->all('content', "content/{entity}/{action}?/{content}?", [
+	->all('content', "content/{entity}?/{action}?/{content}?", [
 		'controller' => 'content',
 		'action'     => 'index',
 		'entity'     => null,
 		'content'    => null,
+	])
+	->all('setting', "setting/{controller}?/{action}?/{id}?", [
+		'controller' => 'setting',
+		'action'     => 'index',
+		'id'  	  	 => null,
 	])
 	->all('widget', "widget/{action}/{entity}", [
 		'controller' => 'widget',

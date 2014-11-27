@@ -1444,6 +1444,7 @@ legend {
 	.stackable-item {
 		position: relative;
 		margin-top: $gutter * 0.25;
+		@include flush();
 		&:first-child {
 			margin-top: 0;
 		}
@@ -1473,6 +1474,7 @@ legend {
 /* Form Name Value */
 
 .form-group {
+	margin: $gutter * 0.25 0 0 0;
 	&.form-group-horizontal {
 		display: flex;
 		flex-direction: row;
