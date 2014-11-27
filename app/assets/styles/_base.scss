@@ -1151,7 +1151,6 @@ legend {
 		@include transition(background $speed ease);
 		&:hover {
 			color: white;
-			border-top-color: $color-focus;
 			background-color: $color-focus;
 		}
 		i {

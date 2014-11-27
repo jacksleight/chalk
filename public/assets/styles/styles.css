@@ -2007,7 +2007,6 @@ legend {
 }
 .expandable .expandable-toggle:hover {
   color: white;
-  border-top-color: #00a6b5;
   background-color: #00a6b5;
 }
 .expandable .expandable-toggle i {
