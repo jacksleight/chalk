@@ -81,7 +81,7 @@ class User extends \Toast\Entity implements Trackable, Searchable
 	/**
      * @Column(type="coast_array")
      */
-	protected $prefs = [];
+	protected $prefs;
 
 	/**
      * @OneToMany(targetEntity="\Chalk\Core\Log", mappedBy="user")
@@ -108,6 +108,13 @@ class User extends \Toast\Entity implements Trackable, Searchable
 		);
 	}
 
+	public function __construct()
+	{	
+		parent::__construct();
+
+		$this->prefs = (object) [];
+	}
+
 	public function passwordPlain($passwordPlain = null)
 	{
 		if (!isset($passwordPlain)) {
@@ -125,11 +132,12 @@ class User extends \Toast\Entity implements Trackable, Searchable
 	public function pref($name, $value = null)
 	{
 		if (isset($value)) {
-			$this->prefs[$name] = $value;
+			$this->prefs->{$name} = $value;
+			$this->prefs = (object) (array) $this->prefs;
 			return $this;
 		}
-		return isset($this->prefs[$name])
-			? $this->prefs[$name]
+		return isset($this->prefs->{$name})
+			? $this->prefs->{$name}
 			: null;
 	}
 	

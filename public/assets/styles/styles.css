@@ -3,7 +3,7 @@
 /* Media */
 /* Image */
 /* Icon */
-.icon-add::before, .icon-archive::before, .icon-cancel::before, .icon-content::before, .icon-delete::before, .icon-drag::before, .icon-false::before, .icon-history::before, .icon-logout::before, .icon-move::before, .icon-ok::before, .icon-publish::before, .icon-remove::before, .icon-restore::before, .icon-search::before, .icon-settings::before, .icon-status::before, .icon-structure::before, .icon-true::before, .icon-updated::before, .icon-upload::before, .icon-user::before, .icon-view::before, .icon-positive::before, .icon-negative::before, .tree-node button[data-action=expand] span::before, .tree-node button[data-action=collapse] span::before {
+.icon-add::before, .icon-archive::before, .icon-cancel::before, .icon-content::before, .icon-delete::before, .icon-drag::before, .icon-false::before, .icon-history::before, .icon-logout::before, .icon-move::before, .icon-ok::before, .icon-publish::before, .icon-remove::before, .icon-restore::before, .icon-search::before, .icon-settings::before, .icon-status::before, .icon-structure::before, .icon-true::before, .icon-updated::before, .icon-upload::before, .icon-user::before, .icon-view::before, .icon-positive::before, .icon-negative::before, .tree-node button[data-action=expand] span::before, .tree-node button[data-action=collapse] span::before, .tree-handle::before {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
@@ -1598,6 +1598,7 @@ input[type=button].btn-icon,
   height: 48px;
   line-height: 48px;
   text-align: center;
+  overflow: hidden;
 }
 input[type=reset].btn-icon i,
 input[type=submit].btn-icon i,
@@ -1787,6 +1788,9 @@ legend {
 }
 .form-item > div {
   margin: 5px 0 0 0;
+}
+.form-item > div > *:first-child {
+  margin-top: 0 !important;
 }
 .form-item > div p {
   font-size: 13.91304px;
@@ -2325,13 +2329,13 @@ legend {
   display: block;
   position: absolute;
   z-index: 1;
-  top: 0;
-  right: 0;
-  width: 36px;
-  height: 26px;
-  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMjQ4IDI0OCAxNiAxNiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAyNDggMjQ4IDE2IDE2Ij48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjY0IDI1NS45ODNsLTMuMjMtMy4wOTh2MS45NjVoLTMuNjJ2LTMuNDhoMS45NjVsLTMuMTMyLTMuMzctMy4wOTggMy4zN2gydjMuNDhoLTMuNTE1di0xLjk2NWwtMy4zNyAzLjEzMiAzLjM3IDMuMDk4di0yaDMuNTE0djMuNjU1aC0xLjk2NWwzLjA5NyAzLjIzIDMuMDk4LTMuMjNoLTEuOTY1di0zLjY1NGgzLjYydjEuOTY1eiIvPjwvc3ZnPg==');
-  background-position: left;
-  background-repeat: no-repeat;
+  top: 50%;
+  right: 20px;
+  margin-top: -8px;
+  background-color: currentColor;
+  -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cGF0aCBkPSJNNDYyIDE2My41SDUwdi02NWg0MTJ2NjV6bTAgNjBINTB2NjVoNDEydi02NXptMCAxMjVINTB2NjVoNDEydi02NXoiLz48L3N2Zz4=');
+  width: 16px;
+  height: 16px;
   opacity: 0.5;
 }
 .tree-handle:hover::before {
@@ -2375,33 +2379,59 @@ legend {
 
 /* Stackable */
 .stackable {
-  margin: 5px 0 0 0;
+  margin: 20px 0 0 0;
 }
-.stackable .stackable-list {
-  margin-bottom: 5px;
+.stackable .stackable-items {
+  list-style: none;
+  margin: 0;
 }
-.stackable .stackable-list > *:first-child {
-  margin-top: 0 !important;
+.stackable .stackable-items li {
+  list-style-image: none;
+  list-style-type: none;
+  margin-left: 0;
+}
+.stackable .stackable-controls {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  -moz-transition: opacity 0.2s ease;
+  -o-transition: opacity 0.2s ease;
+  -webkit-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
+}
+.stackable .stackable-controls .btn {
+  vertical-align: middle;
 }
 .stackable .stackable-item {
-  margin: 5px 0 0 0;
-}
-.stackable .stackable-item > *:first-child {
-  margin-top: 0 !important;
+  position: relative;
+  margin-top: 5px;
 }
 .stackable .stackable-item:first-child {
   margin-top: 0;
 }
+.stackable .stackable-item:hover .stackable-controls {
+  opacity: 1;
+  pointer-events: auto;
+}
+.stackable .stackable-placeholder {
+  background-color: #FCB941;
+  margin-top: 5px;
+}
+.stackable .stackable-helper {
+  background-color: #d5d6d8;
+  opacity: 0.4;
+}
+.stackable .stackable-move {
+  cursor: move;
+}
+.stackable .stackable-add {
+  margin-top: 10px;
+}
 
 /* Form Name Value */
-.form-group {
-  margin: 0 0 0 0;
-  background: white;
-  padding: 20px;
-}
-.form-group + .form-group {
-  border-top: 1px solid #eeeeef;
-}
 .form-group.form-group-horizontal {
   display: flex;
   flex-direction: row;
@@ -2474,6 +2504,7 @@ legend {
 }
 .form-group.form-group-vertical input,
 .form-group.form-group-vertical select,
+.form-group.form-group-vertical textarea,
 .form-group.form-group-vertical .mce-tinymce.mce-tinymce[style],
 .form-group.form-group-vertical .content,
 .form-group.form-group-vertical .value {
@@ -2481,6 +2512,7 @@ legend {
 }
 .form-group.form-group-vertical input:first-child,
 .form-group.form-group-vertical select:first-child,
+.form-group.form-group-vertical textarea:first-child,
 .form-group.form-group-vertical .mce-tinymce.mce-tinymce[style]:first-child,
 .form-group.form-group-vertical .content:first-child,
 .form-group.form-group-vertical .value:first-child {
@@ -2900,7 +2932,7 @@ html, body {
 }
 
 .login {
-  width: 360px;
+  width: 340px;
 }
 .login fieldset {
   background-color: white;

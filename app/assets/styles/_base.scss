@@ -848,6 +848,7 @@ input[type=button],
 		height: 48px;
 		line-height: 48px;
 		text-align: center;
+		overflow: hidden;
 		i {
 			font-size: 22px;
 			vertical-align: -1px;
@@ -998,7 +999,8 @@ legend {
 		font-weight: bold;
 	}
 	> div { 
-		margin: $gutter  * 0.25 0 0 0;
+		@include flush;
+		margin: $gutter * 0.25 0 0 0;
 		p { 
 			@include font-size(-1);
 			margin-top: round($gutter  * 0.4);
@@ -1386,13 +1388,10 @@ legend {
 		display: block;
 		position: absolute;
 		z-index: 1;
-		top: 0;
-		right: 0;
-		width: $gutter + 16px;
-		height: 26px;
-		@include image(move);
-		background-position: left;
-		background-repeat: no-repeat;
+		top: 50%;
+		right: $gutter;
+		margin-top: -8px;
+		@include icon(menu);
 		opacity: 0.5;
 	}
 	&:hover {
@@ -1426,29 +1425,55 @@ legend {
 /* Stackable */
 
 .stackable {
-	margin: $gutter * 0.25 0 0 0;
-	.stackable-list {
-		margin-bottom: $gutter * 0.25;
-		@include flush();
+	margin: $gutter 0 0 0;
+	.stackable-items {
+		@include no-bullets;
+		margin: 0;
+	}
+	.stackable-controls {
+		position: absolute;
+		bottom: $gutter * 0.25;
+		right: $gutter * 0.25;
+		z-index: 100;
+		opacity: 0;
+		pointer-events: none;
+		@include transition(opacity $speed ease);
+		.btn {
+			vertical-align: middle;
+		}
 	}
 	.stackable-item {
-		margin: $gutter * 0.25 0 0 0;
-		@include flush;
+		position: relative;
+		margin-top: $gutter * 0.25;
 		&:first-child {
 			margin-top: 0;
 		}
+		&:hover {
+			.stackable-controls {
+				opacity: 1;
+				pointer-events: auto;
+			}
+		}
+	}
+	.stackable-placeholder {
+		background-color: $color-active;
+		margin-top: $gutter * 0.25;
+	}
+	.stackable-helper {
+		background-color: $color-divide;
+		opacity: 0.4;
+	}
+	.stackable-move {
+		cursor: move;
+	}
+	.stackable-add {
+		margin-top: $gutter * 0.5;
 	}
 }
 
 /* Form Name Value */
 
 .form-group {
-	margin: 0 0 0 0;
-	background: white;
-	padding: $gutter;
-	& + .form-group {
-		border-top: 1px solid $color-background;
-	}
 	&.form-group-horizontal {
 		display: flex;
 		flex-direction: row;
@@ -1481,6 +1506,7 @@ legend {
 	&.form-group-vertical {
 		input,
 		select,
+		textarea,
 		.mce-tinymce.mce-tinymce[style],
 		.content,
 		.value {

@@ -34,10 +34,17 @@ class Page extends Content
     /**
      * @Column(type="coast_array")
      */
-	protected $blocks = [
-		['name' => 'primary',   'value' => ''],
-		['name' => 'secondary', 'value' => ''],
-	];
+	protected $blocks;
+	
+	public function __construct()
+	{	
+		parent::__construct();
+
+		$this->blocks = \Coast\array_object_smart([
+			['name' => 'primary',   'value' => ''],
+			['name' => 'secondary', 'value' => ''],
+		]);
+	}
 	
 	public function searchFields()
 	{

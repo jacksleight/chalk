@@ -46,7 +46,7 @@
 				<h2>Content</h2>
 			</div>
 			<div class="form-items">
-				<?= $this->render('/element/form-input', array(
+				<?= $this->render('/element/form-item', array(
 					'entity'	=> $content,
 					'name'		=> 'blocks',
 					'label'		=> 'Blocks',
