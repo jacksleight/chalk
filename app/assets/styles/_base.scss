@@ -671,7 +671,7 @@ input[type=checkbox] + label:before {
 }
 input[type=radio] + label:before {
 	border-radius: 50%; 
-	background-size: 70%;
+	background-size: 55%;
 }
 input[type=checkbox]:checked + label:before {
 	background-image: inline-image('icon/iconmonstr-check-mark-icon.svg');
@@ -1002,25 +1002,29 @@ legend {
 		color: $color-loud;
 		display: block;
 		font-weight: bold;
+		line-height: $line-height-tight;
+		+  div {
+			margin: $gutter * 0.35 0 0 0;
+		}
 	}
 	> div { 
 		@include flush;
-		margin: $gutter * 0.25 0 0 0;
 		p { 
 			@include font-size(-1);
-			margin-top: round($gutter  * 0.4);
+			margin-top: $gutter  * 0.35;
 			line-height: $line-height-tight;
 			& + p {
 				margin-top: 0;
 			}
 		}
-		label{ 
+		label { 
 			padding-right: 0.5em;
 		}
 	}
 	&.optional {
 		> label:after {
 			content: 'Optional';
+			line-height: $line-height-tight;
 			color: tint($color-quiet, 0%);
 			margin-left: 0.25em;
 			float: right;

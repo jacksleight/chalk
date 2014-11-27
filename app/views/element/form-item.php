@@ -25,13 +25,12 @@ $type = !isset($type)
 	: $type;
 ?>
 <div class="form-item <?= !$md['nullable'] ? 'required' : 'optional' ?>">
-	<label
-		<?= !in_array($type, ['checkboxes', 'radio']) ? "for=\"_" . "{$md['contextName']}\"" : null ?>
-		<?=  in_array($type, ['checkbox', 'radio', 'range', 'color']) ? "class=\"shallow\"" : null ?>>
-		<?php if ($type != 'input_checkbox') { ?>
+	<?php if ($type != 'input_checkbox') { ?>
+		<label
+			<?= !in_array($type, ['checkboxes', 'radio']) ? "for=\"_" . "{$md['contextName']}\"" : null ?>>
 			<?= $label ?>
-		<?php } ?>
-	</label>
+		</label>
+	<?php } ?>
 	<div>
 		<?= $this->render("form-input", [
 			'md' 	=> $md,

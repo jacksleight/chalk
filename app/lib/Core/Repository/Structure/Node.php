@@ -101,7 +101,7 @@ class Node extends Repository
         return $query;
     }
 
-    public function children(StructureNode $node, $isIncluded = false, $depth = null, array $criteria = array())
+    public function children($node, $isIncluded = false, $depth = null, array $criteria = array())
     {
         return $this->query(array_merge($criteria, [
                 'children'   => $node,
@@ -112,7 +112,7 @@ class Node extends Repository
             ->getResult('coast_array');
     }
 
-    public function parents(StructureNode $node, $isIncluded = false, $depth = null, $isReversed = false, array $criteria = array())
+    public function parents($node, $isIncluded = false, $depth = null, $isReversed = false, array $criteria = array())
     {
         return $this->query(array_merge($criteria, [
                 'parents'    => $node,
@@ -123,7 +123,7 @@ class Node extends Repository
             ->getResult('coast_array');
     }
 
-    public function siblings(StructureNode $node, $isIncluded = false, array $criteria = array())
+    public function siblings($node, $isIncluded = false, array $criteria = array())
     {
         return $this->query(array_merge($criteria, [
                 'siblings'   => $node,
@@ -133,7 +133,7 @@ class Node extends Repository
             ->getResult('coast_array');
     }
 
-    public function tree(StructureNode $node, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
+    public function tree($node, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
     {
         $nodes = $this->query(array_merge($criteria, [
                 'children'   => $node,

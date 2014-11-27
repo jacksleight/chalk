@@ -261,6 +261,12 @@ html, body {
 			max-width: none;
 			max-height: none;
 		}
+		.form-item {
+			margin-left: $gutter * -1.5;
+			margin-right: $gutter * -1.5;
+			padding-left: $gutter * 1.5;
+			padding-right: $gutter * 1.5;
+		}
 	}
 }
 
