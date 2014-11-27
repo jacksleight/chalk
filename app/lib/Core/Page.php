@@ -34,7 +34,7 @@ class Page extends Content
     /**
      * @Column(type="coast_array")
      */
-	protected $blocks;
+	protected $blocks = [];
 	
 	public function __construct()
 	{	

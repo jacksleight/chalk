@@ -81,7 +81,7 @@ class User extends \Toast\Entity implements Trackable, Searchable
 	/**
      * @Column(type="coast_array")
      */
-	protected $prefs;
+	protected $prefs = [];
 
 	/**
      * @OneToMany(targetEntity="\Chalk\Core\Log", mappedBy="user")
