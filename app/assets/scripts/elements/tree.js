@@ -41,15 +41,6 @@ Chalk.component('.structure', function(i, el) {
         tree.removeClass('tree-move');
     });
     var nodes = Chalk.prefs.nodes || {};
-    tree.find('li').each(function() {
-        var id = $(this).attr('data-id');
-        if (!nodes[id] || nodes[id] == 0) {
-            var button = $(this).find('> [data-action=collapse]');
-            if (button.length) {
-                button[0].click();
-            }
-        }
-    });
     tree.click(function(ev) {
         var target = $(ev.target).is('span')
             ? $(ev.target).parent()

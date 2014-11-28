@@ -53,9 +53,10 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 		<?php } ?>
 		<div class="tree">
 			<?php  
-			$nodes	= $this->em('Chalk\Core\Structure\Node')->children($structure->root);
-			$depth	= 0;
-			$i		= 0;
+			$nodes		= $this->em('Chalk\Core\Structure\Node')->children($structure->root);
+			$depth		= 0;
+			$i			= 0;
+			$statuses	= $req->user->pref('nodes');
 			?>
 			<ol class="tree-list">
 				<?php foreach ($nodes as $node) { ?>
@@ -69,7 +70,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 					<?php } else if ($i > 0) { ?>
 						</li>
 					<?php } ?>
-					<li class="tree-node" data-id="<?= $node['id'] ?>">
+					<li class="tree-node <?= !isset($statuses[$node['id']]) || !$statuses[$node['id']] ? 'tree-collapsed' : null ?>" data-id="<?= $node['id'] ?>">
 						<a href="<?= $this->url([
 							'structure'	=> $structure->id,
 							'action'	=> 'edit',

@@ -37,20 +37,20 @@ $title  = (isset($title)
             'styles'        => $this->config->styles,
             'notifications' => $this->notify->notifications(),
             'widgets'       => array_map('\Chalk\Chalk::info', $this->app->fire('Chalk\Core\Event\ListWidgets')->widgets()),
+            'editorContent' => [
+                'src'     => (string) $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/editor-content{$mode}.js"),
+                'loaded'  => false,
+                'loading' => false,
+                'queue'   => [],
+            ],
+            'editorCode' => [
+                'src'     => (string) $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/editor-code{$mode}.js"),
+                'loaded'  => false,
+                'loading' => false,
+                'queue'   => [],
+            ],
         ]) ?>;
-        Chalk.editorContent = {
-            src:     '<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/editor-content{$mode}.js") ?>',
-            loaded:  false,
-            loading: false,
-            queue:   []    
-        };
-        Chalk.editorCode = {
-            src:     '<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/editor-code{$mode}.js") ?>',
-            loaded:  false,
-            loading: false,
-            queue:   []    
-        };
-        Chalk.DOMReady      = function(a,b,c){b=document,c='addEventListener';b[c]?b[c]('DOMContentLoaded',a):window.attachEvent('onload',a)}
+        Chalk.DOMReady = function(a,b,c){b=document,c='addEventListener';b[c]?b[c]('DOMContentLoaded',a):window.attachEvent('onload',a)}
         Chalk.DOMReady(function() {
             var script = document.createElement('script');
             script.src = '<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/scripts{$mode}.js") ?>';

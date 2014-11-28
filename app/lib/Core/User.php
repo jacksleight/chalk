@@ -108,13 +108,6 @@ class User extends \Toast\Entity implements Trackable, Searchable
 		);
 	}
 
-	public function __construct()
-	{	
-		parent::__construct();
-
-		$this->prefs = (object) [];
-	}
-
 	public function passwordPlain($passwordPlain = null)
 	{
 		if (!isset($passwordPlain)) {
@@ -131,13 +124,12 @@ class User extends \Toast\Entity implements Trackable, Searchable
 
 	public function pref($name, $value = null)
 	{
-		if (isset($value)) {
-			$this->prefs->{$name} = $value;
-			$this->prefs = (object) (array) $this->prefs;
+		if (func_num_args() > 1) {
+			$this->prefs[$name] = $value;
 			return $this;
 		}
-		return isset($this->prefs->{$name})
-			? $this->prefs->{$name}
+		return isset($this->prefs[$name])
+			? $this->prefs[$name]
 			: null;
 	}
 	
