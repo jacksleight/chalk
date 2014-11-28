@@ -109,7 +109,7 @@ class Node extends Repository
                 'depth'      => $depth,
             ]))
             ->getQuery()
-            ->getResult('coast_array');
+            ->getArrayResult();
     }
 
     public function parents($node, $isIncluded = false, $depth = null, $isReversed = false, array $criteria = array())
@@ -120,7 +120,7 @@ class Node extends Repository
                 'depth'      => $depth,
             ]), ['left', $isReversed ? 'DESC' : 'ASC'])
             ->getQuery()
-            ->getResult('coast_array');
+            ->getArrayResult();
     }
 
     public function siblings($node, $isIncluded = false, array $criteria = array())
@@ -130,7 +130,7 @@ class Node extends Repository
                 'isIncluded' => $isIncluded,
             ]))
             ->getQuery()
-            ->getResult('coast_array');
+            ->getArrayResult();
     }
 
     public function tree($node, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
@@ -141,35 +141,35 @@ class Node extends Repository
                 'depth'      => $depth,
             ]))
             ->getQuery()
-            ->getResult('coast_array');
+            ->getArrayResult();
         $map = [];
         foreach ($nodes as $mapped) {
-            $map[$mapped->id] = $mapped;
+            $map[$mapped['id']] = $mapped;
         }
  
-        $isFetched = isset($map[$node->id]);
+        $isFetched = isset($map[$node['id']]);
         if (!$isFetched) {
             $root = (object) $node->toArray();
             array_unshift($nodes, $root);
-            $map[$root->id] = $root;
+            $map[$root['id']] = $root;
         } else {
             $root = $nodes[0];
         }
 
         foreach ($nodes as $node) {
-            $node->children = [];
+            $node['children'] = [];
         }
         foreach ($nodes as $node) {
-            if (isset($node->parentId)) {
-                $map[$node->parentId]->children[] = $node;
+            if (isset($node['parentId'])) {
+                $map[$node['parentId']]['children'][] = $node;
             }
         }
 
         if ($isIncluded) {
             if ($isMerged) {
-                $array = $root->children;
+                $array = $root['children'];
                 if ($isFetched) {
-                    $root->children = [];
+                    $root['children'] = [];
                     array_unshift($array, $root);
                 }
                 return $array;
@@ -179,7 +179,7 @@ class Node extends Repository
                 return [];
             }
         } else {
-            return $root->children;
+            return $root['children'];
         }
     }
 

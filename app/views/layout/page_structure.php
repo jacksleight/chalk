@@ -37,13 +37,16 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 	<div class="flex">
 		<?php if (isset($structure->root->content)) { ?>
 			<ol class="tree-root">
-				<li class="tree-node" data-id="<?= $structure->root->id ?>">
+				<?php
+				$content = $structure->root['content'];
+				?>
+				<li class="tree-node" data-id="<?= $structure->root['id'] ?>">
 					<a href="<?= $this->url([
 						'structure'	=> $structure->id,
 						'action'	=> 'edit',
-						'node'		=> $structure->root->id,
-					], 'structure_node') ?>" class="tree-item <?= $structure->root->id == $req->node ? 'active' : '' ?> tree-item-<?= $structure->root->content->status ?> <?= $structure->root->isHidden ? 'tree-item-hidden' : '' ?>">
-						<?= isset($structure->root->name) ? $structure->root->name : $structure->root->content->name ?>
+						'node'		=> $structure->root['id'],
+					], 'structure_node') ?>" class="tree-item <?= $structure->root['id'] == $req->node ? 'active' : '' ?> tree-item-<?= $content['status'] ?> <?= $structure->root['isHidden'] ? 'tree-item-hidden' : '' ?>">
+						<?= isset($structure->root['name']) ? $structure->root['name'] : $structure->root['content']['name'] ?>
 					</a>
 				</li>
 			</ol>
@@ -57,26 +60,26 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 			<ol class="tree-list">
 				<?php foreach ($nodes as $node) { ?>
 					<?php
-					$content = $node->content;
+					$content = $node['content'];
 					?>
-					<?php if (($node->depth - 1) > $depth) { ?>
+					<?php if (($node['depth'] - 1) > $depth) { ?>
 						<ol class="tree-list">
-					<?php } else if (($node->depth - 1) < $depth) { ?>
-						<?= str_repeat('</li></ol>', $depth - ($node->depth - 1)) ?>
+					<?php } else if (($node['depth'] - 1) < $depth) { ?>
+						<?= str_repeat('</li></ol>', $depth - ($node['depth'] - 1)) ?>
 					<?php } else if ($i > 0) { ?>
 						</li>
 					<?php } ?>
-					<li class="tree-node" data-id="<?= $node->id ?>">
+					<li class="tree-node" data-id="<?= $node['id'] ?>">
 						<a href="<?= $this->url([
 							'structure'	=> $structure->id,
 							'action'	=> 'edit',
-							'node'		=> $node->id,
-						], 'structure_node') ?>" class="tree-item <?= $node->id == $req->node ? 'active' : '' ?> tree-item-<?= $content->status ?> <?= $node->isHidden ? 'tree-item-hidden' : '' ?>">
-							<?= isset($node->name) ? $node->name : $node->content->name ?>
+							'node'		=> $node['id'],
+						], 'structure_node') ?>" class="tree-item <?= $node['id'] == $req->node ? 'active' : '' ?> tree-item-<?= $content['status'] ?> <?= $node['isHidden'] ? 'tree-item-hidden' : '' ?>">
+							<?= isset($node['name']) ? $node['name'] : $node['content']['name'] ?>
 						</a>
 						<span class="tree-handle"></span>
 					<?php				
-					$depth = ($node->depth - 1);
+					$depth = ($node['depth'] - 1);
 					$i++;
 					?>
 				<?php } ?>

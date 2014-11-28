@@ -34,46 +34,17 @@ class Page extends Content
     /**
      * @Column(type="coast_array")
      */
-	protected $blocks = [];
-	
-	public function __construct()
-	{	
-		parent::__construct();
-
-		$this->blocks = \Coast\array_object_smart([
-			['name' => 'primary',   'value' => ''],
-			['name' => 'secondary', 'value' => ''],
-		]);
-	}
-
-    public function blocks(array $blocks = null)
-    {
-        if (func_num_args() > 0) {
-            foreach ($blocks as $i => $value) {
-                $this->block($i, $value);
-            }
-            return $this;
-        }
-        return $this->blocks;
-    }
-
-	public function block($i, $value = null)
-	{
-		if (isset($value)) {
-			$this->blocks[$i] = (object) (array) $value;
-			return $this;
-		}
-		return isset($this->blocks[$i])
-			? $this->blocks[$i]
-			: null;
-	}
-	
+	protected $blocks = [
+		['name' => 'primary',   'value' => ''],
+		['name' => 'secondary', 'value' => ''],
+	];
+		
 	public function searchContent()
 	{
 		return array_merge(parent::searchContent(), [
 			strip_tags($this->summary),
 		], array_map(function($block) {
-			return strip_tags($block->value);
+			return strip_tags($block['value']);
 		}, $this->blocks));
 	}
 }
