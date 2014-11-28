@@ -4,7 +4,6 @@
 //= require ../../../bower_components/tinymce/themes/modern/theme.min.js
 //= require ../../../bower_components/tinymce/plugins/charmap/plugin.min.js
 //= require ../../../bower_components/tinymce/plugins/code/plugin.min.js
-//= require ../../../bower_components/tinymce/plugins/fullscreen/plugin.min.js
 //= require ../../../bower_components/tinymce/plugins/hr/plugin.min.js
 //= require ../../../bower_components/tinymce/plugins/image/plugin.min.js
 //= require ../../../bower_components/tinymce/plugins/link/plugin.min.js
@@ -91,6 +90,20 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
 
     };
 
+    var openSourceModal = function() {
+        
+        var dom  = editor.dom,
+            html = editor.getContent();
+    
+        Chalk.modal(Chalk.sourceUrl, {data: {html: html}, method: 'post'}, function(res) {
+            if (!res) {
+                return;
+            }
+            editor.setContent(res.html);
+        });
+
+    };
+
     var menu = [ 
         {
             text: 'Internal Link',
@@ -136,6 +149,13 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
         text: 'Insert',
         icon: false,
         menu: menu
+    });
+
+    editor.addButton('chalksource', {
+        type: 'button',
+        tooltip: 'Source',
+        icon: 'code',
+        onclick: openSourceModal
     });
 
     editor.on('click', function(ev) {
@@ -241,7 +261,6 @@ tinyMCE.init({
         'charmap',
         'link',
         'image',
-        'fullscreen',
         'hr',
         'visualblocks',
         'searchreplace',
@@ -252,7 +271,7 @@ tinyMCE.init({
         'bullist', 'numlist', 'table', '|',
         'chalkinsert', 'unlink', '|',
         'pastetext', '|',
-        'fullscreen', 'code'].join(' '),
+        'chalksource'].join(' '),
     statusbar: false,
     browser_spellcheck: true,
     element_format: 'html',

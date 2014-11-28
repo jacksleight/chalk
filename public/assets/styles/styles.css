@@ -2687,6 +2687,18 @@ html, body {
 .main .fill > .flex, .modal .fill > .flex {
   padding: 20px 30px;
 }
+.main .fill > .flex.flex-full, .modal .fill > .flex.flex-full {
+  background: white;
+  position: relative;
+}
+.main .fill > .flex.flex-full .editor-code, .main .fill > .flex.flex-full .editor-content, .main .fill > .flex.flex-full .ace_editor, .modal .fill > .flex.flex-full .editor-code, .modal .fill > .flex.flex-full .editor-content, .modal .fill > .flex.flex-full .ace_editor {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border: 0;
+}
 .main .fill > .fix, .modal .fill > .fix {
   padding: 15px 30px;
 }
@@ -2695,6 +2707,9 @@ html, body {
 }
 .main .fill > .fix:last-child, .modal .fill > .fix:last-child {
   border-top: 1px solid #d5d6d8;
+}
+.main .fill > .fix.fix-header, .modal .fill > .fix.fix-header {
+  padding: 20px 30px;
 }
 .sidebar .fill > .flex {
   padding: 10px 0;
@@ -3047,6 +3062,9 @@ html, body {
   height: auto;
   max-width: none;
   max-height: none;
+}
+.modal .modal-content.modal-fullscreen .form-item {
+  margin-bottom: -20px;
 }
 .modal .modal-content .form-item {
   margin-left: -30px;

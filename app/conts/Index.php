@@ -34,4 +34,20 @@ class Index extends Action
 		$this->notify("Content was published successfully", 'positive');
 		return $res->redirect($this->url([], 'index', true));
 	}
+
+	public function source(Request $req, Response $res)
+	{
+	    $req->view->source = $wrap = $this->em->wrap(
+            $source = new \Chalk\Core\Model\Source()
+        );
+
+	    $wrap->graphFromArray($req->bodyParams());
+        if (!$req->post) {
+            return;
+        }
+
+		return $res->json([
+			'html' => $source->html,
+		]);
+	}
 }

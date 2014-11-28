@@ -28,6 +28,10 @@ $title  = (isset($title)
                 'action' => 'edit',
                 'entity' => '{entity}',
             ], 'widget', true),
+            'sourceUrl'     => (string) $this->url([
+                'controller' => 'index',
+                'action'     => 'source',
+            ], 'index', true),
             'contentName'   => \Chalk\Chalk::info('Chalk\Core\Content')->name,
             'prefs'         => isset($req->user) ? $req->user->prefs() : [],
             'styles'        => $this->config->styles,
