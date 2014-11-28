@@ -55,7 +55,7 @@ $count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
 						<a href="<?= $this->url([
 							'controller' => 'index',
 							'action'	 => 'publish',
-						], 'index', true) ?>" class="btn btn-pending icon-publish">
+						], 'index', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-pending icon-publish">
 							Publish
 						</a>
 						<small>&nbsp;&nbsp;<strong><?= $count ?></strong> draft items</small>

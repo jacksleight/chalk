@@ -13,7 +13,7 @@ class UrlResolver extends CoastUrlResolver
     public function __invoke()
     {
         $args = func_get_args();
-        if (is_integer($args[0])) {
+        if (is_numeric($args[0])) {
             $func = array($this, 'content');
         } else {
             $func = array('parent', '__invoke');
@@ -23,8 +23,8 @@ class UrlResolver extends CoastUrlResolver
 
     public function content($content)
     {
-        if ($content instanceof Content) {
-            $content = $content->id;
+        if (!is_numeric($content)) {
+            $content = $content['id'];
         }
         $route = $this->router->has($content)
             ? $this->router->route($content)

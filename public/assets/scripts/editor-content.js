@@ -45,9 +45,9 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
         
         var dom             = editor.dom,
             selection       = editor.selection,
-            html            = selection.getContent()
+            code            = selection.getContent()
             text            = selection.getContent({format: 'text'})
-            richSelection   = /</.test(html) && (!/^<a [^>]+>[^<]+<\/a>$/.test(html) || html.indexOf('href=') == -1);
+            richSelection   = /</.test(code) && (!/^<a [^>]+>[^<]+<\/a>$/.test(code) || code.indexOf('href=') == -1);
     
         Chalk.modal(Chalk.selectUrl.replace('{entity}', Chalk.contentName), {}, function(res) {
             if (!res) {
@@ -70,6 +70,20 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
             } else {
                 editor.execCommand('mceInsertLink', false, attrs);
             }
+        });
+
+    };
+
+    var openSourceModal = function() {
+        
+        var dom  = editor.dom,
+            code = editor.getContent();
+    
+        Chalk.modal(Chalk.sourceUrl, {data: {lang: 'html', code: code}, method: 'post'}, function(res) {
+            if (!res) {
+                return;
+            }
+            editor.setContent(res.code);
         });
 
     };
@@ -113,16 +127,18 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
 
     };
 
-    var openSourceModal = function() {
-        
-        var dom  = editor.dom,
-            html = editor.getContent();
+    var openWidgetSourceModal = function(code, el) {
     
-        Chalk.modal(Chalk.sourceUrl, {data: {html: html}, method: 'post'}, function(res) {
+        Chalk.modal(Chalk.sourceUrl, {data: {lang: 'json', code: code}, method: 'post'}, function(res) {
             if (!res) {
                 return;
             }
-            editor.setContent(res.html);
+            var attrs = {
+                'data-chalk': res.code
+            };
+            for (var name in attrs) {
+                el.attr(name, attrs[name]);
+            }
         });
 
     };
@@ -184,10 +200,14 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
     editor.on('click', function(ev) {
         ev.preventDefault();
         var target = $(ev.target);
-        var data = target.attr('data-chalk');
-        if (data) {
-            data = JSON.parse(data).widget;
-            openWidgetModal(data.name, data.params, target);
+        var code = target.attr('data-chalk');
+        if (code) {
+            if (ev.shiftKey) {
+                openWidgetSourceModal(code, target);
+            } else {
+                data = JSON.parse(code).widget;
+                openWidgetModal(data.name, data.params, target);
+            }
         }
     });
 

@@ -84,6 +84,11 @@ table {
   width: 100%;
 }
 
+th, td {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+}
+
 hr {
   border: 0;
   border-top: 1px solid #d5d6d8;

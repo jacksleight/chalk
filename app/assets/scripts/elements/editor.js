@@ -31,7 +31,11 @@ Chalk.component('.editor-code', function(i, el) {
 	        .insertAfter(el);
 	    var editor = ace.edit(div[0]);
 	    editor.getSession().setUseWorker(false);
-	    editor.getSession().setMode("ace/mode/html");
+	    if ($(el).hasClass('editor-code-json')) {
+			editor.getSession().setMode("ace/mode/json");
+	    } else {
+			editor.getSession().setMode("ace/mode/html");
+	    }
 	    editor.getSession().setUseWrapMode(true);
 	    editor.getSession().setValue($(el).val());
 	    editor.getSession().on('change', function(){

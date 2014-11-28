@@ -32,7 +32,11 @@ class Index extends Action
 		$this->app->publish();
 
 		$this->notify("Content was published successfully", 'positive');
-		return $res->redirect($this->url([], 'index', true));
+		if (isset($req->redirect)) {
+			return $res->redirect($req->redirect);
+		} else {
+			return $res->redirect($this->url([], 'index', true));
+		}		
 	}
 
 	public function source(Request $req, Response $res)
@@ -47,7 +51,7 @@ class Index extends Action
         }
 
 		return $res->json([
-			'html' => $source->html,
+			'code' => $source->codeRaw,
 		]);
 	}
 }

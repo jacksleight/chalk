@@ -2,6 +2,7 @@
 use Chalk\Chalk;
 use Chalk\Core\File;
 use Chalk\Frontend;
+use Chalk\Frontend\UrlResolver as FrontendUrlResolver;
 use Chalk\Notifier;
 use Coast\App\Controller;
 use Coast\App\Image;
@@ -21,7 +22,7 @@ $frontend
     ->param('router', new Router())
     ->param('controller', new Controller())
     ->param('view', $config->view)
-    ->param('url', new UrlResolver([
+    ->param('url', new FrontendUrlResolver([
         'baseUrl' => new Url("{$config->baseUrl}"),
         'baseDir' => $app->dir(),
         'router'  => $frontend->router,

@@ -17,10 +17,14 @@
 	<div class="flex flex-full">
 		<?= $this->render('/element/form-input', array(
 			'entity'	=> $source,
+			'type'		=> 'input_hidden',
+			'name'		=> 'lang',
+		)) ?>
+		<?= $this->render('/element/form-input', array(
+			'entity'	=> $source,
 			'type'		=> 'textarea',
-			'name'		=> 'html',
-			'label'		=> 'HTML',
-			'class'		=> 'editor-code',
+			'name'		=> 'code',
+			'class'		=> 'editor-code editor-code-' . (isset($source->lang) ? $source->lang : null),
 			'autofocus'	=> true,
 			'rows'		=> 20,
 		)) ?>
