@@ -22,7 +22,7 @@
 					'name'		=> 'summary',
 					'label'		=> 'Summary',
 					'class'		=> 'monospaced editor-content',
-					'rows'		=> 5,
+					'rows'		=> 7,
 				), 'Chalk\Core') ?>
 				<div class="expandable">
 					<div class="expandable-body">
@@ -52,7 +52,7 @@
 					'label'		=> 'Blocks',
 					'type'		=> 'array_textarea',
 					'class'		=> 'monospaced editor-content',
-					'rows'		=> 15,
+					'rows'		=> 20,
 					'stackable'	=> false,
 				), 'Chalk\Core') ?>
 			</div>

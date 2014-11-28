@@ -16,3 +16,25 @@
     from { transform:rotate(0deg); }
     to { transform:rotate(360deg); }
 }
+
+/* Node Inserted */
+
+// @-ms-keyframes nodeInserted {
+//     from { outline-color: black; }
+//     to { outline-color: white; }
+// }
+// @-moz-keyframes nodeInserted {
+//     from { outline-color: black; }
+//     to { outline-color: white; }
+// }
+// @-webkit-keyframes nodeInserted {
+//     from { outline-color: black; }
+//     to { outline-color: white; }
+// }
+// @keyframes nodeInserted {
+//     from { outline-color: black; }
+//     to { outline-color: white; }
+// }
+// * {
+// 	@include animation(nodeInserted 0.01s);
+// }

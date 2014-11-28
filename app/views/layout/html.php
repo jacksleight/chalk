@@ -34,19 +34,30 @@ $title  = (isset($title)
             'notifications' => $this->notify->notifications(),
             'widgets'       => array_map('\Chalk\Chalk::info', $this->app->fire('Chalk\Core\Event\ListWidgets')->widgets()),
         ]) ?>;
+        Chalk.editorContent = {
+            src:     '<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/editor-content{$mode}.js") ?>',
+            loaded:  false,
+            loading: false,
+            queue:   []    
+        };
+        Chalk.editorCode = {
+            src:     '<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/editor-code{$mode}.js") ?>',
+            loaded:  false,
+            loading: false,
+            queue:   []    
+        };
+        Chalk.DOMReady      = function(a,b,c){b=document,c='addEventListener';b[c]?b[c]('DOMContentLoaded',a):window.attachEvent('onload',a)}
+        Chalk.DOMReady(function() {
+            var script = document.createElement('script');
+            script.src = '<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/scripts{$mode}.js") ?>';
+            document.head.appendChild(script);
+        });
     </script>
     <script type="x-tmpl-mustache" class="modal-template">
         <div class="modal hideable hideable-hidden">
             <div class="modal-content hideable hideable-hidden"></div>
             <div class="modal-loader hideable hideable-hidden"></div>
         </div>
-    </script>
-    <script src="<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/scripts{$mode}.js") ?>"></script>
-    <script src="<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/editor-content{$mode}.js") ?>"></script>
-    <script src="<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/editor-code{$mode}.js") ?>"></script>
-    <script>
-        FastClick.attach(document.body);
-        Chalk.initialize(document.body);
-    </script>
+    </script>    
 </body>
 </html>

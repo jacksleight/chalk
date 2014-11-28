@@ -28,6 +28,7 @@
 //= require elements/thumbs.js
 //= require elements/tree.js
 //= require elements/content.js
+//= require elements/editor.js
 
 /* Behaviours */
 
@@ -39,3 +40,8 @@
 //= require behaviours/selectable.js
 //= require behaviours/stackable.js
 //= require behaviours/ajaxable.js
+
+/* Initialize */
+
+FastClick.attach(document.body);
+Chalk.initialize(document.body);

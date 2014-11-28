@@ -94,6 +94,7 @@
     transform: rotate(360deg);
   }
 }
+/* Node Inserted */
 /* Icons */
 .icon-add::before {
   content: '';
@@ -1382,6 +1383,12 @@ textarea.monospaced {
   font-family: Consolas, "Courier New", Courier, monospace;
   font-size: 13.91304px;
   font-size: 0.86957rem;
+}
+textarea.editor-content {
+  color: white;
+}
+textarea.editor-code {
+  color: white;
 }
 
 .value {

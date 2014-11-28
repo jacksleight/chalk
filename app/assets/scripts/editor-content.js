@@ -2,7 +2,6 @@
 
 //= require ../../../bower_components/tinymce/tinymce.min.js
 //= require ../../../bower_components/tinymce/themes/modern/theme.min.js
-//= require ../../../bower_components/tinymce/plugins/autoresize/plugin.min.js
 //= require ../../../bower_components/tinymce/plugins/charmap/plugin.min.js
 //= require ../../../bower_components/tinymce/plugins/code/plugin.min.js
 //= require ../../../bower_components/tinymce/plugins/fullscreen/plugin.min.js
@@ -151,130 +150,123 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
 
 });
 
-/* Initialize */
+/* Configure */
 
-Chalk.component(null, function(i, el) {
+var assetsUrl   = Chalk.rootBaseUrl + 'vendor/jacksleight/chalk/public/assets';
+tinyMCE.baseURL = assetsUrl + '/tinymce';
 
-    var assetsUrl   = Chalk.rootBaseUrl + 'vendor/jacksleight/chalk/public/assets';
-    tinyMCE.baseURL = assetsUrl + '/tinymce';
+var css = '';
+var styles = [
+    {title: "Header", items: [
+        {title: "Header 1", format: "h1"},
+        {title: "Header 2", format: "h2"},
+        {title: "Header 3", format: "h3"},
+        {title: "Header 4", format: "h4"},
+        {title: "Header 5", format: "h5"},
+        {title: "Header 6", format: "h6"}
+    ]},
+    {title: "Paragraph", items: [
+        {title: "Normal", format: "p"},
+    ]},
+    {title: "Other", items: [
+        {title: "Quote", format: "blockquote"},
+        {title: "Plain Text", format: "pre"}
+    ]},
+    {title: "Inline", items: [
+        {title: "Bold", format: "bold"},
+        {title: "Italic", format: "italic"},
+        {title: "Superscript", format: "superscript"},
+        {title: "Subscript", format: "subscript"},
+        {title: "Code", format: "code"}
+    ]}
+];
+if (Chalk.styles) {
 
-    var css = '';
-    var styles = [
-        {title: "Header", items: [
-            {title: "Header 1", format: "h1"},
-            {title: "Header 2", format: "h2"},
-            {title: "Header 3", format: "h3"},
-            {title: "Header 4", format: "h4"},
-            {title: "Header 5", format: "h5"},
-            {title: "Header 6", format: "h6"}
-        ]},
-        {title: "Paragraph", items: [
-            {title: "Normal", format: "p"},
-        ]},
-        {title: "Other", items: [
-            {title: "Quote", format: "blockquote"},
-            {title: "Plain Text", format: "pre"}
-        ]},
-        {title: "Inline", items: [
-            {title: "Bold", format: "bold"},
-            {title: "Italic", format: "italic"},
-            {title: "Superscript", format: "superscript"},
-            {title: "Subscript", format: "subscript"},
-            {title: "Code", format: "code"}
-        ]}
-    ];
-    if (Chalk.styles) {
-
-        var groups = {}, group, style;
-        for (var i = 0; i < styles.length; i++) {
-            group = styles[i];
-            groups[group.title] = i;
+    var groups = {}, group, style;
+    for (var i = 0; i < styles.length; i++) {
+        group = styles[i];
+        groups[group.title] = i;
+    }
+    for (var i = 0; i < Chalk.styles.length; i++) {
+        style = Chalk.styles[i];
+        group = style.group;
+        style = {
+            title:    style.label    || undefined,
+            selector: style.selector || undefined,
+            block:    style.block    || undefined,
+            inline:   style.inline   || undefined,
+            classes:  style.classes  || undefined
+        };
+        if (group && groups[group]) {
+            styles[groups[group]].items.push(style);
+        } else if (group) {
+            styles.push({title: group, items: [style]});
+            groups[group] = styles.length - 1;
+        } else {
+            styles.push(style);
         }
-        for (var i = 0; i < Chalk.styles.length; i++) {
-            style = Chalk.styles[i];
-            group = style.group;
-            style = {
-                title:    style.label    || undefined,
-                selector: style.selector || undefined,
-                block:    style.block    || undefined,
-                inline:   style.inline   || undefined,
-                classes:  style.classes  || undefined
-            };
-            if (group && groups[group]) {
-                styles[groups[group]].items.push(style);
-            } else if (group) {
-                styles.push({title: group, items: [style]});
-                groups[group] = styles.length - 1;
-            } else {
-                styles.push(style);
-            }
-        }
-        styles.push(styles.splice(2, 1)[0]);
-        styles.push(styles.splice(2, 1)[0]);
-    
-        var css = [], selector, block, inline, classes;
-        for (var i = 0; i < Chalk.styles.length; i++) {
-            style    = Chalk.styles[i];
-            selector = style.selector || '',
-            block    = style.block    || '',
-            inline   = style.inline   || '',
-            classes  = style.classes.split(' ')
-            for (var i = 0; i < classes.length; i++) {
-                css.push(selector + ' ' + (block || inline) + '.' + classes[i] + ' { ' + style.css + ' }');
-            }
+    }
+    styles.push(styles.splice(2, 1)[0]);
+    styles.push(styles.splice(2, 1)[0]);
 
+    var css = [], selector, block, inline, classes;
+    for (var i = 0; i < Chalk.styles.length; i++) {
+        style    = Chalk.styles[i];
+        selector = style.selector || '',
+        block    = style.block    || '',
+        inline   = style.inline   || '',
+        classes  = style.classes.split(' ')
+        for (var i = 0; i < classes.length; i++) {
+            css.push(selector + ' ' + (block || inline) + '.' + classes[i] + ' { ' + style.css + ' }');
         }
-        css = css.join();
 
     }
+    css = css.join();
 
-    tinyMCE.init({
-        skin_url: assetsUrl + '/vendor/tinymce/skins/lightgray',
-        content_css: [
-            assetsUrl + '/styles/editor.css',
-            'data:text/css;charset=utf-8;base64,' + Base64.encode(css)
-        ],
-        selector: '.editor-content:not([disabled])',
-        menubar: false,
-        convert_urls: false,
-        plugins:[
-            'noneditable',
-            'code',
-            'paste',
-            'table',
-            'charmap',
-            'link',
-            'image',
-            'autoresize',
-            'fullscreen',
-            'hr',
-            'visualblocks',
-            'searchreplace',
-            'lists',
-            'chalk'].join(' '),
-        toolbar: [
-            'styleselect', 'bold', 'italic', '|',
-            'bullist', 'numlist', 'table', '|',
-            'chalkinsert', 'unlink', '|',
-            'pastetext', '|',
-            'fullscreen', 'code'].join(' '),
-        statusbar: false,
-        browser_spellcheck: true,
-        element_format: 'html',
-        autoresize_max_height: 800, 
-        paste_retain_style_properties: 'none',
-        paste_word_valid_elements: [
-            '-strong/b', '-em/i',
-            '-p', '-p/div', '-ol', '-ul', '-li',
-            '-h1', '-h2', '-h3', '-h4', '-h5', '-h6',
-            '-table', '-tr', '-td[colspan|rowspan]', '-th', '-thead', '-tfoot', '-tbody',
-            '-a[href]', 'sub', 'sup', 'strike', 'br', 'del'].join(','),
-        style_formats: styles,
-        setup: function(editor) {
-            editor.on('init', function(ev) {
-                editor.theme.resizeTo(null, $(editor.getElement()).height());
-            });
-       }
-    });
+}
 
+tinyMCE.init({
+    skin_url: assetsUrl + '/vendor/tinymce/skins/lightgray',
+    content_css: [
+        assetsUrl + '/styles/editor.css',
+        'data:text/css;charset=utf-8;base64,' + Base64.encode(css)
+    ],
+    menubar: false,
+    convert_urls: false,
+    plugins:[
+        'noneditable',
+        'code',
+        'paste',
+        'table',
+        'charmap',
+        'link',
+        'image',
+        'fullscreen',
+        'hr',
+        'visualblocks',
+        'searchreplace',
+        'lists',
+        'chalk'].join(' '),
+    toolbar: [
+        'styleselect', 'bold', 'italic', '|',
+        'bullist', 'numlist', 'table', '|',
+        'chalkinsert', 'unlink', '|',
+        'pastetext', '|',
+        'fullscreen', 'code'].join(' '),
+    statusbar: false,
+    browser_spellcheck: true,
+    element_format: 'html',
+    paste_retain_style_properties: 'none',
+    paste_word_valid_elements: [
+        '-strong/b', '-em/i',
+        '-p', '-p/div', '-ol', '-ul', '-li',
+        '-h1', '-h2', '-h3', '-h4', '-h5', '-h6',
+        '-table', '-tr', '-td[colspan|rowspan]', '-th', '-thead', '-tfoot', '-tbody',
+        '-a[href]', 'sub', 'sup', 'strike', 'br', 'del'].join(','),
+    style_formats: styles,
+    setup: function(editor) {
+        editor.on('init', function(ev) {
+            editor.theme.resizeTo(null, $(editor.getElement()).outerHeight() - 37);
+        });
+   }
 });

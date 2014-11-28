@@ -14,8 +14,6 @@ t._renderOpen=!0,t._super(e),t.addClass("menubtn"),e.fixedWidth&&t.addClass("fix
 
 tinymce.ThemeManager.add("modern",function(a){function b(){function b(b){var d,e=[];if(b)return l(b.split(/[ ,]/),function(b){function c(){var c=a.selection;"bullist"==f&&c.selectorChanged("ul > li",function(a,c){for(var d,e=c.parents.length;e--&&(d=c.parents[e].nodeName,"OL"!=d&&"UL"!=d););b.active(a&&"UL"==d)}),"numlist"==f&&c.selectorChanged("ol > li",function(a,c){for(var d,e=c.parents.length;e--&&(d=c.parents[e].nodeName,"OL"!=d&&"UL"!=d););b.active(a&&"OL"==d)}),b.settings.stateSelector&&c.selectorChanged(b.settings.stateSelector,function(a){b.active(a)},!0),b.settings.disabledStateSelector&&c.selectorChanged(b.settings.disabledStateSelector,function(a){b.disabled(a)})}var f;"|"==b?d=null:k.has(b)?(b={type:b},j.toolbar_items_size&&(b.size=j.toolbar_items_size),e.push(b),d=null):(d||(d={type:"buttongroup",items:[]},e.push(d)),a.buttons[b]&&(f=b,b=a.buttons[f],"function"==typeof b&&(b=b()),b.type=b.type||"button",j.toolbar_items_size&&(b.size=j.toolbar_items_size),b=k.create(b),d.items.push(b),a.initialized?c():a.on("init",c)))}),c.push({type:"toolbar",layout:"flow",items:e}),!0}var c=[];if(tinymce.isArray(j.toolbar)){if(0===j.toolbar.length)return;tinymce.each(j.toolbar,function(a,b){j["toolbar"+(b+1)]=a}),delete j.toolbar}for(var d=1;10>d&&b(j["toolbar"+d]);d++);return c.length||j.toolbar===!1||b(j.toolbar||o),c.length?{type:"panel",layout:"stack",classes:"toolbar-grp",ariaRoot:!0,ariaRemember:!0,items:c}:void 0}function c(){function b(b){var c;return"|"==b?{text:"|"}:c=a.menuItems[b]}function c(c){var d,e,f,g,h;if(h=tinymce.makeMap((j.removed_menuitems||"").split(/[ ,]/)),j.menu?(e=j.menu[c],g=!0):e=n[c],e){d={text:e.title},f=[],l((e.items||"").split(/[ ,]/),function(a){var c=b(a);c&&!h[a]&&f.push(b(a))}),g||l(a.menuItems,function(a){a.context==c&&("before"==a.separator&&f.push({text:"|"}),a.prependToContext?f.unshift(a):f.push(a),"after"==a.separator&&f.push({text:"|"}))});for(var i=0;i<f.length;i++)"|"==f[i].text&&(0===i||i==f.length-1)&&f.splice(i,1);if(d.menu=f,!d.menu.length)return null}return d}var d,e=[],f=[];if(j.menu)for(d in j.menu)f.push(d);else for(d in n)f.push(d);for(var g="string"==typeof j.menubar?j.menubar.split(/[ ,]/):f,h=0;h<g.length;h++){var i=g[h];i=c(i),i&&e.push(i)}return e}function d(b){function c(a){var c=b.find(a)[0];c&&c.focus(!0)}a.shortcuts.add("Alt+F9","",function(){c("menubar")}),a.shortcuts.add("Alt+F10","",function(){c("toolbar")}),a.shortcuts.add("Alt+F11","",function(){c("elementpath")}),b.on("cancel",function(){a.focus()})}function e(b,c){function d(a){return{width:a.clientWidth,height:a.clientHeight}}var e,f,g,h;e=a.getContainer(),f=a.getContentAreaContainer().firstChild,g=d(e),h=d(f),null!==b&&(b=Math.max(j.min_width||100,b),b=Math.min(j.max_width||65535,b),m.setStyle(e,"width",b+(g.width-h.width)),m.setStyle(f,"width",b)),c=Math.max(j.min_height||100,c),c=Math.min(j.max_height||65535,c),m.setStyle(f,"height",c),a.fire("ResizeEditor")}function f(b,c){var d=a.getContentAreaContainer();i.resizeTo(d.clientWidth+b,d.clientHeight+c)}function g(e){function f(){if(n&&n.moveRel&&n.visible()&&!n._fixed){var b=a.selection.getScrollContainer(),c=a.getBody(),d=0,e=0;if(b){var f=m.getPos(c),g=m.getPos(b);d=Math.max(0,g.x-f.x),e=Math.max(0,g.y-f.y)}n.fixed(!1).moveRel(c,a.rtl?["tr-br","br-tr"]:["tl-bl","bl-tl","tr-br"]).moveBy(d,e)}}function g(){n&&(n.show(),f(),m.addClass(a.getBody(),"mce-edit-focus"))}function h(){n&&(n.hide(),m.removeClass(a.getBody(),"mce-edit-focus"))}function l(){return n?void(n.visible()||g()):(n=i.panel=k.create({type:o?"panel":"floatpanel",role:"application",classes:"tinymce tinymce-inline",layout:"flex",direction:"column",align:"stretch",autohide:!1,autofix:!0,fixed:!!o,border:1,items:[j.menubar===!1?null:{type:"menubar",border:"0 0 1 0",items:c()},b()]}),a.fire("BeforeRenderUI"),n.renderTo(o||document.body).reflow(),d(n),g(),a.on("nodeChange",f),a.on("activate",g),a.on("deactivate",h),void a.nodeChanged())}var n,o;return j.fixed_toolbar_container&&(o=m.select(j.fixed_toolbar_container)[0]),j.content_editable=!0,a.on("focus",function(){e.skinUiCss?tinymce.DOM.styleSheetLoader.load(e.skinUiCss,l,l):l()}),a.on("blur hide",h),a.on("remove",function(){n&&(n.remove(),n=null)}),e.skinUiCss&&tinymce.DOM.styleSheetLoader.load(e.skinUiCss),{}}function h(f){var g,h,l;return f.skinUiCss&&tinymce.DOM.loadCSS(f.skinUiCss),g=i.panel=k.create({type:"panel",role:"application",classes:"tinymce",style:"visibility: hidden",layout:"stack",border:1,items:[j.menubar===!1?null:{type:"menubar",border:"0 0 1 0",items:c()},b(),{type:"panel",name:"iframe",layout:"stack",classes:"edit-area",html:"",border:"1 0 0 0"}]}),j.resize!==!1&&(h={type:"resizehandle",direction:j.resize,onResizeStart:function(){var b=a.getContentAreaContainer().firstChild;l={width:b.clientWidth,height:b.clientHeight}},onResize:function(a){"both"==j.resize?e(l.width+a.deltaX,l.height+a.deltaY):e(null,l.height+a.deltaY)}}),j.statusbar!==!1&&g.add({type:"panel",name:"statusbar",classes:"statusbar",layout:"flow",border:"1 0 0 0",ariaRoot:!0,items:[{type:"elementpath"},h]}),j.readonly&&g.find("*").disabled(!0),a.fire("BeforeRenderUI"),g.renderBefore(f.targetNode).reflow(),j.width&&tinymce.DOM.setStyle(g.getEl(),"width",j.width),a.on("remove",function(){g.remove(),g=null}),d(g),{iframeContainer:g.find("#iframe")[0].getEl(),editorContainer:g.getEl()}}var i=this,j=a.settings,k=tinymce.ui.Factory,l=tinymce.each,m=tinymce.DOM,n={file:{title:"File",items:"newdocument"},edit:{title:"Edit",items:"undo redo | cut copy paste pastetext | selectall"},insert:{title:"Insert",items:"|"},view:{title:"View",items:"visualaid |"},format:{title:"Format",items:"bold italic underline strikethrough superscript subscript | formats | removeformat"},table:{title:"Table"},tools:{title:"Tools"}},o="undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image";i.renderUI=function(b){var c=j.skin!==!1?j.skin||"lightgray":!1;if(c){var d=j.skin_url;d=d?a.documentBaseURI.toAbsolute(d):tinymce.baseURL+"/skins/"+c,b.skinUiCss=tinymce.Env.documentMode<=7?d+"/skin.ie7.min.css":d+"/skin.min.css",a.contentCSS.push(d+"/content"+(a.inline?".inline":"")+".min.css")}return a.on("ProgressState",function(a){i.throbber=i.throbber||new tinymce.ui.Throbber(i.panel.getEl("body")),a.state?i.throbber.show(a.time):i.throbber.hide()}),j.inline?g(b):h(b)},i.resizeTo=e,i.resizeBy=f});
 
-tinymce.PluginManager.add("autoresize",function(a){function b(){return a.plugins.fullscreen&&a.plugins.fullscreen.isFullscreen()}function c(d){var g,h,i,j,k,l,m,n,o,p,q,r,s=tinymce.DOM;if(h=a.getDoc()){if(i=h.body,j=h.documentElement,k=e.autoresize_min_height,!i||d&&"setcontent"===d.type&&d.initial||b())return void(i&&j&&(i.style.overflowY="auto",j.style.overflowY="auto"));m=a.dom.getStyle(i,"margin-top",!0),n=a.dom.getStyle(i,"margin-bottom",!0),o=a.dom.getStyle(i,"padding-top",!0),p=a.dom.getStyle(i,"padding-bottom",!0),q=a.dom.getStyle(i,"border-top-width",!0),r=a.dom.getStyle(i,"border-bottom-width",!0),l=i.offsetHeight+parseInt(m,10)+parseInt(n,10)+parseInt(o,10)+parseInt(p,10)+parseInt(q,10)+parseInt(r,10),(isNaN(l)||0>=l)&&(l=tinymce.Env.ie?i.scrollHeight:tinymce.Env.webkit&&0===i.clientHeight?0:i.offsetHeight),l>e.autoresize_min_height&&(k=l),e.autoresize_max_height&&l>e.autoresize_max_height?(k=e.autoresize_max_height,i.style.overflowY="auto",j.style.overflowY="auto"):(i.style.overflowY="hidden",j.style.overflowY="hidden",i.scrollTop=0),k!==f&&(g=k-f,s.setStyle(a.iframeElement,"height",k+"px"),f=k,tinymce.isWebKit&&0>g&&c(d))}}function d(a,b,e){setTimeout(function(){c({}),a--?d(a,b,e):e&&e()},b)}var e=a.settings,f=0;a.settings.inline||(e.autoresize_min_height=parseInt(a.getParam("autoresize_min_height",a.getElement().offsetHeight),10),e.autoresize_max_height=parseInt(a.getParam("autoresize_max_height",0),10),a.on("init",function(){var b=a.getParam("autoresize_overflow_padding",1);a.dom.setStyles(a.getBody(),{paddingBottom:a.getParam("autoresize_bottom_margin",50),paddingLeft:b,paddingRight:b})}),a.on("nodechange setcontent keyup FullscreenStateChanged",c),a.getParam("autoresize_on_init",!0)&&a.on("init",function(){d(20,100,function(){d(5,1e3)})}),a.addCommand("mceAutoResize",c))});
-
 tinymce.PluginManager.add("charmap",function(a){function b(){function b(a){for(;a;){if("TD"==a.nodeName)return a;a=a.parentNode}}var d,e,f,g;d='<table role="presentation" cellspacing="0" class="mce-charmap"><tbody>';var h=25;for(f=0;10>f;f++){for(d+="<tr>",e=0;h>e;e++){var i=c[f*h+e];d+='<td title="'+i[1]+'"><div tabindex="-1" title="'+i[1]+'" role="button">'+(i?String.fromCharCode(parseInt(i[0],10)):"&nbsp;")+"</div></td>"}d+="</tr>"}d+="</tbody></table>";var j={type:"container",html:d,onclick:function(b){var c=b.target;"TD"==c.tagName&&(c=c.firstChild),"DIV"==c.tagName&&(a.execCommand("mceInsertContent",!1,c.firstChild.data),b.ctrlKey||g.close())},onmouseover:function(a){var c=b(a.target);c&&g.find("#preview").text(c.firstChild.firstChild.data)}};g=a.windowManager.open({title:"Special character",spacing:10,padding:10,items:[j,{type:"label",name:"preview",text:" ",style:"font-size: 40px; text-align: center",border:1,minWidth:100,minHeight:80}],buttons:[{text:"Close",onclick:function(){g.close()}}]})}var c=[["160","no-break space"],["38","ampersand"],["34","quotation mark"],["162","cent sign"],["8364","euro sign"],["163","pound sign"],["165","yen sign"],["169","copyright sign"],["174","registered sign"],["8482","trade mark sign"],["8240","per mille sign"],["181","micro sign"],["183","middle dot"],["8226","bullet"],["8230","three dot leader"],["8242","minutes / feet"],["8243","seconds / inches"],["167","section sign"],["182","paragraph sign"],["223","sharp s / ess-zed"],["8249","single left-pointing angle quotation mark"],["8250","single right-pointing angle quotation mark"],["171","left pointing guillemet"],["187","right pointing guillemet"],["8216","left single quotation mark"],["8217","right single quotation mark"],["8220","left double quotation mark"],["8221","right double quotation mark"],["8218","single low-9 quotation mark"],["8222","double low-9 quotation mark"],["60","less-than sign"],["62","greater-than sign"],["8804","less-than or equal to"],["8805","greater-than or equal to"],["8211","en dash"],["8212","em dash"],["175","macron"],["8254","overline"],["164","currency sign"],["166","broken bar"],["168","diaeresis"],["161","inverted exclamation mark"],["191","turned question mark"],["710","circumflex accent"],["732","small tilde"],["176","degree sign"],["8722","minus sign"],["177","plus-minus sign"],["247","division sign"],["8260","fraction slash"],["215","multiplication sign"],["185","superscript one"],["178","superscript two"],["179","superscript three"],["188","fraction one quarter"],["189","fraction one half"],["190","fraction three quarters"],["402","function / florin"],["8747","integral"],["8721","n-ary sumation"],["8734","infinity"],["8730","square root"],["8764","similar to"],["8773","approximately equal to"],["8776","almost equal to"],["8800","not equal to"],["8801","identical to"],["8712","element of"],["8713","not an element of"],["8715","contains as member"],["8719","n-ary product"],["8743","logical and"],["8744","logical or"],["172","not sign"],["8745","intersection"],["8746","union"],["8706","partial differential"],["8704","for all"],["8707","there exists"],["8709","diameter"],["8711","backward difference"],["8727","asterisk operator"],["8733","proportional to"],["8736","angle"],["180","acute accent"],["184","cedilla"],["170","feminine ordinal indicator"],["186","masculine ordinal indicator"],["8224","dagger"],["8225","double dagger"],["192","A - grave"],["193","A - acute"],["194","A - circumflex"],["195","A - tilde"],["196","A - diaeresis"],["197","A - ring above"],["198","ligature AE"],["199","C - cedilla"],["200","E - grave"],["201","E - acute"],["202","E - circumflex"],["203","E - diaeresis"],["204","I - grave"],["205","I - acute"],["206","I - circumflex"],["207","I - diaeresis"],["208","ETH"],["209","N - tilde"],["210","O - grave"],["211","O - acute"],["212","O - circumflex"],["213","O - tilde"],["214","O - diaeresis"],["216","O - slash"],["338","ligature OE"],["352","S - caron"],["217","U - grave"],["218","U - acute"],["219","U - circumflex"],["220","U - diaeresis"],["221","Y - acute"],["376","Y - diaeresis"],["222","THORN"],["224","a - grave"],["225","a - acute"],["226","a - circumflex"],["227","a - tilde"],["228","a - diaeresis"],["229","a - ring above"],["230","ligature ae"],["231","c - cedilla"],["232","e - grave"],["233","e - acute"],["234","e - circumflex"],["235","e - diaeresis"],["236","i - grave"],["237","i - acute"],["238","i - circumflex"],["239","i - diaeresis"],["240","eth"],["241","n - tilde"],["242","o - grave"],["243","o - acute"],["244","o - circumflex"],["245","o - tilde"],["246","o - diaeresis"],["248","o slash"],["339","ligature oe"],["353","s - caron"],["249","u - grave"],["250","u - acute"],["251","u - circumflex"],["252","u - diaeresis"],["253","y - acute"],["254","thorn"],["255","y - diaeresis"],["913","Alpha"],["914","Beta"],["915","Gamma"],["916","Delta"],["917","Epsilon"],["918","Zeta"],["919","Eta"],["920","Theta"],["921","Iota"],["922","Kappa"],["923","Lambda"],["924","Mu"],["925","Nu"],["926","Xi"],["927","Omicron"],["928","Pi"],["929","Rho"],["931","Sigma"],["932","Tau"],["933","Upsilon"],["934","Phi"],["935","Chi"],["936","Psi"],["937","Omega"],["945","alpha"],["946","beta"],["947","gamma"],["948","delta"],["949","epsilon"],["950","zeta"],["951","eta"],["952","theta"],["953","iota"],["954","kappa"],["955","lambda"],["956","mu"],["957","nu"],["958","xi"],["959","omicron"],["960","pi"],["961","rho"],["962","final sigma"],["963","sigma"],["964","tau"],["965","upsilon"],["966","phi"],["967","chi"],["968","psi"],["969","omega"],["8501","alef symbol"],["982","pi symbol"],["8476","real part symbol"],["978","upsilon - hook symbol"],["8472","Weierstrass p"],["8465","imaginary part"],["8592","leftwards arrow"],["8593","upwards arrow"],["8594","rightwards arrow"],["8595","downwards arrow"],["8596","left right arrow"],["8629","carriage return"],["8656","leftwards double arrow"],["8657","upwards double arrow"],["8658","rightwards double arrow"],["8659","downwards double arrow"],["8660","left right double arrow"],["8756","therefore"],["8834","subset of"],["8835","superset of"],["8836","not a subset of"],["8838","subset of or equal to"],["8839","superset of or equal to"],["8853","circled plus"],["8855","circled times"],["8869","perpendicular"],["8901","dot operator"],["8968","left ceiling"],["8969","right ceiling"],["8970","left floor"],["8971","right floor"],["9001","left-pointing angle bracket"],["9002","right-pointing angle bracket"],["9674","lozenge"],["9824","black spade suit"],["9827","black club suit"],["9829","black heart suit"],["9830","black diamond suit"],["8194","en space"],["8195","em space"],["8201","thin space"],["8204","zero width non-joiner"],["8205","zero width joiner"],["8206","left-to-right mark"],["8207","right-to-left mark"],["173","soft hyphen"]];a.addButton("charmap",{icon:"charmap",tooltip:"Special character",onclick:b}),a.addMenuItem("charmap",{icon:"charmap",text:"Special character",onclick:b,context:"insert"})});
 
 tinymce.PluginManager.add("code",function(a){function b(){var b=a.windowManager.open({title:"Source code",body:{type:"textbox",name:"code",multiline:!0,minWidth:a.getParam("code_dialog_width",600),minHeight:a.getParam("code_dialog_height",Math.min(tinymce.DOM.getViewPort().h-200,500)),spellcheck:!1,style:"direction: ltr; text-align: left"},onSubmit:function(b){a.focus(),a.undoManager.transact(function(){a.setContent(b.data.code)}),a.selection.setCursorLocation(),a.nodeChanged()}});b.find("#code").value(a.getContent({source_view:!0}))}a.addCommand("mceCodeEditor",b),a.addButton("code",{icon:"code",tooltip:"Source code",onclick:b}),a.addMenuItem("code",{icon:"code",text:"Source code",context:"tools",onclick:b})});
@@ -176,130 +174,123 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
 
 });
 
-/* Initialize */
+/* Configure */
 
-Chalk.component(null, function(i, el) {
+var assetsUrl   = Chalk.rootBaseUrl + 'vendor/jacksleight/chalk/public/assets';
+tinyMCE.baseURL = assetsUrl + '/tinymce';
 
-    var assetsUrl   = Chalk.rootBaseUrl + 'vendor/jacksleight/chalk/public/assets';
-    tinyMCE.baseURL = assetsUrl + '/tinymce';
+var css = '';
+var styles = [
+    {title: "Header", items: [
+        {title: "Header 1", format: "h1"},
+        {title: "Header 2", format: "h2"},
+        {title: "Header 3", format: "h3"},
+        {title: "Header 4", format: "h4"},
+        {title: "Header 5", format: "h5"},
+        {title: "Header 6", format: "h6"}
+    ]},
+    {title: "Paragraph", items: [
+        {title: "Normal", format: "p"},
+    ]},
+    {title: "Other", items: [
+        {title: "Quote", format: "blockquote"},
+        {title: "Plain Text", format: "pre"}
+    ]},
+    {title: "Inline", items: [
+        {title: "Bold", format: "bold"},
+        {title: "Italic", format: "italic"},
+        {title: "Superscript", format: "superscript"},
+        {title: "Subscript", format: "subscript"},
+        {title: "Code", format: "code"}
+    ]}
+];
+if (Chalk.styles) {
 
-    var css = '';
-    var styles = [
-        {title: "Header", items: [
-            {title: "Header 1", format: "h1"},
-            {title: "Header 2", format: "h2"},
-            {title: "Header 3", format: "h3"},
-            {title: "Header 4", format: "h4"},
-            {title: "Header 5", format: "h5"},
-            {title: "Header 6", format: "h6"}
-        ]},
-        {title: "Paragraph", items: [
-            {title: "Normal", format: "p"},
-        ]},
-        {title: "Other", items: [
-            {title: "Quote", format: "blockquote"},
-            {title: "Plain Text", format: "pre"}
-        ]},
-        {title: "Inline", items: [
-            {title: "Bold", format: "bold"},
-            {title: "Italic", format: "italic"},
-            {title: "Superscript", format: "superscript"},
-            {title: "Subscript", format: "subscript"},
-            {title: "Code", format: "code"}
-        ]}
-    ];
-    if (Chalk.styles) {
-
-        var groups = {}, group, style;
-        for (var i = 0; i < styles.length; i++) {
-            group = styles[i];
-            groups[group.title] = i;
+    var groups = {}, group, style;
+    for (var i = 0; i < styles.length; i++) {
+        group = styles[i];
+        groups[group.title] = i;
+    }
+    for (var i = 0; i < Chalk.styles.length; i++) {
+        style = Chalk.styles[i];
+        group = style.group;
+        style = {
+            title:    style.label    || undefined,
+            selector: style.selector || undefined,
+            block:    style.block    || undefined,
+            inline:   style.inline   || undefined,
+            classes:  style.classes  || undefined
+        };
+        if (group && groups[group]) {
+            styles[groups[group]].items.push(style);
+        } else if (group) {
+            styles.push({title: group, items: [style]});
+            groups[group] = styles.length - 1;
+        } else {
+            styles.push(style);
         }
-        for (var i = 0; i < Chalk.styles.length; i++) {
-            style = Chalk.styles[i];
-            group = style.group;
-            style = {
-                title:    style.label    || undefined,
-                selector: style.selector || undefined,
-                block:    style.block    || undefined,
-                inline:   style.inline   || undefined,
-                classes:  style.classes  || undefined
-            };
-            if (group && groups[group]) {
-                styles[groups[group]].items.push(style);
-            } else if (group) {
-                styles.push({title: group, items: [style]});
-                groups[group] = styles.length - 1;
-            } else {
-                styles.push(style);
-            }
-        }
-        styles.push(styles.splice(2, 1)[0]);
-        styles.push(styles.splice(2, 1)[0]);
-    
-        var css = [], selector, block, inline, classes;
-        for (var i = 0; i < Chalk.styles.length; i++) {
-            style    = Chalk.styles[i];
-            selector = style.selector || '',
-            block    = style.block    || '',
-            inline   = style.inline   || '',
-            classes  = style.classes.split(' ')
-            for (var i = 0; i < classes.length; i++) {
-                css.push(selector + ' ' + (block || inline) + '.' + classes[i] + ' { ' + style.css + ' }');
-            }
+    }
+    styles.push(styles.splice(2, 1)[0]);
+    styles.push(styles.splice(2, 1)[0]);
 
+    var css = [], selector, block, inline, classes;
+    for (var i = 0; i < Chalk.styles.length; i++) {
+        style    = Chalk.styles[i];
+        selector = style.selector || '',
+        block    = style.block    || '',
+        inline   = style.inline   || '',
+        classes  = style.classes.split(' ')
+        for (var i = 0; i < classes.length; i++) {
+            css.push(selector + ' ' + (block || inline) + '.' + classes[i] + ' { ' + style.css + ' }');
         }
-        css = css.join();
 
     }
+    css = css.join();
 
-    tinyMCE.init({
-        skin_url: assetsUrl + '/vendor/tinymce/skins/lightgray',
-        content_css: [
-            assetsUrl + '/styles/editor.css',
-            'data:text/css;charset=utf-8;base64,' + Base64.encode(css)
-        ],
-        selector: '.editor-content:not([disabled])',
-        menubar: false,
-        convert_urls: false,
-        plugins:[
-            'noneditable',
-            'code',
-            'paste',
-            'table',
-            'charmap',
-            'link',
-            'image',
-            'autoresize',
-            'fullscreen',
-            'hr',
-            'visualblocks',
-            'searchreplace',
-            'lists',
-            'chalk'].join(' '),
-        toolbar: [
-            'styleselect', 'bold', 'italic', '|',
-            'bullist', 'numlist', 'table', '|',
-            'chalkinsert', 'unlink', '|',
-            'pastetext', '|',
-            'fullscreen', 'code'].join(' '),
-        statusbar: false,
-        browser_spellcheck: true,
-        element_format: 'html',
-        autoresize_max_height: 800, 
-        paste_retain_style_properties: 'none',
-        paste_word_valid_elements: [
-            '-strong/b', '-em/i',
-            '-p', '-p/div', '-ol', '-ul', '-li',
-            '-h1', '-h2', '-h3', '-h4', '-h5', '-h6',
-            '-table', '-tr', '-td[colspan|rowspan]', '-th', '-thead', '-tfoot', '-tbody',
-            '-a[href]', 'sub', 'sup', 'strike', 'br', 'del'].join(','),
-        style_formats: styles,
-        setup: function(editor) {
-            editor.on('init', function(ev) {
-                editor.theme.resizeTo(null, $(editor.getElement()).height());
-            });
-       }
-    });
+}
 
+tinyMCE.init({
+    skin_url: assetsUrl + '/vendor/tinymce/skins/lightgray',
+    content_css: [
+        assetsUrl + '/styles/editor.css',
+        'data:text/css;charset=utf-8;base64,' + Base64.encode(css)
+    ],
+    menubar: false,
+    convert_urls: false,
+    plugins:[
+        'noneditable',
+        'code',
+        'paste',
+        'table',
+        'charmap',
+        'link',
+        'image',
+        'fullscreen',
+        'hr',
+        'visualblocks',
+        'searchreplace',
+        'lists',
+        'chalk'].join(' '),
+    toolbar: [
+        'styleselect', 'bold', 'italic', '|',
+        'bullist', 'numlist', 'table', '|',
+        'chalkinsert', 'unlink', '|',
+        'pastetext', '|',
+        'fullscreen', 'code'].join(' '),
+    statusbar: false,
+    browser_spellcheck: true,
+    element_format: 'html',
+    paste_retain_style_properties: 'none',
+    paste_word_valid_elements: [
+        '-strong/b', '-em/i',
+        '-p', '-p/div', '-ol', '-ul', '-li',
+        '-h1', '-h2', '-h3', '-h4', '-h5', '-h6',
+        '-table', '-tr', '-td[colspan|rowspan]', '-th', '-thead', '-tfoot', '-tbody',
+        '-a[href]', 'sub', 'sup', 'strike', 'br', 'del'].join(','),
+    style_formats: styles,
+    setup: function(editor) {
+        editor.on('init', function(ev) {
+            editor.theme.resizeTo(null, $(editor.getElement()).outerHeight() - 37);
+        });
+   }
 });
