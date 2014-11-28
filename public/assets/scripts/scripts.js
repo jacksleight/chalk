@@ -16624,6 +16624,9 @@ Chalk.component('.stackable', function(i, el) {
 		add();
 	});
 	$(el).on('click', '.stackable-delete', function(ev) {
+		if (!confirm('Are you sure?')) {
+			return;
+		}
 		del($(this).closest('.stackable-item'));
 	});
 	
