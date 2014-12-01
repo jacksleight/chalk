@@ -8,7 +8,7 @@ use Coast\App,
 
 class Chalk extends App
 {
-    const VERSION           = 'DEV';
+    const VERSION           = '0.2.0';
 
     const FORMAT_DATE       = 'jS F Y';
 
