@@ -310,5 +310,13 @@ html, body {
 	@include flush;
 	&, a {
 		@include link-color($color-quiet);
+		text-decoration: none;
 	}	
+}
+.licence {
+	@include font-size(-2);
+	color: $color-quiet;
+	p {
+		margin-top: $gutter * 0.5;
+	}
 }

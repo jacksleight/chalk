@@ -3099,6 +3099,7 @@ html, body {
 }
 .footer, .footer a {
   color: #969a9d;
+  text-decoration: none;
 }
 .footer:visited, .footer a:visited {
   color: #969a9d;
@@ -3111,6 +3112,15 @@ html, body {
 }
 .footer:active, .footer a:active {
   color: #969a9d;
+}
+
+.licence {
+  font-size: 12.0983px;
+  font-size: 0.75614rem;
+  color: #969a9d;
+}
+.licence p {
+  margin-top: 10px;
 }
 
 /* Hacks */

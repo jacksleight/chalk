@@ -44,7 +44,7 @@ $count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
 			], 'class' => 'toggle']) ?>
 		<?php } ?>
 		<footer class="footer c" role="contentinfo">
-			<p>Chalk <?= \Chalk\Chalk::VERSION ?></p>
+			<p><a href="<?= $this->url([], 'about', true) ?>" rel="modal">Chalk <?= \Chalk\Chalk::VERSION ?></a></p>
 		</footer>
 	</div>
 	<div class="main">

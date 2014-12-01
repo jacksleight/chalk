@@ -12,7 +12,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 <form action="<?= $this->url([
 	'action'	=> 'reorder',
 	'structure'	=> $structure->id,
-], 'structure', true) ?>" class="fill structure" method="post">
+], 'structure', true) ?>?redirect=<?= $this->url([]) ?>" class="fill structure" method="post">
 	<div class="fix">
 		<div class="dropdown">
 			<div class="value">

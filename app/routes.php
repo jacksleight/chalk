@@ -5,6 +5,10 @@ $app->router
 		'action'     => 'index',
 		'id'    	 => null,
 	])
+	->all('about', "about", [
+		'controller' => 'index',
+		'action'     => 'about',
+	])
 	->all('passwordRequest', "password-request", [
 		'controller' => 'auth',
 		'action'     => 'password-request',
