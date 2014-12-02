@@ -12,17 +12,17 @@ $count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
 		<?= $this->render('nav', ['items' => [
 			[
 				'label' => 'Structure',
-				'icon'	=> 'icon-structure',
+				'icon'	=> 'icon icon-structure',
 				'name'	=> 'structure',
 			],
 			[
 				'label' => 'Content',
-				'icon'	=> 'icon-content',
+				'icon'	=> 'icon icon-content',
 				'name'	=> 'content',
 			],
 			[
 				'label' => 'Settings',
-				'icon'	=> 'icon-settings',
+				'icon'	=> 'icon icon-settings',
 				'name'	=> 'setting',
 			],
 		], 'class' => 'toggle']) ?>
@@ -70,10 +70,10 @@ $count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
 			</ul>
 			<ul class="toolbar">
 				<li>
-					<a href="<?= $this->url([], 'profile', true) ?>" class="icon-user"><?= $req->user->name ?></a>
+					<a href="<?= $this->url([], 'profile', true) ?>" class="icon-user-dark"><?= $req->user->name ?></a>
 				</li>
 				<li class="space">
-					<a href="<?= $this->url([], 'logout', true) ?>" class="icon-logout">Logout</a>
+					<a href="<?= $this->url([], 'logout', true) ?>" class="icon-logout-dark">Logout</a>
 				</li>
 			</ul>
 			<p class="title"><?= $this->config->name ?></p>

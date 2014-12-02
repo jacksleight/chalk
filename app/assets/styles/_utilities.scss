@@ -24,22 +24,6 @@
 	background-image: inline-image($name + '.svg');
 }
 
-/* Icon */
-
-%icon {
-	@include hide-text;
-	display: inline-block;
-	-webkit-mask-position: center;
-	-webkit-mask-size: 118%;
-}
-@mixin icon($name, $size: 16px, $color: currentColor) {
-	@extend %icon;
-	background-color: $color;
-	-webkit-mask-image: inline-image('icon/iconmonstr-' + $name + '-icon.svg');
-	width: $size;
-	height: $size;
-}
-
 /* Flush */
 
 @mixin flush { 

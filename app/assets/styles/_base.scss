@@ -638,6 +638,9 @@ select,
 		padding-left: $gutter;
 		padding-right: $gutter;
 	}
+	&.icon::before {
+		opacity: 0.5;
+	}
 }
 input[type=checkbox],
 input[type=radio] {
@@ -674,10 +677,10 @@ input[type=radio] + label:before {
 	background-size: 55%;
 }
 input[type=checkbox]:checked + label:before {
-	background-image: inline-image('icon/iconmonstr-check-mark-icon.svg');
+	background-image: inline-image('icon-light/check-mark.svg');
 }
 input[type=radio]:checked + label:before {
-	background-image: inline-image('icon/iconmonstr-circle-icon.svg');
+	background-image: inline-image('icon-light/circle.svg');
 }
 select { 
 	width: auto;
@@ -1072,6 +1075,9 @@ legend {
 	a {
 		text-decoration: none;
 	}
+	.icon::before {
+		opacity: 0.5;
+	}
 }
 
 /* Toolbar */
@@ -1113,9 +1119,6 @@ legend {
 	}
 	.value {
 		border-left: 0;
-		&::before {
-			color: $color-quiet;
-		}
 	}
 	.dropdown .menu {
 		left: -1px;
@@ -1329,10 +1332,10 @@ legend {
 		background-color: transparent !important;
 		outline: 0;
 		&[data-action=expand] span::before {
-			@include icon(plus, 8px, $color-primary);
+			@include icon(plus, 8px, dark);
 		}
 		&[data-action=collapse] span::before {
-			@include icon(minus, 8px, $color-primary);
+			@include icon(minus, 8px, dark);
 		}
 		span {
 			position: absolute;

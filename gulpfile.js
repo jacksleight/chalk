@@ -8,6 +8,7 @@ var gulp		= require('gulp'),
 	livereload	= require('gulp-livereload'),
 	minifycss	= require('gulp-minify-css'),
 	rename		= require('gulp-rename'),
+	replace		= require('gulp-replace'),
 	sprites		= require('gulp-include'),
 	svg2png		= require('gulp-svg2png'),
 	svgmin		= require('gulp-svgmin'),
@@ -40,8 +41,8 @@ gulp.task('default', function() {
 		'clean',
 		'copy-default',
 		'copy-bower',
-		'images-copy',
-		'images-sprites-min',
+		'images-icons',
+		'images-general',
 		'scripts-default',
 		'scripts-editor-content',
 		'scripts-editor-code',
@@ -92,22 +93,31 @@ gulp.task('copy-bower', function() {
 gulp.task('images', function() {
 	return sequence(
 		'images-clean',
-		'images-copy',
-		'images-sprites-min'
+		'images-general',
+		'images-icons'
 	);
 });
 gulp.task('images-clean', function() {
 	return gulp.src(targetPath + imagesDir, {read: false})
 		.pipe(clean());
 });
-gulp.task('images-copy', function() {
-	return gulp.src(sourcePath + imagesDir + '/**/*.{gif,png,jpg,ico,xml}', {base: sourcePath + imagesDir})
-		.pipe(gulp.dest(targetPath + imagesDir));
-});
-gulp.task('images-sprites-min', function() {
-	return gulp.src(sourcePath + imagesDir + '/**/*.svg')
+gulp.task('images-general', function() {
+	return gulp.src(sourcePath + imagesDir + '/*.svg')
 		.pipe(svgmin([{removeViewBox: true}]))
 		.pipe(gulp.dest(targetPath + imagesDir));
+});
+gulp.task('images-icons', function() {
+	return gulp.src(sourcePath + imagesDir + '/icon/*.svg')
+		.pipe(svgmin([{removeViewBox: true}]))
+		.pipe(rename(function(path) {
+			path.basename = path.basename
+				.replace(/^iconmonstr-/, '')
+				.replace(/-icon$/, '');
+		}))
+		.pipe(replace(/<(path|rect|circle|ellipse|line|polyline|polygon)/g, '<$1 fill="#fff"'))
+		.pipe(gulp.dest(targetPath + imagesDir + '/icon-light'))
+		.pipe(replace('#fff', '#2d353c'))
+		.pipe(gulp.dest(targetPath + imagesDir + '/icon-dark'));
 });
 
 /* Scripts */

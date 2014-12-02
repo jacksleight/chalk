@@ -114,7 +114,8 @@ html, body {
 			padding: 16px 0 12px 0;
 			line-height: 1.4;
 			@include link-color(tint($color-primary, 50%));
-			&::before {
+			&.icon::before {
+				opacity: 0.5;
 				margin: 0;
 				width: 22px;
 				height: 22px;
@@ -125,6 +126,9 @@ html, body {
 			}
 			&:hover, &:focus, &.active {
 				@include link-color(white);
+				&.icon::before {
+					opacity: 1;
+				}
 			}
 			&:hover, &:focus {
 				background: shade($color-primary, 50%);

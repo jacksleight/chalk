@@ -1,5 +1,19 @@
 /* Icons */
 
+%icon {
+	@include hide-text;
+	display: inline-block;
+	background-position: center;
+	background-size: 118%;
+}
+
+@mixin icon($name, $size: 16px, $color: light) {
+	@extend %icon;
+	background-image: inline-image('icon-' + $color + '/' + $name + '.svg');
+	width: $size;
+	height: $size;
+}
+
 $icons: (
 	add:		plus-2,
 	archive:	archive,
@@ -28,8 +42,24 @@ $icons: (
 	negative:	x-mark-3,
 	browse:		folder-7
 );
-@each $class, $icon in $icons {
+%icon-basic {
+	@extend %icon;
+	@include transition(opacity $speed ease);
+	width: 16px;
+	height: 16px;
+}
+@each $class, $name in $icons {
 	.icon-#{$class} {
-		@include attach(before, 0.2em, -0.15em) { @include icon($icon); };
+		@include attach(before, 0.2em, -0.15em) { 
+			@extend %icon-basic;
+			background-image: inline-image('icon-light/' + $name + '.svg');
+		};
+	}
+	.icon-#{$class}-dark {
+		@include attach(before, 0.2em, -0.15em) { 
+			@extend %icon-basic;
+			background-image: inline-image('icon-dark/' + $name + '.svg');
+		};
 	}
 }
+
