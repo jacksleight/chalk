@@ -55,6 +55,10 @@ class Source extends \Toast\Entity
 
     protected function _tidyHtml($value)
     {
+    	if (!$value) {
+    		return $value;
+    	}
+
         $doc = new DOMDocument();
         libxml_use_internal_errors(true);
         // @hack Ensures correct encoding as libxml doesn't understand <meta charset="utf-8">
