@@ -32,6 +32,11 @@ class Node extends \Toast\Entity
     protected $id;
 
     /**
+     * @Column(type="integer", nullable=true)
+     */
+    protected $structureId;
+
+    /**
      * @ManyToOne(targetEntity="\Chalk\Core\Structure", inversedBy="nodes")
      * @JoinColumn(nullable=false)
      */

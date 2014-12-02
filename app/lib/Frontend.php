@@ -44,19 +44,20 @@ class Frontend extends App
         $domain = $this
             ->em('Chalk\Core\Domain')
             ->one([], 'id');        
-        $nodes = \Coast\array_object_smart($conn->query("
+        $nodes = $conn->query("
             SELECT n.id,
                 n.sort, n.left, n.right, n.depth,
                 n.name, n.slug, n.path,
+                n.structureId,
                 n.parentId,
                 n.contentId
             FROM {$table} AS n
             WHERE n.structureId = {$domain->structure->id}
-        ")->fetchAll());
+        ")->fetchAll();
         foreach ($nodes as $node) {
-            $this->router->all($node->contentId, $node->path, [
+            $this->router->all($node['contentId'], $node['path'], [
                 'node'    => $node,
-                'content' => $node->contentId,
+                'content' => $node['contentId'],
             ]);
         }
 
@@ -126,7 +127,7 @@ class Frontend extends App
                 $body   = $temp->getElementsByTagName('body');
                 if ($body->length) {
                     $nodes = $body->item(0)->childNodes;
-                    for ($i = $nodes->length - 1; $i >= 0; --$i) {
+                    for ($i = 0; $i < $nodes->length; $i++) {
                         $node = $doc->importNode($nodes->item($i), true);
                         $el->parentNode->insertBefore($node, $el);
                     }
@@ -153,7 +154,7 @@ class Frontend extends App
         return $doc;
     }
 
-    public function children(Node $node = null, $isIncluded = false, $depth = null, array $criteria = array())
+    public function children($node = null, $isIncluded = false, $depth = null, array $criteria = array())
     {
         $node = isset($node)
             ? $node
@@ -167,7 +168,7 @@ class Frontend extends App
             ->children($node, $isIncluded, $depth, $criteria);
     }
 
-    public function parents(Node $node = null, $isIncluded = false, $depth = null, $isReversed = false, array $criteria = array())
+    public function parents($node = null, $isIncluded = false, $depth = null, $isReversed = false, array $criteria = array())
     {
         $node = isset($node)
             ? $node
@@ -181,7 +182,7 @@ class Frontend extends App
             ->parents($node, $isIncluded, $depth, $isReversed, $criteria);
     }
 
-    public function siblings(Node $node = null, $isIncluded = false, array $criteria = array())
+    public function siblings($node = null, $isIncluded = false, array $criteria = array())
     {
         $node = isset($node)
             ? $node
@@ -195,7 +196,7 @@ class Frontend extends App
             ->siblings($node, $isIncluded, $criteria);
     }
 
-    public function tree(Node $node = null, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
+    public function tree($node = null, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
     {
         $node = isset($node)
             ? $node
@@ -209,7 +210,7 @@ class Frontend extends App
             ->tree($node, $isIncluded, $isMerged, $depth, $criteria);
     }
 
-    public function treeIterator(Node $node = null, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
+    public function treeIterator($node = null, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
     {
         $node = isset($node)
             ? $node

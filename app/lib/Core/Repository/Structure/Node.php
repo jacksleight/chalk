@@ -47,44 +47,44 @@ class Node extends Repository
         } else if (isset($criteria['children'])) {
             $query
                 ->andWhere('n.structure = :structure AND n.left >= :left AND n.right <= :right')
-                ->setParameter('structure', $criteria['children']->structure)
-                ->setParameter('left', $criteria['children']->left)
-                ->setParameter('right', $criteria['children']->right);
+                ->setParameter('structure', $criteria['children']['structureId'])
+                ->setParameter('left', $criteria['children']['left'])
+                ->setParameter('right', $criteria['children']['right']);
             if (isset($criteria['depth'])) {
                 $query
                     ->andWhere('n.depth <= :depth')
-                    ->setParameter('depth', $criteria['children']->depth + $criteria['depth']);
+                    ->setParameter('depth', $criteria['children']['depth'] + $criteria['depth']);
             }
             if (!$criteria['isIncluded']) {
                 $query
                     ->andWhere('n != :exclude')
-                    ->setParameter('exclude', $criteria['children']);
+                    ->setParameter('exclude', $criteria['children']['id']);
             }
         } else if (isset($criteria['parents'])) {
             $query
                 ->from($this->_entityName, 'nt')
                 ->andWhere('n.structure = :structure AND nt.left >= n.left AND nt.left <= n.right')
                 ->andWhere('nt = :node')
-                ->setParameter('structure', $criteria['parents']->structure)
-                ->setParameter('node', $criteria['parents']);            
+                ->setParameter('structure', $criteria['parents']['structureId'])
+                ->setParameter('node', $criteria['parents']['id']);            
             if (isset($criteria['depth'])) {
                 $query
                     ->andWhere('n.depth >= :depth')
-                    ->setParameter('depth', $criteria['parents']->depth - $criteria['depth']);
+                    ->setParameter('depth', $criteria['parents']['depth'] - $criteria['depth']);
             }
             if (!$criteria['isIncluded']) {
                 $query
                     ->andWhere('n != :exclude')
-                    ->setParameter('exclude', $criteria['parents']);
+                    ->setParameter('exclude', $criteria['parents']['id']);
             }
         } else if (isset($criteria['siblings'])) {
             $query
                 ->andWhere('n.parent = :parent')
-                ->setParameter('parent', $criteria['siblings']->parent);
+                ->setParameter('parent', $criteria['siblings']['parentId']);
             if (!$criteria['isIncluded']) {
                 $query
                     ->andWhere('n != :exclude')
-                    ->setParameter('exclude', $criteria['siblings']);
+                    ->setParameter('exclude', $criteria['siblings']['id']);
             }
         }
         if ($criteria['isVisible']) {
@@ -143,25 +143,27 @@ class Node extends Repository
             ->getQuery()
             ->getArrayResult();
         $map = [];
-        foreach ($nodes as $mapped) {
-            $map[$mapped['id']] = $mapped;
-        }
- 
-        $isFetched = isset($map[$node['id']]);
-        if (!$isFetched) {
-            $root = (object) $node->toArray();
-            array_unshift($nodes, $root);
-            $map[$root['id']] = $root;
-        } else {
-            $root = $nodes[0];
+        foreach ($nodes as $i => $mapped) {
+            $map[$mapped['id']] = &$nodes[$i];
         }
 
-        foreach ($nodes as $node) {
-            $node['children'] = [];
+        $isFetched = isset($map[$node['id']]);
+        if (!$isFetched) {
+            $root = is_object($node)
+                ? $node->toArray()
+                : $node;
+            array_unshift($nodes, $root);
+            $map[$root['id']] = &$root;
+        } else {
+            $root = &$nodes[0];
         }
-        foreach ($nodes as $node) {
-            if (isset($node['parentId'])) {
-                $map[$node['parentId']]['children'][] = $node;
+
+        foreach ($nodes as $i => $node) {
+            $nodes[$i]['children'] = [];
+        }
+        foreach ($nodes as $i => $node) {
+            if (isset($nodes[$i]['parentId'])) {
+                $map[$nodes[$i]['parentId']]['children'][] = &$nodes[$i];
             }
         }
 
