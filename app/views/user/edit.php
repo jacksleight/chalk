@@ -68,7 +68,7 @@
 			<?php if (!$user->isNew() && !$user->isRoot()) { ?>
 				<li>
 					<a href="<?= $this->url([
-						'action' => 'delete1',
+						'action' => 'delete',
 					]) ?>" class="btn btn-negative btn-quiet confirmable icon-delete" data-message="Are you sure?<?= "\n\n" ?>If you delete <?= $user->name ?> you will no longer be able to see which changes they made. If you just want to prevent this user from accessing the system you can disable the account by unchecking the Enabled box.">
 						Delete <?= $info->singular ?>
 					</a>
