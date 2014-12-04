@@ -22,7 +22,7 @@
 /* Transitions */
 /* Widths & Heights */
 /* Icons */
-.icon-add::before, .icon-add-dark::before, .icon-archive::before, .icon-archive-dark::before, .icon-cancel::before, .icon-cancel-dark::before, .icon-content::before, .icon-content-dark::before, .icon-delete::before, .icon-delete-dark::before, .icon-drag::before, .icon-drag-dark::before, .icon-false::before, .icon-false-dark::before, .icon-history::before, .icon-history-dark::before, .icon-logout::before, .icon-logout-dark::before, .icon-move::before, .icon-move-dark::before, .icon-ok::before, .icon-ok-dark::before, .icon-publish::before, .icon-publish-dark::before, .icon-remove::before, .icon-remove-dark::before, .icon-restore::before, .icon-restore-dark::before, .icon-search::before, .icon-search-dark::before, .icon-settings::before, .icon-settings-dark::before, .icon-status::before, .icon-status-dark::before, .icon-structure::before, .icon-structure-dark::before, .icon-true::before, .icon-true-dark::before, .icon-updated::before, .icon-updated-dark::before, .icon-upload::before, .icon-upload-dark::before, .icon-user::before, .icon-user-dark::before, .icon-view::before, .icon-view-dark::before, .icon-positive::before, .icon-positive-dark::before, .icon-negative::before, .icon-negative-dark::before, .icon-browse::before, .icon-browse-dark::before, .tree-node button[data-action=expand] span::before, .tree-node button[data-action=collapse] span::before, .tree-handle::before {
+.icon-add::before, .icon-add-dark::before, .icon-archive::before, .icon-archive-dark::before, .icon-cancel::before, .icon-cancel-dark::before, .icon-content::before, .icon-content-dark::before, .icon-delete::before, .icon-delete-dark::before, .icon-drag::before, .icon-drag-dark::before, .icon-false::before, .icon-false-dark::before, .icon-history::before, .icon-history-dark::before, .icon-logout::before, .icon-logout-dark::before, .icon-move::before, .icon-move-dark::before, .icon-ok::before, .icon-ok-dark::before, .icon-publish::before, .icon-publish-dark::before, .icon-remove::before, .icon-remove-dark::before, .icon-restore::before, .icon-restore-dark::before, .icon-search::before, .icon-search-dark::before, .icon-settings::before, .icon-settings-dark::before, .icon-status::before, .icon-status-dark::before, .icon-structure::before, .icon-structure-dark::before, .icon-true::before, .icon-true-dark::before, .icon-updated::before, .icon-updated-dark::before, .icon-upload::before, .icon-upload-dark::before, .icon-user::before, .icon-user-dark::before, .icon-view::before, .icon-view-dark::before, .icon-positive::before, .icon-positive-dark::before, .icon-negative::before, .icon-negative-dark::before, .icon-browse::before, .icon-browse-dark::before, .search::before, .tree-node button[data-action=expand] span::before, .tree-node button[data-action=collapse] span::before, .tree-handle::before {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
@@ -2137,11 +2137,14 @@ legend {
   position: relative;
 }
 .search::before {
-  color: #969a9d;
   position: absolute;
   top: 50%;
   left: 11px;
   margin-top: -8px;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cGF0aCBmaWxsPSIjMmQzNTNjIiBkPSJNNDYwLjM1NSA0MjEuNTlsLTEwNi41MS0xMDYuNTEyYzIwLjA0LTI3LjU1MyAzMS44ODQtNjEuNDM3IDMxLjg4NC05OC4wMzdDMzg1LjczIDEyNC45MzUgMzEwLjc5MiA1MCAyMTguNjg1IDUwYy05Mi4xMDYgMC0xNjcuMDQgNzQuOTM0LTE2Ny4wNCAxNjcuMDQgMCA5Mi4xMDcgNzQuOTM1IDE2Ny4wNDIgMTY3LjA0IDE2Ny4wNDIgMzQuOTEyIDAgNjcuMzUyLTEwLjc3MyA5NC4xODQtMjkuMTU4TDQxOS45NDUgNDYybDQwLjQxLTQwLjQxek0xMDAuNjMgMjE3LjA0YzAtNjUuMDk1IDUyLjk2LTExOC4wNTUgMTE4LjA1Ni0xMTguMDU1IDY1LjA5OCAwIDExOC4wNTcgNTIuOTYgMTE4LjA1NyAxMTguMDU2IDAgNjUuMDk3LTUyLjk2IDExOC4wNTctMTE4LjA1NyAxMTguMDU3LTY1LjA5NiAwLTExOC4wNTUtNTIuOTYtMTE4LjA1NS0xMTguMDU2eiIvPjwvc3ZnPg==');
+  width: 16px;
+  height: 16px;
+  opacity: 0.5;
 }
 .search input {
   padding-left: 33px;

@@ -1147,11 +1147,12 @@ legend {
 .search {
 	position: relative;
 	&::before {
-		color: $color-quiet;
 		position: absolute;
 		top: 50%;
 		left: $input-padding-horiz + $input-border-width;
 		margin-top: -8px;
+		@include icon(magnifier-2, 16px, dark);
+		opacity: 0.5;
 	}
 	input {
 		padding-left: $input-padding-horiz + $input-border-width + 15px + 7px;
