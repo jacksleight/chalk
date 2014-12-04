@@ -677,10 +677,10 @@ input[type=radio] + label:before {
 	background-size: 55%;
 }
 input[type=checkbox]:checked + label:before {
-	background-image: inline-image('icon-light/check-mark.svg');
+	background-image: inline-image('icon-dark/check-mark.svg');
 }
 input[type=radio]:checked + label:before {
-	background-image: inline-image('icon-light/circle.svg');
+	background-image: inline-image('icon-dark/circle.svg');
 }
 select { 
 	width: auto;
