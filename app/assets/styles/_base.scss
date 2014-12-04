@@ -758,6 +758,19 @@ textarea {
 		border: transparent $input-border-width solid;
 		display: inline-block;
 	}
+	input[type=reset].btn-icon, 
+	input[type=submit].btn-icon, 
+	input[type=button].btn-icon, 
+	.btn.btn-icon {
+		width: 48px;
+		height: 48px;
+		line-height: 48px;
+		&::before {
+			width: 20px;
+			height: 20px;
+			vertical-align: -3px;
+		}
+	}
 }
 
 input[type=reset],
@@ -856,16 +869,12 @@ input[type=button],
 		border-color: $color-quieter;
 	}
 	&.btn-icon {
-		width: 48px;
-		height: 48px;
-		line-height: 48px;
+		width: 38px;
 		text-align: center;
 		overflow: hidden;
 		&::before {
-			width: 20px;
-			height: 20px;
 			margin-right: 0;
-			vertical-align: -3px;
+			vertical-align: -2px;
 		}
 	}
 	small {
@@ -1447,42 +1456,35 @@ legend {
 		@include no-bullets;
 		margin: 0;
 	}
+	.stackable-item {
+		margin-bottom: $gutter * 0.5;
+		background-color: $color-divide;
+		position: relative;
+		@include clearfix;
+	}
 	.stackable-controls {
-		position: absolute;
-		bottom: $input-padding-horiz;
-		right: $input-padding-horiz;
-		z-index: 100;
-		opacity: 0;
-		pointer-events: none;
-		@include transition(opacity $speed ease);
-		.btn {
-			vertical-align: middle;
+		float: right;
+		width: 38px;
+		.stackable-move {
+			cursor: move;
+		}
+		.stackable-delete {
+			position: absolute;
+			bottom: 0;
+			right: 0;
 		}
 	}
-	.stackable-item {
-		position: relative;
-		margin-top: $gutter * 0.25;
+	.stackable-body {
 		@include flush();
-		&:first-child {
-			margin-top: 0;
-		}
-		&:hover {
-			.stackable-controls {
-				opacity: 1;
-				pointer-events: auto;
-			}
-		}
+		margin-right: 38px;
 	}
 	.stackable-placeholder {
 		background-color: $color-active;
-		margin-top: $gutter * 0.25;
+		margin-bottom: $gutter * 0.5;
 	}
 	.stackable-helper {
 		background-color: $color-divide;
 		opacity: 0.4;
-	}
-	.stackable-move {
-		cursor: move;
 	}
 	.stackable-add {
 		margin-top: $gutter * 0.5;

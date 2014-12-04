@@ -4,14 +4,15 @@
 
 * **Fixes**
 	* Fix colour of tick and dot in checkbox and radio controls
-	
+	* Fix links to content not added to structure
+	* Change sortable UI to avoid glitches with other controls
 
 ### 0.2.1
 
 * **Fixes**
 	* Fix incorrect url in user delete button
 	* Fix error in source code editor when value is blank
-	* Change icon rendering method, fixes issue in Firefox and IE
+	* Fix icon rendering method
 	* Fix array syntax in node tree methods
 	* Fix widget element ordering issue
 

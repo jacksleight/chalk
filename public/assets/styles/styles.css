@@ -1552,6 +1552,22 @@ textarea.editor-code {
   border: transparent 1px solid;
   display: inline-block;
 }
+.content input[type=reset].btn-icon,
+.content input[type=submit].btn-icon,
+.content input[type=button].btn-icon,
+.content .btn.btn-icon {
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+}
+.content input[type=reset].btn-icon::before,
+.content input[type=submit].btn-icon::before,
+.content input[type=button].btn-icon::before,
+.content .btn.btn-icon::before {
+  width: 20px;
+  height: 20px;
+  vertical-align: -3px;
+}
 
 input[type=reset],
 input[type=submit],
@@ -1745,9 +1761,7 @@ input[type=reset].btn-icon,
 input[type=submit].btn-icon,
 input[type=button].btn-icon,
 .btn.btn-icon {
-  width: 48px;
-  height: 48px;
-  line-height: 48px;
+  width: 38px;
   text-align: center;
   overflow: hidden;
 }
@@ -1755,10 +1769,8 @@ input[type=reset].btn-icon::before,
 input[type=submit].btn-icon::before,
 input[type=button].btn-icon::before,
 .btn.btn-icon::before {
-  width: 20px;
-  height: 20px;
   margin-right: 0;
-  vertical-align: -3px;
+  vertical-align: -2px;
 }
 input[type=reset] small,
 input[type=submit] small,
@@ -2541,45 +2553,38 @@ legend {
   list-style-type: none;
   margin-left: 0;
 }
-.stackable .stackable-controls {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  z-index: 100;
-  opacity: 0;
-  pointer-events: none;
-  -moz-transition: opacity 0.2s ease;
-  -o-transition: opacity 0.2s ease;
-  -webkit-transition: opacity 0.2s ease;
-  transition: opacity 0.2s ease;
-}
-.stackable .stackable-controls .btn {
-  vertical-align: middle;
-}
 .stackable .stackable-item {
+  margin-bottom: 10px;
+  background-color: #d5d6d8;
   position: relative;
-  margin-top: 5px;
+  overflow: hidden;
+  *zoom: 1;
 }
-.stackable .stackable-item > *:first-child {
+.stackable .stackable-controls {
+  float: right;
+  width: 38px;
+}
+.stackable .stackable-controls .stackable-move {
+  cursor: move;
+}
+.stackable .stackable-controls .stackable-delete {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.stackable .stackable-body {
+  margin-right: 38px;
+}
+.stackable .stackable-body > *:first-child {
   margin-top: 0 !important;
-}
-.stackable .stackable-item:first-child {
-  margin-top: 0;
-}
-.stackable .stackable-item:hover .stackable-controls {
-  opacity: 1;
-  pointer-events: auto;
 }
 .stackable .stackable-placeholder {
   background-color: #FCB941;
-  margin-top: 5px;
+  margin-bottom: 10px;
 }
 .stackable .stackable-helper {
   background-color: #d5d6d8;
   opacity: 0.4;
-}
-.stackable .stackable-move {
-  cursor: move;
 }
 .stackable .stackable-add {
   margin-top: 10px;

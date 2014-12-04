@@ -52,8 +52,8 @@
 					'label'		=> 'Blocks',
 					'type'		=> 'array_textarea',
 					'class'		=> 'monospaced editor-content',
-					'rows'		=> 20,
-					'stackable'	=> false,
+					'rows'		=> 10,
+					'stackable'	=> true,
 				), 'Chalk\Core') ?>
 			</div>
 		</fieldset>
