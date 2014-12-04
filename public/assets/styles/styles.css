@@ -604,6 +604,22 @@ a:hover {
 a:active {
   color: #00a6b5;
 }
+a.block {
+  text-decoration: none;
+  color: #2d353c;
+}
+a.block:visited {
+  color: #2d353c;
+}
+a.block:focus {
+  color: #2d353c;
+}
+a.block:hover {
+  color: #2d353c;
+}
+a.block:active {
+  color: #2d353c;
+}
 
 /* Emphasised & Marked */
 em {
@@ -2688,6 +2704,12 @@ legend {
 .card img {
   float: left;
   margin: 0 10px 0 0;
+}
+.card strong {
+  font-weight: normal;
+}
+a .card strong {
+  text-decoration: underline;
 }
 
 /* TinyMCE */

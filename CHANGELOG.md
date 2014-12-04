@@ -2,6 +2,8 @@
 
 ### 0.2.2
 
+* **Improvements**
+	* Link to download uploaded files
 * **Fixes**
 	* Fix colour of tick and dot in checkbox and radio controls
 	* Fix links to content not added to structure

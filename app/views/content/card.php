@@ -6,6 +6,6 @@
 			['size' => '48', 'crop' => true]
 		) ?>">
 	<?php } ?>
-	<?= $content->name ?><br>
+	<strong><?= $content->name ?></strong><br>
 	<small><?= $content->subname() ?></small>
 </div>

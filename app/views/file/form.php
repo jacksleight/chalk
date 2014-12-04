@@ -17,6 +17,18 @@
 				), 'Chalk\Core') ?>
 			</div>
 		</fieldset>
+		<fieldset class="form-block">
+			<div class="form-legend">
+				<h2>Download</h2>
+			</div>
+			<div class="form-items">
+				<div class="form-item">
+					<a href="<?= $this->root->url($content->file) ?>" class="block" target="_blank">
+						<?= $this->render('/content/card', ['content' => $content->getObject()]) ?>
+					</a>
+				</div>
+			</div>
+		</fieldset>
 		<?= $this->render('/behaviour/publishable/form', ['publishable' => $content], 'Chalk\Core') ?>
 		<?= $this->render('/content/node', [], 'Chalk\Core') ?>
 	</div>

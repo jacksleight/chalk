@@ -100,6 +100,10 @@ a {
 	@include link-color($color-focus);
 	@include transition(all $speed ease);
 	text-decoration: underline;
+	&.block {
+		text-decoration: none;
+		@include link-color($color-foreground);
+	}
 }
 
 /* Emphasised & Marked */
@@ -1546,6 +1550,14 @@ legend {
 	img {
 		float: left;
 		margin: 0 $gutter * 0.5 0 0;
+	}
+	strong {
+		font-weight: normal;
+	}
+	a & {
+		strong {
+			text-decoration: underline;
+		}
 	}
 }
 
