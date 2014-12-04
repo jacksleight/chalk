@@ -115,7 +115,7 @@ class Frontend extends App
                 if ($this->router->has($data['content']['id'])) {
                     $url = $this->url([], $data['content']['id'], true);
                 } else {
-                    $url = "_c{$data['content']['id']}";
+                    $url = $this->url("_c{$data['content']['id']}");
                 }
                 $el->setAttribute('href', $url);
             } else if (isset($data['widget'])) {
