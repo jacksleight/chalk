@@ -70,7 +70,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 					<?php } else if ($i > 0) { ?>
 						</li>
 					<?php } ?>
-					<li class="tree-node <?= !isset($statuses[$node['id']]) || !$statuses[$node['id']] ? 'tree-collapsed' : null ?>" data-id="<?= $node['id'] ?>">
+					<li class="tree-node <?= (!isset($statuses[$node['id']]) || !$statuses[$node['id']]) && $node['right'] > $node['left'] + 1 ? 'tree-collapsed' : null ?>" data-id="<?= $node['id'] ?>">
 						<a href="<?= $this->url([
 							'structure'	=> $structure->id,
 							'action'	=> 'edit',

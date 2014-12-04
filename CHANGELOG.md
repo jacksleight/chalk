@@ -6,6 +6,8 @@
 	* Fix colour of tick and dot in checkbox and radio controls
 	* Fix links to content not added to structure
 	* Change sortable UI to avoid glitches with other controls
+	* Fix search icon
+	* Fix node moving when a node has zero children
 
 ### 0.2.1
 
