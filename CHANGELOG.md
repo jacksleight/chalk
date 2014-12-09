@@ -2,6 +2,8 @@
 
 ### 0.2.4
 
+* **Improvements**
+	* Ability to add multiple items to stackable blocks
 * **Fixes**
 	* Fix stackable first item issue
 
