@@ -16662,7 +16662,7 @@ Chalk.component('.stackable', function(i, el) {
 		}
 	});
 	
-	if (!list.children()) {
+	if (!list.children().length) {
 		add();
 	}
 
