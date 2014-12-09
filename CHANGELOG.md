@@ -1,5 +1,10 @@
 # Chalk Changelog
 
+### 0.2.3
+
+* **Fixes**
+	* Fix issue with multiple levels of nested widgets and links
+
 ### 0.2.2
 
 * **Improvements**
