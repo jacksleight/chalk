@@ -4,16 +4,21 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Chalk;
+namespace Chalk\Core;
 
 use Chalk\Chalk,
 	Chalk\Event,
-	Chalk\Module,
+	Chalk\Module as CoreModule,
     Coast\Request,
     Coast\Response;
 
-class Core extends Module
+class Module extends CoreModule
 {
+    public function __construct()
+    {
+        parent::__construct('../../../');
+    }
+    
 	public function init(Chalk $chalk)
 	{
 		$chalk->frontend->view->dir('Chalk\Core', $chalk->config->viewDir->dir('core'));

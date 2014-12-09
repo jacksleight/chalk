@@ -16,7 +16,7 @@ abstract class Module
 {
     protected $_baseDir;
 
-    public function __construct($baseDir = '../..')
+    public function __construct($baseDir = '../')
     {
     	if (!$baseDir instanceof Dir) {
     		$reflection	= new ReflectionClass(get_class($this));
@@ -39,9 +39,11 @@ abstract class Module
 
     public function nspace($nspace = null)
     {
+        $class = get_class($this);
+        $class = substr($class, 0, strrpos($class, '\\'));
         return isset($nspace)
-            ? get_class($this) . '\\' . $nspace
-            : get_class($this);
+            ? $class . '\\' . $nspace
+            : $class;
     }
 
     public function dir($path = null, $create = false)
