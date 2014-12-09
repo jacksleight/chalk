@@ -103,38 +103,43 @@ class Frontend extends App
 
     public function parse($html)
     {       
-        $doc = $this->_htmlToDom($html);
-        $els = (new DOMXPath($doc))->query('//*[@data-chalk]');
-        foreach ($els as $el) {
-            $data = json_decode($el->getAttribute('data-chalk'), true);
-            $el->removeAttribute('data-chalk');
-            if (!$data) {
-                continue;
-            }
-            if (isset($data['content'])) {
-                if ($this->router->has($data['content']['id'])) {
-                    $url = $this->url([], $data['content']['id'], true);
-                } else {
-                    $url = $this->url("_c{$data['content']['id']}");
+        $doc   = $this->_htmlToDom($html);
+        $xpath = new DOMXPath($doc);
+
+        $els = $xpath->query('//*[@data-chalk]');
+        while ($els->length) {
+            foreach ($els as $el) {
+                $data = json_decode($el->getAttribute('data-chalk'), true);
+                $el->removeAttribute('data-chalk');
+                if (!$data) {
+                    continue;
                 }
-                $el->setAttribute('href', $url);
-            } else if (isset($data['widget'])) {
-                $info   = \Chalk\Chalk::info($data['widget']['name']);
-                $class  = $info->class;
-                $widget = (new $class())->fromArray($data['widget']['params']);
-                $html   = $this->view->render('chalk/' . $info->module->path . '/' . $info->local->path, $widget->toArray());
-                $temp   = $this->_htmlToDom($html);
-                $body   = $temp->getElementsByTagName('body');
-                if ($body->length) {
-                    $nodes = $body->item(0)->childNodes;
-                    for ($i = 0; $i < $nodes->length; $i++) {
-                        $node = $doc->importNode($nodes->item($i), true);
-                        $el->parentNode->insertBefore($node, $el);
+                if (isset($data['content'])) {
+                    if ($this->router->has($data['content']['id'])) {
+                        $url = $this->url([], $data['content']['id'], true);
+                    } else {
+                        $url = $this->url("_c{$data['content']['id']}");
                     }
+                    $el->setAttribute('href', $url);
+                } else if (isset($data['widget'])) {
+                    $info   = \Chalk\Chalk::info($data['widget']['name']);
+                    $class  = $info->class;
+                    $widget = (new $class())->fromArray($data['widget']['params']);
+                    $html   = $this->view->render('chalk/' . $info->module->path . '/' . $info->local->path, $widget->toArray());
+                    $temp   = $this->_htmlToDom($html);
+                    $body   = $temp->getElementsByTagName('body');
+                    if ($body->length) {
+                        $nodes = $body->item(0)->childNodes;
+                        for ($i = 0; $i < $nodes->length; $i++) {
+                            $node = $doc->importNode($nodes->item($i), true);
+                            $el->parentNode->insertBefore($node, $el);
+                        }
+                    }
+                    $el->parentNode->removeChild($el);
                 }
-                $el->parentNode->removeChild($el);
             }
-        }
+            $els = $xpath->query('//*[@data-chalk]');
+        }       
         return $doc->saveHTML();
     }
 
