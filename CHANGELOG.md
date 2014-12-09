@@ -1,5 +1,10 @@
 # Chalk Changelog
 
+### 0.2.4
+
+* **Fixes**
+	* Fix stackable first item issue
+
 ### 0.2.3
 
 * **Fixes**

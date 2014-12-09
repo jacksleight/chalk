@@ -2573,7 +2573,7 @@ legend {
   margin-left: 0;
 }
 .stackable .stackable-item {
-  margin-bottom: 10px;
+  border-bottom: 10px solid white;
   background-color: #d5d6d8;
   position: relative;
   overflow: hidden;
@@ -2605,8 +2605,8 @@ legend {
   background-color: #d5d6d8;
   opacity: 0.4;
 }
-.stackable .stackable-add {
-  margin-top: 10px;
+.stackable .stackable-add-multiple {
+  display: none;
 }
 
 /* Form Name Value */

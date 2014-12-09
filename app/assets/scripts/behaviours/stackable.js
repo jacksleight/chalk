@@ -1,38 +1,56 @@
 Chalk.component('.stackable', function(i, el) {
 	
-	var list		= $(el).find('.stackable-items');
-	var button		= $(el).find('.stackable-add');
+	var items		= $(el).find('.stackable-items');
+	var addBtn		= $(el).find('.stackable-add');
+	var addMultiBtn	= $(el).find('.stackable-add-multiple');
 	var template	= $(el).find('.stackable-template').html();
-	var count		= list.children().length;
+	var count		= items.children().length;
 
 	var add = function() {
 		var content = $($.parseHTML(Mustache.render(template, {i: count++}).trim())[0]);
-		list.append(content);
+		items.append(content);
 		setTimeout(function() {
 			Chalk.initialize(content);
-			list.height('auto');
+			items.height('auto');
 			setTimeout(function() {
-				list.height(list.height());
+				items.height(items.height());
 			}, 1000);
 		}, 1);
+	}
+	var addMulti = function(contents) {
+		$(contents).each(function() {
+			var content = $($.parseHTML(Mustache.render(template, {i: count++}).trim())[0]);
+			var control = content.find('.content');
+			control.find('input[type=hidden]').val(this.id);
+			control.find('.content-holder').html(this.card);
+			control.find('.content-remove').css('display', 'inline-block');
+			items.append(content);
+			setTimeout(function() {
+				Chalk.initialize(content);
+				items.height('auto');
+				setTimeout(function() {
+					items.height(items.height());
+				}, 1000);
+			}, 1);
+		});
 	}
 	var del = function(el) {
 		el.remove();
 		refresh();
-		list.height('auto');
-		list.height(list.height());
+		items.height('auto');
+		items.height(items.height());
 	}
 	var refresh = function() {
-		list.children().each(function(i) {
+		items.children().each(function(i) {
 			$(this).find('input, textarea, select, button, label').each(function() {
 				if ($(this).attr('name')) {
-					$(this).attr('name', $(this).attr('name').replace(/\[\d\]/, '[' + i + ']'));
+					$(this).attr('name', $(this).attr('name').replace(/\[\d+\]/, '[' + i + ']'));
 				}
 			});
 		});
 	}
 
-	button.click(function(ev) {
+	addBtn.click(function(ev) {
 		add();
 	});
 	$(el).on('click', '.stackable-delete', function(ev) {
@@ -42,7 +60,7 @@ Chalk.component('.stackable', function(i, el) {
 		del($(this).closest('.stackable-item'));
 	});
 	
-	list.sortable({
+	items.sortable({
 		handle: '.stackable-move',
 		placeholder: 'stackable-placeholder',
 		helper: function() {
@@ -52,9 +70,9 @@ Chalk.component('.stackable', function(i, el) {
 		forceHelperSize: true,
 		axis: 'y',
 		create: function(ev, ui) {
-			list.height('auto');
+			items.height('auto');
 			setTimeout(function() {
-				list.height(list.height());
+				items.height(items.height());
 			}, 1000);
 		},
 		start: function(ev, ui) {
@@ -70,8 +88,22 @@ Chalk.component('.stackable', function(i, el) {
 		}
 	});
 	
-	if (!list.children().length) {
-		add();
+	var content = $($.parseHTML(Mustache.render(template, {i: 0}).trim())[0]);
+	var control = content.find('.content');
+	if (control.length) {
+		var entity = control.attr('data-entity');
+		addMultiBtn.css('display', 'inline-block');
+		addMultiBtn.click(function(ev) {
+			Chalk.modal(Chalk.selectUrl.replace('{entity}', entity), {}, function(res) {
+				if (res.contents) {
+					addMulti(res.contents);
+				}
+			});
+		});
+	}
+
+	if (!items.children().length) {
+		// add();
 	}
 
 });

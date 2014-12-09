@@ -11,7 +11,7 @@ Chalk.component('.content', function(i, el) {
 			if (res.contents) {
 				input.val(res.contents[0].id);
 				holder.html(res.contents[0].card);
-				remove.show();
+				remove.css('display', 'inline-block');
 			}
 		});
 	});

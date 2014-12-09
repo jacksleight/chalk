@@ -1462,7 +1462,7 @@ legend {
 		margin: 0;
 	}
 	.stackable-item {
-		margin-bottom: $gutter * 0.5;
+		border-bottom: $gutter * 0.5 solid white;
 		background-color: $color-divide;
 		position: relative;
 		@include clearfix;
@@ -1491,8 +1491,8 @@ legend {
 		background-color: $color-divide;
 		opacity: 0.4;
 	}
-	.stackable-add {
-		margin-top: $gutter * 0.5;
+	.stackable-add-multiple {
+		display: none;
 	}
 }
 

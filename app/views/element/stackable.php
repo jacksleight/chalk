@@ -13,7 +13,10 @@
 		<? } ?>
     </ul>
     <span class="btn stackable-add icon-add">
-    	Add <?= isset($stackableLabel) ? $stackableLabel : 'Item' ?>
+    	Add
+    </span>
+    <span class="btn stackable-add-multiple icon-add">
+    	Add Multiple
     </span>
     <script type="x-tmpl-mustache" class="stackable-template">
 		<li class="stackable-item">
