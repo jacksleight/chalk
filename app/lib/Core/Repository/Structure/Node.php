@@ -152,7 +152,7 @@ class Node extends Repository
             $root = is_object($node)
                 ? $node->toArray()
                 : $node;
-            array_unshift($nodes, $root);
+            $nodes[]          = &$root;
             $map[$root['id']] = &$root;
         } else {
             $root = &$nodes[0];
