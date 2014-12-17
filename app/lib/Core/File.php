@@ -83,10 +83,14 @@ class File extends Content
 			$this->subtype = 'application/octet-stream';
 		}
 
+		$regex = '/[\/\?<>\\:\*\|":\x00-\x1f\x80-\x9f]/';
+		$sanitized = clone $file;
+		$sanitized->baseName(preg_replace($regex, '', $file->baseName()));
+
 		$i	 = 0;
 		$dir = $this->dir();
 		do {
-			$temp = clone $file;
+			$temp = clone $sanitized;
 			if ($i > 0) {
 				$temp->suffix("-{$i}");
 			}
