@@ -161,7 +161,7 @@ class Content extends Basic
 		$this->notify("{$req->info->singular} <strong>{$content->name}</strong> was deleted successfully", 'positive');
 		return $res->redirect($this->url(array(
 			'action'	=> 'index',
-			'id'		=> null,
+			'content'	=> null,
 		)));
 	}
 }
