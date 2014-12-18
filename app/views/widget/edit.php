@@ -3,7 +3,7 @@
 	<?php $this->block('main') ?>
 <?php } ?>
 
-<form action="<?= $this->url->route() ?>" method="post" class="fill">
+<form action="<?= $this->url->route() ?>?mode=<?= $req->action ?>&amp;post=1" method="post" class="fill">
 	<div class="flex">
 		<ul class="toolbar">
 			<li><span class="btn btn-quieter modal-close icon-cancel">
@@ -24,11 +24,13 @@
 			</li>
 		</ul>
 		<ul class="toolbar">
-			<li><a href="<?= $this->url([
-				'action'	=> 'delete',
-			]) ?>" class="btn btn-negative btn-quiet confirmable icon-delete" data-message="Are you sure?<?= "\n" ?>This will delete the <?= strtolower($info->singular) ?> and cannot be undone.">
-				Delete <?= $info->singular ?>
-			</a></li>
+			<? if ($req->mode == 'edit') { ?>
+				<li><a href="<?= $this->url([
+					'action'	=> 'delete',
+				]) ?>" class="btn btn-negative btn-quiet confirmable icon-delete" data-message="Are you sure?<?= "\n" ?>This will delete the <?= strtolower($info->singular) ?> and cannot be undone.">
+					Delete <?= $info->singular ?>
+				</a></li>
+			<? } ?>
 		</ul>
 	</fieldset>
 </form>

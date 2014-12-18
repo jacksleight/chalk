@@ -65,7 +65,7 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
 
     };
 
-    var openWidgetModal = function(entity, params, el) {
+    var openWidgetModal = function(entity, mode, params, el) {
 
         var params    = params || {}, 
             el        = el || null,
@@ -74,11 +74,11 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
             html      = selection.getContent()
             text      = selection.getContent({format: 'text'});
     
-        Chalk.modal(Chalk.widgetUrl.replace('{entity}', entity), {data: params}, function(res) {
+        Chalk.modal(Chalk.widgetUrl.replace('{entity}', entity) + '?mode=' + mode, {data: params, method: 'post'}, function(res) {
             if (!res) {
                 return;
             }
-            if (res.delete) {
+            if (res.mode && res.mode == 'delete') {
                 if (el) {
                     el.remove();
                 }
@@ -144,7 +144,7 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
             group  = entity.group;
             item = {
                 text: entity.singular || undefined,
-                onclick: function(entity) { openWidgetModal(entity); }.bind(this, entity.name)
+                onclick: function(entity) { openWidgetModal(entity, 'add'); }.bind(this, entity.name)
             };
             if (group && groups[group]) {
                 menu[groups[group]].menu.push(item);
@@ -183,7 +183,7 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
                 openWidgetSourceModal(code, target);
             } else {
                 data = JSON.parse(code).widget;
-                openWidgetModal(data.name, data.params, target);
+                openWidgetModal(data.name, 'edit', data.params, target);
             }
         }
     });

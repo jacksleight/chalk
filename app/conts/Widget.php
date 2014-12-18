@@ -21,13 +21,12 @@ class Widget extends Basic
 		$class = $req->info->class;
 		$widget = new $class();
 		$req->view->widget = $wrap = $this->em->wrap($widget);
-		$wrap->graphFromArray($req->queryParams());
-
-		if (!$req->isPost()) {
-			return;
-		}
-
 		$wrap->graphFromArray($req->bodyParams());
+      
+        if (!$req->post) {
+            return;
+        }
+
 		if (!$wrap->isValid()) {
 			return;
 		}
@@ -43,7 +42,7 @@ class Widget extends Basic
 	public function delete(Request $req, Response $res)
 	{
 		return $res->json([
-			'delete' => 1,
+			'mode' => 'delete',
 		]);
 	}
 }
