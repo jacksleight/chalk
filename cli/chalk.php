@@ -1,6 +1,4 @@
 <?php
-use Coast\Dir;
-
 if (php_sapi_name() != 'cli') {
 	exit("Must be run from the command line\n");
 }

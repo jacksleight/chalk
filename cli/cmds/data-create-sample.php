@@ -7,7 +7,7 @@ try {
 
 	$app->em->beginTransaction();
 
-	cli\line('Creating test data..');
+	cli\line('Creating sample data..');
 	$html = '
 		<h1>{0}</h1>
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo dignissimos explicabo eius autem dolorum, ducimus, possimus sed sint! Perspiciatis praesentium at eum ea molestiae. Aut voluptas alias magni, amet sit.</p>
