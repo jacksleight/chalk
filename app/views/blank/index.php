@@ -18,13 +18,13 @@ $contents = $this->em($info)
 	<colgroup>
 		<col class="col-name">
 		<col class="col-date">
-		<col class="col-status">
+		<col class="col-badge">
 	</colgroup>
 	<thead>
 		<tr>
 			<th scope="col" class="col-name">Route</th>
 			<th scope="col" class="col-date">Updated</th>
-			<th scope="col" class="col-status">Status</th>
+			<th scope="col" class="col-badge">Status</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -40,7 +40,7 @@ $contents = $this->em($info)
 					<?= $content->modifyDate->diffForHumans() ?><br>
 					<small>by <?= $content->modifyUserName ?></small>
 				</td>	
-				<td class="col-status">
+				<td class="col-badge">
 					<span class="badge badge-status badge-<?= $content->status ?>"><?= $content->status ?></span>
 				</td>	
 			</tr>

@@ -18,7 +18,7 @@ $contents = $this->em($info)
 			<col class="col-select">
 			<col class="col-name">
 			<col class="col-date">
-			<col class="col-status">
+			<col class="col-badge">
 		</colgroup>
 		<thead>
 			<tr>
@@ -27,7 +27,7 @@ $contents = $this->em($info)
 				</th>
 				<th scope="col" class="col-name">Content</th>
 				<th scope="col" class="col-date">Modified</th>
-				<th scope="col" class="col-status">Status</th>
+				<th scope="col" class="col-badge">Status</th>
 			</tr>
 		</thead>
 		<tbody>

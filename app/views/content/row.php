@@ -38,7 +38,7 @@ $link		= isset($link) ? $link : true;
 		<?= $content->modifyDate->diffForHumans() ?><br>
 		<small>by <?= $content->modifyUserName ?></small>
 	</td>
-	<td class="col-status">
+	<td class="col-badge">
 		<span class="badge badge-status badge-<?= $content->status ?>"><?= $content->status ?></span>
 	</td>	
 </tr>

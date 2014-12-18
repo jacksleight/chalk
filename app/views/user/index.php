@@ -31,24 +31,22 @@ $users = $this->em($info)
 </form>
 <table>
 	<colgroup>
-		<col class="col-status">
+		<col class="col-badge">
 		<col class="col-name">
-		<col class="col-emailAddress">
 		<col class="col-role">
 	</colgroup>
 	<thead>
 		<tr>
-			<th scope="col" class="col-status">Enabled</th>
+			<th scope="col" class="col-badge">Enabled</th>
 			<th scope="col" class="col-name">Name</th>
-			<th scope="col" class="col-emailAddress">Email Address</th>
 			<th scope="col" class="col-role">Role</th>
 		</tr>
 	</thead>
 	<tbody>
 		<?php foreach ($users as $user) { ?>
 			<tr class="clickable">
-				<td class="col-status">
-					<span class="badge badge-status badge-<?= (int) $user->isEnabled ?> icon-<?= $user->isEnabled ? 'true' : 'false' ?>"></span>	
+				<td class="col-badge">
+					<span class="badge badge-status badge-<?= (int) $user->isEnabled ?> icon-<?= $user->isEnabled ? 'true' : 'false-dark' ?>"></span>	
 				</td>
 				<th class="col-name" scope="row">
 					<a href="<?= $this->url([
@@ -58,11 +56,6 @@ $users = $this->em($info)
 						<?= $user->name ?>
 					</a>
 				</th>
-				<td class="col-emailAddress">
-					<a href="mailto:<?= $user->emailAddress ?>">
-						<?= $user->emailAddress ?>
-					</a>
-				</td>
 				<td class="col-role">
 					<?= ucfirst($user->isRoot()
 						? \Chalk\Core\User::ROLE_ADMINISTRATOR

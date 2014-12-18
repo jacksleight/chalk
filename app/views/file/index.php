@@ -9,7 +9,7 @@ $contents = $this->em($info)
 	<ul class="toolbar">
 		<li>
 			<span class="btn btn-focus uploadable-button icon-upload">
-				Upload <?= $info->singular ?>
+				Upload <?= $info->plural ?>
 			</span>
 		</li>
 	</ul>
@@ -21,7 +21,7 @@ $contents = $this->em($info)
 				<li><?= $this->render('/content/thumb', ['content' => $content]) ?></li>
 			<?php } ?>
 		<?php } else { ?>
-			<li><?= $this->render('/content/thumb', ['template' => true]) ?></li>
+			<li></li>
 		<?php } ?>		
 	</ul>
 	<input class="uploadable-input" type="file" name="files[]" data-url="<?= $this->url(['action' => 'upload']) ?>" multiple>

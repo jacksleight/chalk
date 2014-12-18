@@ -198,8 +198,8 @@ small {
 	font-weight: normal;
 	@include font-size(-1);
 	padding: 0 $gutter * 0.25;
-	padding-bottom: 1px;
-	vertical-align: 1px;
+	padding-top: 1px;
+	padding-bottom: 2px;
 	display: inline-block;
 	td &, th & {
 		width: 100%;
@@ -210,12 +210,12 @@ small {
 	}
 	&::before {
 		margin-right: 0;
-		vertical-align: -0.2em;
+		vertical-align: -3px;
 	}
 }
 .badge-figure {
 	border-radius: 1000px;
-	min-width: 24px;
+	min-width: 26px;
 	text-align: center;
 }
 .badge-status {
@@ -227,6 +227,9 @@ small {
 	@extend .badge;
 	background-color: white;
 	color: $color-quiet;
+	&::before {
+		opacity: 0.5;
+	}
 }
 .badge-draft,
 .badge-pending {
@@ -242,13 +245,6 @@ small {
 .badge-published {
 	@extend .badge;
 }
-
-.status-pending {
-	color: $color-pending;
-}
-
-/* Icons */
-
 
 /* Rule */
 
@@ -366,7 +362,7 @@ figure {
 	.preview {
 		background-color: $color-shade;
 		position: relative;
-		&:before {
+		&::before {
 			content: '';
 			display: block;
 			@include ratio(1px, 1px);
@@ -393,6 +389,7 @@ figure {
 					margin-right: 0;
 					width: 80px;
 					height: 80px;
+					opacity: 0.15;
 				}
 			}
 		}
@@ -521,15 +518,18 @@ table {
 		margin: $gutter * 0.5 0 0 0;
 		caption-side: bottom;
 	}
-	.col-status,
 	.col-role {
-		width: 1px;
-		text-align: center;
-		.status {
-			width: 100%;
-		}
 		&:last-child {
 			text-align: right;
+		}		
+	}
+	.col-badge {
+		width: 1px;
+		padding-top: $gutter * 0.3;
+		padding-bottom: $gutter * 0.3;
+		text-align: center;
+		.badge {
+			width: 100%;
 		}
 	}
 	.col-type {
@@ -1211,18 +1211,6 @@ legend {
 	}
 	&:hover {
 		cursor: pointer;
-	}
-}
-
-/* Status */
-
-.status {
-	color: $color-quiet;
-	strong {
-		color: $color-foreground;
-	}
-	.badge {
-		margin: 0 2px;
 	}
 }
 

@@ -6,7 +6,7 @@
 /* Text */
 /* Inline Block */
 /* Ratio */
-.ratio, .thumb .preview:before {
+.ratio, .thumb .preview::before {
   -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
@@ -725,8 +725,8 @@ small {
   font-size: 13.91304px;
   font-size: 0.86957rem;
   padding: 0 5px;
-  padding-bottom: 1px;
-  vertical-align: 1px;
+  padding-top: 1px;
+  padding-bottom: 2px;
   display: inline-block;
 }
 td .badge, td .badge-status, td .badge-0,
@@ -746,12 +746,12 @@ th .badge-pending, th .badge-1, th .badge-published {
 .badge-archived::before, .badge-draft::before,
 .badge-pending::before, .badge-1::before, .badge-published::before {
   margin-right: 0;
-  vertical-align: -0.2em;
+  vertical-align: -3px;
 }
 
 .badge-figure {
   border-radius: 1000px;
-  min-width: 24px;
+  min-width: 26px;
   text-align: center;
 }
 
@@ -763,6 +763,10 @@ th .badge-pending, th .badge-1, th .badge-published {
 .badge-archived {
   background-color: white;
   color: #969a9d;
+}
+.badge-0::before,
+.badge-archived::before {
+  opacity: 0.5;
 }
 
 .badge-draft,
@@ -776,11 +780,6 @@ th .badge-pending, th .badge-1, th .badge-published {
   border-color: #09bd5e;
 }
 
-.status-pending {
-  color: #FC6042;
-}
-
-/* Icons */
 /* Rule */
 hr {
   margin: 20px 0;
@@ -880,7 +879,7 @@ video {
   text-align: center;
   padding: 20px;
 }
-.video .ratio, .video .thumb .preview:before, .thumb .video .preview:before {
+.video .ratio, .video .thumb .preview::before, .thumb .video .preview::before {
   display: block !important;
 }
 
@@ -960,7 +959,7 @@ figure figcaption {
   background-color: #fafafb;
   position: relative;
 }
-.thumb .preview:before {
+.thumb .preview::before {
   content: '';
   display: block;
   padding-top: 100%;
@@ -1010,6 +1009,7 @@ figure figcaption {
   margin-right: 0;
   width: 80px;
   height: 80px;
+  opacity: 0.15;
 }
 .thumb .preview .progress {
   z-index: 2;
@@ -1157,18 +1157,19 @@ table caption {
   margin: 10px 0 0 0;
   caption-side: bottom;
 }
-table .col-status,
-table .col-role {
-  width: 1px;
-  text-align: center;
-}
-table .col-status .status,
-table .col-role .status {
-  width: 100%;
-}
-table .col-status:last-child,
 table .col-role:last-child {
   text-align: right;
+}
+table .col-badge {
+  width: 1px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  text-align: center;
+}
+table .col-badge .badge, table .col-badge .badge-status, table .col-badge .badge-0,
+table .col-badge .badge-archived, table .col-badge .badge-draft,
+table .col-badge .badge-pending, table .col-badge .badge-1, table .col-badge .badge-published {
+  width: 100%;
 }
 table .col-type {
   width: 100px;
@@ -2224,19 +2225,6 @@ legend {
 }
 .clickable:hover {
   cursor: pointer;
-}
-
-/* Status */
-.status {
-  color: #969a9d;
-}
-.status strong {
-  color: #2d353c;
-}
-.status .badge, .status .badge-status, .status .badge-0,
-.status .badge-archived, .status .badge-draft,
-.status .badge-pending, .status .badge-1, .status .badge-published {
-  margin: 0 2px;
 }
 
 /* Menu */
