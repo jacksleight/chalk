@@ -16695,7 +16695,7 @@ Chalk.component('.stackable', function(i, el) {
 	}
 
 	if (!items.children().length) {
-		// add();
+		add();
 	}
 
 });
