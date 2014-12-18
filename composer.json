@@ -1,33 +1,34 @@
 {
-  "name": "jacksleight/chalk",
-  "type": "project",
-  "description": "Content management system built on Coast",
-  "keywords": ["cms"],
-  "homepage": "http://chalk.jacksleight.com/",
-  "license": "MIT",
-  "authors": [
-    {"name": "Jack Sleight", "email": "jacksleight@gmail.com"}
-  ],
-  "require": {
-    "php": ">=5.5.0",
-    "doctrine/orm": "2.4.*",
-    "swiftmailer/swiftmailer": "5.3.*",
-    "intervention/image": "2.0.*",
-    "gargron/fileupload": "1.0.*",
-    "nesbot/carbon": "1.13.*",
-    "respect/validation": "0.6.*",
-    "jacksleight/coast": "0.2.*",
-    "jacksleight/coast-doctrine": "0.2.*",
-    "wp-cli/php-cli-tools": "0.10.*"
-  },
-  "require-dev": {
-    "php-console/php-console": "3.*"
-  },
-  "autoload": {
-    "psr-4": {
-      "Chalk\\": "app/lib/",
-      "Chalk\\Core\\Controller\\": "app/conts/",
-      "Toast\\": "app/toast/"
+    "name": "jacksleight/chalk",
+    "type": "project",
+    "description": "Content management system built on Coast",
+    "keywords": ["cms"],
+    "homepage": "http://chalk.jacksleight.com/",
+    "license": "MIT",
+    "authors": [
+        {"name": "Jack Sleight", "email": "jacksleight@gmail.com"}
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "doctrine/orm": "2.4.*",
+        "swiftmailer/swiftmailer": "5.3.*",
+        "intervention/image": "2.0.*",
+        "gargron/fileupload": "1.0.*",
+        "nesbot/carbon": "1.13.*",
+        "respect/validation": "0.6.*",
+        "jacksleight/coast": "0.2.*",
+        "jacksleight/coast-doctrine": "0.2.*",
+        "wp-cli/php-cli-tools": "0.10.*"
+    },
+    "require-dev": {
+        "php-console/php-console": "3.*"
+    },
+    "bin": ["cli/chalk", "cli/chalk.php"],
+    "autoload": {
+        "psr-4": {
+            "Chalk\\": "app/lib/",
+            "Chalk\\Core\\Controller\\": "app/conts/",
+            "Toast\\": "app/toast/"
+        }
     }
-  }
 }

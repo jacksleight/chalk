@@ -1,19 +1,13 @@
 <?php
-// use Coast\Cli;
+if (cli\choose("Are you sure", 'yn', 'n') == 'n') {
+	exit;
+}
 
-// require __DIR__ . '/../../../../app.php';
+try {
 
-// $cli = new Cli();
+	$app->em->beginTransaction();
 
-// $em		= $app->chalk->em;
-// $schema	= new \Doctrine\ORM\Tools\SchemaTool($em);
-
-// try {
-
-// 	$em->beginTransaction();
-
-	$cli->output('Creating test data', true);
-
+	cli\line('Creating test data..');
 	$html = '
 		<h1>{0}</h1>
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo dignissimos explicabo eius autem dolorum, ducimus, possimus sed sint! Perspiciatis praesentium at eum ea molestiae. Aut voluptas alias magni, amet sit.</p>
@@ -47,6 +41,7 @@
 		'ante. Vivamus non lorem',
 	);
 	shuffle($names);
+	$struct = $app->em('Chalk\Core\Structure')->one([], 'id');
 	$nodes = [
 		$struct->root,
 	];
@@ -57,24 +52,21 @@
 			'name'		=> $name,
 			'blocks'	=> [['name' => 'primary', 'value' => str_replace('{0}', $name, $html)]],
 		]);
-		$em->persist($page);
+		$app->em->persist($page);
 		$node = new \Chalk\Core\Structure\Node();
 		$node->content = $page;
 		$node->parent = rand(0, 10) ? $nodes[array_rand($nodes)] : $nodes[0];
-		$em->persist($node);
+		$app->em->persist($node);
 		$nodes[] = $node;
 	}
-	$em->flush();
+	$app->em->flush();
 
-// 	$cli->output('Comitting to database', true);
-// 	$em->commit();
+	cli\line('Comitting to database..');
+	$app->em->commit();
 
-// 	$cli->output('DONE', true);
+} catch (Exception $e) {
 
-// } catch (Exception $e) {
+	$app->em->rollback();
+	cli\error('Error: ' . $e->getMessage());
 
-// 	$em->rollback();
-// 	$cli->error('ERROR: ' . $e->getMessage());
-// 	throw $e;
-
-// }
+}
