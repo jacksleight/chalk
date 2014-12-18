@@ -18,8 +18,8 @@ use Respect\Validation\Validator;
 class Domain extends \Toast\Entity implements Trackable
 {
 	public static $_chalkInfo = [
-		'singular'	=> 'Site',
-		'plural'	=> 'Sites',
+		'singular'	=> 'Domain',
+		'plural'	=> 'Domains',
 	];
 	
     use Trackable\Entity;

@@ -18,7 +18,7 @@
 				<?= $this->render('/element/form-item', array(
 					'entity'	=> $domain,
 					'name'		=> 'name',
-					'label'		=> 'Domain Name',
+					'label'		=> 'Name',
 					'autofocus'	=> true,
 				)) ?>
 				<?= $this->render('/element/form-item', array(

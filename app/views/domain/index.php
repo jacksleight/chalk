@@ -22,7 +22,7 @@ $domains = $this->em($info)
 	</colgroup>
 	<thead>
 		<tr>
-			<th scope="col" class="col-name">Domain Name</th>
+			<th scope="col" class="col-name">Name</th>
 			<th scope="col" class="col-date">Added</th>
 		</tr>
 	</thead>

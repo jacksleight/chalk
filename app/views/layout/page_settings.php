@@ -12,7 +12,7 @@
 			'name'  => 'setting',
 			'params'=> ['controller' => 'user'],
 		], [
-			'label' => 'Sites',
+			'label' => 'Domains',
 			'name'  => 'setting',
 			'params'=> ['controller' => 'domain'],
 		], [
