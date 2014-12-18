@@ -21,9 +21,9 @@ class Repository extends EntityRepository
 		return $reflection->newInstanceArgs($args);
 	}
 
-	public function id($id)
+	public function id($id, array $criteria = array())
 	{
-		return $this->query(['ids' => [$id]])
+		return $this->query(array_merge($criteria, ['ids' => [$id]]))
 			->getQuery()
 			->getOneOrNullResult();
 	}
