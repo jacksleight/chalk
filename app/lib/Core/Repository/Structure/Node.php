@@ -34,10 +34,8 @@ class Node extends Repository
         ];
 
         $query
-            ->addSelect("c", "cv")
-            ->leftJoin("n.content", "c")
-            ->leftJoin("c.versions", "cv")
-            ->andWhere("cv.next IS NULL");
+            ->addSelect("c")
+            ->leftJoin("n.content", "c");
 
         $depth = null;
         if (isset($criteria['structure'])) {

@@ -24,12 +24,10 @@ class Structure extends Repository
         $query = parent::query($criteria, $sort, $limit, $offset);
 
         $query
-            ->addSelect("n", "c", "cv")
+            ->addSelect("n", "c")
             ->leftJoin("s.nodes", "n")
             ->leftJoin("n.content", "c")
-            ->leftJoin("c.versions", "cv")
-            ->andWhere("n.left = 0")
-            ->andWhere("cv.next IS NULL");
+            ->andWhere("n.left = 0");
 
         $this->publishableQueryModifier($query, $criteria);
 

@@ -17,13 +17,11 @@ class Domain extends Repository
         $query = parent::query($criteria, $sort, $limit, $offset);
 
         $query
-            ->addSelect("s", "n", "c", "cv")
+            ->addSelect("s", "n", "c")
             ->leftJoin("d.structure", "s")
             ->leftJoin("s.nodes", "n")
             ->leftJoin("n.content", "c")
-            ->leftJoin("c.versions", "cv")
-            ->andWhere("n.left = 0")
-            ->andWhere("cv.next IS NULL");
+            ->andWhere("n.left = 0");
 
         return $query;
     }
