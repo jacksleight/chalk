@@ -85,7 +85,9 @@ class Content extends Repository
 		}
 
 		if (!isset($sort)) {
-			$query->orderBy("c.modifyDate", "DESC");
+			$query
+				->orderBy("c.modifyDate", "DESC")
+				->addOrderBy("c.id", "DESC");
 		}
 
 		$this->publishableQueryModifier($query, $criteria);

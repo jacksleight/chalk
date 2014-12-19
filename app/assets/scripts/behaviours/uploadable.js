@@ -6,17 +6,18 @@ Chalk.component('.uploadable', function(i, el) {
 	var button		= $(el).find('.uploadable-button');
 	var list		= $(el).find('.uploadable-list');
 	var template	= $(el).find('.uploadable-template').html();
+	var first		= $(list.children()[0]);
 	Mustache.parse(template);
 
 	$(el).find('.uploadable-input').fileupload({
 		dropZone: el,
 		dataType: 'json',
 		maxChunkSize: 1048576,
-		limitConcurrentUploads: 3
+		sequentialUploads: true
 	}).bind('fileuploadadd', function (e, data) {
 		var file = data.files[0];
 		data.context = $($.parseHTML('<li>' + Mustache.render(template, file).trim() + '</li>')[0]);
-		list.prepend(data.context);
+		first.before(data.context);
 	}).bind('fileuploadprogress', function (e, data) {
 		var perc = parseInt(data.loaded / data.total * 100, 10);
 		data.context.find('.progress span')
