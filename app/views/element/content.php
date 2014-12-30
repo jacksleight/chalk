@@ -9,9 +9,9 @@ $browser['entity'] = \Chalk\Chalk::info(isset($browser['entity'])
 		<span class="content-select btn btn-quieter btn-icon icon-browse">Browse</span>
 	</div>
 	<div class="content-holder">
-		<?php if (isset($entity->{$name})) { ?>
+		<?php if (isset($value)) { ?>
 			<?= $this->render('/content/card', [
-				'content' => $this->em('Chalk\Core\Content')->id((string) $entity->{$name})
+				'content' => $this->em('Chalk\Core\Content')->id((string) $value)
 			]) ?>		
 		<?php } else { ?>
 			<span class="placeholder">Nothing Selected</span>
@@ -19,6 +19,6 @@ $browser['entity'] = \Chalk\Chalk::info(isset($browser['entity'])
 	</div>
 	<?= $this->render('input', [
 		'type'		=> 'hidden',
-		'value'		=> $entity->{$name},
+		'value'		=> $value,
 	]) ?>
 </div>

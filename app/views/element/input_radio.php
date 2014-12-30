@@ -1,24 +1,20 @@
 <?php
-$required = !$md['nullable'];
-$values = isset($values)
-	? $values
-	: $md['values'];
-if (isset($null)) {
-	$values = array_merge([null => $null], $values);
-}
+$values = isset($null)
+	? [null => $null] + $values
+	: $values;
 ?>
-<?php foreach ($values as $value => $label) { ?>
+<?php foreach ($values as $v => $l) { ?>
 	<input
 		type="radio"
-		name="<?= "{$md['contextName']}" ?>"
-		id="<?= "_{$md['contextName']}[{$value}]" ?>"
-		value="<?= $this->escape($value) ?>"
+		name="<?= "{$name}" ?>"
+		id="<?= "{$id}[{$this->escape($v)}]" ?>"
+		value="<?= $this->escape($v) ?>"
 		<?= isset($disabled) && $disabled ? "disabled" : null ?>
 		<?= isset($readOnly) && $readOnly ? "readonly" : null ?>
 		<?= isset($required) && $required ? "required" : null ?>
-		<?= (string) $value === (string) $entity->{$name} ? 'checked' : null ?>
+		<?= $v == $value ? 'checked' : null ?>
 		<?= isset($class) ? "class=\"{$class}\"" : null ?>>
-	<label for="<?= "_{$md['contextName']}[{$value}]" ?>" class="radio">
-		<?= $this->escape($label) ?>
+	<label for="<?= "{$id}[{$this->escape($v)}]" ?>" class="radio">
+		<?= $l ?>
 	</label>
 <?php } ?>

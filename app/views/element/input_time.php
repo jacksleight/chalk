@@ -1,7 +1,7 @@
 <?php
 echo $this->render('input', [
-	'type'		=> 'time',
-	'value'		=> isset($entity->{$name})
-		? $entity->{$name}->format("H:i")
-		: null,
+	'type'	=> 'time',
+	'value'	=> $value instanceof \DateTime
+		? $value->format("H:i")
+		: $value,
 ]);

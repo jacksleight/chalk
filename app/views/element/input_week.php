@@ -1,7 +1,7 @@
 <?php
 echo $this->render('input', [
-	'type'		=> 'week',
-	'value'		=> isset($entity->{$name})
-		? $entity->{$name}->format("Y-\WW")
-		: null,
+	'type'	=> 'week',
+	'value'	=> $value instanceof \DateTime
+		? $value->format("Y-\WW")
+		: $value,
 ]);

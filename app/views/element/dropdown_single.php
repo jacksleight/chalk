@@ -1,16 +1,12 @@
 <?php
-$required = !$md['nullable'];
-$values = isset($values)
-	? $values
-	: $md['values'];
-if (isset($null)) {
-	$values = array_merge([null => $null], $values);
-}
+$values = isset($null)
+	? [null => $null] + $values
+	: $values;
 ?>
 <div class="dropdown">
 	<div class="value <?= isset($icon) ? "icon {$icon}" : null ?>">
-		<?php if (count($entity->{$name})) { ?>
-			<?= $values[$entity->{$name}] ?>
+		<?php if (isset($value)) { ?>
+			<?= $values[$value] ?>
 		<?php } else { ?>
 			<span class="placeholder"><?= $placeholder ?></span>
 		<?php } ?>		
@@ -18,20 +14,20 @@ if (isset($null)) {
 	<?php if (count($values)) { ?>	
 		<div class="menu">
 			<ul>
-				<?php foreach ($values as $value => $label) { ?>
+				<?php foreach ($values as $v => $l) { ?>
 					<li>
 						<input
 							type="radio"
-							name="<?= "{$md['contextName']}" ?>"
-							id="<?= "_{$md['contextName']}[{$value}]" ?>"
-							value="<?= $this->escape($value) ?>"
+							name="<?= "{$name}" ?>"
+							id="<?= "{$id}[{$this->escape($v)}]" ?>"
+							value="<?= $this->escape($v) ?>"
 							<?= isset($disabled) && $disabled ? "disabled" : null ?>
 							<?= isset($readOnly) && $readOnly ? "readonly" : null ?>
 							<?= isset($required) && $required ? "required" : null ?>
-							<?= (string) $value === (string) $entity->{$name} ? 'checked' : null ?>
+							<?= $v == $value ? 'checked' : null ?>
 							<?= isset($class) ? "class=\"{$class}\"" : null ?>>
-						<label for="<?= "_{$md['contextName']}[{$value}]" ?>" class="item radio">
-							<?= $this->escape($label) ?>
+						<label for="<?= "{$id}[{$this->escape($v)}]" ?>" class="item radio">
+							<?= $l ?>
 						</label>
 					</li>
 				<?php } ?>

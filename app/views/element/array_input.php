@@ -3,17 +3,17 @@ $stackable = isset($stackable) ? $stackable : true;
 ?>
 <div class="<?= $stackable ? 'stackable' : null ?>">
     <div class="stackable-list">
-        <?php foreach ($entity->{$name} as $i => $item) { ?>
+        <?php foreach ($value as $i => $item) { ?>
             <div class="stackable-item form-group form-group-horizontal">
                 <?php if ($stackable) { ?>
                     <input
                         type="text"
-                        name="<?= "{$md['contextName']}[{$i}][name]" ?>"
-                        id="<?= "_{$md['contextName']}[{$i}][name]" ?>"
+                        name="<?= "{$name}[{$i}][name]" ?>"
+                        id="<?= "{$id}[{$i}][name]" ?>"
                         placeholder="Name"
                         value="<?= $this->escape($item['name']) ?>"
                         class="width-3"
-                        <?= isset($datalist) ? "list=\"_{$md['contextName']}_datalist\"" : null ?>
+                        <?= isset($datalist) ? "list=\"{$id}_datalist\"" : null ?>
                         <?= isset($disabled) && $disabled ? "disabled" : null ?>
                         <?= isset($readOnly) && $readOnly ? "readonly" : null ?>>
                 <?php } else { ?>
@@ -22,13 +22,13 @@ $stackable = isset($stackable) ? $stackable : true;
                     </span>
                     <input
                         type="hidden"
-                        name="<?= "{$md['contextName']}[{$i}][name]" ?>"
+                        name="<?= "{$name}[{$i}][name]" ?>"
                         value="<?= $this->escape($item['name']) ?>">
                 <?php } ?>
                 <input
                     type="text"
-                    name="<?= "{$md['contextName']}[{$i}][value]" ?>"
-                    id="<?= "_{$md['contextName']}[{$i}][value]" ?>"
+                    name="<?= "{$name}[{$i}][value]" ?>"
+                    id="<?= "{$id}[{$i}][value]" ?>"
                     placeholder="Value"
                     value="<?= $this->escape($item['value']) ?>"
                     <?= isset($disabled) && $disabled ? "disabled" : null ?>
@@ -44,18 +44,18 @@ $stackable = isset($stackable) ? $stackable : true;
              <div class="stackable-item form-group form-group-horizontal">
                 <input
                     type="text"
-                    name="<?= "{$md['contextName']}[{{i}}][name]" ?>"
-                    id="<?= "_{$md['contextName']}[{{i}}][name]" ?>"
+                    name="<?= "{$name}[{{i}}][name]" ?>"
+                    id="<?= "{$id}[{{i}}][name]" ?>"
                     placeholder="Name"
                     value=""
                     class="width-3"
-                    <?= isset($datalist) ? "list=\"_{$md['contextName']}_datalist\"" : null ?>
+                    <?= isset($datalist) ? "list=\"{$id}_datalist\"" : null ?>
                     <?= (isset($disabled) && $disabled) || !$stackable ? "disabled" : null ?>
                     <?= isset($readOnly) && $readOnly ? "readonly" : null ?>>
                 <input
                     type="text"
-                    name="<?= "{$md['contextName']}[{{i}}][value]" ?>"
-                    id="<?= "_{$md['contextName']}[{{i}}][value]" ?>"
+                    name="<?= "{$name}[{{i}}][value]" ?>"
+                    id="<?= "{$id}[{{i}}][value]" ?>"
                     placeholder="Value"
                     value=""
                     <?= isset($disabled) && $disabled ? "disabled" : null ?>
@@ -65,7 +65,7 @@ $stackable = isset($stackable) ? $stackable : true;
     <?php } ?>
 </div>
 <?php if (isset($datalist)) { ?>
-    <datalist id="<?= "_{$md['contextName']}_datalist" ?>">
+    <datalist id="<?= "{$id}_datalist" ?>">
         <?php foreach ($datalist as $value) { ?>
             <option value="<?= $value ?>">
         <?php } ?>

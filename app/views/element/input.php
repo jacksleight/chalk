@@ -1,10 +1,7 @@
-<?php
-$required = !$md['nullable'];
-?>
 <input
 	type="<?= $type ?>"
-	name="<?= "{$md['contextName']}" ?>"
-	id="<?= "_{$md['contextName']}" ?>"
+	name="<?= "{$name}" ?>"
+	id="<?= "{$id}" ?>"
 	<?= isset($value) ? "value=\"" . $this->escape($value) . "\"" : null ?>
 	<?= isset($class) ? "class=\"{$class}\"" : null ?>
 	<?= isset($disabled) && $disabled ? "disabled" : null ?>

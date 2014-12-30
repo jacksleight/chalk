@@ -23,6 +23,12 @@ $type = !isset($type)
 		? $types[$md['type']]
 		: 'input_text')
 	: $type;
+$values = isset($values)
+	? $values
+	: (isset($md['values']) ? $md['values'] : []);
+$render = isset($input)
+	? $input
+	: [$type, null];
 ?>
 <div class="form-item <?= !$md['nullable'] ? 'required' : 'optional' ?>">
 	<?php if ($type != 'input_checkbox') { ?>
@@ -32,10 +38,19 @@ $type = !isset($type)
 		</label>
 	<?php } ?>
 	<div>
-		<?= $this->render("form-input", [
-			'md' 	=> $md,
-			'type' 	=> $type,
-		]) ?>
+		<?= $this->render($render[0], [
+			'md'		=> $md,
+			'type'		=> $type,
+			'name'		=> $md['contextName'],
+			'id'		=> $md['contextName'],
+			'value'		=> $entity->{$name},
+			'values'	=> $values,
+			'required'	=> !$md['nullable'],
+			'maxlength'	=> $md['length'],
+			'disabled'	=> isset($disabled)
+				? $disabled
+				: ($entity->getObject() instanceof \Chalk\Behaviour\Publishable && $entity->isArchived()),
+		], $render[1]) ?>
 		<?php
 		$errors = $entity->getErrors([$name]);
 		?>

@@ -1,17 +1,17 @@
 <?php
 $items = [];
 ?>
-<?php foreach ($entity->{$name} as $i => $item) { ?>
+<?php foreach ($value as $i => $item) { ?>
 	<?php $this->start() ?>
 		<div class="form-group form-group-vertical">
 			<?php if ($stackable) { ?>
 				<input
 	                type="text"
-	                name="<?= "{$md['contextName']}[{$i}][name]" ?>"
-	                id="<?= "_{$md['contextName']}[{$i}][name]" ?>"
+	                name="<?= "{$name}[{$i}][name]" ?>"
+	                id="<?= "{$id}[{$i}][name]" ?>"
 	                placeholder="Name"
 	                value="<?= $this->escape($item['name']) ?>"
-	                <?= isset($datalist) ? "list=\"_{$md['contextName']}_datalist\"" : null ?>
+	                <?= isset($datalist) ? "list=\"{$id}_datalist\"" : null ?>
 	                <?= isset($disabled) && $disabled ? "disabled" : null ?>
 	                <?= isset($readOnly) && $readOnly ? "readonly" : null ?>>
 			<?php } else { ?>
@@ -20,12 +20,12 @@ $items = [];
 				</span>
 				<input
 	                type="hidden"
-	                name="<?= "{$md['contextName']}[{$i}][name]" ?>"
+	                name="<?= "{$name}[{$i}][name]" ?>"
 	                value="<?= $this->escape($item['name']) ?>">
 			<?php } ?>
 			<textarea
-				name="<?= "{$md['contextName']}[{$i}][value]" ?>"
-				id="<?= "_{$md['contextName']}[{$i}][value]" ?>"
+				name="<?= "{$name}[{$i}][value]" ?>"
+				id="<?= "{$id}[{$i}][value]" ?>"
 				<?= isset($class) ? "class=\"{$class}\"" : null ?>
 				<?= isset($rows) ? "rows=\"{$rows}\"" : null ?>
 				<?= isset($cols) ? "cols=\"{$cols}\"" : null ?>
@@ -38,16 +38,16 @@ $items = [];
 		<div class="form-group form-group-vertical">
 			<input
 	            type="text"
-	            name="<?= "{$md['contextName']}[{{i}}][name]" ?>"
-	            id="<?= "_{$md['contextName']}[{{i}}][name]" ?>"
+	            name="<?= "{$name}[{{i}}][name]" ?>"
+	            id="<?= "{$id}[{{i}}][name]" ?>"
 	            placeholder="Name"
 	            value=""
-	       		<?= isset($datalist) ? "list=\"_{$md['contextName']}_datalist\"" : null ?>
+	       		<?= isset($datalist) ? "list=\"{$id}_datalist\"" : null ?>
 	            <?= (isset($disabled) && $disabled) || !$stackable ? "disabled" : null ?>
 	            <?= isset($readOnly) && $readOnly ? "readonly" : null ?>>
 			<textarea
-				name="<?= "{$md['contextName']}[{{i}}][value]" ?>"
-				id="<?= "_{$md['contextName']}[{{i}}][value]" ?>"
+				name="<?= "{$name}[{{i}}][value]" ?>"
+				id="<?= "{$id}[{{i}}][value]" ?>"
 				<?= isset($class) ? "class=\"{$class}\"" : null ?>
 				<?= isset($rows) ? "rows=\"{$rows}\"" : null ?>
 				<?= isset($cols) ? "cols=\"{$cols}\"" : null ?>
@@ -62,7 +62,7 @@ $items = [];
 	<?= implode(null, $items) ?>
 <? } ?>
 <? if (isset($datalist)) { ?>
-	<datalist id="<?= "_{$md['contextName']}_datalist" ?>">
+	<datalist id="<?= "{$id}_datalist" ?>">
 	    <?php foreach ($datalist as $value) { ?>
 	        <option value="<?= $value ?>">
 	    <?php } ?>

@@ -1,20 +1,17 @@
-<?php
-$required = !$md['nullable'];
-?>
 <input
 	type="hidden"
-	name="<?= "{$md['contextName']}" ?>"
+	name="<?= "{$name}" ?>"
 	value="0">
 <input
 	type="checkbox"
-	name="<?= "{$md['contextName']}" ?>"
-	id="<?= "_{$md['contextName']}" ?>"
+	name="<?= "{$name}" ?>"
+	id="<?= "{$id}" ?>"
 	value="1"
 	<?= isset($disabled) && $disabled ? "disabled" : null ?>
 	<?= isset($readOnly) && $readOnly ? "readonly" : null ?>
-	<?= false && isset($required) && $required ? "required" : null ?>
-	<?= $entity->{$name} ? 'checked' : null ?>
+	<?= isset($required) && $required ? "required" : null ?>
+	<?= $value ? 'checked' : null ?>
 	<?= isset($class) ? "class=\"{$class}\"" : null ?>>
-<label for="<?= "_{$md['contextName']}" ?>">
+<label for="<?= "{$id}" ?>">
 	<?= $label ?>
 </label>

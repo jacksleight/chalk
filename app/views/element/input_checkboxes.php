@@ -1,25 +1,18 @@
-<?php
-$values = isset($values)
-	? $values
-	: $md['values'];
-?>
-<?php foreach ($values as $value => $label) { ?>
+<?php foreach ($values as $v => $l) { ?>
 	<input
 		type="hidden"
-		name="<?= "{$md['contextName']}[{$value}]" ?>"
+		name="<?= "{$name}[{$this->escape($v)}]" ?>"
 		value="0">
 	<input
 		type="checkbox"
-		name="<?= "{$md['contextName']}[{$value}]" ?>"
-		id="<?= "_{$md['contextName']}[{$value}]" ?>"
+		name="<?= "{$name}[{$this->escape($v)}]" ?>"
+		id="<?= "{$id}[{$this->escape($v)}]" ?>"
 		value="1"
 		<?= isset($disabled) && $disabled ? "disabled" : null ?>
 		<?= isset($readOnly) && $readOnly ? "readonly" : null ?>
-		<?= in_array((string) $value, is_object($entity->{$name})
-			? array_map(function($value) { return (string) $value; }, $entity->{$name}->toArray())
-			: $entity->{$name}) ? 'checked' : null ?>
+		<?= in_array($v, $value) ? 'checked' : null ?>
 		<?= isset($class) ? "class=\"{$class}\"" : null ?>> 
-	<label for="<?= "_{$md['contextName']}[{$value}]" ?>" class="checkbox">
-		<?= $this->escape((is_object($value) ? $value->name : $label)) ?>
+	<label for="<?= "{$id}[{$this->escape($v)}]" ?>" class="checkbox">
+		<?= $l ?>
 	</label>
 <?php } ?>
