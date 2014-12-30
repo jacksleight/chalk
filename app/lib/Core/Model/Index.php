@@ -8,6 +8,9 @@ namespace Chalk\Core\Model;
 
 class Index extends \Toast\Entity
 {
+	protected $page = 1;
+	protected $limit = 50;
+	protected $sort;
 	protected $search;
 	protected $modifyDateMin;
 	protected $statuses = [
@@ -21,6 +24,22 @@ class Index extends \Toast\Entity
 	{
 		return array(
 			'fields' => array(
+				'limit' => array(
+					'type'		=> 'integer',
+					'nullable'	=> true,
+					'values'	=> [
+						50	=> '50',
+						100	=> '100',
+						200	=> '200',
+					],
+				),
+				'page' => array(
+					'type'		=> 'integer',
+				),
+				'sort' => array(
+					'type'		=> 'string',
+					'nullable'	=> true,
+				),
 				'search' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,

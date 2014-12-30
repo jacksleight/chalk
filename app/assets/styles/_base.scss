@@ -344,6 +344,7 @@ figure {
 
 .thumbs {
 	margin-top: $gutter;
+	min-height: 600px;
 	@include no-bullets;
 	@include inline-blocks('li', $gutter * 0.5, $gutter * 0.5);
 	li {
@@ -806,12 +807,12 @@ input[type=button],
 	&[disabled] {
 		opacity: 0.25;
 	}
-	&:hover { 
-		background-color: shade($color-quiet, 10%) !important;
-		border-color: shade($color-quiet, 10%) !important;
-	}
-	&.active {
-		@include arrow(38px, 1px);
+	&:hover,
+	&:focus,
+	&:active,
+	&.active { 
+		background-color: shade($color-quiet, 15%) !important;
+		border-color: shade($color-quiet, 15%) !important;
 	}
 	&.btn-collapse {
 		max-height: 40px;
@@ -835,42 +836,68 @@ input[type=button],
 	&.btn-focus {
 		background-color: $color-focus;
 		border-color: $color-focus;
-		&:hover { 
-			background-color: shade($color-focus, 10%) !important;
-			border-color: shade($color-focus, 10%) !important;
+		&:hover,
+		&:focus,
+		&:active,
+		&.active { 
+			background-color: shade($color-focus, 15%) !important;
+			border-color: shade($color-focus, 15%) !important;
 		}
 	}
 	&.btn-pending {
 		background-color: $color-pending;
 		border-color: $color-pending;
-		&:hover { 
-			background-color: shade($color-pending, 10%) !important;
-			border-color: shade($color-pending, 10%) !important;
+		&:hover,
+		&:focus,
+		&:active,
+		&.active { 
+			background-color: shade($color-pending, 15%) !important;
+			border-color: shade($color-pending, 15%) !important;
 		}
 	}
 	&.btn-positive {
 		background-color: $color-positive;
 		border-color: $color-positive;
-		&:hover { 
-			background-color: shade($color-positive, 10%) !important;
-			border-color: shade($color-positive, 10%) !important;
+		&:hover,
+		&:focus,
+		&:active,
+		&.active { 
+			background-color: shade($color-positive, 15%) !important;
+			border-color: shade($color-positive, 15%) !important;
 		}
 	}
 	&.btn-negative {
 		background-color: $color-negative;
 		border-color: $color-negative;
-		&:hover { 
-			background-color: shade($color-negative, 10%) !important;
-			border-color: shade($color-negative, 10%) !important;
+		&:hover,
+		&:focus,
+		&:active,
+		&.active { 
+			background-color: shade($color-negative, 15%) !important;
+			border-color: shade($color-negative, 15%) !important;
 		}
 	}
 	&.btn-quiet {
 		background-color: $color-quiet;
 		border-color: $color-quiet;
+		&:hover,
+		&:focus,
+		&:active,
+		&.active { 
+			background-color: shade($color-quiet, 15%) !important;
+			border-color: shade($color-quiet, 15%) !important;
+		}
 	}
 	&.btn-quieter {
 		background-color: $color-quieter;
 		border-color: $color-quieter;
+		&:hover,
+		&:focus,
+		&:active,
+		&.active { 
+			background-color: shade($color-quieter, 15%) !important;
+			border-color: shade($color-quieter, 15%) !important;
+		}
 	}
 	&.btn-icon {
 		width: 38px;
@@ -883,6 +910,9 @@ input[type=button],
 	}
 	small {
 		color: transparentize(white, 0.35);
+	}
+	&[disabled], &.disabled {
+		opacity: 0.5;
 	}
 }
 
@@ -946,13 +976,11 @@ textarea,
 		overflow: hidden;
 		@include transition(max-height $speed ease);
 		@include box-shadow(0 5px 0 0 transparentize(black, 0.95));
-		&:hover {
-			overflow-y: auto;
-		}
 	}
 	&:hover .menu {
 		max-height: 300px;
 		border-bottom-width: 1px;
+		overflow-y: auto;
 	}
 	.sidebar & .value {
 		@include image(arrow-dropdown);
@@ -1111,6 +1139,12 @@ legend {
 	}
 	a {
 		text-decoration: none;
+	}
+	&.tight {
+		@include inline-blocks('> li', 1px);
+	}
+	&.right {
+		float: right;
 	}
 }
 

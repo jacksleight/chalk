@@ -2,7 +2,7 @@
 $filter = $this->em->wrap(new \Chalk\Core\Model\Index())
 	->graphFromArray($req->queryParams());
 $contents = $this->em($info)
-	->all($filter->toArray());
+	->paged($filter->toArray(), null, $filter->limit, $filter->page);
 ?>
 
 <form action="<?= $this->url->route() ?>">
@@ -58,4 +58,20 @@ $contents = $this->em($info)
 			<?php } ?>
 		</tbody>
 	</table>
+	<ul class="toolbar right autosubmitable">
+		<li>
+			Show 
+			<?= $this->render('/element/form-input', array(
+				'type'			=> 'select',
+				'entity'		=> $filter,
+				'name'			=> 'limit',
+				'null'			=> 'All',
+			)) ?>
+		</li>
+	</ul>
+	<?= $this->render('/element/paginator', [
+		'limit'	=> $filter->limit,
+		'page'	=> $filter->page,
+		'count'	=> $contents->count(),
+	]) ?>
 </form>

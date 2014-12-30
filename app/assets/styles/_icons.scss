@@ -40,7 +40,11 @@ $icons: (
 	view:		share-4,
 	positive:	check-mark-3,
 	negative:	x-mark-3,
-	browse:		folder-7
+	browse:		folder-7,
+	next: 		arrow-25,
+	prev: 		arrow-25-180,
+	last: 		arrow-31,
+	first: 		arrow-31-180
 );
 %icon-basic {
 	@extend %icon;

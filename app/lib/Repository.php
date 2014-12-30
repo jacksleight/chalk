@@ -43,9 +43,16 @@ class Repository extends EntityRepository
 			->getResult();
 	}
 
-	public function count(array $criteria = array(), $limit = null, $offset = null)
+	public function paged(array $criteria = array(), $sort = null, $limit = null, $page = null)
 	{	
-		return $this->query($criteria, null, $limit, $offset)
+		$query = $this->query($criteria, $sort, $limit, $limit * ($page - 1));
+		
+		return new \Doctrine\ORM\Tools\Pagination\Paginator($query);
+	}
+
+	public function count(array $criteria = array())
+	{	
+		return $this->query($criteria)
 			->select("COUNT({$this->_alias})")
 			->getQuery()
 			->getSingleScalarResult();

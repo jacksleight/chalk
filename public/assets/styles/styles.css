@@ -22,7 +22,7 @@
 /* Transitions */
 /* Widths & Heights */
 /* Icons */
-.icon-add::before, .icon-add-dark::before, .icon-archive::before, .icon-archive-dark::before, .icon-cancel::before, .icon-cancel-dark::before, .icon-content::before, .icon-content-dark::before, .icon-delete::before, .icon-delete-dark::before, .icon-drag::before, .icon-drag-dark::before, .icon-false::before, .icon-false-dark::before, .icon-history::before, .icon-history-dark::before, .icon-logout::before, .icon-logout-dark::before, .icon-move::before, .icon-move-dark::before, .icon-ok::before, .icon-ok-dark::before, .icon-publish::before, .icon-publish-dark::before, .icon-remove::before, .icon-remove-dark::before, .icon-restore::before, .icon-restore-dark::before, .icon-search::before, .icon-search-dark::before, .icon-settings::before, .icon-settings-dark::before, .icon-status::before, .icon-status-dark::before, .icon-structure::before, .icon-structure-dark::before, .icon-true::before, .icon-true-dark::before, .icon-updated::before, .icon-updated-dark::before, .icon-upload::before, .icon-upload-dark::before, .icon-user::before, .icon-user-dark::before, .icon-view::before, .icon-view-dark::before, .icon-positive::before, .icon-positive-dark::before, .icon-negative::before, .icon-negative-dark::before, .icon-browse::before, .icon-browse-dark::before, .search::before, .tree-node button[data-action=expand] span::before, .tree-node button[data-action=collapse] span::before, .tree-handle::before {
+.icon-add::before, .icon-add-dark::before, .icon-archive::before, .icon-archive-dark::before, .icon-cancel::before, .icon-cancel-dark::before, .icon-content::before, .icon-content-dark::before, .icon-delete::before, .icon-delete-dark::before, .icon-drag::before, .icon-drag-dark::before, .icon-false::before, .icon-false-dark::before, .icon-history::before, .icon-history-dark::before, .icon-logout::before, .icon-logout-dark::before, .icon-move::before, .icon-move-dark::before, .icon-ok::before, .icon-ok-dark::before, .icon-publish::before, .icon-publish-dark::before, .icon-remove::before, .icon-remove-dark::before, .icon-restore::before, .icon-restore-dark::before, .icon-search::before, .icon-search-dark::before, .icon-settings::before, .icon-settings-dark::before, .icon-status::before, .icon-status-dark::before, .icon-structure::before, .icon-structure-dark::before, .icon-true::before, .icon-true-dark::before, .icon-updated::before, .icon-updated-dark::before, .icon-upload::before, .icon-upload-dark::before, .icon-user::before, .icon-user-dark::before, .icon-view::before, .icon-view-dark::before, .icon-positive::before, .icon-positive-dark::before, .icon-negative::before, .icon-negative-dark::before, .icon-browse::before, .icon-browse-dark::before, .icon-next::before, .icon-next-dark::before, .icon-prev::before, .icon-prev-dark::before, .icon-last::before, .icon-last-dark::before, .icon-first::before, .icon-first-dark::before, .search::before, .tree-node button[data-action=expand] span::before, .tree-node button[data-action=collapse] span::before, .tree-handle::before {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
@@ -32,7 +32,7 @@
   background-size: 118%;
 }
 
-.icon-add::before, .icon-add-dark::before, .icon-archive::before, .icon-archive-dark::before, .icon-cancel::before, .icon-cancel-dark::before, .icon-content::before, .icon-content-dark::before, .icon-delete::before, .icon-delete-dark::before, .icon-drag::before, .icon-drag-dark::before, .icon-false::before, .icon-false-dark::before, .icon-history::before, .icon-history-dark::before, .icon-logout::before, .icon-logout-dark::before, .icon-move::before, .icon-move-dark::before, .icon-ok::before, .icon-ok-dark::before, .icon-publish::before, .icon-publish-dark::before, .icon-remove::before, .icon-remove-dark::before, .icon-restore::before, .icon-restore-dark::before, .icon-search::before, .icon-search-dark::before, .icon-settings::before, .icon-settings-dark::before, .icon-status::before, .icon-status-dark::before, .icon-structure::before, .icon-structure-dark::before, .icon-true::before, .icon-true-dark::before, .icon-updated::before, .icon-updated-dark::before, .icon-upload::before, .icon-upload-dark::before, .icon-user::before, .icon-user-dark::before, .icon-view::before, .icon-view-dark::before, .icon-positive::before, .icon-positive-dark::before, .icon-negative::before, .icon-negative-dark::before, .icon-browse::before, .icon-browse-dark::before {
+.icon-add::before, .icon-add-dark::before, .icon-archive::before, .icon-archive-dark::before, .icon-cancel::before, .icon-cancel-dark::before, .icon-content::before, .icon-content-dark::before, .icon-delete::before, .icon-delete-dark::before, .icon-drag::before, .icon-drag-dark::before, .icon-false::before, .icon-false-dark::before, .icon-history::before, .icon-history-dark::before, .icon-logout::before, .icon-logout-dark::before, .icon-move::before, .icon-move-dark::before, .icon-ok::before, .icon-ok-dark::before, .icon-publish::before, .icon-publish-dark::before, .icon-remove::before, .icon-remove-dark::before, .icon-restore::before, .icon-restore-dark::before, .icon-search::before, .icon-search-dark::before, .icon-settings::before, .icon-settings-dark::before, .icon-status::before, .icon-status-dark::before, .icon-structure::before, .icon-structure-dark::before, .icon-true::before, .icon-true-dark::before, .icon-updated::before, .icon-updated-dark::before, .icon-upload::before, .icon-upload-dark::before, .icon-user::before, .icon-user-dark::before, .icon-view::before, .icon-view-dark::before, .icon-positive::before, .icon-positive-dark::before, .icon-negative::before, .icon-negative-dark::before, .icon-browse::before, .icon-browse-dark::before, .icon-next::before, .icon-next-dark::before, .icon-prev::before, .icon-prev-dark::before, .icon-last::before, .icon-last-dark::before, .icon-first::before, .icon-first-dark::before {
   -moz-transition: opacity 0.2s ease;
   -o-transition: opacity 0.2s ease;
   -webkit-transition: opacity 0.2s ease;
@@ -405,32 +405,88 @@
   margin-right: 0.2em;
 }
 
+.icon-next::before {
+  content: '';
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMTQyLjMzMiAxMDQuODg2TDE5Ny40OCA1MCA0MDIuNSAyNTYgMTk3LjQ4IDQ2MmwtNTUuMTQ4LTU0Ljg4N0wyOTIuNzI3IDI1NnoiLz48L3N2Zz4=');
+  vertical-align: -0.15em;
+  margin-right: 0.2em;
+}
+
+.icon-next-dark::before {
+  content: '';
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cGF0aCBmaWxsPSIjMmQzNTNjIiBkPSJNMTQyLjMzMiAxMDQuODg2TDE5Ny40OCA1MCA0MDIuNSAyNTYgMTk3LjQ4IDQ2MmwtNTUuMTQ4LTU0Ljg4N0wyOTIuNzI3IDI1NnoiLz48L3N2Zz4=');
+  vertical-align: -0.15em;
+  margin-right: 0.2em;
+}
+
+.icon-prev::before {
+  content: '';
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMzY5LjY2OCA0MDcuMTE0TDMxNC41MiA0NjIgMTA5LjUgMjU2IDMxNC41MiA1MGw1NS4xNDggNTQuODg3TDIxOS4yNzMgMjU2eiIvPjwvc3ZnPg==');
+  vertical-align: -0.15em;
+  margin-right: 0.2em;
+}
+
+.icon-prev-dark::before {
+  content: '';
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cGF0aCBmaWxsPSIjMmQzNTNjIiBkPSJNMzY5LjY2OCA0MDcuMTE0TDMxNC41MiA0NjIgMTA5LjUgMjU2IDMxNC41MiA1MGw1NS4xNDggNTQuODg3TDIxOS4yNzMgMjU2eiIvPjwvc3ZnPg==');
+  vertical-align: -0.15em;
+  margin-right: 0.2em;
+}
+
+.icon-last::before {
+  content: '';
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNNTAgMTE1LjE0M2w1MS40MDYtNTEuMTZMMjkyLjUxIDI1NiAxMDEuNDA2IDQ0OC4wMiA1MCAzOTYuODU1IDE5MC4xODggMjU2IDUwIDExNS4xNDN6TTM1OS42NzggMjU2TDIxOS40OSAzOTYuODU2bDUxLjQwNiA1MS4xNjJMNDYyIDI1NiAyNzAuODk2IDYzLjk4bC01MS40MDYgNTEuMTYyTDM1OS42NzggMjU2eiIvPjwvc3ZnPg==');
+  vertical-align: -0.15em;
+  margin-right: 0.2em;
+}
+
+.icon-last-dark::before {
+  content: '';
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cGF0aCBmaWxsPSIjMmQzNTNjIiBkPSJNNTAgMTE1LjE0M2w1MS40MDYtNTEuMTZMMjkyLjUxIDI1NiAxMDEuNDA2IDQ0OC4wMiA1MCAzOTYuODU1IDE5MC4xODggMjU2IDUwIDExNS4xNDN6TTM1OS42NzggMjU2TDIxOS40OSAzOTYuODU2bDUxLjQwNiA1MS4xNjJMNDYyIDI1NiAyNzAuODk2IDYzLjk4bC01MS40MDYgNTEuMTYyTDM1OS42NzggMjU2eiIvPjwvc3ZnPg==');
+  vertical-align: -0.15em;
+  margin-right: 0.2em;
+}
+
+.icon-first::before {
+  content: '';
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNNDYyIDM5Ni44NTdsLTUxLjQwNiA1MS4xNkwyMTkuNDkgMjU2IDQxMC41OTQgNjMuOTggNDYyIDExNS4xNDUgMzIxLjgxMiAyNTYgNDYyIDM5Ni44NTd6TTE1Mi4zMjIgMjU2TDI5Mi41MSAxMTUuMTQ0bC01MS40MDYtNTEuMTYyTDUwIDI1NmwxOTEuMTA0IDE5Mi4wMiA1MS40MDYtNTEuMTYyTDE1Mi4zMjIgMjU2eiIvPjwvc3ZnPg==');
+  vertical-align: -0.15em;
+  margin-right: 0.2em;
+}
+
+.icon-first-dark::before {
+  content: '';
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cGF0aCBmaWxsPSIjMmQzNTNjIiBkPSJNNDYyIDM5Ni44NTdsLTUxLjQwNiA1MS4xNkwyMTkuNDkgMjU2IDQxMC41OTQgNjMuOTggNDYyIDExNS4xNDUgMzIxLjgxMiAyNTYgNDYyIDM5Ni44NTd6TTE1Mi4zMjIgMjU2TDI5Mi41MSAxMTUuMTQ0bC01MS40MDYtNTEuMTYyTDUwIDI1NmwxOTEuMTA0IDE5Mi4wMiA1MS40MDYtNTEuMTYyTDE1Mi4zMjIgMjU2eiIvPjwvc3ZnPg==');
+  vertical-align: -0.15em;
+  margin-right: 0.2em;
+}
+
 /* Fonts */
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Light-webfont.eot?1417434342');
-  src: url('../fonts/OpenSans-Light-webfont.eot?&1417434342#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Light-webfont.woff?1417434342') format('woff'), url('../fonts/OpenSans-Light-webfont.ttf?1417434342') format('truetype'), url('../fonts/OpenSans-Light-webfont.svg?1417434342') format('svg');
+  src: url('../fonts/OpenSans-Light-webfont.eot?1415200703');
+  src: url('../fonts/OpenSans-Light-webfont.eot?&1415200703#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Light-webfont.woff?1415200703') format('woff'), url('../fonts/OpenSans-Light-webfont.ttf?1415200703') format('truetype'), url('../fonts/OpenSans-Light-webfont.svg?1415200703') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Regular-webfont.eot?1417434342');
-  src: url('../fonts/OpenSans-Regular-webfont.eot?&1417434342#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Regular-webfont.woff?1417434342') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf?1417434342') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg?1417434342') format('svg');
+  src: url('../fonts/OpenSans-Regular-webfont.eot?1415200703');
+  src: url('../fonts/OpenSans-Regular-webfont.eot?&1415200703#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Regular-webfont.woff?1415200703') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf?1415200703') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg?1415200703') format('svg');
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-LightItalic-webfont.eot?1417434342');
-  src: url('../fonts/OpenSans-LightItalic-webfont.eot?&1417434342#iefix') format('embedded-opentype'), url('../fonts/OpenSans-LightItalic-webfont.woff?1417434342') format('woff'), url('../fonts/OpenSans-LightItalic-webfont.ttf?1417434342') format('truetype'), url('../fonts/OpenSans-LightItalic-webfont.svg?1417434342') format('svg');
+  src: url('../fonts/OpenSans-LightItalic-webfont.eot?1415200703');
+  src: url('../fonts/OpenSans-LightItalic-webfont.eot?&1415200703#iefix') format('embedded-opentype'), url('../fonts/OpenSans-LightItalic-webfont.woff?1415200703') format('woff'), url('../fonts/OpenSans-LightItalic-webfont.ttf?1415200703') format('truetype'), url('../fonts/OpenSans-LightItalic-webfont.svg?1415200703') format('svg');
   font-weight: normal;
   font-style: italic;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Italic-webfont.eot?1417434342');
-  src: url('../fonts/OpenSans-Italic-webfont.eot?&1417434342#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Italic-webfont.woff?1417434342') format('woff'), url('../fonts/OpenSans-Italic-webfont.ttf?1417434342') format('truetype'), url('../fonts/OpenSans-Italic-webfont.svg?1417434342') format('svg');
+  src: url('../fonts/OpenSans-Italic-webfont.eot?1415200703');
+  src: url('../fonts/OpenSans-Italic-webfont.eot?&1415200703#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Italic-webfont.woff?1415200703') format('woff'), url('../fonts/OpenSans-Italic-webfont.ttf?1415200703') format('truetype'), url('../fonts/OpenSans-Italic-webfont.svg?1415200703') format('svg');
   font-weight: bold;
   font-style: italic;
 }
@@ -901,6 +957,7 @@ figure figcaption {
 /* Thumbs */
 .thumbs {
   margin-top: 20px;
+  min-height: 600px;
   list-style: none;
   margin-left: -5px;
   margin-right: -5px;
@@ -1649,29 +1706,21 @@ input[type=button][disabled],
 .btn[disabled] {
   opacity: 0.25;
 }
-input[type=reset]:hover,
+input[type=reset]:hover, input[type=reset]:focus, input[type=reset]:active, input[type=reset].active,
 input[type=submit]:hover,
-input[type=button]:hover,
-.btn:hover {
-  background-color: #878a8d !important;
-  border-color: #878a8d !important;
-}
-input[type=reset].active,
+input[type=submit]:focus,
+input[type=submit]:active,
 input[type=submit].active,
+input[type=button]:hover,
+input[type=button]:focus,
+input[type=button]:active,
 input[type=button].active,
+.btn:hover,
+.btn:focus,
+.btn:active,
 .btn.active {
-  position: relative;
-}
-input[type=reset].active:after,
-input[type=submit].active:after,
-input[type=button].active:after,
-.btn.active:after {
-  content: '';
-  position: absolute;
-  top: -1px;
-  right: -1px;
-  border: 19px solid;
-  border-color: transparent white transparent transparent;
+  background-color: #7f8285 !important;
+  border-color: #7f8285 !important;
 }
 input[type=reset].btn-collapse,
 input[type=submit].btn-collapse,
@@ -1711,12 +1760,21 @@ input[type=button].btn-focus,
   background-color: #00a6b5;
   border-color: #00a6b5;
 }
-input[type=reset].btn-focus:hover,
+input[type=reset].btn-focus:hover, input[type=reset].btn-focus:focus, input[type=reset].btn-focus:active, input[type=reset].btn-focus.active,
 input[type=submit].btn-focus:hover,
+input[type=submit].btn-focus:focus,
+input[type=submit].btn-focus:active,
+input[type=submit].btn-focus.active,
 input[type=button].btn-focus:hover,
-.btn.btn-focus:hover {
-  background-color: #0095a2 !important;
-  border-color: #0095a2 !important;
+input[type=button].btn-focus:focus,
+input[type=button].btn-focus:active,
+input[type=button].btn-focus.active,
+.btn.btn-focus:hover,
+.btn.btn-focus:focus,
+.btn.btn-focus:active,
+.btn.btn-focus.active {
+  background-color: #008d99 !important;
+  border-color: #008d99 !important;
 }
 input[type=reset].btn-pending,
 input[type=submit].btn-pending,
@@ -1725,12 +1783,21 @@ input[type=button].btn-pending,
   background-color: #FC6042;
   border-color: #FC6042;
 }
-input[type=reset].btn-pending:hover,
+input[type=reset].btn-pending:hover, input[type=reset].btn-pending:focus, input[type=reset].btn-pending:active, input[type=reset].btn-pending.active,
 input[type=submit].btn-pending:hover,
+input[type=submit].btn-pending:focus,
+input[type=submit].btn-pending:active,
+input[type=submit].btn-pending.active,
 input[type=button].btn-pending:hover,
-.btn.btn-pending:hover {
-  background-color: #e2563b !important;
-  border-color: #e2563b !important;
+input[type=button].btn-pending:focus,
+input[type=button].btn-pending:active,
+input[type=button].btn-pending.active,
+.btn.btn-pending:hover,
+.btn.btn-pending:focus,
+.btn.btn-pending:active,
+.btn.btn-pending.active {
+  background-color: #d65138 !important;
+  border-color: #d65138 !important;
 }
 input[type=reset].btn-positive,
 input[type=submit].btn-positive,
@@ -1739,12 +1806,21 @@ input[type=button].btn-positive,
   background-color: #09bd5e;
   border-color: #09bd5e;
 }
-input[type=reset].btn-positive:hover,
+input[type=reset].btn-positive:hover, input[type=reset].btn-positive:focus, input[type=reset].btn-positive:active, input[type=reset].btn-positive.active,
 input[type=submit].btn-positive:hover,
+input[type=submit].btn-positive:focus,
+input[type=submit].btn-positive:active,
+input[type=submit].btn-positive.active,
 input[type=button].btn-positive:hover,
-.btn.btn-positive:hover {
-  background-color: #08aa54 !important;
-  border-color: #08aa54 !important;
+input[type=button].btn-positive:focus,
+input[type=button].btn-positive:active,
+input[type=button].btn-positive.active,
+.btn.btn-positive:hover,
+.btn.btn-positive:focus,
+.btn.btn-positive:active,
+.btn.btn-positive.active {
+  background-color: #07a04f !important;
+  border-color: #07a04f !important;
 }
 input[type=reset].btn-negative,
 input[type=submit].btn-negative,
@@ -1753,12 +1829,21 @@ input[type=button].btn-negative,
   background-color: #FC6042;
   border-color: #FC6042;
 }
-input[type=reset].btn-negative:hover,
+input[type=reset].btn-negative:hover, input[type=reset].btn-negative:focus, input[type=reset].btn-negative:active, input[type=reset].btn-negative.active,
 input[type=submit].btn-negative:hover,
+input[type=submit].btn-negative:focus,
+input[type=submit].btn-negative:active,
+input[type=submit].btn-negative.active,
 input[type=button].btn-negative:hover,
-.btn.btn-negative:hover {
-  background-color: #e2563b !important;
-  border-color: #e2563b !important;
+input[type=button].btn-negative:focus,
+input[type=button].btn-negative:active,
+input[type=button].btn-negative.active,
+.btn.btn-negative:hover,
+.btn.btn-negative:focus,
+.btn.btn-negative:active,
+.btn.btn-negative.active {
+  background-color: #d65138 !important;
+  border-color: #d65138 !important;
 }
 input[type=reset].btn-quiet,
 input[type=submit].btn-quiet,
@@ -1767,12 +1852,44 @@ input[type=button].btn-quiet,
   background-color: #969a9d;
   border-color: #969a9d;
 }
+input[type=reset].btn-quiet:hover, input[type=reset].btn-quiet:focus, input[type=reset].btn-quiet:active, input[type=reset].btn-quiet.active,
+input[type=submit].btn-quiet:hover,
+input[type=submit].btn-quiet:focus,
+input[type=submit].btn-quiet:active,
+input[type=submit].btn-quiet.active,
+input[type=button].btn-quiet:hover,
+input[type=button].btn-quiet:focus,
+input[type=button].btn-quiet:active,
+input[type=button].btn-quiet.active,
+.btn.btn-quiet:hover,
+.btn.btn-quiet:focus,
+.btn.btn-quiet:active,
+.btn.btn-quiet.active {
+  background-color: #7f8285 !important;
+  border-color: #7f8285 !important;
+}
 input[type=reset].btn-quieter,
 input[type=submit].btn-quieter,
 input[type=button].btn-quieter,
 .btn.btn-quieter {
   background-color: #caccce;
   border-color: #caccce;
+}
+input[type=reset].btn-quieter:hover, input[type=reset].btn-quieter:focus, input[type=reset].btn-quieter:active, input[type=reset].btn-quieter.active,
+input[type=submit].btn-quieter:hover,
+input[type=submit].btn-quieter:focus,
+input[type=submit].btn-quieter:active,
+input[type=submit].btn-quieter.active,
+input[type=button].btn-quieter:hover,
+input[type=button].btn-quieter:focus,
+input[type=button].btn-quieter:active,
+input[type=button].btn-quieter.active,
+.btn.btn-quieter:hover,
+.btn.btn-quieter:focus,
+.btn.btn-quieter:active,
+.btn.btn-quieter.active {
+  background-color: #abadaf !important;
+  border-color: #abadaf !important;
 }
 input[type=reset].btn-icon,
 input[type=submit].btn-icon,
@@ -1794,6 +1911,15 @@ input[type=submit] small,
 input[type=button] small,
 .btn small {
   color: rgba(255, 255, 255, 0.65);
+}
+input[type=reset][disabled], input[type=reset].disabled,
+input[type=submit][disabled],
+input[type=submit].disabled,
+input[type=button][disabled],
+input[type=button].disabled,
+.btn[disabled],
+.btn.disabled {
+  opacity: 0.5;
 }
 
 input[type=date]:focus,
@@ -1869,12 +1995,10 @@ textarea.disabled,
   -webkit-box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.05);
   box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.05);
 }
-.dropdown .menu:hover {
-  overflow-y: auto;
-}
 .dropdown:hover .menu {
   max-height: 300px;
   border-bottom-width: 1px;
+  overflow-y: auto;
 }
 .sidebar .dropdown .value {
   background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNSIgaGVpZ2h0PSI5LjQwOSI+PHBhdGggZmlsbD0iI0Q4REFEQyIgZD0iTTAgMi40NDJMMi40MyAwIDcgNC41NDggMTEuNTcgMCAxNCAyLjQ0MiA3IDkuNDF6Ii8+PC9zdmc+');
@@ -2103,6 +2227,27 @@ legend {
 }
 .toolbar a {
   text-decoration: none;
+}
+.toolbar.tight {
+  margin-left: -0.5px;
+  margin-right: -0.5px;
+  font-size: 0;
+}
+.toolbar.tight > li {
+  font-size: 16px;
+  font-size: 1rem;
+}
+.toolbar.tight > li {
+  padding-left: 0.5px;
+  padding-right: 0.5px;
+  display: inline-block;
+  vertical-align: top;
+  *vertical-align: auto;
+  *zoom: 1;
+  *display: inline;
+}
+.toolbar.right {
+  float: right;
 }
 
 /* Filters */
