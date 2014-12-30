@@ -1,4 +1,4 @@
-<?php $this->layout('/layout/page', [
+<?php $this->parent('/layout/page', [
 	'title'	=> 'Error',
 ]) ?>
 <?php $this->block('main') ?>

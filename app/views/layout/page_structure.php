@@ -2,7 +2,7 @@
 $structures	= $this->em('Chalk\Core\Structure')->all();
 $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 ?>
-<?php $this->layout('/layout/body') ?>
+<?php $this->parent('/layout/body') ?>
 <?php $this->block('main') ?>
 
 <?= $content->main ?>

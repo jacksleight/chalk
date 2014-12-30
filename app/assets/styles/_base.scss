@@ -474,6 +474,10 @@ table {
 		&:first-child {
 			padding-left: $gutter * 0.75;
 		}
+		&.panel {
+			text-align: center;
+			padding: 100px $gutter;
+		}
 	}
 	th { 
 		font-weight: normal;
@@ -487,11 +491,6 @@ table {
 		th {
 			font-weight: bold;
 		}
-		tr:last-child {
-			th, td {
-				border-bottom: $gutter * 0.25 solid $color-background;
-			}
-		}
 	}
 	tbody {
 		background: white;
@@ -502,7 +501,7 @@ table {
 		tr {
 			&:first-child {
 				th, td {
-					border-top: 0;
+					border-top: $gutter * 0.25 solid $color-background;
 				}
 			}
 			&:hover { 

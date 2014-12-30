@@ -10,14 +10,14 @@ $browser['entity'] = \Chalk\Chalk::info(isset($browser['entity'])
 	</div>
 	<div class="content-holder">
 		<?php if (isset($value)) { ?>
-			<?= $this->render('/content/card', [
+			<?= $this->child('/content/card', [
 				'content' => $this->em('Chalk\Core\Content')->id((string) $value)
 			]) ?>		
 		<?php } else { ?>
 			<span class="placeholder">Nothing Selected</span>
 		<?php } ?>
 	</div>
-	<?= $this->render('input', [
+	<?= $this->child('input', [
 		'type'		=> 'hidden',
 		'value'		=> $value,
 	]) ?>

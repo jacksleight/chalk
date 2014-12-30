@@ -1,7 +1,7 @@
 <?php
 $count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
 ?>
-<?php $this->layout('/layout/html') ?>
+<?php $this->parent('/layout/html') ?>
 <?php $this->block('body') ?>
 
 <div class="frame">
@@ -9,7 +9,7 @@ $count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
 		<?php 
 		$contents = $this->app->fire('Chalk\Core\Event\ListContents')->contents();
 		?>
-		<?= $this->render('nav', ['items' => [
+		<?= $this->child('nav', ['items' => [
 			[
 				'label' => 'Structure',
 				'icon'	=> 'icon icon-structure',
@@ -30,7 +30,7 @@ $count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
 			<?= $content->sidebar ?>
 		</div>
 		<?php if (false && $req->user->isAdministrator()) { ?>
-			<?= $this->render('nav', ['items' => [
+			<?= $this->child('nav', ['items' => [
 				[
 					'label' => 'Live',
 					'icon'	=> '',

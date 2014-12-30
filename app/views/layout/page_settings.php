@@ -1,4 +1,4 @@
-<?php $this->layout('/layout/body') ?>
+<?php $this->parent('/layout/body') ?>
 <?php $this->block('main') ?>
 
 <?= $content->main ?>
@@ -6,7 +6,7 @@
 <?php $this->block('sidebar') ?>
 
 <nav class="menu menu-simple" role="navigation">
-	<?= $this->render('nav', ['items' => [
+	<?= $this->child('nav', ['items' => [
 		[
 			'label' => 'Users',
 			'name'  => 'setting',

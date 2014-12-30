@@ -7,7 +7,7 @@ $render = isset($input)
 	? $input
 	: [$type, null];
 ?>
-<?= $this->render($render[0], [
+<?= $this->child($render[0], [
 	'md'		=> $md,
 	'type'		=> $type,
 	'name'		=> $md['contextName'],

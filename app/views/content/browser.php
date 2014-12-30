@@ -23,18 +23,18 @@ $contents = $this->em($info)
 			<?php } ?>
 		</ul>
 		<h1><?= $info->plural ?></h1>
-		<?= $this->render('filters', ['filter' => $index]) ?>
+		<?= $this->child('filters', ['filter' => $index]) ?>
 		<?php if ($thumbs) { ?>
 			<ul class="thumbs multiselectable <?= $info->class == 'Chalk\Core\File' ? 'uploadable-list' : null ?>">
 				<?php if (count($contents)) { ?>
 					<?php foreach ($contents as $content) { ?>
-						<li><?= $this->render('thumb', [
+						<li><?= $this->child('thumb', [
 							'content'	=> $content,
 							'link'		=> false
 						]) ?></li>
 					<?php } ?>
 				<?php } else { ?>
-					<li><?= $this->render('thumb', [
+					<li><?= $this->child('thumb', [
 						'template'	=> true,
 						'link'		=> false
 					]) ?></li>
@@ -60,7 +60,7 @@ $contents = $this->em($info)
 				</thead>
 				<tbody>
 					<?php foreach ($contents as $content) { ?>
-						<?= $this->render('row', [
+						<?= $this->child('row', [
 							'content'	=> $content,
 							'link'		=> false
 						]) ?>
@@ -71,7 +71,7 @@ $contents = $this->em($info)
 		<?php if ($info->class == 'Chalk\Core\File') { ?>
 			<input class="uploadable-input" type="file" name="files[]" data-url="<?= $this->url(['action' => 'upload']) ?>" multiple>
 			<script type="x-tmpl-mustache" class="uploadable-template">
-				<?= $this->render('/content/thumb', ['template' => true]) ?>
+				<?= $this->child('/content/thumb', ['template' => true]) ?>
 			</script>
 		<?php } ?>
 	</div>

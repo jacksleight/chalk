@@ -1,10 +1,10 @@
 <form action="<?= $this->url->route() ?>" method="post" class="fill">
 	<div class="flex">
 		<ul class="toolbar">
-			<?= $this->render('/content/tools', [], 'Chalk\Core') ?>
+			<?= $this->child('/content/tools', [], 'Chalk\Core') ?>
 		</ul>
-		<?= $this->render('/content/header', [], 'Chalk\Core') ?>
-		<?= $this->render('/content/meta', [], 'Chalk\Core') ?>
+		<?= $this->child('/content/header', [], 'Chalk\Core') ?>
+		<?= $this->child('/content/meta', [], 'Chalk\Core') ?>
 		<fieldset class="form-block">
 			<div class="form-legend">
 				<h2>General</h2>
@@ -57,16 +57,16 @@
 				), 'Chalk\Core') ?>
 			</div>
 		</fieldset>
-		<?= $this->render('/behaviour/publishable/form', ['publishable' => $content], 'Chalk\Core') ?>
-		<?= $this->render('/content/node', [], 'Chalk\Core') ?>
+		<?= $this->child('/behaviour/publishable/form', ['publishable' => $content], 'Chalk\Core') ?>
+		<?= $this->child('/content/node', [], 'Chalk\Core') ?>
 	</div>
 	<fieldset class="fix">
 		<ul class="toolbar">
-			<?= $this->render('/content/actions-primary', [], 'Chalk\Core') ?>
+			<?= $this->child('/content/actions-primary', [], 'Chalk\Core') ?>
 		</ul>
 		<ul class="toolbar">
-			<?= $this->render('/content/actions-secondary', [], 'Chalk\Core') ?>
-			<?= $this->render('/content/actions-node', [], 'Chalk\Core') ?>
+			<?= $this->child('/content/actions-secondary', [], 'Chalk\Core') ?>
+			<?= $this->child('/content/actions-node', [], 'Chalk\Core') ?>
 		</ul>
 	</fieldset>
 </form>

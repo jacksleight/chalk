@@ -1,4 +1,4 @@
-<?php $this->layout('/layout/page_settings') ?>
+<?php $this->parent('/layout/page_settings') ?>
 <?php $this->block('main') ?>
 <?php
 $filter = $this->em->wrap(new \Chalk\Core\Model\Index())

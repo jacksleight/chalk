@@ -1,5 +1,5 @@
 <?php
-echo $this->render('input', [
+echo $this->child('input', [
 	'type'	=> 'date',
 	'value'	=> $value instanceof \DateTime
 		? $value->format("Y-m-d")

@@ -1,5 +1,5 @@
 <?php
-echo $this->render('input', [
+echo $this->child('input', [
 	'type'	=> 'week',
 	'value'	=> $value instanceof \DateTime
 		? $value->format("Y-\WW")

@@ -1,4 +1,4 @@
 <?php
-echo $this->render('input', [
+echo $this->child('input', [
 	'type'	=> 'text',
 ]);

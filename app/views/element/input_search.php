@@ -1,6 +1,6 @@
 <span class="search icon-search">
 	<?php
-	echo $this->render('input', [
+	echo $this->child('input', [
 		'type'		=> 'search',
 	]);
 	?>

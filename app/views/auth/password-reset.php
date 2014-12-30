@@ -1,4 +1,4 @@
-<?php $this->layout('/layout/body_simple') ?>
+<?php $this->parent('/layout/body_simple') ?>
 <?php $this->block('main') ?>
 
 <form action="<?= $this->url([]) ?>" class="login" method="post">

@@ -5,7 +5,7 @@ $link		= isset($link) ? $link : true;
 ?>
 <tr class="selectable clickable">
 	<td class="col-select">
-		<?= $this->render('/content/checkbox', [
+		<?= $this->child('/content/checkbox', [
 			'entity'	=> $index,
 			'value'		=> $content,
 		]) ?>

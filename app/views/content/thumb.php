@@ -13,7 +13,7 @@ $link		= isset($link) ? $link : true;
 		]) : '#' ?>">
 	<?php } ?>
 		<?php if (!$template) { ?>
-			<?= $this->render('/content/checkbox', [
+			<?= $this->child('/content/checkbox', [
 				'value'	=> $content,
 			]) ?>
 		<?php } ?>

@@ -1,5 +1,5 @@
 <?php
-echo $this->render('input', [
+echo $this->child('input', [
 	'type'		=> 'color',
 	'required'	=> null,
 ]);

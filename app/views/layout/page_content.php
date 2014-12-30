@@ -1,4 +1,4 @@
-<?php $this->layout('/layout/body') ?>
+<?php $this->parent('/layout/body') ?>
 <?php $this->block('main') ?>
 
 <?= $content->main ?>
@@ -19,5 +19,5 @@
 		];
 	}
 	?>
-	<?= $this->render('nav', ['items' => $items]) ?>
+	<?= $this->child('nav', ['items' => $items]) ?>
 </nav>

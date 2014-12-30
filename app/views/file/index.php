@@ -14,11 +14,11 @@ $contents = $this->em($info)
 		</li>
 	</ul>
 	<h1><?= $info->plural ?></h1>
-	<?= $this->render('/content/filters', ['filter' => $filter]) ?>
+	<?= $this->child('/content/filters', ['filter' => $filter]) ?>
 	<ul class="thumbs uploadable-list multiselectable">
 		<?php if (count($contents)) { ?>
 			<?php foreach ($contents as $content) { ?>
-				<li><?= $this->render('/content/thumb', ['content' => $content]) ?></li>
+				<li><?= $this->child('/content/thumb', ['content' => $content]) ?></li>
 			<?php } ?>
 		<?php } else { ?>
 			<li></li>
@@ -26,6 +26,6 @@ $contents = $this->em($info)
 	</ul>
 	<input class="uploadable-input" type="file" name="files[]" data-url="<?= $this->url(['action' => 'upload']) ?>" multiple>
 	<script type="x-tmpl-mustache" class="uploadable-template">
-		<?= $this->render('/content/thumb', ['template' => true]) ?>
+		<?= $this->child('/content/thumb', ['template' => true]) ?>
 	</script>
 </form>

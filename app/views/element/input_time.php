@@ -1,5 +1,5 @@
 <?php
-echo $this->render('input', [
+echo $this->child('input', [
 	'type'	=> 'time',
 	'value'	=> $value instanceof \DateTime
 		? $value->format("H:i")

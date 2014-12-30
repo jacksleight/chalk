@@ -1162,6 +1162,10 @@ table th, table td {
 table th:first-child, table td:first-child {
   padding-left: 15px;
 }
+table th.panel, table td.panel {
+  text-align: center;
+  padding: 100px 20px;
+}
 table th {
   font-weight: normal;
   text-align: left;
@@ -1187,9 +1191,6 @@ table thead {
 table thead th {
   font-weight: bold;
 }
-table thead tr:last-child th, table thead tr:last-child td {
-  border-bottom: 5px solid #eeeeef;
-}
 table tbody {
   background: white;
 }
@@ -1201,7 +1202,7 @@ table tbody th, table tbody td {
   transition: all 0.2s ease;
 }
 table tbody tr:first-child th, table tbody tr:first-child td {
-  border-top: 0;
+  border-top: 5px solid #eeeeef;
 }
 table tbody tr:hover th, table tbody tr:hover td {
   background-color: #fdfdfe;

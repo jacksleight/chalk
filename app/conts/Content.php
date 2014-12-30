@@ -28,9 +28,9 @@ class Content extends Basic
 			]));
 		}
 
-		$wrap = $this->em->wrap($index = new \Chalk\Core\Model\Index());
+		$index = new \Chalk\Core\Model\Index();
+		$req->view->index = $wrap = $this->em->wrap($index);
 		$wrap->graphFromArray($req->queryParams());
-		$req->view->index = $wrap;
 	}
 
 	public function select(Request $req, Response $res)

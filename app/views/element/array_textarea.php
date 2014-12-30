@@ -54,7 +54,7 @@ $items = [];
 				<?= isset($disabled) && $disabled ? "disabled" : null ?>></textarea>
 		</div>	
 	<?php $template = $this->end() ?>
-	<?= $this->render('stackable', [
+	<?= $this->child('stackable', [
 		'items'		=> $items,
 		'template'	=> $template,
 	]) ?>
