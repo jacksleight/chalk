@@ -1,0 +1,1 @@
+<?php $this->extend('/content/list', [], 'Chalk\Core') ?>

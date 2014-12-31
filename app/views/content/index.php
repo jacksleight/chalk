@@ -5,6 +5,6 @@
 $contents = $this->em($req->info)
 	->paged($index->toArray(), null, $index->limit, $index->page);
 ?>
-<?= $this->child("/{$info->local->path}/index", [
+<?= $this->child("/{$info->local->path}/list", [
 	'contents' => $contents,
 ], $info->module->class) ?>

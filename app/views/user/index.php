@@ -37,7 +37,7 @@ $users = $this->em($info)
 	</colgroup>
 	<thead>
 		<tr>
-			<th scope="col" class="col-badge">Enabled</th>
+			<th scope="col" class="">Enabled</th>
 			<th scope="col" class="col-name">Name</th>
 			<th scope="col" class="col-role">Role</th>
 		</tr>

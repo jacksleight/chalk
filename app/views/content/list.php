@@ -1,27 +1,24 @@
-<? if ($this->block('top')) { ?>
+<? $this->block() ?>
 
 <form action="<?= $this->url->route() ?>">
 	
-<? } ?>
-<? if ($this->block('actions')) { ?>
+<? if ($this->block('tools')) { ?>
 
 <ul class="toolbar">
-	<?= $content->block('actions-top') ?>
+	<?= $this->content('tools-top') ?>
 	<li><a href="<?= $this->url([
 			'action' => 'edit',
 		]) ?>" class="btn btn-focus icon-add">
 			New <?= $info->singular ?>
 	</a></li>
-	<?= $content->block('actions-bottom') ?>
+	<?= $this->content('tools-bottom') ?>
 </ul>
 	
-<? } ?>
-<? if ($this->block('header')) { ?>
+<? } if ($this->block('header')) { ?>
 
 <h1><?= $info->plural ?></h1>
 	
-<? } ?>
-<? if ($this->block('filters')) { ?>
+<? } if ($this->block('filters')) { ?>
 
 <ul class="filters autosubmitable">
 	<li>
@@ -33,7 +30,7 @@
 			'placeholder'	=> 'Search…',
 		)) ?>
 	</li>
-	<?= $content->block('filters-top') ?>
+	<?= $this->content('filters-top') ?>
 	<li>
 		<?= $this->render('/element/form-input', array(
 			'type'			=> 'dropdown_single',
@@ -53,11 +50,10 @@
 			'placeholder'	=> 'Status',
 		)) ?>
 	</li>
-	<?= $content->block('filters-bottom') ?>
+	<?= $this->content('filters-bottom') ?>
 </ul>
 	
-<? } ?>
-<? if ($this->block('contents')) { ?>
+<? } if ($this->block('contents')) { ?>
 
 <table class="multiselectable">
 	<colgroup>
@@ -71,7 +67,7 @@
 			<th scope="col" class="col-select">
 				<input type="checkbox" id="select" class="multiselectable-all"><label for="select"></label>
 			</th>
-			<th scope="col" class="col-name"><?= $info->singular ?></th>
+			<th scope="col" class="col-name">Name</th>
 			<th scope="col" class="col-date">Updated</th>
 			<th scope="col" class="col-badge">Status</th>
 		</tr>
@@ -105,15 +101,14 @@
 		<?php } else { ?>
 			<tr>
 				<td class="panel" colspan="4">
-					No <?= $info->plural ?> were found.
+					No <?= strtolower($info->plural) ?> found
 				</td>
 			</tr>
 		<?php } ?>
 	</tbody>
 </table>
 	
-<? } ?>
-<? if ($this->block('pagination')) { ?>
+<? } if ($this->block('pagination')) { ?>
 
 <ul class="toolbar right autosubmitable">
 	<li>
@@ -135,8 +130,6 @@
 ]) ?>
 	
 <? } ?>
-<? if ($this->block('bottom')) { ?>
+<? $this->block() ?>
 
 </form>
-	
-<? } ?>

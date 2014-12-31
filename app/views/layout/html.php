@@ -15,7 +15,7 @@ $title  = (isset($title)
     <link rel="stylesheet" href="<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/styles/styles{$mode}.css") ?>">
 </head>
 <body class="<?= isset($class) ? $class : '' ?>">
-    <?= $content ?>
+    <?= $this->content() ?>
     <script>
         var Chalk = <?= json_encode([
             'baseUrl'       => (string) $this->url->baseUrl(),

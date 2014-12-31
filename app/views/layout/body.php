@@ -27,7 +27,7 @@ $count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
 			],
 		], 'class' => 'toggle']) ?>
 		<div class="body">
-			<?= $content->sidebar ?>
+			<?= $this->content('sidebar') ?>
 		</div>
 		<?php if (false && $req->user->isAdministrator()) { ?>
 			<?= $this->child('nav', ['items' => [
@@ -80,7 +80,7 @@ $count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
 			<ul class="notifications"></ul>
 		</div>
 		<section class="body" role="main">
-			<?= $content->main ?>
+			<?= $this->content('main') ?>
 		</section>
 	</div>
 </div>

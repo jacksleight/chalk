@@ -5,7 +5,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 <?php $this->parent('/layout/body') ?>
 <?php $this->block('main') ?>
 
-<?= $content->main ?>
+<?= $this->content('main') ?>
 
 <?php $this->block('sidebar') ?>
 

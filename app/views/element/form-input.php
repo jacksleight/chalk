@@ -15,7 +15,7 @@ $render = isset($input)
 	'value'		=> $entity->{$name},
 	'values'	=> $values,
 	'required'	=> !$md['nullable'],
-	'maxlength'	=> $md['length'],
+	'maxlength'	=> isset($md['length']) ? $md['length'] : null,
 	'disabled'	=> isset($disabled)
 		? $disabled
 		: ($entity->getObject() instanceof \Chalk\Behaviour\Publishable && $entity->isArchived()),

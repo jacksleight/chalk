@@ -1,6 +1,6 @@
 <?php $this->parent('/layout/body') ?>
 <?php $this->block('main') ?>
 
-<?= $content->main ?>
+<?= $this->content('main') ?>
 
 <?php $this->block('sidebar') ?>

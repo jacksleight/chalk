@@ -1165,6 +1165,7 @@ table th:first-child, table td:first-child {
 table th.panel, table td.panel {
   text-align: center;
   padding: 100px 20px;
+  color: #969a9d;
 }
 table th {
   font-weight: normal;
