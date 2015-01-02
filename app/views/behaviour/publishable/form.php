@@ -9,22 +9,21 @@
 			'name'		=> 'status',
 			'label'		=> 'Status',
 		), 'Chalk\Core') ?>
-		<div class="expandable">
-			<div class="expandable-body">
-				<?= $this->render('/element/form-item', array(
-					'entity'	=> $publishable,
-					'name'		=> 'publishDate',
-					'label'		=> 'Publish Date',
-				), 'Chalk\Core') ?>
-				<?= $this->render('/element/form-item', array(
-					'entity'	=> $publishable,
-					'name'		=> 'archiveDate',
-					'label'		=> 'Archive Date',
-				), 'Chalk\Core') ?>
-			</div>
-			<div class="expandable-toggle">
-				Advanced
-			</div>
-		</div>
+		<?php $this->start() ?>
+			<?= $this->render('/element/form-item', array(
+				'entity'	=> $publishable,
+				'name'		=> 'publishDate',
+				'label'		=> 'Publish Date',
+			), 'Chalk\Core') ?>
+			<?= $this->render('/element/form-item', array(
+				'entity'	=> $publishable,
+				'name'		=> 'archiveDate',
+				'label'		=> 'Archive Date',
+			), 'Chalk\Core') ?>
+		<?php $html = $this->end() ?>
+		<?= $this->render('/element/expandable', [
+			'content'		=> $html,
+			'buttonLabel'	=> 'Advanced',
+		], 'Chalk\Core') ?>
 	</div>
 </fieldset>

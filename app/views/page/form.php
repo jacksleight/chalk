@@ -9,21 +9,20 @@
 	'class'		=> 'monospaced editor-content',
 	'rows'		=> 7,
 ), 'Chalk\Core') ?>
-<div class="expandable">
-	<div class="expandable-body">
-		<?= $this->render('/element/form-item', array(
-			'type'		=> 'select',
-			'entity'	=> $content,
-			'name'		=> 'layout',
-			'label'		=> 'Layout',
-			'null'		=> 'Default',
-			'values'	=> $this->app->layouts(),
-		), 'Chalk\Core') ?>
-	</div>
-	<div class="expandable-toggle">
-		Advanced
-	</div>
-</div>
+<?php $this->start() ?>
+	<?= $this->render('/element/form-item', array(
+		'type'		=> 'select',
+		'entity'	=> $content,
+		'name'		=> 'layout',
+		'label'		=> 'Layout',
+		'null'		=> 'Default',
+		'values'	=> $this->app->layouts(),
+	), 'Chalk\Core') ?>
+<?php $html = $this->end() ?>
+<?= $this->render('/element/expandable', [
+	'content'		=> $html,
+	'buttonLabel'	=> 'Advanced',
+], 'Chalk\Core') ?>
 
 <?php $this->block('general-after') ?>
 
