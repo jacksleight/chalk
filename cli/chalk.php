@@ -1,4 +1,9 @@
 <?php
+/*
+ * Copyright 2015 Jack Sleight <http://jacksleight.com/>
+ * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
+ */
+
 if (php_sapi_name() != 'cli') {
 	exit("Must be run from the command line\n");
 }
