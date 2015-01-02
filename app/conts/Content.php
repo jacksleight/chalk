@@ -103,7 +103,7 @@ class Content extends Basic
 		list($uploads, $headers) = $uploader->processAll();
 		foreach ($uploads as $upload) {
 			if (isset($upload->path)) {
-				$content = new \Chalk\Core\File();
+				$content = $this->em($req->info)->create();
 				$content->newFile = new \Coast\File($upload->path);
 				$this->em->persist($content);
 				$this->em->flush();
