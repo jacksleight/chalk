@@ -99,6 +99,9 @@ class User extends \Toast\Entity implements Trackable, Searchable
 						self::ROLE_ADMINISTRATOR	=> 'Administrator',
 					],
 				),
+				'emailAddress' => array(
+					'validator'	=> Validator::email(),
+				),
 				'passwordPlain' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,

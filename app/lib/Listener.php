@@ -108,9 +108,11 @@ class Listener implements EventSubscriber
             3  => 'toOne',
             12 => 'toMany',
         ];
+
         $md = [];
         foreach ($meta->fieldMappings as $mapping) {
             $md['fields'][$mapping['fieldName']] = [
+                'id'       => isset($mapping['id']) ? $mapping['id'] : false,
                 'type'     => $mapping['type'],
                 'length'   => $mapping['length'],
                 'nullable' => $mapping['fieldName'] == 'id' ? true : $mapping['nullable'],

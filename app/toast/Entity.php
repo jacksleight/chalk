@@ -52,13 +52,16 @@ class Entity extends Model
 
 		foreach ($md['fields'] as $name => $field) {
 			$field = \Coast\array_merge_smart(array(
+				'id'		=> false,
 				'type'		=> null,
 				'length'	=> null,
 				'nullable'	=> false,
 				'validator'	=> new Validator(),
 			), $field);
 			$validator = new Validator();
-			$validator->not(Validator::nullValue());
+			if (!$field['id'] && !$field['nullable']) {
+				$validator->notEmpty();
+			}
 			if ($field['type'] == 'integer' || $field['type'] == 'smallint' || $field['type'] == 'bigint') {
 				$validator->int();
 			} elseif ($field['type'] == 'decimal') {
@@ -183,13 +186,14 @@ class Entity extends Model
 		
 		$properties = $this->getMetadata(self::MD_PROPERTIES);
 		foreach ($properties as $name => $property) {
+			if ($property['nullable'] && !isset($this->{$name})) {
+				continue;
+			}
 			$validator = $property['validator'];
 			try {
-				if (!$property['nullable'] || isset($this->{$name})) {
-					$validator->check($this->{$name});
-				}
+				$validator->check($this->{$name});
 			} catch(\Exception $e) {
-				$this->addError($name, $e->getMainMessage());
+				$this->addError($name, preg_replace('/^"[^"]*"\s(.*)$/', "This $1", $e->getMainMessage()));
 			}
 		}
 
