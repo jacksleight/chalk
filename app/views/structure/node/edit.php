@@ -4,7 +4,9 @@ $content	= $node->content;
 $info	    = \Chalk\Chalk::info($content->getObject());
 ?>
 
-<?php $this->parent('/layout/page_structure') ?>
+<?php $this->parent('/layout/page_structure', [
+	'content' => $content,
+]) ?>
 <?php $this->block('main') ?>
 
 <?php if ($info->class != 'Chalk\Core\Content') { ?>

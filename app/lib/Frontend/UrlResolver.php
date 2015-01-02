@@ -13,7 +13,7 @@ class UrlResolver extends CoastUrlResolver
     public function __invoke()
     {
         $args = func_get_args();
-        if (is_numeric($args[0])) {
+        if (isset($args[0]) && is_numeric()) {
             $func = array($this, 'content');
         } else {
             $func = array('parent', '__invoke');

@@ -1,4 +1,6 @@
-<?php $this->parent('/layout/page_content') ?>
+<?php $this->parent('/layout/page_content', [
+	'content' => $content,
+]) ?>
 <?php $this->block('main') ?>
 
 <form action="<?= $this->url->route() ?>" method="post">

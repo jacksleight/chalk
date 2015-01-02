@@ -61,8 +61,13 @@ $count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
 						<small>&nbsp;&nbsp;<strong><?= $count ?></strong> draft items</small>
 					</li>
 				<?php } else { ?>
+					<?php
+					$url = isset($content)
+						? $this->frontend->url->content($content)
+						: $this->frontend->url();
+					?>
 					<li>
-						<a href="<?= $this->frontend->url->baseUrl() ?>" target="_blank" class="btn btn-quiet icon-view">
+						<a href="<?= $url ?>" target="_blank" class="btn btn-quiet icon-view">
 							View Site
 						</a>
 					</li>					
