@@ -13,7 +13,8 @@ use Chalk\Chalk,
 	FileUpload\FileSystem,
 	Chalk\Controller\Basic,
 	Coast\Request,
-	Coast\Response;
+	Coast\Response,
+	Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 
 class Content extends Basic
 {
@@ -160,8 +161,20 @@ class Content extends Basic
 	{
 		$content = $this->em($req->info)->find($req->content);
 
-		$this->em->remove($content);
-		$this->em->flush();
+		try {
+			$this->em->remove($content);
+			$this->em->flush();
+		} catch (ForeignKeyConstraintViolationException $e) {
+			$this->notify("{$req->info->singular} <strong>{$content->name}</strong> cannot be deleted as it is in use", 'negative');
+			if (isset($req->redirect)) {
+				return $res->redirect($req->redirect);
+			} else {
+				return $res->redirect($this->url(array(
+					'action'	=> 'edit',
+					'content'	=> $content->id,
+				)));
+			}
+		}
 
 		$this->notify("{$req->info->singular} <strong>{$content->name}</strong> was deleted successfully", 'positive');
 		return $res->redirect($this->url(array(

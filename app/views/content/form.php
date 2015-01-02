@@ -133,7 +133,7 @@
 			Archive <?= $info->singular ?>
 		</a></li>
 	<?php } ?>
-	<?php if ($content->isArchived()) { ?>
+	<?php if (!isset($node) && $content->isArchived()) { ?>
 		<li><a href="<?= $this->url([
 			'entity'	=> $info->name,
 			'action'	=> 'delete',

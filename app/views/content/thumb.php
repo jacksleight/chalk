@@ -14,7 +14,8 @@ $isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 	<?php } ?>
 		<?php if (!$template) { ?>
 			<?= $this->child('/content/checkbox', [
-				'value'	=> $content,
+				'entity'	=> $index,
+				'value'		=> $content->id,
 			]) ?>
 		<?php } ?>
 		<div class="preview">

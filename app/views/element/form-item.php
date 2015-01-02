@@ -54,7 +54,6 @@ $render = isset($input)
 			'type'		=> $type,
 			'name'		=> $md['contextName'],
 			'id'		=> $md['contextName'],
-			'null'		=> $md['nullable'] ? false : 'Select…',
 			'value'		=> $value,
 			'values'	=> $values,
 			'required'	=> !$md['nullable'],

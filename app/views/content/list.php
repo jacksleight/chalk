@@ -120,7 +120,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
                         <td class="col-select">
                             <?= $this->child('/content/checkbox', [
                                 'entity'    => $index,
-                                'value'     => $content,
+                                'value'     => $content->id,
                             ]) ?>
                         </td>
                         <th class="col-name" scope="row">
