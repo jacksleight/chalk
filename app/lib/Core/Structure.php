@@ -69,11 +69,6 @@ class Structure extends \Toast\Entity implements Loggable, Publishable, Trackabl
 		return $this->nodes->first();
 	}
 
-	public function __toString()
-	{
-		return (string) $this->name;
-	}
-
 	// public function __clone()
 	// {
 	// 	throw new \Exception('TODO');

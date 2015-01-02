@@ -3,6 +3,17 @@ $md = $entity->getMetadata(\Toast\Entity::MD_PROPERTY, $name);
 $values = isset($values)
 	? $values
 	: (isset($md['values']) ? $md['values'] : []);
+if (isset($values[0]) && $values[0] instanceof \Toast\Entity) {
+	$temp = [];
+	foreach ($values as $value) {
+		$temp[$value->id] = $value->name;
+	}
+	$values = $temp;
+}
+$value = $entity->{$name};
+if ($value instanceof \Toast\Wrapper\Entity) {
+	$value = $value->id;
+}
 $render = isset($input)
 	? $input
 	: [$type, null];

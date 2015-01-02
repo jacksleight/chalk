@@ -140,12 +140,7 @@ class User extends \Toast\Entity implements Trackable, Searchable
 			$this->emailAddress,
 		];
 	}
-	
-	public function __toString()
-	{
-		return $this->name;
-	}
-	
+		
 	public function isRoot()
 	{
 		return $this->role == self::ROLE_ROOT;

@@ -23,7 +23,7 @@
 				)) ?>
 				<?= $this->render('/element/form-item', array(
 					'entity'	=> $domain,
-					'type'		=> 'select_objects',
+					'type'		=> 'select',
 					'name'		=> 'structure',
 					'label'		=> 'Structure',
 					'values'    => $this->em('Chalk\Core\Structure')->all(),

@@ -122,11 +122,6 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 		return $this->subtype;
 	}
 
-	public function __toString()
-	{
-		return (string) $this->id;
-	}
-
 	public function restore()
 	{
 		$this->status = \Chalk\Chalk::STATUS_DRAFT;
