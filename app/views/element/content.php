@@ -11,7 +11,7 @@ $browser['entity'] = \Chalk\Chalk::info(isset($browser['entity'])
 	<div class="content-holder">
 		<?php if (isset($value)) { ?>
 			<?= $this->child('/content/card', [
-				'content' => $this->em('Chalk\Core\Content')->id((string) $value)
+				'content' => $this->em('Chalk\Core\Content')->id($value)
 			]) ?>		
 		<?php } else { ?>
 			<span class="placeholder">Nothing Selected</span>

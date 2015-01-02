@@ -33,7 +33,7 @@ class Content extends Basic
 		$wrap->graphFromArray($req->queryParams());
 	}
 
-	public function select(Request $req, Response $res)
+	public function browse(Request $req, Response $res)
 	{
 		$wrap = $this->em->wrap($index = new \Chalk\Core\Model\Index());
 		$wrap->graphFromArray($req->bodyParams());

@@ -16393,7 +16393,7 @@ Chalk.component('.content', function(i, el) {
 	var entity	= $(el).attr('data-entity');
 	
 	select.click(function(ev) {
-		Chalk.modal(Chalk.selectUrl.replace('{entity}', entity), {}, function(res) {
+		Chalk.modal(Chalk.browseUrl.replace('{entity}', entity), {}, function(res) {
 			if (res.contents) {
 				input.val(res.contents[0].id);
 				holder.html(res.contents[0].card);
@@ -16544,6 +16544,7 @@ Chalk.component('.uploadable', function(i, el) {
 	var button		= $(el).find('.uploadable-button');
 	var list		= $(el).find('.uploadable-list');
 	var template	= $(el).find('.uploadable-template').html();
+	var panel		= $(el).find('.panel');
 	Mustache.parse(template);
 
 	$(el).find('.uploadable-input').fileupload({
@@ -16555,6 +16556,7 @@ Chalk.component('.uploadable', function(i, el) {
 		var file = data.files[0];
 		data.context = $($.parseHTML('<li>' + Mustache.render(template, file).trim() + '</li>')[0]);
 		list.prepend(data.context);
+		panel.remove();
 	}).bind('fileuploadprogress', function (e, data) {
 		var perc = parseInt(data.loaded / data.total * 100, 10);
 		data.context.find('.progress span')
@@ -16736,7 +16738,7 @@ Chalk.component('.stackable', function(i, el) {
 		var entity = control.attr('data-entity');
 		addMultiBtn.css('display', 'inline-block');
 		addMultiBtn.click(function(ev) {
-			Chalk.modal(Chalk.selectUrl.replace('{entity}', entity), {}, function(res) {
+			Chalk.modal(Chalk.browseUrl.replace('{entity}', entity), {}, function(res) {
 				if (res.contents) {
 					addMulti(res.contents);
 				}

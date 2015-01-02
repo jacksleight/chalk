@@ -957,7 +957,6 @@ figure figcaption {
 /* Thumbs */
 .thumbs {
   margin-top: 20px;
-  min-height: 600px;
   list-style: none;
   margin-left: -5px;
   margin-right: -5px;
@@ -1162,11 +1161,6 @@ table th, table td {
 table th:first-child, table td:first-child {
   padding-left: 15px;
 }
-table th.panel, table td.panel {
-  text-align: center;
-  padding: 100px 20px;
-  color: #969a9d;
-}
 table th {
   font-weight: normal;
   text-align: left;
@@ -1249,6 +1243,18 @@ table .col-select input[type=checkbox] + label::before {
   margin: 0;
   width: 26px;
   height: 26px;
+}
+
+/* Panel */
+.panel {
+  margin: 20px 0 0 0;
+  text-align: center;
+  padding: 100px 20px;
+  color: #969a9d;
+  background-color: white;
+}
+.thumbs + .panel {
+  margin-top: 0;
 }
 
 /* Selectable */
@@ -2292,6 +2298,9 @@ legend {
 }
 
 /* Uploadable */
+.uploadable > *:first-child {
+  margin-top: 0 !important;
+}
 .uploadable .uploadable-input {
   display: none;
 }

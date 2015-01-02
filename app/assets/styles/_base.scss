@@ -344,7 +344,6 @@ figure {
 
 .thumbs {
 	margin-top: $gutter;
-	min-height: 600px;
 	@include no-bullets;
 	@include inline-blocks('li', $gutter * 0.5, $gutter * 0.5);
 	li {
@@ -474,11 +473,6 @@ table {
 		&:first-child {
 			padding-left: $gutter * 0.75;
 		}
-		&.panel {
-			text-align: center;
-			padding: 100px $gutter;
-			color: $color-quiet;
-		}
 	}
 	th { 
 		font-weight: normal;
@@ -552,6 +546,19 @@ table {
 				height: 26px;
 			}
 		}
+	}
+}
+
+/* Panel */
+
+.panel {
+	margin: $gutter 0 0 0;
+	text-align: center;
+	padding: 100px $gutter;
+	color: $color-quiet;
+	background-color: white;
+	.thumbs + & {
+		margin-top: 0;
 	}
 }
 
@@ -1175,6 +1182,7 @@ legend {
 /* Uploadable */
 
 .uploadable {
+	@include flush();
 	.uploadable-input {
 		display: none;
 	}

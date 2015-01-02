@@ -7,7 +7,7 @@ Chalk.component('.content', function(i, el) {
 	var entity	= $(el).attr('data-entity');
 	
 	select.click(function(ev) {
-		Chalk.modal(Chalk.selectUrl.replace('{entity}', entity), {}, function(res) {
+		Chalk.modal(Chalk.browseUrl.replace('{entity}', entity), {}, function(res) {
 			if (res.contents) {
 				input.val(res.contents[0].id);
 				holder.html(res.contents[0].card);

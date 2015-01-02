@@ -1,11 +1,11 @@
 <?php
-$template	= isset($template) ? $template : false;
-$covered	= isset($covered) ? $covered : false;
-$link		= isset($link) ? $link : true;
+$template		= isset($template) ? $template : false;
+$covered		= isset($covered) ? $covered : false;
+$isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 ?>
 
 <figure class="thumb selectable">
-	<?php if ($link) { ?>
+	<?php if ($isEditAllowed) { ?>
 		<a href="<?= !$template ? $this->url([
 			'entity'=> $info->name,
 			'action'	=> 'edit',
@@ -52,7 +52,7 @@ $link		= isset($link) ? $link : true;
 				<?php } ?>
 			</small>
 		</figcaption>
-	<?php if ($link) { ?>
+	<?php if ($isEditAllowed) { ?>
 		</a>
 	<?php } ?>
 </figure>

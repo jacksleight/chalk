@@ -1,6 +1,6 @@
 <? $this->block() ?>
 
-<form action="<?= $this->url->route() ?>" method="post" class="fill">
+<div class="fill">
 <div class="flex">
 
 <? if ($this->block('tools')) { ?>
@@ -155,4 +155,4 @@
 <? } $this->block() ?>
 
 </fieldset>
-</form>
+</div>
