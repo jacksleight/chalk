@@ -9,7 +9,6 @@
 	value="1"
 	<?= isset($disabled) && $disabled ? "disabled" : null ?>
 	<?= isset($readOnly) && $readOnly ? "readonly" : null ?>
-	<?= isset($required) && $required ? "required" : null ?>
 	<?= $value ? 'checked' : null ?>
 	<?= isset($class) ? "class=\"{$class}\"" : null ?>>
 <label for="<?= "{$id}" ?>">

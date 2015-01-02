@@ -2884,6 +2884,9 @@ a .card strong {
 .mce-tinymce .mce-btn-group .mce-first {
   border-radius: 0;
 }
+.mce-tinymce.disabled .mce-edit-area {
+  background-color: #fafafb;
+}
 
 /* Ace */
 .ace_editor {

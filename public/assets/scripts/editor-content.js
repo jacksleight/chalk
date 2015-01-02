@@ -291,7 +291,7 @@ if (Chalk.styles) {
 tinyMCE.init({
     skin_url: assetsUrl + '/vendor/tinymce/skins/lightgray',
     content_css: [
-        assetsUrl + '/styles/editor.css',
+        assetsUrl + '/styles/editor-content.css',
         'data:text/css;charset=utf-8;base64,' + Base64.encode(css)
     ],
     menubar: false,
@@ -329,6 +329,10 @@ tinyMCE.init({
     setup: function(editor) {
         editor.on('init', function(ev) {
             editor.theme.resizeTo(null, $(editor.getElement()).outerHeight() - 37);
+            if (editor.getElement().disabled) {
+                $(editor.getContainer()).addClass('disabled');
+                editor.getBody().setAttribute('contenteditable', false);
+            }
         });
    }
 });

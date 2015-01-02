@@ -1622,6 +1622,9 @@ legend {
 	.mce-btn-group .mce-first {
 		border-radius: 0;
 	}
+	&.disabled .mce-edit-area {
+		background-color: $color-shade;
+	}
 }
 
 /* Ace */
