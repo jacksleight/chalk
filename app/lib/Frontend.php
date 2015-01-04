@@ -95,8 +95,10 @@ class Frontend extends App
             return;
         }
 
-        $req->node    = $node;
-        $req->content = $content;
+        $req->chalk = (object) [
+            'node'    => $node,
+            'content' => $content,
+        ];
 
         $name = \Chalk\Chalk::info($content)->class;
         if (!isset($this->_handlers[$name])) {

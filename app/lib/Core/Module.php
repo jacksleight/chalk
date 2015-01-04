@@ -43,27 +43,27 @@ class Module extends CoreModule
 
 		$chalk->frontend->handlers([
 			'Chalk\Core\Page' => function(Request $req, Response $res) {
-				$info = Chalk::info($req->content);
+				$info = Chalk::info($req->chalk->content);
 				return $res->html($this->parse($this->view->render($info->local->path, [
 					'req'	=> $req,
 					'res'	=> $res,
 					'node'	=> $req->node,
-					'page'	=> $req->content
+					'page'	=> $req->chalk->content
 		        ], 'Chalk\Core')));
 			},
 			'Chalk\Core\File' => function(Request $req, Response $res) {
-		        $file = $req->content->file();
+		        $file = $req->chalk->content->file();
 		        if (!$file->exists()) {
 		            return false;
 		        }
 		        return $res->redirect($this->app->url->file($file));
 			},
 			'Chalk\Core\Alias' => function(Request $req, Response $res) {
-		        $content = $req->content->content();
+		        $content = $req->chalk->content->content();
 		        return $res->redirect($this->url($content));
 			},
 			'Chalk\Core\Url' => function(Request $req, Response $res) {
-		        $url = $req->content->url();
+		        $url = $req->chalk->content->url();
 		        return $res->redirect($url);
 			},
 			'Chalk\Core\Blank' => function(Request $req, Response $res) {
