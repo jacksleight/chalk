@@ -78,8 +78,7 @@ class Repository extends EntityRepository
 			$query
 				->andWhere("{$this->_alias}.id IN (:ids)")
 				->setParameter('ids', $criteria['ids']);
-		}
-		if (isset($criteria['slugs'])) {
+		} else if (isset($criteria['slugs'])) {
 			$query
 				->andWhere("{$this->_alias}.slug IN (:slugs)")
 				->setParameter('slugs', $criteria['slugs']);
@@ -90,7 +89,16 @@ class Repository extends EntityRepository
 				$sort = [$sort, 'ASC'];
 			}
 			$query->orderBy("{$this->_alias}.{$sort[0]}", $sort[1]);
+		} else if (isset($criteria['ids'])) {
+			$query
+				->addSelect("FIELD({$this->_alias}.id, :ids) AS HIDDEN sort")
+				->orderBy("sort");
+		} else if (isset($criteria['slugs'])) {
+			$query
+				->addSelect("FIELD({$this->_alias}.slug, :slugs) AS HIDDEN sort")
+				->orderBy("sort");
 		}
+		
 		if (isset($limit)) {
 			$query->setMaxResults($limit);
 		}

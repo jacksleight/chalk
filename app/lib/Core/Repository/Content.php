@@ -84,12 +84,6 @@ class Content extends Repository
 				->setParameter('statuses', $criteria['statuses']);
 		}
 
-		if (!isset($sort)) {
-			$query
-				->orderBy("c.modifyDate", "DESC")
-				->addOrderBy("c.id", "DESC");
-		}
-
 		$this->publishableQueryModifier($query, $criteria);
 
 		return $query;

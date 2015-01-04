@@ -4,7 +4,7 @@
 <form action="<?= $this->url->route() ?>">
 	<?php
 	$contents = $this->em($req->info)
-		->paged($index->toArray(), null, $index->limit, $index->page);
+		->paged($index->toArray(), ['modifyDate', 'DESC'], $index->limit, $index->page);
 	?>
 	<?= $this->child("/{$info->local->path}/list", [
 		'contents' => $contents,
