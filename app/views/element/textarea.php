@@ -1,6 +1,6 @@
 <textarea
-	name="<?= "{$name}" ?>"
-	id="<?= "{$id}" ?>"
+	<?= isset($name) ? "name=\"{$name}\"" : null ?>
+	<?= isset($id) ? "id=\"{$id}\"" : null ?>
 	<?= isset($class) ? "class=\"{$class}\"" : null ?>
 	<?= isset($rows) ? "rows=\"{$rows}\"" : null ?>
 	<?= isset($cols) ? "cols=\"{$cols}\"" : null ?>
@@ -9,4 +9,4 @@
 	<?= isset($required) && $required ? "required" : null ?>
 	<?= isset($maxlength) ? "maxlength=\"{$maxlength}\"" : null ?>
 	<?= isset($wrap) ? "wrap=\"{$wrap}\"" : null ?>
-	<?= isset($placeholder) ? "placeholder=\"" . $this->escape($placeholder) . "\"" : null ?>><?= $this->escape($value) ?></textarea>
+	<?= isset($placeholder) ? "placeholder=\"" . $this->escape($placeholder) . "\"" : null ?>><?= isset($value) ? $this->escape($value) : null ?></textarea>

@@ -1495,7 +1495,7 @@ legend {
 		margin: 0;
 	}
 	.stackable-item {
-		border-bottom: $gutter * 0.5 solid white;
+		border-bottom: $gutter * 0.25 solid white;
 		background-color: $color-divide;
 		position: relative;
 		@include clearfix;
@@ -1518,7 +1518,7 @@ legend {
 	}
 	.stackable-placeholder {
 		background-color: $color-active;
-		margin-bottom: $gutter * 0.5;
+		margin-bottom: $gutter * 0.25;
 	}
 	.stackable-helper {
 		background-color: $color-divide;

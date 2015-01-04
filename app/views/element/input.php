@@ -1,7 +1,7 @@
 <input
 	type="<?= $type ?>"
-	name="<?= "{$name}" ?>"
-	id="<?= "{$id}" ?>"
+	<?= isset($name) ? "name=\"{$name}\"" : null ?>
+	<?= isset($id) ? "id=\"{$id}\"" : null ?>
 	<?= isset($value) ? "value=\"" . $this->escape($value) . "\"" : null ?>
 	<?= isset($class) ? "class=\"{$class}\"" : null ?>
 	<?= isset($disabled) && $disabled ? "disabled" : null ?>

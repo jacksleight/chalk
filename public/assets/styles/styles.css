@@ -2763,7 +2763,7 @@ legend {
   margin-left: 0;
 }
 .stackable .stackable-item {
-  border-bottom: 10px solid white;
+  border-bottom: 5px solid white;
   background-color: #d5d6d8;
   position: relative;
   overflow: hidden;
@@ -2789,7 +2789,7 @@ legend {
 }
 .stackable .stackable-placeholder {
   background-color: #FCB941;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 .stackable .stackable-helper {
   background-color: #d5d6d8;

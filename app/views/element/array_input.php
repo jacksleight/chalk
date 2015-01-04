@@ -1,73 +1,71 @@
-<?php 
-$stackable = isset($stackable) ? $stackable : true;
+<?php
+$items = [];
 ?>
-<div class="<?= $stackable ? 'stackable' : null ?>">
-    <div class="stackable-list">
-        <?php foreach ($value as $i => $item) { ?>
-            <div class="stackable-item form-group form-group-horizontal">
-                <?php if ($stackable) { ?>
-                    <input
-                        type="text"
-                        name="<?= "{$name}[{$i}][name]" ?>"
-                        id="<?= "{$id}[{$i}][name]" ?>"
-                        placeholder="Name"
-                        value="<?= $this->escape($item['name']) ?>"
-                        class="width-3"
-                        <?= isset($datalist) ? "list=\"{$id}_datalist\"" : null ?>
-                        <?= isset($disabled) && $disabled ? "disabled" : null ?>
-                        <?= isset($readOnly) && $readOnly ? "readonly" : null ?>>
-                <?php } else { ?>
-                    <span class="value disabled width-3">
-                        <?= ucwords(\Coast\str_camel_split($item['name'])) ?>
-                    </span>
-                    <input
-                        type="hidden"
-                        name="<?= "{$name}[{$i}][name]" ?>"
-                        value="<?= $this->escape($item['name']) ?>">
-                <?php } ?>
-                <input
-                    type="text"
-                    name="<?= "{$name}[{$i}][value]" ?>"
-                    id="<?= "{$id}[{$i}][value]" ?>"
-                    placeholder="Value"
-                    value="<?= $this->escape($item['value']) ?>"
-                    <?= isset($disabled) && $disabled ? "disabled" : null ?>
-                    <?= isset($readOnly) && $readOnly ? "readonly" : null ?>>
-            </div>
-        <?php } ?>
-    </div>
-    <?php if ($stackable) { ?>
-        <span class="btn stackable-button icon-add">
-            Add Item
-        </span>
-        <script type="x-tmpl-mustache" class="stackable-template">
-             <div class="stackable-item form-group form-group-horizontal">
-                <input
-                    type="text"
-                    name="<?= "{$name}[{{i}}][name]" ?>"
-                    id="<?= "{$id}[{{i}}][name]" ?>"
-                    placeholder="Name"
-                    value=""
-                    class="width-3"
-                    <?= isset($datalist) ? "list=\"{$id}_datalist\"" : null ?>
-                    <?= (isset($disabled) && $disabled) || !$stackable ? "disabled" : null ?>
-                    <?= isset($readOnly) && $readOnly ? "readonly" : null ?>>
-                <input
-                    type="text"
-                    name="<?= "{$name}[{{i}}][value]" ?>"
-                    id="<?= "{$id}[{{i}}][value]" ?>"
-                    placeholder="Value"
-                    value=""
-                    <?= isset($disabled) && $disabled ? "disabled" : null ?>
-                    <?= isset($readOnly) && $readOnly ? "readonly" : null ?>>
-            </div>
-        </script>
-    <?php } ?>
-</div>
-<?php if (isset($datalist)) { ?>
+<?php foreach ($value as $i => $item) { ?>
+    <?php $this->start() ?>
+        <div class="form-group form-group-vertical">
+            <?php if ($stackable) { ?>
+                <?= $this->render('input_text', [
+                    'name'        => "{$name}[{$i}][name]",
+                    'id'          => "{$id}[{$i}][name]",
+                    'placeholder' => 'Name',
+                    'value'       => $item['name'],
+                    'disabled'    => isset($disabled) ? $disabled : null,
+                    'readOnly'    => isset($readOnly) ? $readOnly : null,
+                ]) ?>
+            <?php } else { ?>
+                <?= $this->render('value', [
+                    'name'     => "{$name}[{$i}][name]",
+                    'value'    => ucwords(\Coast\str_camel_split($item['name'])),
+                    'disabled' => true,
+                ]) ?>
+                <?= $this->render('input_hidden', [
+                    'name'  => "{$name}[{$i}][name]",
+                    'id'    => "{$id}[{$i}][name]",
+                    'value' => $item['name'],
+                ]) ?>
+            <?php } ?>
+            <?= $this->render('input_text', [
+                'name'        => "{$name}[{$i}][value]",
+                'id'          => "{$id}[{$i}][value]",
+                'placeholder' => 'Value',
+                'value'       => $item['value'],
+                'disabled'    => isset($disabled) ? $disabled : null,
+                'readOnly'    => isset($readOnly) ? $readOnly : null,
+            ]) ?>
+        </div>  
+    <?php $items[] = $this->end() ?>
+<?php } ?>
+<? if (isset($stackable) ? $stackable : true) { ?>
+    <?php $this->start() ?>
+        <div class="form-group form-group-vertical">
+            <?= $this->render('input_text', [
+                'name'        => "{$name}[{{i}}][name]",
+                'id'          => "{$id}[{{i}}][name]",
+                'placeholder' => 'Name',
+                'disabled'    => isset($disabled) ? $disabled : null,
+                'readOnly'    => isset($readOnly) ? $readOnly : null,
+            ]) ?>
+            <?= $this->render('input_text', [
+                'name'        => "{$name}[{{i}}][value]",
+                'id'          => "{$id}[{{i}}][value]",
+                'placeholder' => 'Value',
+                'disabled'    => isset($disabled) ? $disabled : null,
+                'readOnly'    => isset($readOnly) ? $readOnly : null,
+            ]) ?>
+        </div>  
+    <?php $template = $this->end() ?>
+    <?= $this->child('stackable', [
+        'items'     => $items,
+        'template'  => $template,
+    ]) ?>
+<? } else { ?>
+    <?= implode(null, $items) ?>
+<? } ?>
+<? if (isset($datalist)) { ?>
     <datalist id="<?= "{$id}_datalist" ?>">
         <?php foreach ($datalist as $value) { ?>
             <option value="<?= $value ?>">
         <?php } ?>
     </datalist>
-<?php } ?>
+<? } ?>
