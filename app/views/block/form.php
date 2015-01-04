@@ -5,7 +5,7 @@
 	'type'		=> 'textarea',
 	'entity'	=> $content,
 	'name'		=> 'body',
-	'label'		=> 'Body',
+	'label'		=> 'Content',
 	'class'		=> 'monospaced editor-content',
 	'rows'		=> 20,
 ), 'Chalk\Core') ?>

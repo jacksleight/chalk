@@ -128,11 +128,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
                                 <a href="<?= $this->url([
                                     'action'    => 'edit',
                                     'content'   => $content->id,
-                                ]) ?>">
-                            <? } ?>
-                                <?= $content->name ?>
-                            <? if ($isEditAllowed) { ?>
-                               </a>
+                                ]) ?>"><? } ?><?= $content->name ?><? if ($isEditAllowed) { ?></a>
                             <? } ?>
                             <br>
                             <small><?= $content->subname($info->class != 'Chalk\Core\Content') ?></small>
