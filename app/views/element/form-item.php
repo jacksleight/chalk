@@ -13,6 +13,7 @@ $types = [
 	'time'			=> 'input_time',
 	'datetime'		=> 'input_datetime-local',
 	'array'			=> 'array',
+	'json_array'	=> 'array',
 	'coast_array'	=> 'array',
 	'coast_url'		=> 'input_url',
 	\Doctrine\ORM\Mapping\ClassMetadataInfo::MANY_TO_ONE	=> 'select',

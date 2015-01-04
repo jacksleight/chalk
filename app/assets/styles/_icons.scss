@@ -44,7 +44,8 @@ $icons: (
 	next: 		arrow-25,
 	prev: 		arrow-25-180,
 	last: 		arrow-31,
-	first: 		arrow-31-180
+	first: 		arrow-31-180,
+	id: 		code-3
 );
 %icon-basic {
 	@extend %icon;

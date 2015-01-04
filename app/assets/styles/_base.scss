@@ -633,7 +633,10 @@ select,
 	@include border-radius($radius);
 	outline: 0;
 	-webkit-appearance: none;
-	&[disabled], &.disabled {
+	&[disabled],
+	&[readonly],
+	&.disabled,
+	&.readonly {
 		background-color: $color-shade;
 	}
 	&:focus:invalid {
@@ -1031,7 +1034,7 @@ legend {
 	.form-legend {
 		padding: $gutter;
 		float: left;
-		width: 240px - ($gutter * 3);
+		width: 240px - ($gutter * 1.5);
 		@include flush;
 		@include font-size(-1);
 		h2 {

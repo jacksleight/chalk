@@ -22,7 +22,7 @@
 /* Transitions */
 /* Widths & Heights */
 /* Icons */
-.icon-add::before, .icon-add-dark::before, .icon-archive::before, .icon-archive-dark::before, .icon-cancel::before, .icon-cancel-dark::before, .icon-content::before, .icon-content-dark::before, .icon-delete::before, .icon-delete-dark::before, .icon-drag::before, .icon-drag-dark::before, .icon-false::before, .icon-false-dark::before, .icon-history::before, .icon-history-dark::before, .icon-logout::before, .icon-logout-dark::before, .icon-move::before, .icon-move-dark::before, .icon-ok::before, .icon-ok-dark::before, .icon-publish::before, .icon-publish-dark::before, .icon-remove::before, .icon-remove-dark::before, .icon-restore::before, .icon-restore-dark::before, .icon-search::before, .icon-search-dark::before, .icon-settings::before, .icon-settings-dark::before, .icon-status::before, .icon-status-dark::before, .icon-structure::before, .icon-structure-dark::before, .icon-true::before, .icon-true-dark::before, .icon-updated::before, .icon-updated-dark::before, .icon-upload::before, .icon-upload-dark::before, .icon-user::before, .icon-user-dark::before, .icon-view::before, .icon-view-dark::before, .icon-positive::before, .icon-positive-dark::before, .icon-negative::before, .icon-negative-dark::before, .icon-browse::before, .icon-browse-dark::before, .icon-next::before, .icon-next-dark::before, .icon-prev::before, .icon-prev-dark::before, .icon-last::before, .icon-last-dark::before, .icon-first::before, .icon-first-dark::before, .search::before, .tree-node button[data-action=expand] span::before, .tree-node button[data-action=collapse] span::before, .tree-handle::before {
+.icon-add::before, .icon-add-dark::before, .icon-archive::before, .icon-archive-dark::before, .icon-cancel::before, .icon-cancel-dark::before, .icon-content::before, .icon-content-dark::before, .icon-delete::before, .icon-delete-dark::before, .icon-drag::before, .icon-drag-dark::before, .icon-false::before, .icon-false-dark::before, .icon-history::before, .icon-history-dark::before, .icon-logout::before, .icon-logout-dark::before, .icon-move::before, .icon-move-dark::before, .icon-ok::before, .icon-ok-dark::before, .icon-publish::before, .icon-publish-dark::before, .icon-remove::before, .icon-remove-dark::before, .icon-restore::before, .icon-restore-dark::before, .icon-search::before, .icon-search-dark::before, .icon-settings::before, .icon-settings-dark::before, .icon-status::before, .icon-status-dark::before, .icon-structure::before, .icon-structure-dark::before, .icon-true::before, .icon-true-dark::before, .icon-updated::before, .icon-updated-dark::before, .icon-upload::before, .icon-upload-dark::before, .icon-user::before, .icon-user-dark::before, .icon-view::before, .icon-view-dark::before, .icon-positive::before, .icon-positive-dark::before, .icon-negative::before, .icon-negative-dark::before, .icon-browse::before, .icon-browse-dark::before, .icon-next::before, .icon-next-dark::before, .icon-prev::before, .icon-prev-dark::before, .icon-last::before, .icon-last-dark::before, .icon-first::before, .icon-first-dark::before, .icon-id::before, .icon-id-dark::before, .search::before, .tree-node button[data-action=expand] span::before, .tree-node button[data-action=collapse] span::before, .tree-handle::before {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
@@ -32,7 +32,7 @@
   background-size: 118%;
 }
 
-.icon-add::before, .icon-add-dark::before, .icon-archive::before, .icon-archive-dark::before, .icon-cancel::before, .icon-cancel-dark::before, .icon-content::before, .icon-content-dark::before, .icon-delete::before, .icon-delete-dark::before, .icon-drag::before, .icon-drag-dark::before, .icon-false::before, .icon-false-dark::before, .icon-history::before, .icon-history-dark::before, .icon-logout::before, .icon-logout-dark::before, .icon-move::before, .icon-move-dark::before, .icon-ok::before, .icon-ok-dark::before, .icon-publish::before, .icon-publish-dark::before, .icon-remove::before, .icon-remove-dark::before, .icon-restore::before, .icon-restore-dark::before, .icon-search::before, .icon-search-dark::before, .icon-settings::before, .icon-settings-dark::before, .icon-status::before, .icon-status-dark::before, .icon-structure::before, .icon-structure-dark::before, .icon-true::before, .icon-true-dark::before, .icon-updated::before, .icon-updated-dark::before, .icon-upload::before, .icon-upload-dark::before, .icon-user::before, .icon-user-dark::before, .icon-view::before, .icon-view-dark::before, .icon-positive::before, .icon-positive-dark::before, .icon-negative::before, .icon-negative-dark::before, .icon-browse::before, .icon-browse-dark::before, .icon-next::before, .icon-next-dark::before, .icon-prev::before, .icon-prev-dark::before, .icon-last::before, .icon-last-dark::before, .icon-first::before, .icon-first-dark::before {
+.icon-add::before, .icon-add-dark::before, .icon-archive::before, .icon-archive-dark::before, .icon-cancel::before, .icon-cancel-dark::before, .icon-content::before, .icon-content-dark::before, .icon-delete::before, .icon-delete-dark::before, .icon-drag::before, .icon-drag-dark::before, .icon-false::before, .icon-false-dark::before, .icon-history::before, .icon-history-dark::before, .icon-logout::before, .icon-logout-dark::before, .icon-move::before, .icon-move-dark::before, .icon-ok::before, .icon-ok-dark::before, .icon-publish::before, .icon-publish-dark::before, .icon-remove::before, .icon-remove-dark::before, .icon-restore::before, .icon-restore-dark::before, .icon-search::before, .icon-search-dark::before, .icon-settings::before, .icon-settings-dark::before, .icon-status::before, .icon-status-dark::before, .icon-structure::before, .icon-structure-dark::before, .icon-true::before, .icon-true-dark::before, .icon-updated::before, .icon-updated-dark::before, .icon-upload::before, .icon-upload-dark::before, .icon-user::before, .icon-user-dark::before, .icon-view::before, .icon-view-dark::before, .icon-positive::before, .icon-positive-dark::before, .icon-negative::before, .icon-negative-dark::before, .icon-browse::before, .icon-browse-dark::before, .icon-next::before, .icon-next-dark::before, .icon-prev::before, .icon-prev-dark::before, .icon-last::before, .icon-last-dark::before, .icon-first::before, .icon-first-dark::before, .icon-id::before, .icon-id-dark::before {
   -moz-transition: opacity 0.2s ease;
   -o-transition: opacity 0.2s ease;
   -webkit-transition: opacity 0.2s ease;
@@ -457,6 +457,20 @@
 .icon-first-dark::before {
   content: '';
   background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cGF0aCBmaWxsPSIjMmQzNTNjIiBkPSJNNDYyIDM5Ni44NTdsLTUxLjQwNiA1MS4xNkwyMTkuNDkgMjU2IDQxMC41OTQgNjMuOTggNDYyIDExNS4xNDUgMzIxLjgxMiAyNTYgNDYyIDM5Ni44NTd6TTE1Mi4zMjIgMjU2TDI5Mi41MSAxMTUuMTQ0bC01MS40MDYtNTEuMTYyTDUwIDI1NmwxOTEuMTA0IDE5Mi4wMiA1MS40MDYtNTEuMTYyTDE1Mi4zMjIgMjU2eiIvPjwvc3ZnPg==');
+  vertical-align: -0.15em;
+  margin-right: 0.2em;
+}
+
+.icon-id::before {
+  content: '';
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjU2IDUwQzE0Mi4yMyA1MCA1MCAxNDIuMjMgNTAgMjU2czkyLjIzIDIwNiAyMDYgMjA2IDIwNi05Mi4yMyAyMDYtMjA2UzM2OS43NyA1MCAyNTYgNTB6bS0yNS4zIDE3MS40NmwtNjUuNCAzNC40NDggNjUuNCAzNC43djMxLjM1bC0xMDIuNDgtNTQuNDM1di0yMy4wNDZsMTAyLjQ4LTU0LjQzNXYzMS40MnptMTU3LjA4IDQ2LjA2M0wyODUuMyAzMjEuOTU3di0zMS4zNWw2NS4zOTctMzQuNy02NS4zOTgtMzQuNDQ2di0zMS40MTdsMTAyLjQ4IDU0LjQzNXYyMy4wNDV6Ii8+PC9zdmc+');
+  vertical-align: -0.15em;
+  margin-right: 0.2em;
+}
+
+.icon-id-dark::before {
+  content: '';
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48cGF0aCBmaWxsPSIjMmQzNTNjIiBkPSJNMjU2IDUwQzE0Mi4yMyA1MCA1MCAxNDIuMjMgNTAgMjU2czkyLjIzIDIwNiAyMDYgMjA2IDIwNi05Mi4yMyAyMDYtMjA2UzM2OS43NyA1MCAyNTYgNTB6bS0yNS4zIDE3MS40NmwtNjUuNCAzNC40NDggNjUuNCAzNC43djMxLjM1bC0xMDIuNDgtNTQuNDM1di0yMy4wNDZsMTAyLjQ4LTU0LjQzNXYzMS40MnptMTU3LjA4IDQ2LjA2M0wyODUuMyAzMjEuOTU3di0zMS4zNWw2NS4zOTctMzQuNy02NS4zOTgtMzQuNDQ2di0zMS40MTdsMTAyLjQ4IDU0LjQzNXYyMy4wNDV6Ii8+PC9zdmc+');
   vertical-align: -0.15em;
   margin-right: 0.2em;
 }
@@ -1322,39 +1336,71 @@ select,
   outline: 0;
   -webkit-appearance: none;
 }
-input[type=date][disabled], input[type=date].disabled,
+input[type=date][disabled], input[type=date][readonly], input[type=date].disabled, input[type=date].readonly,
 input[type=datetime][disabled],
+input[type=datetime][readonly],
 input[type=datetime].disabled,
+input[type=datetime].readonly,
 input[type=datetime-local][disabled],
+input[type=datetime-local][readonly],
 input[type=datetime-local].disabled,
+input[type=datetime-local].readonly,
 input[type=email][disabled],
+input[type=email][readonly],
 input[type=email].disabled,
+input[type=email].readonly,
 input[type=month][disabled],
+input[type=month][readonly],
 input[type=month].disabled,
+input[type=month].readonly,
 input[type=number][disabled],
+input[type=number][readonly],
 input[type=number].disabled,
+input[type=number].readonly,
 input[type=password][disabled],
+input[type=password][readonly],
 input[type=password].disabled,
+input[type=password].readonly,
 input[type=search][disabled],
+input[type=search][readonly],
 input[type=search].disabled,
+input[type=search].readonly,
 input[type=tel][disabled],
+input[type=tel][readonly],
 input[type=tel].disabled,
+input[type=tel].readonly,
 input[type=text][disabled],
+input[type=text][readonly],
 input[type=text].disabled,
+input[type=text].readonly,
 input[type=time][disabled],
+input[type=time][readonly],
 input[type=time].disabled,
+input[type=time].readonly,
 input[type=url][disabled],
+input[type=url][readonly],
 input[type=url].disabled,
+input[type=url].readonly,
 input[type=week][disabled],
+input[type=week][readonly],
 input[type=week].disabled,
+input[type=week].readonly,
 textarea[disabled],
+textarea[readonly],
 textarea.disabled,
+textarea.readonly,
 select[disabled],
+select[readonly],
 select.disabled,
+select.readonly,
 .value[disabled],
+.value[readonly],
 .value.disabled,
+.value.readonly,
 .content[disabled],
-.content.disabled {
+.content[readonly],
+.content.disabled,
+.content.readonly {
   background-color: #fafafb;
 }
 input[type=date]:focus:invalid,
@@ -2058,7 +2104,7 @@ legend {
 .form-block .form-legend {
   padding: 20px;
   float: left;
-  width: 180px;
+  width: 210px;
   font-size: 13.91304px;
   font-size: 0.86957rem;
 }

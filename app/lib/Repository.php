@@ -28,6 +28,13 @@ class Repository extends EntityRepository
 			->getOneOrNullResult();
 	}
 
+	public function slug($slug, array $criteria = array())
+	{
+		return $this->query(array_merge($criteria, ['slugs' => [$slug]]))
+			->getQuery()
+			->getOneOrNullResult();
+	}
+
 	public function one(array $criteria = array(), $sort = null, $offset = null)
 	{	
 		return $this->query($criteria, $sort, null, $offset)
@@ -63,13 +70,19 @@ class Repository extends EntityRepository
 		$query = $this->createQueryBuilder($this->_alias);
 
 		$criteria = $criteria + [
-			'ids' => null,
+			'ids'	=> null,
+			'slugs'	=> null,
 		];
 		
 		if (isset($criteria['ids'])) {
 			$query
 				->andWhere("{$this->_alias}.id IN (:ids)")
 				->setParameter('ids', $criteria['ids']);
+		}
+		if (isset($criteria['slugs'])) {
+			$query
+				->andWhere("{$this->_alias}.slug IN (:slugs)")
+				->setParameter('slugs', $criteria['slugs']);
 		}
 
 		if (isset($sort)) {

@@ -33,6 +33,7 @@ class Module extends CoreModule
         	->listen('Chalk\Core\Event\ListContents', function(Event $event) {
         		$event->contents([
 	        		'Chalk\Core\Page',
+	        		'Chalk\Core\Block',
 	        		'Chalk\Core\Alias',
 	        		'Chalk\Core\Blank',
 	        		'Chalk\Core\Url',

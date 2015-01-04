@@ -60,6 +60,11 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
      * @OneToMany(targetEntity="\Chalk\Core\Structure\Node", mappedBy="content")
      */
 	protected $nodes;
+		
+	/**
+     * @Column(type="boolean")
+     */
+	protected $isLocked = false;
 	
 	public function __construct()
 	{	

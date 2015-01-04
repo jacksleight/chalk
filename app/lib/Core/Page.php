@@ -32,7 +32,7 @@ class Page extends Content
 	protected $summary;
 
     /**
-     * @Column(type="coast_array")
+     * @Column(type="json_array")
      */
 	protected $blocks = [
 		['name' => 'primary',   'value' => ''],

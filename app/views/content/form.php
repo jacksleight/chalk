@@ -68,6 +68,7 @@
 			'name'		=> 'name',
 			'label'		=> 'Name',
 			'autofocus'	=> true,
+			'disabled'	=> $content->isLocked(),
 		), 'Chalk\Core') ?>
 		<?= $this->content('general-bottom') ?>
 	</div>
@@ -99,6 +100,34 @@
 		</div>
 	</fieldset>
 <?php } ?>
+<?php if ($req->user->isRoot()) { ?>
+	<fieldset class="form-block">
+		<div class="form-legend">
+			<h2>Administration</h2>
+		</div>
+		<div class="form-items">
+			<?= $this->render('/element/form-item', array(
+				'entity'		=> $content,
+				'name'			=> 'id',
+				'label'			=> 'Identifier',
+				'type'			=> 'value',
+				'readOnly'		=> true,
+			)) ?>
+			<?= $this->render('/element/form-item', array(
+				'entity'		=> $content,
+				'name'			=> 'slug',
+				'label'			=> 'Slug',
+				'type'			=> 'value',
+				'readOnly'		=> true,
+			)) ?>
+			<?= $this->render('/element/form-item', array(
+				'entity'		=> $content,
+				'name'			=> 'isLocked',
+				'label'			=> 'Locked',
+			)) ?>	
+		</div>
+	</fieldset>
+<?php } ?>
 
 </div>
 <fieldset class="fix">
@@ -124,24 +153,26 @@
 <? } if ($this->block('actions-secondary')) { ?>
 
 <ul class="toolbar">
-	<?php if (!$content->isArchived() && !$content->isNewMaster()) { ?>
-		<li><a href="<?= $this->url([
-			'entity'	=> $info->name,
-			'action'	=> 'archive',
-			'content'	=> $content->id,
-		], 'content', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-negative btn-quiet confirmable icon-archive">
-			Archive <?= $info->singular ?>
-		</a></li>
-	<?php } ?>
-	<?php if (!isset($node) && $content->isArchived()) { ?>
-		<li><a href="<?= $this->url([
-			'entity'	=> $info->name,
-			'action'	=> 'delete',
-			'content'	=> $content->id,
-		], 'content', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-negative btn-quiet confirmable icon-delete" data-message="Are you sure?<?= "\n" ?>This will delete the <?= strtolower($info->singular) ?> and cannot be undone.">
-			Delete <?= $info->singular ?>
-		</a></li>
-	<?php } ?>
+	<? if (!$content->isLocked()) { ?>		
+		<?php if (!$content->isArchived() && !$content->isNewMaster()) { ?>
+			<li><a href="<?= $this->url([
+				'entity'	=> $info->name,
+				'action'	=> 'archive',
+				'content'	=> $content->id,
+			], 'content', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-negative btn-quiet confirmable icon-archive">
+				Archive <?= $info->singular ?>
+			</a></li>
+		<?php } ?>
+		<?php if (!isset($node) && $content->isArchived()) { ?>
+			<li><a href="<?= $this->url([
+				'entity'	=> $info->name,
+				'action'	=> 'delete',
+				'content'	=> $content->id,
+			], 'content', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-negative btn-quiet confirmable icon-delete" data-message="Are you sure?<?= "\n" ?>This will delete the <?= strtolower($info->singular) ?> and cannot be undone.">
+				Delete <?= $info->singular ?>
+			</a></li>
+		<?php } ?>
+	<? } ?>
 	<?php if (isset($node) && !$node->isRoot()) { ?>
 		<li><a href="<?= $this->url([
 			'action' => 'delete'
