@@ -109,7 +109,7 @@
 			<?= $this->render('/element/form-item', array(
 				'entity'		=> $content,
 				'name'			=> 'id',
-				'label'			=> 'Identifier',
+				'label'			=> 'ID',
 				'type'			=> 'value',
 				'readOnly'		=> true,
 			)) ?>

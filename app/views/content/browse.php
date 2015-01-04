@@ -11,7 +11,7 @@
 	)) ?>
 	<div class="flex <?= $info->class == 'Chalk\Core\File' ? 'uploadable' : null ?>">
 		<?php
-		$contents = $this->em($req->info)
+		$contents = $this->em($info)
 			->paged($index->toArray(), null, $index->limit, $index->page);
 		?>
 		<?= $this->child("/{$info->local->path}/list", [

@@ -1231,7 +1231,7 @@ table .col-badge {
   width: 1px;
   padding-top: 6px;
   padding-bottom: 6px;
-  text-align: center;
+  text-align: right;
 }
 table .col-badge .badge, table .col-badge .badge-status, table .col-badge .badge-0,
 table .col-badge .badge-archived, table .col-badge .badge-draft,
