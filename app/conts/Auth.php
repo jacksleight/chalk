@@ -30,11 +30,11 @@ class Auth extends Action
         $user = $this->em('Chalk\Core\User')->one(['emailAddress' => $login->emailAddress]);
         if (!isset($user)) {
             $login->password = null;
-            $login->addError('emailAddress', 'Sorry, that account could not be found');
+            $login->addError('emailAddress', 'login');
             return;
         } else if (!$user->verifyPassword($login->password)) {
             $login->password = null;
-            $login->addError('emailAddress', 'Sorry, that account could not be found');
+            $login->addError('emailAddress', 'login');
             return;
         }
 

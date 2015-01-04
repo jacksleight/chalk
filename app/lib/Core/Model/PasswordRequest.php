@@ -6,7 +6,7 @@
 
 namespace Chalk\Core\Model;
 
-use Respect\Validation\Validator;
+use Coast\Validator;
 
 class PasswordRequest extends \Toast\Entity
 {
@@ -18,7 +18,8 @@ class PasswordRequest extends \Toast\Entity
 			'fields' => array(
 				'emailAddress' => array(
 					'type'		=> 'string',
-					'validator'	=> Validator::email(),
+					'validator'	=> (new Validator)
+						->true(['emailAddress']),
 				),
 			),
 		);

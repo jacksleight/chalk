@@ -7,7 +7,7 @@
 namespace Toast;
 
 use Coast\Model;
-use Respect\Validation\Validator;
+use Coast\Validator;
 
 class Entity extends Model
 {
@@ -60,23 +60,29 @@ class Entity extends Model
 			), $field);
 			$validator = new Validator();
 			if (!$field['id'] && !$field['nullable']) {
-				$validator->notEmpty();
+				$validator->true(['set'], true);
 			}
 			if ($field['type'] == 'integer' || $field['type'] == 'smallint' || $field['type'] == 'bigint') {
-				$validator->int();
-			} elseif ($field['type'] == 'decimal') {
-				$validator->float();
-			} elseif ($field['type'] == 'boolean') {
-				$validator->bool();
-			} elseif ($field['type'] == 'string') {
-				$validator->string();
-				if (isset($field['length'])) {
-					$validator->length(null, $field['length']);
-				}
-			} elseif ($field['type'] == 'date' || $field['type'] == 'time' || $field['type'] == 'datetime') {
-				$validator->date();
+				$validator->true(['integer']);
+			} else if ($field['type'] == 'float' || $field['type'] == 'decimal') {
+				$validator->true(['float']);
+			} else if ($field['type'] == 'boolean') {
+				$validator->true(['boolean']);
+			} else if ($field['type'] == 'array' || $field['type'] == 'simple_array' || $field['type'] == 'json_array') {
+				$validator->true(['array']);
+			} else if ($field['type'] == 'string' || $field['type'] == 'text' || $field['type'] == 'guid') {
+				$validator->true(['string']);
+			} else if ($field['type'] == 'date') {
+				$validator->true(['dateTime', 'Y-m-d']);
+			} else if ($field['type'] == 'time') {
+				$validator->true(['dateTime', 'H:i:s']);
+			} else if ($field['type'] == 'datetime' || $field['type'] == 'datetimez') {
+				$validator->true(['dateTime', 'Y-m-d H:i:s']);
 			}
-			$validator->addRules($field['validator']->getRules());
+			if (isset($field['length'])) {
+				$validator->true(['length', null, $field['length']]);
+			}
+			$validator->steps($field['validator']->steps());
 			$field['validator']			= $validator;
 			$md['fields'][$name]		= $field;
 			$md['properties'][$name]	= $md['fields'][$name];
@@ -91,9 +97,9 @@ class Entity extends Model
 			), $assoc);
 			$validator = new Validator();
 			if (!$assoc['nullable'] && $assoc['type'] == 'manyToOne') {
-				$validator->notEmpty();
+				$validator->true(['set'], true);
 			}
-			$validator->addRules($assoc['validator']->getRules());
+			$validator->steps($assoc['validator']->steps());
 			$assoc['validator'] = $validator;
 
 			$md['associations'][$name]	= $assoc;
@@ -190,10 +196,10 @@ class Entity extends Model
 				continue;
 			}
 			$validator = $property['validator'];
-			try {
-				$validator->check($this->{$name});
-			} catch(\Exception $e) {
-				$this->addError($name, preg_replace('/^"[^"]*"\s(.*)$/', "This $1", $e->getMainMessage()));
+			if (!$validator($this->{$name})) {
+				foreach ($validator->errors() as $error) {
+					$this->addError($name, $error[0] . (isset($error[1]) ? "_{$error[1]}" : null), $error[2]);
+				}
 			}
 		}
 

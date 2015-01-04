@@ -6,8 +6,7 @@
 
 namespace Chalk\Core\Model;
 
-use Respect\Validation\Validator,
-    DOMDocument,
+use DOMDocument,
     DOMXPath;
 
 class Source extends \Toast\Entity

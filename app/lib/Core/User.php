@@ -10,7 +10,7 @@ use Chalk\Core,
     Chalk\Behaviour\Trackable,
     Chalk\Behaviour\Searchable,
 	Doctrine\Common\Collections\ArrayCollection;
-use Respect\Validation\Validator;
+use Coast\Validator;
 
 /**
  * @Entity
@@ -100,12 +100,14 @@ class User extends \Toast\Entity implements Trackable, Searchable
 					],
 				),
 				'emailAddress' => array(
-					'validator'	=> Validator::email(),
+					'validator'	=> (new Validator)
+						->true(['emailAddress']),
 				),
 				'passwordPlain' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
-					'validator'	=> Validator::length(6),
+					'validator'	=> (new Validator)
+						->true(['length', 6]),
 				),
 			),
 		);

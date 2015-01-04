@@ -66,9 +66,36 @@ $render = isset($input)
 		$errors = $entity->getErrors([$name]);
 		?>
 		<?php if (count($errors) > 0) { ?>
+			<?php
+			$mgs = [
+				'boolean'				=> "This must be true or false",
+				'decimal'				=> "This must be a number",
+				'float'					=> "This must be a number",
+				'emailAddress'			=> "This must be a valid email address",
+				'hostname'				=> "This must be a valid hostname",
+				'integer'				=> "This must be a whole number",
+				'length_min'			=> "This must be at least %1\$s characters long",
+				'length_max'			=> "This must be no more than %2\$s characters long",
+				'password_lowercase'	=> "This must contain at least %1\$s lowercase letters",
+				'password_uppercase'	=> "This must contain at least %2\$s uppercase letters",
+				'password_digit'		=> "This must contain at least %3\$s digits",
+				'password_special'		=> "This must contain at least %4\$s special characters",
+				'range_min'				=> "This must be at least %1\$s",
+				'range_max'				=> "This must be no more than %2\$s",
+				'set'					=> "This is required",
+				'dateTime'				=> "This must be a valid date/time",
+				'url'					=> "This must be a valid URL",
+				'login'					=> "This account cannot be found",
+			];
+			?>
 			<p class="error">
-				<?php foreach ($errors[$name] as $message => $params) { ?>
-					<?= $message ?><br>
+				<?php foreach ($errors[$name] as $code => $params) { ?>
+					<? if (isset($mgs[$code])) { ?>
+						<?= vsprintf($mgs[$code], $params) ?>
+					<? } else { ?>
+						<?= $code ?>
+					<? } ?>
+					<br>
 				<?php } ?>
 			</p>
 		<?php } ?>
@@ -77,3 +104,8 @@ $render = isset($input)
 		<?php } ?>
 	</div>
 </div>
+
+
+
+
+

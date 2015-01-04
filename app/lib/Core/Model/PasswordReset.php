@@ -6,8 +6,6 @@
 
 namespace Chalk\Core\Model;
 
-use Respect\Validation\Validator;
-
 class PasswordReset extends \Toast\Entity
 {
 	protected $password;
