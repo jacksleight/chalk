@@ -16,10 +16,10 @@ trait Repository
     public function queryModifier(QueryBuilder $query, array $criteria = array())
     {
         $criteria = $criteria + [
-            'isPublished'   => false,
+            'isPublished'   => !Chalk::isAdmin(),
             'isPublishable' => false,
         ];
-        
+
         if ($criteria['isPublished']) {
             $query->andWhere("c.status IN (:statuses) AND UTC_TIMESTAMP() >= c.publishDate");
             $query->setParameter('statuses', [Chalk::STATUS_PUBLISHED]);

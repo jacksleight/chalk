@@ -22,11 +22,22 @@ class Chalk extends App
     const STATUS_PUBLISHED  = 'published';
     const STATUS_ARCHIVED   = 'archived';
 
+    protected static $_isAdmin = false;
+
     protected static $_nspaces = [];
     protected static $_classes = [];
 
     protected $_events  = [];
     protected $_modules = [];
+
+    public static function isAdmin($value = null)
+    {
+        if (func_num_args() > 0) {
+            self::$_isAdmin = $value;
+            return null;
+        }
+        return self::$_isAdmin;
+    }
 
     public static function info($class)
     {

@@ -6,7 +6,8 @@
 
 namespace Chalk\Core\Repository\Structure;
 
-use Chalk\Core\Structure,
+use Chalk\Chalk,
+    Chalk\Core\Structure,
     Chalk\Repository,
     Chalk\Behaviour\Publishable,
     Chalk\Core\Structure\Node as StructureNode;
@@ -30,7 +31,7 @@ class Node extends Repository
             'siblings'   => null,
             'depth'      => null,
             'isIncluded' => false,
-            'isVisible'  => false,
+            'isVisible'  => !Chalk::isAdmin(),
         ];
 
         $query

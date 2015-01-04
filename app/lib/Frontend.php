@@ -191,10 +191,7 @@ class Frontend extends App
         $node = isset($node)
             ? $node
             : $this->root;
-        $criteria = array_merge($criteria, [
-            'isPublished' => true,
-            'isVisible'   => true,
-        ]);
+        $criteria = array_merge($criteria);
         return $this
             ->em('Chalk\Core\Structure\Node')
             ->children($node, $isIncluded, $depth, $criteria);
@@ -205,10 +202,7 @@ class Frontend extends App
         $node = isset($node)
             ? $node
             : $this->root;
-        $criteria = array_merge($criteria, [
-            'isPublished' => true,
-            'isVisible'   => true,
-        ]);
+        $criteria = array_merge($criteria);
         return $this
             ->em('Chalk\Core\Structure\Node')
             ->parents($node, $isIncluded, $depth, $isReversed, $criteria);
@@ -219,10 +213,7 @@ class Frontend extends App
         $node = isset($node)
             ? $node
             : $this->root;
-        $criteria = array_merge($criteria, [
-            'isPublished' => true,
-            'isVisible'   => true,
-        ]);
+        $criteria = array_merge($criteria);
         return $this
             ->em('Chalk\Core\Structure\Node')
             ->siblings($node, $isIncluded, $criteria);
@@ -233,10 +224,7 @@ class Frontend extends App
         $node = isset($node)
             ? $node
             : $this->root;
-        $criteria = array_merge($criteria, [
-            'isPublished' => true,
-            'isVisible'   => true,
-        ]);
+        $criteria = array_merge($criteria);
         return $this
             ->em('Chalk\Core\Structure\Node')
             ->tree($node, $isIncluded, $isMerged, $depth, $criteria);
@@ -247,10 +235,7 @@ class Frontend extends App
         $node = isset($node)
             ? $node
             : $this->root;
-        $criteria = array_merge($criteria, [
-            'isPublished' => true,
-            'isVisible'   => true,
-        ]);
+        $criteria = array_merge($criteria);
         return $this
             ->em('Chalk\Core\Structure\Node')
             ->treeIterator($node, $isIncluded, $isMerged, $depth, $criteria);
