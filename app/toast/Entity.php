@@ -69,7 +69,7 @@ class Entity extends Model
 			} else if ($field['type'] == 'boolean') {
 				$validator->true(['boolean']);
 			} else if ($field['type'] == 'array' || $field['type'] == 'simple_array' || $field['type'] == 'json_array') {
-				$validator->true(['array']);
+				$validator->true(['arr']);
 			} else if ($field['type'] == 'string' || $field['type'] == 'text' || $field['type'] == 'guid') {
 				$validator->true(['string']);
 			} else if ($field['type'] == 'date') {
