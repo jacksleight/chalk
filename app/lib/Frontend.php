@@ -59,7 +59,9 @@ class Frontend extends App
             FROM {$table} AS n
             WHERE n.structureId = {$domain->structure->id}
         ")->fetchAll();
+        $map = [];
         foreach ($nodes as $node) {
+            $map[$node['id']] = $node;
             $this->router->all($node['contentId'], $node['path'], [
                 'node'    => $node,
                 'content' => $node['contentId'],
@@ -95,8 +97,14 @@ class Frontend extends App
             return;
         }
 
+        $nodes = [$node];
+        while (isset($nodes[0]['parentId'])) {
+            array_unshift($nodes, $map[$nodes[0]['parentId']]);
+        }
+
         $req->chalk = (object) [
             'node'    => $node,
+            'nodes'   => $nodes,
             'content' => $content,
         ];
 
