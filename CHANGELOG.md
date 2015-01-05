@@ -1,5 +1,30 @@
 # Chalk Changelog
 
+### 0.3.0
+
+* **Features**
+	* CLI tools for database management etc.
+	* New Repository->slug() method
+	* Support for additional caching drivers
+	* Content pagination
+	* Content blocks for site-wide chunks of content
+	* Content protection for fixed developer content
+	* Full node path is now avaliable by default in frontend requests
+* **Improvements**
+	* File upload name sanitization
+	* Speed optimisations	
+	* UI updates
+	* Repository->id() no supports criteria
+	* File upload sort order is now maintined
+	* Abiltiy to exend Core\File
+	* View Site button now opens current page
+	* Trim empty trailing paragraphs from content
+	* Frontend Publishable queries now set isPublished to true by default
+* **Fixes**
+	* Fix issue with node tree references
+	* Fix deleting content carying ID through to index
+	* Fix stackable first item issue
+
 ### 0.2.4
 
 * **Improvements**
@@ -45,7 +70,7 @@
 	* Updated design
 	* Less glitchy structure reorganisation UI
 	* General usability improvements
-* General bug fixes
+* Fixes
 
 ### 0.1.0
 
