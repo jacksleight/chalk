@@ -63,13 +63,14 @@
 	</div>
 	<div class="form-items">
 		<?= $this->content('general-top') ?>
-		<?= $this->render('/element/form-item', array(
-			'entity'	=> $content,
-			'name'		=> 'name',
-			'label'		=> 'Name',
-			'autofocus'	=> true,
-			'disabled'	=> $content->isLocked(),
-		), 'Chalk\Core') ?>
+		<? if (!$content->isProtected()) { ?>
+			<?= $this->render('/element/form-item', array(
+				'entity'	=> $content,
+				'name'		=> 'name',
+				'label'		=> 'Name',
+				'autofocus'	=> true,
+			), 'Chalk\Core') ?>
+		<? } ?>
 		<?= $this->content('general-bottom') ?>
 	</div>
 </fieldset>
@@ -77,7 +78,9 @@
 
 <? } $this->block() ?>
 
-<?= $this->child('/behaviour/publishable/form', ['publishable' => $content], 'Chalk\Core') ?>
+<? if (!$content->isProtected()) { ?>
+	<?= $this->child('/behaviour/publishable/form', ['publishable' => $content], 'Chalk\Core') ?>
+<?php } ?>
 <?php if (isset($node)) { ?>
 	<fieldset class="form-block">
 		<div class="form-legend">
@@ -122,8 +125,8 @@
 			)) ?>
 			<?= $this->render('/element/form-item', array(
 				'entity'		=> $content,
-				'name'			=> 'isLocked',
-				'label'			=> 'Locked',
+				'name'			=> 'isProtected',
+				'label'			=> 'Protected',
 			)) ?>	
 		</div>
 	</fieldset>
@@ -153,7 +156,7 @@
 <? } if ($this->block('actions-secondary')) { ?>
 
 <ul class="toolbar">
-	<? if (!$content->isLocked()) { ?>		
+	<? if (!$content->isProtected()) { ?>		
 		<?php if (!$content->isArchived() && !$content->isNewMaster()) { ?>
 			<li><a href="<?= $this->url([
 				'entity'	=> $info->name,

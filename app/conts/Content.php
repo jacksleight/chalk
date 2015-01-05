@@ -70,7 +70,7 @@ class Content extends Basic
 		}
 
 		$params = $req->bodyParams();
-		$status = $params['status'];
+		$status = isset($params['status']) ? $params['status'] : $wrap->status;
 		unset($params['status']);
 		$wrap->graphFromArray($params);
 		$wrap->graphFromArray(['status' => $status]); // @hack setting dates should be a listener

@@ -64,7 +64,7 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 	/**
      * @Column(type="boolean")
      */
-	protected $isLocked = false;
+	protected $isProtected = false;
 	
 	public function __construct()
 	{	
