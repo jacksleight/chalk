@@ -61,7 +61,7 @@ class Frontend extends App
         ")->fetchAll();
         $map = [];
         foreach ($nodes as $node) {
-            $map[$node['id']] = $node;
+            $map[$node['id']] = &$node;
             $this->router->all($node['contentId'], $node['path'], [
                 'node'    => $node,
                 'content' => $node['contentId'],
