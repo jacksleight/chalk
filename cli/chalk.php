@@ -4,6 +4,8 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
+use Chalk\Chalk;
+
 if (php_sapi_name() != 'cli') {
 	exit("Must be run from the command line\n");
 }
@@ -13,6 +15,7 @@ if (!is_file($init)) {
 	exit("No 'chalk-cli.php' initialization file found in '" . getcwd() . "'\n");
 }
 $app = require_once $init;
+Chalk::isAdmin(true);
 
 $cmds = [];
 foreach ($app->dir('cli/cmds') as $file) {
