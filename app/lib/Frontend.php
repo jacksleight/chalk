@@ -156,21 +156,12 @@ class Frontend extends App
             $els = $xpath->query('//*[@data-chalk]');
         } 
 
-        // Remove empty trailing paragraphs
+        // Remove empty paragraphs
         $els = $xpath->query('//p');
-        for ($i = $els->length - 1; $i >= 0; $i--) {
-            $el = $els->item($i);
+        foreach ($els as $el) {
             if ($el->firstChild !== $el->lastChild ||
                 $el->firstChild->nodeType != XML_TEXT_NODE ||
                 $el->firstChild->textContent != \Coast\str_uchr('nbsp')) {
-                continue;
-            }
-            if ($el->nextSibling &&
-                $el->nextSibling->nodeType == XML_TEXT_NODE &&
-                trim($el->nextSibling->textContent) === '') {
-                $el->parentNode->removeChild($el->nextSibling);
-            }
-            if ($el !== $el->parentNode->lastChild) {
                 continue;
             }
             $el->parentNode->removeChild($el);            

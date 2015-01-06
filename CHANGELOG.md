@@ -14,9 +14,9 @@
 	* File upload name sanitization
 	* Speed optimisations	
 	* UI updates
-	* Repository->id() no supports criteria
+	* Repository->id() now supports criteria
 	* File upload sort order is now maintined
-	* Abiltiy to exend Core\File
+	* Abiltiy to extend Core\File
 	* View Site button now opens current page
 	* Trim empty trailing paragraphs from content
 	* Frontend Publishable queries now set isPublished to true by default
