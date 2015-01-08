@@ -79,20 +79,28 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
 
 <? if ($isUploadable) { ?>
 
-    <ul class="thumbs multiselectable  <?= $isUploadable ? 'uploadable-list' : null ?>">
-        <?php if (count($contents)) { ?>
-            <?php foreach ($contents as $content) { ?>
-                <li><?= $this->child('thumb', ['content' => $content]) ?></li>
-            <?php } ?>
-        <?php } else { ?>
-            <li></li>
-        <?php } ?>      
-    </ul>
-    <?php if (!count($contents)) { ?>
-        <div class="panel">
-            No <?= strtolower($info->plural) ?> found
-        </div>
-    <?php } ?>  
+    <div class="multiselectable">
+        <?= $this->render('/element/form-input', [
+            'type'   => 'input_hidden',
+            'entity' => $index,
+            'name'   => 'contentIds',
+            'class'  => 'multiselectable-values',
+        ]) ?>
+        <ul class="thumbs <?= $isUploadable ? 'uploadable-list' : null ?>">
+            <?php if (count($contents)) { ?>
+                <?php foreach ($contents as $content) { ?>
+                    <li><?= $this->child('thumb', ['content' => $content]) ?></li>
+                <?php } ?>
+            <?php } else { ?>
+                <li></li>
+            <?php } ?>      
+        </ul>
+        <?php if (!count($contents)) { ?>
+            <div class="panel">
+                No <?= strtolower($info->plural) ?> found
+            </div>
+        <?php } ?>  
+    </div>
     
 <? } else { ?>
     
@@ -107,9 +115,6 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
             <tr>
                 <th scope="col" class="col-select">
                     <input type="checkbox" id="select" class="multiselectable-all"><label for="select"></label>
-                </th>
-                <th scope="col" class="col-name">
-                    Name
                     <?= $this->render('/element/form-input', [
                         'type'   => 'input_hidden',
                         'entity' => $index,
@@ -117,6 +122,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
                         'class'  => 'multiselectable-values',
                     ]) ?>
                 </th>
+                <th scope="col" class="col-name">Name</th>
                 <th scope="col" class="col-date">Updated</th>
                 <th scope="col" class="col-badge">Status</th>
             </tr>

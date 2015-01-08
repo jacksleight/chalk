@@ -13,10 +13,10 @@ $isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 		]) : '#' ?>">
 	<?php } ?>
 		<?php if (!$template) { ?>
-			<?= $this->child('/content/checkbox', [
-				'entity'	=> $index,
-				'value'		=> $content->id,
-			]) ?>
+			<?= $this->render('/behaviour/selectable/checkbox', [
+                'entity'   => $content,
+                'entities' => $index->contents,
+            ]) ?>
 		<?php } ?>
 		<div class="preview">
 			<?php if ($template) { ?>
