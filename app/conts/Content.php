@@ -37,6 +37,24 @@ class Content extends Basic
 		$index = new \Chalk\Core\Model\Index();
 		$req->view->index = $wrap = $this->em->wrap($index);
 		$wrap->graphFromArray($req->queryParams());
+
+		if (!isset($index->action)) {
+			return;
+		}
+
+		foreach ($index->contents as $content) {
+			if ($index->action == 'archive') {
+				$content->status = \Chalk\Chalk::STATUS_ARCHIVED;
+			} else if ($index->action == 'restore') {
+				$content->restore();
+			}
+		}
+		$this->em->flush();
+
+		$this->notify("{$req->info->plural} were {$index->action}d successfully", 'positive');
+		return $res->redirect($this->url->query(array(
+			'action' => null,
+		)));
 	}
 
 	public function browse(Request $req, Response $res)

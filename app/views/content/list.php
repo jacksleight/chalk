@@ -108,7 +108,15 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
                 <th scope="col" class="col-select">
                     <input type="checkbox" id="select" class="multiselectable-all"><label for="select"></label>
                 </th>
-                <th scope="col" class="col-name">Name</th>
+                <th scope="col" class="col-name">
+                    Name
+                    <?= $this->render('/element/form-input', [
+                        'type'   => 'input_hidden',
+                        'entity' => $index,
+                        'name'   => 'contentIds',
+                        'class'  => 'multiselectable-values',
+                    ]) ?>
+                </th>
                 <th scope="col" class="col-date">Updated</th>
                 <th scope="col" class="col-badge">Status</th>
             </tr>
@@ -118,9 +126,9 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
                 <?php foreach ($contents as $content) { ?>
                     <tr class="selectable <?= $isEditAllowed ? 'clickable' : null ?>">
                         <td class="col-select">
-                            <?= $this->child('/content/checkbox', [
-                                'entity'    => $index,
-                                'value'     => $content->id,
+                            <?= $this->render('/behaviour/selectable/checkbox', [
+                                'entity'   => $content,
+                                'entities' => $index->contents,
                             ]) ?>
                         </td>
                         <th class="col-name" scope="row">
@@ -160,10 +168,20 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
     <li>
         Show&nbsp;
         <?= $this->render('/element/form-input', array(
-            'type'          => 'select',
-            'entity'        => $index,
-            'name'          => 'limit',
-            'null'          => 'All',
+            'type'   => 'select',
+            'entity' => $index,
+            'name'   => 'limit',
+            'null'   => 'All',
+        )) ?>
+    </li>
+    <li>
+        &nbsp;
+        Selected&nbsp;
+        <?= $this->render('/element/form-input', array(
+            'type'   => 'select',
+            'entity' => $index,
+            'name'   => 'action',
+            'null'   => 'Action',
         )) ?>
     </li>
 </ul>

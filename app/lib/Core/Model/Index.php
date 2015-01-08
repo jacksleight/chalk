@@ -17,8 +17,10 @@ class Index extends \Toast\Entity
 		\Chalk\Chalk::STATUS_DRAFT,
 		\Chalk\Chalk::STATUS_PUBLISHED,
 	];
-	protected $contents = [];
+	protected $contents   = [];
+	protected $contentIds;
 	protected $entity;
+	protected $action;
 
 	protected static function _defineMetadata($class)
 	{
@@ -37,6 +39,10 @@ class Index extends \Toast\Entity
 					'type'		=> 'integer',
 				),
 				'sort' => array(
+					'type'		=> 'string',
+					'nullable'	=> true,
+				),
+				'contentIds' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
 				),
@@ -73,6 +79,14 @@ class Index extends \Toast\Entity
 					'type'		=> 'text',
 					'nullable'	=> true,
 				),
+				'action' => array(
+					'type'		=> 'string',
+					'nullable'	=> true,
+					'values'	=> [
+						'archive'	=> 'Archive',
+						'restore'	=> 'Restore',
+					],
+				),
 			),
 			'associations' => [
 				'contents' => array(
@@ -81,5 +95,26 @@ class Index extends \Toast\Entity
 				),
 			]
 		);
+	}
+
+	public function contentIds($value = null)
+	{
+		if (func_num_args() > 0) {
+			global $em;
+			$this->contents->clear();
+			$ids = json_decode($value, true);
+			foreach ($ids as $id) {
+				$content = $em->getReference('Chalk\Core\Content', $id);
+				if ($content) {
+					$this->contents->add($content);
+				}
+			}
+			return $this;
+		}
+		$ids = [];
+		foreach ($this->contents as $content) {
+			$ids[] = $content->id;
+		}
+		return json_encode($ids);
 	}
 }

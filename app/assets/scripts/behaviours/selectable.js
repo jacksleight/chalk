@@ -17,6 +17,8 @@ Chalk.component('.multiselectable', function(i, el) {
 	
 	var active	= false;
 	var checked	= null;
+	var values  = $(el).find('.multiselectable-values');
+
 	$(el).find('.multiselectable-all').change(function(ev) {
 		var checked = $(ev.target).prop('checked');
 		$(el).find('input[type=checkbox]').each(function(j, checkbox) {
@@ -49,5 +51,13 @@ Chalk.component('.multiselectable', function(i, el) {
 	};
 	$(el).mouseover(select);
 	$(el).mouseout(select);
+
+	$(el).change('input[type=checkbox]', function(ev) {
+		var list = [];
+		$(el).find('input[type=checkbox]:not(.multiselectable-all):checked').each(function() {
+			list.push($(this).val());
+		});
+		values.val(JSON.stringify(list));
+	});
 	
 });

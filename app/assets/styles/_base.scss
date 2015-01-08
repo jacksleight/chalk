@@ -1141,6 +1141,7 @@ legend {
 		@include flush-next;
 	}
 	> li {
+		@include flush;
 		line-height: $input-height;
 		vertical-align: middle;
 		& + li.space {
