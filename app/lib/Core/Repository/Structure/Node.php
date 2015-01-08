@@ -31,7 +31,7 @@ class Node extends Repository
             'siblings'   => null,
             'depth'      => null,
             'isIncluded' => false,
-            'isVisible'  => !Chalk::isAdmin(),
+            'isVisible'  => Chalk::isFrontend(),
         ];
 
         $query

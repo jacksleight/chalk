@@ -15,8 +15,6 @@ class All extends Action
 {
 	public function preDispatch(Request $req, Response $res)
 	{
-		Chalk::isAdmin(true);
-
 		$session =& $req->session('chalk');
 		if (!isset($session->user) && $req->controller !== 'auth') {
 			return $res->redirect($this->url(array(), 'login', true));

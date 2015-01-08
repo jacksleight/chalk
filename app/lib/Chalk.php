@@ -22,7 +22,7 @@ class Chalk extends App
     const STATUS_PUBLISHED  = 'published';
     const STATUS_ARCHIVED   = 'archived';
 
-    protected static $_isAdmin = false;
+    protected static $_isFrontend = true;
 
     protected static $_nspaces = [];
     protected static $_classes = [];
@@ -30,13 +30,23 @@ class Chalk extends App
     protected $_events  = [];
     protected $_modules = [];
 
-    public static function isAdmin($value = null)
+    public static function isFrontend($value = null)
     {
         if (func_num_args() > 0) {
-            self::$_isAdmin = $value;
+            self::$_isFrontend = $value;
             return null;
         }
-        return self::$_isAdmin;
+        return self::$_isFrontend;
+    }
+
+    protected function _preExecute()
+    {
+        self::isFrontend(false);
+    }
+
+    protected function _postExecute()
+    {
+        self::isFrontend(true);
     }
 
     public static function info($class)

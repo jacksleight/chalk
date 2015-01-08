@@ -16,7 +16,7 @@ trait Repository
     public function queryModifier(QueryBuilder $query, array $criteria = array())
     {
         $criteria = $criteria + [
-            'isPublished'   => !Chalk::isAdmin(),
+            'isPublished'   => Chalk::isFrontend(),
             'isPublishable' => false,
         ];
 

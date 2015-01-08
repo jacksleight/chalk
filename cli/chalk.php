@@ -15,7 +15,7 @@ if (!is_file($init)) {
 	exit("No 'chalk-cli.php' initialization file found in '" . getcwd() . "'\n");
 }
 $app = require_once $init;
-Chalk::isAdmin(true);
+Chalk::isFrontend(false);
 
 $cmds = [];
 foreach ($app->dir('cli/cmds') as $file) {
