@@ -26,10 +26,29 @@ class Module extends CoreModule
         $chalk->em->dir('Chalk\Core', $this->dir('app/lib'));
 		$chalk->view->dir('Chalk\Core', $this->dir('app/views'));
         $chalk->controller->nspace('Chalk\Core', 'Chalk\Core\Controller');
+        $chalk->controller->all(['All', 'Chalk\Core']);
 		
         $chalk
         	->register('Chalk\Core\Event\ListWidgets')
         	->register('Chalk\Core\Event\ListContents')
+        	->register('Chalk\Core\Event\ListSettings')
+        	->listen('Chalk\Core\Event\ListSettings', function(Event $event) {
+        		$event->settings([
+					[
+						'label' => 'Users',
+						'name'  => 'setting',
+						'params'=> ['controller' => 'user'],
+					], [
+						'label' => 'Domains',
+						'name'  => 'setting',
+						'params'=> ['controller' => 'domain'],
+					], [
+						'label' => 'Structures',
+						'name'  => 'setting',
+						'params'=> ['controller' => 'setting_structure'],
+					]
+				]);
+        	})
         	->listen('Chalk\Core\Event\ListContents', function(Event $event) {
         		$event->contents([
 	        		'Chalk\Core\Page',

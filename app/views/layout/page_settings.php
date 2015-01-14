@@ -6,19 +6,5 @@
 <?php $this->block('sidebar') ?>
 
 <nav class="menu menu-simple" role="navigation">
-	<?= $this->child('nav', ['items' => [
-		[
-			'label' => 'Users',
-			'name'  => 'setting',
-			'params'=> ['controller' => 'user'],
-		], [
-			'label' => 'Domains',
-			'name'  => 'setting',
-			'params'=> ['controller' => 'domain'],
-		], [
-			'label' => 'Structures',
-			'name'  => 'setting',
-			'params'=> ['controller' => 'setting_structure'],
-		]
-	]]) ?>
+	<?= $this->child('nav', ['items' => $this->app->fire('Chalk\Core\Event\ListSettings')->settings()]) ?>
 </nav>

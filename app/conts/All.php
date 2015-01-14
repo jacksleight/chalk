@@ -79,6 +79,6 @@ class All extends Action
 		return $res->html($this->view->render($path, [
 			'req' => $req,
 			'res' => $res,
-		] + (array) $req->view));
+		] + (array) $req->view, $req->set));
 	}
 }
