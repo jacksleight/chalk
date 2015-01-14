@@ -68,11 +68,6 @@ class Frontend extends App
             ]);
         }
 
-        $this->param('domain', $domain);
-        $this->param('structure', $domain->structure);
-        $this->param('root', $domain->structure->root);
-        $this->param('home', $domain->structure->root->content);
-
         $path = rtrim($req->path(), '/');        
         if (preg_match('/^_c([\d]+)$/', $path, $match)) {
             $node    = null;
@@ -103,9 +98,13 @@ class Frontend extends App
         }
 
         $req->chalk = (object) [
-            'node'    => $node,
-            'nodes'   => $nodes,
-            'content' => $content,
+            'node'      => $node,
+            'nodes'     => $nodes,
+            'content'   => $content,
+            'domain'    => $domain,
+            'structure' => $domain->structure,
+            'root'      => $domain->structure->root,
+            'home'      => $domain->structure->root->content,
         ];
 
         $name = \Chalk\Chalk::info($content)->class;
@@ -113,7 +112,14 @@ class Frontend extends App
             throw new \Exception("No handler exists for '{$name}' content");
         }
         $hander = $this->_handlers[$name];
-        return $hander($req, $res);
+        
+        $this->param('req', $req)
+             ->param('res', $res);
+        $result = $hander($req, $res);
+        $this->param('req', null)
+             ->param('res', null);
+
+        return $result;
     }
 
     public function parse($html)
@@ -185,56 +191,36 @@ class Frontend extends App
         return $doc;
     }
 
-    public function children($node = null, $isIncluded = false, $depth = null, array $criteria = array())
+    public function children($node, $isIncluded = false, $depth = null, array $criteria = array())
     {
-        $node = isset($node)
-            ? $node
-            : $this->root;
-        $criteria = array_merge($criteria);
         return $this
             ->em('Chalk\Core\Structure\Node')
             ->children($node, $isIncluded, $depth, $criteria);
     }
 
-    public function parents($node = null, $isIncluded = false, $depth = null, $isReversed = false, array $criteria = array())
+    public function parents($node, $isIncluded = false, $depth = null, $isReversed = false, array $criteria = array())
     {
-        $node = isset($node)
-            ? $node
-            : $this->root;
-        $criteria = array_merge($criteria);
         return $this
             ->em('Chalk\Core\Structure\Node')
             ->parents($node, $isIncluded, $depth, $isReversed, $criteria);
     }
 
-    public function siblings($node = null, $isIncluded = false, array $criteria = array())
+    public function siblings($node, $isIncluded = false, array $criteria = array())
     {
-        $node = isset($node)
-            ? $node
-            : $this->root;
-        $criteria = array_merge($criteria);
         return $this
             ->em('Chalk\Core\Structure\Node')
             ->siblings($node, $isIncluded, $criteria);
     }
 
-    public function tree($node = null, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
+    public function tree($node, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
     {
-        $node = isset($node)
-            ? $node
-            : $this->root;
-        $criteria = array_merge($criteria);
         return $this
             ->em('Chalk\Core\Structure\Node')
             ->tree($node, $isIncluded, $isMerged, $depth, $criteria);
     }
 
-    public function treeIterator($node = null, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
+    public function treeIterator($node, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
     {
-        $node = isset($node)
-            ? $node
-            : $this->root;
-        $criteria = array_merge($criteria);
         return $this
             ->em('Chalk\Core\Structure\Node')
             ->treeIterator($node, $isIncluded, $isMerged, $depth, $criteria);
