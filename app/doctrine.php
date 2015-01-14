@@ -8,6 +8,7 @@ use Doctrine\ORM\Configuration,
 	Doctrine\Common\EventManager,
 	Doctrine\ORM\EntityManager,
 	Chalk\Doctrine\ORM\EntityManager as ChalkEntityManager,
+	Chalk\Doctrine\NamingStrategy as NamingStrategy,
 	Chalk\Listener as Listener,
 	Chalk\Core\File\Listener as FileListener,
 	Chalk\Core\Structure\Node\Listener as NodeListener,
@@ -19,6 +20,7 @@ use Doctrine\ORM\Configuration,
 \Coast\Doctrine\register_dbal_types();
 
 $config = new Configuration();
+$config->setNamingStrategy(new NamingStrategy());
 $config->setMetadataDriverImpl($config->newDefaultAnnotationDriver());
 $config->setProxyDir($app->root->dir('data/proxies'));
 $config->setProxyNamespace('Chalk\Proxy');
