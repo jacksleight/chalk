@@ -101,13 +101,13 @@ class User extends \Toast\Entity implements Trackable, Searchable
 				),
 				'emailAddress' => array(
 					'validator'	=> (new Validator)
-						->true(['emailAddress']),
+						->emailAddress(),
 				),
 				'passwordPlain' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
 					'validator'	=> (new Validator)
-						->true(['length', 6]),
+						->length(6),
 				),
 			),
 		);

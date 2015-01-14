@@ -30,7 +30,7 @@ class Domain extends \Toast\Entity implements Trackable
 			'fields' => array(
 				'name' => array(
 					'validator'	=> (new Validator)
-						->true(['hostname']),
+						->hostname(),
 				),
 			),
 		);

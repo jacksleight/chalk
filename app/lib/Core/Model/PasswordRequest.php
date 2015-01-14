@@ -19,7 +19,7 @@ class PasswordRequest extends \Toast\Entity
 				'emailAddress' => array(
 					'type'		=> 'string',
 					'validator'	=> (new Validator)
-						->true(['emailAddress']),
+						->emailAddress(),
 				),
 			),
 		);

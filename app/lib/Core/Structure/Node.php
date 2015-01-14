@@ -140,7 +140,7 @@ class Node extends \Toast\Entity
     public function slug($slug = null)
     {
         if (isset($slug)) {
-            $this->slug = \Coast\str_simplify(iconv('utf-8', 'ascii//translit//ignore', $slug), '-');
+            $this->slug = \Coast\str_slugify(iconv('utf-8', 'ascii//translit//ignore', $slug));
             return $this;
         }
         return $this->slug;

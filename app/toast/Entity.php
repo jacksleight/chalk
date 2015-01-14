@@ -60,27 +60,27 @@ class Entity extends Model
 			), $field);
 			$validator = new Validator();
 			if (!$field['id'] && !$field['nullable']) {
-				$validator->true(['set'], true);
+				$validator->set()->break();
 			}
 			if ($field['type'] == 'integer' || $field['type'] == 'smallint' || $field['type'] == 'bigint') {
-				$validator->true(['integer']);
+				$validator->integer();
 			} else if ($field['type'] == 'float' || $field['type'] == 'decimal') {
-				$validator->true(['float']);
+				$validator->float();
 			} else if ($field['type'] == 'boolean') {
-				$validator->true(['boolean']);
+				$validator->boolean();
 			} else if ($field['type'] == 'array' || $field['type'] == 'simple_array' || $field['type'] == 'json_array') {
-				$validator->true(['arr']);
+				$validator->array();
 			} else if ($field['type'] == 'string' || $field['type'] == 'text' || $field['type'] == 'guid') {
-				$validator->true(['string']);
+				$validator->string();
 			} else if ($field['type'] == 'date') {
-				$validator->true(['dateTime', 'Y-m-d']);
+				$validator->dateTime('Y-m-d');
 			} else if ($field['type'] == 'time') {
-				$validator->true(['dateTime', 'H:i:s']);
+				$validator->dateTime('H:i:s');
 			} else if ($field['type'] == 'datetime' || $field['type'] == 'datetimez') {
-				$validator->true(['dateTime', 'Y-m-d H:i:s']);
+				$validator->dateTime('Y-m-d H:i:s');
 			}
 			if (isset($field['length'])) {
-				$validator->true(['length', null, $field['length']]);
+				$validator->length(null, $field['length']);
 			}
 			$validator->steps($field['validator']->steps());
 			$field['validator']			= $validator;
@@ -97,7 +97,7 @@ class Entity extends Model
 			), $assoc);
 			$validator = new Validator();
 			if (!$assoc['nullable'] && $assoc['type'] == 'manyToOne') {
-				$validator->true(['set'], true);
+				$validator->set()->break();
 			}
 			$validator->steps($assoc['validator']->steps());
 			$assoc['validator'] = $validator;
