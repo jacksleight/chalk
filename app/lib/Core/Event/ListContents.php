@@ -12,16 +12,13 @@ class ListContents extends Event
 {
 	protected $_contents = [];
 
-    public function content($value = null)
+    public function content($value, $replace = null)
     {
-        $key = count($this->_contents);
-        foreach ($this->_contents as $i => $content) {
-            if (is_subclass_of($value, $content)) {
-                $key = $i;
-                break;
-            }
+        if (isset($replace)) {
+            $this->_contents[array_search($replace, $this->_contents)] = $value;
+        } else {
+            $this->_contents[] = $value;            
         }
-        $this->_contents[$key] = $value;
         return $this;
     }
 
