@@ -57,9 +57,7 @@ $users = $this->em($info)
 					</a>
 				</th>
 				<td class="col-role">
-					<?= ucfirst($user->isRoot()
-						? \Chalk\Core\User::ROLE_ADMINISTRATOR
-						: $user->role) ?>
+					<?= ucfirst($user->role) ?>
 				</td>
 			</tr>
 		<?php } ?>

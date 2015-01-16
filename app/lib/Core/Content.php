@@ -93,7 +93,7 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 	public function slug($slug = null)
 	{
 		if (isset($slug)) {
-			$this->slug = \Coast\str_slugify(iconv('utf-8', 'ascii//translit//ignore', $slug));
+			$this->slug = strtolower(\Coast\str_slugify(iconv('utf-8', 'ascii//translit//ignore', $slug)));
 			return $this;
 		}
 		return $this->slug;

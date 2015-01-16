@@ -19,39 +19,44 @@
 					'entity'	=> $user,
 					'name'		=> 'isEnabled',
 					'label'		=> 'Enabled',
-					'disabled'	=> $user->isRoot(),
+					'disabled'	=> $user->isDeveloper() && !$req->user->isDeveloper(),
 				)) ?>
 				<?= $this->render('/element/form-item', array(
 					'entity'	=> $user,
 					'name'		=> 'name',
 					'label'		=> 'Name',
-					'disabled'	=> $user->isRoot(),
+					'disabled'	=> $user->isDeveloper() && !$req->user->isDeveloper(),
 				)) ?>
 				<?= $this->render('/element/form-item', array(
 					'entity'	=> $user,
 					'type'		=> 'input_email',
 					'name'		=> 'emailAddress',
 					'label'		=> 'Email Address',
-					'disabled'	=> $user->isRoot(),
+					'disabled'	=> $user->isDeveloper() && !$req->user->isDeveloper(),
 				)) ?>
 				<?= $this->render('/element/form-item', array(
 					'entity'	=> $user,
 					'name'		=> 'passwordPlain',
 					'label'		=> 'Password',
 					'type'		=> 'input_password',
-					'disabled'	=> $user->isRoot(),
+					'disabled'	=> $user->isDeveloper() && !$req->user->isDeveloper(),
 				)) ?>
 				<?= $this->render('/element/form-item', array(
 					'entity'	=> $user,
 					'name'		=> 'role',
 					'label'		=> 'Role',
 					'type'		=> 'input_radio',
-					'disabled'	=> $user->isRoot(),
-					'values'	=> $user->isRoot() ? [
-						\Chalk\Core\User::ROLE_CONTRIBUTOR	=> 'Contributor',
-						\Chalk\Core\User::ROLE_EDITOR		=> 'Editor',
-						\Chalk\Core\User::ROLE_ROOT			=> 'Administrator',
-					] : null,
+					'disabled'	=> $user->isDeveloper() && !$req->user->isDeveloper(),
+					'values'	=> $user->isDeveloper() || $req->user->isDeveloper() ? [
+						\Chalk\Core\User::ROLE_CONTRIBUTOR		=> 'Contributor',
+						\Chalk\Core\User::ROLE_EDITOR			=> 'Editor',
+						\Chalk\Core\User::ROLE_ADMINISTRATOR	=> 'Administrator',
+						\Chalk\Core\User::ROLE_DEVELOPER	    => 'Developer',
+					] : [
+						\Chalk\Core\User::ROLE_CONTRIBUTOR		=> 'Contributor',
+						\Chalk\Core\User::ROLE_EDITOR			=> 'Editor',
+						\Chalk\Core\User::ROLE_ADMINISTRATOR	=> 'Administrator',
+					],
 				)) ?>
 			</div>
 		</fieldset>
@@ -59,13 +64,13 @@
 	<fieldset class="fix">
 		<ul class="toolbar">
 			<li>
-				<button class="btn btn-positive icon-ok" <?= $user->isRoot() ? 'disabled' : null ?>>
+				<button class="btn btn-positive icon-ok" <?= $user->isDeveloper() && !$req->user->isDeveloper() ? 'disabled' : null ?>>
 					Save <?= $info->singular ?>
 				</button>
 			</li>
 		</ul>
 		<ul class="toolbar">
-			<?php if (!$user->isNew() && !$user->isRoot()) { ?>
+			<?php if (!$user->isNew() && (!$user->isDeveloper()  || $req->user->isDeveloper())) { ?>
 				<li>
 					<a href="<?= $this->url([
 						'action' => 'delete',

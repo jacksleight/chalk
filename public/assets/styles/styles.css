@@ -850,6 +850,11 @@ th .badge-pending, th .badge-1, th .badge-published {
   border-color: #09bd5e;
 }
 
+.badge-0,
+.badge-1 {
+  text-align: center;
+}
+
 /* Rule */
 hr {
   margin: 20px 0;
@@ -2409,7 +2414,7 @@ legend {
 }
 .expandable.active .expandable-body {
   border-top: 1px solid #eeeeef;
-  max-height: 500px;
+  max-height: 1000px;
 }
 .expandable.active .expandable-toggle i {
   -moz-transform: rotate(180deg);

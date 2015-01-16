@@ -43,12 +43,19 @@ class Frontend extends App
 
     public function execute(Request $req, Response $res)
     {        
+        $req->chalk = (object) [];
+
         $conn  = $this->em->getConnection();
         $table = Chalk::info('Chalk\Core\Structure\Node')->name;
 
         $domain = $this
             ->em('Chalk\Core\Domain')
-            ->one([], 'id');        
+            ->one([], 'id');     
+        $req->chalk->domain    = $domain;
+        $req->chalk->structure = $domain->structure;
+        $req->chalk->root      = $domain->structure->root;
+        $req->chalk->home      = $domain->structure->root->content;
+
         $nodes = $conn->query("
             SELECT n.id,
                 n.sort, n.left, n.right, n.depth,
@@ -61,7 +68,7 @@ class Frontend extends App
         ")->fetchAll();
         $map = [];
         foreach ($nodes as $node) {
-            $map[$node['id']] = &$node;
+            $map[$node['id']] = $node;
             $this->router->all($node['contentId'], $node['path'], [
                 'node'    => $node,
                 'content' => $node['contentId'],
@@ -83,29 +90,18 @@ class Frontend extends App
             $node    = $route['params']['node'];
             $content = $route['params']['content'];
         }
-
-        $content = $this->em('Chalk\Core\Content')->one([
-            'ids'         => [$content],
-            'isPublished' => true,
-        ]);
-        if (!$content) {
-            return;
-        }
-
         $nodes = [$node];
         while (isset($nodes[0]['parentId'])) {
             array_unshift($nodes, $map[$nodes[0]['parentId']]);
         }
+        $content = $this->em('Chalk\Core\Content')->id($content);
+        $req->chalk->node    = $node;
+        $req->chalk->nodes   = $nodes;
+        $req->chalk->content = $content;
 
-        $req->chalk = (object) [
-            'node'      => $node,
-            'nodes'     => $nodes,
-            'content'   => $content,
-            'domain'    => $domain,
-            'structure' => $domain->structure,
-            'root'      => $domain->structure->root,
-            'home'      => $domain->structure->root->content,
-        ];
+        if (!$content) {
+            return;
+        }
 
         $name = \Chalk\Chalk::info($content)->class;
         if (!isset($this->_handlers[$name])) {

@@ -103,31 +103,61 @@
 		</div>
 	</fieldset>
 <?php } ?>
-<?php if ($req->user->isRoot()) { ?>
+<?php if ($req->user->isDeveloper()) { ?>
 	<fieldset class="form-block">
 		<div class="form-legend">
-			<h2>Administration</h2>
+			<h2>Developer</h2>
 		</div>
 		<div class="form-items">
-			<?= $this->render('/element/form-item', array(
-				'entity'		=> $content,
-				'name'			=> 'id',
-				'label'			=> 'ID',
-				'type'			=> 'value',
-				'readOnly'		=> true,
-			)) ?>
-			<?= $this->render('/element/form-item', array(
-				'entity'		=> $content,
-				'name'			=> 'slug',
-				'label'			=> 'Slug',
-				'type'			=> 'value',
-				'readOnly'		=> true,
-			)) ?>
 			<?= $this->render('/element/form-item', array(
 				'entity'		=> $content,
 				'name'			=> 'isProtected',
 				'label'			=> 'Protected',
 			)) ?>	
+			<?php $this->start() ?>
+				<?= $this->render('/element/form-item', array(
+					'entity'		=> $content,
+					'name'			=> 'id',
+					'label'			=> 'Content ID',
+					'type'			=> 'value',
+					'readOnly'		=> true,
+				)) ?>
+				<?= $this->render('/element/form-item', array(
+					'entity'		=> $content,
+					'name'			=> 'slug',
+					'label'			=> 'Content Slug',
+					'type'			=> 'value',
+					'readOnly'		=> true,
+				)) ?>
+				<?php if (isset($node)) { ?>
+					<?= $this->render('/element/form-item', array(
+						'entity'		=> $node,
+						'name'			=> 'id',
+						'label'			=> 'Node ID',
+						'type'			=> 'value',
+						'readOnly'		=> true,
+					)) ?>
+					<?= $this->render('/element/form-item', array(
+						'entity'		=> $node,
+						'name'			=> 'slug',
+						'label'			=> 'Node Slug',
+						'type'			=> 'value',
+						'readOnly'		=> true,
+					)) ?>
+					<?= $this->render('/element/form-item', array(
+						'entity'		=> $node,
+						'name'			=> 'path',
+						'label'			=> 'Node Path',
+						'type'			=> 'value',
+						'readOnly'		=> true,
+					)) ?>
+				<?php } ?>
+			<?php $html = $this->end() ?>
+			<?= $this->render('/element/expandable', [
+				'content'		=> $html,
+				'buttonLabel'	=> 'Information',
+			], 'Chalk\Core') ?>
+			
 		</div>
 	</fieldset>
 <?php } ?>

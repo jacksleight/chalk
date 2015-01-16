@@ -24,7 +24,7 @@ class User extends \Toast\Entity implements Trackable, Searchable
 	
     use Trackable\Entity;
 
-	const ROLE_ROOT				= 'root';
+	const ROLE_DEVELOPER		= 'developer';
 	const ROLE_ADMINISTRATOR	= 'administrator';
 	const ROLE_EDITOR			= 'editor';
 	const ROLE_CONTRIBUTOR		= 'contributor';
@@ -97,6 +97,7 @@ class User extends \Toast\Entity implements Trackable, Searchable
 						self::ROLE_CONTRIBUTOR		=> 'Contributor',
 						self::ROLE_EDITOR			=> 'Editor',
 						self::ROLE_ADMINISTRATOR	=> 'Administrator',
+						self::ROLE_DEVELOPER		=> 'Developer',
 					],
 				),
 				'emailAddress' => array(
@@ -146,13 +147,13 @@ class User extends \Toast\Entity implements Trackable, Searchable
 		];
 	}
 		
-	public function isRoot()
+	public function isDeveloper()
 	{
-		return $this->role == self::ROLE_ROOT;
+		return $this->role == self::ROLE_DEVELOPER;
 	}
 	
 	public function isAdministrator()
 	{
-		return $this->role == self::ROLE_ADMINISTRATOR || $this->role == self::ROLE_ROOT;
+		return $this->role == self::ROLE_ADMINISTRATOR || $this->isDeveloper();
 	}
 }

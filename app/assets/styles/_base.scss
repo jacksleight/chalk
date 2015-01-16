@@ -242,6 +242,10 @@ small {
 	background-color: $color-positive;
 	border-color: $color-positive;
 }
+.badge-0,
+.badge-1 {
+	text-align: center;
+}
 .badge-published {
 	@extend .badge;
 }
@@ -1238,7 +1242,7 @@ legend {
 	&.active {
 		.expandable-body {
 			border-top: 1px solid $color-background;
-			max-height: 500px;
+			max-height: 1000px;
 		}
 		.expandable-toggle i {
 			@include transform(rotate(180deg));

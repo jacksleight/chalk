@@ -36,10 +36,10 @@ try {
 	cli\line('Creating default user..');
 	$user = new \Chalk\Core\User();
 	$user->fromArray([
-		'name'			=> 'Root',
-		'emailAddress'	=> 'root@example.com',
+		'name'			=> 'Developer',
+		'emailAddress'	=> 'dev@example.com',
 		'passwordPlain'	=> 'password',
-		'role'			=> \Chalk\Core\User::ROLE_ROOT,
+		'role'			=> \Chalk\Core\User::ROLE_DEVELOPER,
 	]);
 	$app->em->persist($user);
 	$app->em->flush();
@@ -47,7 +47,7 @@ try {
 	cli\line('Creating default page..');
 	$page = new \Chalk\Core\Page();
 	$page->fromArray([
-		'name'			=> 'Home',
+		'name'			=> 'My Site',
 	]);
 	$app->em->persist($page);
 	$app->em->flush();
@@ -59,6 +59,7 @@ try {
 		'name'			=> 'Site Hierarchy',
 	]);
 	$struct->root->content = $page;
+	$struct->root->name    = 'Home';
 	$app->em->persist($struct);
 	$app->em->flush();
 
