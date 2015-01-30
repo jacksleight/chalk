@@ -131,7 +131,7 @@ class Node extends \Toast\Entity
     {
         if (isset($name)) {
             $this->name = $name;
-            $this->slug($this->slug);
+            $this->slug($this->name);
             return $this;
         }
         return $this->name;
