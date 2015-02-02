@@ -8,13 +8,13 @@ namespace Chalk\Core\Repository;
 
 use Chalk\Chalk,
 	Chalk\Repository,
-	Chalk\Behaviour\Publishable;
+	Chalk\Behaviour\Publishable,
+	Chalk\Behaviour\Searchable;
 
 class Content extends Repository
 {
-	use Publishable\Repository {
-       	Publishable\Repository::queryModifier as publishableQueryModifier;
-    }
+	use Publishable\Repository, 
+		Searchable\Repository;
 
 	protected $_alias = 'c';
 
@@ -23,7 +23,6 @@ class Content extends Repository
 		$query = parent::query($criteria, $sort, $limit, $offset);
 
 		$criteria = $criteria + [
-			'search'		=> null,
 			'master'		=> null,
 			'createDateMin'	=> null,
 			'createDateMax'	=> null,
@@ -33,21 +32,6 @@ class Content extends Repository
 			'statuses'		=> null,
 		];
 				
-		if (isset($criteria['search'])) {
-			if ($this->_class->name == 'Chalk\Core\Content') {
-				$classes = $this->_em->getClassMetadata($this->_class->name)->subClasses;
-			} else {
-				$classes = [$this->_class->name];
-			}
-			$results = $this->_em->getRepository('Chalk\Core\Index')
-				->search($criteria['search'], $classes);
-			$ids = \Coast\array_column($results, 'entityId');
-			$query
-				->addSelect("FIELD(c.id, :ids) AS HIDDEN sort")
-				->andWhere("c.id IN (:ids)")
-				->orderBy("sort")
-				->setParameter('ids', $ids);
-		}
 		if (isset($criteria['master'])) {
         	$query
 				->andWhere("c.master = :master")
@@ -85,6 +69,7 @@ class Content extends Repository
 		}
 
 		$this->publishableQueryModifier($query, $criteria);
+		$this->searchableQueryModifier($query, $criteria);
 
 		return $query;
 	}

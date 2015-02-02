@@ -8,7 +8,7 @@ $struct = $this->em('Chalk\Core\Structure')->id($req->structure);
 	<div class="flex <?= $info->class == 'Chalk\Core\File' ? 'uploadable' : null ?>">
 		<?php
 		$contents = $this->em($info)
-			->paged($index->toArray(), null, $index->limit, $index->page);
+			->paged($index->toArray(), ['modifyDate', 'DESC'], $index->limit, $index->page);
 		?>
 		<?= $this->child("/{$info->local->path}/list", [
 			'contents'		=> $contents,

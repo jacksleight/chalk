@@ -6,10 +6,13 @@
 
 namespace Chalk\Core\Repository;
 
-use Chalk\Repository;
+use Chalk\Repository,
+    Chalk\Behaviour\Searchable;
 
 class User extends Repository
 {
+    use Searchable\Repository;
+
     protected $_alias = 'u';
 
     public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
@@ -37,6 +40,8 @@ class User extends Repository
             ->addSelect('cu', 'mu')
             ->leftJoin('u.createUser', 'cu')
             ->leftJoin('u.modifyUser', 'mu');
+
+        $this->searchableQueryModifier($query, $criteria);
 
         return $query;
     }

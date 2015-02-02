@@ -13,19 +13,23 @@ use Chalk\Chalk,
 
 trait Repository
 {
-    public function queryModifier(QueryBuilder $query, array $criteria = array())
+    public function publishableQueryModifier(QueryBuilder $query, array $criteria = array(), $alias = null)
     {
+        $alias = isset($alias)
+            ? $alias
+            : $this->_alias;
+
         $criteria = $criteria + [
             'isPublished'   => Chalk::isFrontend(),
             'isPublishable' => false,
         ];
 
         if ($criteria['isPublished']) {
-            $query->andWhere("c.status IN (:statuses) AND UTC_TIMESTAMP() >= c.publishDate");
+            $query->andWhere("{$alias}.status IN (:statuses) AND UTC_TIMESTAMP() >= {$alias}.publishDate");
             $query->setParameter('statuses', [Chalk::STATUS_PUBLISHED]);
         }
         if ($criteria['isPublishable']) {
-            $query->andWhere("c.status IN (:statuses)");
+            $query->andWhere("{$alias}.status IN (:statuses)");
             $query->setParameter('statuses', [Chalk::STATUS_DRAFT, Chalk::STATUS_PENDING]);
         }
     }

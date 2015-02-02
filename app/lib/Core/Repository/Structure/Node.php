@@ -14,9 +14,7 @@ use Chalk\Chalk,
 
 class Node extends Repository
 {
-    use Publishable\Repository {
-        Publishable\Repository::queryModifier as publishableQueryModifier;
-    }
+    use Publishable\Repository;
 
     protected $_alias = 'n';
 
@@ -95,7 +93,7 @@ class Node extends Repository
             $query->orderBy("n.left");
         }
 
-        $this->publishableQueryModifier($query, $criteria);
+        $this->publishableQueryModifier($query, $criteria, 'c');
 
         return $query;
     }

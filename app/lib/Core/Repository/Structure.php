@@ -13,9 +13,7 @@ use Chalk\Repository,
 
 class Structure extends Repository
 {
-	use Publishable\Repository {
-        Publishable\Repository::queryModifier as publishableQueryModifier;
-    }
+	use Publishable\Repository;
 
     protected $_alias = 's';
 
@@ -29,7 +27,7 @@ class Structure extends Repository
             ->leftJoin("n.content", "c")
             ->andWhere("n.left = 0");
 
-        $this->publishableQueryModifier($query, $criteria);
+        $this->publishableQueryModifier($query, $criteria, 'c');
 
         return $query;
     }
