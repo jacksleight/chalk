@@ -8,8 +8,7 @@ $count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
 	<div class="sidebar">
 		<?php 
 		$contents = $this->app->fire('Chalk\Core\Event\ListContents')->contents();
-		?>
-		<?= $this->child('nav', ['items' => [
+		$items = [
 			[
 				'label' => 'Structure',
 				'icon'	=> 'icon icon-structure',
@@ -20,17 +19,21 @@ $count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
 				'icon'	=> 'icon icon-content',
 				'name'	=> 'content',
 			],
-			[
+		];
+		if ($req->user->isAdministrator()) {
+			$items[] = [
 				'label' => 'Settings',
 				'icon'	=> 'icon icon-settings',
 				'name'	=> 'setting',
-			],
-		], 'class' => 'toggle']) ?>
+			];
+		}
+		?>
+		<?= $this->child('nav', ['items' => $items, 'class' => 'toggle']) ?>
 		<div class="body">
 			<?= $this->content('sidebar') ?>
 		</div>
 		<?php if (false && $req->user->isAdministrator()) { ?>
-			<?= $this->child('nav', ['items' => [
+			<?= $this->render('nav', ['items' => [
 				[
 					'label' => 'Live',
 					'icon'	=> '',
