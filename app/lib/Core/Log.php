@@ -52,4 +52,9 @@ class Log extends \Toast\Entity implements Trackable
      * @Column(type="string")
      */
 	protected $type;
+
+    /**
+     * @ManyToOne(targetEntity="\Chalk\Core\User", inversedBy="logs")
+     */
+    protected $user;
 }

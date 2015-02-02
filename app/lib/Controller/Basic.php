@@ -26,9 +26,7 @@ class Basic extends Action
 	{}
 
 	public function edit(Request $req, Response $res)
-	{
-		$this->em->clear();
-		
+	{		
 		$var = $req->info->local->var;
 		$entity = isset($req->id)
 			? $this->em($req->info)->id($req->id)
