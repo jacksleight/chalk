@@ -44,3 +44,4 @@
 		), 'Chalk\Core') ?>
 	</div>
 </fieldset>
+<?= $this->content('general-after') ?>
