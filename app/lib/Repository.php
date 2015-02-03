@@ -85,10 +85,14 @@ class Repository extends EntityRepository
 		}
 
 		if (isset($sort)) {
-			if (!is_array($sort)) {
-				$sort = [$sort, 'ASC'];
+			if ($sort == 'random') {
+				$query->addSelect('RAND() AS HIDDEN rand')->orderBy('rand');
+			} else {
+				if (!is_array($sort)) {
+					$sort = [$sort, 'ASC'];
+				}
+				$query->orderBy("{$this->_alias}.{$sort[0]}", $sort[1]);
 			}
-			$query->orderBy("{$this->_alias}.{$sort[0]}", $sort[1]);
 		} else if (isset($criteria['ids'])) {
 			$query
 				->addSelect("FIELD({$this->_alias}.id, :ids) AS HIDDEN sort")
