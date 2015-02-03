@@ -62,22 +62,22 @@ class Node extends \Toast\Entity
     /**
      * @Column(type="integer")
      */
-    protected $sort = PHP_INT_MAX;
+    protected $sort = 2147483647;
 
     /**
      * @Column(name="`left`", type="integer")
      */
-    protected $left = PHP_INT_MAX;
+    protected $left = 2147483647;
 
     /**
      * @Column(name="`right`", type="integer")
      */
-    protected $right = PHP_INT_MAX;
+    protected $right = 2147483647;
 
     /**
      * @Column(type="integer")
      */
-    protected $depth = PHP_INT_MAX;
+    protected $depth = 2147483647;
 
     /**
      * @ManyToOne(targetEntity="\Chalk\Core\Content", inversedBy="nodes")
