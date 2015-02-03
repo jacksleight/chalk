@@ -6,6 +6,7 @@
 	* CLI tools for database management etc.
 	* New Repository->slug() method
 	* Support for additional caching drivers
+	* Bulk content archive and delete options
 	* Content pagination
 	* Content blocks for site-wide chunks of content
 	* Content protection for fixed developer content
@@ -16,7 +17,9 @@
 	* UI updates
 	* Repository->id() now supports criteria
 	* File upload sort order is now maintined
+	* Use doctrine nameing strategy
 	* Abiltiy to extend Core\File
+	* Ability to remove and replace content classes
 	* View Site button now opens current page
 	* Trim empty trailing paragraphs from content
 	* Frontend Publishable queries now set isPublished to true by default

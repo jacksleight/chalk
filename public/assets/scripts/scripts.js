@@ -16431,6 +16431,7 @@ Chalk.component('.content', function(i, el) {
 Chalk.component('.editor-content', function(i, el) {
 	
 	var initialize = function(el) {
+		$(el).removeAttr('required');
 		tinymce.execCommand('mceRemoveEditor', true, $(el).attr('id'));
 		tinymce.execCommand('mceAddEditor', true, $(el).attr('id'));
 	};
@@ -16455,6 +16456,7 @@ Chalk.component('.editor-content', function(i, el) {
 Chalk.component('.editor-code', function(i, el) {
 	
 	var initialize = function(el) {
+		$(el).removeAttr('required');
 		$(el).hide();
 	    var div = $('<div>')
 	        .css('height', $(el).outerHeight() + 'px')
