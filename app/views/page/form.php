@@ -9,6 +9,7 @@
 	'class'		=> 'monospaced editor-content',
 	'rows'		=> 7,
 ), 'Chalk\Core') ?>
+<?= $this->content('general-bottom') ?>
 <?php $this->start() ?>
 	<?= $this->render('/element/form-item', array(
 		'type'		=> 'select',
@@ -18,6 +19,7 @@
 		'null'		=> 'Default',
 		'values'	=> $this->app->layouts(),
 	), 'Chalk\Core') ?>
+	<?= $this->content('general-advanced-bottom') ?>
 <?php $html = $this->end() ?>
 <?= $this->render('/element/expandable', [
 	'content'		=> $html,
