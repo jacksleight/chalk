@@ -161,12 +161,13 @@ class Frontend extends App
         // Remove empty paragraphs
         $els = $xpath->query('//p');
         foreach ($els as $el) {
-            if ($el->firstChild !== $el->lastChild ||
+            if ($el->firstChild && (
+                $el->firstChild !== $el->lastChild ||
                 $el->firstChild->nodeType != XML_TEXT_NODE ||
-                $el->firstChild->textContent != \Coast\str_uchr('nbsp')) {
+                $el->firstChild->textContent != \Coast\str_uchr('nbsp'))) {
                 continue;
             }
-            $el->parentNode->removeChild($el);            
+            $el->parentNode->removeChild($el);
         }
         return $doc->saveHTML();
     }
