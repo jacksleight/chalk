@@ -1,17 +1,10 @@
 <ul class="<?= isset($class) ? $class : null ?>">
 	<?php foreach ($items as $item) { ?>
 		<?php
-		$name = isset($item['name'])
-			? $item['name']
-			: 'index';
-		$params = isset($item['params'])
-			? $item['params']
-			: [];
-		$path = $this->url($params, $name, true, false);
-		$current = isset($req) ? $req->path() : '';
-		$class = [
-			strlen($path->toString()) && strpos($current, $path->toString()) === 0 ? 'active' : null,
-			isset($item['icon']) ? "{$item['icon']}" : null,
+		$path	= $this->url->route($item['url'][0], $item['url'][1], true, false);
+		$class  = [
+			strlen($path->toString()) && strpos($req->path(), $path->toString()) === 0 ? 'active' : null,
+			isset($item['icon']) ? "icon icon-{$item['icon']}" : null,
 		];
 		?>
 		<li>

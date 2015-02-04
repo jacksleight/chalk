@@ -124,11 +124,11 @@ abstract class Module
         return $this;
     }
 
-    public function listen($class, Closure $listener)
+    public function listen($class, callable $listener)
     {
         $this->_chalk->listen(
             $class,
-            $listener->bindTo($this)
+            $listener instanceof Closure ? $listener->bindTo($this) : $listener
         );
         return $this;
     }

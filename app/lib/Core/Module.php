@@ -27,36 +27,9 @@ class Module extends ChalkModule
         	->controllerNspace('Controller')
         	->controllerAll('All')
 			->frontendViewDir()
+        	->register('Event\Navigation')
         	->register('Event\ListWidgets')
-        	->register('Event\ListContents')
-        	->register('Event\ListSettings')
-        	->listen($this->nspace('Event\ListSettings'), function(Event $event) {
-        		$event->settings([
-					[
-						'label' => 'Users',
-						'name'  => 'setting',
-						'params'=> ['controller' => 'user'],
-					], [
-						'label' => 'Domains',
-						'name'  => 'setting',
-						'params'=> ['controller' => 'domain'],
-					], [
-						'label' => 'Structures',
-						'name'  => 'setting',
-						'params'=> ['controller' => 'setting_structure'],
-					]
-				]);
-        	})
-        	->listen($this->nspace('Event\ListContents'), function(Event $event) {
-        		$event->contents([
-	        		$this->nspace('Page'),
-	        		$this->nspace('File'),
-	        		$this->nspace('Block'),
-	        		// $this->nspace('Alias'),
-	        		// $this->nspace('Url'),
-	        		// $this->nspace('Blank'),
-        		]);
-        	});
+        	->listen($this->nspace('Event\Navigation'), [$this, 'navigation']);
 
 		$this->_chalk->frontend->handlers([
 			'Chalk\Core\Page' => function(Request $req, Response $res) {
@@ -87,5 +60,64 @@ class Module extends ChalkModule
 				return;
 			},
 		]);
+	}
+
+	public function navigation(Event $event, Request $req)
+	{
+		$event
+			->item($this->nspace('Primary'), [])
+			->item($this->nspace('Secondary'), []);
+
+		$event
+			->item($this->nspace('Structure'), [
+				'label'	=> 'Structure',
+				'icon'	=> 'structure',
+				'url'	=> [[], 'structure'],
+			], $this->nspace('Primary'))
+			->item($this->nspace('Content'), [
+				'label'	=> 'Content',
+				'icon'	=> 'content',
+				'url'	=> [[], 'content'],
+			], $this->nspace('Primary'));
+
+		if ($req->user->isAdministrator()) {
+			$event
+				->item($this->nspace('Setting'), [
+					'label'	=> 'Settings',
+					'icon'	=> 'settings',
+					'url'	=> [[], 'setting'],
+				], $this->nspace('Secondary'));
+		}
+		
+		$classes = [
+    		'Page',
+    		'File',
+    		'Block',
+    		// 'Alias',
+    		// 'Url',
+    		// 'Blank',
+		];
+		foreach ($classes as $class) {
+			$info = Chalk::info($this->nspace($class));
+			$event
+				->item($this->nspace("Content\{$info->class}"), [
+					'label'	=> $info->plural,
+					'url'	=> [['entity' => $info->name], 'content'],
+				], $this->nspace('Content'));
+		}
+
+		$event
+			->item($this->nspace('Setting\User'), [
+				'label'	=> 'Users',
+				'url'	=> [['controller' => 'setting_user'], 'setting'],
+			], $this->nspace('Setting'))
+			->item($this->nspace('Setting\Domain'), [
+				'label'	=> 'Domain',
+				'url'	=> [['controller' => 'setting_domain'], 'setting'],
+			], $this->nspace('Setting'))
+			->item($this->nspace('Setting\Structure'), [
+				'label'	=> 'Structures',
+				'url'	=> [['controller' => 'setting_structure'], 'setting'],
+			], $this->nspace('Setting'));
 	}
 }

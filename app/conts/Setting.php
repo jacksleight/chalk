@@ -16,11 +16,9 @@ class Setting extends Action
 {
 	public function index(Request $req, Response $res)
 	{
-		if ($req->controller == 'setting') {
-			return $res->redirect($this->url([
-				'controller' => 'user',
-			]));
-		}
+		return $res->redirect($this->url([
+			'controller' => 'setting_user',
+		]));
 	}
 }
 

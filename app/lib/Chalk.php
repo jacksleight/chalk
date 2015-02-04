@@ -193,7 +193,7 @@ class Chalk extends App
         return $this;
     }
 
-    public function listen($class, Closure $listener)
+    public function listen($class, callable $listener)
     {
         if (!isset($this->_events[$class])) {
             return $this;
@@ -204,12 +204,16 @@ class Chalk extends App
 
     public function fire($class)
     {
+        $args = func_get_args();
+        array_shift($args);
+
         if (!isset($this->_events[$class])) {
             return $this;
         }
         $event = new $class();
+        array_unshift($args, $event);
         foreach ($this->_events[$class] as $listener) {
-            $listener($event);
+            call_user_func_array($listener, $args);
         }
         return $event;
     }

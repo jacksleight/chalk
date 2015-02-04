@@ -28,10 +28,9 @@ class Content extends Basic
 	public function index(Request $req, Response $res)
 	{
 		if (!$req->entity) {
-			$contents = $this->app->fire('Chalk\Core\Event\ListContents')->contents();
-			return $res->redirect($this->url([
-				'entity' => Chalk::info($contents[0])->name,
-			]));
+			$items = $req->view->navigation->items('Chalk\Core\Content');
+			$item = current($items);
+			return $res->redirect($this->url($item['url'][0], $item['url'][1], true));
 		}
 
 		$index = new \Chalk\Core\Model\Index();

@@ -4,48 +4,21 @@ $count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
 <?php $this->parent('/layout/html') ?>
 <?php $this->block('body') ?>
 
+<?php
+$primary	= $navigation->items('Chalk\Core\Primary');
+$secondary	= $navigation->items('Chalk\Core\Secondary');
+?>
 <div class="frame">
 	<div class="sidebar">
-		<?php 
-		$contents = $this->app->fire('Chalk\Core\Event\ListContents')->contents();
-		$items = [
-			[
-				'label' => 'Structure',
-				'icon'	=> 'icon icon-structure',
-				'name'	=> 'structure',
-			],
-			[
-				'label' => 'Content',
-				'icon'	=> 'icon icon-content',
-				'name'	=> 'content',
-			],
-		];
-		if ($req->user->isAdministrator()) {
-			$items[] = [
-				'label' => 'Settings',
-				'icon'	=> 'icon icon-settings',
-				'name'	=> 'setting',
-			];
-		}
-		?>
-		<?= $this->child('nav', ['items' => $items, 'class' => 'toggle']) ?>
+		<? if (isset($primary)) { ?>
+			<?= $this->child('nav', ['items' => $primary, 'class' => 'toggle']) ?>
+		<? } ?>
 		<div class="body">
 			<?= $this->content('sidebar') ?>
 		</div>
-		<?php if (false && $req->user->isAdministrator()) { ?>
-			<?= $this->render('nav', ['items' => [
-				[
-					'label' => 'Live',
-					'icon'	=> '',
-					'params'=> ['controller' => null],
-				],
-				[
-					'label' => 'Activity',
-					'icon'	=> '',
-					'params'=> ['controller' => null],
-				]
-			], 'class' => 'toggle']) ?>
-		<?php } ?>
+		<? if (isset($secondary)) { ?>
+			<?= $this->child('nav', ['items' => $secondary, 'class' => 'toggle']) ?>
+		<? } ?>
 		<footer class="footer c" role="contentinfo">
 			<p><a href="<?= $this->url([], 'about', true) ?>" rel="modal">Chalk <?= \Chalk\Chalk::VERSION ?></a></p>
 		</footer>
