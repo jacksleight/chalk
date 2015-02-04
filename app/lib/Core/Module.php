@@ -8,31 +8,29 @@ namespace Chalk\Core;
 
 use Chalk\Chalk,
 	Chalk\Event,
-	Chalk\Module as CoreModule,
+	Chalk\Module as ChalkModule,
     Coast\Request,
     Coast\Response;
 
-class Module extends CoreModule
+class Module extends ChalkModule
 {
     public function __construct()
     {
         parent::__construct('../../../');
     }
     
-	public function init(Chalk $chalk)
+	public function init()
 	{
-		$chalk->frontend->view->dir('Chalk\Core', $chalk->config->viewDir->dir('core'));
-
-        $chalk->em->dir('Chalk\Core', $this->dir('app/lib'));
-		$chalk->view->dir('Chalk\Core', $this->dir('app/views'));
-        $chalk->controller->nspace('Chalk\Core', 'Chalk\Core\Controller');
-        $chalk->controller->all(['All', 'Chalk\Core']);
-		
-        $chalk
-        	->register('Chalk\Core\Event\ListWidgets')
-        	->register('Chalk\Core\Event\ListContents')
-        	->register('Chalk\Core\Event\ListSettings')
-        	->listen('Chalk\Core\Event\ListSettings', function(Event $event) {
+        $this
+        	->emDir('app/lib')
+			->viewDir('app/views')
+        	->controllerNspace('Controller')
+        	->controllerAll('All')
+			->frontendViewDir()
+        	->register('Event\ListWidgets')
+        	->register('Event\ListContents')
+        	->register('Event\ListSettings')
+        	->listen($this->nspace('Event\ListSettings'), function(Event $event) {
         		$event->settings([
 					[
 						'label' => 'Users',
@@ -49,18 +47,18 @@ class Module extends CoreModule
 					]
 				]);
         	})
-        	->listen('Chalk\Core\Event\ListContents', function(Event $event) {
+        	->listen($this->nspace('Event\ListContents'), function(Event $event) {
         		$event->contents([
-	        		'Chalk\Core\Page',
-	        		'Chalk\Core\File',
-	        		'Chalk\Core\Block',
-	        		// 'Chalk\Core\Alias',
-	        		// 'Chalk\Core\Url',
-	        		// 'Chalk\Core\Blank',
+	        		$this->nspace('Page'),
+	        		$this->nspace('File'),
+	        		$this->nspace('Block'),
+	        		// $this->nspace('Alias'),
+	        		// $this->nspace('Url'),
+	        		// $this->nspace('Blank'),
         		]);
         	});
 
-		$chalk->frontend->handlers([
+		$this->_chalk->frontend->handlers([
 			'Chalk\Core\Page' => function(Request $req, Response $res) {
 				$info = Chalk::info($req->chalk->content);
 				return $res->html($this->parse($this->view->render($info->local->path, [

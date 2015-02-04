@@ -10,11 +10,13 @@ use Chalk\Chalk,
     Chalk\Module,
 	Coast\File,
 	Coast\Dir,
-	ReflectionClass;
+	ReflectionClass,
+    Closure;
 
 abstract class Module
 {
     protected $_baseDir;
+    protected $_chalk;
 
     public function __construct($baseDir = '../')
     {
@@ -28,13 +30,22 @@ abstract class Module
         $this->baseDir($baseDir);
     }
 
-    public function baseDir(\Coast\Dir $baseDir = null)
+    public function baseDir(Dir $baseDir = null)
     {
         if (isset($baseDir)) {
             $this->_baseDir = $baseDir;
             return $this;
         }
         return $this->_baseDir;
+    }
+
+    public function chalk(Chalk $chalk = null)
+    {
+        if (isset($chalk)) {
+            $this->_chalk = $chalk;
+            return $this;
+        }
+        return $this->_chalk;
     }
 
     public function nspace($nspace = null)
@@ -58,6 +69,67 @@ abstract class Module
         return $this->_baseDir->file($path);
     }
 
-    public function init(Chalk $chalk)
+    public function init()
     {}
+
+    public function emDir($path)
+    {
+        $this->_chalk->em->dir(
+            $this->nspace(),
+            $this->dir($path)
+        );
+        return $this;
+    }
+
+    public function viewDir($path)
+    {
+        $this->_chalk->view->dir(
+            $this->nspace(),
+            $this->dir($path)
+        );
+        return $this;
+    }
+
+    public function controllerNspace($class)
+    {
+        $this->_chalk->controller->nspace(
+            $this->nspace(),
+            $this->nspace($class)
+        );
+        return $this;
+    }
+
+    public function controllerAll($class)
+    {
+        $this->_chalk->controller->all(
+            [$class, $this->nspace()]
+        );
+        return $this;
+    }
+
+    public function frontendViewDir()
+    {
+        $this->_chalk->frontend->view->dir(
+            $this->nspace(),
+            $this->_chalk->config->viewDir->dir(Chalk::info($this->nspace())->name)
+        );
+        return $this;
+    }
+
+    public function register($class)
+    {
+        $this->_chalk->register(
+            $this->nspace($class)
+        );
+        return $this;
+    }
+
+    public function listen($class, Closure $listener)
+    {
+        $this->_chalk->listen(
+            $class,
+            $listener->bindTo($this)
+        );
+        return $this;
+    }
 }
