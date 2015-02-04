@@ -1,5 +1,12 @@
 # Chalk Changelog
 
+### 0.3.1
+
+* **Improvements**
+	* Support random sorting in repository query
+* **Fixes**
+	* Bug fixes
+
 ### 0.3.0
 
 * **Features**
