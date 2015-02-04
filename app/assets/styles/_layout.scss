@@ -100,12 +100,13 @@ html, body {
 		background: shade($color-primary, 40%);
 		margin: 0;
 		@include no-bullets;
-		@include inline-blocks('li');
+		display: flex;
+		flex-direction: row;
 		&, a {
 			@include link-color(tint($color-primary, 80%));
 		}
 		li {
-			width: $width-4;
+			flex: 1;
 		}
 		a {
 			text-decoration: none;
