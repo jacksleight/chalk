@@ -13,7 +13,7 @@ use Coast\App,
 
 class Chalk extends App
 {
-    const VERSION           = '0.3.0';
+    const VERSION           = '0.3.1';
 
     const FORMAT_DATE       = 'jS F Y';
 
@@ -117,7 +117,7 @@ class Chalk extends App
             ],
             'singular'  => implode('_', $entityLcFirst),
             'plural'    => implode('_', $entityLcFirst),
-        ], isset($class::$_chalkInfo) ? $class::$_chalkInfo : []));
+        ], class_exists($class) && isset($class::$_chalkInfo) ? $class::$_chalkInfo : []));
     }
 
     public function module($name, Module $module = null)
@@ -125,7 +125,8 @@ class Chalk extends App
         if (func_num_args() > 1) {
             $this->_modules[$name] = $module;
             self::$_nspaces[$name] = $module->nspace();
-            $module->init($this);
+            $module->chalk($this);
+            $module->init();
             return $this;
         }
         return isset($this->_modules[$name])
@@ -192,23 +193,27 @@ class Chalk extends App
         return $this;
     }
 
-    public function listen($class, Closure $listener)
+    public function listen($class, callable $listener)
     {
         if (!isset($this->_events[$class])) {
             return $this;
         }
-        $this->_events[$class][] = $listener->bindTo($this);
+        $this->_events[$class][] = $listener;
         return $this;
     }
 
     public function fire($class)
     {
+        $args = func_get_args();
+        array_shift($args);
+
         if (!isset($this->_events[$class])) {
             return $this;
         }
         $event = new $class();
+        array_unshift($args, $event);
         foreach ($this->_events[$class] as $listener) {
-            $listener($event);
+            call_user_func_array($listener, $args);
         }
         return $event;
     }

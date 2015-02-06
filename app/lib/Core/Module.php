@@ -8,59 +8,30 @@ namespace Chalk\Core;
 
 use Chalk\Chalk,
 	Chalk\Event,
-	Chalk\Module as CoreModule,
+	Chalk\Module as ChalkModule,
     Coast\Request,
     Coast\Response;
 
-class Module extends CoreModule
+class Module extends ChalkModule
 {
     public function __construct()
     {
         parent::__construct('../../../');
     }
     
-	public function init(Chalk $chalk)
+	public function init()
 	{
-		$chalk->frontend->view->dir('Chalk\Core', $chalk->config->viewDir->dir('core'));
+        $this
+        	->emDir('app/lib')
+			->viewDir('app/views')
+        	->controllerNspace('Controller')
+        	->controllerAll('All')
+			->frontendViewDir()
+        	->register('Event\Navigation')
+        	->register('Event\ListWidgets')
+        	->listen($this->nspace('Event\Navigation'), [$this, 'navigation']);
 
-        $chalk->em->dir('Chalk\Core', $this->dir('app/lib'));
-		$chalk->view->dir('Chalk\Core', $this->dir('app/views'));
-        $chalk->controller->nspace('Chalk\Core', 'Chalk\Core\Controller');
-        $chalk->controller->all(['All', 'Chalk\Core']);
-		
-        $chalk
-        	->register('Chalk\Core\Event\ListWidgets')
-        	->register('Chalk\Core\Event\ListContents')
-        	->register('Chalk\Core\Event\ListSettings')
-        	->listen('Chalk\Core\Event\ListSettings', function(Event $event) {
-        		$event->settings([
-					[
-						'label' => 'Users',
-						'name'  => 'setting',
-						'params'=> ['controller' => 'user'],
-					], [
-						'label' => 'Domains',
-						'name'  => 'setting',
-						'params'=> ['controller' => 'domain'],
-					], [
-						'label' => 'Structures',
-						'name'  => 'setting',
-						'params'=> ['controller' => 'setting_structure'],
-					]
-				]);
-        	})
-        	->listen('Chalk\Core\Event\ListContents', function(Event $event) {
-        		$event->contents([
-	        		'Chalk\Core\Page',
-	        		'Chalk\Core\File',
-	        		'Chalk\Core\Block',
-	        		// 'Chalk\Core\Alias',
-	        		// 'Chalk\Core\Url',
-	        		// 'Chalk\Core\Blank',
-        		]);
-        	});
-
-		$chalk->frontend->handlers([
+		$this->_chalk->frontend->handlers([
 			'Chalk\Core\Page' => function(Request $req, Response $res) {
 				$info = Chalk::info($req->chalk->content);
 				return $res->html($this->parse($this->view->render($info->local->path, [
@@ -89,5 +60,64 @@ class Module extends CoreModule
 				return;
 			},
 		]);
+	}
+
+	public function navigation(Event $event, Request $req)
+	{
+		$event
+			->item($this->nspace('Primary'), [])
+			->item($this->nspace('Secondary'), []);
+
+		$event
+			->item($this->nspace('Structure'), [
+				'label'	=> 'Structure',
+				'icon'	=> 'structure',
+				'url'	=> [[], 'structure'],
+			], $this->nspace('Primary'))
+			->item($this->nspace('Content'), [
+				'label'	=> 'Content',
+				'icon'	=> 'content',
+				'url'	=> [[], 'content'],
+			], $this->nspace('Primary'));
+
+		if ($req->user->isAdministrator()) {
+			$event
+				->item($this->nspace('Setting'), [
+					'label'	=> 'Settings',
+					'icon'	=> 'settings',
+					'url'	=> [[], 'setting'],
+				], $this->nspace('Secondary'));
+		}
+		
+		$classes = [
+    		'Page',
+    		'File',
+    		'Block',
+    		// 'Alias',
+    		// 'Url',
+    		// 'Blank',
+		];
+		foreach ($classes as $class) {
+			$info = Chalk::info($this->nspace($class));
+			$event
+				->item($this->nspace("Content\{$info->class}"), [
+					'label'	=> $info->plural,
+					'url'	=> [['entity' => $info->name], 'content'],
+				], $this->nspace('Content'));
+		}
+
+		$event
+			->item($this->nspace('Setting\User'), [
+				'label'	=> 'Users',
+				'url'	=> [['controller' => 'setting_user'], 'setting'],
+			], $this->nspace('Setting'))
+			->item($this->nspace('Setting\Domain'), [
+				'label'	=> 'Domain',
+				'url'	=> [['controller' => 'setting_domain'], 'setting'],
+			], $this->nspace('Setting'))
+			->item($this->nspace('Setting\Structure'), [
+				'label'	=> 'Structures',
+				'url'	=> [['controller' => 'setting_structure'], 'setting'],
+			], $this->nspace('Setting'));
 	}
 }
