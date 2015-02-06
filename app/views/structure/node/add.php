@@ -4,7 +4,7 @@ $struct = $this->em('Chalk\Core\Structure')->id($req->structure);
 <?php $this->parent('/layout/page_structure') ?>
 <?php $this->block('main') ?>
 
-<form action="<?= $this->url->route() ?>" class="fill" data-modal-size="fullscreen" method="post">
+<form action="<?= $this->url->route() ?>" class="col" data-modal-size="fullscreen" method="post">
 	<div class="flex <?= $info->class == 'Chalk\Core\File' ? 'uploadable' : null ?>">
 		<?php
 		$contents = $this->em($info)
@@ -17,7 +17,7 @@ $struct = $this->em('Chalk\Core\Structure')->id($req->structure);
 			'headerPrefix'	=> 'Add',
 		], $info->module->class) ?>
 	</div>
-	<div class="fix">
+	<div class="footer">
 		<ul class="toolbar">
 			<li>
 				<button class="btn btn-positive icon-ok" formmethod="post">

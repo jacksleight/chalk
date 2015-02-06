@@ -1,7 +1,7 @@
 <?php $this->parent('/layout/page_settings') ?>
 <?php $this->block('main') ?>
 
-<form action="<?= $this->url->route() ?>" method="post" class="fill">
+<form action="<?= $this->url->route() ?>" method="post" class="col">
 	<div class="flex">
 		<h1>
 			Your Profile
@@ -31,7 +31,7 @@
 			</div>
 		</fieldset>
 	</div>
-	<fieldset class="fix">
+	<fieldset class="footer">
 		<ul class="toolbar">
 			<li>
 				<button class="btn btn-positive icon-ok">

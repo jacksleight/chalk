@@ -3,8 +3,8 @@
 	<?php $this->block('main') ?>
 <?php } ?>
 
-<form action="<?= $this->url->route() ?>?mode=<?= $req->action ?>&amp;post=1" method="post" class="fill">
-	<div class="flex">
+<form action="<?= $this->url->route() ?>?mode=<?= $req->action ?>&amp;post=1" method="post" class="">
+	<div class="body">
 		<ul class="toolbar">
 			<li><span class="btn btn-quieter modal-close icon-cancel">
 				Close
@@ -15,7 +15,7 @@
 		</h1>
 		<?= $this->child("{$info->local->path}", [], $info->module->class) ?>
 	</div>
-	<fieldset class="fix">
+	<fieldset class="footer">
 		<ul class="toolbar">
 			<li>
 				<button class="btn btn-positive icon-ok">

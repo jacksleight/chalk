@@ -3,8 +3,8 @@
 	<?php $this->block('main') ?>
 <?php } ?>
 
-<form action="<?= $this->url->route() ?>?post=1" method="post" class="fill" data-modal-size="fullscreen">
-	<div class="fix fix-header">
+<form action="<?= $this->url->route() ?>?post=1" method="post" class="col" data-modal-size="fullscreen">
+	<div class="header">
 		<ul class="toolbar">
 			<li><span class="btn btn-quieter modal-close icon-cancel">
 				Close
@@ -14,7 +14,7 @@
 			Source
 		</h1>
 	</div>
-	<div class="flex flex-full">
+	<div class="flex body-flush">
 		<?= $this->render('/element/form-input', array(
 			'entity'	=> $source,
 			'type'		=> 'input_hidden',
@@ -29,7 +29,7 @@
 			'rows'		=> 20,
 		)) ?>
 	</div>
-	<fieldset class="fix">
+	<fieldset class="footer">
 		<ul class="toolbar">
 			<li>
 				<button class="btn btn-positive icon-ok">

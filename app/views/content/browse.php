@@ -3,7 +3,7 @@
 	<?php $this->block('main') ?>
 <?php } ?>
 
-<form action="<?= $this->url->route() ?>" class="fill" data-modal-size="fullscreen" method="post">
+<form action="<?= $this->url->route() ?>" class="col" data-modal-size="fullscreen" method="post">
 	<?= $this->render('/element/form-input', array(
 		'type'		=> 'input_hidden',
 		'entity'	=> $index,
@@ -21,7 +21,7 @@
 			'headerPrefix'	=> 'Browse',
 		], $info->module->class) ?>
 	</div>
-	<div class="fix">
+	<div class="footer">
 		<ul class="toolbar">
 			<li>
 				<button class="btn btn-positive icon-ok" formmethod="post">

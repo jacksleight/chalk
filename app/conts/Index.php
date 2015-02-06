@@ -14,13 +14,15 @@ class Index extends Action
 {
 	public function index(Request $req, Response $res)
 	{
-		$contents = $this->app->fire('Chalk\Core\Event\ListContents')->contents();
-		return $res->redirect($this->url([
-			'info' => \Chalk\Chalk::info($contents[0])->name,
-		], 'structure', true));
+		$items = $req->view->navigation->items('Chalk\Core\Content');
+		$item = current($items);
+		return $res->redirect($this->url($item['url'][0], $item['url'][1], true));
 	}
 	
 	public function about(Request $req, Response $res)
+	{}
+	
+	public function sandbox(Request $req, Response $res)
 	{}
 
 	public function prefs(Request $req, Response $res)

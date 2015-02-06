@@ -1,7 +1,7 @@
 <? $this->block() ?>
 
-<div class="fill">
-<div class="flex">
+<div class="col">
+<div class="flex body">
 
 <? if ($this->block('tools')) { ?>
 
@@ -163,7 +163,7 @@
 <?php } ?>
 
 </div>
-<fieldset class="fix">
+<fieldset class="footer">
 
 <? if ($this->block('actions-primary')) { ?>
 

@@ -9,151 +9,113 @@ html, body {
 	height: 100%;
 }
 
-/* Structure */
+/* Layout */
 
-.frame {
+.row,
+.col {
 	display: flex;
-	flex-direction: row;
-	width: 100%;
-	height: 100%;
 	> * {
-		display: flex;
-		flex-direction: column;
+		@include flush;
+		position: relative;
 	}
 }
+.row {
+	flex-direction: row;
+}
+.col {
+	flex-direction: column;
+}
+.flex {
+	flex: 1;
+}
 
-.fill {
+body > .row {
+	width: 100%;
+	height: 100%;
+}
+.flex > .col,
+.flex > .row,
+.flex > form > .col,
+.flex > form > .row,
+.modal-content > .col,
+.modal-content > .row,
+.modal-content > form > .col,
+.modal-content > form > .row {
 	position: absolute;
 	top: 0;
 	left: 0;
 	bottom: 0;
-	right: 0;
-	display: flex;
-	flex-direction: column;
-	> .flex {
-		flex: 1;
-		overflow: auto;
-		position: relative;
-		@include flush();
+	right: 0;	
+}
+
+/* Header, Body, Footer */
+
+.header, 
+.body,
+.footer {
+	@include flush;
+}
+.header {
+	padding: $gutter * 0.75 $gutter * 1.5;
+	border-bottom: 1px solid $color-divide;
+}
+.body {
+	padding: $gutter * 1.25 $gutter * 1.5;
+	overflow: auto;
+}
+.footer {
+	padding: $gutter * 0.75 $gutter * 1.5;
+	border-top: 1px solid $color-divide;
+}
+
+/* Bars */
+
+.topbar {
+	background-color: white;
+	padding: $gutter * 0.75 $gutter * 1.5;
+	border-bottom: 0;
+	a {
+		@include link-color($color-foreground);
 	}
-	> .fix {
-		position: relative;
-		@include flush();
+	h1 {
+		margin-top: 0;
+		text-align: center;
+		font-weight: bold;
+		line-height: $input-height;
+		@include font-size(0);
 	}
-	.main &, 
-	.modal & {
-		> .flex {
-			padding: $gutter $gutter * 1.5;
-		}
-		> .fix {
-			padding: $gutter * 0.75 $gutter * 1.5;
-			&:first-child {
-				border-bottom: 1px solid $color-divide;
-			}
-			&:last-child {
-				border-top: 1px solid $color-divide;
-			}
-			&.fix-header {
-				padding: $gutter $gutter * 1.5;
-			}
-		}
+	.notifications {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
 	}
-	.modal & {
-		> .flex {
-			padding: $gutter $gutter * 1.5 0 $gutter * 1.5;
-			&.flex-full {
-				background: white;
-				position: relative;
-				.editor-code, .editor-content, .ace_editor {
-					position: absolute;
-					top: 0;
-					bottom: 0;
-					left: 0;
-					right: 0;
-					border: 0;
-				}
-			}
-			.form-item,
-			.expandable-body,
-			.expandable-toggle {
-				margin-left: $gutter * -1.5;
-				margin-right: $gutter * -1.5;
-				padding-left: $gutter * 1.5;
-				padding-right: $gutter * 1.5;
-			}
-		}
-	}
-	.sidebar & {
-		> .flex {
-			padding: $gutter * 0.5 0;
+	.toolbar {
+		float: right; 
+		&:first-child {
+			float: left;
 		}
 	}
 }
 .sidebar {
 	width: 22%;
 	min-width: 280px;
-	background: $color-primary;
-	&, a {
-		@include link-color(tint($color-primary, 70%));
-	}
-	.toggle {
-		background: shade($color-primary, 40%);
-		margin: 0;
-		@include no-bullets;
-		display: flex;
-		flex-direction: row;
-		&, a {
-			@include link-color(tint($color-primary, 80%));
-		}
-		li {
-			flex: 1;
-		}
-		a {
-			text-decoration: none;
-			text-align: center;
-			display: block;
-			padding: 16px 0 12px 0;
-			line-height: 1.4;
-			@include link-color(tint($color-primary, 50%));
-			&.icon::before {
-				opacity: 0.5;
-				margin: 0;
-				width: 22px;
-				height: 22px;
-			}
-			span {
-				display: block;
-				@include font-size(-2);
-			}
-			&:hover, &:focus, &.active {
-				@include link-color(white);
-				&.icon::before {
-					opacity: 1;
-				}
-			}
-			&:hover, &:focus {
-				background: shade($color-primary, 50%);
-			}
-			&.active {
-				background: $color-primary;
-			}
-		}
-	}
-	.pad {
-		padding: $gutter $gutter 0 $gutter;
+	.footer	{
+		border-top: 0;
+		background: shade($color-primary, 60%);
+		text-align: center;
+		padding: $gutter * 0.5;
+		@include font-size(-2);
 		@include flush;
-	}
-	.body {
-		position: relative;
-	}
-}
-.main {
-	flex: 1;
-	.body {
-		position: relative;
-		padding: $gutter $gutter * 1.5;
+		&, a {
+			@include link-color($color-quiet);
+			text-decoration: none;
+		}	
 	}
 }
+
+/* Notifications */
+
 .notifications {
 	margin-top: 0;
 	@include no-bullets;
@@ -169,27 +131,6 @@ html, body {
 		}
 	}
 }
-.topbar {
-	padding: $gutter * 0.75 $gutter * 1.5;
-	background-color: white;
-	position: relative;
-	a {
-		@include link-color($color-foreground);
-	}
-	@include flush;
-	.notifications {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-	}
-	.toolbar {
-		float: right; 
-		&:first-child {
-			float: left;
-		}
-	}
-}
 .notification {
 	line-height: $input-height;
 	padding: $gutter * 0.75 $gutter * 1.5;
@@ -197,12 +138,6 @@ html, body {
 	text-align: center;
 	color: white;
 	cursor: pointer;
-	&.notification-positive {
-		background-color: transparentize($color-positive, 0.1);
-	}
-	&.notification-negative {
-		background-color: transparentize(shade($color-negative, 5%), 0.1);
-	}
 	&::before {
 		margin-right: 0.5em;
 		width: 22px;
@@ -210,118 +145,82 @@ html, body {
 		vertical-align: -4px;
 	}
 }
-.body {
-	flex: 1;
-	overflow: auto;
-	@include flush;
+.notification-positive {
+	background-color: transparentize($color-positive, 0.1);
 }
-.title {
-	margin-top: 0;
-	text-align: center;
-	font-weight: bold;
-	line-height: $input-height;
-}
-.center {
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	@include vertically-center('> div');
-	> div {
-		width: auto;
-		text-align: left;
-	}
-	.footer {
-		background-color: transparent;
-	}
+.notification-negative {
+	background-color: transparentize(shade($color-negative, 5%), 0.1);
 }
 
-.login {
-	width: 340px;
-	fieldset {
-		background-color: white;
-		padding: $gutter;
-	}
-	.form-item {
-		margin-top: $gutter * 0.4;
-		padding: 0;
-		border-top: 0;
-	}
-	.btn {
-		margin-top: $gutter * 0.75;
-	}
-	.login-password {
-		text-align: center;
-		margin-top: $gutter * 0.4;
-		@include font-size(-1);
-		a {
-			@include link-color($color-quiet);
-		}
-	}
-}
+/* Modal */
 
 .modal {
 	position: fixed;
 	z-index: 2000;
-	top: 0; right: 0; bottom: 0; left: 0;
-	padding: $gutter * 0.5;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: $gutter;
 	&:before {
 		content: '';
 		position: absolute;
-		top: 0; right: 0; bottom: 0; left: 0;
+		top: 0; 
+		right: 0; 
+		bottom: 0; 
+		left: 0;
 		background-color: transparentize(black, 0.5);
 	}
-	.modal-loader {
-		position: absolute;
-		top: $gutter * 1.25; right: $gutter * 1.25;
-		width: $gutter;
-		height: $gutter;
-		background-color: $color-active;
-		@include animation(spin 1s infinite linear);
+	.body {
+		padding-bottom: 0;
+		.form-item,
+		.expandable-body,
+		.expandable-toggle {
+			margin-left: $gutter * -1.5;
+			margin-right: $gutter * -1.5;
+			padding-left: $gutter * 1.5;
+			padding-right: $gutter * 1.5;
+		}
 	}
-	.modal-content {
-		position: relative;
-		margin: 0 auto;
-		height: 680px;
-		max-width: 800px;
-		max-height: 100%;
-		background-color: $color-background;
-		@include flush;
-		&.modal-fullscreen {
+	.body-flush {
+		padding: 0;
+		.editor-code,
+		.editor-content,
+		.ace_editor {
 			position: absolute;
-			top: $gutter * 0.5; right: $gutter * 0.5; bottom: $gutter * 0.5; left: $gutter * 0.5;
-			margin: auto;
-			height: auto;
-			max-width: none;
-			max-height: none;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			border: 0;
 		}
 	}
 }
-
-.hideable {
-	@include transition(opacity $speed ease);
-	opacity: 1;
-	&.hideable-hidden {
-		opacity: 0;
-	}
+.modal-loader {
+	position: absolute;
+	top: $gutter * 1.25;
+	right: $gutter * 1.25;
+	width: $gutter;
+	height: $gutter;
+	background-color: $color-active;
+	@include animation(spin 1s infinite linear);
 }
-
-/* Footer */
-
-.footer	{
-	background: shade($color-primary, 60%);
-	text-align: center;
-	padding: $gutter * 0.5;
-	@include font-size(-2);
+.modal-content {
+	position: relative;
+	margin: 0 auto;
+	max-width: 800px;
+	max-height: 100%;
+	background-color: $color-background;
 	@include flush;
-	&, a {
-		@include link-color($color-quiet);
-		text-decoration: none;
-	}	
 }
-.licence {
-	@include font-size(-2);
-	color: $color-quiet;
-	p {
-		margin-top: $gutter * 0.5;
-	}
+.modal-fullscreen {
+	position: absolute;
+	top: $gutter * 0.5;
+	right: $gutter * 0.5;
+	bottom: $gutter * 0.5;
+	left: $gutter * 0.5;
+	margin: auto;
+	height: auto;
+	max-width: none;
+	max-height: none;
 }

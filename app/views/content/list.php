@@ -96,7 +96,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
             <?php } ?>      
         </ul>
         <?php if (!count($contents)) { ?>
-            <div class="panel">
+            <div class="notice">
                 No <?= strtolower($info->plural) ?> found
             </div>
         <?php } ?>  
@@ -158,7 +158,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
                 <?php } ?>
             <?php } else { ?>
                 <tr>
-                    <td class="panel" colspan="4">
+                    <td class="notice" colspan="4">
                         No <?= strtolower($info->plural) ?> found
                     </td>
                 </tr>

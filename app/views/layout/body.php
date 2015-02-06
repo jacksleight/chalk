@@ -1,6 +1,3 @@
-<?php
-$count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
-?>
 <?php $this->parent('/layout/html') ?>
 <?php $this->block('body') ?>
 
@@ -8,24 +5,33 @@ $count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
 $primary	= $navigation->items('Chalk\Core\Primary');
 $secondary	= $navigation->items('Chalk\Core\Secondary');
 ?>
-<div class="frame">
-	<div class="sidebar">
+<div class="row">
+	<div class="col sidebar">
 		<? if (isset($primary)) { ?>
-			<?= $this->child('nav', ['items' => $primary, 'class' => 'toggle']) ?>
+			<?= $this->child('nav', [
+				'items'	=> $primary,
+				'class'	=> 'toggles',
+			]) ?>
 		<? } ?>
-		<div class="body">
+		<div class="flex">
 			<?= $this->content('sidebar') ?>
 		</div>
 		<? if (isset($secondary)) { ?>
-			<?= $this->child('nav', ['items' => $secondary, 'class' => 'toggle']) ?>
+			<?= $this->child('nav', [
+				'items' => $secondary,
+				'class' => 'toggles',
+			]) ?>
 		<? } ?>
 		<footer class="footer c" role="contentinfo">
 			<p><a href="<?= $this->url([], 'about', true) ?>" rel="modal">Chalk <?= \Chalk\Chalk::VERSION ?></a></p>
 		</footer>
 	</div>
-	<div class="main">
-		<div class="topbar">
+	<div class="flex col">
+		<div class="header topbar">
 			<ul class="toolbar">
+				<?php
+				$count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
+				?>
 				<?php if ($count) { ?>
 					<li>
 						<a href="<?= $this->url([
@@ -57,12 +63,12 @@ $secondary	= $navigation->items('Chalk\Core\Secondary');
 					<a href="<?= $this->url([], 'logout', true) ?>" class="icon-logout-dark">Logout</a>
 				</li>
 			</ul>
-			<p class="title"><?= $this->config->name ?></p>
+			<h1><?= $this->config->name ?></h1>
 			<ul class="notifications"></ul>
 		</div>
-		<section class="body" role="main">
+		<div class="flex">
 			<?= $this->content('main') ?>
-		</section>
+		</div>
 	</div>
 </div>
 

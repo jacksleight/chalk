@@ -12,8 +12,8 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 <form action="<?= $this->url([
 	'action'	=> 'reorder',
 	'structure'	=> $structure->id,
-], 'structure', true) ?>?redirect=<?= $this->url([]) ?>" class="fill structure" method="post">
-	<div class="fix">
+], 'structure', true) ?>?redirect=<?= $this->url([]) ?>" class="col structure" method="post">
+	<div>
 		<div class="dropdown">
 			<div class="value">
 				<strong><?= $structure->name ?></strong>
@@ -90,7 +90,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 			</ol>
 		</div>
 	</div>
-	<div class="fix">
+	<div class="footer">
 		<button class="btn btn-block structure-edit btn-collapse icon-move" type="button">
 			Move Content
 		</button>

@@ -14,6 +14,10 @@ $app->router
 		'controller' => 'index',
 		'action'     => 'about',
 	])
+	->all('sandbox', "sandbox", [
+		'controller' => 'index',
+		'action'     => 'sandbox',
+	])
 	->all('passwordRequest', "password-request", [
 		'controller' => 'auth',
 		'action'     => 'password-request',
