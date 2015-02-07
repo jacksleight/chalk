@@ -3,7 +3,7 @@
 	<?php $this->block('main') ?>
 <?php } ?>
 
-<form action="<?= $this->url->route() ?>?post=1" method="post" class="col" data-modal-size="fullscreen">
+<form action="<?= $this->url->route() ?>?post=1" method="post" class="flex-col" data-modal-size="fullscreen">
 	<div class="header">
 		<ul class="toolbar">
 			<li><span class="btn btn-quieter modal-close icon-cancel">

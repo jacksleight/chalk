@@ -3182,49 +3182,34 @@ html, body {
 }
 
 /* Layout */
-.row,
-.col {
+.flex-row,
+.flex-col {
   display: flex;
-}
-.row > *,
-.col > * {
-  position: relative;
-}
-.row > * > *:first-child,
-.col > * > *:first-child {
-  margin-top: 0 !important;
-}
-
-.row {
-  flex-direction: row;
-}
-
-.col {
-  flex-direction: column;
-}
-
-.flex {
-  flex: 1;
-}
-
-body > .row {
-  width: 100%;
-  height: 100%;
-}
-
-.flex > .col,
-.flex > .row,
-.flex > form > .col,
-.flex > form > .row,
-.modal-content > .col,
-.modal-content > .row,
-.modal-content > form > .col,
-.modal-content > form > .row {
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+}
+.flex-row > *,
+.flex-col > * {
+  position: relative;
+}
+.flex-row > * > *:first-child,
+.flex-col > * > *:first-child {
+  margin-top: 0 !important;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex {
+  flex: 1;
 }
 
 /* Header, Body, Footer */
@@ -3379,7 +3364,7 @@ body > .row {
   right: 0;
   bottom: 0;
   left: 0;
-  padding: 20px;
+  padding: 15px;
 }
 .modal:before {
   content: '';
@@ -3388,7 +3373,7 @@ body > .row {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(22, 26, 30, 0.75);
 }
 .modal .body {
   padding-bottom: 0;
@@ -3440,10 +3425,10 @@ body > .row {
 
 .modal-fullscreen {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  bottom: 10px;
-  left: 10px;
+  top: 15px;
+  right: 15px;
+  bottom: 15px;
+  left: 15px;
   margin: auto;
   height: auto;
   max-width: none;

@@ -1,8 +1,8 @@
 <?php $this->parent('/layout/page_settings') ?>
 <?php $this->block('main') ?>
 
-<form action="<?= $this->url->route() ?>" method="post" class="col">
-	<div class="flex">
+<form action="<?= $this->url->route() ?>" method="post" class="flex-col">
+	<div class="flex body">
 		<h1>
 			<?php if (!$user->isNew()) { ?>
 				<?= $user->name ?>

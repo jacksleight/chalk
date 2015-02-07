@@ -1,6 +1,6 @@
 <? $this->block() ?>
 
-<div class="col">
+<div class="flex-col">
 <div class="flex body">
 
 <? if ($this->block('tools')) { ?>
@@ -85,7 +85,7 @@
 	<fieldset class="form-block">
 		<div class="form-legend">
 			<h2>Structure</h2>
-			<p>These settings only apply when the <?= strtolower($info->singular) ?> is used in the <strong><?= $node->structure->name ?></strong>.</p>
+			<p>These only apply when the <?= strtolower($info->singular) ?> is used in the <strong><?= $node->structure->name ?></strong>.</p>
 		</div>
 		<div class="form-items">
 			<?= $this->render('/element/form-item', array(

@@ -1,7 +1,7 @@
 <?php $this->parent('/layout/page_settings') ?>
 <?php $this->block('main') ?>
 
-<form action="<?= $this->url->route() ?>" method="post" class="col">
+<form action="<?= $this->url->route() ?>" method="post" class="flex-col">
 	<div class="flex">
 		<h1>
 			Your Profile

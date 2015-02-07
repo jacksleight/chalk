@@ -7,6 +7,8 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
 ?>
 <? $this->block() ?>
 
+<div class="flex-col">
+<div class="body">
 <? if ($isUploadable) { ?>
     <div class="uploadable">
 <? } ?>
@@ -208,3 +210,5 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
     </script>
     </div>
 <? } ?>
+</div>
+</div>

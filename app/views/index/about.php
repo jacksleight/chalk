@@ -3,7 +3,7 @@
 	<?php $this->block('main') ?>
 <?php } ?>
 
-<div class="col" data-modal-size="500x110">
+<div class="flex-col" data-modal-size="500x110">
 	<div class="flex">
 		<ul class="toolbar">
 			<li><span class="btn modal-close icon-cancel">

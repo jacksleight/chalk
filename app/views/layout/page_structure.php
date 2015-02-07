@@ -12,7 +12,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 <form action="<?= $this->url([
 	'action'	=> 'reorder',
 	'structure'	=> $structure->id,
-], 'structure', true) ?>?redirect=<?= $this->url([]) ?>" class="col structure" method="post">
+], 'structure', true) ?>?redirect=<?= $this->url([]) ?>" class="flex-col structure" method="post">
 	<div>
 		<div class="dropdown">
 			<div class="value">

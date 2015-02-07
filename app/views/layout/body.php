@@ -5,8 +5,8 @@
 $primary	= $navigation->items('Chalk\Core\Primary');
 $secondary	= $navigation->items('Chalk\Core\Secondary');
 ?>
-<div class="row">
-	<div class="col sidebar">
+<div class="flex-row">
+	<div class="flex-col sidebar">
 		<? if (isset($primary)) { ?>
 			<?= $this->child('nav', [
 				'items'	=> $primary,
@@ -26,7 +26,7 @@ $secondary	= $navigation->items('Chalk\Core\Secondary');
 			<p><a href="<?= $this->url([], 'about', true) ?>" rel="modal">Chalk <?= \Chalk\Chalk::VERSION ?></a></p>
 		</footer>
 	</div>
-	<div class="flex col">
+	<div class="flex flex-col">
 		<div class="header topbar">
 			<ul class="toolbar">
 				<?php
