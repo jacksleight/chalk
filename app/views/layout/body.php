@@ -6,14 +6,14 @@ $primary	= $navigation->items('Chalk\Core\Primary');
 $secondary	= $navigation->items('Chalk\Core\Secondary');
 ?>
 <div class="flex-row">
-	<div class="flex-col sidebar">
+	<div class="flex-col sidebar dark">
 		<? if (isset($primary)) { ?>
 			<?= $this->child('nav', [
 				'items'	=> $primary,
 				'class'	=> 'toggles',
 			]) ?>
 		<? } ?>
-		<div class="flex">
+		<div class="flex body">
 			<?= $this->content('sidebar') ?>
 		</div>
 		<? if (isset($secondary)) { ?>
@@ -22,9 +22,6 @@ $secondary	= $navigation->items('Chalk\Core\Secondary');
 				'class' => 'toggles',
 			]) ?>
 		<? } ?>
-		<footer class="footer c" role="contentinfo">
-			<p><a href="<?= $this->url([], 'about', true) ?>" rel="modal">Chalk <?= \Chalk\Chalk::VERSION ?></a></p>
-		</footer>
 	</div>
 	<div class="flex flex-col">
 		<div class="header topbar">

@@ -1,7 +1,7 @@
 /* Page */
 
 html { 
-	background: $color-background;
+	@include colors(0, 0);
 	overflow-y: none;
 }
 html, body {
@@ -29,6 +29,13 @@ html, body {
 }
 .flex-col {
 	flex-direction: column;
+	& > * {
+		border-top: 1px solid;
+		@include colors(null, null, 4);
+		&:first-child {
+			border-top: 0;
+		}
+	}
 }
 .flex {
 	flex: 1;
@@ -39,27 +46,23 @@ html, body {
 .header, 
 .body,
 .footer {
+	padding: $gutter * 0.55 $gutter * 1.25;
 	@include flush;
 }
-.header {
-	padding: $gutter * 0.75 $gutter * 1.5;
-	border-bottom: 1px solid $color-divide;
-}
 .body {
-	padding: $gutter * 1.25 $gutter * 1.5;
+	padding-top: $gutter;
+	padding-bottom: $gutter;
 	overflow: auto;
-}
-.footer {
-	padding: $gutter * 0.75 $gutter * 1.5;
-	border-top: 1px solid $color-divide;
+	.sidebar & {
+		padding-left: 0;
+		padding-right: 0;
+	}
 }
 
 /* Bars */
 
 .topbar {
-	background-color: white;
-	padding: $gutter * 0.75 $gutter * 1.5;
-	border-bottom: 0;
+	@include colors(null, 1);
 	a {
 		@include link-color($color-foreground);
 	}
@@ -86,18 +89,7 @@ html, body {
 .sidebar {
 	width: 22%;
 	min-width: 280px;
-	.footer	{
-		border-top: 0;
-		background: shade($color-primary, 60%);
-		text-align: center;
-		padding: $gutter * 0.5;
-		@include font-size(-2);
-		@include flush;
-		&, a {
-			@include link-color($color-quiet);
-			text-decoration: none;
-		}	
-	}
+	@include colors(0, 1);
 }
 
 /* Notifications */

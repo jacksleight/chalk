@@ -21,10 +21,10 @@ html {
 	line-height: 1;
 }
 h1 { 
-	@include font-size(38px);
+	@include font-size(5);
 }
 h2 { 
-	@include font-size(3);
+	@include font-size(2);
 }
 h3 { 
 	@include font-size(0);
@@ -97,13 +97,9 @@ dl {
 /* Link */
 
 a { 
-	@include link-color($color-focus);
+	@include link-color(inherit);
 	@include transition(all $speed ease);
 	text-decoration: underline;
-	&.block {
-		text-decoration: none;
-		@include link-color($color-foreground);
-	}
 }
 
 /* Emphasised & Marked */
@@ -192,14 +188,10 @@ small {
 /* Toggles */
 
 .toggles {
-	background: shade($color-primary, 40%);
 	margin: 0;
 	@include no-bullets;
 	display: flex;
 	flex-direction: row;
-	&, a {
-		@include link-color(tint($color-primary, 80%));
-	}
 	li {
 		flex: 1;
 	}
@@ -207,30 +199,45 @@ small {
 		text-decoration: none;
 		text-align: center;
 		display: block;
-		padding: 16px 0 12px 0;
-		line-height: 1.4;
-		@include link-color(tint($color-primary, 50%));
-		&.icon::before {
-			opacity: 0.5;
-			margin: 0;
-			width: 22px;
-			height: 22px;
-		}
+		padding: 12px 0 8px 0;	
+		@include colors(null, 3);
 		span {
+			opacity: 0.5;
 			display: block;
 			@include font-size(-2);
+			&.icon::before {
+				margin: 0;
+				width: 22px;
+				height: 22px;
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+			}
 		}
 		&:hover, &:focus, &.active {
-			@include link-color(white);
-			&.icon::before {
+			span {
 				opacity: 1;
 			}
 		}
-		&:hover, &:focus {
-			background: shade($color-primary, 50%);
-		}
 		&.active {
-			background: $color-primary;
+			background: transparent;
+			position: relative;
+			&::before, 
+			&::after {
+				content: '';
+				border-top: 1px solid;
+				@include colors(null, null, 1);
+				position: absolute;
+				left: 0;
+				width: 100%;
+				z-index: 100;
+			}
+			&::before {
+				bottom: 100%;
+			}
+			&::after {
+				top: 100%;
+			}
 		}
 	}
 }
@@ -519,9 +526,9 @@ table {
 	@include border-radius($radius);
 	th, td { 
 		vertical-align: top;
-		padding: $gutter * 0.35 $gutter * 0.75 $gutter * 0.35 0;
+		padding: $gutter * 0.35 0 $gutter * 0.35 $gutter * 0.75;
 		&:first-child {
-			padding-left: $gutter * 0.75;
+			padding-left: 0;
 		}
 	}
 	th { 
@@ -532,28 +539,28 @@ table {
 		}
 	}
 	thead {
-		background: white;
 		th {
 			font-weight: bold;
 		}
 	}
 	tbody {
-		background: white;
 		th, td { 
-			border-top: 1px solid $color-background;
+			border-top: 1px solid;
+			@include colors(null, null, 1);
 			@include transition(all $speed ease);
 		}
 		tr {
 			&:first-child {
 				th, td {
-					border-top: $gutter * 0.25 solid $color-background;
+					border-top: 1px solid;
+					@include colors(null, null, 3);
 				}
 			}
-			&:hover { 
-				th, td { 
-					background-color: tint($color-shade, 75%);
-				}
-			}
+			// &:hover { 
+			// 	th, td { 
+			// 		@include colors(null, 0.5);
+			// 	}
+			// }
 		}
 	}
 	caption { 
@@ -585,7 +592,6 @@ table {
 	}
 	.col-select {
 		width: 1px;
-		padding-left: $gutter * 0.3 !important;
 		padding-top: $gutter * 0.3;
 		padding-bottom: $gutter * 0.3;
 		input[type=checkbox] + label {
@@ -1076,17 +1082,18 @@ legend {
 	display: none;
 }
 .form-block {
-	margin: $gutter * 1.25 0 0 0;
-	background-color: white;
+	@include colors(null, null, 3);
+	border-top: 1px solid;
+	margin: $gutter 0 0 0;
 	& + .form-block {
-		margin-top: $gutter * 0.25;
+		margin-top: 0;
 	}
 	.form-legend {
-		padding: $gutter;
-		float: left;
-		width: 240px - ($gutter * 1.5);
 		@include flush;
 		@include font-size(-1);
+		float: left;
+		padding: $gutter $gutter $gutter 0;
+		width: 200px - ($gutter * 1.5);
 		h2 {
 			@include force-wrap;
 		}
@@ -1095,18 +1102,17 @@ legend {
 		}
 	}
 	.form-items {
-		border-left: 1px solid $color-background;
-		margin-left: 240px - ($gutter * 1.5);
 		@include flush;
+		margin-left: 200px - ($gutter * 1.5);
+		padding: $gutter 0 $gutter $gutter;
+		border-left: 1px solid;
+		@include colors(null, null, 1);
 	}
 }
 .form-item { 
 	margin: $gutter 0 0 0;
-	background: white;
-	padding: $gutter;
-	+ .form-item {
+	&:first-child {
 		margin-top: 0;
-		border-top: 1px solid $color-background;
 	}
 	> label {
 		color: $color-loud;
@@ -1331,40 +1337,28 @@ legend {
 		display: block;
 		cursor: pointer;
 		text-decoration: none;
+		@include link-color(inherit);
 		.badge {
 			float: right;
 			margin-right: $gutter * 0.25;
 		}
-		&:hover {
-			background-color: tint($color-shade, 75%);
-		}
-	}
-	&.menu-simple {
-		border-width: 0;
-		li {
-			border-width: 0;
+		&:hover,
+		&:focus,
+		&:active,
+		&.active {
+			@include colors(null, 2);
 		}
 	}
 	.sidebar & {
-		border-color: $color-primary;
-		border-bottom-color: shade($color-primary, 30%);
-		ul {
-			background-color: $color-primary;
+		&, li {
+			border: 0;
 		}
-		li {
-			border-color: shade($color-primary, 15%);
+		ul {
+			background-color: transparent;
 		}
 		.item {
 			padding-left: $gutter;
 			padding-right: $gutter;
-			&:hover,
-			&.active {
-				color: white;
-				background-color: shade($color-primary, 10%);
-			}
-			&.active {
-				@include arrow(34px, 0, $color-background);
-			}
 		}
 	}
 }
@@ -1470,7 +1464,7 @@ legend {
 			background-color: shade($color-primary, 10%);
 		}
 		&.active {
-			@include arrow(26px, 0, $color-background);
+			@include arrow(26px, 1);
 		}
 		&.tree-item-hidden {
 			@include link-color(transparentize(white, 0.6));

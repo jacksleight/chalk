@@ -8,7 +8,8 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
 <? $this->block() ?>
 
 <div class="flex-col">
-<div class="body">
+<div class="flex body">
+
 <? if ($isUploadable) { ?>
     <div class="uploadable">
 <? } ?>
@@ -170,7 +171,12 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
 
 <? } ?>
 
-<? } if ($this->block('pagination')) { ?>
+<? } $this->block() ?>
+
+</div>
+<div class="footer">
+
+<? if ($this->block('pagination')) { ?>
 
 <ul class="toolbar right autosubmitable">
     <li>
@@ -210,5 +216,6 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
     </script>
     </div>
 <? } ?>
+
 </div>
 </div>

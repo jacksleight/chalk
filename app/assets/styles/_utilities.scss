@@ -140,15 +140,19 @@
 
 /* Arrow */
 
-@mixin arrow($size, $offset: 0, $color: white) {
+@mixin arrow($size, $color: null) {
 	position: relative;
 	&:after {
 		content: '';
 		position: absolute;
-		top: $offset * -1;
-		right: $offset * -1;
-		border: $size * 0.5 solid;
-		border-color: transparent $color transparent transparent;
+		top: 0;
+		right: round($size * -0.25);
+		border-style: solid;
+		border-width: $size * 0.5 0 $size * 0.5 round($size * 0.25);
+		@include colors(null, null, $color);
+		border-top-color: transparent !important;
+		border-bottom-color: transparent !important;
+		border-right-color: transparent !important;
 	}
 }
 
