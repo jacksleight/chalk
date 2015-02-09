@@ -478,29 +478,29 @@
 /* Fonts */
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Light-webfont.eot?1415200703');
-  src: url('../fonts/OpenSans-Light-webfont.eot?&1415200703#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Light-webfont.woff?1415200703') format('woff'), url('../fonts/OpenSans-Light-webfont.ttf?1415200703') format('truetype'), url('../fonts/OpenSans-Light-webfont.svg?1415200703') format('svg');
+  src: url('../fonts/OpenSans-Light-webfont.eot?1420464718');
+  src: url('../fonts/OpenSans-Light-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Light-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-Light-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-Light-webfont.svg?1420464718') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Regular-webfont.eot?1415200703');
-  src: url('../fonts/OpenSans-Regular-webfont.eot?&1415200703#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Regular-webfont.woff?1415200703') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf?1415200703') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg?1415200703') format('svg');
+  src: url('../fonts/OpenSans-Regular-webfont.eot?1420464718');
+  src: url('../fonts/OpenSans-Regular-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Regular-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg?1420464718') format('svg');
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-LightItalic-webfont.eot?1415200703');
-  src: url('../fonts/OpenSans-LightItalic-webfont.eot?&1415200703#iefix') format('embedded-opentype'), url('../fonts/OpenSans-LightItalic-webfont.woff?1415200703') format('woff'), url('../fonts/OpenSans-LightItalic-webfont.ttf?1415200703') format('truetype'), url('../fonts/OpenSans-LightItalic-webfont.svg?1415200703') format('svg');
+  src: url('../fonts/OpenSans-LightItalic-webfont.eot?1420464718');
+  src: url('../fonts/OpenSans-LightItalic-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-LightItalic-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-LightItalic-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-LightItalic-webfont.svg?1420464718') format('svg');
   font-weight: normal;
   font-style: italic;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Italic-webfont.eot?1415200703');
-  src: url('../fonts/OpenSans-Italic-webfont.eot?&1415200703#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Italic-webfont.woff?1415200703') format('woff'), url('../fonts/OpenSans-Italic-webfont.ttf?1415200703') format('truetype'), url('../fonts/OpenSans-Italic-webfont.svg?1415200703') format('svg');
+  src: url('../fonts/OpenSans-Italic-webfont.eot?1420464718');
+  src: url('../fonts/OpenSans-Italic-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Italic-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-Italic-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-Italic-webfont.svg?1420464718') format('svg');
   font-weight: bold;
   font-style: italic;
 }
@@ -768,12 +768,30 @@ small {
   color: #FC6042;
 }
 
+/* Icons */
+.icon-block {
+  display: inline-block;
+  font-size: 12.0983px;
+  font-size: 0.75614rem;
+  vertical-align: middle;
+  margin: -2px 0;
+}
+.icon-block.icon::before {
+  margin: 2px 0 0 0;
+  width: 22px;
+  height: 22px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Toggles */
 .toggles {
   margin: 0;
   list-style: none;
   display: flex;
   flex-direction: row;
+  line-height: 38px;
 }
 .toggles li {
   list-style-image: none;
@@ -782,12 +800,13 @@ small {
 }
 .toggles li {
   flex: 1;
+  line-height: 1.5;
 }
 .toggles a {
   text-decoration: none;
   text-align: center;
   display: block;
-  padding: 12px 0 8px 0;
+  padding: 13px;
 }
 .toggles a {
   background-color: #dddddd;
@@ -797,17 +816,6 @@ small {
 }
 .toggles a span {
   opacity: 0.5;
-  display: block;
-  font-size: 12.0983px;
-  font-size: 0.75614rem;
-}
-.toggles a span.icon::before {
-  margin: 0;
-  width: 22px;
-  height: 22px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 .toggles a:hover span, .toggles a:focus span, .toggles a.active span {
   opacity: 1;
@@ -1343,10 +1351,6 @@ table .col-select input[type=checkbox] + label::before {
 }
 
 /* Input */
-/* Because line-height on form elements is ignored by Firefox, using padding-top/bottom
-   creates height inconsistencies, therefore we leave padding at 0px and explictly set
-   the height, to ensure height and vertical-alignment consistency. Text is vertically
-   aligned in the center automatically by the browser (except selects in Firefox) */
 input,
 select,
 textarea,
@@ -1557,30 +1561,6 @@ select:-ms-input-placeholder,
 .value:-ms-input-placeholder,
 .content:-ms-input-placeholder {
   color: #caccce;
-}
-.sidebar input[type=date], .sidebar
-input[type=datetime], .sidebar
-input[type=datetime-local], .sidebar
-input[type=email], .sidebar
-input[type=month], .sidebar
-input[type=number], .sidebar
-input[type=password], .sidebar
-input[type=search], .sidebar
-input[type=tel], .sidebar
-input[type=text], .sidebar
-input[type=time], .sidebar
-input[type=url], .sidebar
-input[type=week], .sidebar
-textarea, .sidebar
-select, .sidebar
-.value, .sidebar
-.content {
-  border-color: #2d353c;
-  border-bottom-color: #1f252a;
-  background-color: #2d353c;
-  color: inherit;
-  padding-left: 20px;
-  padding-right: 20px;
 }
 input[type=date].icon::before,
 input[type=datetime].icon::before,
@@ -2010,15 +1990,20 @@ input[type=submit].btn-icon,
 input[type=button].btn-icon,
 .btn.btn-icon {
   width: 38px;
+  white-space: nowrap;
   text-align: center;
-  overflow: hidden;
+}
+input[type=reset].btn-icon span,
+input[type=submit].btn-icon span,
+input[type=button].btn-icon span,
+.btn.btn-icon span {
+  display: none;
 }
 input[type=reset].btn-icon::before,
 input[type=submit].btn-icon::before,
 input[type=button].btn-icon::before,
 .btn.btn-icon::before {
   margin-right: 0;
-  vertical-align: -2px;
 }
 input[type=reset] small,
 input[type=submit] small,
@@ -2114,7 +2099,7 @@ textarea.disabled,
   border-bottom-width: 1px;
   overflow-y: auto;
 }
-.sidebar .dropdown .value {
+.dark .dropdown .value {
   background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNSIgaGVpZ2h0PSI5LjQwOSI+PHBhdGggZmlsbD0iI0Q4REFEQyIgZD0iTTAgMi40NDJMMi40MyAwIDcgNC41NDggMTEuNTcgMCAxNCAyLjQ0MiA3IDkuNDF6Ii8+PC9zdmc+');
 }
 
@@ -2317,6 +2302,7 @@ legend {
   margin-left: -2.5px;
   margin-right: -2.5px;
   font-size: 0;
+  line-height: 38px;
 }
 .toolbar li {
   list-style-image: none;
@@ -2343,7 +2329,7 @@ legend {
   margin-top: 0 !important;
 }
 .toolbar > li {
-  line-height: 38px;
+  line-height: 1.5;
   vertical-align: middle;
 }
 .toolbar > li > *:first-child {
@@ -2372,6 +2358,9 @@ legend {
   *vertical-align: auto;
   *zoom: 1;
   *display: inline;
+}
+.toolbar.tight > li {
+  vertical-align: middle;
 }
 .toolbar.right {
   float: right;
@@ -2554,15 +2543,72 @@ legend {
 .dark.menu .item:hover, .dark.menu .item:focus, .dark.menu .item:active, .dark.menu .item.active, .dark .menu .item:hover, .dark .menu .item:focus, .dark .menu .item:active, .dark .menu .item.active {
   background-color: #232a2f;
 }
-.sidebar .menu, .sidebar .menu li {
+
+/* Navigation */
+.nav {
+  margin: 20px 0 0 0;
+  border: 1px solid #caccce;
+}
+.nav ul {
+  margin: 0;
+  background-color: white;
+  list-style: none;
+}
+.nav ul li {
+  list-style-image: none;
+  list-style-type: none;
+  margin-left: 0;
+}
+.nav li {
+  border-top: 1px solid #fcfcfc;
+}
+.nav li:first-child {
+  border-top: 0;
+}
+.nav .item {
+  padding: 5px 10px;
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+.nav .item:visited {
+  color: inherit;
+}
+.nav .item:focus {
+  color: inherit;
+}
+.nav .item:hover {
+  color: inherit;
+}
+.nav .item:active {
+  color: inherit;
+}
+.nav .item .badge, .nav .item .badge-status, .nav .item .badge-0,
+.nav .item .badge-archived, .nav .item .badge-draft,
+.nav .item .badge-pending, .nav .item .badge-1, .nav .item .badge-published {
+  float: right;
+  margin-right: 5px;
+}
+.nav .item:hover, .nav .item:focus, .nav .item:active, .nav .item.active {
+  background-color: #e8e8e8;
+}
+.dark.nav .item:hover, .dark.nav .item:focus, .dark.nav .item:active, .dark.nav .item.active, .dark .nav .item:hover, .dark .nav .item:focus, .dark .nav .item:active, .dark .nav .item.active {
+  background-color: #232a2f;
+}
+.sidebar .nav {
+  margin-left: -25px;
+  margin-right: -25px;
+}
+.sidebar .nav, .sidebar .nav li {
   border: 0;
 }
-.sidebar .menu ul {
+.sidebar .nav ul {
   background-color: transparent;
 }
-.sidebar .menu .item {
-  padding-left: 20px;
-  padding-right: 20px;
+.sidebar .nav .item {
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 /* Tree */
@@ -3213,12 +3259,18 @@ html, body {
 .header,
 .body,
 .footer {
-  padding: 11px 25px;
+  padding: 13px 25px;
 }
 .header > *:first-child,
 .body > *:first-child,
 .footer > *:first-child {
   margin-top: 0 !important;
+}
+
+.header,
+.footer {
+  padding-top: 13px;
+  padding-bottom: 13px;
 }
 
 .body {
@@ -3227,8 +3279,8 @@ html, body {
   overflow: auto;
 }
 .sidebar .body {
-  padding-left: 0;
-  padding-right: 0;
+  padding-top: 13px;
+  padding-bottom: 13px;
 }
 
 /* Bars */
@@ -3275,8 +3327,7 @@ html, body {
 }
 
 .sidebar {
-  width: 22%;
-  min-width: 280px;
+  width: 300px;
 }
 .sidebar {
   color: #3b464f;

@@ -185,6 +185,23 @@ small {
 	color: $color-negative;
 }
 
+/* Icons */
+
+.icon-block {
+	display: inline-block;
+	@include font-size(-2);
+	vertical-align: middle;
+	margin: -2px 0;
+	&.icon::before {
+		margin: 2px 0 0 0;
+		width: 22px;
+		height: 22px;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
 /* Toggles */
 
 .toggles {
@@ -192,27 +209,19 @@ small {
 	@include no-bullets;
 	display: flex;
 	flex-direction: row;
+	line-height: $input-height;
 	li {
 		flex: 1;
+		line-height: $line-height;
 	}
 	a {
 		text-decoration: none;
 		text-align: center;
 		display: block;
-		padding: 12px 0 8px 0;	
+		padding: $gutter-y null;
 		@include colors(null, 3);
 		span {
 			opacity: 0.5;
-			display: block;
-			@include font-size(-2);
-			&.icon::before {
-				margin: 0;
-				width: 22px;
-				height: 22px;
-				display: block;
-				margin-left: auto;
-				margin-right: auto;
-			}
 		}
 		&:hover, &:focus, &.active {
 			span {
@@ -635,18 +644,6 @@ table {
 
 /* Input */
 
-/* Because line-height on form elements is ignored by Firefox, using padding-top/bottom
-   creates height inconsistencies, therefore we leave padding at 0px and explictly set
-   the height, to ensure height and vertical-alignment consistency. Text is vertically
-   aligned in the center automatically by the browser (except selects in Firefox) */
-$input-border-width:	1px;
-$input-padding: 		6px;
-$input-padding-horiz:	$input-padding + 4px;
-$input-height:			round($font-size * $line-height)
-						+ ($input-padding * 2)
-						+ ($input-border-width * 2);
-$input-toggle-size:		$input-height - 10px;
-
 input,
 select,
 textarea,
@@ -701,14 +698,14 @@ select,
 	@include placeholder {
 		color: $color-quieter;
 	}
-	.sidebar & {
-		border-color: $color-primary;
-		border-bottom-color: shade($color-primary, 30%);
-		background-color: $color-primary;
-		color: inherit;
-		padding-left: $gutter;
-		padding-right: $gutter;
-	}
+	// .sidebar & {
+	// 	border-color: $color-primary;
+	// 	border-bottom-color: shade($color-primary, 30%);
+	// 	background-color: $color-primary;
+	// 	color: inherit;
+	// 	padding-left: $gutter;
+	// 	padding-right: $gutter;
+	// }
 	&.icon::before {
 		opacity: 0.5;
 	}
@@ -967,11 +964,13 @@ input[type=button],
 	}
 	&.btn-icon {
 		width: 38px;
+		white-space: nowrap;
 		text-align: center;
-		overflow: hidden;
+		span {
+			display: none;
+		}
 		&::before {
 			margin-right: 0;
-			vertical-align: -2px;
 		}
 	}
 	small {
@@ -1048,7 +1047,7 @@ textarea,
 		border-bottom-width: 1px;
 		overflow-y: auto;
 	}
-	.sidebar & .value {
+	.dark & .value {
 		@include image(arrow-dropdown);
 	}
 }
@@ -1192,13 +1191,14 @@ legend {
 .toolbar {
 	@include no-bullets;
 	@include inline-blocks('> li', $gutter * 0.25);
+	line-height: $input-height;
 	&:first-child {
 		float: right;
 		@include flush-next;
 	}
 	> li {
 		@include flush;
-		line-height: $input-height;
+		line-height: $line-height;
 		vertical-align: middle;
 		& + li.space {
 			padding-left: $gutter * 0.75;
@@ -1209,6 +1209,9 @@ legend {
 	}
 	&.tight {
 		@include inline-blocks('> li', 1px);
+		> li {
+			vertical-align: middle;
+		}
 	}
 	&.right {
 		float: right;
@@ -1349,7 +1352,44 @@ legend {
 			@include colors(null, 2);
 		}
 	}
+}
+
+/* Navigation */
+
+.nav {
+	margin: $gutter 0 0 0;
+	border: 1px solid $color-quieter;
+	ul {
+		margin: 0;
+		background-color: white;
+		@include no-bullets;
+	}
+	li {
+		border-top: 1px solid $color-shade;
+		&:first-child {
+			border-top: 0;
+		}
+	}
+	.item {
+		padding: $gutter * 0.25 $input-padding-horiz;
+		display: block;
+		cursor: pointer;
+		text-decoration: none;
+		@include link-color(inherit);
+		.badge {
+			float: right;
+			margin-right: $gutter * 0.25;
+		}
+		&:hover,
+		&:focus,
+		&:active,
+		&.active {
+			@include colors(null, 2);
+		}
+	}
 	.sidebar & {
+		margin-left: $gutter-x * -1;
+		margin-right: $gutter-x * -1;
 		&, li {
 			border: 0;
 		}
@@ -1357,8 +1397,8 @@ legend {
 			background-color: transparent;
 		}
 		.item {
-			padding-left: $gutter;
-			padding-right: $gutter;
+			padding-left: $gutter-x;
+			padding-right: $gutter-x;
 		}
 	}
 }

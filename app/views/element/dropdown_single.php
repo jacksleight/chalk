@@ -11,7 +11,7 @@ $values = isset($null)
 			<span class="placeholder"><?= $placeholder ?></span>
 		<?php } ?>		
 	</div>
-	<?php if (count($values)) { ?>	
+	<?php if (count($values)) { ?>
 		<div class="menu">
 			<ul>
 				<?php foreach ($values as $v => $l) { ?>
@@ -32,6 +32,6 @@ $values = isset($null)
 					</li>
 				<?php } ?>
 			</ul>
-		<div>
+		</div>
 	<?php } ?>
 </div>

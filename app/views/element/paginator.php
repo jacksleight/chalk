@@ -15,12 +15,12 @@ $pages = isset($limit) && $count
 	<li>
 		<a href="<?= $this->url->query(array(
 			'page' => 1,
-		)) ?>" class="btn btn-quieter btn-icon icon-first <?= $value == 1 ? 'disabled' : null ?>">First</a>
+		)) ?>" class="btn btn-quieter btn-icon icon-first <?= $value == 1 ? 'disabled' : null ?>"><span>First</span></a>
 	</li>
 	<li>
 		<a href="<?= $this->url->query(array(
 			'page' => max($value - 1, 1),
-		)) ?>" class="btn btn-quieter btn-icon icon-prev <?= $value == 1 ? 'disabled' : null ?>" rel="prev">Previous</a>
+		)) ?>" class="btn btn-quieter btn-icon icon-prev <?= $value == 1 ? 'disabled' : null ?>" rel="prev"><span>Previous</span></a>
 	</li>
 	<? for ($i = $min1; $i <= $max1; $i++) { ?>
 		<li>
@@ -32,11 +32,11 @@ $pages = isset($limit) && $count
 	<li>
 		<a href="<?= $this->url->query(array(
 			'page' => min($value + 1, $pages),
-		)) ?>" class="btn btn-quieter btn-icon icon-next <?= $value == $pages ? 'disabled' : null ?>" rel="next">Next</a>
+		)) ?>" class="btn btn-quieter btn-icon icon-next <?= $value == $pages ? 'disabled' : null ?>" rel="next"><span>Next</span></a>
 	</li>
 	<li>
 		<a href="<?= $this->url->query(array(
 			'page' => $pages,
-		)) ?>" class="btn btn-quieter btn-icon icon-last <?= $value == $pages ? 'disabled' : null ?>">Last</a>
+		)) ?>" class="btn btn-quieter btn-icon icon-last <?= $value == $pages ? 'disabled' : null ?>"><span>Last</span></a>
 	</li>
 </ul>

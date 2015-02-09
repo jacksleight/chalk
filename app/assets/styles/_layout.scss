@@ -46,16 +46,21 @@ html, body {
 .header, 
 .body,
 .footer {
-	padding: $gutter * 0.55 $gutter * 1.25;
+	padding: $gutter-y $gutter-x;
 	@include flush;
 }
+.header, 
+.footer {
+	padding-top: $gutter-y;
+	padding-bottom: $gutter-y;
+}
 .body {
-	padding-top: $gutter;
-	padding-bottom: $gutter;
+	padding-top: $gutter-y-body;
+	padding-bottom: $gutter-y-body;
 	overflow: auto;
 	.sidebar & {
-		padding-left: 0;
-		padding-right: 0;
+		padding-top: $gutter-y;
+		padding-bottom: $gutter-y;
 	}
 }
 
@@ -87,8 +92,7 @@ html, body {
 	}
 }
 .sidebar {
-	width: 22%;
-	min-width: 280px;
+	width: 300px;
 	@include colors(0, 1);
 }
 

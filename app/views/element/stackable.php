@@ -3,8 +3,8 @@
 		<? foreach ($items as $i => $item) { ?>
 			<li class="stackable-item">
 				<div class="stackable-controls">
-					<span class="btn btn-icon btn-quieter stackable-move icon-drag">Move</span>
-					<span class="btn btn-icon btn-quieter btn-negative stackable-delete icon-delete">Delete</span>
+					<span class="btn btn-icon btn-quieter stackable-move icon-drag"><span>Move</span></span>
+					<span class="btn btn-icon btn-quieter btn-negative stackable-delete icon-delete"><span>Delete</span></span>
 				</div>
 				<div class="stackable-body">
 					<?= $item ?>
@@ -21,8 +21,8 @@
     <script type="x-tmpl-mustache" class="stackable-template">
 		<li class="stackable-item">
 			<div class="stackable-controls">
-				<span class="btn btn-icon btn-quieter stackable-move icon-drag">Move</span>
-				<span class="btn btn-icon btn-quieter btn-negative stackable-delete icon-delete">Delete</span>
+				<span class="btn btn-icon btn-quieter stackable-move icon-drag"><span>Move</span></span>
+				<span class="btn btn-icon btn-quieter btn-negative stackable-delete icon-delete"><span>Delete</span></span>
 			</div>
 			<div class="stackable-body">
 				<?= $template ?>

@@ -15,8 +15,6 @@ $color-dark-max:        black;
 $color-light-min:       white;
 $color-light-max:       desaturate($color-dark-min, 100%);
 
-
-
 @mixin colors($foreground: null, $background: null, $border: null) {
 	& {
 		@if ($foreground != null) {
@@ -43,12 +41,6 @@ $color-light-max:       desaturate($color-dark-min, 100%);
 	}
 }
 
-
-
-
-
-
-
 $color-primary:			#2d353c;
 $color-focus:			#00a6b5;
 $color-active:			#FCB941;
@@ -74,8 +66,20 @@ $color-input:			tint($color-foreground, 75%);
 
 /* Sizes */
 
-$gutter:				20px;
 $radius:				0;
+
+$gutter:				20px;
+$gutter-x:				$gutter * 1.25;
+$gutter-y:				$gutter * 0.65;
+$gutter-y-body:			$gutter * 1;
+
+$input-border-width:	1px;
+$input-padding: 		6px;
+$input-padding-horiz:	$input-padding + 4px;
+$input-height:			round($font-size * $line-height)
+						+ ($input-padding * 2)
+						+ ($input-border-width * 2);
+$input-toggle-size:		$input-height - 10px;
 
 /* Transitions */
 

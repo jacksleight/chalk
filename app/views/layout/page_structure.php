@@ -13,7 +13,9 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 	'action'	=> 'reorder',
 	'structure'	=> $structure->id,
 ], 'structure', true) ?>?redirect=<?= $this->url([]) ?>" class="flex-col structure" method="post">
-	<div>
+	<div class="flex body">
+
+
 		<div class="dropdown">
 			<div class="value">
 				<strong><?= $structure->name ?></strong>
@@ -33,8 +35,9 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 				</ul>
 			</nav>
 		</div>
-	</div>
-	<div class="flex">
+
+
+
 		<?php if (isset($structure->root->content)) { ?>
 			<ol class="tree-root">
 				<?php

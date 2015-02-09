@@ -7,12 +7,12 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
 ?>
 <? $this->block() ?>
 
-<div class="flex-col">
-<div class="flex body">
-
 <? if ($isUploadable) { ?>
     <div class="uploadable">
 <? } ?>
+
+<div class="flex-col">
+<div class="flex body">
 
 <? if ($this->block('tools')) { ?>
 
@@ -209,6 +209,9 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
     
 <? } $this->block() ?>
 
+</div>
+</div>
+
 <? if ($isUploadable) { ?>
     <input class="uploadable-input" type="file" name="files[]" data-url="<?= $this->url(['action' => 'upload']) ?>" multiple>
     <script type="x-tmpl-mustache" class="uploadable-template">
@@ -216,6 +219,3 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
     </script>
     </div>
 <? } ?>
-
-</div>
-</div>
