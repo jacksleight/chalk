@@ -13,31 +13,56 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 	'action'	=> 'reorder',
 	'structure'	=> $structure->id,
 ], 'structure', true) ?>?redirect=<?= $this->url([]) ?>" class="flex-col structure" method="post">
-	<div class="flex body">
-
-
-		<div class="dropdown">
-			<div class="value">
-				<strong><?= $structure->name ?></strong>
-			</div>
-			<nav class="menu">
-				<ul>
-					<?php foreach ($structures as $listStructure) { ?>
-						<li>
-							<a href="<?= $this->url([
-								'structure'	=> $listStructure->id,
-								'action'	=> 'index',
-							], 'structure') ?>" class="item">
-								<?= $listStructure->name ?>
-							</a>
-						</li>
-					<?php } ?>
+	<div class="header">
+		<ul class="toolbar toolbar-space">
+			<li class="flex">
+				<div class="dropdown">
+					<div class="input-pseudo">
+						<?= $structure->name ?>
+					</div>
+					<nav class="menu">
+						<ul>
+							<?php foreach ($structures as $listStructure) { ?>
+								<li>
+									<a href="<?= $this->url([
+										'structure'	=> $listStructure->id,
+										'action'	=> 'index',
+									], 'structure') ?>" class="item">
+										<?= $listStructure->name ?>
+									</a>
+								</li>
+							<?php } ?>
+						</ul>
+					</nav>
+				</div>
+			</li>
+			<li>
+				<ul class="toolbar toolbar-tight">
+					<li>
+						<button class="btn btn-block btn-icon structure-edit btn-collapse icon-move" type="button">
+							<span>Move Content</span>
+						</button>
+						<button class="btn btn-block btn-icon structure-cancel btn-collapse icon-cancel disabled" type="button">
+							<span>Cancel</span>
+						</button>
+					</li>
+					<li>
+						<a href="<?= $this->url([
+							'action'	=> 'add',
+							'structure'	=> $structure->id,
+							'node'		=> $req->node,
+						], 'structure_node', true) ?>" class="btn btn-focus structure-add btn-collapse btn-icon btn-block icon-add" rel="modal">
+							<span>Add Content</span>
+						</a>
+						<button class="btn btn-positive btn-icon btn-block structure-save btn-collapse icon-ok disabled">
+							<span>Save Changes</span>
+						</button>
+					</li>
 				</ul>
-			</nav>
-		</div>
-
-
-
+			</li>
+		</ul>
+	</div>
+	<div class="flex body">
 		<?php if (isset($structure->root->content)) { ?>
 			<ol class="tree-root">
 				<?php
@@ -73,7 +98,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 					<?php } else if ($i > 0) { ?>
 						</li>
 					<?php } ?>
-					<li class="tree-node <?= (!isset($statuses[$node['id']]) || !$statuses[$node['id']]) && $node['right'] > $node['left'] + 1 ? 'tree-collapsed' : null ?>" data-id="<?= $node['id'] ?>">
+					<li class="tree-node <?= (isset($statuses[$node['id']]) && !$statuses[$node['id']]) && $node['right'] > $node['left'] + 1 ? 'tree-collapsed' : null ?>" data-id="<?= $node['id'] ?>">
 						<a href="<?= $this->url([
 							'structure'	=> $structure->id,
 							'action'	=> 'edit',
@@ -92,24 +117,6 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 				<?php } ?>
 			</ol>
 		</div>
-	</div>
-	<div class="footer">
-		<button class="btn btn-block structure-edit btn-collapse icon-move" type="button">
-			Move Content
-		</button>
-		<button class="btn btn-block structure-cancel btn-collapse icon-cancel" disabled type="button">
-			Cancel
-		</button>
-		<button class="btn btn-positive btn-block structure-save btn-collapse icon-ok" disabled>
-			Save Changes
-		</button>
-		<a href="<?= $this->url([
-			'action'	=> 'add',
-			'structure'	=> $structure->id,
-			'node'		=> $req->node,
-		], 'structure_node', true) ?>" class="btn btn-focus btn-block icon-add">
-			Add Content
-		</a>
 	</div>
 	<input type="hidden" name="data" class="structure-data">
 </form>

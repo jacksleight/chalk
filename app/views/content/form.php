@@ -5,7 +5,7 @@
 
 <? if ($this->block('tools')) { ?>
 
-<ul class="toolbar">
+<ul class="toolbar toolbar-right">
 	<?= $this->content('tools-top') ?>
 	<?php if (false && !$content->isNewMaster()) { ?>
 		<li><a href="#" class="btn icon-history">
@@ -13,12 +13,26 @@
 		</a></li>
 	<?php } ?>
 	<?php if (!$content->isNewMaster() && $info->class != 'Chalk\Core\File') { ?>
-		<li><a href="<?= $this->url([
-				'entity'	=> $info->name,
-				'action'	=> 'edit',
-			], 'content', true) ?>" class="btn btn-focus btn-quiet icon-add">
-			New <?= $info->singular ?>
-		</a></li>
+		<?php if (isset($node)) { ?>
+			<? if ($info->class == 'Chalk\Core\Page') { ?>
+				<li><a href="<?= $this->url([
+						'action'	=> 'edit',
+						'node'		=> null,
+					]) ?><?= $this->url->query([
+						'parent'	=> $node->id,
+						'type'		=> $info->name,
+					]) ?>" class="btn btn-focus btn-quiet icon-add">
+					New <?= $info->singular ?>
+				</a></li>
+			<? } ?>
+		<? } else { ?>
+			<li><a href="<?= $this->url([
+					'entity'	=> $info->name,
+					'action'	=> 'edit',
+				], 'content', true) ?>" class="btn btn-focus btn-quiet icon-add">
+				New <?= $info->singular ?>
+			</a></li>
+		<? } ?>
 	<?php } ?>
 	<?= $this->content('tools-bottom') ?>
 </ul>
@@ -119,14 +133,14 @@
 					'entity'		=> $content,
 					'name'			=> 'id',
 					'label'			=> 'Content ID',
-					'type'			=> 'value',
+					'type'			=> 'input_pseudo',
 					'readOnly'		=> true,
 				)) ?>
 				<?= $this->render('/element/form-item', array(
 					'entity'		=> $content,
 					'name'			=> 'slug',
 					'label'			=> 'Content Slug',
-					'type'			=> 'value',
+					'type'			=> 'input_pseudo',
 					'readOnly'		=> true,
 				)) ?>
 				<?php if (isset($node)) { ?>
@@ -134,21 +148,21 @@
 						'entity'		=> $node,
 						'name'			=> 'id',
 						'label'			=> 'Node ID',
-						'type'			=> 'value',
+						'type'			=> 'input_pseudo',
 						'readOnly'		=> true,
 					)) ?>
 					<?= $this->render('/element/form-item', array(
 						'entity'		=> $node,
 						'name'			=> 'slug',
 						'label'			=> 'Node Slug',
-						'type'			=> 'value',
+						'type'			=> 'input_pseudo',
 						'readOnly'		=> true,
 					)) ?>
 					<?= $this->render('/element/form-item', array(
 						'entity'		=> $node,
 						'name'			=> 'path',
 						'label'			=> 'Node Path',
-						'type'			=> 'value',
+						'type'			=> 'input_pseudo',
 						'readOnly'		=> true,
 					)) ?>
 				<?php } ?>
@@ -167,7 +181,7 @@
 
 <? if ($this->block('actions-primary')) { ?>
 
-<ul class="toolbar">
+<ul class="toolbar toolbar-right">
 	<?php if (!$content->isArchived()) { ?>
 		<li><button class="btn btn-positive icon-ok">
 			Save <?= $info->singular ?>

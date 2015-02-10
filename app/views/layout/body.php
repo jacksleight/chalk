@@ -25,6 +25,14 @@ $secondary	= $navigation->items('Chalk\Core\Secondary');
 	</div>
 	<div class="flex flex-col">
 		<div class="header topbar">
+			<ul class="toolbar toolbar-right toolbar-space">
+				<li>
+					<a href="<?= $this->url([], 'profile', true) ?>" class="icon-user-dark"><?= $req->user->name ?></a>
+				</li>
+				<li class="space">
+					<a href="<?= $this->url([], 'logout', true) ?>" class="icon-logout-dark">Logout</a>
+				</li>
+			</ul>
 			<ul class="toolbar">
 				<?php
 				$count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
@@ -51,14 +59,6 @@ $secondary	= $navigation->items('Chalk\Core\Secondary');
 						</a>
 					</li>					
 				<?php } ?>
-			</ul>
-			<ul class="toolbar">
-				<li>
-					<a href="<?= $this->url([], 'profile', true) ?>" class="icon-user-dark"><?= $req->user->name ?></a>
-				</li>
-				<li class="space">
-					<a href="<?= $this->url([], 'logout', true) ?>" class="icon-logout-dark">Logout</a>
-				</li>
 			</ul>
 			<h1><?= $this->config->name ?></h1>
 			<ul class="notifications"></ul>

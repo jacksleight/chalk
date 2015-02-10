@@ -13,7 +13,7 @@ $info	    = \Chalk\Chalk::info($content->getObject());
 ?>
 
 <?php if ($info->class != 'Chalk\Core\Content') { ?>
-	<form action="<?= $this->url->route() ?>" method="post">
+	<form action="<?= $this->url->route() ?><?= $this->url->query() ?>" method="post">
 		<?= $this->child("/{$info->local->path}/form", [
 			'structure'	=> $structure,
 			'content'	=> $content,

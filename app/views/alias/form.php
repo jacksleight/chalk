@@ -2,7 +2,7 @@
 <?php $this->block('general-bottom') ?>
 
 <?= $this->render('/element/form-item', array(
-	'type'		=> 'content',
+	'type'		=> 'input_content',
 	'entity'	=> $content,
 	'name'		=> 'content',
 	'label'		=> 'Content',

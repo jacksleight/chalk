@@ -3,7 +3,7 @@ Chalk.component('.notifications', function(i, el) {
     var stack    = [];
     var visible  = false;
     var interval = 100;
-    var maximum  = 10000;
+    var maximum  = 6000;
 
     var add = function(text, type) {
         var notification = $('<li class="notification">' + text + '</li>');

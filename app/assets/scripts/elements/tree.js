@@ -14,10 +14,6 @@ Chalk.component('.structure', function(i, el) {
         expandBtnHTML   : '<button type="button" data-action="expand"><span>Expand</span></button>',
         collapseBtnHTML : '<button type="button" data-action="collapse"><span>Collapse</span></button>',
         dropCallback: function(data) {
-            $(el).find('.structure-save')
-                .prop('disabled', false);
-            $(el).find('.structure-cancel')
-                .prop('disabled', true);
             $(el).find('.structure-data')
                 .val(JSON.stringify(this.serialize()));
             nodes[data.destId] = 1;
@@ -28,16 +24,24 @@ Chalk.component('.structure', function(i, el) {
     })
     $(el).find('.structure-edit').click(function() {
         $(el).find('.structure-edit')
-            .prop('disabled', true);
+            .addClass('disabled');
+        $(el).find('.structure-add')
+            .addClass('disabled', true);
         $(el).find('.structure-cancel')
-            .prop('disabled', false);
+            .removeClass('disabled');
+        $(el).find('.structure-save')
+            .removeClass('disabled');
         tree.addClass('tree-move');
     });
     $(el).find('.structure-cancel').click(function() {
         $(el).find('.structure-edit')
-            .prop('disabled', false);
+            .removeClass('disabled');
+        $(el).find('.structure-add')
+            .removeClass('disabled', true);
         $(el).find('.structure-cancel')
-            .prop('disabled', true);
+            .addClass('disabled');
+        $(el).find('.structure-save')
+            .addClass('disabled');
         tree.removeClass('tree-move');
     });
     var nodes = Chalk.prefs.nodes || {};

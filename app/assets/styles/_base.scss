@@ -21,7 +21,7 @@ html {
 	line-height: 1;
 }
 h1 { 
-	@include font-size(5);
+	@include font-size($input-height);
 }
 h2 { 
 	@include font-size(2);
@@ -191,11 +191,11 @@ small {
 	display: inline-block;
 	@include font-size(-2);
 	vertical-align: middle;
-	margin: -2px 0;
+	margin: -5px 0 -6px 0;
 	&.icon::before {
-		margin: 2px 0 0 0;
-		width: 22px;
-		height: 22px;
+		margin: 5px 0 0 0;
+		width: 26px;
+		height: 26px;
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
@@ -549,6 +549,7 @@ table {
 	}
 	thead {
 		th {
+			padding-top: 0 !important;
 			font-weight: bold;
 		}
 	}
@@ -666,12 +667,11 @@ input[type=url],
 input[type=week],
 textarea,
 select,
-.value,
-.content { 
+.input-pseudo,
+.input-content { 
 	display: inline-block;
 	@include font-size(0);
 	font-family: $font-family;
-	color: $color-foreground;
 	text-align: left;
 	font-weight: normal;
 	height: $input-height;
@@ -680,9 +680,8 @@ select,
 	width: $width-12;
 	margin: 0;
 	padding: 0 $input-padding-horiz;
-	background-color: white;
 	border: $input-border-width solid;
-	border-color: $color-input;
+	@include colors(0, 0, $color-input);
 	@include border-radius($radius);
 	outline: 0;
 	-webkit-appearance: none;
@@ -698,16 +697,11 @@ select,
 	@include placeholder {
 		color: $color-quieter;
 	}
-	// .sidebar & {
-	// 	border-color: $color-primary;
-	// 	border-bottom-color: shade($color-primary, 30%);
-	// 	background-color: $color-primary;
-	// 	color: inherit;
-	// 	padding-left: $gutter;
-	// 	padding-right: $gutter;
-	// }
 	&.icon::before {
 		opacity: 0.5;
+	}
+	.dark & {
+		// border-color: transparent;
 	}
 }
 input[type=checkbox],
@@ -721,7 +715,8 @@ input[type=radio] {
 			display: inline-block;
 			width: $input-toggle-size;
 			height: $input-toggle-size;
-			border: 1px solid $color-input;
+			border: 1px solid;
+			@include colors(null, null, $color-input);
 			background: white;
 			vertical-align: -8px;
 			margin-right: 0.25em;
@@ -798,7 +793,7 @@ textarea {
 		color: white;
 	}
 }
-.value {
+.input-pseudo {
 	overflow: hidden;
 	white-space: nowrap;
 	vertical-align: bottom;
@@ -807,11 +802,11 @@ textarea {
 		color: $color-quieter;
 	}
 }
-.content {
+.input-content {
 	height: auto;
 	padding: $input-padding;
 	line-height: $line-height;
-	.content-controls {
+	.input-content-controls {
 		float: right;
 		.btn {
 			vertical-align: middle;
@@ -867,6 +862,7 @@ input[type=button],
 	.fa {
 		padding-right: 0.1em;
 	}
+	&.disabled,
 	&[disabled] {
 		opacity: 0.25;
 	}
@@ -878,8 +874,9 @@ input[type=button],
 		border-color: shade($color-quiet, 15%) !important;
 	}
 	&.btn-collapse {
-		max-height: 40px;
+		max-height: $input-height;
 		overflow: hidden;
+		&.disabled,
 		&[disabled] {
 			opacity: 1;
 			border-top-width: 0; 
@@ -1007,7 +1004,7 @@ select option,
 select optgroup,
 textarea,
 .btn,
-.value {
+.input-pseudo {
 	&[disabled], &.disabled {
 		@include experimental(user-select, none);
 		pointer-events: none;
@@ -1022,7 +1019,7 @@ textarea,
 	vertical-align: bottom;
 	width: 100%;
 	z-index: 500;
-	.value {
+	.input-pseudo {
 		background-position: 100% 50%;
 		background-repeat: no-repeat;
 		@include image(arrow-select);
@@ -1046,9 +1043,6 @@ textarea,
 		max-height: 300px;
 		border-bottom-width: 1px;
 		overflow-y: auto;
-	}
-	.dark & .value {
-		@include image(arrow-dropdown);
 	}
 }
 
@@ -1190,56 +1184,50 @@ legend {
 
 .toolbar {
 	@include no-bullets;
-	@include inline-blocks('> li', $gutter * 0.25);
+	display: flex;
+	flex-direction: row;
 	line-height: $input-height;
-	&:first-child {
-		float: right;
-		@include flush-next;
-	}
-	> li {
-		@include flush;
-		line-height: $line-height;
-		vertical-align: middle;
-		& + li.space {
-			padding-left: $gutter * 0.75;
+	> * {
+		padding-left: $gutter * 0.25;
+		@include flush();
+		&:first-child {
+			padding-left: 0;
+		}
+		&.flex > * {
+			width: 100%;
+		}
+		.menu {
+			line-height: $line-height;
 		}
 	}
 	a {
 		text-decoration: none;
 	}
-	&.tight {
-		@include inline-blocks('> li', 1px);
-		> li {
-			vertical-align: middle;
-		}
-	}
-	&.right {
-		float: right;
+}
+.toolbar-tight {
+	> * {
+		padding-left: $gutter * 0.05;
 	}
 }
-
-/* Filters */
-
-.filters {
-	margin-top: $gutter;
-	@include no-bullets;
-	@include inline-blocks('> li');
-	display: flex;
-	flex-direction: row;
-	z-index: 500;
-	position: relative;
-	> li {
-		flex: 2;
-		&:first-child {
-			flex: 3;
+.toolbar-flush {
+	> * {
+		padding-left: 0;
+		.input-pseudo {
+			border-left: 0;
+		}
+		.menu {
+			margin-left: -1px;
 		}
 	}
-	.value {
-		border-left: 0;
+}
+.toolbar-space {
+	> * {
+		padding-left: $gutter * 0.5;
 	}
-	.dropdown .menu {
-		left: -1px;
-	}
+}
+.toolbar-right {
+	float: right;
+	@include flush-next;
 }
 
 /* Uploadable */
@@ -1271,36 +1259,26 @@ legend {
 /* Expandable */
 
 .expandable {
+	margin: $gutter 0 0 0;
 	.expandable-body {
 		max-height: 0;
 		overflow: hidden;
-		@include transition(max-height $speed ease);
+		padding: 0 0;
+		@include transition(all $speed ease);
 		@include flush;
 	}
 	.expandable-toggle {
-		border-top: 1px solid $color-background;
 		display: block;
 		background-color: white;
 		text-align: right;
 		color: $color-focus;
-		padding: $gutter * 0.3 $gutter;
 		cursor: pointer;
-		@include transition(background $speed ease);
-		&:hover {
-			color: white;
-			background-color: $color-focus;
-		}
-		i {
-			@include transition(transform $speed ease);
-		}
+		@include transition(all $speed ease);
 	}
 	&.active {
 		.expandable-body {
-			border-top: 1px solid $color-background;
+			padding-bottom: $gutter;
 			max-height: 1000px;
-		}
-		.expandable-toggle i {
-			@include transform(rotate(180deg));
 		}
 	}
 }
@@ -1323,14 +1301,16 @@ legend {
 
 .menu {
 	margin: $gutter 0 0 0;
-	border: 1px solid $color-quieter;
+	border: 1px solid;
+	@include colors(null, null, $color-input);
 	ul {
 		margin: 0;
-		background-color: white;
+		@include colors(null, 0);
 		@include no-bullets;
 	}
 	li {
-		border-top: 1px solid $color-shade;
+		border-top: 1px solid;
+		@include colors(null, null, $color-input - 2);
 		&:first-child {
 			border-top: 0;
 		}
@@ -1349,7 +1329,7 @@ legend {
 		&:focus,
 		&:active,
 		&.active {
-			@include colors(null, 2);
+			@include colors(null, 1);
 		}
 	}
 }
@@ -1388,8 +1368,8 @@ legend {
 		}
 	}
 	.sidebar & {
-		margin-left: $gutter-x * -1;
-		margin-right: $gutter-x * -1;
+		margin-left: $gutter-x-sidebar * -1;
+		margin-right: $gutter-x-sidebar * -1;
 		&, li {
 			border: 0;
 		}
@@ -1397,18 +1377,24 @@ legend {
 			background-color: transparent;
 		}
 		.item {
-			padding-left: $gutter-x;
-			padding-right: $gutter-x;
+			padding-left: $gutter-x-sidebar;
+			padding-right: $gutter-x-sidebar;
 		}
 	}
 }
 
 /* Tree */
 
-.structure {
-	margin: $gutter 0 0 0;
-	.tree {
-		margin-top: 0;
+.tree,
+.tree-root {
+	.sidebar & {
+		margin-left: $gutter-x-sidebar * -1;
+		margin-right: $gutter-x-sidebar * -1;
+	}
+}
+.tree-root {
+	.sidebar & {
+		margin-top: $gutter-y;
 	}
 }
 .tree {
@@ -1445,7 +1431,7 @@ legend {
 		top: 7px;
 		height: 12px;
 		width: 12px;
-		left: $gutter;
+		left: $gutter-x-sidebar;
 		z-index: 1;
 		background-color: transparentize(white, 0.9);
 	}
@@ -1455,7 +1441,7 @@ legend {
 		padding: 0;
 		top: 0;
 		left: 0;
-		width: $gutter * 2;
+		width: $gutter + $gutter-x-sidebar;
 		z-index: 2;
 		height: 26px;
 		text-align: center;
@@ -1472,6 +1458,7 @@ legend {
 		span {
 			position: absolute;
 			top: 7px;
+			left: $gutter-x-sidebar;
 			height: 12px;
 			width: 12px;
 			background-color: transparentize(white, 0.2);
@@ -1497,11 +1484,10 @@ legend {
 		text-overflow: ellipsis;
 		overflow: hidden;
 		display: block;
-		padding: $gutter * 0.1 $gutter $gutter * 0.15 $gutter * 2;
+		padding: $gutter * 0.1 $gutter $gutter * 0.15 ($gutter + $gutter-x-sidebar);
 		&:hover,
 		&.active {
-			@include link-color(white);
-			background-color: shade($color-primary, 10%);
+			@include colors(0, 2);
 		}
 		&.active {
 			@include arrow(26px, 1);
@@ -1525,13 +1511,15 @@ legend {
 	}
 }
 .tree-handle {
-	display: none;
+	opacity: 0;
+	pointer-events: none;
 	cursor: move;
 	position: absolute;
 	top: 0;
 	left: $gutter * 1.65;
 	right: 0;
 	height: 26px;
+	@include transition(opacity $speed ease);
 	&::before {
 		content: '';
 		display: block;
@@ -1549,7 +1537,8 @@ legend {
 		}
 	}
 	.tree-move & {
-		display: block;
+		opacity: 1;
+		pointer-events: auto;
 	}
 }
 .tree-placeholder,
@@ -1624,8 +1613,8 @@ legend {
 		input,
 		select,
 		.mce-tinymce,
-		.content,
-		.value {
+		.input-content,
+		.input-pseudo {
 			flex: 1;
 			border-left-width: 0;
 			&:first-child {
@@ -1652,8 +1641,8 @@ legend {
 		select,
 		textarea,
 		.mce-tinymce.mce-tinymce[style],
-		.content,
-		.value {
+		.input-content,
+		.input-pseudo {
 			border-top-width: 0 !important;
 			&:first-child {
 				border-top-width: 1px !important;
@@ -1689,7 +1678,7 @@ legend {
 	&.mce-panel,
 	.mce-panel {
 		border-radius: 0;
-		border-color: $color-input;
+		@include colors(null, null, $color-input);
 	}
 	.mce-menu-item-chalk {
 		i:before {
@@ -1719,7 +1708,8 @@ legend {
 
 .ace_editor {
 	height: 200px;
-	border: 1px solid $color-input;
+	border: 1px solid;
+	@include colors(null, null, $color-input);
 }
 
 /* Widths */
@@ -1776,7 +1766,8 @@ legend {
 .login {
 	width: 340px;
 	fieldset {
-		background-color: white;
+		border: 1px solid;
+		@include colors(null, null, 2);
 		padding: $gutter;
 	}
 	.form-item {
@@ -1794,6 +1785,17 @@ legend {
 		a {
 			@include link-color($color-quiet);
 		}
+	}
+}
+
+/* Copyright */
+
+.copyright {
+	text-align: center;
+	@include font-size(-2);
+	@include link-color($color-quieter);
+	a {
+		@include hover-link;
 	}
 }
 

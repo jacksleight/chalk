@@ -14,7 +14,7 @@ $items = [];
                     'readOnly'    => isset($readOnly) ? $readOnly : null,
                 ]) ?>
             <?php } else { ?>
-                <?= $this->render('value', [
+                <?= $this->render('input_pseudo', [
                     'name'     => "{$name}[{$i}][name]",
                     'value'    => ucwords(\Coast\str_camel_split($item['name'])),
                     'disabled' => true,

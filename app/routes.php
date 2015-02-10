@@ -11,7 +11,7 @@ $app->router
 		'id'    	 => null,
 	])
 	->all('about', "about", [
-		'controller' => 'index',
+		'controller' => 'auth',
 		'action'     => 'about',
 	])
 	->all('sandbox', "sandbox", [

@@ -12,6 +12,9 @@ use Coast\App\Controller\Action,
 
 class Auth extends Action
 {
+    public function about(Request $req, Response $res)
+    {}
+    
     public function login(Request $req, Response $res)
     {
         $req->view->login = $wrap = $this->em->wrap(

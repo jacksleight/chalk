@@ -1,24 +1,28 @@
-<?php
-$struct = $this->em('Chalk\Core\Structure')->id($req->structure);
-?>
-<?php $this->parent('/layout/page_structure') ?>
-<?php $this->block('main') ?>
+<?php if (!$req->isAjax()) { ?>
+	<?php $this->parent('/layout/html') ?>
+	<?php $this->block('main') ?>
+<?php } ?>
 
 <form action="<?= $this->url->route() ?>" class="flex-col" data-modal-size="fullscreen" method="post">
-	<div class="flex <?= $info->class == 'Chalk\Core\File' ? 'uploadable' : null ?>">
-		<?php
-		$contents = $this->em($info)
-			->paged($index->toArray(), ['modifyDate', 'DESC'], $index->limit, $index->page);
-		?>
-		<?= $this->child("/{$info->local->path}/list", [
-			'contents'		=> $contents,
-			'isNewAllowed'	=> false,
-			'isEditAllowed'	=> false,
-			'headerPrefix'	=> 'Add',
-		], $info->module->class) ?>
+	<div class="flex flex-row <?= $info->class == 'Chalk\Core\File' ? 'uploadable' : null ?>">
+		<div class="sidebar">
+			
+		</div>
+		<div class="flex">
+			<?php
+			$contents = $this->em($info)
+				->paged($index->toArray(), ['modifyDate', 'DESC'], $index->limit, $index->page);
+			?>
+			<?= $this->child("/{$info->local->path}/list", [
+				'contents'		=> $contents,
+				'isNewAllowed'	=> false,
+				'isEditAllowed'	=> false,
+				'headerPrefix'	=> 'Add',
+			], $info->module->class) ?>
+		</div>
 	</div>
 	<div class="footer">
-		<ul class="toolbar">
+		<ul class="toolbar toolbar-right">
 			<li>
 				<button class="btn btn-positive icon-ok" formmethod="post">
 					Add <?= $info->singular ?>

@@ -3,12 +3,12 @@ $browser['entity'] = \Chalk\Chalk::info(isset($browser['entity'])
 	? $browser['entity']
 	: 'Chalk\Core\Content');
 ?>
-<div class="content" data-entity="<?= $browser['entity']->name ?>">
-	<div class="content-controls">
-		<span class="content-remove btn btn-quieter btn-icon icon-remove">Remove</span>
-		<span class="content-select btn btn-quieter btn-icon icon-browse">Browse</span>
+<div class="input-content" data-entity="<?= $browser['entity']->name ?>">
+	<div class="input-content-controls">
+		<span class="input-content-remove btn btn-quieter btn-icon icon-remove"><span>Remove</span></span>
+		<span class="input-content-select btn btn-quieter btn-icon icon-browse"><span>Browse</span></span>
 	</div>
-	<div class="content-holder">
+	<div class="input-content-holder">
 		<?php if (isset($value)) { ?>
 			<?= $this->child('/content/card', [
 				'content' => $this->em('Chalk\Core\Content')->id($value)

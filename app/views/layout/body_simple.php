@@ -4,7 +4,7 @@
 <ul class="notifications"></ul>
 <div class="center"><div>
 	<?= $this->content('main') ?>
-	<footer class="footer c" role="contentinfo">
-		<p>Chalk <?= \Chalk\Chalk::VERSION ?></p>
+	<footer class="copyright" role="contentinfo">
+		<p><a href="<?= $this->url([], 'about', true) ?>" rel="modal">Chalk <?= \Chalk\Chalk::VERSION ?></a></p>
 	</footer>
 </div></div>

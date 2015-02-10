@@ -16,7 +16,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
 
 <? if ($this->block('tools')) { ?>
 
-<ul class="toolbar">
+<ul class="toolbar toolbar-right">
     <?= $this->content('tools-top') ?>
     <? if ($isUploadable) { ?>
         <ul class="toolbar">
@@ -45,8 +45,8 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
     
 <? } if ($this->block('filters')) { ?>
 
-<ul class="filters autosubmitable">
-    <li>
+<ul class="toolbar toolbar-flush autosubmitable">
+    <li class="flex-3">
         <?= $this->render('/element/form-input', array(
             'type'          => 'input_search',
             'entity'        => $index,
@@ -56,7 +56,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
         )) ?>
     </li>
     <?= $this->content('filters-top') ?>
-    <li>
+    <li class="flex-2">
         <?= $this->render('/element/form-input', array(
             'type'          => 'dropdown_single',
             'entity'        => $index,
@@ -66,7 +66,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
             'placeholder'   => 'Updated',
         )) ?>
     </li>
-    <li>
+    <li class="flex-2">
         <?= $this->render('/element/form-input', array(
             'type'          => 'dropdown_multiple',
             'entity'        => $index,
@@ -178,7 +178,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
 
 <? if ($this->block('pagination')) { ?>
 
-<ul class="toolbar right autosubmitable">
+<ul class="toolbar toolbar-right autosubmitable">
     <li>
         Show&nbsp;
         <?= $this->render('/element/form-input', array(

@@ -37,8 +37,18 @@ html, body {
 		}
 	}
 }
-.flex {
+.flex, 
+.flex-1 {
 	flex: 1;
+}
+.flex-2 {
+	flex: 2;
+}
+.flex-3 {
+	flex: 3;
+}
+.flex-4 {
+	flex: 4;
 }
 
 /* Header, Body, Footer */
@@ -46,8 +56,12 @@ html, body {
 .header, 
 .body,
 .footer {
-	padding: $gutter-y $gutter-x;
 	@include flush;
+	padding: $gutter-y $gutter-x;
+	.sidebar & {
+		padding-left: $gutter-x-sidebar;
+		padding-right: $gutter-x-sidebar;
+	}
 }
 .header, 
 .footer {
@@ -83,17 +97,19 @@ html, body {
 		top: 0;
 		left: 0;
 		width: 100%;
+		z-index: 100;
 	}
 	.toolbar {
-		float: right; 
+		float: left; 
 		&:first-child {
-			float: left;
+			float: right;
 		}
 	}
 }
 .sidebar {
 	width: 300px;
-	@include colors(0, 1);
+	border-right: 1px solid;
+	@include colors(0, 1, 4);
 }
 
 /* Notifications */
@@ -109,13 +125,13 @@ html, body {
 		width: 100%;
 		@include transition(bottom $speed ease);
 		&.notification-show {
-			bottom: -68px;
+			bottom: -65px;
 		}
 	}
 }
 .notification {
 	line-height: $input-height;
-	padding: $gutter * 0.75 $gutter * 1.5;
+	padding: $gutter-y $gutter-x $gutter-y + 1 $gutter-x;
 	background-color: transparentize($color-quiet, 0.1);
 	text-align: center;
 	color: white;
@@ -192,7 +208,7 @@ html, body {
 	margin: 0 auto;
 	max-width: 800px;
 	max-height: 100%;
-	background-color: $color-background;
+	@include colors(null, 0);
 	@include flush;
 }
 .modal-fullscreen {

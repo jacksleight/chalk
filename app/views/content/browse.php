@@ -22,7 +22,7 @@
 		], $info->module->class) ?>
 	</div>
 	<div class="footer">
-		<ul class="toolbar">
+		<ul class="toolbar toolbar-right">
 			<li>
 				<button class="btn btn-positive icon-ok" formmethod="post">
 					Select <?= $info->singular ?>

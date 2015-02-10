@@ -80,7 +80,7 @@ class Node extends \Toast\Entity
     protected $depth = 2147483647;
 
     /**
-     * @ManyToOne(targetEntity="\Chalk\Core\Content", inversedBy="nodes")
+     * @ManyToOne(targetEntity="\Chalk\Core\Content", inversedBy="nodes", cascade={"persist"})
      * @JoinColumn(nullable=true)
      */
     protected $content;

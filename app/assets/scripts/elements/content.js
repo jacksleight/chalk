@@ -1,8 +1,8 @@
-Chalk.component('.content', function(i, el) {
+Chalk.component('.input-content', function(i, el) {
 	
-	var select	= $(el).find('.content-select');
-	var remove	= $(el).find('.content-remove');
-	var holder	= $(el).find('.content-holder');
+	var select	= $(el).find('.input-content-select');
+	var remove	= $(el).find('.input-content-remove');
+	var holder	= $(el).find('.input-content-holder');
 	var input	= $(el).find('input[type=hidden]');
 	var entity	= $(el).attr('data-entity');
 	

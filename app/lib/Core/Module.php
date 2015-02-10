@@ -93,9 +93,9 @@ class Module extends ChalkModule
     		'Page',
     		'File',
     		'Block',
-    		// 'Alias',
-    		// 'Url',
-    		// 'Blank',
+    		'Alias',
+    		'Url',
+    		'Blank',
 		];
 		foreach ($classes as $class) {
 			$info = Chalk::info($this->nspace($class));

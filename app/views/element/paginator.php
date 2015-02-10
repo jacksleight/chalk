@@ -3,7 +3,7 @@ $pages = isset($limit) && $count
 	? ceil($count / $limit)
 	: 1;
 ?>
-<ul class="toolbar tight">
+<ul class="toolbar toolbar-tight">
 	<?php
 	$min1 = $value - 4;
 	$max1 = $value + 5;
