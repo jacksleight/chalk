@@ -39,7 +39,7 @@ class Widget extends Basic
 		return $res->json([
 			'entity'	=> $req->info->name,
 			'params'	=> array_map(function($value) {
-				return is_object($value) ? (string) $value : $value;
+				return is_object($value) ? $value->id : $value;
 			}, $widget->toArray()),
 		]);
 	}

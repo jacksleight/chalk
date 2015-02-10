@@ -20,7 +20,7 @@ class Content extends Repository
 
 	public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
 	{
-		$query = parent::query($criteria, $sort, $limit, $offset);
+		$query = parent::query($criteria, $sort ?: ['modifyDate', 'DESC'], $limit, $offset);
 
 		$criteria = $criteria + [
 			'master'		=> null,
