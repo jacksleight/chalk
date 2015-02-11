@@ -42,6 +42,14 @@ class File extends Content
 
 	protected $newFile;
 
+	public function __construct()
+	{
+		parent::__construct();
+
+		$this->status		= Chalk::STATUS_PUBLISHED;
+		$this->publishDate	= new \DateTime();
+	}
+
 	public static function baseDir(\Coast\Dir $baseDir = null)
 	{
 		if (isset($baseDir)) {
