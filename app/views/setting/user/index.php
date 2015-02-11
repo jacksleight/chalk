@@ -9,7 +9,7 @@ $users = $this->em($info)
 
 <div class="flex-col">
 	<div class="body">
-		<ul class="toolbar">
+		<ul class="toolbar toolbar-right">
 			<li>
 				<a href="<?= $this->url([
 					'action' => 'edit',
@@ -20,8 +20,8 @@ $users = $this->em($info)
 		</ul>
 		<h1><?= $info->plural ?></h1>
 		<form action="<?= $this->url->route() ?>" class="submitable">
-			<ul class="filters">
-				<li>
+			<ul class="toolbar">
+				<li class="flex">
 					<?= $this->render('/element/form-input', array(
 						'type'			=> 'input_search',
 						'entity'		=> $filter,

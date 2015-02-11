@@ -23,10 +23,8 @@
 				)) ?>
 				<?= $this->render('/element/form-item', array(
 					'entity'	=> $domain,
-					'type'		=> 'select',
-					'null'		=> 'Select…',
-					'name'		=> 'structure',
-					'label'		=> 'Structure',
+					'name'		=> 'structures',
+					'label'		=> 'Structures',
 					'values'    => $this->em('Chalk\Core\Structure')->all(),
 				)) ?>
 			</div>
@@ -55,7 +53,7 @@
 		</fieldset>
 	</div>
 	<fieldset class="footer">
-		<ul class="toolbar">
+		<ul class="toolbar toolbar-right">
 			<li>
 				<button class="btn btn-positive icon-ok">
 					Save <?= $info->singular ?>

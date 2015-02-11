@@ -46,15 +46,14 @@ class Frontend extends App
         $req->chalk = (object) [];
 
         $conn  = $this->em->getConnection();
-        $table = Chalk::info('Chalk\Core\Structure\Node')->name;
+        $name = Chalk::info('Chalk\Core')->name;
 
         $domain = $this
             ->em('Chalk\Core\Domain')
             ->one([], 'id');     
-        $req->chalk->domain    = $domain;
-        $req->chalk->structure = $domain->structure;
-        $req->chalk->root      = $domain->structure->root;
-        $req->chalk->home      = $domain->structure->root->content;
+        $req->chalk->domain = $domain;
+        $req->chalk->root   = $domain->structures->first()->root;
+        $req->chalk->home   = $domain->structures->first()->root->content;
 
         $nodes = $conn->query("
             SELECT n.id,
@@ -63,8 +62,10 @@ class Frontend extends App
                 n.structureId,
                 n.parentId,
                 n.contentId
-            FROM {$table} AS n
-            WHERE n.structureId = {$domain->structure->id}
+            FROM {$name}_structure_node AS n
+                INNER JOIN {$name}_structure AS s ON s.id = n.structureId
+                INNER JOIN {$name}_domain__core_structure AS d ON d.core_structureId = s.id
+            WHERE d.core_domainId = {$domain->id}
         ")->fetchAll();
         $map = [];
         foreach ($nodes as $node) {

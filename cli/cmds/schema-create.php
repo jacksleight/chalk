@@ -47,28 +47,34 @@ try {
 	cli\line('Creating default page..');
 	$page = new \Chalk\Core\Page();
 	$page->fromArray([
-		'name'			=> 'My Site',
+		'name'			=> 'Site',
 	]);
 	$app->em->persist($page);
 	$app->em->flush();
 	
 	cli\line('Creating default structures..');
-	$app->em->flush();
-	$struct = new \Chalk\Core\Structure();
-	$struct->fromArray([
-		'name'			=> 'Site Hierarchy',
+	$struct1 = new \Chalk\Core\Structure();
+	$struct1->fromArray([
+		'name'			=> 'Primary',
 	]);
-	$struct->root->content = $page;
-	$struct->root->name    = 'Home';
-	$app->em->persist($struct);
+	$struct1->root->content = $page;
+	$struct1->root->name    = 'Home';
+	$app->em->persist($struct1);
+	$app->em->flush();
+	$struct2 = new \Chalk\Core\Structure();
+	$struct2->fromArray([
+		'name'			=> 'Secondary',
+	]);
+	$app->em->persist($struct2);
 	$app->em->flush();
 
 	cli\line('Creating default domain..');
 	$domain = new \Chalk\Core\Domain();
 	$domain->fromArray([
 		'name'			=> 'example.com',
-		'structure'		=> $struct,
 	]);
+	$domain->structures->add($struct1);
+	$domain->structures->add($struct2);
 	$app->em->persist($domain);
 	$app->em->flush();
 

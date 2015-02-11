@@ -62,7 +62,7 @@
 		</fieldset>
 	</div>
 	<fieldset class="footer">
-		<ul class="toolbar">
+		<ul class="toolbar toolbar-right">
 			<li>
 				<button class="btn btn-positive icon-ok" <?= $user->isDeveloper() && !$req->user->isDeveloper() ? 'disabled' : null ?>>
 					Save <?= $info->singular ?>

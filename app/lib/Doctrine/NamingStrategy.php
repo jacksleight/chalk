@@ -33,7 +33,7 @@ class NamingStrategy implements DoctrineNamingStrategy
     public function joinColumnName($property, $class = null)
     {
         $column = $this->propertyToColumnName($property) . ucfirst($this->referenceColumnName());
-        // @hack Not currenty supported doe to Doctrine limitation
+        // @hack Not currenty supported due to Doctrine limitation
         // if (is_subclass_of($class, 'Chalk\Core\Content')) {
         //     $column = Chalk::info($class)->name . '_' . $column;
         // }
@@ -42,11 +42,11 @@ class NamingStrategy implements DoctrineNamingStrategy
 
     public function joinTableName($source, $target, $property = null)
     {
-        return $this->classToTableName($source) . '_' . $this->classToTableName($target);
+        return $this->classToTableName($source) . '__' . $this->classToTableName($target);
     }
     
     public function joinKeyColumnName($class, $column = null)
     {
-        return $this->classToTableName($class) . '_' . ($column ?: $this->referenceColumnName());
+        return $this->classToTableName($class) . ucfirst($column ?: $this->referenceColumnName());
     }
 }

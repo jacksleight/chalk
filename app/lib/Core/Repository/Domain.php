@@ -18,10 +18,9 @@ class Domain extends Repository
 
         $query
             ->addSelect("s", "n", "c")
-            ->leftJoin("d.structure", "s")
-            ->leftJoin("s.nodes", "n")
-            ->leftJoin("n.content", "c")
-            ->andWhere("n.left = 0");
+            ->leftJoin("d.structures", "s")
+            ->leftJoin("s.nodes", "n", "n.left = 0 AND n.content IS NOT NULL")
+            ->leftJoin("n.content", "c");
 
         return $query;
     }

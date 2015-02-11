@@ -65,13 +65,13 @@ class Listener implements EventSubscriber
             $nodes = $em
                 ->getRepository('Chalk\Core\Structure\Node')
                 ->all(['structure' => $structure], 'sort');
-            $ids = [];
-            foreach ($nodes as $node) {
-                $ids[] = $node->id;
-            }
+            $root = null;
             foreach ($nodes as $node) {
                 $node->children->setInitialized(true);
                 $node->children->clear();
+                if (!isset($node->parent)) {
+                    $root = $node;
+                }
             }
             foreach ($nodes as $node) {
                 if (isset($node->parent)) {
@@ -79,7 +79,7 @@ class Listener implements EventSubscriber
                 }
             }
             $tree = new \RecursiveIteratorIterator(
-                new \Chalk\Core\Structure\Node\Iterator([$nodes[0]]),
+                new \Chalk\Core\Structure\Node\Iterator([$root]),
                 \RecursiveIteratorIterator::SELF_FIRST);
             $j     = 0;
             $stack = [];

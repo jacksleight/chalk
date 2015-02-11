@@ -48,7 +48,7 @@ class Structure extends \Toast\Entity implements Loggable, Publishable, Trackabl
 	protected $nodes;
 	
 	/**
-     * @OneToMany(targetEntity="\Chalk\Core\Domain", mappedBy="structure")
+     * @ManyToMany(targetEntity="\Chalk\Core\Domain", mappedBy="structures")
      */
 	protected $domains;
 	

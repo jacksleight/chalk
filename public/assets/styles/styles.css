@@ -2139,9 +2139,8 @@ textarea.disabled,
   left: 0;
   right: 0;
   white-space: nowrap;
-  max-height: 0;
+  display: none;
   border-top-width: 0;
-  border-bottom-width: 0;
   overflow: hidden;
   -moz-transition: max-height 0.2s ease;
   -o-transition: max-height 0.2s ease;
@@ -2152,8 +2151,8 @@ textarea.disabled,
   box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.05);
 }
 .dropdown:hover .menu {
+  display: block;
   max-height: 300px;
-  border-bottom-width: 1px;
   overflow-y: auto;
 }
 
@@ -2523,10 +2522,10 @@ legend {
   border-top: 1px solid;
 }
 .menu li {
-  border-color: #dddddd;
+  border-color: #f3f3f3;
 }
 .dark.menu li, .dark .menu li {
-  border-color: #171c1f;
+  border-color: #2f383f;
 }
 .menu li:first-child {
   border-top: 0;

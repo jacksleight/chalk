@@ -99,6 +99,7 @@ class Listener implements EventSubscriber
                 'type'     => $types[$mapping['type']],
                 'entity'   => $mapping['targetEntity'],
                 'nullable' => isset($mapping['joinColumns'][0]['nullable']) ? $mapping['joinColumns'][0]['nullable'] : false,
+                'inverse'  => $mapping['inversedBy'],
             ];
         }
         $class::injectMetadata($md);

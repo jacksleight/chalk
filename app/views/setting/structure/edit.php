@@ -25,7 +25,7 @@
 		</fieldset>
 	</div>
 	<fieldset class="footer">
-		<ul class="toolbar">
+		<ul class="toolbar toolbar-right">
 			<li>
 				<button class="btn btn-positive icon-ok">
 					Save <?= $info->singular ?>

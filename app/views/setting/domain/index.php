@@ -8,7 +8,7 @@ $domains = $this->em($info)
 
 <div class="flex-col">
 	<div class="body">
-		<ul class="toolbar">
+		<ul class="toolbar toolbar-right">
 			<li>
 				<a href="<?= $this->url([
 					'action' => 'edit',

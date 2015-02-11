@@ -33,6 +33,12 @@ class Domain extends \Toast\Entity implements Trackable
 						->hostname(),
 				),
 			),
+			'associations' => array(
+				'structures' => array(
+					'validator'	=> (new Validator)
+						->count(1),
+				),
+			),
 		);
 	}
 
@@ -59,8 +65,14 @@ class Domain extends \Toast\Entity implements Trackable
 	protected $body;
 
     /**
-     * @ManyToOne(targetEntity="\Chalk\Core\Structure", inversedBy="domains", cascade={"persist"})
-     * @JoinColumn(nullable=false)
+     * @ManyToMany(targetEntity="\Chalk\Core\Structure", inversedBy="domains")
      */
-    protected $structure;
+    protected $structures;
+
+	public function __construct()
+	{	
+		parent::__construct();
+
+		$this->structures = new ArrayCollection();
+	}
 }

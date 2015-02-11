@@ -1032,16 +1032,15 @@ textarea,
 		left: 0;
 		right: 0;
 		white-space: nowrap;
-		max-height: 0;
+		display: none;
 		border-top-width: 0;
-		border-bottom-width: 0;
 		overflow: hidden;
 		@include transition(max-height $speed ease);
 		@include box-shadow(0 5px 0 0 transparentize(black, 0.95));
 	}
 	&:hover .menu {
+		display: block;
 		max-height: 300px;
-		border-bottom-width: 1px;
 		overflow-y: auto;
 	}
 }
@@ -1326,7 +1325,7 @@ legend {
 	}
 	li {
 		border-top: 1px solid;
-		@include colors(null, null, $color-input - 2);
+		@include colors(null, null, 1);
 		&:first-child {
 			border-top: 0;
 		}
