@@ -789,7 +789,9 @@ small {
 .toggles {
   margin: 0;
   list-style: none;
+  display: -webkit-flex;
   display: flex;
+  -webkit-flex-direction: row;
   flex-direction: row;
   line-height: 38px;
 }
@@ -799,6 +801,7 @@ small {
   margin-left: 0;
 }
 .toggles li {
+  -webkit-flex: 1;
   flex: 1;
   line-height: 1.5;
 }
@@ -2200,15 +2203,11 @@ legend {
 .dark.form-block, .dark .form-block {
   border-color: #171c1f;
 }
-.form-block + .form-block {
-  margin-top: 0;
-}
 .form-block .form-legend {
   font-size: 13.91304px;
   font-size: 0.86957rem;
-  float: left;
-  padding: 20px 20px 20px 0;
-  width: 170px;
+  margin: 20px 0 0 0;
+  padding: 20px 0 0 0;
 }
 .form-block .form-legend > *:first-child {
   margin-top: 0 !important;
@@ -2227,9 +2226,7 @@ legend {
   margin-top: 10px;
 }
 .form-block .form-items {
-  margin-left: 170px;
-  padding: 20px 0 20px 20px;
-  border-left: 1px solid;
+  margin: 20px 0 0 0;
 }
 .form-block .form-items > *:first-child {
   margin-top: 0 !important;
@@ -2241,6 +2238,24 @@ legend {
   border-color: #2f383f;
 }
 
+@media screen and (min-width: 800px) {
+  .form-block + .form-block {
+    margin-top: 0;
+  }
+  .form-block .form-legend {
+    margin-top: 0;
+    float: left;
+    padding: 20px 20px 20px 0;
+    width: 170px;
+  }
+  .form-block .form-items {
+    margin-top: 0;
+    margin-left: 170px;
+    padding: 20px 0 20px 20px;
+    border-left-width: 1px;
+    border-left-style: solid;
+  }
+}
 .form-item {
   margin: 20px 0 0 0;
 }
@@ -2350,7 +2365,9 @@ legend {
 /* Toolbar */
 .toolbar {
   list-style: none;
+  display: -webkit-flex;
   display: flex;
+  -webkit-flex-direction: row;
   flex-direction: row;
   line-height: 38px;
 }
@@ -2396,13 +2413,14 @@ legend {
   padding-left: 10px;
 }
 
-.toolbar-right {
-  float: right;
+@media screen and (min-width: 800px) {
+  .toolbar-right {
+    float: right;
+  }
+  .toolbar-right:first-child + * {
+    margin-top: 0 !important;
+  }
 }
-.toolbar-right:first-child + * {
-  margin-top: 0 !important;
-}
-
 /* Uploadable */
 .uploadable > *:first-child {
   margin-top: 0 !important;
@@ -3261,31 +3279,6 @@ html, body {
 }
 
 /* Layout */
-.flex-row,
-.flex-col {
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-}
-.flex-row > *,
-.flex-col > * {
-  position: relative;
-}
-.flex-row > * > *:first-child,
-.flex-col > * > *:first-child {
-  margin-top: 0 !important;
-}
-
-.flex-row {
-  flex-direction: row;
-}
-
-.flex-col {
-  flex-direction: column;
-}
 .flex-col > * {
   border-top: 1px solid;
 }
@@ -3295,27 +3288,61 @@ html, body {
 .dark.flex-col > *, .dark .flex-col > * {
   border-color: #0b0d0f;
 }
-.flex-col > *:first-child {
-  border-top: 0;
-}
 
-.flex,
-.flex-1 {
-  flex: 1;
-}
+@media screen and (min-width: 800px) {
+  .flex-row,
+  .flex-col {
+    display: -webkit-flex;
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  .flex-row > *,
+  .flex-col > * {
+    position: relative;
+  }
+  .flex-row > * > *:first-child,
+  .flex-col > * > *:first-child {
+    margin-top: 0 !important;
+  }
 
-.flex-2 {
-  flex: 2;
-}
+  .flex-row {
+    -webkit-flex-direction: row;
+    flex-direction: row;
+  }
 
-.flex-3 {
-  flex: 3;
-}
+  .flex-col {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+  .flex-col > *:first-child {
+    border-top: 0;
+  }
 
-.flex-4 {
-  flex: 4;
-}
+  .flex,
+  .flex-1 {
+    -webkit-flex: 1;
+    flex: 1;
+  }
 
+  .flex-2 {
+    -webkit-flex: 2;
+    flex: 2;
+  }
+
+  .flex-3 {
+    -webkit-flex: 3;
+    flex: 3;
+  }
+
+  .flex-4 {
+    -webkit-flex: 4;
+    flex: 4;
+  }
+}
 /* Header, Body, Footer */
 .header,
 .body,
@@ -3387,28 +3414,35 @@ html, body {
   width: 100%;
   z-index: 100;
 }
-.topbar .toolbar {
-  float: left;
-}
-.topbar .toolbar:first-child {
-  float: right;
-}
 
-.sidebar {
-  width: 300px;
-  border-right: 1px solid;
-}
 .sidebar {
   color: #5f5f5f;
   background-color: #f3f3f3;
-  border-color: #d2d2d2;
 }
 .dark.sidebar, .dark .sidebar {
   color: #dedede;
   background-color: #2f383f;
-  border-color: #0b0d0f;
 }
 
+@media screen and (min-width: 800px) {
+  .topbar .toolbar {
+    float: left;
+  }
+  .topbar .toolbar:first-child {
+    float: right;
+  }
+
+  .sidebar {
+    width: 300px;
+    border-right: 1px solid;
+  }
+  .sidebar {
+    border-color: #d2d2d2;
+  }
+  .dark.sidebar, .dark .sidebar {
+    border-color: #0b0d0f;
+  }
+}
 /* Notifications */
 .notifications {
   margin-top: 0;

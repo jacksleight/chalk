@@ -1,5 +1,18 @@
 # Chalk Changelog
 
+### 0.4.0
+
+* **Improvements**
+	* Ability to create pages within structure
+	* Improved design
+* **Fixes**
+	* Bug fixes
+
+### 0.3.3
+
+* **Fixes**
+	* Bug fixes
+
 ### 0.3.2
 
 * **Fixes**

@@ -207,11 +207,11 @@ small {
 .toggles {
 	margin: 0;
 	@include no-bullets;
-	display: flex;
-	flex-direction: row;
+	@include display-flex;
+	@include flex-direction(row);
 	line-height: $input-height;
 	li {
-		flex: 1;
+		@include flex(1);
 		line-height: $line-height;
 	}
 	a {
@@ -1078,15 +1078,11 @@ legend {
 	@include colors(null, null, 3);
 	border-top: 1px solid;
 	margin: $gutter 0 0 0;
-	& + .form-block {
-		margin-top: 0;
-	}
 	.form-legend {
 		@include flush;
 		@include font-size(-1);
-		float: left;
-		padding: $gutter $gutter $gutter 0;
-		width: 200px - ($gutter * 1.5);
+		margin: $gutter 0 0 0;
+		padding: $gutter 0 0 0;
 		h2 {
 			@include force-wrap;
 		}
@@ -1095,11 +1091,29 @@ legend {
 		}
 	}
 	.form-items {
+		margin: $gutter 0 0 0;
 		@include flush;
-		margin-left: 200px - ($gutter * 1.5);
-		padding: $gutter 0 $gutter $gutter;
-		border-left: 1px solid;
 		@include colors(null, null, 1);
+	}
+}
+@include media(800px) {
+	.form-block {
+		& + .form-block {
+			margin-top: 0;
+		}
+		.form-legend {
+			margin-top: 0;
+			float: left;
+			padding: $gutter $gutter $gutter 0;
+			width: 200px - ($gutter * 1.5);
+		}
+		.form-items {
+			margin-top: 0;
+			margin-left: 200px - ($gutter * 1.5);
+			padding: $gutter 0 $gutter $gutter;
+			border-left-width: 1px;
+			border-left-style: solid;
+		}
 	}
 }
 .form-item { 
@@ -1184,8 +1198,8 @@ legend {
 
 .toolbar {
 	@include no-bullets;
-	display: flex;
-	flex-direction: row;
+	@include display-flex;
+	@include flex-direction(row);
 	line-height: $input-height;
 	> * {
 		padding-left: $gutter * 0.25;
@@ -1225,9 +1239,11 @@ legend {
 		padding-left: $gutter * 0.5;
 	}
 }
-.toolbar-right {
-	float: right;
-	@include flush-next;
+@include media(800px) {
+	.toolbar-right {
+		float: right;
+		@include flush-next;
+	}
 }
 
 /* Uploadable */

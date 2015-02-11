@@ -11,44 +11,50 @@ html, body {
 
 /* Layout */
 
-.flex-row,
 .flex-col {
-	display: flex;
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;	
-	> * {
-		@include flush;
-		position: relative;
-	}
-}
-.flex-row {
-	flex-direction: row;
-}
-.flex-col {
-	flex-direction: column;
 	& > * {
 		border-top: 1px solid;
 		@include colors(null, null, 4);
-		&:first-child {
-			border-top: 0;
-		}
 	}
 }
-.flex, 
-.flex-1 {
-	flex: 1;
-}
-.flex-2 {
-	flex: 2;
-}
-.flex-3 {
-	flex: 3;
-}
-.flex-4 {
-	flex: 4;
+@include media(800px) {
+	.flex-row,
+	.flex-col {
+		@include display-flex;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;	
+		> * {
+			@include flush;
+			position: relative;
+		}
+	}
+	.flex-row {
+		@include flex-direction(row);
+	}
+	.flex-col {
+		@include flex-direction(column);
+		& > * {
+			&:first-child {
+				border-top: 0;
+			}
+		}
+	}
+	.flex, 
+	.flex-1 {
+		@include flex(1);
+	}
+	.flex-2 {
+		@include flex(2);
+	}
+	.flex-3 {
+		@include flex(3);
+	}
+	.flex-4 {
+		@include flex(4);
+	}
 }
 
 /* Header, Body, Footer */
@@ -99,17 +105,24 @@ html, body {
 		width: 100%;
 		z-index: 100;
 	}
-	.toolbar {
-		float: left; 
-		&:first-child {
-			float: right;
-		}
-	}
 }
 .sidebar {
-	width: 300px;
-	border-right: 1px solid;
-	@include colors(0, 1, 4);
+	@include colors(0, 1);
+}
+@include media(800px) {
+	.topbar {
+		.toolbar {
+			float: left; 
+			&:first-child {
+				float: right;
+			}
+		}
+	}
+	.sidebar {
+		width: 300px;
+		border-right: 1px solid;
+		@include colors(null, null, 4);
+	}
 }
 
 /* Notifications */
