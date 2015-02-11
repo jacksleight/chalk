@@ -85,6 +85,7 @@ class Index extends \Toast\Entity
 					'values'	=> [
 						'archive'	=> 'Archive',
 						'restore'	=> 'Restore',
+						'delete'	=> 'Delete',
 					],
 				),
 			),
