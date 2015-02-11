@@ -47,6 +47,8 @@ class Content extends Basic
 				$content->status = \Chalk\Chalk::STATUS_ARCHIVED;
 			} else if ($index->action == 'restore') {
 				$content->restore();
+			} else if ($index->action == 'delete') {
+				$this->em->remove($content);
 			}
 		}
 		$this->em->flush();
