@@ -15,7 +15,7 @@ $isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 		<?php if (!$template) { ?>
 			<?= $this->render('/behaviour/selectable/checkbox', [
                 'entity'   => $content,
-                'entities' => $index->contents,
+                'entities' => isset($index) ? $index->contents : new \Doctrine\Common\Collections\ArrayCollection(),
             ]) ?>
 		<?php } ?>
 		<div class="preview">
