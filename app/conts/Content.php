@@ -62,7 +62,7 @@ class Content extends Basic
 	public function browse(Request $req, Response $res)
 	{
 		$wrap = $this->em->wrap($index = new \Chalk\Core\Model\Index());
-		$wrap->graphFromArray($req->bodyParams());
+		$wrap->graphFromArray($req->queryParams());
 		$req->view->index = $wrap;
 
 		if (count($index->contents)) {
