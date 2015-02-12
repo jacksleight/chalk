@@ -50,7 +50,7 @@ class Module extends ChalkModule
 			},
 			'Chalk\Core\Alias' => function(Request $req, Response $res) {
 		        $content = $req->chalk->content->content();
-		        return $res->redirect($this->url($content));
+		        return $res->redirect($this->url->content($content->id));
 			},
 			'Chalk\Core\Url' => function(Request $req, Response $res) {
 		        $url = $req->chalk->content->url();

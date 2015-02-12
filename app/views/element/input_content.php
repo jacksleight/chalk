@@ -10,9 +10,16 @@ $browser['entity'] = \Chalk\Chalk::info(isset($browser['entity'])
 	</div>
 	<div class="input-content-holder">
 		<?php if (isset($value)) { ?>
-			<?= $this->child('/content/card', [
-				'content' => $this->em('Chalk\Core\Content')->id($value)
-			]) ?>		
+			<?php
+			$content = $this->em('Chalk\Core\Content')->id($value);
+			?>
+			<?php if ($content) { ?>
+				<?= $this->child('/content/card', [
+					'content' => $content
+				]) ?>		
+			<?php } else { ?>
+				<span class="placeholder">Nothing Selected</span>
+			<?php } ?>
 		<?php } else { ?>
 			<span class="placeholder">Nothing Selected</span>
 		<?php } ?>

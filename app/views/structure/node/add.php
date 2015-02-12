@@ -3,7 +3,7 @@
 	<?php $this->block('main') ?>
 <?php } ?>
 
-<form action="<?= $this->url->route() ?>" class="flex-col" data-modal-size="fullscreen" method="post">
+<form action="<?= $this->url->route() ?>" class="flex-col" data-modal-size="fullscreen">
 	<div class="flex flex-row <?= $info->class == 'Chalk\Core\File' ? 'uploadable' : null ?>">
 		<div class="sidebar">
 			

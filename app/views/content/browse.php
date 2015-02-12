@@ -3,7 +3,7 @@
 	<?php $this->block('main') ?>
 <?php } ?>
 
-<form action="<?= $this->url->route() ?>" class="flex-col" data-modal-size="fullscreen" method="post">
+<form action="<?= $this->url->route() ?>" class="flex-col" data-modal-size="fullscreen">
 	<?= $this->render('/element/form-input', array(
 		'type'		=> 'input_hidden',
 		'entity'	=> $index,

@@ -1,3 +1,8 @@
+<?php
+if (!isset($content)) {
+	return;
+}
+?>
 <div class="card">	
 	<?php if ($content instanceof \Chalk\Core\File && $content->file->exists() && $content->isGdCompatible()) { ?>
 		<img src="<?= $this->image(
