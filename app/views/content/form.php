@@ -77,14 +77,13 @@
 	</div>
 	<div class="form-items">
 		<?= $this->content('general-top') ?>
-		<? if (!$content->isProtected()) { ?>
-			<?= $this->render('/element/form-item', array(
-				'entity'	=> $content,
-				'name'		=> 'name',
-				'label'		=> 'Name',
-				'autofocus'	=> true,
-			), 'Chalk\Core') ?>
-		<? } ?>
+		<?= $this->render('/element/form-item', array(
+			'entity'	=> $content,
+			'name'		=> 'name',
+			'label'		=> 'Name',
+			'autofocus'	=> true,
+			'disabled'	=> $content->isProtected(),
+		), 'Chalk\Core') ?>
 		<?= $this->content('general-bottom') ?>
 	</div>
 </fieldset>
