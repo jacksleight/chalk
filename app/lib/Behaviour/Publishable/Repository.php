@@ -9,7 +9,8 @@ namespace Chalk\Behaviour\Publishable;
 use Chalk\Chalk,
     Doctrine\ORM\EntityRepository,
     Doctrine\ORM\QueryBuilder,
-    Doctrine\ORM\Query;
+    Doctrine\ORM\Query,
+    DateTime;
 
 trait Repository
 {
@@ -20,8 +21,10 @@ trait Repository
             : $this->_alias;
 
         $criteria = $criteria + [
-            'isPublished'   => Chalk::isFrontend(),
-            'isPublishable' => false,
+            'isPublished'    => Chalk::isFrontend(),
+            'isPublishable'  => false,
+            'publishDateMin' => null,
+            'publishDateMax' => null,
         ];
 
         if ($criteria['isPublished']) {
@@ -31,6 +34,23 @@ trait Repository
         if ($criteria['isPublishable']) {
             $query->andWhere("{$alias}.status IN (:statuses)");
             $query->setParameter('statuses', [Chalk::STATUS_DRAFT, Chalk::STATUS_PENDING]);
+        }
+
+        if (isset($criteria['publishDateMin'])) {
+            $publishDateMin = $criteria['publishDateMin'] instanceof DateTime
+                ? $criteria['publishDateMin']
+                : new DateTime($criteria['publishDateMin']);
+            $query
+                ->andWhere("c.publishDate >= :publishDateMin")
+                ->setParameter('publishDateMin', $publishDateMin);
+        }
+        if (isset($criteria['publishDateMax'])) {
+            $publishDateMax = $criteria['publishDateMax'] instanceof DateTime
+                ? $criteria['publishDateMax']
+                : new DateTime($criteria['publishDateMax']);
+            $query
+                ->andWhere("c.publishDate <= :publishDateMax")
+                ->setParameter('publishDateMax', $publishDateMax);
         }
     }
 }
