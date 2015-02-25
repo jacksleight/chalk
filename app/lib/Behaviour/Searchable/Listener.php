@@ -44,7 +44,6 @@ class Listener implements EventSubscriber
             $index  = $em->getRepository('Chalk\Core\Index')->one(['entity' => $entity]);
             if (!isset($index)) {
                 $index               = new Index();
-                $index->entity       = \Chalk\Chalk::info($entity)->name;
                 $index->entityObject = $entity;
             }
             $index->content = preg_replace('/\s+/su', ' ', implode(' ', $entity->searchContent));
@@ -75,16 +74,17 @@ class Listener implements EventSubscriber
         $em = $args->getEntityManager();
 
         while (count($this->_updates)) {
-            $entity = array_shift($this->_updates);
-            if (!isset($entity->id)) {
-                $entity->entityId = $entity->entityObject->id;
-                $em->persist($entity);
+            $index = array_shift($this->_updates);
+            if (!isset($index->id)) {
+                $index->entityType = \Chalk\Chalk::info($index->entityObject)->name;
+                $index->entityId   = $index->entityObject->id;
+                $em->persist($index);
             }
         }
 
         while (count($this->_deletions)) {
-            $entity = array_shift($this->_deletions);
-            $em->remove($entity);
+            $index = array_shift($this->_deletions);
+            $em->remove($index);
         }   
 
         $em->flush();
