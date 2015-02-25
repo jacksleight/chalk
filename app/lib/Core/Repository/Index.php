@@ -25,8 +25,8 @@ class Index extends Repository
         
         if (isset($criteria['entity'])) {
             $query
-                ->andWhere("i.entity = :entity AND i.entityId = :entityId")
-                ->setParameter('entity', Chalk::info($criteria['entity'])->name)
+                ->andWhere("i.entityType = :entityType AND i.entityId = :entityId")
+                ->setParameter('entityType', Chalk::info($criteria['entity'])->name)
                 ->setParameter('entityId', $criteria['entity']->id);
         }
 
@@ -44,11 +44,11 @@ class Index extends Repository
         }
 
         $where  = count($classes)
-            ? "AND i.entity IN(" . implode(', ', $classes) . ")"
+            ? "AND i.entityType IN(" . implode(', ', $classes) . ")"
             : null;
         $table = \Chalk\Chalk::info('Chalk\Core\Index')->name;
         return $conn->query("
-            SELECT i.entity, i.entityId,
+            SELECT i.entityType, i.entityId,
                 MATCH(i.content) AGAINST ({$query} IN BOOLEAN MODE) AS score
             FROM {$table} AS i
             WHERE MATCH(i.content) AGAINST ({$query} IN BOOLEAN MODE)
