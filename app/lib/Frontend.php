@@ -191,6 +191,9 @@ class Frontend extends App
 
     public function children($node, $isIncluded = false, $depth = null, array $criteria = array())
     {
+        if (!isset($node)) {
+            throw new \Exception('Node is not set');
+        }
         return $this
             ->em('Chalk\Core\Structure\Node')
             ->children($node, $isIncluded, $depth, $criteria);
@@ -198,6 +201,9 @@ class Frontend extends App
 
     public function parents($node, $isIncluded = false, $depth = null, $isReversed = false, array $criteria = array())
     {
+        if (!isset($node)) {
+            throw new \Exception('Node is not set');
+        }
         return $this
             ->em('Chalk\Core\Structure\Node')
             ->parents($node, $isIncluded, $depth, $isReversed, $criteria);
@@ -205,6 +211,9 @@ class Frontend extends App
 
     public function siblings($node, $isIncluded = false, array $criteria = array())
     {
+        if (!isset($node)) {
+            throw new \Exception('Node is not set');
+        }
         return $this
             ->em('Chalk\Core\Structure\Node')
             ->siblings($node, $isIncluded, $criteria);
@@ -212,6 +221,9 @@ class Frontend extends App
 
     public function tree($node, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
     {
+        if (!isset($node)) {
+            throw new \Exception('Node is not set');
+        }
         return $this
             ->em('Chalk\Core\Structure\Node')
             ->tree($node, $isIncluded, $isMerged, $depth, $criteria);
@@ -219,6 +231,9 @@ class Frontend extends App
 
     public function treeIterator($node, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
     {
+        if (!isset($node)) {
+            throw new \Exception('Node is not set');
+        }
         return $this
             ->em('Chalk\Core\Structure\Node')
             ->treeIterator($node, $isIncluded, $isMerged, $depth, $criteria);
