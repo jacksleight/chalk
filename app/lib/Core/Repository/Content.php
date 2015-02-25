@@ -9,7 +9,8 @@ namespace Chalk\Core\Repository;
 use Chalk\Chalk,
 	Chalk\Repository,
 	Chalk\Behaviour\Publishable,
-	Chalk\Behaviour\Searchable;
+	Chalk\Behaviour\Searchable,
+	DateTime;
 
 class Content extends Repository
 {
@@ -37,26 +38,41 @@ class Content extends Repository
 				->andWhere("c.master = :master")
 				->setParameter('master', $criteria['master']);
 		}
+
 		if (isset($criteria['createDateMin'])) {
+			$createDateMin = $criteria['createDateMin'] instanceof DateTime
+				? $criteria['createDateMin']
+				: new DateTime($criteria['createDateMin']);
 			$query
 				->andWhere("c.createDate >= :createDateMin")
-				->setParameter('createDateMin', new \DateTime("{$criteria['createDateMin']}"));
+				->setParameter('createDateMin', $createDateMin);
 		}
 		if (isset($criteria['createDateMax'])) {
+			$createDateMax = $criteria['createDateMax'] instanceof DateTime
+				? $criteria['createDateMax']
+				: new DateTime($criteria['createDateMax']);
 			$query
 				->andWhere("c.createDate <= :createDateMax")
-				->setParameter('createDateMax', new \DateTime("{$criteria['createDateMax']}"));
+				->setParameter('createDateMax', $createDateMax);
 		}
+
 		if (isset($criteria['modifyDateMin'])) {
+			$modifyDateMin = $criteria['modifyDateMin'] instanceof DateTime
+				? $criteria['modifyDateMin']
+				: new DateTime($criteria['modifyDateMin']);
 			$query
 				->andWhere("c.modifyDate >= :modifyDateMin")
-				->setParameter('modifyDateMin', new \DateTime("{$criteria['modifyDateMin']}"));
+				->setParameter('modifyDateMin', $modifyDateMin);
 		}
 		if (isset($criteria['modifyDateMax'])) {
+			$modifyDateMax = $criteria['modifyDateMax'] instanceof DateTime
+				? $criteria['modifyDateMax']
+				: new DateTime($criteria['modifyDateMax']);
 			$query
 				->andWhere("c.modifyDate <= :modifyDateMax")
-				->setParameter('modifyDateMax', new \DateTime("{$criteria['modifyDateMax']}"));
+				->setParameter('modifyDateMax', $modifyDateMax);
 		}
+
 		if (isset($criteria['createUsers'])) {
 			$query
 				->andWhere("c.createUser IN (:createUsers)")
