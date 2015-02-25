@@ -39,7 +39,7 @@ class Log extends \Toast\Entity implements Trackable
     /**
      * @Column(type="string")
      */
-    protected $entity;
+    protected $entityType;
 
     /**
      * @Column(type="integer")

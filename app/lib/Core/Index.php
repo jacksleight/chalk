@@ -30,7 +30,7 @@ class Index extends \Toast\Entity
     /**
      * @Column(type="string")
      */
-    protected $entity;
+    protected $entityType;
 
     /**
      * @Column(type="integer")
