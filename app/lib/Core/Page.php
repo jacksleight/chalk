@@ -41,9 +41,9 @@ class Page extends Content
 		
 	public function searchableContent()
 	{
-		return parent::searchableContent() + [
+		return array_merge(parent::searchableContent(), [
 			$this->summary,
 			implode(' ', \Coast\array_column($this->blocks, 'value')),
-		];
+		]);
 	}
 }

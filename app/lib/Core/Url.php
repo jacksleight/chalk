@@ -47,8 +47,8 @@ class Url extends Content
 	
 	public function searchableContent()
 	{
-		return parent::searchableContent() + [
+		return array_merge(parent::searchableContent(), [
 			$this->url,
-		];
+		]);
 	}
 }

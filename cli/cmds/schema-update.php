@@ -34,7 +34,7 @@ try {
 
 	$app->em->beginTransaction();
 
-	$bar = new cli\progress\Bar("Executing statements..", count($stmts), $interval = 1);
+	$bar = new cli\progress\Bar("Executing statements..", count($stmts), 1);
 	$conn = $app->em->getConnection();
 	foreach ($stmts as $stmt) {
 		$conn->exec($stmt);
