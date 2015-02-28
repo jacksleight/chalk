@@ -45,10 +45,10 @@ class Url extends Content
 		return $this->url->toString();
 	}
 	
-	public function searchContent()
+	public function searchableContent()
 	{
-		return array_merge(parent::searchContent(), [
+		return parent::searchableContent() + [
 			$this->url,
-		]);
+		];
 	}
 }

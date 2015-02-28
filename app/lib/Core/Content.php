@@ -73,7 +73,7 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 		$this->__constructVersionable();
 	}
 			
-	public function searchContent()
+	public function searchableContent()
 	{
 		return [
 			$this->name,

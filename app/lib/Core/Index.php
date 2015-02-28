@@ -6,7 +6,8 @@
 
 namespace Chalk\Core;
 
-use Chalk\Core,
+use Chalk\Chalk,
+    Chalk\Core,
 	Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -15,17 +16,14 @@ use Chalk\Core,
 */
 class Index extends \Toast\Entity
 {
-    public static $_chalkInfo = [
-        'singular'  => 'Index',
-        'plural'    => 'Indexes',
-    ];
-
 	/**
      * @Id
      * @Column(type="integer")
      * @GeneratedValue
      */
 	protected $id;
+    
+    protected $entityObject;
 
     /**
      * @Column(type="string")
@@ -36,19 +34,28 @@ class Index extends \Toast\Entity
      * @Column(type="integer")
      */
     protected $entityId;
-    
-    protected $entityObject;
 
 	/**
      * @Column(type="text")
      */
 	protected $content;
 
-    public function content($content = null)
+    public function __construct(\Toast\Entity $entityObject)
     {
-        if (isset($content)) {
-            $this->content = $content;
-        }
-        return $this->content;
+        $this->entityObject = $entityObject;
+        $this->entityType   = Chalk::info($this->entityObject)->name;
+        $this->entityId     = $this->entityObject->id;
+    }
+
+    public function reindex()
+    {
+        $content = implode(' ', $this->entityObject->searchableContent);
+        $content = strip_tags($content);
+        $content = html_entity_decode($content, ENT_COMPAT | ENT_HTML5, 'utf-8');
+        $content = mb_strtolower($content, 'utf-8');
+        $content = preg_replace("/['’]/u", '', $content);
+        $content = preg_replace("/[^[:alnum:]]+/u", ' ', $content);
+        $content = trim($content);
+        $this->content = $content;
     }
 }

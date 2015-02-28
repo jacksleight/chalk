@@ -15,22 +15,33 @@ class Index extends Repository
 {
     protected $_alias = 'i';
 
-    public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
+    public function entities($entities)
     {
-        $query = parent::query($criteria, $sort, $limit, $offset);
+        $query = $this->query();
+        $wheres = [];
+        foreach ($entities as $entity) {
+            $wheres[] = "(i.entityType = '" . Chalk::info($entity)->name . "' AND i.entityId = " . $entity->id . ")";
+        }
+        $query->andWhere(implode(' OR ', $wheres));
+        $indexes = $query->getQuery()->execute();
 
-        $criteria = $criteria + [
-            'entity' => null,
-        ];
-        
-        if (isset($criteria['entity'])) {
-            $query
-                ->andWhere("i.entityType = :entityType AND i.entityId = :entityId")
-                ->setParameter('entityType', Chalk::info($criteria['entity'])->name)
-                ->setParameter('entityId', $criteria['entity']->id);
+        $map = [];
+        foreach ($indexes as $i => $index) {
+            $map["{$index->entityType}_{$index->entityId}"] = $i;
+        }
+        foreach ($entities as $entity) {
+            $key = Chalk::info($entity)->name . '_' . $entity->id;
+            if (isset($map[$key])) {
+                $index = $indexes[$map[$key]];
+                $index->entityObject = $entity;
+            } else {
+                $index = new \Chalk\Core\Index($entity);
+                $this->_em->persist($index);
+                $indexes[] = $index;
+            }
         }
 
-        return $query;
+        return $indexes;
     }
 
     public function search($query, $classes = array())

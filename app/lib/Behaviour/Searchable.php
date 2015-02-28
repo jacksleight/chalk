@@ -8,5 +8,5 @@ namespace Chalk\Behaviour;
 
 interface Searchable
 {
-	public function searchContent();
+	public function searchableContent();
 }

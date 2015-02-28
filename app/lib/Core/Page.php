@@ -39,12 +39,11 @@ class Page extends Content
 		['name' => 'secondary', 'value' => ''],
 	];
 		
-	public function searchContent()
+	public function searchableContent()
 	{
-		return array_merge(parent::searchContent(), [
-			strip_tags($this->summary),
-		], array_map(function($block) {
-			return strip_tags($block['value']);
-		}, $this->blocks));
+		return parent::searchableContent() + [
+			$this->summary,
+			implode(' ', \Coast\array_column($this->blocks, 'value')),
+		];
 	}
 }
