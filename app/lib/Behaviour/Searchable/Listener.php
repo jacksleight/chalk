@@ -46,7 +46,14 @@ class Listener implements EventSubscriber
                 $index               = new Index();
                 $index->entityObject = $entity;
             }
-            $index->content = preg_replace('/\s+/su', ' ', implode(' ', $entity->searchContent));
+            $content = implode(' ', $entity->searchContent);
+            $content = strip_tags($content);
+            $content = html_entity_decode($content, ENT_COMPAT | ENT_HTML5, 'utf-8');
+            $content = mb_strtolower($content, 'utf-8');
+            $content = preg_replace("/['’]/u", '', $content);
+            $content = preg_replace("/[^[:alnum:]]+/u", ' ', $content);
+            $content = trim($content);
+            $index->content = $content;
             $this->_updates[] = $index;
         }
 
