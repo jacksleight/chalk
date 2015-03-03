@@ -1,5 +1,10 @@
 # Chalk Changelog
 
+### 0.3.5
+
+* **Fixes**
+	* Bug fixes
+
 ### 0.3.4
 
 * **Fixes**
