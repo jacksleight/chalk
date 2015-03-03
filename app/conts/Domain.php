@@ -14,4 +14,12 @@ use Chalk\Chalk,
 class Domain extends Basic
 {
 	protected $_entityClass = 'Chalk\Core\Domain';
+
+	public function preDispatch(Request $req, Response $res)
+	{
+		parent::preDispatch($req, $res);
+		if (!in_array($req->user->role, ['administrator', 'developer'])) {
+			return $this->forward('forbidden', 'index');
+		}
+	}
 }

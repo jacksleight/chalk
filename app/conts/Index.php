@@ -59,4 +59,11 @@ class Index extends Action
 			'code' => $source->codeRaw,
 		]);
 	}
+
+	public function forbidden(Request $req, Response $res)
+	{
+        return $res
+            ->status(403)
+            ->html($this->view->render('error/forbidden', ['req' => $req, 'res' => $res]));
+	}
 }

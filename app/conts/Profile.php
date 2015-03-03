@@ -7,15 +7,22 @@
 namespace Chalk\Core\Controller;
 
 use Chalk\Chalk,
-	Coast\App\Controller\Action,
+	Chalk\Controller\Basic,
 	Coast\Request,
 	Coast\Response;
 
-class Profile extends \Chalk\Core\Controller\User
+class Profile extends Basic
 {
+	protected $_entityClass = 'Chalk\Core\User';
+
 	public function edit(Request $req, Response $res)
 	{
 		$req->id = $req->user->id;
 		return parent::edit($req, $res);
+	}
+
+	public function delete(Request $req, Response $res)
+	{
+		throw new \Exception();
 	}
 }
