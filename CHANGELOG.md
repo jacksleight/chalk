@@ -5,6 +5,11 @@
 * **Improvements**
 	* Ability to create pages within structure
 	* Improved design
+	
+### 0.3.5
+
+* **Fixes**
+	* Bug fixes
 
 ### 0.3.4
 
