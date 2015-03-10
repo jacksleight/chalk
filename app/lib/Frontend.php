@@ -178,7 +178,7 @@ class Frontend extends App
         $doc = new DOMDocument();
         libxml_use_internal_errors(true);
         // @hack Ensures correct encoding as libxml doesn't understand <meta charset="utf-8">
-        $doc->loadHTML('<?xml encoding="utf-8">' . $html);
+        $doc->loadHTML('<?xml encoding="utf-8">' . $html, LIBXML_HTML_NODEFDTD | LIBXML_HTML_NOIMPLIED);
         libxml_use_internal_errors(false);
         foreach ($doc->childNodes as $node) {
             if ($node->nodeType == XML_PI_NODE) {
