@@ -1,6 +1,9 @@
 <ul class="<?= isset($class) ? $class : null ?>">
 	<?php foreach ($items as $item) { ?>
 		<?php
+		if (!isset($item)) {
+			continue;
+		}
 		$path	= $this->url->route($item['url'][0], $item['url'][1], true, false);
 		$class  = [
 			strlen($path->toString()) && strpos($req->path(), $path->toString()) === 0 ? 'active' : null,

@@ -10,21 +10,28 @@ use Chalk\Event;
 
 class Navigation extends Event
 {
-	protected $_items = [
+    protected $_items = [
         0 => ['children' => []],
     ];
 
-    public function item($name, $item, $parent = 0)
+    public function item($name, $item = null, $parent = 0)
     {
-        $this->_items[$name] = $item + [
-            'label'    => null,
-            'badge'    => null,
-            'icon'     => null,
-            'url'      => null,
-            'children' => [],
-        ];
-        $this->_items[$parent]['children'][$name] = &$this->_items[$name];
-        return $this;
+        if (func_num_args() > 1) {
+            if (isset($item)) {
+                $this->_items[$name] = $item + [
+                    'label'    => null,
+                    'badge'    => null,
+                    'icon'     => null,
+                    'url'      => null,
+                    'children' => [],
+                ];
+                $this->_items[$parent]['children'][$name] = &$this->_items[$name];
+            } else {
+                $this->_items[$name] = null;
+            }
+            return $this;
+        }
+        return $this->_items[$name];
     }
 
     public function items($parent = 0)
