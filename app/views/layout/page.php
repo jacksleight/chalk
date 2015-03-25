@@ -4,3 +4,7 @@
 <?= $this->content('main') ?>
 
 <?php $this->block('sidebar') ?>
+
+<?php $this->block('foot') ?>
+
+<?= $this->content('foot') ?>

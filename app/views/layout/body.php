@@ -69,4 +69,6 @@ $secondary	= $navigation->items('Chalk\Core\Secondary');
 	</div>
 </div>
 
+<?php $this->block('foot') ?>
 
+<?= $this->content('foot') ?>

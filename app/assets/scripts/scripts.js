@@ -45,3 +45,9 @@
 
 FastClick.attach(document.body);
 Chalk.initialize(document.body);
+
+/* Execute */
+
+for (var i = 0; i < Chalk.execute.length; i++) {
+	Chalk.execute[i]();
+}

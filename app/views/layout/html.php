@@ -15,7 +15,7 @@ $title  = (isset($title)
     <link rel="stylesheet" href="<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/styles/styles{$mode}.css") ?>">
 </head>
 <body class="<?= isset($class) ? $class : '' ?>">
-    <?= $this->content() ?>
+    <?= $this->content('body') ?>
     <script>
         var Chalk = <?= json_encode([
             'baseUrl'       => (string) $this->url->baseUrl(),
@@ -50,8 +50,9 @@ $title  = (isset($title)
                 'queue'   => [],
             ],
         ]) ?>;
-        Chalk.DOMReady = function(a,b,c){b=document,c='addEventListener';b[c]?b[c]('DOMContentLoaded',a):window.attachEvent('onload',a)}
-        Chalk.DOMReady(function() {
+        Chalk.execute = [];
+        Chalk.domReady = function(a,b,c){b=document,c='addEventListener';b[c]?b[c]('DOMContentLoaded',a):window.attachEvent('onload',a)}
+        Chalk.domReady(function() {
             var script = document.createElement('script');
             script.src = '<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/scripts{$mode}.js") ?>';
             document.head.appendChild(script);
@@ -62,6 +63,7 @@ $title  = (isset($title)
             <div class="modal-content hideable hideable-hidden"></div>
             <div class="modal-loader hideable hideable-hidden"></div>
         </div>
-    </script>    
+    </script>
+    <?= $this->content('foot') ?>
 </body>
 </html>

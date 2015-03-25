@@ -8,3 +8,7 @@
 <nav class="nav" role="navigation">
 	<?= $this->child('nav', ['items' => $navigation->items('Chalk\Core\Content')]) ?>
 </nav>
+
+<?php $this->block('foot') ?>
+
+<?= $this->content('foot') ?>
