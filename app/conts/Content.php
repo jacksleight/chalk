@@ -29,8 +29,12 @@ class Content extends Basic
 	{
 		if (!$req->entity) {
 			$items = $req->view->navigation->items('Chalk\Core\Content');
-			$item = current($items);
-			return $res->redirect($this->url($item['url'][0], $item['url'][1], true));
+			foreach ($items as $item) {
+				if (!isset($item)) {
+					continue;
+				}
+				return $res->redirect($this->url($item['url'][0], $item['url'][1], true));
+			}
 		}
 
 		$index = new \Chalk\Core\Model\Index();
