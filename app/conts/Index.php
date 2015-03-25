@@ -14,9 +14,13 @@ class Index extends Action
 {
 	public function index(Request $req, Response $res)
 	{
-		$items = $req->view->navigation->items('Chalk\Core\Content');
-		$item = current($items);
-		return $res->redirect($this->url($item['url'][0], $item['url'][1], true));
+		$items = $req->view->navigation->items('Chalk\Core\Primary');
+		foreach ($items as $item) {
+			if (!isset($item)) {
+				continue;
+			}
+			return $res->redirect($this->url($item['url'][0], $item['url'][1], true));
+		}
 	}
 	
 	public function about(Request $req, Response $res)
