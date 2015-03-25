@@ -1297,25 +1297,26 @@ table caption {
   margin: 10px 0 0 0;
   caption-side: bottom;
 }
-table .col-role:last-child {
+table .col-right {
   text-align: right;
+}
+table .col-center {
+  text-align: center;
+}
+table .col-contract {
+  width: 1px;
+  white-space: nowrap;
 }
 table .col-badge {
   width: 1px;
+  white-space: nowrap;
   padding-top: 6px;
   padding-bottom: 6px;
-  text-align: right;
 }
 table .col-badge .badge, table .col-badge .badge-status, table .col-badge .badge-0,
 table .col-badge .badge-archived, table .col-badge .badge-draft,
 table .col-badge .badge-pending, table .col-badge .badge-1, table .col-badge .badge-published {
   width: 100%;
-}
-table .col-type {
-  width: 100px;
-}
-table .col-date {
-  text-align: right;
 }
 table .col-select {
   width: 1px;
