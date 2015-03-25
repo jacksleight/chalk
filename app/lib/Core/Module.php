@@ -100,7 +100,7 @@ class Module extends ChalkModule
 		foreach ($classes as $class) {
 			$info = Chalk::info($this->nspace($class));
 			$event
-				->item($this->nspace("Content\{$info->class}"), [
+				->item($this->nspace("Content\\{$info->local->class}"), [
 					'label'	=> $info->plural,
 					'url'	=> [['entity' => $info->name], 'content'],
 				], $this->nspace('Content'));
