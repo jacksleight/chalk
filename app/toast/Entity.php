@@ -23,7 +23,7 @@ class Entity extends Model
 
 	protected static $_md;
 
-	protected $_validated	= false;
+	// protected $_validated	= false;
 	protected $_errors		= array();
 
 	public static function injectMetadata(array $md)
@@ -185,7 +185,7 @@ class Entity extends Model
 
 	protected function _validate()
 	{
-		$this->_validated = false;
+		// $this->_validated = false;
 		$this->_errors = array();
 
 		$this->_preValidate();
@@ -205,7 +205,7 @@ class Entity extends Model
 
 		$this->_postValidate();
 
-		$this->_validated = true;
+		// $this->_validated = true;
 	}
 
 	protected function _preValidate()
@@ -224,9 +224,9 @@ class Entity extends Model
 
 	public function isValid(array $names = null)
 	{
-		if (!$this->_validated) {
+		// if (!$this->_validated) {
 			$this->_validate();
-		}
+		// }
 		return !$this->hasErrors($names);
 	}
 
