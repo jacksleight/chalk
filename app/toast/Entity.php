@@ -26,18 +26,49 @@ class Entity extends Model
 	protected $_validated	= false;
 	protected $_errors		= array();
 
-	public static function injectMetadata(array $md)
+	protected static function _fetchMetadata()
 	{
 		$class = get_called_class();
-		self::$_md[$class] = static::_parseMetadata(\Coast\array_merge_smart($md, $class::_defineMetadata($class)));
-		return self::$_md[$class];
+		try {
+			$meta = \Toast\Wrapper\Collection::$em->getClassMetadata($class);
+		} catch(\Doctrine\ORM\Mapping\MappingException $e) {
+			return [];
+		}
+
+		$types = [
+            1  => 'oneToOne',
+            2  => 'manyToOne',
+            4  => 'oneToMany',
+            8  => 'manyToMany',
+            3  => 'toOne',
+            12 => 'toMany',
+        ];
+
+        $md = [];
+        foreach ($meta->fieldMappings as $mapping) {
+            $md['fields'][$mapping['fieldName']] = [
+                'id'       => isset($mapping['id']) ? $mapping['id'] : false,
+                'type'     => $mapping['type'],
+                'length'   => $mapping['length'],
+                'nullable' => $mapping['fieldName'] == 'id' ? true : $mapping['nullable'],
+            ];
+        }
+        foreach ($meta->associationMappings as $mapping) {
+            $md['associations'][$mapping['fieldName']] = [
+                'type'     => $types[$mapping['type']],
+                'entity'   => $mapping['targetEntity'],
+                'nullable' => isset($mapping['joinColumns'][0]['nullable']) ? $mapping['joinColumns'][0]['nullable'] : false,
+                'inverse'  => $mapping['inversedBy'],
+            ];
+        }
+        return $md;
 	}
 
 	protected static function _getMetadata()
 	{
 		$class = get_called_class();
 		if (!isset(self::$_md[$class])) {
-			self::$_md[$class] = static::_parseMetadata($class::_defineMetadata($class));
+			self::$_md[$class] = static::_parseMetadata(\Coast\array_merge_smart($class::_fetchMetadata($class), $class::_defineMetadata($class)));
 		}
 		return self::$_md[$class];
 	}

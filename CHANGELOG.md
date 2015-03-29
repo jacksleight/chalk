@@ -5,7 +5,15 @@
 * **Improvements**
 	* Ability to create pages within structure
 	* Improved design
-	
+
+### 0.3.6
+
+* **Improvements**
+	* Include query string in frontend redirect
+* **Fixes**
+	* Moved Doctrine metadata parsing to ensure cached data works
+	* Bug fixes
+
 ### 0.3.5
 
 * **Fixes**

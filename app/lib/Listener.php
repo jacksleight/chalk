@@ -70,38 +70,5 @@ class Listener implements EventSubscriber
                 }
             }
         }
-
-        $this->_injectMetadata($class, $meta);
-    }
-
-    protected function _injectMetadata($class, $meta)
-    {
-        $types = [
-            1  => 'oneToOne',
-            2  => 'manyToOne',
-            4  => 'oneToMany',
-            8  => 'manyToMany',
-            3  => 'toOne',
-            12 => 'toMany',
-        ];
-
-        $md = [];
-        foreach ($meta->fieldMappings as $mapping) {
-            $md['fields'][$mapping['fieldName']] = [
-                'id'       => isset($mapping['id']) ? $mapping['id'] : false,
-                'type'     => $mapping['type'],
-                'length'   => $mapping['length'],
-                'nullable' => $mapping['fieldName'] == 'id' ? true : $mapping['nullable'],
-            ];
-        }
-        foreach ($meta->associationMappings as $mapping) {
-            $md['associations'][$mapping['fieldName']] = [
-                'type'     => $types[$mapping['type']],
-                'entity'   => $mapping['targetEntity'],
-                'nullable' => isset($mapping['joinColumns'][0]['nullable']) ? $mapping['joinColumns'][0]['nullable'] : false,
-                'inverse'  => $mapping['inversedBy'],
-            ];
-        }
-        $class::injectMetadata($md);
     }
 }
