@@ -85,7 +85,7 @@ class Frontend extends App
                 return;
             }
             if ($route['path'] != $req->path()) {
-                return $res->redirect($this->url($route['path']));
+                return $res->redirect($this->url($route['path']) . ($req->queryParams() ? $this->url->query($req->queryParams()) : null));
             }
             $node    = $route['params']['node'];
             $content = $route['params']['content'];
