@@ -58,6 +58,7 @@ class Entity extends Model
                 'type'     => $types[$mapping['type']],
                 'entity'   => $mapping['targetEntity'],
                 'nullable' => isset($mapping['joinColumns'][0]['nullable']) ? $mapping['joinColumns'][0]['nullable'] : false,
+                'inverse'  => $mapping['inversedBy'],
             ];
         }
         return $md;
