@@ -16,11 +16,11 @@ $schema	= new \Doctrine\ORM\Tools\SchemaTool($app->em);
 try {
 
 	cli\line('Deleting existing files..');
-	if ($app->dir('data')->exists()) {
-		$app->dir('data')->remove(true);
+	if ($app->root->dir('data')->exists()) {
+		$app->root->dir('data')->remove(true);
 	}
-	if ($app->dir('public/data')->exists()) {
-		$app->dir('public/data')->remove(true);
+	if ($app->root->dir('public/data')->exists()) {
+		$app->root->dir('public/data')->remove(true);
 	}
 
 	cli\line('Dropping existing database..');
