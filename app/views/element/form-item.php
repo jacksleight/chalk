@@ -16,8 +16,8 @@ $types = [
 	'json_array'	=> 'array',
 	'coast_array'	=> 'array',
 	'coast_url'		=> 'input_url',
-	\Doctrine\ORM\Mapping\ClassMetadataInfo::MANY_TO_ONE	=> 'select',
-	\Doctrine\ORM\Mapping\ClassMetadataInfo::MANY_TO_MANY	=> 'input_checkboxes',
+	'manyToOne'		=> 'select',
+	'manyToMany'	=> 'input_checkboxes',
 ];
 $type = !isset($type)
 	? (isset($types[$md['type']])
@@ -29,14 +29,20 @@ $values = isset($values)
 	: (isset($md['values']) ? $md['values'] : []);
 if (isset($values[0]) && $values[0] instanceof \Toast\Entity) {
 	$temp = [];
-	foreach ($values as $value) {
-		$temp[$value->id] = $value->name;
+	foreach ($values as $v) {
+		$temp[$v->id] = $v->name;
 	}
 	$values = $temp;
 }
 $value = $entity->{$name};
 if ($value instanceof \Toast\Wrapper\Entity) {
 	$value = $value->id;
+} else if ($value instanceof \Toast\Wrapper\Collection) {
+	$temp = [];
+	foreach ($value as $v) {
+		$temp[] = $v->id;
+	}
+	$value = $temp;
 }
 $render = isset($input)
 	? $input
@@ -83,6 +89,8 @@ $render = isset($input)
 				'password_special'		=> "This must contain at least %4\$s special characters",
 				'range_min'				=> "This must be at least %1\$s",
 				'range_max'				=> "This must be no more than %2\$s",
+				'count_min'				=> "This must include at least %1\$s",
+				'count_max'				=> "This must include no more than %2\$s",
 				'set'					=> "This is required",
 				'dateTime'				=> "This must be a valid date/time",
 				'url'					=> "This must be a valid URL",
