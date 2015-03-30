@@ -1049,14 +1049,12 @@ textarea,
 		white-space: nowrap;
 		display: none;
 		border-top-width: 0;
-		overflow: hidden;
-		@include transition(max-height $speed ease);
+		max-height: 300px;
+		overflow-y: auto;
 		@include box-shadow(0 5px 0 0 transparentize(black, 0.95));
 	}
 	&:hover .menu {
 		display: block;
-		max-height: 300px;
-		overflow-y: auto;
 	}
 }
 

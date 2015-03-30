@@ -2,7 +2,7 @@
 <?php $this->block('main') ?>
 
 <form action="<?= $this->url->route() ?>" method="post" class="flex-col">
-	<div class="flex">
+	<div class="flex body">
 		<h1>
 			Your Profile
 		</h1>
@@ -32,7 +32,7 @@
 		</fieldset>
 	</div>
 	<fieldset class="footer">
-		<ul class="toolbar">
+		<ul class="toolbar toolbar-right">
 			<li>
 				<button class="btn btn-positive icon-ok">
 					Save Profile

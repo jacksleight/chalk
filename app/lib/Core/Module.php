@@ -112,7 +112,7 @@ class Module extends ChalkModule
 				'url'	=> [['controller' => 'setting_user'], 'setting'],
 			], $this->nspace('Setting'))
 			->item($this->nspace('Setting\Domain'), [
-				'label'	=> 'Domain',
+				'label'	=> 'Domains',
 				'url'	=> [['controller' => 'setting_domain'], 'setting'],
 			], $this->nspace('Setting'))
 			->item($this->nspace('Setting\Structure'), [

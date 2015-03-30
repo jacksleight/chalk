@@ -33,10 +33,10 @@ $color-light-max:       desaturate($color-dark-min, 100%);
 			@include link-color(lighten(desaturate($color-dark-min, 50%), 60%));
 		}
 		@if ($background != null) {
-			background-color: mix($color-dark-max, $color-dark-min, min(20% * $background, 100%));
+			background-color: mix($color-dark-max, $color-dark-min, min(20% * $background, 60%));
 		}
 		@if ($border != null) {
-			border-color: mix($color-dark-max, $color-dark-min, min(20% * $border, 100%));
+			border-color: mix($color-dark-max, $color-dark-min, min(20% * $border, 60%));
 		}
 	}
 }

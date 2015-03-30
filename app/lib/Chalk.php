@@ -247,8 +247,8 @@ class Chalk extends App
         return [
             self::STATUS_DRAFT      => 'negative',
             self::STATUS_PENDING    => 'negative',
-            self::STATUS_PUBLISHED  => 'positive',
-            self::STATUS_ARCHIVED   => 'out badge-light',
+            self::STATUS_PUBLISHED  => 'positive badge-out',
+            self::STATUS_ARCHIVED   => 'light badge-out',
         ][$status];
     }
 }

@@ -1,14 +1,14 @@
 <?php $this->parent('/layout/page_settings') ?>
 <?php $this->block('main') ?>
 <?php
-$filter = $this->em->wrap(new \Chalk\Core\Model\Index())
+$index = $this->em->wrap(new \Chalk\Core\Model\Index())
 	->graphFromArray($req->queryParams());
 $users = $this->em($info)
-	->all($filter->toArray());
+	->paged($index->toArray(), null, $index->limit, $index->page);
 ?>
 
 <div class="flex-col">
-	<div class="body">
+	<div class="flex body">
 		<ul class="toolbar toolbar-right">
 			<li>
 				<a href="<?= $this->url([
@@ -24,7 +24,7 @@ $users = $this->em($info)
 				<li class="flex">
 					<?= $this->render('/element/form-input', array(
 						'type'			=> 'input_search',
-						'entity'		=> $filter,
+						'entity'		=> $index,
 						'name'			=> 'search',
 						'placeholder'	=> 'Search…',
 					)) ?>
@@ -65,5 +65,14 @@ $users = $this->em($info)
 				<?php } ?>
 			</tbody>
 		</table>
+	</div>
+	<div class="footer">
+		<?= $this->render('/element/form-input', [
+		    'type'      => 'paginator',
+		    'entity'    => $index,
+		    'name'      => 'page',
+		    'limit'     => $index->limit,
+		    'count'     => $users->count(),
+		]) ?>		
 	</div>
 </div>

@@ -111,7 +111,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
         <colgroup>
             <col class="col-select">
             <col class="">
-            <col class="col-contract">
+            <col class="col-right col-contract">
             <col class="col-right col-badge">
         </colgroup>
         <thead>
@@ -126,7 +126,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
                     ]) ?>
                 </th>
                 <th scope="col" class="">Name</th>
-                <th scope="col" class="col-contract">Updated</th>
+                <th scope="col" class="col-right col-contract">Updated</th>
                 <th scope="col" class="col-right col-badge">Status</th>
             </tr>
         </thead>
@@ -150,7 +150,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
                             <br>
                             <small><?= $content->subname($info->class != 'Chalk\Core\Content') ?></small>
                         </th>
-                        <td class="col-contract">
+                        <td class="col-right col-contract">
                             <?= $content->modifyDate->diffForHumans() ?>
                             <small>by <?= $content->modifyUserName ?></small>
                         </td>   

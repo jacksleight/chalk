@@ -865,8 +865,8 @@ small {
   border-color: #8f8f8f;
 }
 .dark.badge, .dark .badge {
-  background-color: black;
-  border-color: black;
+  background-color: #171c1f;
+  border-color: #171c1f;
 }
 .badge:visited {
   color: white;
@@ -915,8 +915,8 @@ small {
   border-color: #bcbcbc;
 }
 .dark.badge.badge-light, .dark .badge.badge-light {
-  background-color: black;
-  border-color: black;
+  background-color: #171c1f;
+  border-color: #171c1f;
 }
 .badge.badge-lighter {
   color: #5f5f5f;
@@ -1598,7 +1598,7 @@ select, .dark
 .input-content {
   color: #dedede;
   background-color: #3b464f;
-  border-color: black;
+  border-color: #171c1f;
 }
 .darkinput[type=date]:visited, .darkinput[type=datetime]:visited, .darkinput[type=datetime-local]:visited, .darkinput[type=email]:visited, .darkinput[type=month]:visited, .darkinput[type=number]:visited, .darkinput[type=password]:visited, .darkinput[type=search]:visited, .darkinput[type=tel]:visited, .darkinput[type=text]:visited, .darkinput[type=time]:visited, .darkinput[type=url]:visited, .darkinput[type=week]:visited, .darktextarea:visited, .darkselect:visited, .dark.input-pseudo:visited, .dark.input-content:visited, .dark input[type=date]:visited, .dark
 input[type=datetime]:visited, .dark
@@ -1890,7 +1890,7 @@ input[type=radio] + label:before {
 }
 .darkinput[type=checkbox] + label:before, .darkinput[type=radio] + label:before, .dark input[type=checkbox] + label:before, .dark
 input[type=radio] + label:before {
-  border-color: black;
+  border-color: #171c1f;
 }
 input[type=checkbox]:focus + label:before,
 input[type=radio]:focus + label:before {
@@ -2057,8 +2057,8 @@ input[type=button],
 input[type=submit], .dark
 input[type=button], .dark
 .btn {
-  background-color: black;
-  border-color: black;
+  background-color: #171c1f;
+  border-color: #171c1f;
 }
 input[type=reset]:visited,
 input[type=submit]:visited,
@@ -2122,8 +2122,8 @@ input[type=button].active, .dark
 .btn:focus, .dark
 .btn:active, .dark
 .btn.active {
-  background-color: black;
-  border-color: black;
+  background-color: #171c1f;
+  border-color: #171c1f;
 }
 input[type=reset].btn-collapse,
 input[type=submit].btn-collapse,
@@ -2250,8 +2250,8 @@ input[type=button].btn-light,
 input[type=submit].btn-light, .dark
 input[type=button].btn-light, .dark
 .btn.btn-light {
-  background-color: black;
-  border-color: black;
+  background-color: #171c1f;
+  border-color: #171c1f;
 }
 input[type=reset].btn-light:hover, input[type=reset].btn-light:focus, input[type=reset].btn-light:active, input[type=reset].btn-light.active,
 input[type=submit].btn-light:hover,
@@ -2282,8 +2282,8 @@ input[type=button].btn-light.active, .dark
 .btn.btn-light:focus, .dark
 .btn.btn-light:active, .dark
 .btn.btn-light.active {
-  background-color: black;
-  border-color: black;
+  background-color: #171c1f;
+  border-color: #171c1f;
 }
 input[type=reset].btn-lighter,
 input[type=submit].btn-lighter,
@@ -2378,8 +2378,8 @@ input[type=button].btn-lighter.active, .dark
 .btn.btn-lighter:focus, .dark
 .btn.btn-lighter:active, .dark
 .btn.btn-lighter.active {
-  background-color: #0b0d0f;
-  border-color: #0b0d0f;
+  background-color: #171c1f;
+  border-color: #171c1f;
 }
 input[type=reset].btn-focus,
 input[type=submit].btn-focus,
@@ -2582,19 +2582,14 @@ textarea.disabled,
   white-space: nowrap;
   display: none;
   border-top-width: 0;
-  overflow: hidden;
-  -moz-transition: max-height 0.2s ease;
-  -o-transition: max-height 0.2s ease;
-  -webkit-transition: max-height 0.2s ease;
-  transition: max-height 0.2s ease;
+  max-height: 300px;
+  overflow-y: auto;
   -moz-box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.05);
   -webkit-box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.05);
   box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.05);
 }
 .dropdown:hover .menu {
   display: block;
-  max-height: 300px;
-  overflow-y: auto;
 }
 
 ::-moz-focus-inner {
@@ -2941,7 +2936,7 @@ legend {
   border-color: #c7c7c7;
 }
 .dark.menu, .dark .menu {
-  border-color: black;
+  border-color: #171c1f;
 }
 .menu ul {
   margin: 0;
@@ -3517,7 +3512,7 @@ a .card strong {
 }
 .dark.mce-tinymce.mce-panel, .dark.mce-tinymce .mce-panel, .dark .mce-tinymce.mce-panel, .dark
 .mce-tinymce .mce-panel {
-  border-color: black;
+  border-color: #171c1f;
 }
 .mce-tinymce .mce-menu-item-chalk i:before {
   color: #00a6b5;
@@ -3549,7 +3544,7 @@ a .card strong {
   border-color: #c7c7c7;
 }
 .dark.ace_editor, .dark .ace_editor {
-  border-color: black;
+  border-color: #171c1f;
 }
 
 /* Widths */
@@ -3769,7 +3764,7 @@ html, body {
   border-color: #d2d2d2;
 }
 .dark.flex-col > *, .dark .flex-col > * {
-  border-color: #0b0d0f;
+  border-color: #171c1f;
 }
 
 @media screen and (min-width: 800px) {
@@ -3925,14 +3920,15 @@ html, body {
   }
 
   .sidebar {
-    width: 300px;
+    width: 23%;
+    min-width: 300px;
     border-right: 1px solid;
   }
   .sidebar {
     border-color: #d2d2d2;
   }
   .dark.sidebar, .dark .sidebar {
-    border-color: #0b0d0f;
+    border-color: #171c1f;
   }
 }
 /* Notifications */
