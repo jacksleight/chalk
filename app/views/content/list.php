@@ -110,9 +110,9 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
     <table class="multiselectable">
         <colgroup>
             <col class="col-select">
-            <col class="col-name">
-            <col class="col-date">
-            <col class="col-badge">
+            <col class="">
+            <col class="col-contract">
+            <col class="col-right col-badge">
         </colgroup>
         <thead>
             <tr>
@@ -125,9 +125,9 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
                         'class'  => 'multiselectable-values',
                     ]) ?>
                 </th>
-                <th scope="col" class="col-name">Name</th>
-                <th scope="col" class="col-date">Updated</th>
-                <th scope="col" class="col-badge">Status</th>
+                <th scope="col" class="">Name</th>
+                <th scope="col" class="col-contract">Updated</th>
+                <th scope="col" class="col-right col-badge">Status</th>
             </tr>
         </thead>
         <tbody class="<?= $isUploadable ? 'uploadable-list' : null ?>">
@@ -140,7 +140,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
                                 'entities' => $index->contents,
                             ]) ?>
                         </td>
-                        <th class="col-name" scope="row">
+                        <th class="" scope="row">
                             <? if ($isEditAllowed) { ?>
                                 <a href="<?= $this->url([
                                     'action'    => 'edit',
@@ -150,12 +150,12 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
                             <br>
                             <small><?= $content->subname($info->class != 'Chalk\Core\Content') ?></small>
                         </th>
-                        <td class="col-date">
+                        <td class="col-contract">
                             <?= $content->modifyDate->diffForHumans() ?>
                             <small>by <?= $content->modifyUserName ?></small>
                         </td>   
-                        <td class="col-badge">
-                            <span class="badge badge-status badge-<?= $content->status ?>"><?= $content->status ?></span>
+                        <td class="col-right col-badge">
+                            <span class="badge badge-upper badge-<?= $this->app->statusClass($content->status) ?>"><?= $content->status ?></span>
                         </td>   
                     </tr>
                 <?php } ?>

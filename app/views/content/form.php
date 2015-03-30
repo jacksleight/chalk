@@ -21,7 +21,7 @@
 					]) ?><?= $this->url->query([
 						'parent'	=> $node->id,
 						'type'		=> $info->name,
-					]) ?>" class="btn btn-focus btn-quiet icon-add">
+					]) ?>" class="btn btn-light icon-add">
 					New <?= $info->singular ?>
 				</a></li>
 			<? } ?>
@@ -29,7 +29,7 @@
 			<li><a href="<?= $this->url([
 					'entity'	=> $info->name,
 					'action'	=> 'edit',
-				], 'content', true) ?>" class="btn btn-focus btn-quiet icon-add">
+				], 'content', true) ?>" class="btn btn-light icon-add">
 				New <?= $info->singular ?>
 			</a></li>
 		<? } ?>
@@ -53,7 +53,7 @@
 <ul class="meta">
 	<?= $this->content('meta-top') ?>
 	<li>
-		<span class="badge badge-status badge-<?= $content->status ?>">
+		<span class="badge badge-upper badge-<?= $this->app->statusClass($content->status) ?>">
 			<?= $content->status ?>
 		</span>
 	</li>
@@ -190,7 +190,7 @@
 			'entity'	=> $info->name,
 			'action'		=> 'restore',
 			'content'		=> $content->id,
-		], 'content', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-positive icon-restore">
+		], 'content', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-focus icon-restore">
 			Restore <?= $info->singular ?>
 		</a></li>
 	<?php } ?>
@@ -205,7 +205,7 @@
 				'entity'	=> $info->name,
 				'action'	=> 'archive',
 				'content'	=> $content->id,
-			], 'content', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-negative btn-quiet confirmable icon-archive">
+			], 'content', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-light confirmable icon-archive">
 				Archive <?= $info->singular ?>
 			</a></li>
 		<?php } ?>
@@ -214,7 +214,7 @@
 				'entity'	=> $info->name,
 				'action'	=> 'delete',
 				'content'	=> $content->id,
-			], 'content', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-negative btn-quiet confirmable icon-delete" data-message="Are you sure?<?= "\n" ?>This will delete the <?= strtolower($info->singular) ?> and cannot be undone.">
+			], 'content', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-negative btn-light confirmable icon-delete" data-message="Are you sure?<?= "\n" ?>This will delete the <?= strtolower($info->singular) ?> and cannot be undone.">
 				Delete <?= $info->singular ?>
 			</a></li>
 		<?php } ?>
@@ -222,7 +222,7 @@
 	<?php if (isset($node) && !$node->isRoot()) { ?>
 		<li><a href="<?= $this->url([
 			'action' => 'delete'
-		]) ?>" class="btn btn-negative btn-quiet confirmable icon-remove">
+		]) ?>" class="btn btn-light confirmable icon-remove">
 			Remove <?= $info->singular ?> <small>from <strong><?= $structure->name ?></strong></small>
 		</a>
 		</li>

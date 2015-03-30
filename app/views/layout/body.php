@@ -42,7 +42,7 @@ $secondary	= $navigation->items('Chalk\Core\Secondary');
 						<a href="<?= $this->url([
 							'controller' => 'index',
 							'action'	 => 'publish',
-						], 'index', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-pending icon-publish">
+						], 'index', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-focus icon-publish">
 							Publish
 						</a>
 						<small>&nbsp;&nbsp;<strong><?= $count ?></strong> draft items</small>
@@ -54,7 +54,7 @@ $secondary	= $navigation->items('Chalk\Core\Secondary');
 						: $this->frontend->url();
 					?>
 					<li>
-						<a href="<?= $url ?>" target="_blank" class="btn btn-quiet icon-view">
+						<a href="<?= $url ?>" target="_blank" class="btn btn-light icon-view">
 							View Site
 						</a>
 					</li>					

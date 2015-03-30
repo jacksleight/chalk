@@ -36,8 +36,8 @@ try {
 	cli\line('Creating default user..');
 	$user = new \Chalk\Core\User();
 	$user->fromArray([
-		'name'			=> 'Developer',
-		'emailAddress'	=> 'dev@example.com',
+		'name'			=> 'Root',
+		'emailAddress'	=> 'root@example.com',
 		'passwordPlain'	=> 'password',
 		'role'			=> \Chalk\Core\User::ROLE_DEVELOPER,
 	]);

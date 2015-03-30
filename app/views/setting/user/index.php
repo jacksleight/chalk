@@ -34,23 +34,23 @@ $users = $this->em($info)
 		<table>
 			<colgroup>
 				<col class="col-badge">
-				<col class="col-name">
-				<col class="col-role">
+				<col class="">
+				<col class="col-right">
 			</colgroup>
 			<thead>
 				<tr>
 					<th scope="col" class="">Enabled</th>
-					<th scope="col" class="col-name">Name</th>
-					<th scope="col" class="col-role">Role</th>
+					<th scope="col" class="">Name</th>
+					<th scope="col" class="col-right">Role</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php foreach ($users as $user) { ?>
 					<tr class="clickable">
 						<td class="col-badge">
-							<span class="badge badge-status badge-<?= (int) $user->isEnabled ?> icon-<?= $user->isEnabled ? 'true' : 'false-dark' ?>"></span>	
+							<span class="badge badge-center badge-<?= $user->isEnabled ? 'positive' : 'negative' ?> icon-<?= $user->isEnabled ? 'true' : 'false' ?>"></span>	
 						</td>
-						<th class="col-name" scope="row">
+						<th class="" scope="row">
 							<a href="<?= $this->url([
 								'action'	=> 'edit',
 								'id'		=> $user->id,
@@ -58,7 +58,7 @@ $users = $this->em($info)
 								<?= $user->name ?>
 							</a>
 						</th>
-						<td class="col-role">
+						<td class="col-right">
 							<?= ucfirst($user->role) ?>
 						</td>
 					</tr>

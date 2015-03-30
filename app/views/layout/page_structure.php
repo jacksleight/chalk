@@ -39,10 +39,10 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 			<li>
 				<ul class="toolbar toolbar-tight">
 					<li>
-						<button class="btn btn-block btn-icon structure-edit btn-collapse icon-move" type="button">
+						<button class="btn btn-block btn-light btn-icon structure-edit btn-collapse icon-move" type="button">
 							<span>Move Content</span>
 						</button>
-						<button class="btn btn-block btn-icon structure-cancel btn-collapse icon-cancel disabled" type="button">
+						<button class="btn btn-block btn-negative btn-icon structure-cancel btn-collapse icon-cancel disabled" type="button">
 							<span>Cancel</span>
 						</button>
 					</li>

@@ -33,7 +33,7 @@ $isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 				<?php } else { ?>
 					<div class="text"><span class="icon-content-dark"></span></div>
 				<?php } ?>
-				<span class="badge badge-status badge-<?= $content->status ?>">
+				<span class="badge badge-upper badge-<?= $this->app->statusClass($content->status) ?>">
 					<?= $content->status ?>
 				</span>
 				<?php if ($covered) { ?>

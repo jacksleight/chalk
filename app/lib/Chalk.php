@@ -238,7 +238,17 @@ class Chalk extends App
            foreach ($entitys as $entity) {
                $entity->status = Chalk::STATUS_PUBLISHED;
            }
-       // }
-       $this->em->flush();
-   }
+        // }
+        $this->em->flush();
+    }
+
+    public function statusClass($status)
+    {
+        return [
+            self::STATUS_DRAFT      => 'negative',
+            self::STATUS_PENDING    => 'negative',
+            self::STATUS_PUBLISHED  => 'positive',
+            self::STATUS_ARCHIVED   => 'out badge-light',
+        ][$status];
+    }
 }

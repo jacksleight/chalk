@@ -88,9 +88,6 @@ html, body {
 
 .topbar {
 	@include colors(null, 1);
-	a {
-		@include link-color($color-foreground);
-	}
 	h1 {
 		margin-top: 0;
 		text-align: center;

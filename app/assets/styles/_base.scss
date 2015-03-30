@@ -112,7 +112,7 @@ strong {
 	font-weight: bold;
 }
 mark { 
-	background-color: $color-highlight;
+	background-color: yellow;
 	@include border-radius(2px);
 }
 
@@ -254,62 +254,71 @@ small {
 /* Badge */
 
 .badge {
-	background-color: $color-quiet;
-	border: 1px solid $color-quiet;
-	color: white;
+	border: 1px solid;
+	@include colors(null, 10, 10);
+	@include link-color(white);
 	font-weight: normal;
 	@include font-size(-1);
 	padding: 0 $gutter * 0.25;
 	padding-top: 1px;
 	padding-bottom: 2px;
 	display: inline-block;
-	td &, th & {
-		width: 100%;
+	&.badge-out {
+		@include colors(1);
 	}
-	.sidebar & {
-		color: $color-primary;
-		font-weight: bold;
+	&.badge-light {
+		@include colors(null, 6, 6);
+	}
+	&.badge-lighter {
+		@include colors(1, 2, 2);
+	}
+	&.badge-positive {
+		background-color: $color-positive;
+		border-color: $color-positive;
+		&.badge-out {
+			color: $color-positive;
+		}
+	}
+	&.badge-negative {
+		background-color: $color-negative;
+		border-color: $color-negative;
+		&.badge-out {
+			color: $color-negative;
+		}
+	}
+	&.badge-focus {
+		background-color: $color-focus;
+		border-color: $color-focus;
+		&.badge-out {
+			color: $color-focus;
+		}
+	}
+	&.badge-active {
+		background-color: $color-active;
+		border-color: $color-active;
+		&.badge-out {
+			color: $color-active;
+		}
+	}
+	&.badge-out {
+		background-color: transparent !important;
+	}
+	&.badge-figure {
+		border-radius: 1000px;
+		min-width: 26px;
+		text-align: center;
+	}
+	&.badge-upper {
+		text-transform: uppercase;
+	}
+	&.badge-center {
+		text-align: center;
 	}
 	&::before {
 		margin-right: 0;
-		vertical-align: -3px;
+		position: relative;
+		bottom: -1px;
 	}
-}
-.badge-figure {
-	border-radius: 1000px;
-	min-width: 26px;
-	text-align: center;
-}
-.badge-status {
-	@extend .badge;
-	text-transform: uppercase;
-}
-.badge-0,
-.badge-archived {
-	@extend .badge;
-	background-color: white;
-	color: $color-quiet;
-	&::before {
-		opacity: 0.5;
-	}
-}
-.badge-draft,
-.badge-pending {
-	@extend .badge;
-	background-color: $color-pending;
-	border-color: $color-pending;
-}
-.badge-1 {
-	@extend .badge;
-	background-color: $color-positive;
-	border-color: $color-positive;
-}
-.badge-0,
-.badge-1 {
-	text-align: center;
-}
-.badge-published {
-	@extend .badge;
 }
 
 /* Rule */
@@ -421,12 +430,11 @@ figure {
 }
 .thumb {
 	position: relative;
-	background-color: white;
 	outline-color: white;
 	@include link-color($color-foreground);
 	@include transition(background-color $speed ease, outline-color $speed ease);
 	.preview {
-		background-color: $color-shade;
+		@include colors(null, 1);
 		position: relative;
 		&::before {
 			content: '';
@@ -492,8 +500,7 @@ figure {
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
-		padding: $gutter * 0.3 $gutter * 0.5 $gutter * 0.4 $gutter * 0.5;
-		border-top: 1px solid $color-background;
+		padding: $gutter * 0.3 0 0 0;
 	}
 	input[type=checkbox] + label {
 		position: absolute;
@@ -848,19 +855,15 @@ input[type=button],
 	padding: 0 $input-padding-horiz;
 	margin: 0;
 	font-weight: normal;
-	@include link-color(white !important);
-	background-color: $color-quiet;
 	border: $input-border-width solid;
-	border-color: $color-quiet;
 	@include border-radius($radius);
 	outline: 0;
 	cursor: pointer;
 	text-decoration: none !important;
 	-webkit-appearance: none;
 	display: inline-block;
-	.fa {
-		padding-right: 0.1em;
-	}
+	@include colors(null, 8, 8);
+	@include link-color(white);
 	&.disabled,
 	&[disabled] {
 		opacity: 0.25;
@@ -869,8 +872,7 @@ input[type=button],
 	&:focus,
 	&:active,
 	&.active { 
-		background-color: shade($color-quiet, 15%) !important;
-		border-color: shade($color-quiet, 15%) !important;
+		@include colors(null, 10, 10);
 	}
 	&.btn-collapse {
 		max-height: $input-height;
@@ -892,72 +894,6 @@ input[type=button],
 			margin-top: 0;
 		}
 	}
-	&.btn-focus {
-		background-color: $color-focus;
-		border-color: $color-focus;
-		&:hover,
-		&:focus,
-		&:active,
-		&.active { 
-			background-color: shade($color-focus, 15%) !important;
-			border-color: shade($color-focus, 15%) !important;
-		}
-	}
-	&.btn-pending {
-		background-color: $color-pending;
-		border-color: $color-pending;
-		&:hover,
-		&:focus,
-		&:active,
-		&.active { 
-			background-color: shade($color-pending, 15%) !important;
-			border-color: shade($color-pending, 15%) !important;
-		}
-	}
-	&.btn-positive {
-		background-color: $color-positive;
-		border-color: $color-positive;
-		&:hover,
-		&:focus,
-		&:active,
-		&.active { 
-			background-color: shade($color-positive, 15%) !important;
-			border-color: shade($color-positive, 15%) !important;
-		}
-	}
-	&.btn-negative {
-		background-color: $color-negative;
-		border-color: $color-negative;
-		&:hover,
-		&:focus,
-		&:active,
-		&.active { 
-			background-color: shade($color-negative, 15%) !important;
-			border-color: shade($color-negative, 15%) !important;
-		}
-	}
-	&.btn-quiet {
-		background-color: $color-quiet;
-		border-color: $color-quiet;
-		&:hover,
-		&:focus,
-		&:active,
-		&.active { 
-			background-color: shade($color-quiet, 15%) !important;
-			border-color: shade($color-quiet, 15%) !important;
-		}
-	}
-	&.btn-quieter {
-		background-color: $color-quieter;
-		border-color: $color-quieter;
-		&:hover,
-		&:focus,
-		&:active,
-		&.active { 
-			background-color: shade($color-quieter, 15%) !important;
-			border-color: shade($color-quieter, 15%) !important;
-		}
-	}
 	&.btn-icon {
 		width: 38px;
 		white-space: nowrap;
@@ -968,6 +904,86 @@ input[type=button],
 		&::before {
 			margin-right: 0;
 		}
+	}
+	&.btn-out {
+		@include colors(1);
+	}
+	&.btn-light {
+		@include colors(null, 6, 6);
+		&:hover,
+		&:focus,
+		&:active,
+		&.active { 
+			@include colors(null, 8, 8);
+		}
+	}
+	&.btn-lighter {
+		@include colors(1, 2, 2);
+		&:hover,
+		&:focus,
+		&:active,
+		&.active { 
+			@include colors(null, 4, 4);
+		}
+	}
+	&.btn-focus {
+		background-color: $color-focus;
+		border-color: $color-focus;
+		&:hover,
+		&:focus,
+		&:active,
+		&.active { 
+			background-color: shade($color-focus, 15%);
+			border-color: shade($color-focus, 15%);
+		}
+		&.btn-out {
+			color: $color-focus;
+		}
+	}
+	&.btn-positive {
+		background-color: $color-positive;
+		border-color: $color-positive;
+		&:hover,
+		&:focus,
+		&:active,
+		&.active { 
+			background-color: shade($color-positive, 15%);
+			border-color: shade($color-positive, 15%);
+		}
+		&.btn-out {
+			color: $color-positive;
+		}
+	}
+	&.btn-negative {
+		background-color: $color-negative;
+		border-color: $color-negative;
+		&:hover,
+		&:focus,
+		&:active,
+		&.active { 
+			background-color: shade($color-negative, 15%);
+			border-color: shade($color-negative, 15%);
+		}
+		&.btn-out {
+			color: $color-negative;
+		}
+	}
+	&.btn-active {
+		background-color: $color-active;
+		border-color: $color-active;
+		&:hover,
+		&:focus,
+		&:active,
+		&.active { 
+			background-color: shade($color-active, 15%);
+			border-color: shade($color-active, 15%);
+		}
+		&.btn-out {
+			color: $color-active;
+		}
+	}
+	&.btn-out {
+		background-color: transparent !important;
 	}
 	small {
 		color: transparentize(white, 0.35);
@@ -1075,7 +1091,7 @@ legend {
 .form-block {
 	@include colors(null, null, 3);
 	border-top: 1px solid;
-	margin: $gutter 0 0 0;
+	margin: $gutter * 1 0 0 0;
 	.form-legend {
 		@include flush;
 		@include font-size(-1);
@@ -1102,15 +1118,17 @@ legend {
 		.form-legend {
 			margin-top: 0;
 			float: left;
-			padding: $gutter $gutter $gutter 0;
-			width: 200px - ($gutter * 1.5);
+			padding: $gutter;
+			padding-left: 0;
+			width: 210px - ($gutter * 1.5);
 		}
 		.form-items {
 			margin-top: 0;
-			margin-left: 200px - ($gutter * 1.5);
-			padding: $gutter 0 $gutter $gutter;
-			border-left-width: 1px;
-			border-left-style: solid;
+			margin-left: 210px - ($gutter * 1.5);
+			padding: $gutter;
+			padding-right: 0;
+			border-left: 1px solid;
+			@include colors(null, null, 1);
 		}
 	}
 }
@@ -1282,12 +1300,7 @@ legend {
 		@include flush;
 	}
 	.expandable-toggle {
-		display: block;
-		background-color: white;
-		text-align: right;
-		color: $color-focus;
-		cursor: pointer;
-		@include transition(all $speed ease);
+		margin-top: 0;
 	}
 	&.active {
 		.expandable-body {
@@ -1511,9 +1524,9 @@ legend {
 		}
 		&.tree-item-draft,
 		&.tree-item-pending {
-			@include link-color($color-pending);
+			@include link-color($color-negative);
 			&.tree-item-hidden {
-				@include link-color(transparentize($color-pending, 0.6));
+				@include link-color(transparentize($color-negative, 0.6));
 			}
 		}
 		&.tree-item-archived {

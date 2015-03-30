@@ -21,12 +21,12 @@ $domains = $this->em($info)
 		<table>
 			<colgroup>
 				<col class="col-name">
-				<col class="col-date">
+				<col class="col-contract col-right">
 			</colgroup>
 			<thead>
 				<tr>
 					<th scope="col" class="col-name">Name</th>
-					<th scope="col" class="col-date">Added</th>
+					<th scope="col" class="col-contract col-right">Added</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -40,7 +40,7 @@ $domains = $this->em($info)
 								<?= $domain->name ?>
 							</a>
 						</th>
-						<td class="col-date">
+						<td class="col-contract col-right">
 							<?= $domain->createDate->diffForHumans() ?>
 						</td>
 					</tr>

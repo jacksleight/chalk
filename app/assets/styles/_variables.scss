@@ -18,42 +18,37 @@ $color-light-max:       desaturate($color-dark-min, 100%);
 @mixin colors($foreground: null, $background: null, $border: null) {
 	& {
 		@if ($foreground != null) {
-			color: lighten(desaturate($color-dark-min, 50%), 10%);
+			@include link-color(lighten(desaturate($color-dark-min, 50%), 10%));
 		}
 		@if ($background != null) {
-			background-color: mix($color-light-max, $color-light-min, 6% * $background);
+			background-color: mix($color-light-max, $color-light-min, min(6% * $background, 100%));
 		}
 		@if ($border != null) {
-			border-color: mix($color-light-max, $color-light-min, 6% * $border);
+			border-color: mix($color-light-max, $color-light-min, min(6% * $border, 100%));
 		}
 	}
 	@at-root #{selector-append('.dark', &)},
 	.dark & {
 		@if ($foreground != null) {
-			color: lighten(desaturate($color-dark-min, 50%), 60%);
+			@include link-color(lighten(desaturate($color-dark-min, 50%), 60%));
 		}
 		@if ($background != null) {
-			background-color: mix($color-dark-max, $color-dark-min, 20% * $background);
+			background-color: mix($color-dark-max, $color-dark-min, min(20% * $background, 100%));
 		}
 		@if ($border != null) {
-			border-color: mix($color-dark-max, $color-dark-min, 20% * $border);
+			border-color: mix($color-dark-max, $color-dark-min, min(20% * $border, 100%));
 		}
 	}
 }
 
 $color-primary:			#2d353c;
-$color-focus:			#00a6b5;
-$color-active:			#FCB941;
 
+$color-focus:			#00a6b5;
 $color-positive:		#09bd5e;
 $color-negative:		#FC6042;
-$color-highlight:		#ffff00;
-
-$color-published:		$color-positive;
-$color-pending:			$color-negative;
+$color-active:			#FCB941;
 
 $color-foreground:		$color-primary;
-$color-background-1:	white;
 $color-background:		tint($color-primary, 95%);
 
 $color-quiet:			tint($color-foreground, 50%);
