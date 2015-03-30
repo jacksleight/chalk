@@ -38,7 +38,6 @@ class Repository extends EntityRepository
 	public function one(array $criteria = array(), $sort = null, $offset = null)
 	{	
 		return $this->query($criteria, $sort, null, $offset)
-			->setMaxResults(1)
 			->getQuery()
 			->getOneOrNullResult();
 	}
