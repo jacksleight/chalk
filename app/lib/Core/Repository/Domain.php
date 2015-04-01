@@ -16,13 +16,6 @@ class Domain extends Repository
     {
         $query = parent::query($criteria, $sort, $limit, $offset);
 
-        $query
-            ->addSelect("s", "n", "c")
-            ->leftJoin("d.structure", "s")
-            ->leftJoin("s.nodes", "n")
-            ->leftJoin("n.content", "c")
-            ->andWhere("n.left = 0");
-
         return $query;
     }
 }

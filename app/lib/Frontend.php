@@ -51,11 +51,19 @@ class Frontend extends App
 
         $domain = $this
             ->em('Chalk\Core\Domain')
-            ->one([], 'id');     
-        $req->chalk->domain    = $domain;
-        $req->chalk->structure = $domain->structure;
-        $req->chalk->root      = $domain->structure->root;
-        $req->chalk->home      = $domain->structure->root->content;
+            ->one([], 'id');    
+        $structures = $this
+            ->em('Chalk\Core\Structure')
+            ->all();
+        $temp = [];
+        foreach ($structures as $structure) {
+            $temp[$structure->id] = $structure;
+        }
+        $req->chalk->domain     = $domain;
+        $req->chalk->structures = $temp;
+        $req->chalk->structure  = $temp[1];
+        $req->chalk->root       = $temp[1]->root;
+        $req->chalk->home       = $temp[1]->root->content;
 
         $nodes = $conn->query("
             SELECT n.id,
@@ -67,7 +75,7 @@ class Frontend extends App
                 n.contentId
             FROM {$nodeTable} AS n
                 INNER JOIN {$contentTable} AS c ON c.id = n.contentId
-            WHERE n.structureId = {$domain->structure->id}
+            WHERE n.structureId = {$temp[1]->id}
         ")->fetchAll();
         $map = [];
         foreach ($nodes as $node) {
@@ -101,8 +109,6 @@ class Frontend extends App
         $req->chalk->node    = $node;
         $req->chalk->nodes   = $nodes;
         $req->chalk->content = $content;
-
-        die;
 
         if (!$content) {
             return;
