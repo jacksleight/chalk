@@ -1,5 +1,12 @@
 # Chalk Changelog
 
+### 0.3.7
+
+* **Improvements**
+	* Speed optimisations
+* **Fixes**
+	* Bug fixes
+
 ### 0.3.6
 
 * **Improvements**
