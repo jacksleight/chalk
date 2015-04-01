@@ -7,6 +7,7 @@
 use Doctrine\ORM\Configuration,
 	Doctrine\Common\EventManager,
 	Doctrine\ORM\EntityManager,
+	Doctrine\ORM\Proxy\Autoloader,
 	Chalk\Doctrine\ORM\EntityManager as ChalkEntityManager,
 	Chalk\Doctrine\NamingStrategy as NamingStrategy,
 	Chalk\Listener as Listener,
