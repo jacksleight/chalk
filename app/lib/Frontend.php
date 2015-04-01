@@ -45,8 +45,9 @@ class Frontend extends App
     {        
         $req->chalk = (object) [];
 
-        $conn  = $this->em->getConnection();
-        $table = Chalk::info('Chalk\Core\Structure\Node')->name;
+        $conn         = $this->em->getConnection();
+        $nodeTable    = Chalk::info('Chalk\Core\Structure\Node')->name;
+        $contentTable = Chalk::info('Chalk\Core\Content')->name;
 
         $domain = $this
             ->em('Chalk\Core\Domain')
@@ -62,8 +63,10 @@ class Frontend extends App
                 n.name, n.slug, n.path,
                 n.structureId,
                 n.parentId,
+                c.type AS contentType,
                 n.contentId
-            FROM {$table} AS n
+            FROM {$nodeTable} AS n
+                INNER JOIN {$contentTable} AS c ON c.id = n.contentId
             WHERE n.structureId = {$domain->structure->id}
         ")->fetchAll();
         $map = [];
@@ -71,14 +74,14 @@ class Frontend extends App
             $map[$node['id']] = $node;
             $this->router->all($node['contentId'], $node['path'], [
                 'node'    => $node,
-                'content' => $node['contentId'],
+                'content' => [$node['contentType'], $node['contentId']],
             ]);
         }
 
         $path = rtrim($req->path(), '/');        
         if (preg_match('/^_c([\d]+)$/', $path, $match)) {
             $node    = null;
-            $content = $match[1];
+            $content = ['Chalk\Core\Content', $match[1]];
         } else {
             $route = $this->router->match($req->method(), $path);
             if (!$route) {
@@ -94,10 +97,12 @@ class Frontend extends App
         while (isset($nodes[0]['parentId'])) {
             array_unshift($nodes, $map[$nodes[0]['parentId']]);
         }
-        $content = $this->em('Chalk\Core\Content')->id($content);
+        $content = $this->em($content[0])->id($content[1]);
         $req->chalk->node    = $node;
         $req->chalk->nodes   = $nodes;
         $req->chalk->content = $content;
+
+        die;
 
         if (!$content) {
             return;
