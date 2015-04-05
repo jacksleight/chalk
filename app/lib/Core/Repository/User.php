@@ -15,27 +15,27 @@ class User extends Repository
 
     protected $_alias = 'u';
 
-    public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
+    public function query(array $params = array())
     {
-        $query = parent::query($criteria, $sort, $limit, $offset);
+        $query = parent::query($params);
 
-        $criteria = $criteria + [
+        $params = $params + [
 			'emailAddress'	=> null,
 			'token'			=> null,
         ];
         
-        if (isset($criteria['emailAddress'])) {
+        if (isset($params['emailAddress'])) {
             $query
                 ->andWhere("u.emailAddress = :emailAddress")
-                ->setParameter('emailAddress', $criteria['emailAddress']);
+                ->setParameter('emailAddress', $params['emailAddress']);
         }
-        if (isset($criteria['token'])) {
+        if (isset($params['token'])) {
             $query
                 ->andWhere("u.token = :token AND u.tokenDate > UTC_TIMESTAMP()")
-                ->setParameter('token', $criteria['token']);
+                ->setParameter('token', $params['token']);
         }
 
-        $this->searchableQueryModifier($query, $criteria);
+        $this->searchableQueryModifier($query, $params);
 
         return $query;
     }

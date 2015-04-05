@@ -18,12 +18,13 @@ class Content extends Repository
 		Searchable\Repository;
 
 	protected $_alias = 'c';
+	protected $_sort  = ['c.modifyDate', 'DESC'];
 
-	public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
+	public function query(array $params = array())
 	{
-		$query = parent::query($criteria, $sort ?: ['modifyDate', 'DESC'], $limit, $offset);
+		$query = parent::query($params);
 
-		$criteria = $criteria + [
+		$params = $params + [
 			'master'		=> null,
 			'createDateMin'	=> null,
 			'createDateMax'	=> null,
@@ -33,59 +34,59 @@ class Content extends Repository
 			'statuses'		=> null,
 		];
 				
-		if (isset($criteria['master'])) {
+		if (isset($params['master'])) {
         	$query
 				->andWhere("c.master = :master")
-				->setParameter('master', $criteria['master']);
+				->setParameter('master', $params['master']);
 		}
 
-		if (isset($criteria['createDateMin'])) {
-			$createDateMin = $criteria['createDateMin'] instanceof DateTime
-				? $criteria['createDateMin']
-				: new DateTime($criteria['createDateMin']);
+		if (isset($params['createDateMin'])) {
+			$createDateMin = $params['createDateMin'] instanceof DateTime
+				? $params['createDateMin']
+				: new DateTime($params['createDateMin']);
 			$query
 				->andWhere("c.createDate >= :createDateMin")
 				->setParameter('createDateMin', $createDateMin);
 		}
-		if (isset($criteria['createDateMax'])) {
-			$createDateMax = $criteria['createDateMax'] instanceof DateTime
-				? $criteria['createDateMax']
-				: new DateTime($criteria['createDateMax']);
+		if (isset($params['createDateMax'])) {
+			$createDateMax = $params['createDateMax'] instanceof DateTime
+				? $params['createDateMax']
+				: new DateTime($params['createDateMax']);
 			$query
 				->andWhere("c.createDate <= :createDateMax")
 				->setParameter('createDateMax', $createDateMax);
 		}
 
-		if (isset($criteria['modifyDateMin'])) {
-			$modifyDateMin = $criteria['modifyDateMin'] instanceof DateTime
-				? $criteria['modifyDateMin']
-				: new DateTime($criteria['modifyDateMin']);
+		if (isset($params['modifyDateMin'])) {
+			$modifyDateMin = $params['modifyDateMin'] instanceof DateTime
+				? $params['modifyDateMin']
+				: new DateTime($params['modifyDateMin']);
 			$query
 				->andWhere("c.modifyDate >= :modifyDateMin")
 				->setParameter('modifyDateMin', $modifyDateMin);
 		}
-		if (isset($criteria['modifyDateMax'])) {
-			$modifyDateMax = $criteria['modifyDateMax'] instanceof DateTime
-				? $criteria['modifyDateMax']
-				: new DateTime($criteria['modifyDateMax']);
+		if (isset($params['modifyDateMax'])) {
+			$modifyDateMax = $params['modifyDateMax'] instanceof DateTime
+				? $params['modifyDateMax']
+				: new DateTime($params['modifyDateMax']);
 			$query
 				->andWhere("c.modifyDate <= :modifyDateMax")
 				->setParameter('modifyDateMax', $modifyDateMax);
 		}
 
-		if (isset($criteria['createUsers'])) {
+		if (isset($params['createUsers'])) {
 			$query
 				->andWhere("c.createUser IN (:createUsers)")
-				->setParameter('createUsers', $criteria['createUsers']);
+				->setParameter('createUsers', $params['createUsers']);
 		}
-		if (isset($criteria['statuses'])) {
+		if (isset($params['statuses'])) {
 			$query
 				->andWhere("c.status IN (:statuses)")
-				->setParameter('statuses', $criteria['statuses']);
+				->setParameter('statuses', $params['statuses']);
 		}
 
-		$this->publishableQueryModifier($query, $criteria);
-		$this->searchableQueryModifier($query, $criteria);
+		$this->publishableQueryModifier($query, $params);
+		$this->searchableQueryModifier($query, $params);
 
 		return $query;
 	}

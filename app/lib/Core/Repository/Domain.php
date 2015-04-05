@@ -12,9 +12,9 @@ class Domain extends Repository
 {
 	protected $_alias = 'd';
 
-    public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
+    public function query(array $params = array())
     {
-        $query = parent::query($criteria, $sort, $limit, $offset);
+        $query = parent::query($params);
 
         $query
             ->addSelect("s", "n", "c")

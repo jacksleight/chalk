@@ -4,7 +4,7 @@
 $index = $this->em->wrap(new \Chalk\Core\Model\Index())
 	->graphFromArray($req->queryParams());
 $users = $this->em($info)
-	->paged($index->toArray(), null, $index->limit, $index->page);
+	->paged($index->toArray());
 ?>
 
 <div class="flex-col">

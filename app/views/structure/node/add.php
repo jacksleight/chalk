@@ -11,7 +11,7 @@
 		<div class="flex">
 			<?php
 			$contents = $this->em($info)
-				->paged($index->toArray(), ['modifyDate', 'DESC'], $index->limit, $index->page);
+				->paged($index->toArray());
 			?>
 			<?= $this->child("/{$info->local->path}/list", [
 				'contents'		=> $contents,

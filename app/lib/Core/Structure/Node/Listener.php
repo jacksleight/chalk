@@ -64,7 +64,10 @@ class Listener implements EventSubscriber
         foreach ($this->_structures as $structure) {
             $nodes = $em
                 ->getRepository('Chalk\Core\Structure\Node')
-                ->all(['structure' => $structure], 'sort');
+                ->all([
+                    'structure' => $structure,
+                    'sort'      => 'n.sort',
+                ]);
             $root = null;
             foreach ($nodes as $node) {
                 $node->children->setInitialized(true);

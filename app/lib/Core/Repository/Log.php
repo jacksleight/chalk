@@ -15,15 +15,15 @@ class Log extends Repository
 {
     protected $_alias = 'l';
 
-    public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
+    public function query(array $params = array())
     {
-        $query = parent::query($criteria, $sort, $limit, $offset);
+        $query = parent::query($params);
 
-        $criteria = $criteria + [
+        $params = $params + [
             'entity' => null,
         ];
         
-        if (isset($criteria['entity'])) {
+        if (isset($params['entity'])) {
             $query
                 ->andWhere("l.entity = :entity AND l.entityId = :entityId")
                 ->setParameter('entity', Chalk::info($entity)->name)

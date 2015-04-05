@@ -17,9 +17,9 @@ class Structure extends Repository
 
     protected $_alias = 's';
 
-    public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
+    public function query(array $params = array())
     {
-        $query = parent::query($criteria, $sort, $limit, $offset);
+        $query = parent::query($params);
 
         $query
             ->addSelect("n", "c")

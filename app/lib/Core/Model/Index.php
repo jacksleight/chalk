@@ -8,7 +8,7 @@ namespace Chalk\Core\Model;
 
 class Index extends \Toast\Entity
 {
-	protected $page = 1;
+	protected $page  = 1;
 	protected $limit = 50;
 	protected $sort;
 	protected $search;

@@ -17,12 +17,13 @@ class Node extends Repository
     use Publishable\Repository;
 
     protected $_alias = 'n';
+    protected $_sort  = 'n.left';
 
-    public function query(array $criteria = array(), $sort = null, $limit = null, $offset = null)
+    public function query(array $params = array())
     {
-        $query = parent::query($criteria, $sort, $limit, $offset);
+        $query = parent::query($params);
 
-        $criteria = $criteria + [
+        $params = $params + [
             'structure'  => null,
             'children'   => null,
             'parents'    => null,
@@ -37,70 +38,66 @@ class Node extends Repository
             ->leftJoin("n.content", "c");
 
         $depth = null;
-        if (isset($criteria['structure'])) {
+        if (isset($params['structure'])) {
             $query
                 ->andWhere('n.structure = :structure')
-                ->setParameter('structure', $criteria['structure']);
-        } else if (isset($criteria['children'])) {
+                ->setParameter('structure', $params['structure']);
+        } else if (isset($params['children'])) {
             $query
                 ->andWhere('n.structure = :structure AND n.left >= :left AND n.right <= :right')
-                ->setParameter('structure', $criteria['children']['structureId'])
-                ->setParameter('left', $criteria['children']['left'])
-                ->setParameter('right', $criteria['children']['right']);
-            if (isset($criteria['depth'])) {
+                ->setParameter('structure', $params['children']['structureId'])
+                ->setParameter('left', $params['children']['left'])
+                ->setParameter('right', $params['children']['right']);
+            if (isset($params['depth'])) {
                 $query
                     ->andWhere('n.depth <= :depth')
-                    ->setParameter('depth', $criteria['children']['depth'] + $criteria['depth']);
+                    ->setParameter('depth', $params['children']['depth'] + $params['depth']);
             }
-            if (!$criteria['isIncluded']) {
+            if (!$params['isIncluded']) {
                 $query
                     ->andWhere('n != :exclude')
-                    ->setParameter('exclude', $criteria['children']['id']);
+                    ->setParameter('exclude', $params['children']['id']);
             }
-        } else if (isset($criteria['parents'])) {
+        } else if (isset($params['parents'])) {
             $query
                 ->from($this->_entityName, 'nt')
                 ->andWhere('n.structure = :structure AND nt.left >= n.left AND nt.left <= n.right')
                 ->andWhere('nt = :node')
-                ->setParameter('structure', $criteria['parents']['structureId'])
-                ->setParameter('node', $criteria['parents']['id']);            
-            if (isset($criteria['depth'])) {
+                ->setParameter('structure', $params['parents']['structureId'])
+                ->setParameter('node', $params['parents']['id']);            
+            if (isset($params['depth'])) {
                 $query
                     ->andWhere('n.depth >= :depth')
-                    ->setParameter('depth', $criteria['parents']['depth'] - $criteria['depth']);
+                    ->setParameter('depth', $params['parents']['depth'] - $params['depth']);
             }
-            if (!$criteria['isIncluded']) {
+            if (!$params['isIncluded']) {
                 $query
                     ->andWhere('n != :exclude')
-                    ->setParameter('exclude', $criteria['parents']['id']);
+                    ->setParameter('exclude', $params['parents']['id']);
             }
-        } else if (isset($criteria['siblings'])) {
+        } else if (isset($params['siblings'])) {
             $query
                 ->andWhere('n.parent = :parent')
-                ->setParameter('parent', $criteria['siblings']['parentId']);
-            if (!$criteria['isIncluded']) {
+                ->setParameter('parent', $params['siblings']['parentId']);
+            if (!$params['isIncluded']) {
                 $query
                     ->andWhere('n != :exclude')
-                    ->setParameter('exclude', $criteria['siblings']['id']);
+                    ->setParameter('exclude', $params['siblings']['id']);
             }
         }
-        if ($criteria['isVisible']) {
+        if ($params['isVisible']) {
             $query
                 ->andWhere("n.isHidden = false");
         }
 
-        if (!isset($sort)) {
-            $query->orderBy("n.left");
-        }
-
-        $this->publishableQueryModifier($query, $criteria, 'c');
+        $this->publishableQueryModifier($query, $params, 'c');
 
         return $query;
     }
 
-    public function children($node, $isIncluded = false, $depth = null, array $criteria = array())
+    public function children($node, $isIncluded = false, $depth = null, array $params = array())
     {
-        return $this->query(array_merge($criteria, [
+        return $this->query(array_merge($params, [
                 'children'   => $node,
                 'isIncluded' => $isIncluded,
                 'depth'      => $depth,
@@ -109,20 +106,21 @@ class Node extends Repository
             ->getArrayResult();
     }
 
-    public function parents($node, $isIncluded = false, $depth = null, $isReversed = false, array $criteria = array())
+    public function parents($node, $isIncluded = false, $depth = null, $isReversed = false, array $params = array())
     {
-        return $this->query(array_merge($criteria, [
+        return $this->query(array_merge($params, [
                 'parents'    => $node,
                 'isIncluded' => $isIncluded,
                 'depth'      => $depth,
-            ]), ['left', $isReversed ? 'DESC' : 'ASC'])
+                'sort'       => ['left', $isReversed ? 'DESC' : 'ASC'],
+            ]))
             ->getQuery()
             ->getArrayResult();
     }
 
-    public function siblings($node, $isIncluded = false, array $criteria = array())
+    public function siblings($node, $isIncluded = false, array $params = array())
     {
-        return $this->query(array_merge($criteria, [
+        return $this->query(array_merge($params, [
                 'siblings'   => $node,
                 'isIncluded' => $isIncluded,
             ]))
@@ -130,9 +128,9 @@ class Node extends Repository
             ->getArrayResult();
     }
 
-    public function tree($node, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
+    public function tree($node, $isIncluded = false, $isMerged = false, $depth = null, array $params = array())
     {
-        $nodes = $this->query(array_merge($criteria, [
+        $nodes = $this->query(array_merge($params, [
                 'children'   => $node,
                 'isIncluded' => $isIncluded,
                 'depth'      => $depth,
@@ -182,9 +180,9 @@ class Node extends Repository
         }
     }
 
-    public function treeIterator(StructureNode $node, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
+    public function treeIterator(StructureNode $node, $isIncluded = false, $isMerged = false, $depth = null, array $params = array())
     {
-        $nodes = $this->tree($node, $isIncluded, $isMerged, $depth, $criteria);
+        $nodes = $this->tree($node, $isIncluded, $isMerged, $depth, $params);
         return new \RecursiveIteratorIterator(
             new \Chalk\Core\Structure\Node\Iterator($nodes),
             \RecursiveIteratorIterator::SELF_FIRST);
