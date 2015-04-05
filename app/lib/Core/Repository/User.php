@@ -35,12 +35,6 @@ class User extends Repository
                 ->setParameter('token', $criteria['token']);
         }
 
-        // This is required to prevent proxy objects being used when editing users
-        $query
-            ->addSelect('cu', 'mu')
-            ->leftJoin('u.createUser', 'cu')
-            ->leftJoin('u.modifyUser', 'mu');
-
         $this->searchableQueryModifier($query, $criteria);
 
         return $query;
