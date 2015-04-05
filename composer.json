@@ -10,11 +10,11 @@
     ],
     "require": {
         "php": ">=5.5.0",
-        "doctrine/orm": "2.4.*",
-        "swiftmailer/swiftmailer": "5.3.*",
-        "intervention/image": "2.0.*",
+        "doctrine/orm": "2.5.*",
+        "swiftmailer/swiftmailer": "5.4.*",
+        "intervention/image": "2.1.*",
         "gargron/fileupload": "1.0.*",
-        "nesbot/carbon": "1.13.*",
+        "nesbot/carbon": "1.*",
         "jacksleight/coast": "0.3.*",
         "jacksleight/coast-doctrine": "0.2.*",
         "wp-cli/php-cli-tools": "0.10.*"
