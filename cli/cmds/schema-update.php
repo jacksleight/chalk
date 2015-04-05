@@ -15,11 +15,6 @@ $schema	= new \Doctrine\ORM\Tools\SchemaTool($app->em);
 
 cli\line('Calculating changes..');
 $stmts = $schema->getUpdateSchemaSql($app->em->getMetadataFactory()->getAllMetadata(), false);
-$table = \Chalk\Chalk::info('Chalk\Core\Index')->name;
-$key = array_search("DROP INDEX content ON {$table}", $stmts);
-if ($key !== false) {
-	unset($stmts[$key]);
-}
 if (!count($stmts)) {
 	cli\line("Nothing to update");
 	exit;

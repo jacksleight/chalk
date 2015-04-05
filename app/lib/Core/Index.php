@@ -12,7 +12,7 @@ use Chalk\Chalk,
 
 /**
  * @Entity
- * @Table(options={"engine"="MyISAM"})
+ * @Table(options={"engine"="MyISAM"}, indexes={@Index(columns={"content"}, flags={"fulltext"})})
 */
 class Index extends \Toast\Entity
 {

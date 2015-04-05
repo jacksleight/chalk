@@ -17,10 +17,10 @@ try {
 
 	cli\line('Deleting existing files..');
 	if ($app->root->dir('data')->exists()) {
-		$app->root->dir('data')->remove(true);
+		@$app->root->dir('data')->remove(true);
 	}
 	if ($app->root->dir('public/data')->exists()) {
-		$app->root->dir('public/data')->remove(true);
+		@$app->root->dir('public/data')->remove(true);
 	}
 
 	cli\line('Dropping existing database..');
@@ -30,8 +30,6 @@ try {
 	
 	cli\line('Creating schema..');
 	$schema->createSchema($app->em->getMetadataFactory()->getAllMetadata());
-    $table = \Chalk\Chalk::info('Chalk\Core\Index')->name;
-	$app->em->getConnection()->exec("ALTER TABLE {$table} ADD FULLTEXT(content)");
 	
 	cli\line('Creating default user..');
 	$user = new \Chalk\Core\User();
