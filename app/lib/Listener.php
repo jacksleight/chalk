@@ -28,21 +28,6 @@ class Listener implements EventSubscriber
         $rootClass = $meta->rootEntityName;
         $info      = Chalk::info($class);
         
-        // @hack Due to NamingStrategy lacks support
-        if (is_subclass_of($class, 'Chalk\Core\Content')) {
-            $names = $meta->getAssociationNames();
-            foreach ($names as $name) {
-                $mapping = $meta->getAssociationMapping($name);
-                if (isset($mapping['inherited']) || !isset($mapping['joinColumns'])) {
-                    continue;
-                }
-                foreach ($mapping['joinColumns'] as $i => $joinColumn) {
-                    $mapping['joinColumns'][$i]['name'] = "{$info->name}_" . trim($joinColumn['name'], '`');
-                }
-                $meta->setAssociationOverride($name, $mapping);
-            }
-        }
- 
         $repositoryClasses = [
             $info->module->class . '\\Repository\\' . $info->local->class,
             $info->module->class . '\\Repository\\' . Chalk::info($rootClass)->local->class,

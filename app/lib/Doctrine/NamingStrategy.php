@@ -33,10 +33,9 @@ class NamingStrategy implements DoctrineNamingStrategy
     public function joinColumnName($property, $class = null)
     {
         $column = $this->propertyToColumnName($property) . ucfirst($this->referenceColumnName());
-        // @hack Not currenty supported due to Doctrine limitation
-        // if (is_subclass_of($class, 'Chalk\Core\Content')) {
-        //     $column = Chalk::info($class)->name . '_' . $column;
-        // }
+        if (is_subclass_of($class, 'Chalk\Core\Content')) {
+            $column = Chalk::info($class)->name . '_' . $column;
+        }
         return $column;
     }
 
