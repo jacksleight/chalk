@@ -25,6 +25,11 @@ class NamingStrategy implements DoctrineNamingStrategy
         return $column;
     }
 
+    public function embeddedFieldToColumnName($propertyName, $embeddedColumnName, $className = null, $embeddedClassName = null)
+    {
+        return $propertyName . '_' . $embeddedColumnName;
+    }
+
     public function referenceColumnName()
     {
         return 'id';
