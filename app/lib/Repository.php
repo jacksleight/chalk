@@ -151,7 +151,7 @@ class Repository extends EntityRepository
         $query = $query->getQuery();
 
         $opts = $opts + [
-            'hydrate' => self::HYDRATE_OBJECT,
+            'hydrate' => null,
             'cache'   => false,
         ];
 

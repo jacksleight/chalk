@@ -96,7 +96,7 @@ class Entity extends Model
 			if ($field['type'] == 'integer' || $field['type'] == 'smallint' || $field['type'] == 'bigint') {
 				$validator->integer();
 			} else if ($field['type'] == 'float' || $field['type'] == 'decimal') {
-				$validator->number();
+				$validator->float();
 			} else if ($field['type'] == 'boolean') {
 				$validator->boolean();
 			} else if ($field['type'] == 'array' || $field['type'] == 'simple_array' || $field['type'] == 'json_array') {
