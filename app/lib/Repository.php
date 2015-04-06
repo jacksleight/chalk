@@ -13,6 +13,13 @@ use Doctrine\ORM\EntityRepository,
 
 class Repository extends EntityRepository
 {
+    const SORT_RANDOM           = 'random';
+
+    const HYDRATE_OBJECT        = 'object';
+    const HYDRATE_ARRAY         = 'array';
+    const HYDRATE_SCALAR        = 'scalar';
+    const HYDRATE_SINGLE_SCALAR = 'singleScalar';
+
     protected $_alias = 'e';
     protected $_sort  = null;
     protected $_limit = 1;
@@ -24,60 +31,65 @@ class Repository extends EntityRepository
         return $reflection->newInstanceArgs($args);
     }
 
-    public function id($id, array $params = array())
+    public function id($id, array $params = array(), array $opts = array())
     {
-        return $this->query(array_merge($params, ['ids' => [$id]]))
-            ->getQuery()
-            ->getOneOrNullResult();
+        $query = $this->query(['ids' => [$id]] + $params);
+        
+        $query = $this->prepare($query, $opts);    
+        return $query->getOneOrNullResult();
     }
 
-    public function slug($slug, array $params = array())
+    public function slug($slug, array $params = array(), array $opts = array())
     {
-        return $this->query(array_merge($params, ['slugs' => [$slug]]))
-            ->getQuery()
-            ->getOneOrNullResult();
+        $query = $this->query(['slugs' => [$slug]] + $params);
+        
+        $query = $this->prepare($query, $opts);    
+        return $query->getOneOrNullResult();
     }
 
-    public function one(array $params = array())
+    public function one(array $params = array(), array $opts = array())
     {   
-        return $this->query($params)
-            ->getQuery()
-            ->getOneOrNullResult();
+        $query = $this->query($params);
+        
+        $query = $this->prepare($query, $opts);    
+        return $query->getOneOrNullResult();
     }
 
-    public function all(array $params = array())
+    public function all(array $params = array(), array $opts = array())
     {   
-        return $this->query($params)
-            ->getQuery()
-            ->getResult();
+        $query = $this->query($params);
+        
+        $query = $this->prepare($query, $opts);    
+        return $query->getResult();
     }
 
-    public function paged(array $params = array())
+    public function paged(array $params = array(), array $opts = array())
     {   
-        $params = $params + [
+        $query = $this->query($params + [
             'limit' => $this->_limit,
             'page'  => 1,
-        ];
-
-        $query = $this->query($params + [
-            'offset' => $params['limit'] * ($params['page'] - 1)
         ]);
         
+        $query = $this->prepare($query, $opts);
         return new Paginator($query);
     }
 
-    public function count(array $params = array())
+    public function count(array $params = array(), array $opts = array())
     {   
-        return $this->query($params)
-            ->select("COUNT({$this->_alias})")
-            ->getQuery()
-            ->getSingleScalarResult();
+        $query = $this->query($params)
+            ->select("COUNT({$this->_alias})");
+        
+        $query = $this->prepare($query, $opts);
+        return $query->getSingleScalarResult();
     }
 
     public function query(array $params = array())
     {
         $query = $this->createQueryBuilder($this->_alias);
 
+        if (isset($params['limit']) && isset($params['page'])) {
+            $params['offset'] = $params['limit'] * ($params['page'] - 1);
+        }
         $params = $params + [
             'ids'    => null,
             'slugs'  => null,
@@ -90,7 +102,7 @@ class Repository extends EntityRepository
             ? $params['sort']
             : $this->_sort;
         if (isset($sorts)) {
-            if ($sorts == 'random') {
+            if ($sorts == self::SORT_RANDOM) {
                 $query->orderBy('RAND()');
             } else {
                 if (!is_array($sorts)) {
@@ -131,6 +143,34 @@ class Repository extends EntityRepository
             $query->setFirstResult($params['offset']);
         }
         
+        return $query;
+    }
+
+    public function prepare(QueryBuilder $query, array $opts = array())
+    {
+        $query = $query->getQuery();
+
+        $opts = $opts + [
+            'hydrate' => self::HYDRATE_OBJECT,
+            'cache'   => false,
+        ];
+
+        if (isset($opts['hydrate'])) {
+            $modes = [
+                self::HYDRATE_OBJECT        => Query::HYDRATE_OBJECT,
+                self::HYDRATE_ARRAY         => Query::HYDRATE_ARRAY,
+                self::HYDRATE_SCALAR        => Query::HYDRATE_SCALAR,
+                self::HYDRATE_SINGLE_SCALAR => Query::HYDRATE_SINGLE_SCALAR,    
+            ];
+            $query->setHydrationMode($modes[$opts['hydrate']]);
+        }
+        if (isset($opts['cache'])) {
+            $query->useResultCache(true);
+            if (is_numeric($opts['cache'])) {
+                $query->setResultCacheLifetime($opts['cache']);
+            }
+        }
+
         return $query;
     }
 }

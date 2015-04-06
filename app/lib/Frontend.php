@@ -50,7 +50,7 @@ class Frontend extends App
 
         $domain = $this
             ->em('Chalk\Core\Domain')
-            ->one([], 'id');     
+            ->one(['sort' => 'd.id']);     
         $req->chalk->domain = $domain;
         $req->chalk->root   = $domain->structures->first()->root;
         $req->chalk->home   = $domain->structures->first()->root->content;
