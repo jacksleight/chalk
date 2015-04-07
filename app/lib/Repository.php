@@ -101,24 +101,22 @@ class Repository extends EntityRepository
             ? $params['sort']
             : $this->_sort;
         if (isset($sorts)) {
-            if ($sorts == self::SORT_RANDOM) {
-                $query->orderBy('RAND()');
-            } else {
                 if (!is_array($sorts)) {
-                    $sorts = [$sorts];
+                $sorts = [$sorts];
+            }
+            if (!is_array($sorts[0])) {
+                $sorts = [$sorts];
+            }
+            foreach ($sorts as $i => $sort) {
+                $method = $i
+                    ? 'addOrderBy'
+                    : 'orderBy';
+                if ($sort[0] == self::SORT_RANDOM) {
+                    $sort[0] = 'RAND()';
+                } else if (strpos($sort[0], '.') === false && strpos($sort[0], '(') === false) {
+                    $sort[0] = "{$this->alias()}.{$sort[0]}";
                 }
-                if (!is_array($sorts[0])) {
-                    $sorts = [$sorts];
-                }
-                foreach ($sorts as $i => $sort) {
-                    $method = $i
-                        ? 'addOrderBy'
-                        : 'orderBy';
-                    if (strpos($sort[0], '.') === false) {
-                        $sort[0] = "{$this->alias()}.{$sort[0]}";
-                    }
-                    $query->$method($sort[0], isset($sort[1]) ? $sort[1] : 'ASC');
-                }
+                $query->$method($sort[0], isset($sort[1]) ? $sort[1] : 'ASC');
             }
         }
         
