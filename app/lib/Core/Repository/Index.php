@@ -13,8 +13,6 @@ use Chalk\Chalk,
 
 class Index extends Repository
 {
-    protected $_alias = 'i';
-
     public function entities($entities)
     {
         $query = $this->query();

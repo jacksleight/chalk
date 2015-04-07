@@ -66,7 +66,7 @@ class Listener implements EventSubscriber
                 ->getRepository('Chalk\Core\Structure\Node')
                 ->all([
                     'structure' => $structure,
-                    'sort'      => 'n.sort',
+                    'sort'      => 'sort',
                 ]);
             $root = null;
             foreach ($nodes as $node) {

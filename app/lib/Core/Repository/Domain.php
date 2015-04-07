@@ -10,8 +10,6 @@ use Chalk\Repository;
 
 class Domain extends Repository
 {
-	protected $_alias = 'd';
-
     public function query(array $params = array())
     {
         $query = parent::query($params);

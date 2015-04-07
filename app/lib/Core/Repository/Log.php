@@ -13,8 +13,6 @@ use Chalk\Chalk,
 
 class Log extends Repository
 {
-    protected $_alias = 'l';
-
     public function query(array $params = array())
     {
         $query = parent::query($params);

@@ -18,7 +18,7 @@ trait Repository
     {
         $alias = isset($alias)
             ? $alias
-            : $this->_alias;
+            : $this->alias();
 
         $criteria = $criteria + [
             'isPublished'    => Chalk::isFrontend(),

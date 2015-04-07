@@ -20,8 +20,7 @@ class Repository extends EntityRepository
     const HYDRATE_SCALAR        = 'scalar';
     const HYDRATE_SINGLE_SCALAR = 'singleScalar';
 
-    protected $_alias = 'e';
-    protected $_sort  = null;
+    protected $_sort  = 'id';
     protected $_limit = 1;
 
     public function create()
@@ -77,7 +76,7 @@ class Repository extends EntityRepository
     public function count(array $params = array(), array $opts = array())
     {   
         $query = $this->query($params)
-            ->select("COUNT({$this->_alias})");
+            ->select("COUNT({$this->alias()})");
         
         $query = $this->prepare($query, $opts);
         return $query->getSingleScalarResult();
@@ -85,7 +84,7 @@ class Repository extends EntityRepository
 
     public function query(array $params = array())
     {
-        $query = $this->createQueryBuilder($this->_alias);
+        $query = $this->createQueryBuilder($this->alias());
 
         if (isset($params['limit']) && isset($params['page'])) {
             $params['offset'] = $params['limit'] * ($params['page'] - 1);
@@ -115,6 +114,9 @@ class Repository extends EntityRepository
                     $method = $i
                         ? 'addOrderBy'
                         : 'orderBy';
+                    if (strpos($sort[0], '.') === false) {
+                        $sort[0] = "{$this->alias()}.{$sort[0]}";
+                    }
                     $query->$method($sort[0], isset($sort[1]) ? $sort[1] : 'ASC');
                 }
             }
@@ -122,17 +124,17 @@ class Repository extends EntityRepository
         
         if (isset($params['ids'])) {
             $query
-                ->andWhere("{$this->_alias}.id IN (:ids)")
+                ->andWhere("{$this->alias()}.id IN (:ids)")
                 ->setParameter('ids', $params['ids']);
             if (!isset($params['sort'])) {
-                $query->orderBy("FIELD({$this->_alias}.id, :ids)");
+                $query->orderBy("FIELD({$this->alias()}.id, :ids)");
             }
         } else if (isset($params['slugs'])) {
             $query
-                ->andWhere("{$this->_alias}.slug IN (:slugs)")
+                ->andWhere("{$this->alias()}.slug IN (:slugs)")
                 ->setParameter('slugs', $params['slugs']);
             if (!isset($params['sort'])) {
-                $query->orderBy("FIELD({$this->_alias}.slug, :slugs)");
+                $query->orderBy("FIELD({$this->alias()}.slug, :slugs)");
             }
         }
         
@@ -148,6 +150,8 @@ class Repository extends EntityRepository
 
     public function prepare(QueryBuilder $query, array $opts = array())
     {
+$this->alias();
+
         $query = $query->getQuery();
 
         $opts = $opts + [
@@ -172,5 +176,12 @@ class Repository extends EntityRepository
         }
 
         return $query;
+    }
+
+    public function alias()
+    {
+        $class = get_class($this);
+        $class = substr($class, strrpos($class, '\\') + 1);
+        return strtolower($class[0]);
     }
 }

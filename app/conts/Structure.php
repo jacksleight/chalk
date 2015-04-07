@@ -17,7 +17,7 @@ class Structure extends Action
 	public function index(Request $req, Response $res)
 	{
 		if (!$req->structure) {
-			$domain = $this->em('Chalk\Core\Domain')->one(['sort' => 'd.id']);
+			$domain = $this->em('Chalk\Core\Domain')->one();
 			return $res->redirect($this->url([
 				'structure'	=> $domain->structures->first()->id,
 				'action'	=> 'edit',

@@ -15,8 +15,6 @@ class Structure extends Repository
 {
 	use Publishable\Repository;
 
-    protected $_alias = 's';
-
     public function query(array $params = array())
     {
         $query = parent::query($params);

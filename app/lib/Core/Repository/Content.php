@@ -17,8 +17,7 @@ class Content extends Repository
 	use Publishable\Repository, 
 		Searchable\Repository;
 
-	protected $_alias = 'c';
-	protected $_sort  = ['c.modifyDate', 'DESC'];
+	protected $_sort = ['modifyDate', 'DESC'];
 
 	public function query(array $params = array())
 	{

@@ -16,8 +16,7 @@ class Node extends Repository
 {
     use Publishable\Repository;
 
-    protected $_alias = 'n';
-    protected $_sort  = 'n.left';
+    protected $_sort = 'left';
 
     public function query(array $params = array())
     {

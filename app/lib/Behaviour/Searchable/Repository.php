@@ -17,7 +17,7 @@ trait Repository
     {
         $alias = isset($alias)
             ? $alias
-            : $this->_alias;
+            : $this->alias();
         $entity = isset($entity)
             ? $entity
             : $this->_class->name;

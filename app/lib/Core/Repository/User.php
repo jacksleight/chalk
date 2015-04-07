@@ -13,8 +13,6 @@ class User extends Repository
 {
     use Searchable\Repository;
 
-    protected $_alias = 'u';
-
     public function query(array $params = array())
     {
         $query = parent::query($params);
