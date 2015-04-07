@@ -8,11 +8,9 @@ if (cli\choose("Are you sure", 'yn', 'n') == 'n') {
 	exit;
 }
 
-cli\line('Clearing cache..');
-$app->cache->deleteAll();
+require_once $cmds['cache-clear']->name();
 
 $schema	= new \Doctrine\ORM\Tools\SchemaTool($app->em);
-$metadatas = $app->em->getMetadataFactory()->getAllMetadata();
 
 cli\line('Deleting existing files..');
 if ($app->config->fileBaseDir->exists()) {
@@ -25,13 +23,12 @@ if ($app->config->imageOutputDir->exists()) {
 cli\line('Dropping existing database..');
 $schema->dropDatabase();
 
-cli\line('Starting transaction..');
 $app->em->beginTransaction();
 
 try {
 
 	cli\line('Creating schema..');
-	$schema->createSchema($metadatas);
+	$schema->createSchema($app->em->getMetadataFactory()->getAllMetadata());
 	
 	cli\line('Creating default user..');
 	$user = new \Chalk\Core\User();
@@ -78,7 +75,6 @@ try {
 	$app->em->persist($domain);
 	$app->em->flush();
 
-	cli\line('Comitting to database..');
 	$app->em->commit();
 
 } catch (Exception $e) {
@@ -88,10 +84,4 @@ try {
 
 }
 
-cli\line('Deleting proxy classes..');
-if ($app->config->dataDir->dir('proxy')->exists()) {
-	$app->config->dataDir->dir('proxy')->remove(true);
-}
-
-cli\line('Generating proxy classes..');
-$app->em->getProxyFactory()->generateProxyClasses($metadatas, null);
+require_once $cmds['proxy-generate']->name();
