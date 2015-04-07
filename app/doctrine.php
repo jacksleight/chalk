@@ -29,8 +29,6 @@ $config->setAutoGenerateProxyClasses(true);
 $config->setQueryCacheImpl($app->cache);
 $config->setResultCacheImpl($app->cache);
 $config->setMetadataCacheImpl($app->cache);
-// $config->setSQLLogger(new \Chalk\ConsoleSQLLogger());
-// $config->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger());
 Autoloader::register($app->root->dir('data/proxies'), 'Chalk\Proxy');
 
 $evm = new EventManager();
