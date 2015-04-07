@@ -23,13 +23,13 @@ use Doctrine\ORM\Configuration,
 $config = new Configuration();
 $config->setNamingStrategy(new NamingStrategy());
 $config->setMetadataDriverImpl($config->newDefaultAnnotationDriver());
-$config->setProxyDir($app->root->dir('data/proxies'));
+$config->setProxyDir($app->config->dataDir->dir('proxy'));
 $config->setProxyNamespace('Chalk\Proxy');
-$config->setAutoGenerateProxyClasses(true);
+$config->setAutoGenerateProxyClasses(false);
 $config->setQueryCacheImpl($app->cache);
 $config->setResultCacheImpl($app->cache);
 $config->setMetadataCacheImpl($app->cache);
-Autoloader::register($app->root->dir('data/proxies'), 'Chalk\Proxy');
+Autoloader::register($app->config->dataDir->dir('proxy'), 'Chalk\Proxy');
 
 $evm = new EventManager();
 $evm->addEventSubscriber(new Listener());

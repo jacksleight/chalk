@@ -25,9 +25,10 @@ if (cli\choose("Execute these statements", 'yn', 'n') == 'n') {
 	exit;
 }
 
-try {
+cli\line('Starting transaction..');
+$app->em->beginTransaction();
 
-	$app->em->beginTransaction();
+try {
 
 	$bar = new cli\progress\Bar("Executing statements..", count($stmts), 1);
 	$conn = $app->em->getConnection();
@@ -46,3 +47,11 @@ try {
 	cli\err('Error: ' . $e->getMessage());
 
 }
+
+cli\line('Deleting proxy classes..');
+if ($app->config->dataDir->dir('proxy')->exists()) {
+	$app->config->dataDir->dir('proxy')->remove(true);
+}
+
+cli\line('Generating proxy classes..');
+$app->em->getProxyFactory()->generateProxyClasses($metadatas, null);
