@@ -28,12 +28,13 @@ class Listener implements EventSubscriber
         $rootClass = $meta->rootEntityName;
         $info      = Chalk::info($class);
         
-        $repositoryClasses = [
-            $info->module->class . '\\Repository\\' . $info->local->class,
-            $info->module->class . '\\Repository\\' . Chalk::info($rootClass)->local->class,
-            Chalk::info($rootClass)->module->class . '\\Repository\\' . Chalk::info($rootClass)->local->class,
-            'Chalk\\Repository',
-        ];        
+        $parentClasses = array_merge([$class], $meta->parentClasses);
+        $repositoryClasses = [];
+        foreach ($parentClasses as $parentClass) {
+            $parentInfo = Chalk::info($parentClass);
+            $repositoryClasses[] = $parentInfo->module->class . '\\Repository\\' . $parentInfo->local->class;
+        }
+        $repositoryClasses[] = 'Chalk\\Repository';
         foreach ($repositoryClasses as $repositoryClass) {
             if (class_exists($repositoryClass)) {
                 $meta->setCustomRepositoryClass($repositoryClass);
