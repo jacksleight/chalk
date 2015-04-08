@@ -31,7 +31,7 @@ class Entity extends Model
 		$class = get_called_class();
 		try {
 			$meta = \Toast\Wrapper\Collection::$em->getClassMetadata($class);
-		} catch(\Doctrine\ORM\Mapping\MappingException $e) {
+		} catch(\Exception $e) {
 			return [];
 		}
 
