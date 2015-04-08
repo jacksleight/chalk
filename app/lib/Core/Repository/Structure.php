@@ -27,8 +27,6 @@ class Structure extends Repository
             ->leftJoin("n.content", "c")
             ->andWhere("n.left = 0");
 
-        $this->publishableQueryModifier($query, $criteria, 'c');
-
         return $query;
     }
 }
