@@ -1,7 +1,7 @@
 <?php 
 $browser['entity'] = \Chalk\Chalk::info(isset($browser['entity'])
 	? $browser['entity']
-	: 'Chalk\Core\Content');
+	: $md['entity']);
 ?>
 <div class="input-content" data-entity="<?= $browser['entity']->name ?>">
 	<div class="input-content-controls">
