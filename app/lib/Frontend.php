@@ -61,6 +61,7 @@ class Frontend extends App
                 n.name, n.slug, n.path,
                 n.structureId,
                 n.parentId,
+                c.type AS contentType,
                 n.contentId
             FROM {$name}_structure_node AS n
                 INNER JOIN {$name}_structure AS s ON s.id = n.structureId
@@ -75,14 +76,14 @@ class Frontend extends App
             $map[$node['id']] = $node;
             $this->router->all($node['contentId'], $node['path'], [
                 'node'    => $node,
-                'content' => $node['contentId'],
+                'content' => [$node['contentType'], $node['contentId']],
             ]);
         }
 
         $path = rtrim($req->path(), '/');        
         if (preg_match('/^_c([\d]+)$/', $path, $match)) {
             $node    = null;
-            $content = $match[1];
+            $content = ['Chalk\Core\Content', $match[1]];
         } else {
             $route = $this->router->match($req->method(), $path);
             if (!$route) {
@@ -98,7 +99,7 @@ class Frontend extends App
         while (isset($nodes[0]['parentId'])) {
             array_unshift($nodes, $map[$nodes[0]['parentId']]);
         }
-        $content = $this->em('Chalk\Core\Content')->id($content);
+        $content = $this->em($content[0])->id($content[1]);
         $req->chalk->node    = $node;
         $req->chalk->nodes   = $nodes;
         $req->chalk->content = $content;

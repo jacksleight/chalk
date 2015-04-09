@@ -6,6 +6,14 @@
 	* Ability to create pages within structure
 	* Improved design
 
+### 0.3.7
+
+* **Improvements**
+	* Speed optimisations
+	* Tweaked file name handling
+* **Fixes**
+	* Bug fixes
+
 ### 0.3.6
 
 * **Improvements**
