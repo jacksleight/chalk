@@ -129,7 +129,7 @@ class Node extends \Toast\Entity
 
     public function name($name = null)
     {
-        if (isset($name)) {
+        if (func_num_args() > 0) {
             $this->name = $name;
             $this->slug($this->name);
             return $this;
@@ -139,8 +139,10 @@ class Node extends \Toast\Entity
 
     public function slug($slug = null)
     {
-        if (isset($slug)) {
-            $this->slug = strtolower(\Coast\str_slugify(iconv('utf-8', 'ascii//translit//ignore', $slug)));
+        if (func_num_args() > 0) {
+            $this->slug = isset($slug)
+                ? strtolower(\Coast\str_slugify(iconv('utf-8', 'ascii//translit//ignore', $slug)))
+                : $slug;
             return $this;
         }
         return $this->slug;
