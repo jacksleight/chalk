@@ -4,6 +4,7 @@
 
 * **Improvements**
 	* Speed optimisations
+	* Tweaked file name handling
 * **Fixes**
 	* Bug fixes
 
