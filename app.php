@@ -6,6 +6,7 @@
 
 use Chalk\Chalk;
 use Chalk\Core\File;
+use Chalk\Core\Module as Core;
 use Chalk\Frontend;
 use Chalk\Frontend\UrlResolver as FrontendUrlResolver;
 use Chalk\Notifier;
@@ -54,8 +55,8 @@ $chalk
         'router'  => $chalk->router,
     ]))
     ->param('image', new Image([
-        'baseDir'           => $config->fileBaseDir,
-        'outputDir'         => $config->imageOutputDir,
+        'baseDir'           => $config->dataPublicDir->dir('file'),
+        'outputDir'         => $config->dataPublicDir->dir('image'),
         'urlResolver'       => $chalk->url,
         'outputUrlResolver' => $frontend->url,
         'transforms'        => $chalk->import($chalk->file('app/transforms.php'))
@@ -73,6 +74,8 @@ $chalk
             ->status(500)
             ->html($this->view->render('error/index', ['req' => $req, 'res' => $res, 'e' => $e]));
     });
+$chalk
+    ->module('core', new Core());
     
 $frontend
     ->param('cache', $chalk->cache)
@@ -82,7 +85,7 @@ $chalk
     ->executable($chalk->image)
     ->executable($chalk->router);
 
-File::baseDir($config->fileBaseDir);
+File::baseDir($config->dataPublicDir->dir('file'));
 File::mimeTypes($chalk->import($chalk->file('app/mime-types.php')));
 
 $chalk->import($chalk->file('app/routes.php'));

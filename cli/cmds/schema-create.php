@@ -13,11 +13,11 @@ require_once $cmds['cache-clear']->name();
 $schema	= new \Doctrine\ORM\Tools\SchemaTool($app->em);
 
 cli\line('Deleting existing files..');
-if ($app->config->fileBaseDir->exists()) {
-	$app->config->fileBaseDir->remove(true);
+if ($app->config->dataDir->exists()) {
+	$app->config->dataDir->remove(true);
 }
-if ($app->config->imageOutputDir->exists()) {
-	$app->config->imageOutputDir->remove(true);
+if ($app->config->dataPublicDir->exists()) {
+	$app->config->dataPublicDir->remove(true);
 }
 
 cli\line('Dropping existing database..');
