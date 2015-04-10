@@ -66,6 +66,7 @@ class Frontend extends App
             FROM {$name}_structure_node AS n
                 INNER JOIN {$name}_structure AS s ON s.id = n.structureId
                 INNER JOIN {$name}_domain__core_structure AS d ON d.core_structureId = s.id
+                INNER JOIN {$name}_content AS c ON c.id = n.contentId
             WHERE d.core_domainId = {$domain->id}
         ")->fetchAll();
         $map = [];

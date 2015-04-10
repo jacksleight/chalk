@@ -13,40 +13,28 @@ use Chalk\Chalk,
 
 trait Repository
 {
-    public function searchableQueryModifier(QueryBuilder $query, array $criteria = array(), $alias = null, $entity = null)
+    public function searchableQueryModifier(QueryBuilder $query, array $params = array())
     {
         $alias = isset($alias)
             ? $alias
             : $this->alias();
-        $entity = isset($entity)
-            ? $entity
-            : $this->_class->name;
 
-        $criteria = $criteria + [
-            'search'         => null,
-            'searchEntities' => null,
+        $params = $params + [
+            'search' => null,
         ];
 
-        if (isset($criteria['search'])) {
-            $entities = isset($criteria['searchEntities'])
-                ? isset($criteria['searchEntities'])
-                : [$entity];
-            $classes = [];
-            foreach ($entities as $entity) {
-                $info = Chalk::info($entity);
-                $classes = array_merge(
-                    $classes,
-                    [$info->class],
-                    $this->_em->getClassMetadata($info->class)->subClasses
-                );
-            }
+        if (isset($params['search'])) {
+            $info = Chalk::info($this->_class->name);
+            $classes = array_merge(
+                [$info->class],
+                $this->_em->getClassMetadata($info->class)->subClasses
+            );
             $results = $this->_em->getRepository('Chalk\Core\Index')
-                ->search($criteria['search'], $classes);
+                ->search($params['search'], $classes);
             $ids = \Coast\array_column($results, 'entityId');
             $query
-                ->addSelect("FIELD({$alias}.id, :ids) AS HIDDEN sort")
                 ->andWhere("{$alias}.id IN (:ids)")
-                ->orderBy("sort")
+                ->orderBy("FIELD({$alias}.id, :ids)")
                 ->setParameter('ids', $ids);
         }
     }

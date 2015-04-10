@@ -50,7 +50,7 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
      * @Column(type="string")
      */
 	protected $slug;
-		
+			
 	/**
      * @Column(type="string", nullable=true)
      */
