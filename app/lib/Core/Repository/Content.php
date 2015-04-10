@@ -25,6 +25,7 @@ class Content extends Repository
 
         $params = $params + [
             'types'         => null,
+            'subtypes'      => null,
             'createDateMin' => null,
             'createDateMax' => null,
             'modifyDateMin' => null,
@@ -32,7 +33,7 @@ class Content extends Repository
             'createUsers'   => null,
             'statuses'      => null,
         ];
-                
+             
         if (isset($params['types'])) {
             $types = $this->_parseTypes($params['types']);
             $lines = [];
@@ -46,7 +47,12 @@ class Content extends Repository
                 $lines[] = "({$line})";
                 $i++;
             }
-            $query->andWhere(implode(' OR ', $lines));           
+            $query->andWhere(implode(' OR ', $lines));
+        }   
+        if (isset($params['subtypes'])) {
+            $query
+                ->andWhere("c.subtype IN (:subtypes)")
+                ->setParameter('subtypes', $params['subtypes']);
         }
 
         if (isset($params['createDateMin'])) {
