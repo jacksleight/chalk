@@ -101,17 +101,16 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
         return $this->slug;
     }
 
-	public function subname($context = false)
-	{
-		$subname = '';
-		if (!$context) {
-			$subname .= $this->typeLabel;
-			if (isset($this->subtype)) {
-				$subname .= ' – ';
-			}
+	public function clarifier($context = false, $parts = [])
+	{	
+		$type = $this->typeLabel;
+		if (!$parts && isset($this->subtype)) {
+			array_unshift($parts, $this->subtypeLabel);
 		}
-		$subname .= $this->subtypeLabel;
-		return $subname;
+		if (!$context) {
+			array_unshift($parts, $this->typeLabel);
+		}
+		return implode(' – ', $parts);
 	}
 
 	public function type()

@@ -38,19 +38,23 @@ class Node extends Action
             $node->parent  = $parent;
             $node->content = $content->master;
             $this->em->persist($node);
-            $this->em->flush();
         }
+        $this->em->flush();
 
         $this->notify("Content was added successfully", 'positive');
         if (isset($req->node)) {
-            return $res->redirect($this->url(array(
-                'action' => 'edit',
-            )));
+            return $res->json([
+                'redirect' => $this->url([
+                    'action' => 'edit',
+                ])->toString(),
+            ]);
         } else {
-            return $res->redirect($this->url(array(
-                'action' => 'index',
-                'node'   => null,
-            ), 'structure'));
+            return $res->json([
+                'redirect' => $this->url([
+                    'action' => 'index',
+                    'node'   => null,
+                ], 'structure')->toString(),
+            ]);
         }
     }
 

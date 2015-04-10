@@ -1,33 +1,24 @@
 <?php if (!$req->isAjax()) { ?>
 	<?php $this->parent('/layout/html') ?>
-	<?php $this->block('main') ?>
+	<?php $this->block('body') ?>
 <?php } ?>
 
 <form action="<?= $this->url->route() ?>" class="flex-col" data-modal-size="fullscreen">
-	<div class="flex flex-row <?= $info->class == 'Chalk\Core\File' ? 'uploadable' : null ?>">
-		<div class="sidebar">
-			
-		</div>
-		<div class="flex">
-			<?php
-			$contents = $this->em($info)
-				->paged($index->toArray());
-			?>
-			<?= $this->child("/{$info->local->path}/list", [
-				'contents'		=> $contents,
-				'isNewAllowed'	=> false,
-				'isEditAllowed'	=> false,
-				'headerPrefix'	=> 'Add',
-			], $info->module->class) ?>
-		</div>
-	</div>
+	<?= $this->render("/content/browser", [
+		'index'	=> $index,
+	]) ?>
 	<div class="footer">
 		<ul class="toolbar toolbar-right">
 			<li>
-				<button class="btn btn-positive icon-ok" formmethod="post">
+				<button class="btn btn-positive icon-add" formmethod="post">
 					Add <?= $info->singular ?>
 				</button>
 			</li>
+		</ul>
+		<ul class="toolbar">
+			<li><span class="btn modal-close icon-cancel">
+				Cancel
+			</span></li>
 		</ul>
 	</div>
 <form>

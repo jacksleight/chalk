@@ -31,7 +31,7 @@
 		</ul>
 		<ul class="toolbar">
 			<li><span class="btn modal-close icon-cancel">
-				Close
+				Cancel
 			</span></li>
 		</ul>
 	</div>

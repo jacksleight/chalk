@@ -40,9 +40,9 @@ class Url extends Content
 		return strtoupper($this->subtype);
 	}
 
-	public function subname($context = false)
+	public function clarifier($context = false, $parts = [])
 	{
-		return $this->url->toString();
+		return parent::clarifier($context, [$this->url->toString()]);
 	}
 	
 	public function searchableContent()

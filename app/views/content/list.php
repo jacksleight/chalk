@@ -148,7 +148,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
                                 ]) ?>"><? } ?><?= $content->name ?><? if ($isEditAllowed) { ?></a>
                             <? } ?>
                             <br>
-                            <small><?= $content->subname($info->class != 'Chalk\Core\Content') ?></small>
+                            <small><?= $content->clarifier($info->class != 'Chalk\Core\Content') ?></small>
                         </th>
                         <td class="col-right col-contract">
                             <?= $content->modifyDate->diffForHumans() ?>

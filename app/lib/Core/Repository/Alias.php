@@ -15,8 +15,8 @@ class Alias extends Content
         $query = parent::query($criteria, $sort, $limit, $offset);
 
         $query
-            ->addSelect("cc")
-            ->leftJoin("c.content", "cc");
+            ->addSelect("c")
+            ->leftJoin("a.content", "c");
 
         return $query;
     }

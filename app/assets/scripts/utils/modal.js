@@ -24,8 +24,13 @@
 			xhr = $.ajax(url, options)
 				.done(function(res) {
 					if (typeof res == 'object') {
-						close(res);
-						return;
+						if (res.redirect) {
+							window.location.href = res.redirect;
+							return;
+						} else {
+							close(res);
+							return;
+						}
 					}
 					loader.addClass('hideable-hidden');
 					content.removeClass('hideable-hidden');
@@ -69,6 +74,8 @@
 			if (target.is('a')) {
 				ev.preventDefault();
 				request(target.attr('href'));
+			} else if (target.attr('formmethod')) {
+				target.closest('form').attr('method', target.attr('formmethod'));
 			} else if (target.hasClass('modal-close')) {
 				ev.preventDefault();
 				close();

@@ -12,5 +12,5 @@ if (!isset($content)) {
 		) ?>">
 	<?php } ?>
 	<strong><?= $content->name ?></strong><br>
-	<small><?= $content->subname() ?></small>
+	<small><?= $content->clarifier ?></small>
 </div>

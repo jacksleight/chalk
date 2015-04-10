@@ -122,10 +122,10 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
 
     var menu = [ 
         {
-            text: 'Internal Link',
+            text: 'Page Link',
             onclick: openLinkModal
         }, {
-            text: 'External Link',
+            text: 'Other Link',
             onclick: function() { tinyMCE.activeEditor.buttons.link.onclick(); }
         }, {
             text: 'Horizontal Rule',
