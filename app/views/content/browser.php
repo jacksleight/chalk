@@ -1,5 +1,6 @@
 <?php
-$info = \Chalk\Chalk::info($index->type ?: 'Chalk\Core\Page');
+$type = $type ?: 'core_page';
+$info = \Chalk\Chalk::info($type);
 ?>
 <div class="flex flex-row <?= $info->class == 'Chalk\Core\File' ? 'uploadable' : null ?>">
 	<div class="sidebar">
@@ -29,5 +30,6 @@ $info = \Chalk\Chalk::info($index->type ?: 'Chalk\Core\Page');
 			'info'			=> $info,
 			'index'			=> $index,
 		], $info->module->class) ?>
+		<input type="hidden" name="type" value="<?= $type ?>">
 	</div>
 </div>

@@ -56,6 +56,27 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
         )) ?>
     </li>
     <?= $this->content('filters-top') ?>
+    <?php
+    $subtypes = $this->em($info)->subtypes();
+    $values   = [];
+    $class    = $info->class;
+    foreach ($subtypes as $subtype) {
+        $values[$subtype['subtype']] = $class::staticSubtypeLabel($subtype['subtype']);
+    }  
+    asort($values);
+    ?>
+    <? if ($subtypes) { ?>
+        <li class="flex-2">
+            <?= $this->render('/element/form-input', array(
+                'type'          => 'dropdown_multiple',
+                'entity'        => $index,
+                'name'          => 'subtypes',
+                'icon'          => '',
+                'placeholder'   => 'Type',
+                'values'        => $values,
+            )) ?>
+        </li>
+    <? } ?>
     <li class="flex-2">
         <?= $this->render('/element/form-input', array(
             'type'          => 'dropdown_single',

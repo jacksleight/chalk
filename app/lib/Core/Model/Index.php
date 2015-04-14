@@ -23,7 +23,8 @@ class Index extends \Toast\Entity
 		\Chalk\Chalk::STATUS_DRAFT,
 		\Chalk\Chalk::STATUS_PUBLISHED,
 	];
-	protected $contents   = [];
+	protected $subtypes = [];
+	protected $contents = [];
 	protected $contentIds;
 	protected $entity;
 	protected $action;
@@ -49,6 +50,10 @@ class Index extends \Toast\Entity
 				),
 				'sort' => array(
 					'type'		=> 'string',
+					'nullable'	=> true,
+				),
+				'subtypes' => array(
+					'type'		=> 'array',
 					'nullable'	=> true,
 				),
 				'contentIds' => array(

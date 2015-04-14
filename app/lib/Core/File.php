@@ -142,10 +142,10 @@ class File extends Content
 		return self::$_baseDir->dir("{$this->hash[0]}/{$this->hash[1]}", true);
 	}
 
-	public function subtypeLabel()
-	{	
-		return isset(self::$_mimeTypes[$this->subtype])
-			? self::$_mimeTypes[$this->subtype][0]
+	public static function staticSubtypeLabel($subtype)
+	{
+		return isset(self::$_mimeTypes[$subtype])
+			? self::$_mimeTypes[$subtype][0]
 			: strtoupper($this->file->extName()) . ' File';
 	}
 

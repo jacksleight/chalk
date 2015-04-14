@@ -38,18 +38,18 @@ class Content extends Repository
             $types = $this->_parseTypes($params['types']);
             $lines = [];
             $i = 0;
-            foreach ($types as $class => $subtype) {
+            foreach ($types as $class => $subtypes) {
                 $line = "c INSTANCE OF {$class}";
-                if (isset($subtype)) {
+                if (isset($subtypes) && count($subtypes)) {
                     $line .= " AND c.subtype IN (:types_{$i}_subtypes)";
-                    $query->setParameter("types_{$i}_subtypes", $subtype);
+                    $query->setParameter("types_{$i}_subtypes", $subtypes);
                 }
                 $lines[] = "({$line})";
                 $i++;
             }
             $query->andWhere(implode(' OR ', $lines));
         }   
-        if (isset($params['subtypes'])) {
+        if (isset($params['subtypes']) && count($params['subtypes'])) {
             $query
                 ->andWhere("c.subtype IN (:subtypes)")
                 ->setParameter('subtypes', $params['subtypes']);
@@ -94,7 +94,7 @@ class Content extends Repository
                 ->andWhere("c.createUser IN (:createUsers)")
                 ->setParameter('createUsers', $params['createUsers']);
         }
-        if (isset($params['statuses'])) {
+        if (isset($params['statuses']) && count($params['statuses'])) {
             $query
                 ->andWhere("c.status IN (:statuses)")
                 ->setParameter('statuses', $params['statuses']);
@@ -106,6 +106,19 @@ class Content extends Repository
         return $query;
     }
 
+    public function subtypes(array $params = array(), array $opts = array())
+    {
+        $query = $this->query($params);
+
+        $query
+            ->select("{$this->alias()}.subtype AS subtype, COUNT({$this->alias()}) AS total")
+            ->groupBy("{$this->alias()}.subtype")
+            ->andWhere("{$this->alias()}.subtype IS NOT NULL");
+
+        $query = $this->prepare($query, $opts);
+        return $query->getArrayResult();
+    }
+
     protected function _parseTypes($types)
     {
         if (!is_array($types)) {
@@ -115,7 +128,7 @@ class Content extends Repository
         foreach ($types as $type => $subtypes) {
             if (is_numeric($type)) {
                 $type = $subtypes;
-                $subtypes = null;
+                $subtypes = [];
             } else if (!is_array($subtypes)) {
                 $subtypes = [$subtypes];
             }
