@@ -18,7 +18,6 @@
 			'contents'		=> $contents,
 			'isNewAllowed'	=> false,
 			'isEditAllowed'	=> false,
-			'headerPrefix'	=> 'Browse',
 		], $info->module->class) ?>
 	</div>
 	<div class="footer">

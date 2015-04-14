@@ -34,8 +34,8 @@ class Content extends Repository
             'statuses'      => null,
         ];
              
-        if (isset($params['types'])) {
-            $types = $this->_parseTypes($params['types']);
+        if (isset($params['types']) && count($params['types'])) {
+            $types = $this->parseTypes($params['types']);
             $lines = [];
             $i = 0;
             foreach ($types as $class => $subtypes) {
@@ -119,7 +119,7 @@ class Content extends Repository
         return $query->getArrayResult();
     }
 
-    protected function _parseTypes($types)
+    public function parseTypes($types)
     {
         if (!is_array($types)) {
             $types = [$types];

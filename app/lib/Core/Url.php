@@ -35,9 +35,9 @@ class Url extends Content
 		return $this->url;
 	}
 
-	public function subtypeLabel()
+	public static function staticSubtypeLabel($subtype)
 	{	
-		return strtoupper($this->subtype);
+		return strtoupper($subtype);
 	}
 
 	public function clarifier($context = false, $parts = [])

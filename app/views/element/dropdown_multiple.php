@@ -12,10 +12,6 @@
 				<?php foreach ($values as $v => $l) { ?>
 					<li>
 						<input
-							type="hidden"
-							name="<?= "{$name}[{$this->escape($v)}]" ?>"
-							value="0">
-						<input
 							type="checkbox"
 							name="<?= "{$name}[{$this->escape($v)}]" ?>"
 							id="<?= "{$id}[{$this->escape($v)}]" ?>"

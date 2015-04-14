@@ -37,9 +37,6 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
 <? } if ($this->block('header')) { ?>
 
 <h1>
-    <? if (isset($headerPrefix)) { ?>
-        <?= $headerPrefix ?>
-    <? } ?>
     <?= $info->plural ?>
 </h1>
     
@@ -57,12 +54,12 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
     </li>
     <?= $this->content('filters-top') ?>
     <?php
-    $subtypes = $this->em($info)->subtypes();
+    $subtypes = $this->em($info)->subtypes(['types' => $restricts]);
     $values   = [];
     $class    = $info->class;
     foreach ($subtypes as $subtype) {
         $values[$subtype['subtype']] = $class::staticSubtypeLabel($subtype['subtype']);
-    }  
+    }
     asort($values);
     ?>
     <? if ($subtypes) { ?>
