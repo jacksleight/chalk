@@ -301,7 +301,7 @@ small {
 		}
 	}
 	&.badge-out {
-		background-color: transparent !important;
+		background-color: white !important;
 	}
 	&.badge-figure {
 		border-radius: 1000px;
@@ -983,7 +983,7 @@ input[type=button],
 		}
 	}
 	&.btn-out {
-		background-color: transparent !important;
+		background-color: white !important;
 	}
 	small {
 		color: transparentize(white, 0.35);

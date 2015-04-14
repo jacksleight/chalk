@@ -20,10 +20,10 @@ $title  = (isset($title)
         var Chalk = <?= json_encode([
             'baseUrl'       => (string) $this->url->baseUrl(),
             'rootBaseUrl'   => (string) $this->frontend->url->baseUrl(),
-            'browseUrl'     => (string) $this->url([
-                'action' => 'browse',
-                'entity' => '{entity}',
-            ], 'content', true),
+            'selectUrl'     => (string) $this->url([
+                'controller' => 'index',
+                'action'     => 'select',
+            ], 'index', true),
             'widgetUrl'     => (string) $this->url([
                 'action' => 'edit',
                 'entity' => '{entity}',

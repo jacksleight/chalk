@@ -981,7 +981,7 @@ small {
   color: #FCB941;
 }
 .badge.badge-out {
-  background-color: transparent !important;
+  background-color: white !important;
 }
 .badge.badge-figure {
   border-radius: 1000px;
@@ -2501,7 +2501,7 @@ input[type=reset].btn-out,
 input[type=submit].btn-out,
 input[type=button].btn-out,
 .btn.btn-out {
-  background-color: transparent !important;
+  background-color: white !important;
 }
 input[type=reset] small,
 input[type=submit] small,

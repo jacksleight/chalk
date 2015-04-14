@@ -14,10 +14,9 @@ use Chalk\Core,
 */
 class Alias extends Content
 {
-	public static $_chalkInfo = [
-		'singular'	=> 'Alias',
-		'plural'	=> 'Aliases',
-	];
+	public static $chalkSingular = 'Alias';
+	public static $chalkPlural   = 'Aliases';
+	public static $chalkIsNode   = true;
 
     /**
      * @ManyToOne(targetEntity="\Chalk\Core\Content")

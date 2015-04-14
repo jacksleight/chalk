@@ -98,7 +98,7 @@ class Node extends Action
         foreach ($node->children as $child) {
             $node->children->removeElement($child);
             $child->parent  = $parent;
-            $child->sort    = \Chalk\Core\Structure\Node::SORT_MAX;
+            $child->sort    = \Chalk\Core\Structure\Node::VALUE_MAX;
         }
         $this->em->remove($node);
         $this->em->flush();

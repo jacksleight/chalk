@@ -62,25 +62,6 @@ class Content extends Basic
 		)));
 	}
 
-	public function browse(Request $req, Response $res)
-	{
-		$wrap = $this->em->wrap($index = new \Chalk\Core\Model\Index());
-		$wrap->graphFromArray($req->params());
-		$req->view->index = $wrap;
-
-		if (count($index->contents)) {
-			$contents = [];
-			foreach ($index->contents as $content) {
-				$contents[] = [
-					'id'	=> $content->master->id,
-					'name'	=> $content->master->name,
-					'card'	=> $this->view->render('content/card', ['content' => $content])->toString(),
-				];
-			}
-			return $res->json(['contents' => $contents]);
-		}
-	}
-
 	public function edit(Request $req, Response $res)
 	{
 		$content = isset($req->route['params']['content'])

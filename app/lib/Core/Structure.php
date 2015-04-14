@@ -19,10 +19,8 @@ use Chalk\Core\Structure\Node,
 */
 class Structure extends \Toast\Entity implements Loggable, Publishable, Trackable, Versionable
 {
-    public static $_chalkInfo = [
-        'singular'  => 'Structure',
-        'plural'    => 'Structures',
-    ];
+	public static $chalkSingular = 'Structure';
+	public static $chalkPlural   = 'Structures';
     
     use Publishable\Entity,
     	Trackable\Entity,

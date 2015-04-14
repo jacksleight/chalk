@@ -17,10 +17,8 @@ use Coast\Validator;
 */
 class User extends \Toast\Entity implements Trackable, Searchable
 {
-	public static $_chalkInfo = [
-		'singular'	=> 'User',
-		'plural'	=> 'Users',
-	];
+	public static $chalkSingular = 'User';
+	public static $chalkPlural   = 'Users';
 	
     use Trackable\Entity;
 

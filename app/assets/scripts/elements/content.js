@@ -1,13 +1,13 @@
 Chalk.component('.input-content', function(i, el) {
 	
-	var select	= $(el).find('.input-content-select');
-	var remove	= $(el).find('.input-content-remove');
-	var holder	= $(el).find('.input-content-holder');
-	var input	= $(el).find('input[type=hidden]');
-	var entity	= $(el).attr('data-entity');
+	var select		= $(el).find('.input-content-select');
+	var remove		= $(el).find('.input-content-remove');
+	var holder		= $(el).find('.input-content-holder');
+	var input		= $(el).find('input[type=hidden]');
+	var params    	= $(el).attr('data-params');
 	
 	select.click(function(ev) {
-		Chalk.modal(Chalk.browseUrl.replace('{entity}', entity), {}, function(res) {
+		Chalk.modal(Chalk.selectUrl + '?' + params, {}, function(res) {
 			if (res.contents) {
 				input.val(res.contents[0].id);
 				holder.html(res.contents[0].card);

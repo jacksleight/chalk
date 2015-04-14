@@ -12,14 +12,13 @@ use Chalk\Core,
 
 /**
  * @Entity
- * @HasLifecycleCallbacks
 */
 class Page extends Content
 {
-	public static $_chalkInfo = [
-		'singular'	=> 'Page',
-		'plural'	=> 'Pages',
-	];
+	public static $chalkSingular = 'Page';
+	public static $chalkPlural   = 'Pages';
+	public static $chalkIsNode   = true;
+	public static $chalkIsUrl    = true;
 
     /**
      * @Column(type="string", nullable=true)

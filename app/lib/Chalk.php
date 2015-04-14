@@ -101,7 +101,7 @@ class Chalk extends App
             return strtolower(\Coast\str_camel_split($value, '-'));
         }, $entity);
         
-        return self::$_classes[$class] = \Coast\array_object_smart(\Coast\array_merge_smart([
+        return self::$_classes[$class] = \Coast\array_object_smart([
             'class' => $class,
             'name'  => implode('_', $entityLcFirst),
             'path'  => implode('/', $entityLcSplit),
@@ -118,9 +118,11 @@ class Chalk extends App
                 'path'  => implode('/', $localLcSplit),
                 'var'   => lcfirst(implode('', $local)),
             ],
-            'singular'  => implode('_', $entityLcFirst),
-            'plural'    => implode('_', $entityLcFirst),
-        ], class_exists($class) && isset($class::$_chalkInfo) ? $class::$_chalkInfo : []));
+            'singular'  => class_exists($class) && isset($class::$chalkSingular) ? $class::$chalkSingular : implode('_', $entityLcFirst),
+            'plural'    => class_exists($class) && isset($class::$chalkPlural)   ? $class::$chalkPlural   : implode('_', $entityLcFirst),
+            'isNode'    => class_exists($class) && isset($class::$chalkIsNode)   ? $class::$chalkIsNode   : false,
+            'isUrl'     => class_exists($class) && isset($class::$chalkIsUrl)    ? $class::$chalkIsUrl    : false,
+        ]);
     }
 
     public function module($name, Module $module = null)

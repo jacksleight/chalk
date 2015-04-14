@@ -15,10 +15,10 @@ use Chalk\Core,
 */
 class Url extends Content
 {
-	public static $_chalkInfo = [
-		'singular'	=> 'URL',
-		'plural'	=> 'URLs',
-	];
+	public static $chalkSingular = 'URL';
+	public static $chalkPlural   = 'URLs';
+	public static $chalkIsNode   = true;
+	public static $chalkIsUrl    = true;
 
     /**
      * @Column(type="coast_url")

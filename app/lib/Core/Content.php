@@ -23,10 +23,8 @@ use Chalk\Chalk,
 */
 abstract class Content extends \Toast\Entity implements Loggable, Publishable, Searchable, Trackable, Versionable
 {
-	public static $_chalkInfo = [
-		'singular'	=> 'Content',
-		'plural'	=> 'Content',
-	];
+	public static $chalkSingular = 'Content';
+	public static $chalkPlural   = 'Content';
 	
     use Publishable\Entity,
     	Trackable\Entity,

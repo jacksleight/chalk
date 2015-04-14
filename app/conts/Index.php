@@ -66,6 +66,28 @@ class Index extends Action
 		]);
 	}
 
+	public function select(Request $req, Response $res)
+	{
+		$wrap = $this->em->wrap($index = new \Chalk\Core\Model\Index());
+		$wrap->graphFromArray($req->queryParams());
+		$req->view->index = $wrap;
+
+        if (!$req->isPost()) {
+            return;
+        }
+
+		$wrap->graphFromArray($req->bodyParams());
+		$contents = [];
+		foreach ($index->contents as $content) {
+			$contents[] = [
+				'id'	=> $content->master->id,
+				'name'	=> $content->master->name,
+				'card'	=> $this->view->render('content/card', ['content' => $content])->toString(),
+			];
+		}
+		return $res->json(['contents' => $contents]);
+	}
+
 	public function forbidden(Request $req, Response $res)
 	{
         return $res

@@ -14,8 +14,8 @@ use Chalk\Core,
 */
 class Blank extends Content
 {
-	public static $_chalkInfo = [
-		'singular'	=> 'Blank',
-		'plural'	=> 'Blanks',
-	];
+	public static $chalkSingular = 'Placeholder';
+	public static $chalkPlural   = 'Placeholders';
+	public static $chalkIsNode   = true;
+	public static $chalkIsUrl    = true;
 }

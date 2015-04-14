@@ -24,7 +24,7 @@ $isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 					<span style="height: 0%;"></span>
 				</div>
 			<?php } else { ?>
-				<?php if ($content instanceof \Chalk\Core\File && $content->file->exists() && $content->isGdCompatible()) { ?>
+				<?php if ($content instanceof \Chalk\Core\File && $content->file->exists() && $content->isImage()) { ?>
 					<img src="<?= $this->image(
 						$content->file,
 						'resize',

@@ -15,10 +15,10 @@ use Chalk\Core,
  */
 class File extends Content
 {
-	public static $_chalkInfo = [
-		'singular'	=> 'File',
-		'plural'	=> 'Files',
-	];
+	public static $chalkSingular = 'File';
+	public static $chalkPlural   = 'Files';
+	public static $chalkIsNode   = true;
+	public static $chalkIsUrl    = true;
 
 	protected static $_baseDir;
 	protected static $_mimeTypes = [];
@@ -149,17 +149,14 @@ class File extends Content
 			: strtoupper($this->file->extName()) . ' File';
 	}
 
-	public function isGdCompatible()
+	public function isImage()
 	{
-		$info = array_filter(gd_info(), function($a) {
-			return $a === true;
-		});
-		$mimeTypes = array_intersect_key([
-			'GIF Create Support'	=> 'image/gif',
-			'JPEG Support'			=> 'image/jpeg',
-			'PNG Support'			=> 'image/png',
-			'WebP Support'			=> 'image/webp',
-		], $info);
+		$mimeTypes = [
+			'image/gif',
+			'image/jpeg',
+			'image/png',
+			'image/webp',
+		];
 		return in_array($this->subtype, $mimeTypes);
 	}
 

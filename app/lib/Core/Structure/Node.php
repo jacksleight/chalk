@@ -17,12 +17,10 @@ use Chalk\Core\Content,
 */
 class Node extends \Toast\Entity
 {
-    public static $_chalkInfo = [
-        'singular'  => 'Node',
-        'plural'    => 'Nodes',
-    ];
+    public static $chalkSingular = 'Node';
+    public static $chalkPlural   = 'Nodes';
 
-    const SORT_MAX = 99999;
+    const VALUE_MAX = 2147483647;
 
     /**
      * @Id
@@ -62,22 +60,22 @@ class Node extends \Toast\Entity
     /**
      * @Column(type="integer")
      */
-    protected $sort = 2147483647;
+    protected $sort = self::VALUE_MAX;
 
     /**
      * @Column(name="`left`", type="integer")
      */
-    protected $left = 2147483647;
+    protected $left = self::VALUE_MAX;
 
     /**
      * @Column(name="`right`", type="integer")
      */
-    protected $right = 2147483647;
+    protected $right = self::VALUE_MAX;
 
     /**
      * @Column(type="integer")
      */
-    protected $depth = 2147483647;
+    protected $depth = self::VALUE_MAX;
 
     /**
      * @ManyToOne(targetEntity="\Chalk\Core\Content", inversedBy="nodes", cascade={"persist"})

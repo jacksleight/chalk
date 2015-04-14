@@ -12,12 +12,16 @@ class ListWidgets extends Event
 {
 	protected $_widgets = [];
 
-    public function widget($value = null)
+    public function widget($widget, $remove = false)
     {
-        $this->_widgets[] = $value;
+        if ($remove) {
+            unset($this->_widgets[array_search($widget, $this->_widgets)]);
+        } else {
+            $this->_widgets[] = $widget;
+        }
         return $this;
     }
-
+ 
     public function widgets(array $widgets = null)
     {
         if (isset($widgets)) {

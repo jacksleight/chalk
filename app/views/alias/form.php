@@ -6,5 +6,6 @@
 	'entity'	=> $content,
 	'name'		=> 'content',
 	'label'		=> 'Content',
+	'restricts'	=> 'url',
 	'disabled'	=> $content->isArchived(),
 ), 'Chalk\Core') ?>

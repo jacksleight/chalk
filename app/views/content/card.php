@@ -4,7 +4,7 @@ if (!isset($content)) {
 }
 ?>
 <div class="card">	
-	<?php if ($content instanceof \Chalk\Core\File && $content->file->exists() && $content->isGdCompatible()) { ?>
+	<?php if ($content instanceof \Chalk\Core\File && $content->file->exists() && $content->isImage()) { ?>
 		<img src="<?= $this->image(
 			$content->file,
 			'resize',

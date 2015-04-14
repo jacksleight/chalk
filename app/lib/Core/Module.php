@@ -29,7 +29,9 @@ class Module extends ChalkModule
 			->frontendViewDir()
         	->register('Event\Navigation')
         	->register('Event\ListWidgets')
-        	->listen($this->nspace('Event\Navigation'), [$this, 'navigation']);
+        	->register('Event\ListContents')
+        	->listen($this->nspace('Event\Navigation'), [$this, 'navigation'])
+        	->listen($this->nspace('Event\ListContents'), [$this, 'contents']);
 
 		$this->_chalk->frontend->handlers([
 			'Chalk\Core\Page' => function(Request $req, Response $res) {
@@ -119,5 +121,20 @@ class Module extends ChalkModule
 				'label'	=> 'Structures',
 				'url'	=> [['controller' => 'setting_structure'], 'setting'],
 			], $this->nspace('Setting'));
+	}
+
+	public function contents(Event $event)
+	{		
+		$classes = [
+    		'Page',
+    		'File',
+    		'Block',
+    		'Alias',
+    		'Url',
+    		'Blank',
+		];
+		foreach ($classes as $class) {
+			$event->content($this->nspace($class));
+		}
 	}
 }

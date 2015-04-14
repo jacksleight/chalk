@@ -16,10 +16,8 @@ use Chalk\Core,
 */
 class Block extends Content
 {
-	public static $_chalkInfo = [
-		'singular'	=> 'Block',
-		'plural'	=> 'Blocks',
-	];
+	public static $chalkSingular = 'Block';
+	public static $chalkPlural   = 'Blocks';
 
     /**
      * @Column(type="text", nullable=true)

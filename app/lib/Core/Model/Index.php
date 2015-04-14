@@ -10,6 +10,7 @@ class Index extends \Toast\Entity
 {
 	protected $page  = 1;
 	protected $limit = 50;
+	protected $restricts;
 	protected $type;
 	protected $sort;
 	protected $search;
@@ -41,6 +42,9 @@ class Index extends \Toast\Entity
 						100	=> '100',
 						200	=> '200',
 					],
+				),
+				'restricts' => array(
+					'type'		=> 'string',
 				),
 				'type' => array(
 					'type'		=> 'string',

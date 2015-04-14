@@ -54,7 +54,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
     </li>
     <?= $this->content('filters-top') ?>
     <?php
-    $subtypes = $this->em($info)->subtypes(['types' => $restricts]);
+    $subtypes = $this->em($info)->subtypes(['types' => isset($restricts) ? $restricts : null]);
     $values   = [];
     $class    = $info->class;
     foreach ($subtypes as $subtype) {
@@ -62,7 +62,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
     }
     asort($values);
     ?>
-    <? if ($subtypes) { ?>
+    <? if (count($subtypes)) { ?>
         <li class="flex-2">
             <?= $this->render('/element/form-input', array(
                 'type'          => 'dropdown_multiple',
@@ -206,16 +206,18 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
             'null'   => 'All',
         )) ?>
     </li>
-    <li>
-        &nbsp;
-        Selected&nbsp;
-        <?= $this->render('/element/form-input', array(
-            'type'   => 'select',
-            'entity' => $index,
-            'name'   => 'action',
-            'null'   => 'Action',
-        )) ?>
-    </li>
+    <? if ($isEditAllowed) { ?>
+        <li>
+            &nbsp;
+            Selected&nbsp;
+            <?= $this->render('/element/form-input', array(
+                'type'   => 'select',
+                'entity' => $index,
+                'name'   => 'action',
+                'null'   => 'Action',
+            )) ?>
+        </li>
+    <? } ?>
 </ul>
 <?= $this->render('/element/form-input', [
     'type'      => 'paginator',
