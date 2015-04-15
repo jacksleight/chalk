@@ -148,8 +148,6 @@ class Repository extends EntityRepository
 
     public function prepare(QueryBuilder $query, array $opts = array())
     {
-$this->alias();
-
         $query = $query->getQuery();
 
         $opts = $opts + [
@@ -166,7 +164,7 @@ $this->alias();
             ];
             $query->setHydrationMode($modes[$opts['hydrate']]);
         }
-        if (isset($opts['cache'])) {
+        if ($opts['cache']) {
             $query->useResultCache(true);
             if (is_numeric($opts['cache'])) {
                 $query->setResultCacheLifetime($opts['cache']);

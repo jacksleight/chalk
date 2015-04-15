@@ -47,10 +47,14 @@ class Frontend extends App
 
         $domain = $this
             ->em('Chalk\Core\Domain')
-            ->one();     
-        $req->chalk->domain = $domain;
-        $req->chalk->root   = $domain->structures->first()->root;
-        $req->chalk->home   = $domain->structures->first()->root->content;
+            ->one();   
+        $req->chalk->domain     = $domain;
+        $req->chalk->root       = $domain->structures->first()->root;
+        $req->chalk->home       = $domain->structures->first()->root->content;
+        $req->chalk->structures = [];
+        foreach ($domain->structures as $structure) {
+            $req->chalk->structures[$structure->id] = $structure;
+        }
 
         $conn  = $this->em->getConnection();
         $nodes = $conn->query("
