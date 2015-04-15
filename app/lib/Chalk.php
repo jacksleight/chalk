@@ -25,8 +25,8 @@ class Chalk extends App
 
     protected static $_isFrontend = true;
 
-    protected static $_nspaces = [];
     protected static $_classes = [];
+    protected static $_map     = [];
 
     protected $_events  = [];
     protected $_modules = [];
@@ -59,12 +59,12 @@ class Chalk extends App
             $class = get_class($class);
         } else if (strpos($class, '\\') === false) {
             $parts = preg_split('/[_\/]/', $class);
-            if (!isset(self::$_nspaces[$parts[0]])) {
+            if (!isset(self::$_map[$parts[0]])) {
                 throw new Exception("Class '{$class}' does not belong to a registered module");
             }
-            $nspace = self::$_nspaces[array_shift($parts)];
-            $parts = array_map('ucfirst', $parts);
-            $class = "{$nspace}\\" . implode('\\', $parts);
+            $nspace = self::$_map[array_shift($parts)];
+            $parts  = array_map('ucfirst', $parts);
+            $class  = "{$nspace}\\" . implode('\\', $parts);
         }
         if (false !== $pos = strpos($class, '\\__CG__\\')) {
             $class = substr($class, $pos + 8);
@@ -74,7 +74,7 @@ class Chalk extends App
         }
 
         $module = null;
-        foreach (self::$_nspaces as $alias => $nspace) {
+        foreach (self::$_map as $alias => $nspace) {
             if (preg_match("/^". preg_quote($nspace) ."(?:\\\|$)/", $class, $match)) {
                 $module = [$alias, $nspace];
                 break;
@@ -130,11 +130,12 @@ class Chalk extends App
     {
         if (func_num_args() > 1) {
             $this->_modules[$name] = $module;
-            self::$_nspaces[$name] = $module->nspace();
+            self::$_map[$name] = $module->nspace();
             $module->chalk($this, $name);
             $module->init();
             return $this;
         }
+        $name = self::info($name)->module->name;
         return isset($this->_modules[$name])
             ? $this->_modules[$name]
             : null;
