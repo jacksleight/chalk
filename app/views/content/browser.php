@@ -38,7 +38,7 @@ if (!isset($index->type)) {
 }
 $info = \Chalk\Chalk::info($index->type);
 ?>
-<div class="flex flex-row <?= $info->class == 'Chalk\Core\File' ? 'uploadable' : null ?>">
+<div class="flex flex-row">
 	<? if (count($restricts) > 1) { ?>	
 		<div class="sidebar">
 			<div class="body">

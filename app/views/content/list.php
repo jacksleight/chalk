@@ -233,7 +233,10 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
 </div>
 
 <? if ($isUploadable) { ?>
-    <input class="uploadable-input" type="file" name="files[]" data-url="<?= $this->url(['action' => 'upload']) ?>" multiple>
+    <input class="uploadable-input" type="file" name="files[]" data-url="<?= $this->url([
+        'entity' => $info->name,
+        'action' => 'upload'
+    ], 'content', true) ?>" multiple>
     <script type="x-tmpl-mustache" class="uploadable-template">
         <?= $this->child('/content/thumb', ['template' => true]) ?>
     </script>
