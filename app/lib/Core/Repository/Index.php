@@ -62,7 +62,7 @@ class Index extends Repository
             FROM {$table} AS i
             WHERE MATCH(i.content) AGAINST ({$query} IN BOOLEAN MODE)
                 {$where}
-            ORDER BY score DESC
+            ORDER BY score DESC, i.entityId DESC
         ")->fetchAll();
     }
 }
