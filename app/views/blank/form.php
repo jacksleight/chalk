@@ -1,1 +1,1 @@
-<?php $this->extend('/content/form', [], 'Chalk\Core') ?>
+<?php $this->extend('/content/form', [], 'core') ?>

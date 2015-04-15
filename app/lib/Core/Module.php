@@ -27,11 +27,11 @@ class Module extends ChalkModule
         	->controllerNspace('Controller')
         	->controllerAll('All')
 			->frontendViewDir()
-        	->register('Event\Navigation')
-        	->register('Event\ListWidgets')
-        	->register('Event\ListContents')
-        	->listen($this->nspace('Event\Navigation'), [$this, 'navigation'])
-        	->listen($this->nspace('Event\ListContents'), [$this, 'contents']);
+        	->register('navigation', 'Event\Navigation')
+        	->register('listWidgets', 'Event\ListWidgets')
+        	->register('listContents', 'Event\ListContents')
+        	->listen($this->name('navigation'), [$this, 'navigation'])
+        	->listen($this->name('listContents'), [$this, 'contents']);
 
 		$this->_chalk->frontend->handlers([
 			'Chalk\Core\Page' => function(Request $req, Response $res) {
@@ -41,7 +41,7 @@ class Module extends ChalkModule
 					'res'	=> $res,
 					'node'	=> $req->node,
 					'page'	=> $req->chalk->content
-		        ], 'Chalk\Core')));
+		        ], 'core')));
 			},
 			'Chalk\Core\File' => function(Request $req, Response $res) {
 		        $file = $req->chalk->content->file();

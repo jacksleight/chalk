@@ -13,7 +13,7 @@
 		<h1>
 			<?= $info->singular ?>
 		</h1>
-		<?= $this->child("{$info->local->path}", [], $info->module->class) ?>
+		<?= $this->child("{$info->local->path}", [], $info->module->name) ?>
 	</div>
 	<fieldset class="footer">
 		<ul class="toolbar">

@@ -1,4 +1,4 @@
-<?php $this->extend('/content/form', [], 'Chalk\Core') ?>
+<?php $this->extend('/content/form', [], 'core') ?>
 <?php $this->block('general-bottom') ?>
 
 <?= $this->render('/element/form-item', array(
@@ -8,7 +8,7 @@
 	'label'		=> 'Summary',
 	'class'		=> 'monospaced editor-content',
 	'rows'		=> 7,
-), 'Chalk\Core') ?>
+), 'core') ?>
 <?= $this->content('general-bottom') ?>
 <?php $this->start() ?>
 	<?= $this->render('/element/form-item', array(
@@ -18,13 +18,13 @@
 		'label'		=> 'Layout',
 		'null'		=> 'Default',
 		'values'	=> $this->app->layouts(),
-	), 'Chalk\Core') ?>
+	), 'core') ?>
 	<?= $this->content('general-advanced-bottom') ?>
 <?php $html = $this->end() ?>
 <?= $this->render('/element/expandable', [
 	'content'		=> $html,
 	'buttonLabel'	=> 'Advanced',
-], 'Chalk\Core') ?>
+], 'core') ?>
 
 <?php $this->block('general-after') ?>
 
@@ -41,7 +41,7 @@
 			'class'		=> 'monospaced editor-content',
 			'rows'		=> 20,
 			'stackable'	=> false,
-		), 'Chalk\Core') ?>
+		), 'core') ?>
 	</div>
 </fieldset>
 <?= $this->content('general-after') ?>

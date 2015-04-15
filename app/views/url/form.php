@@ -1,4 +1,4 @@
-<?php $this->extend('/content/form', [], 'Chalk\Core') ?>
+<?php $this->extend('/content/form', [], 'core') ?>
 <?php $this->block('general-bottom') ?>
 
 <?= $this->render('/element/form-item', array(
@@ -6,4 +6,4 @@
 	'name'			=> 'url',
 	'label'			=> 'URL',
 	'placeholder'	=> 'http://example.com/',
-), 'Chalk\Core') ?>
+), 'core') ?>

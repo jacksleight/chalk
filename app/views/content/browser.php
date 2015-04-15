@@ -1,5 +1,5 @@
 <?php
-$classes = $this->app->fire('Chalk\Core\Event\ListContents')->contents();
+$classes = $this->app->fire('core_listContents')->contents();
 $restricts = isset($restricts)
 	? $restricts
 	: $index->restricts;
@@ -66,16 +66,16 @@ $info = \Chalk\Chalk::info($index->type);
 			'info'			=> $info,
 			'index'			=> $index,
 			'restricts'		=> $restricts,
-		], $info->module->class) ?>
+		], $info->module->name) ?>
         <?= $this->render('/element/form-input', array(
             'type'          => 'input_hidden',
             'entity'        => $index,
             'name'          => 'type',
-        )) ?>
+        ), 'core') ?>
         <?= $this->render('/element/form-input', array(
             'type'          => 'input_hidden_array',
             'entity'        => $index,
             'name'          => 'restricts',
-        )) ?>
+        ), 'core') ?>
 	</div>
 </div>

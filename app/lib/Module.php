@@ -17,6 +17,7 @@ abstract class Module
 {
     protected $_baseDir;
     protected $_chalk;
+    protected $_name;
 
     public function __construct($baseDir = '../')
     {
@@ -39,13 +40,21 @@ abstract class Module
         return $this->_baseDir;
     }
 
-    public function chalk(Chalk $chalk = null)
+    public function chalk(Chalk $chalk = null, $name = null)
     {
         if (isset($chalk)) {
             $this->_chalk = $chalk;
+            $this->_name  = $name;
             return $this;
         }
         return $this->_chalk;
+    }
+
+    public function name($name = null)
+    {
+        return isset($name)
+            ? $this->_name . '_' . $name
+            : $this->_name;
     }
 
     public function nspace($nspace = null)
@@ -84,7 +93,7 @@ abstract class Module
     public function viewDir($path)
     {
         $this->_chalk->view->dir(
-            $this->nspace(),
+            $this->name(),
             $this->dir($path)
         );
         return $this;
@@ -93,7 +102,7 @@ abstract class Module
     public function controllerNspace($class)
     {
         $this->_chalk->controller->nspace(
-            $this->nspace(),
+            $this->name(),
             $this->nspace($class)
         );
         return $this;
@@ -102,7 +111,7 @@ abstract class Module
     public function controllerAll($class)
     {
         $this->_chalk->controller->all(
-            [$class, $this->nspace()]
+            [$class, $this->name()]
         );
         return $this;
     }
@@ -110,24 +119,25 @@ abstract class Module
     public function frontendViewDir()
     {
         $this->_chalk->frontend->view->dir(
-            $this->nspace(),
+            $this->name(),
             $this->_chalk->config->viewDir->dir(Chalk::info($this->nspace())->name)
         );
         return $this;
     }
 
-    public function register($class)
+    public function register($name, $class = null)
     {
         $this->_chalk->register(
-            $this->nspace($class)
+            $this->name($name),
+            isset($class) ? $this->nspace($class) : 'Chalk\Event'
         );
         return $this;
     }
 
-    public function listen($class, callable $listener)
+    public function listen($name, callable $listener)
     {
         $this->_chalk->listen(
-            $class,
+            $name,
             $listener instanceof Closure ? $listener->bindTo($this) : $listener
         );
         return $this;

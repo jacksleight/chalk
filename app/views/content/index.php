@@ -8,5 +8,5 @@
 	?>
 	<?= $this->child("/{$info->local->path}/list", [
 		'contents' => $contents,
-	], $info->module->class) ?>
+	], $info->module->name) ?>
 </form>

@@ -8,22 +8,22 @@
 			'entity'	=> $publishable,
 			'name'		=> 'status',
 			'label'		=> 'Status',
-		), 'Chalk\Core') ?>
+		), 'core') ?>
 		<?php $this->start() ?>
 			<?= $this->render('/element/form-item', array(
 				'entity'	=> $publishable,
 				'name'		=> 'publishDate',
 				'label'		=> 'Publish Date',
-			), 'Chalk\Core') ?>
+			), 'core') ?>
 			<?= $this->render('/element/form-item', array(
 				'entity'	=> $publishable,
 				'name'		=> 'archiveDate',
 				'label'		=> 'Archive Date',
-			), 'Chalk\Core') ?>
+			), 'core') ?>
 		<?php $html = $this->end() ?>
 		<?= $this->render('/element/expandable', [
 			'content'		=> $html,
 			'buttonLabel'	=> 'Advanced',
-		], 'Chalk\Core') ?>
+		], 'core') ?>
 	</div>
 </fieldset>

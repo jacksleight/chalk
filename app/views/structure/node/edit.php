@@ -18,6 +18,6 @@ $info	    = \Chalk\Chalk::info($content->getObject());
 			'structure'	=> $structure,
 			'content'	=> $content,
 			'info'	    => $info,
-		], $info->module->class) ?>
+		], $info->module->name) ?>
 	</form>
 <?php } ?>

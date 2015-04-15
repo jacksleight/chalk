@@ -83,7 +83,7 @@
 			'label'		=> 'Name',
 			'autofocus'	=> true,
 			'disabled'	=> $content->isProtected(),
-		), 'Chalk\Core') ?>
+		), 'core') ?>
 		<?= $this->content('general-bottom') ?>
 	</div>
 </fieldset>
@@ -92,7 +92,7 @@
 <? } $this->block() ?>
 
 <? if (!$content->isProtected()) { ?>
-	<?= $this->child('/behaviour/publishable/form', ['publishable' => $content], 'Chalk\Core') ?>
+	<?= $this->child('/behaviour/publishable/form', ['publishable' => $content], 'core') ?>
 <?php } ?>
 <?php if (isset($node)) { ?>
 	<fieldset class="form-block">
@@ -169,7 +169,7 @@
 			<?= $this->render('/element/expandable', [
 				'content'		=> $html,
 				'buttonLabel'	=> 'Information',
-			], 'Chalk\Core') ?>
+			], 'core') ?>
 			
 		</div>
 	</fieldset>

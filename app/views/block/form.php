@@ -1,4 +1,4 @@
-<?php $this->extend('/content/form', [], 'Chalk\Core') ?>
+<?php $this->extend('/content/form', [], 'core') ?>
 <?php $this->block('general-bottom') ?>
 
 <?= $this->render('/element/form-item', array(
@@ -8,4 +8,4 @@
 	'label'		=> 'Content',
 	'class'		=> 'monospaced editor-content',
 	'rows'		=> 20,
-), 'Chalk\Core') ?>
+), 'core') ?>

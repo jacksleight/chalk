@@ -9,7 +9,8 @@ namespace Chalk;
 use Coast\App,
     Chalk\Core,
     Closure,
-    Chalk\Module;
+    Chalk\Module,
+    Chalk\Event;
 
 class Chalk extends App
 {
@@ -130,7 +131,7 @@ class Chalk extends App
         if (func_num_args() > 1) {
             $this->_modules[$name] = $module;
             self::$_nspaces[$name] = $module->nspace();
-            $module->chalk($this);
+            $module->chalk($this, $name);
             $module->init();
             return $this;
         }
@@ -189,35 +190,40 @@ class Chalk extends App
         return $layouts;
     }
 
-    public function register($class)
+    public function register($name, $class = 'Chalk\Event')
     {
-        if (!is_subclass_of($class, 'Chalk\Event')) {
+        if (!is_a($class, 'Chalk\Event', true)) {
             throw new \Exception("Class '{$class}' is not a subclass of Chalk\Event");
         }
-        $this->_events[$class] = [];
+        $this->_events[$name] = [
+            'class'     => $class,
+            'listeners' => [],
+        ];
         return $this;
     }
 
-    public function listen($class, callable $listener)
+    public function listen($name, callable $listener)
     {
-        if (!isset($this->_events[$class])) {
+        if (!isset($this->_events[$name])) {
             return $this;
         }
-        $this->_events[$class][] = $listener;
+        $this->_events[$name]['listeners'][] = $listener;
         return $this;
     }
 
-    public function fire($class)
+    public function fire($name)
     {
         $args = func_get_args();
         array_shift($args);
 
-        if (!isset($this->_events[$class])) {
+        if (!isset($this->_events[$name])) {
             return $this;
         }
+
+        $class = $this->_events[$name]['class'];
         $event = new $class();
         array_unshift($args, $event);
-        foreach ($this->_events[$class] as $listener) {
+        foreach ($this->_events[$name]['listeners'] as $listener) {
             call_user_func_array($listener, $args);
         }
         return $event;
