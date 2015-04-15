@@ -72,5 +72,10 @@ $info = \Chalk\Chalk::info($index->type);
             'entity'        => $index,
             'name'          => 'type',
         )) ?>
+        <?= $this->render('/element/form-input', array(
+            'type'          => 'input_hidden_array',
+            'entity'        => $index,
+            'name'          => 'restricts',
+        )) ?>
 	</div>
 </div>
