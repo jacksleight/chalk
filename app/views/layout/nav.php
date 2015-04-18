@@ -12,7 +12,9 @@
 		<li>
 			<a href="<?= $this->url() . $path ?>" class="item <?= implode(' ', $class) ?>">
 				<?php if (isset($item['label'])) { ?>
-					<span class="<?= isset($item['icon']) ? "icon icon-block icon-{$item['icon']}" : null ?>"><?= $item['label'] ?></span>
+					<span class="<?= isset($item['icon']) ? "icon-block icon-{$item['icon']}" : null ?>">
+						<span class="icon-block-text"><?= $item['label'] ?></span>
+					</span>
 				<?php } ?>
 				<?php if (isset($item['badge'])) { ?>
 					<span class="badge badge-figure badge-pending"><?= $item['badge'] ?></span>

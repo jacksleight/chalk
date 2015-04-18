@@ -17,11 +17,11 @@ $pages = isset($limit) && $count
 			'page' => 1,
 		)) ?>" class="btn btn-light btn-icon icon-first <?= $value == 1 ? 'disabled' : null ?>"><span>First</span></a>
 	</li>
-	<li>
+	<!-- <li>
 		<a href="<?= $this->url([]) . $this->url->query(array(
 			'page' => max($value - 1, 1),
 		)) ?>" class="btn btn-light btn-icon icon-prev <?= $value == 1 ? 'disabled' : null ?>" rel="prev"><span>Previous</span></a>
-	</li>
+	</li> -->
 	<? for ($i = $min1; $i <= $max1; $i++) { ?>
 		<li>
 			<a href="<?= $this->url([]) . $this->url->query(array(
@@ -29,11 +29,11 @@ $pages = isset($limit) && $count
 			)) ?>" class="btn btn-light <?= $i == $value ? 'active' : '' ?>"><?= $i ?></a>
 		</li>
 	<? } ?>
-	<li>
+	<!-- <li>
 		<a href="<?= $this->url([]) . $this->url->query(array(
 			'page' => min($value + 1, $pages),
 		)) ?>" class="btn btn-light btn-icon icon-next <?= $value == $pages ? 'disabled' : null ?>" rel="next"><span>Next</span></a>
-	</li>
+	</li> -->
 	<li>
 		<a href="<?= $this->url([]) . $this->url->query(array(
 			'page' => $pages,

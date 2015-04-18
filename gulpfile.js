@@ -41,7 +41,6 @@ gulp.task('default', function() {
 		'clean',
 		'copy-default',
 		'copy-bower',
-		'images-icons',
 		'images-general',
 		'scripts-default',
 		'scripts-editor-content',
@@ -83,7 +82,7 @@ gulp.task('copy-default', function() {
 });
 gulp.task('copy-bower', function() {
 	return gulp.src([
-			bowerPath + '/tinymce/skins/lightgray' + '/**/*.*',
+			bowerPath + '/tinymce/skins/lightgray' + '/**/*.*'
 		], {base: bowerPath})
 		.pipe(gulp.dest(targetPath + '/vendor'));
 });
@@ -93,8 +92,7 @@ gulp.task('copy-bower', function() {
 gulp.task('images', function() {
 	return sequence(
 		'images-clean',
-		'images-general',
-		'images-icons'
+		'images-general'
 	);
 });
 gulp.task('images-clean', function() {
@@ -105,19 +103,6 @@ gulp.task('images-general', function() {
 	return gulp.src(sourcePath + imagesDir + '/*.svg')
 		.pipe(svgmin([{removeViewBox: true}]))
 		.pipe(gulp.dest(targetPath + imagesDir));
-});
-gulp.task('images-icons', function() {
-	return gulp.src(sourcePath + imagesDir + '/icon/*.svg')
-		.pipe(svgmin([{removeViewBox: true}]))
-		.pipe(rename(function(path) {
-			path.basename = path.basename
-				.replace(/^iconmonstr-/, '')
-				.replace(/-icon$/, '');
-		}))
-		.pipe(replace(/<(path|rect|circle|ellipse|line|polyline|polygon)/g, '<$1 fill="#fff"'))
-		.pipe(gulp.dest(targetPath + imagesDir + '/icon-light'))
-		.pipe(replace('#fff', '#2d353c'))
-		.pipe(gulp.dest(targetPath + imagesDir + '/icon-dark'));
 });
 
 /* Scripts */

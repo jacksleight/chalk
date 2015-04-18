@@ -68,7 +68,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
                 'type'          => 'dropdown_multiple',
                 'entity'        => $index,
                 'name'          => 'subtypes',
-                'icon'          => '',
+                'icon'          => 'icon-subtype',
                 'placeholder'   => 'Type',
                 'values'        => $values,
             )) ?>
@@ -80,7 +80,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
             'entity'        => $index,
             'null'          => 'Any',
             'name'          => 'modifyDateMin',
-            'icon'          => 'icon-updated-dark',
+            'icon'          => 'icon-updated',
             'placeholder'   => 'Updated',
         )) ?>
     </li>
@@ -89,7 +89,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
             'type'          => 'dropdown_multiple',
             'entity'        => $index,
             'name'          => 'statuses',
-            'icon'          => 'icon-status-dark',
+            'icon'          => 'icon-status',
             'placeholder'   => 'Status',
         )) ?>
     </li>

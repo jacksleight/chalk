@@ -4,7 +4,7 @@ $values = isset($null)
 	: $values;
 ?>
 <div class="dropdown">
-	<div class="input-pseudo <?= isset($icon) ? "icon {$icon}" : null ?>">
+	<div class="input-pseudo <?= isset($icon) ? $icon : null ?>">
 		<?php if (isset($value)) { ?>
 			<?= $values[$value] ?>
 		<?php } else { ?>

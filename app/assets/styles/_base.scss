@@ -189,16 +189,16 @@ small {
 
 .icon-block {
 	display: inline-block;
-	@include font-size(-2);
 	vertical-align: middle;
-	margin: -5px 0 -6px 0;
-	&.icon::before {
-		margin: 5px 0 0 0;
-		width: 26px;
-		height: 26px;
+	line-height: 1;
+	.icon-block-text {
+		@include font-size(-2);
 		display: block;
-		margin-left: auto;
-		margin-right: auto;
+		margin: 4px 0 -2px 0;
+	}
+	&:before {
+		font-size: 24px;
+		padding-right: 0;
 	}
 }
 
@@ -221,7 +221,7 @@ small {
 		padding: $gutter-y null;
 		@include colors(null, 3);
 		span {
-			opacity: 0.5;
+			opacity: 0.65;
 		}
 		&:hover, &:focus, &.active {
 			span {
@@ -703,11 +703,8 @@ select,
 	@include placeholder {
 		color: $color-quieter;
 	}
-	&.icon::before {
-		opacity: 0.5;
-	}
-	.dark & {
-		// border-color: transparent;
+	&::before {
+		color: $color-quiet;
 	}
 }
 input[type=checkbox],
@@ -717,39 +714,42 @@ input[type=radio] {
 	& + label {
 		position: relative;
 		&:before {
-			content: '';
 			display: inline-block;
 			width: $input-toggle-size;
 			height: $input-toggle-size;
 			border: 1px solid;
-			@include colors(null, null, $color-input);
+			color: transparent;
 			background: white;
-			vertical-align: -8px;
 			margin-right: 0.25em;
-			background-position: center;
-			background-repeat: no-repeat;
 			@include transition(all $speed linear);
+			@include colors(null, null, $color-input);
+			text-align: center;
+			font-size: 18px;
+			vertical-align: -1px;
 		}
 	}
 	&:focus + label:before {
 		border-color: $color-focus;
 	}
+	&:checked + label:before {
+		@include colors($color-input);
+	}
 	&[disabled] + label:before {
 		background-color: $color-shade;
 	}
 }
-input[type=checkbox] + label:before {
-	background-size: 80%;
+input[type=checkbox] + label {
+	@extend .icon-checkmark;
+	&:before {
+		@include icon-base();
+	}
 }
-input[type=radio] + label:before {
-	border-radius: 50%; 
-	background-size: 55%;
-}
-input[type=checkbox]:checked + label:before {
-	background-image: inline-image('icon-dark/check-mark.svg');
-}
-input[type=radio]:checked + label:before {
-	background-image: inline-image('icon-dark/circle.svg');
+input[type=radio] + label {
+	@extend .icon-radio-checked2;
+	&:before {
+		border-radius: 50%; 
+		@include icon-base();
+	}
 }
 select { 
 	width: auto;
@@ -834,10 +834,10 @@ textarea {
 		width: 48px;
 		height: 48px;
 		line-height: 48px;
-		&::before {
-			width: 20px;
-			height: 20px;
-			vertical-align: -3px;
+		text-align: center;
+		&:before {
+			font-size: 20px;
+			padding-right: 0;
 		}
 	}
 }
@@ -983,10 +983,17 @@ input[type=button],
 		}
 	}
 	&.btn-out {
-		background-color: white !important;
+		background-color: transparent !important;
+		&:hover,
+		&:focus,
+		&:active,
+		&.active { 
+			background-color: white !important;
+		}
 	}
 	small {
-		color: transparentize(white, 0.35);
+		color: inherit;
+		opacity: 0.75;
 	}
 	&[disabled], &.disabled {
 		opacity: 0.5;
@@ -1275,11 +1282,9 @@ legend {
 	position: relative;
 	&::before {
 		position: absolute;
-		top: 50%;
+		top: ($input-padding + $input-border-width + 1) * -1;
 		left: $input-padding-horiz + $input-border-width;
-		margin-top: -8px;
-		@include icon(magnifier-2, 16px, dark);
-		opacity: 0.5;
+		color: $color-quiet;
 	}
 	input {
 		padding-left: $input-padding-horiz + $input-border-width + 15px + 7px;
@@ -1474,11 +1479,11 @@ legend {
 		border: 0;
 		background-color: transparent !important;
 		outline: 0;
-		&[data-action=expand] span::before {
-			@include icon(plus, 8px, dark);
+		&[data-action=expand] span {
+			@extend .icon-plus;
 		}
-		&[data-action=collapse] span::before {
-			@include icon(minus, 8px, dark);
+		&[data-action=collapse] span {
+			@extend .icon-minus;
 		}
 		span {
 			position: absolute;
@@ -1487,15 +1492,13 @@ legend {
 			height: 12px;
 			width: 12px;
 			background-color: transparentize(white, 0.2);
-			@include hide-text;
-			&::before {
-				content: '';
-				display: block !important;
-				position: absolute;
-				top: 50%; 
-				left: 50%;
-				margin-top: -4px;
-				margin-left: -4px;
+			overflow: hidden;
+			&:before {
+				@include icon-base();
+				padding-right: 0;
+				font-size: 7px;
+				color: $color-primary;
+				vertical-align: 2px;
 			}
 		}
 		&:hover span {
@@ -1545,15 +1548,12 @@ legend {
 	right: 0;
 	height: 26px;
 	@include transition(opacity $speed ease);
-	&::before {
-		content: '';
-		display: block;
+	@extend .icon-menu;
+	&:before {
+		@include icon-base();
 		position: absolute;
-		z-index: 1;
-		top: 50%;
+		top: 0;
 		right: $gutter;
-		margin-top: -8px;
-		@include icon(menu);
 		opacity: 0.5;
 	}
 	&:hover {

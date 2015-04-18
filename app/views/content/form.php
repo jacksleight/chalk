@@ -61,7 +61,7 @@
 		Version <em><?= $content->version ?></em>
 	</li> -->
 	<?php if (!$content->isNew()) { ?>
-		<li class="icon icon-updated-dark">
+		<li class="icon-updated">
 			Updated <em><?= $content->modifyDate->diffForHumans() ?></em>
 			by <em><?= $content->modifyUserName ?></em>
 		</li>

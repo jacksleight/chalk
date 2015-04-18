@@ -1,5 +1,7 @@
 <?php
-$fields = explode('&', http_build_query([$name => $value]));
+$fields = $value
+	? explode('&', http_build_query([$name => $value]))
+	: [];
 $inputs = [];
 foreach ($fields as $field) {
 	list($name, $value) = explode('=', $field);

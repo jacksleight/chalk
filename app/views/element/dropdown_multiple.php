@@ -1,5 +1,5 @@
 <div class="dropdown">
-	<div class="input-pseudo <?= isset($icon) ? "icon {$icon}" : null ?>">
+	<div class="input-pseudo <?= isset($icon) ? $icon : null ?>">
 		<?php if (count($value)) { ?>
 			<?= implode(', ', array_intersect_key($values, array_flip($value))) ?>
 		<?php } else { ?>

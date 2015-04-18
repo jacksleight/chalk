@@ -1,70 +1,78 @@
+/* Font Face */
+
+@font-face {
+	font-family: 'IcoMoon-Free';
+	src: url('../fonts/IcoMoon-Free.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Base */
+
+@import '_icons-icomoon.scss';
+
+@mixin icon-base() {
+	font-family: 'IcoMoon-Free';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	display: inline-block;
+	-webkit-font-feature-settings: "liga";
+	-moz-font-feature-settings: "liga=1";
+	-moz-font-feature-settings: "liga";
+	-ms-font-feature-settings: "liga" 1;
+	-o-font-feature-settings: "liga";
+	font-feature-settings: "liga";
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+	@include icon-base();
+	vertical-align: -1px;
+	padding-right: 3px;
+}
+
 /* Icons */
 
-%icon {
-	@include hide-text;
-	display: inline-block;
-	background-position: center;
-	background-size: 118%;
-}
-
-@mixin icon($name, $size: 16px, $color: light) {
-	@extend %icon;
-	background-image: inline-image('icon-' + $color + '/' + $name + '.svg');
-	width: $size;
-	height: $size;
-}
-
 $icons: (
-	add:		plus-2,
-	archive:	archive,
-	cancel:		x-mark,
-	content:	text-file-2,
-	delete:		trash-can-9,
-	drag:		menu,
-	false:		x-mark,
-	history:	time,
-	logout:		eject-2,
-	move:		cursor-move-2,
-	ok:			check-mark,
-	publish:	globe-4,
-	remove:		minus-2,
-	restore:	refresh-2,
-	search:		magnifier-2,
-	settings:	gear,
-	status:		check-mark-5,
-	structure:	sitemap,
-	true:		check-mark,
+	add:		plus,
+	archive:	box-add,
+	cancel:		cross,
+	content:	file-text2,
+	delete:		bin2,
+	false:		cross,
+	logout:		exit,
+	move:		enlarge,
+	ok:			checkmark,
+	publish:	earth,
+	remove:		minus,
+	restore:	undo2,
+	settings:	cog,
+	status:		radio-checked,
+	structure:	tree,
+	true:		checkmark,
 	updated:	calendar,
-	upload:		upload-6,
-	user:		user-2,
-	view:		share-4,
-	positive:	check-mark-3,
-	negative:	x-mark-3,
-	browse:		folder-7,
-	next: 		arrow-25,
-	prev: 		arrow-25-180,
-	last: 		arrow-31,
-	first: 		arrow-31-180,
-	id: 		code-3
+	view:		new-tab,
+	next: 		arrow-right2,
+	last: 		arrow-right2,
+	prev: 		arrow-left2,
+	first: 		arrow-left2,
+	positive:	checkmark,
+	negative:	cross,
+	subtype:	files-empty,
+	browse:		folder-open
 );
-%icon-basic {
-	@extend %icon;
-	@include transition(opacity $speed ease);
-	width: 16px;
-	height: 16px;
-}
+
 @each $class, $name in $icons {
 	.icon-#{$class} {
-		@include attach(before, 0.2em, -0.15em) { 
-			@extend %icon-basic;
-			background-image: inline-image('icon-light/' + $name + '.svg');
-		};
-	}
-	.icon-#{$class}-dark {
-		@include attach(before, 0.2em, -0.15em) { 
-			@extend %icon-basic;
-			background-image: inline-image('icon-dark/' + $name + '.svg');
-		};
+		@extend .icon-#{$name};
 	}
 }
 
+.icon-move:before {
+	@include transform(rotate(45deg) scale(0.8, 0.8));
+}
