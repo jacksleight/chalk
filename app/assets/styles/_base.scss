@@ -833,7 +833,7 @@ textarea {
 	.btn.btn-icon {
 		width: 48px;
 		height: 48px;
-		line-height: 48px;
+		line-height: 46px;
 		text-align: center;
 		&:before {
 			font-size: 20px;
@@ -862,8 +862,8 @@ input[type=button],
 	text-decoration: none !important;
 	-webkit-appearance: none;
 	display: inline-block;
-	@include colors(null, 8, 8);
-	@include link-color(white);
+	@include colors(null, 12, 12);
+	color: white;
 	&.disabled,
 	&[disabled] {
 		opacity: 0.25;
@@ -872,7 +872,7 @@ input[type=button],
 	&:focus,
 	&:active,
 	&.active { 
-		@include colors(null, 10, 10);
+		@include colors(null, 14, 14);
 	}
 	&.btn-collapse {
 		max-height: $input-height;
@@ -901,7 +901,7 @@ input[type=button],
 		span {
 			display: none;
 		}
-		&::before {
+		&:before {
 			margin-right: 0;
 		}
 	}
@@ -909,21 +909,31 @@ input[type=button],
 		@include colors(1);
 	}
 	&.btn-light {
-		@include colors(null, 6, 6);
+		@include colors(null, 8, 8);
 		&:hover,
 		&:focus,
 		&:active,
 		&.active { 
-			@include colors(null, 8, 8);
+			@include colors(null, 10, 10);
 		}
 	}
 	&.btn-lighter {
-		@include colors(1, 2, 2);
+		@include colors(null, 4, 4);
 		&:hover,
 		&:focus,
 		&:active,
 		&.active { 
-			@include colors(null, 4, 4);
+			@include colors(null, 6, 6);
+		}
+	}
+	&.btn-lightest {
+		@include colors(1);
+		@include colors(null, 1, 1);
+		&:hover,
+		&:focus,
+		&:active,
+		&.active { 
+			@include colors(null, 3, 3);
 		}
 	}
 	&.btn-focus {
@@ -992,8 +1002,8 @@ input[type=button],
 		}
 	}
 	small {
-		color: inherit;
-		opacity: 0.75;
+		opacity: 0.85;
+		filter: greyscale(1);
 	}
 	&[disabled], &.disabled {
 		opacity: 0.5;
@@ -1095,8 +1105,12 @@ legend {
 }
 .form-block {
 	@include colors(null, null, 3);
-	border-top: 1px solid;
+	border: solid;
+	border-width: 1px 0;
 	margin: $gutter * 1 0 0 0;
+	.form-block + & {
+		border-top: 0;
+	}
 	.form-legend {
 		@include flush;
 		@include font-size(-1);
@@ -1117,23 +1131,25 @@ legend {
 }
 @include media(800px) {
 	.form-block {
+		display: table;
+		width: 100%;
 		& + .form-block {
 			margin-top: 0;
 		}
 		.form-legend {
+			display: table-cell;
 			margin-top: 0;
-			float: left;
 			padding: $gutter;
 			padding-left: 0;
-			width: 210px - ($gutter * 1.5);
+			min-width: 210px - ($gutter * 1.5);
+			background-image: linear-gradient(to right, white tint($color-dark-min, 97%));
 		}
 		.form-items {
+			width: 100%;
+			display: table-cell;
 			margin-top: 0;
-			margin-left: 210px - ($gutter * 1.5);
 			padding: $gutter;
 			padding-right: 0;
-			border-left: 1px solid;
-			@include colors(null, null, 1);
 		}
 	}
 }
@@ -1257,7 +1273,7 @@ legend {
 }
 .toolbar-space {
 	> * {
-		padding-left: $gutter * 0.5;
+		padding-left: $gutter * 1;
 	}
 }
 @include media(800px) {
@@ -1304,11 +1320,20 @@ legend {
 	}
 	.expandable-toggle {
 		margin-top: 0;
+		text-align: right;
+		&:before {
+			@include transition(all $speed ease);
+		}
 	}
 	&.active {
 		.expandable-body {
 			padding-bottom: $gutter;
-			max-height: 1000px;
+			max-height: 500px;
+		}
+		.expandable-toggle {
+			&:before {
+				@include transform(rotate(-45deg) translate(1px, 0));
+			}
 		}
 	}
 }
@@ -1792,6 +1817,7 @@ legend {
 	width: 340px;
 	fieldset {
 		border: 1px solid;
+		border-radius: $radius * 2;
 		@include colors(null, null, 2);
 		padding: $gutter;
 	}

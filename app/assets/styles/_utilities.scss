@@ -49,13 +49,14 @@
 	}
 }
 @mixin link-color($color) {
-	@include link-colors(
-		$color,
-		$color,
-		$color,
-		$color,
-		$color
-	);
+	color: $color;
+	// @include link-colors(
+	// 	$color,
+	// 	$color,
+	// 	$color,
+	// 	$color,
+	// 	$color
+	// );
 }
 
 /* Inline Block */

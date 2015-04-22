@@ -5,8 +5,8 @@ if (!isset($restricts)) {
 ?>
 <div class="input-content" data-params="<?= $this->escape(http_build_query(['restricts' => $restricts])) ?>">
 	<div class="input-content-controls">
-		<span class="input-content-remove btn btn-quieter btn-icon icon-remove"><span>Remove</span></span>
-		<span class="input-content-select btn btn-quieter btn-icon icon-browse"><span>Browse</span></span>
+		<span class="input-content-remove btn btn-lightest btn-out btn-icon icon-remove"><span>Remove</span></span>
+		<span class="input-content-select btn btn-lightest btn-icon icon-browse"><span>Browse</span></span>
 	</div>
 	<div class="input-content-holder">
 		<?php if (isset($value)) { ?>

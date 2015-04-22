@@ -27,13 +27,23 @@ $secondary	= $navigation->items('Chalk\Core\Secondary');
 		<div class="header topbar">
 			<ul class="toolbar toolbar-right toolbar-space">
 				<li>
-					<a href="<?= $this->url([], 'profile', true) ?>" class="icon-user"><?= $req->user->name ?></a>
+					<a href="<?= $this->url([], 'profile', true) ?>" class="icon-user"> <?= $req->user->name ?></a>
 				</li>
 				<li class="space">
-					<a href="<?= $this->url([], 'logout', true) ?>" class="icon-logout">Logout</a>
+					<a href="<?= $this->url([], 'logout', true) ?>" class="icon-logout"> Logout</a>
 				</li>
 			</ul>
 			<ul class="toolbar">
+				<?php
+				$url = isset($content)
+					? $this->frontend->url->content($content)
+					: $this->frontend->url();
+				?>
+				<li>
+					<a href="<?= $url ?>" target="_blank" class="btn btn-out icon-view">
+						View Site
+					</a>
+				</li>	
 				<?php
 				$count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
 				?>
@@ -42,21 +52,10 @@ $secondary	= $navigation->items('Chalk\Core\Secondary');
 						<a href="<?= $this->url([
 							'controller' => 'index',
 							'action'	 => 'publish',
-						], 'index', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-focus btn-out icon-publish">
-							Publish <small><strong><?= $count ?></strong> draft items</small>
+						], 'index', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-positive btn-out icon-publish">
+							Publish All
 						</a>						
-					</li>
-				<?php } else { ?>
-					<?php
-					$url = isset($content)
-						? $this->frontend->url->content($content)
-						: $this->frontend->url();
-					?>
-					<li>
-						<a href="<?= $url ?>" target="_blank" class="btn btn-light icon-view">
-							View Site
-						</a>
-					</li>					
+					</li>				
 				<?php } ?>
 			</ul>
 			<h1><?= $this->config->name ?></h1>

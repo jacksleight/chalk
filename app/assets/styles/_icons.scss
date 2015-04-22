@@ -76,3 +76,6 @@ $icons: (
 .icon-move:before {
 	@include transform(rotate(45deg) scale(0.8, 0.8));
 }
+.icon-user:before {
+	@include transform(scale(1.2, 1.2));
+}

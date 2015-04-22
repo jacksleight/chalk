@@ -2023,6 +2023,13 @@
   transform: rotate(45deg) scale(0.8, 0.8);
 }
 
+.icon-user:before {
+  -moz-transform: scale(1.2, 1.2);
+  -ms-transform: scale(1.2, 1.2);
+  -webkit-transform: scale(1.2, 1.2);
+  transform: scale(1.2, 1.2);
+}
+
 /* Fonts */
 @font-face {
   font-family: "Open Sans";
@@ -2209,18 +2216,6 @@ a {
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
   text-decoration: underline;
-}
-a:visited {
-  color: inherit;
-}
-a:focus {
-  color: inherit;
-}
-a:hover {
-  color: inherit;
-}
-a:active {
-  color: inherit;
 }
 
 /* Emphasised & Marked */
@@ -2416,46 +2411,10 @@ small {
   background-color: #171c1f;
   border-color: #171c1f;
 }
-.badge:visited {
-  color: white;
-}
-.badge:focus {
-  color: white;
-}
-.badge:hover {
-  color: white;
-}
-.badge:active {
-  color: white;
-}
 .badge.badge-out {
   color: #5f5f5f;
 }
-.badge.badge-out:visited {
-  color: #5f5f5f;
-}
-.badge.badge-out:focus {
-  color: #5f5f5f;
-}
-.badge.badge-out:hover {
-  color: #5f5f5f;
-}
-.badge.badge-out:active {
-  color: #5f5f5f;
-}
 .dark.badge.badge-out, .dark .badge.badge-out {
-  color: #dedede;
-}
-.dark.badge.badge-out:visited, .dark .badge.badge-out:visited {
-  color: #dedede;
-}
-.dark.badge.badge-out:focus, .dark .badge.badge-out:focus {
-  color: #dedede;
-}
-.dark.badge.badge-out:hover, .dark .badge.badge-out:hover {
-  color: #dedede;
-}
-.dark.badge.badge-out:active, .dark .badge.badge-out:active {
   color: #dedede;
 }
 .badge.badge-light {
@@ -2471,34 +2430,10 @@ small {
   background-color: #e8e8e8;
   border-color: #e8e8e8;
 }
-.badge.badge-lighter:visited {
-  color: #5f5f5f;
-}
-.badge.badge-lighter:focus {
-  color: #5f5f5f;
-}
-.badge.badge-lighter:hover {
-  color: #5f5f5f;
-}
-.badge.badge-lighter:active {
-  color: #5f5f5f;
-}
 .dark.badge.badge-lighter, .dark .badge.badge-lighter {
   color: #dedede;
   background-color: #232a2f;
   border-color: #232a2f;
-}
-.dark.badge.badge-lighter:visited, .dark .badge.badge-lighter:visited {
-  color: #dedede;
-}
-.dark.badge.badge-lighter:focus, .dark .badge.badge-lighter:focus {
-  color: #dedede;
-}
-.dark.badge.badge-lighter:hover, .dark .badge.badge-lighter:hover {
-  color: #dedede;
-}
-.dark.badge.badge-lighter:active, .dark .badge.badge-lighter:active {
-  color: #dedede;
 }
 .badge.badge-positive {
   background-color: #09bd5e;
@@ -2710,18 +2645,6 @@ figure figcaption {
   -webkit-transition: background-color 0.2s ease, outline-color 0.2s ease;
   transition: background-color 0.2s ease, outline-color 0.2s ease;
 }
-.thumb:visited {
-  color: #2d353c;
-}
-.thumb:focus {
-  color: #2d353c;
-}
-.thumb:hover {
-  color: #2d353c;
-}
-.thumb:active {
-  color: #2d353c;
-}
 .thumb .preview {
   position: relative;
 }
@@ -2839,18 +2762,6 @@ figure figcaption {
   text-decoration: none;
   color: inherit;
 }
-.thumb a:visited {
-  color: inherit;
-}
-.thumb a:focus {
-  color: inherit;
-}
-.thumb a:hover {
-  color: inherit;
-}
-.thumb a:active {
-  color: inherit;
-}
 .thumb.selected input[type=checkbox] + label:before {
   opacity: 1;
 }
@@ -2863,9 +2774,9 @@ table {
   width: 100%;
   margin: 20px 0 0 0;
   border-spacing: 0;
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-  border-radius: 0;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
 }
 table th, table td {
   vertical-align: top;
@@ -2879,18 +2790,6 @@ table th {
   text-align: left;
 }
 table th, table th a {
-  color: #242a30;
-}
-table th:visited, table th a:visited {
-  color: #242a30;
-}
-table th:focus, table th a:focus {
-  color: #242a30;
-}
-table th:hover, table th a:hover {
-  color: #242a30;
-}
-table th:active, table th a:active {
   color: #242a30;
 }
 table thead th {
@@ -3024,9 +2923,9 @@ select,
   margin: 0;
   padding: 0 10px;
   border: 1px solid;
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-  border-radius: 0;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
   outline: 0;
   -webkit-appearance: none;
 }
@@ -3051,82 +2950,6 @@ select,
   background-color: white;
   border-color: #c7c7c7;
 }
-input[type=date]:visited,
-input[type=datetime]:visited,
-input[type=datetime-local]:visited,
-input[type=email]:visited,
-input[type=month]:visited,
-input[type=number]:visited,
-input[type=password]:visited,
-input[type=search]:visited,
-input[type=tel]:visited,
-input[type=text]:visited,
-input[type=time]:visited,
-input[type=url]:visited,
-input[type=week]:visited,
-textarea:visited,
-select:visited,
-.input-pseudo:visited,
-.input-content:visited {
-  color: #5f5f5f;
-}
-input[type=date]:focus,
-input[type=datetime]:focus,
-input[type=datetime-local]:focus,
-input[type=email]:focus,
-input[type=month]:focus,
-input[type=number]:focus,
-input[type=password]:focus,
-input[type=search]:focus,
-input[type=tel]:focus,
-input[type=text]:focus,
-input[type=time]:focus,
-input[type=url]:focus,
-input[type=week]:focus,
-textarea:focus,
-select:focus,
-.input-pseudo:focus,
-.input-content:focus {
-  color: #5f5f5f;
-}
-input[type=date]:hover,
-input[type=datetime]:hover,
-input[type=datetime-local]:hover,
-input[type=email]:hover,
-input[type=month]:hover,
-input[type=number]:hover,
-input[type=password]:hover,
-input[type=search]:hover,
-input[type=tel]:hover,
-input[type=text]:hover,
-input[type=time]:hover,
-input[type=url]:hover,
-input[type=week]:hover,
-textarea:hover,
-select:hover,
-.input-pseudo:hover,
-.input-content:hover {
-  color: #5f5f5f;
-}
-input[type=date]:active,
-input[type=datetime]:active,
-input[type=datetime-local]:active,
-input[type=email]:active,
-input[type=month]:active,
-input[type=number]:active,
-input[type=password]:active,
-input[type=search]:active,
-input[type=tel]:active,
-input[type=text]:active,
-input[type=time]:active,
-input[type=url]:active,
-input[type=week]:active,
-textarea:active,
-select:active,
-.input-pseudo:active,
-.input-content:active {
-  color: #5f5f5f;
-}
 .darkinput[type=date], .darkinput[type=datetime], .darkinput[type=datetime-local], .darkinput[type=email], .darkinput[type=month], .darkinput[type=number], .darkinput[type=password], .darkinput[type=search], .darkinput[type=tel], .darkinput[type=text], .darkinput[type=time], .darkinput[type=url], .darkinput[type=week], .darktextarea, .darkselect, .dark.input-pseudo, .dark.input-content, .dark input[type=date], .dark
 input[type=datetime], .dark
 input[type=datetime-local], .dark
@@ -3147,82 +2970,6 @@ select, .dark
   color: #dedede;
   background-color: #3b464f;
   border-color: #171c1f;
-}
-.darkinput[type=date]:visited, .darkinput[type=datetime]:visited, .darkinput[type=datetime-local]:visited, .darkinput[type=email]:visited, .darkinput[type=month]:visited, .darkinput[type=number]:visited, .darkinput[type=password]:visited, .darkinput[type=search]:visited, .darkinput[type=tel]:visited, .darkinput[type=text]:visited, .darkinput[type=time]:visited, .darkinput[type=url]:visited, .darkinput[type=week]:visited, .darktextarea:visited, .darkselect:visited, .dark.input-pseudo:visited, .dark.input-content:visited, .dark input[type=date]:visited, .dark
-input[type=datetime]:visited, .dark
-input[type=datetime-local]:visited, .dark
-input[type=email]:visited, .dark
-input[type=month]:visited, .dark
-input[type=number]:visited, .dark
-input[type=password]:visited, .dark
-input[type=search]:visited, .dark
-input[type=tel]:visited, .dark
-input[type=text]:visited, .dark
-input[type=time]:visited, .dark
-input[type=url]:visited, .dark
-input[type=week]:visited, .dark
-textarea:visited, .dark
-select:visited, .dark
-.input-pseudo:visited, .dark
-.input-content:visited {
-  color: #dedede;
-}
-.darkinput[type=date]:focus, .darkinput[type=datetime]:focus, .darkinput[type=datetime-local]:focus, .darkinput[type=email]:focus, .darkinput[type=month]:focus, .darkinput[type=number]:focus, .darkinput[type=password]:focus, .darkinput[type=search]:focus, .darkinput[type=tel]:focus, .darkinput[type=text]:focus, .darkinput[type=time]:focus, .darkinput[type=url]:focus, .darkinput[type=week]:focus, .darktextarea:focus, .darkselect:focus, .dark.input-pseudo:focus, .dark.input-content:focus, .dark input[type=date]:focus, .dark
-input[type=datetime]:focus, .dark
-input[type=datetime-local]:focus, .dark
-input[type=email]:focus, .dark
-input[type=month]:focus, .dark
-input[type=number]:focus, .dark
-input[type=password]:focus, .dark
-input[type=search]:focus, .dark
-input[type=tel]:focus, .dark
-input[type=text]:focus, .dark
-input[type=time]:focus, .dark
-input[type=url]:focus, .dark
-input[type=week]:focus, .dark
-textarea:focus, .dark
-select:focus, .dark
-.input-pseudo:focus, .dark
-.input-content:focus {
-  color: #dedede;
-}
-.darkinput[type=date]:hover, .darkinput[type=datetime]:hover, .darkinput[type=datetime-local]:hover, .darkinput[type=email]:hover, .darkinput[type=month]:hover, .darkinput[type=number]:hover, .darkinput[type=password]:hover, .darkinput[type=search]:hover, .darkinput[type=tel]:hover, .darkinput[type=text]:hover, .darkinput[type=time]:hover, .darkinput[type=url]:hover, .darkinput[type=week]:hover, .darktextarea:hover, .darkselect:hover, .dark.input-pseudo:hover, .dark.input-content:hover, .dark input[type=date]:hover, .dark
-input[type=datetime]:hover, .dark
-input[type=datetime-local]:hover, .dark
-input[type=email]:hover, .dark
-input[type=month]:hover, .dark
-input[type=number]:hover, .dark
-input[type=password]:hover, .dark
-input[type=search]:hover, .dark
-input[type=tel]:hover, .dark
-input[type=text]:hover, .dark
-input[type=time]:hover, .dark
-input[type=url]:hover, .dark
-input[type=week]:hover, .dark
-textarea:hover, .dark
-select:hover, .dark
-.input-pseudo:hover, .dark
-.input-content:hover {
-  color: #dedede;
-}
-.darkinput[type=date]:active, .darkinput[type=datetime]:active, .darkinput[type=datetime-local]:active, .darkinput[type=email]:active, .darkinput[type=month]:active, .darkinput[type=number]:active, .darkinput[type=password]:active, .darkinput[type=search]:active, .darkinput[type=tel]:active, .darkinput[type=text]:active, .darkinput[type=time]:active, .darkinput[type=url]:active, .darkinput[type=week]:active, .darktextarea:active, .darkselect:active, .dark.input-pseudo:active, .dark.input-content:active, .dark input[type=date]:active, .dark
-input[type=datetime]:active, .dark
-input[type=datetime-local]:active, .dark
-input[type=email]:active, .dark
-input[type=month]:active, .dark
-input[type=number]:active, .dark
-input[type=password]:active, .dark
-input[type=search]:active, .dark
-input[type=tel]:active, .dark
-input[type=text]:active, .dark
-input[type=time]:active, .dark
-input[type=url]:active, .dark
-input[type=week]:active, .dark
-textarea:active, .dark
-select:active, .dark
-.input-pseudo:active, .dark
-.input-content:active {
-  color: #dedede;
 }
 input[type=date][disabled], input[type=date][readonly], input[type=date].disabled, input[type=date].readonly,
 input[type=datetime][disabled],
@@ -3448,40 +3195,8 @@ input[type=checkbox]:checked + label:before,
 input[type=radio]:checked + label:before {
   color: #5f5f5f;
 }
-input[type=checkbox]:checked + label:before:visited,
-input[type=radio]:checked + label:before:visited {
-  color: #5f5f5f;
-}
-input[type=checkbox]:checked + label:before:focus,
-input[type=radio]:checked + label:before:focus {
-  color: #5f5f5f;
-}
-input[type=checkbox]:checked + label:before:hover,
-input[type=radio]:checked + label:before:hover {
-  color: #5f5f5f;
-}
-input[type=checkbox]:checked + label:before:active,
-input[type=radio]:checked + label:before:active {
-  color: #5f5f5f;
-}
 .darkinput[type=checkbox]:checked + label:before, .darkinput[type=radio]:checked + label:before, .dark input[type=checkbox]:checked + label:before, .dark
 input[type=radio]:checked + label:before {
-  color: #dedede;
-}
-.darkinput[type=checkbox]:checked + label:before:visited, .darkinput[type=radio]:checked + label:before:visited, .dark input[type=checkbox]:checked + label:before:visited, .dark
-input[type=radio]:checked + label:before:visited {
-  color: #dedede;
-}
-.darkinput[type=checkbox]:checked + label:before:focus, .darkinput[type=radio]:checked + label:before:focus, .dark input[type=checkbox]:checked + label:before:focus, .dark
-input[type=radio]:checked + label:before:focus {
-  color: #dedede;
-}
-.darkinput[type=checkbox]:checked + label:before:hover, .darkinput[type=radio]:checked + label:before:hover, .dark input[type=checkbox]:checked + label:before:hover, .dark
-input[type=radio]:checked + label:before:hover {
-  color: #dedede;
-}
-.darkinput[type=checkbox]:checked + label:before:active, .darkinput[type=radio]:checked + label:before:active, .dark input[type=checkbox]:checked + label:before:active, .dark
-input[type=radio]:checked + label:before:active {
   color: #dedede;
 }
 input[type=checkbox][disabled] + label:before,
@@ -3618,7 +3333,7 @@ textarea.editor-code {
 .input-content .btn.btn-icon {
   width: 48px;
   height: 48px;
-  line-height: 48px;
+  line-height: 46px;
   text-align: center;
 }
 .input-content input[type=reset].btn-icon:before,
@@ -3644,9 +3359,9 @@ input[type=button],
   margin: 0;
   font-weight: normal;
   border: 1px solid;
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-  border-radius: 0;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
   outline: 0;
   cursor: pointer;
   text-decoration: none !important;
@@ -3658,8 +3373,8 @@ input[type=reset],
 input[type=submit],
 input[type=button],
 .btn {
-  background-color: #a5a5a5;
-  border-color: #a5a5a5;
+  background-color: #797979;
+  border-color: #797979;
 }
 .darkinput[type=reset], .darkinput[type=submit], .darkinput[type=button], .dark.btn, .dark input[type=reset], .dark
 input[type=submit], .dark
@@ -3667,30 +3382,6 @@ input[type=button], .dark
 .btn {
   background-color: #171c1f;
   border-color: #171c1f;
-}
-input[type=reset]:visited,
-input[type=submit]:visited,
-input[type=button]:visited,
-.btn:visited {
-  color: white;
-}
-input[type=reset]:focus,
-input[type=submit]:focus,
-input[type=button]:focus,
-.btn:focus {
-  color: white;
-}
-input[type=reset]:hover,
-input[type=submit]:hover,
-input[type=button]:hover,
-.btn:hover {
-  color: white;
-}
-input[type=reset]:active,
-input[type=submit]:active,
-input[type=button]:active,
-.btn:active {
-  color: white;
 }
 input[type=reset].disabled, input[type=reset][disabled],
 input[type=submit].disabled,
@@ -3714,8 +3405,8 @@ input[type=button].active,
 .btn:focus,
 .btn:active,
 .btn.active {
-  background-color: #8f8f8f;
-  border-color: #8f8f8f;
+  background-color: #626262;
+  border-color: #626262;
 }
 .darkinput[type=reset]:hover, .darkinput[type=reset]:focus, .darkinput[type=reset]:active, .darkinput[type=reset].active, .darkinput[type=submit]:hover, .darkinput[type=submit]:focus, .darkinput[type=submit]:active, .darkinput[type=submit].active, .darkinput[type=button]:hover, .darkinput[type=button]:focus, .darkinput[type=button]:active, .darkinput[type=button].active, .dark.btn:hover, .dark.btn:focus, .dark.btn:active, .dark.btn.active, .dark input[type=reset]:hover, .dark input[type=reset]:focus, .dark input[type=reset]:active, .dark input[type=reset].active, .dark
 input[type=submit]:hover, .dark
@@ -3781,10 +3472,10 @@ input[type=button].btn-icon span,
 .btn.btn-icon span {
   display: none;
 }
-input[type=reset].btn-icon::before,
-input[type=submit].btn-icon::before,
-input[type=button].btn-icon::before,
-.btn.btn-icon::before {
+input[type=reset].btn-icon:before,
+input[type=submit].btn-icon:before,
+input[type=button].btn-icon:before,
+.btn.btn-icon:before {
   margin-right: 0;
 }
 input[type=reset].btn-out,
@@ -3793,66 +3484,18 @@ input[type=button].btn-out,
 .btn.btn-out {
   color: #5f5f5f;
 }
-input[type=reset].btn-out:visited,
-input[type=submit].btn-out:visited,
-input[type=button].btn-out:visited,
-.btn.btn-out:visited {
-  color: #5f5f5f;
-}
-input[type=reset].btn-out:focus,
-input[type=submit].btn-out:focus,
-input[type=button].btn-out:focus,
-.btn.btn-out:focus {
-  color: #5f5f5f;
-}
-input[type=reset].btn-out:hover,
-input[type=submit].btn-out:hover,
-input[type=button].btn-out:hover,
-.btn.btn-out:hover {
-  color: #5f5f5f;
-}
-input[type=reset].btn-out:active,
-input[type=submit].btn-out:active,
-input[type=button].btn-out:active,
-.btn.btn-out:active {
-  color: #5f5f5f;
-}
 .darkinput[type=reset].btn-out, .darkinput[type=submit].btn-out, .darkinput[type=button].btn-out, .dark.btn.btn-out, .dark input[type=reset].btn-out, .dark
 input[type=submit].btn-out, .dark
 input[type=button].btn-out, .dark
 .btn.btn-out {
   color: #dedede;
 }
-.darkinput[type=reset].btn-out:visited, .darkinput[type=submit].btn-out:visited, .darkinput[type=button].btn-out:visited, .dark.btn.btn-out:visited, .dark input[type=reset].btn-out:visited, .dark
-input[type=submit].btn-out:visited, .dark
-input[type=button].btn-out:visited, .dark
-.btn.btn-out:visited {
-  color: #dedede;
-}
-.darkinput[type=reset].btn-out:focus, .darkinput[type=submit].btn-out:focus, .darkinput[type=button].btn-out:focus, .dark.btn.btn-out:focus, .dark input[type=reset].btn-out:focus, .dark
-input[type=submit].btn-out:focus, .dark
-input[type=button].btn-out:focus, .dark
-.btn.btn-out:focus {
-  color: #dedede;
-}
-.darkinput[type=reset].btn-out:hover, .darkinput[type=submit].btn-out:hover, .darkinput[type=button].btn-out:hover, .dark.btn.btn-out:hover, .dark input[type=reset].btn-out:hover, .dark
-input[type=submit].btn-out:hover, .dark
-input[type=button].btn-out:hover, .dark
-.btn.btn-out:hover {
-  color: #dedede;
-}
-.darkinput[type=reset].btn-out:active, .darkinput[type=submit].btn-out:active, .darkinput[type=button].btn-out:active, .dark.btn.btn-out:active, .dark input[type=reset].btn-out:active, .dark
-input[type=submit].btn-out:active, .dark
-input[type=button].btn-out:active, .dark
-.btn.btn-out:active {
-  color: #dedede;
-}
 input[type=reset].btn-light,
 input[type=submit].btn-light,
 input[type=button].btn-light,
 .btn.btn-light {
-  background-color: #bcbcbc;
-  border-color: #bcbcbc;
+  background-color: #a5a5a5;
+  border-color: #a5a5a5;
 }
 .darkinput[type=reset].btn-light, .darkinput[type=submit].btn-light, .darkinput[type=button].btn-light, .dark.btn.btn-light, .dark input[type=reset].btn-light, .dark
 input[type=submit].btn-light, .dark
@@ -3874,8 +3517,8 @@ input[type=button].btn-light.active,
 .btn.btn-light:focus,
 .btn.btn-light:active,
 .btn.btn-light.active {
-  background-color: #a5a5a5;
-  border-color: #a5a5a5;
+  background-color: #8f8f8f;
+  border-color: #8f8f8f;
 }
 .darkinput[type=reset].btn-light:hover, .darkinput[type=reset].btn-light:focus, .darkinput[type=reset].btn-light:active, .darkinput[type=reset].btn-light.active, .darkinput[type=submit].btn-light:hover, .darkinput[type=submit].btn-light:focus, .darkinput[type=submit].btn-light:active, .darkinput[type=submit].btn-light.active, .darkinput[type=button].btn-light:hover, .darkinput[type=button].btn-light:focus, .darkinput[type=button].btn-light:active, .darkinput[type=button].btn-light.active, .dark.btn.btn-light:hover, .dark.btn.btn-light:focus, .dark.btn.btn-light:active, .dark.btn.btn-light.active, .dark input[type=reset].btn-light:hover, .dark input[type=reset].btn-light:focus, .dark input[type=reset].btn-light:active, .dark input[type=reset].btn-light.active, .dark
 input[type=submit].btn-light:hover, .dark
@@ -3897,65 +3540,15 @@ input[type=reset].btn-lighter,
 input[type=submit].btn-lighter,
 input[type=button].btn-lighter,
 .btn.btn-lighter {
-  color: #5f5f5f;
-  background-color: #e8e8e8;
-  border-color: #e8e8e8;
-}
-input[type=reset].btn-lighter:visited,
-input[type=submit].btn-lighter:visited,
-input[type=button].btn-lighter:visited,
-.btn.btn-lighter:visited {
-  color: #5f5f5f;
-}
-input[type=reset].btn-lighter:focus,
-input[type=submit].btn-lighter:focus,
-input[type=button].btn-lighter:focus,
-.btn.btn-lighter:focus {
-  color: #5f5f5f;
-}
-input[type=reset].btn-lighter:hover,
-input[type=submit].btn-lighter:hover,
-input[type=button].btn-lighter:hover,
-.btn.btn-lighter:hover {
-  color: #5f5f5f;
-}
-input[type=reset].btn-lighter:active,
-input[type=submit].btn-lighter:active,
-input[type=button].btn-lighter:active,
-.btn.btn-lighter:active {
-  color: #5f5f5f;
+  background-color: #d2d2d2;
+  border-color: #d2d2d2;
 }
 .darkinput[type=reset].btn-lighter, .darkinput[type=submit].btn-lighter, .darkinput[type=button].btn-lighter, .dark.btn.btn-lighter, .dark input[type=reset].btn-lighter, .dark
 input[type=submit].btn-lighter, .dark
 input[type=button].btn-lighter, .dark
 .btn.btn-lighter {
-  color: #dedede;
-  background-color: #232a2f;
-  border-color: #232a2f;
-}
-.darkinput[type=reset].btn-lighter:visited, .darkinput[type=submit].btn-lighter:visited, .darkinput[type=button].btn-lighter:visited, .dark.btn.btn-lighter:visited, .dark input[type=reset].btn-lighter:visited, .dark
-input[type=submit].btn-lighter:visited, .dark
-input[type=button].btn-lighter:visited, .dark
-.btn.btn-lighter:visited {
-  color: #dedede;
-}
-.darkinput[type=reset].btn-lighter:focus, .darkinput[type=submit].btn-lighter:focus, .darkinput[type=button].btn-lighter:focus, .dark.btn.btn-lighter:focus, .dark input[type=reset].btn-lighter:focus, .dark
-input[type=submit].btn-lighter:focus, .dark
-input[type=button].btn-lighter:focus, .dark
-.btn.btn-lighter:focus {
-  color: #dedede;
-}
-.darkinput[type=reset].btn-lighter:hover, .darkinput[type=submit].btn-lighter:hover, .darkinput[type=button].btn-lighter:hover, .dark.btn.btn-lighter:hover, .dark input[type=reset].btn-lighter:hover, .dark
-input[type=submit].btn-lighter:hover, .dark
-input[type=button].btn-lighter:hover, .dark
-.btn.btn-lighter:hover {
-  color: #dedede;
-}
-.darkinput[type=reset].btn-lighter:active, .darkinput[type=submit].btn-lighter:active, .darkinput[type=button].btn-lighter:active, .dark.btn.btn-lighter:active, .dark input[type=reset].btn-lighter:active, .dark
-input[type=submit].btn-lighter:active, .dark
-input[type=button].btn-lighter:active, .dark
-.btn.btn-lighter:active {
-  color: #dedede;
+  background-color: #171c1f;
+  border-color: #171c1f;
 }
 input[type=reset].btn-lighter:hover, input[type=reset].btn-lighter:focus, input[type=reset].btn-lighter:active, input[type=reset].btn-lighter.active,
 input[type=submit].btn-lighter:hover,
@@ -3970,8 +3563,8 @@ input[type=button].btn-lighter.active,
 .btn.btn-lighter:focus,
 .btn.btn-lighter:active,
 .btn.btn-lighter.active {
-  background-color: #d2d2d2;
-  border-color: #d2d2d2;
+  background-color: #bcbcbc;
+  border-color: #bcbcbc;
 }
 .darkinput[type=reset].btn-lighter:hover, .darkinput[type=reset].btn-lighter:focus, .darkinput[type=reset].btn-lighter:active, .darkinput[type=reset].btn-lighter.active, .darkinput[type=submit].btn-lighter:hover, .darkinput[type=submit].btn-lighter:focus, .darkinput[type=submit].btn-lighter:active, .darkinput[type=submit].btn-lighter.active, .darkinput[type=button].btn-lighter:hover, .darkinput[type=button].btn-lighter:focus, .darkinput[type=button].btn-lighter:active, .darkinput[type=button].btn-lighter.active, .dark.btn.btn-lighter:hover, .dark.btn.btn-lighter:focus, .dark.btn.btn-lighter:active, .dark.btn.btn-lighter.active, .dark input[type=reset].btn-lighter:hover, .dark input[type=reset].btn-lighter:focus, .dark input[type=reset].btn-lighter:active, .dark input[type=reset].btn-lighter.active, .dark
 input[type=submit].btn-lighter:hover, .dark
@@ -3986,6 +3579,64 @@ input[type=button].btn-lighter.active, .dark
 .btn.btn-lighter:focus, .dark
 .btn.btn-lighter:active, .dark
 .btn.btn-lighter.active {
+  background-color: #171c1f;
+  border-color: #171c1f;
+}
+input[type=reset].btn-lightest,
+input[type=submit].btn-lightest,
+input[type=button].btn-lightest,
+.btn.btn-lightest {
+  color: #5f5f5f;
+}
+.darkinput[type=reset].btn-lightest, .darkinput[type=submit].btn-lightest, .darkinput[type=button].btn-lightest, .dark.btn.btn-lightest, .dark input[type=reset].btn-lightest, .dark
+input[type=submit].btn-lightest, .dark
+input[type=button].btn-lightest, .dark
+.btn.btn-lightest {
+  color: #dedede;
+}
+input[type=reset].btn-lightest,
+input[type=submit].btn-lightest,
+input[type=button].btn-lightest,
+.btn.btn-lightest {
+  background-color: #f3f3f3;
+  border-color: #f3f3f3;
+}
+.darkinput[type=reset].btn-lightest, .darkinput[type=submit].btn-lightest, .darkinput[type=button].btn-lightest, .dark.btn.btn-lightest, .dark input[type=reset].btn-lightest, .dark
+input[type=submit].btn-lightest, .dark
+input[type=button].btn-lightest, .dark
+.btn.btn-lightest {
+  background-color: #2f383f;
+  border-color: #2f383f;
+}
+input[type=reset].btn-lightest:hover, input[type=reset].btn-lightest:focus, input[type=reset].btn-lightest:active, input[type=reset].btn-lightest.active,
+input[type=submit].btn-lightest:hover,
+input[type=submit].btn-lightest:focus,
+input[type=submit].btn-lightest:active,
+input[type=submit].btn-lightest.active,
+input[type=button].btn-lightest:hover,
+input[type=button].btn-lightest:focus,
+input[type=button].btn-lightest:active,
+input[type=button].btn-lightest.active,
+.btn.btn-lightest:hover,
+.btn.btn-lightest:focus,
+.btn.btn-lightest:active,
+.btn.btn-lightest.active {
+  background-color: #dddddd;
+  border-color: #dddddd;
+}
+.darkinput[type=reset].btn-lightest:hover, .darkinput[type=reset].btn-lightest:focus, .darkinput[type=reset].btn-lightest:active, .darkinput[type=reset].btn-lightest.active, .darkinput[type=submit].btn-lightest:hover, .darkinput[type=submit].btn-lightest:focus, .darkinput[type=submit].btn-lightest:active, .darkinput[type=submit].btn-lightest.active, .darkinput[type=button].btn-lightest:hover, .darkinput[type=button].btn-lightest:focus, .darkinput[type=button].btn-lightest:active, .darkinput[type=button].btn-lightest.active, .dark.btn.btn-lightest:hover, .dark.btn.btn-lightest:focus, .dark.btn.btn-lightest:active, .dark.btn.btn-lightest.active, .dark input[type=reset].btn-lightest:hover, .dark input[type=reset].btn-lightest:focus, .dark input[type=reset].btn-lightest:active, .dark input[type=reset].btn-lightest.active, .dark
+input[type=submit].btn-lightest:hover, .dark
+input[type=submit].btn-lightest:focus, .dark
+input[type=submit].btn-lightest:active, .dark
+input[type=submit].btn-lightest.active, .dark
+input[type=button].btn-lightest:hover, .dark
+input[type=button].btn-lightest:focus, .dark
+input[type=button].btn-lightest:active, .dark
+input[type=button].btn-lightest.active, .dark
+.btn.btn-lightest:hover, .dark
+.btn.btn-lightest:focus, .dark
+.btn.btn-lightest:active, .dark
+.btn.btn-lightest.active {
   background-color: #171c1f;
   border-color: #171c1f;
 }
@@ -4130,8 +3781,8 @@ input[type=reset] small,
 input[type=submit] small,
 input[type=button] small,
 .btn small {
-  color: inherit;
-  opacity: 0.75;
+  opacity: 0.85;
+  filter: greyscale(1);
 }
 input[type=reset][disabled], input[type=reset].disabled,
 input[type=submit][disabled],
@@ -4253,7 +3904,8 @@ legend {
 }
 
 .form-block {
-  border-top: 1px solid;
+  border: solid;
+  border-width: 1px 0;
   margin: 20px 0 0 0;
 }
 .form-block {
@@ -4261,6 +3913,9 @@ legend {
 }
 .dark.form-block, .dark .form-block {
   border-color: #171c1f;
+}
+.form-block + .form-block {
+  border-top: 0;
 }
 .form-block .form-legend {
   font-size: 13.91304px;
@@ -4298,28 +3953,27 @@ legend {
 }
 
 @media screen and (min-width: 800px) {
+  .form-block {
+    display: table;
+    width: 100%;
+  }
   .form-block + .form-block {
     margin-top: 0;
   }
   .form-block .form-legend {
+    display: table-cell;
     margin-top: 0;
-    float: left;
     padding: 20px;
     padding-left: 0;
-    width: 180px;
+    min-width: 180px;
+    background-image: linear-gradient(to right, #ffffff, #f9f9f9);
   }
   .form-block .form-items {
+    width: 100%;
+    display: table-cell;
     margin-top: 0;
-    margin-left: 180px;
     padding: 20px;
     padding-right: 0;
-    border-left: 1px solid;
-  }
-  .form-block .form-items {
-    border-color: #f3f3f3;
-  }
-  .dark.form-block .form-items, .dark .form-block .form-items {
-    border-color: #2f383f;
   }
 }
 .form-item {
@@ -4476,7 +4130,7 @@ legend {
 }
 
 .toolbar-space > * {
-  padding-left: 10px;
+  padding-left: 20px;
 }
 
 @media screen and (min-width: 800px) {
@@ -4527,10 +4181,23 @@ legend {
 }
 .expandable .expandable-toggle {
   margin-top: 0;
+  text-align: right;
+}
+.expandable .expandable-toggle:before {
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 .expandable.active .expandable-body {
   padding-bottom: 20px;
-  max-height: 1000px;
+  max-height: 500px;
+}
+.expandable.active .expandable-toggle:before {
+  -moz-transform: rotate(-45deg) translate(1px, 0);
+  -ms-transform: rotate(-45deg) translate(1px, 0);
+  -webkit-transform: rotate(-45deg) translate(1px, 0);
+  transform: rotate(-45deg) translate(1px, 0);
 }
 
 /* Clickable */
@@ -4592,18 +4259,6 @@ legend {
   text-decoration: none;
   color: inherit;
 }
-.menu .item:visited {
-  color: inherit;
-}
-.menu .item:focus {
-  color: inherit;
-}
-.menu .item:hover {
-  color: inherit;
-}
-.menu .item:active {
-  color: inherit;
-}
 .menu .item .badge {
   float: right;
   margin-right: 5px;
@@ -4641,18 +4296,6 @@ legend {
   display: block;
   cursor: pointer;
   text-decoration: none;
-  color: inherit;
-}
-.nav .item:visited {
-  color: inherit;
-}
-.nav .item:focus {
-  color: inherit;
-}
-.nav .item:hover {
-  color: inherit;
-}
-.nav .item:active {
   color: inherit;
 }
 .nav .item .badge {
@@ -4795,33 +4438,9 @@ legend {
   color: #5f5f5f;
   background-color: #e8e8e8;
 }
-.tree-node .tree-item:hover:visited, .tree-node .tree-item.active:visited {
-  color: #5f5f5f;
-}
-.tree-node .tree-item:hover:focus, .tree-node .tree-item.active:focus {
-  color: #5f5f5f;
-}
-.tree-node .tree-item:hover:hover, .tree-node .tree-item.active:hover {
-  color: #5f5f5f;
-}
-.tree-node .tree-item:hover:active, .tree-node .tree-item.active:active {
-  color: #5f5f5f;
-}
 .dark.tree-node .tree-item:hover, .dark.tree-node .tree-item.active, .dark .tree-node .tree-item:hover, .dark .tree-node .tree-item.active {
   color: #dedede;
   background-color: #232a2f;
-}
-.dark.tree-node .tree-item:hover:visited, .dark.tree-node .tree-item.active:visited, .dark .tree-node .tree-item:hover:visited, .dark .tree-node .tree-item.active:visited {
-  color: #dedede;
-}
-.dark.tree-node .tree-item:hover:focus, .dark.tree-node .tree-item.active:focus, .dark .tree-node .tree-item:hover:focus, .dark .tree-node .tree-item.active:focus {
-  color: #dedede;
-}
-.dark.tree-node .tree-item:hover:hover, .dark.tree-node .tree-item.active:hover, .dark .tree-node .tree-item:hover:hover, .dark .tree-node .tree-item.active:hover {
-  color: #dedede;
-}
-.dark.tree-node .tree-item:hover:active, .dark.tree-node .tree-item.active:active, .dark .tree-node .tree-item:hover:active, .dark .tree-node .tree-item.active:active {
-  color: #dedede;
 }
 .tree-node .tree-item.active {
   position: relative;
@@ -4846,46 +4465,10 @@ legend {
 .tree-node .tree-item.tree-item-hidden {
   color: rgba(255, 255, 255, 0.4);
 }
-.tree-node .tree-item.tree-item-hidden:visited {
-  color: rgba(255, 255, 255, 0.4);
-}
-.tree-node .tree-item.tree-item-hidden:focus {
-  color: rgba(255, 255, 255, 0.4);
-}
-.tree-node .tree-item.tree-item-hidden:hover {
-  color: rgba(255, 255, 255, 0.4);
-}
-.tree-node .tree-item.tree-item-hidden:active {
-  color: rgba(255, 255, 255, 0.4);
-}
 .tree-node .tree-item.tree-item-draft, .tree-node .tree-item.tree-item-pending {
   color: #FC6042;
 }
-.tree-node .tree-item.tree-item-draft:visited, .tree-node .tree-item.tree-item-pending:visited {
-  color: #FC6042;
-}
-.tree-node .tree-item.tree-item-draft:focus, .tree-node .tree-item.tree-item-pending:focus {
-  color: #FC6042;
-}
-.tree-node .tree-item.tree-item-draft:hover, .tree-node .tree-item.tree-item-pending:hover {
-  color: #FC6042;
-}
-.tree-node .tree-item.tree-item-draft:active, .tree-node .tree-item.tree-item-pending:active {
-  color: #FC6042;
-}
 .tree-node .tree-item.tree-item-draft.tree-item-hidden, .tree-node .tree-item.tree-item-pending.tree-item-hidden {
-  color: rgba(252, 96, 66, 0.4);
-}
-.tree-node .tree-item.tree-item-draft.tree-item-hidden:visited, .tree-node .tree-item.tree-item-pending.tree-item-hidden:visited {
-  color: rgba(252, 96, 66, 0.4);
-}
-.tree-node .tree-item.tree-item-draft.tree-item-hidden:focus, .tree-node .tree-item.tree-item-pending.tree-item-hidden:focus {
-  color: rgba(252, 96, 66, 0.4);
-}
-.tree-node .tree-item.tree-item-draft.tree-item-hidden:hover, .tree-node .tree-item.tree-item-pending.tree-item-hidden:hover {
-  color: rgba(252, 96, 66, 0.4);
-}
-.tree-node .tree-item.tree-item-draft.tree-item-hidden:active, .tree-node .tree-item.tree-item-pending.tree-item-hidden:active {
   color: rgba(252, 96, 66, 0.4);
 }
 .tree-node .tree-item.tree-item-archived {
@@ -4955,18 +4538,6 @@ legend {
   opacity: 0.4 !important;
 }
 .tree-drag, .tree-drag a {
-  color: white;
-}
-.tree-drag:visited, .tree-drag a:visited {
-  color: white;
-}
-.tree-drag:focus, .tree-drag a:focus {
-  color: white;
-}
-.tree-drag:hover, .tree-drag a:hover {
-  color: white;
-}
-.tree-drag:active, .tree-drag a:active {
   color: white;
 }
 
@@ -5241,6 +4812,7 @@ a .card strong {
 }
 .login fieldset {
   border: 1px solid;
+  border-radius: 0px;
   padding: 20px;
 }
 .login fieldset {
@@ -5266,36 +4838,12 @@ a .card strong {
 .login .login-password a {
   color: #969a9d;
 }
-.login .login-password a:visited {
-  color: #969a9d;
-}
-.login .login-password a:focus {
-  color: #969a9d;
-}
-.login .login-password a:hover {
-  color: #969a9d;
-}
-.login .login-password a:active {
-  color: #969a9d;
-}
 
 /* Copyright */
 .copyright {
   text-align: center;
   font-size: 12.0983px;
   font-size: 0.75614rem;
-  color: #caccce;
-}
-.copyright:visited {
-  color: #caccce;
-}
-.copyright:focus {
-  color: #caccce;
-}
-.copyright:hover {
-  color: #caccce;
-}
-.copyright:active {
   color: #caccce;
 }
 .copyright a {
@@ -5349,33 +4897,9 @@ html {
   color: #5f5f5f;
   background-color: white;
 }
-html:visited {
-  color: #5f5f5f;
-}
-html:focus {
-  color: #5f5f5f;
-}
-html:hover {
-  color: #5f5f5f;
-}
-html:active {
-  color: #5f5f5f;
-}
 .darkhtml, .dark html {
   color: #dedede;
   background-color: #3b464f;
-}
-.darkhtml:visited, .dark html:visited {
-  color: #dedede;
-}
-.darkhtml:focus, .dark html:focus {
-  color: #dedede;
-}
-.darkhtml:hover, .dark html:hover {
-  color: #dedede;
-}
-.darkhtml:active, .dark html:active {
-  color: #dedede;
 }
 
 html, body {
@@ -5509,33 +5033,9 @@ html, body {
   color: #5f5f5f;
   background-color: #f3f3f3;
 }
-.sidebar:visited {
-  color: #5f5f5f;
-}
-.sidebar:focus {
-  color: #5f5f5f;
-}
-.sidebar:hover {
-  color: #5f5f5f;
-}
-.sidebar:active {
-  color: #5f5f5f;
-}
 .dark.sidebar, .dark .sidebar {
   color: #dedede;
   background-color: #2f383f;
-}
-.dark.sidebar:visited, .dark .sidebar:visited {
-  color: #dedede;
-}
-.dark.sidebar:focus, .dark .sidebar:focus {
-  color: #dedede;
-}
-.dark.sidebar:hover, .dark .sidebar:hover {
-  color: #dedede;
-}
-.dark.sidebar:active, .dark .sidebar:active {
-  color: #dedede;
 }
 
 @media screen and (min-width: 800px) {
