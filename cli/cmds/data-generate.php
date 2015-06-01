@@ -46,7 +46,8 @@ try {
 		'ante. Vivamus non lorem',
 	);
 	shuffle($names);
-	$struct = $app->em('Chalk\Core\Structure')->one([], 'id');
+	$structs = $app->em('Chalk\Core\Structure')->all(['sort' => 'id']);
+	$struct  = $structs[0];
 	$nodes = [
 		$struct->root,
 	];
@@ -72,6 +73,6 @@ try {
 } catch (Exception $e) {
 
 	$app->em->rollback();
-	cli\error('Error: ' . $e->getMessage());
+	cli\err('Error: ' . $e->getMessage());
 
 }
