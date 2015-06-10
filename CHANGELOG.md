@@ -6,6 +6,11 @@
 	* Ability to create pages within structure
 	* Improved design
 
+### 0.3.8
+
+* **Improvements**
+	* Updated Coast to 0.4
+
 ### 0.3.7
 
 * **Improvements**
