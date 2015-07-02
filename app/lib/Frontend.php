@@ -77,7 +77,7 @@ class Frontend extends App
                 continue;
             }
             $map[$node['id']] = $node;
-            $this->router->all($node['contentId'], $node['path'], [
+            $this->router->route($node['contentId'], 'all', $node['path'], [
                 'node'    => $node,
                 'content' => [$node['contentType'], $node['contentId']],
             ]);

@@ -6,11 +6,13 @@
 
 namespace Chalk;
 
-use Coast\App,
-    Chalk\Core,
-    Closure,
-    Chalk\Module,
-    Chalk\Event;
+use Coast\App;
+use Chalk\Core;
+use Closure;
+use Chalk\Module;
+use Chalk\Event;
+use Coast\Request;
+use Coast\Response;
 
 class Chalk extends App
 {
@@ -40,12 +42,12 @@ class Chalk extends App
         return self::$_isFrontend;
     }
 
-    protected function _preExecute()
+    protected function _preExecute(Request $req = null, Response $res = null)
     {
         self::isFrontend(false);
     }
 
-    protected function _postExecute()
+    protected function _postExecute(Request $req = null, Response $res = null)
     {
         self::isFrontend(true);
     }

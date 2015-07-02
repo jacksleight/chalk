@@ -4,65 +4,66 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-$app->router
-	->all('index', "{controller}?/{action}?/{id}?", [
+return [
+	'index' => ['all', "{controller}?/{action}?/{id}?", [
 		'controller' => 'index',
 		'action'     => 'index',
 		'id'    	 => null,
-	])
-	->all('about', "about", [
+	]],
+	'about' => ['all', "about", [
 		'controller' => 'auth',
 		'action'     => 'about',
-	])
-	->all('sandbox', "sandbox", [
+	]],
+	'sandbox' => ['all', "sandbox", [
 		'controller' => 'index',
 		'action'     => 'sandbox',
-	])
-	->all('passwordRequest', "password-request", [
+	]],
+	'passwordRequest' => ['all', "password-request", [
 		'controller' => 'auth',
 		'action'     => 'password-request',
-	])
-	->all('passwordReset', "password-reset/{token}", [
+	]],
+	'passwordReset' => ['all', "password-reset/{token}", [
 		'controller' => 'auth',
 		'action'     => 'password-reset',
-	])
-	->all('login', "login", [
+	]],
+	'login' => ['all', "login", [
 		'controller' => 'auth',
 		'action'     => 'login',
-	])
-	->all('logout', "logout", [
+	]],
+	'logout' => ['all', "logout", [
 		'controller' => 'auth',
 		'action'     => 'logout',
-	])
-	->all('profile', "profile", [
+	]],
+	'profile' => ['all', "profile", [
 		'controller' => 'profile',
 		'action'     => 'edit',
-	])
-	->all('prefs', "prefs", [
+	]],
+	'prefs' => ['all', "prefs", [
 		'controller' => 'index',
 		'action'     => 'prefs',
-	])
-	->all('content', "content/{entity}?/{action}?/{content}?", [
+	]],
+	'content' => ['all', "content/{entity}?/{action}?/{content}?", [
 		'controller' => 'content',
 		'action'     => 'index',
 		'entity'     => null,
 		'content'    => null,
-	])
-	->all('setting', "setting/{controller}?/{action}?/{id}?", [
+	]],
+	'setting' => ['all', "setting/{controller}?/{action}?/{id}?", [
 		'controller' => 'setting',
 		'action'     => 'index',
 		'id'  	  	 => null,
-	])
-	->all('widget', "widget/{action}/{entity}", [
+	]],
+	'widget' => ['all', "widget/{action}/{entity}", [
 		'controller' => 'widget',
-	])
-	->all('structure', "structure/{action}?/{structure}?", [
+	]],
+	'structure' => ['all', "structure/{action}?/{structure}?", [
 		'controller' => 'structure',
 		'action'     => 'index',
 		'structure'	 => null,
-	])
-	->all('structure_node', "structure/node/{structure}/{action}?/{node}?", [
+	]],
+	'structure_node' => ['all', "structure/node/{structure}/{action}?/{node}?", [
 		'controller' => 'structure_node',
 		'action'     => 'index',
 		'node'    	 => null,
-	]);
+	]],
+];

@@ -10,11 +10,11 @@ use Chalk\Core\Module as Core;
 use Chalk\Frontend;
 use Chalk\Frontend\UrlResolver as FrontendUrlResolver;
 use Chalk\Notifier;
-use Coast\App\Controller;
-use Coast\App\Image;
-use Coast\App\Router;
-use Coast\App\UrlResolver;
-use Coast\App\View;
+use Coast\Controller;
+use Coast\Image;
+use Coast\Router;
+use Coast\UrlResolver;
+use Coast\View;
 use Coast\Config;
 use Coast\Path;
 use Coast\Request;
@@ -29,13 +29,12 @@ $frontend
     ->param('controller', new Controller())
     ->param('view', $config->view)
     ->param('url', new FrontendUrlResolver([
-        'baseUrl' => new Url("{$config->baseUrl}"),
+        'baseUrl' => new Url("{$config->frontBaseUrl}"),
         'baseDir' => $app->dir(),
         'router'  => $frontend->router,
     ]));
 
 $chalk = (new Chalk(__DIR__, $config->envs))
-    ->path(new Path("{$config->path}"))
     ->param('root', $app)
     ->param('config', $config);
 $chalk
@@ -44,22 +43,23 @@ $chalk
     ->param('controller', new Controller())
     ->param('router', new Router([
         'target' => $chalk->controller,
+        'routes' => $chalk->load('app/routes.php'),
     ]))
     ->param('view', new View())
-    ->param('cache', $chalk->import($chalk->file('app/cache.php')))
-    ->param('em', $chalk->import($chalk->file('app/doctrine.php')))
-    ->param('swift', $chalk->import($chalk->file('app/swift.php')))
+    ->param('cache', $chalk->load($chalk->file('app/cache.php')))
+    ->param('em', $chalk->load($chalk->file('app/doctrine.php')))
+    ->param('swift', $chalk->load($chalk->file('app/swift.php')))
     ->param('url', new UrlResolver([
-        'baseUrl' => new Url("{$config->baseUrl}{$chalk->path()}/"),
+        'baseUrl' => new Url("{$config->backBaseUrl}"),
         'baseDir' => $chalk->dir('public'),
         'router'  => $chalk->router,
     ]))
     ->param('image', new Image([
-        'baseDir'           => $config->dataPublicDir->dir('file'),
-        'outputDir'         => $config->dataPublicDir->dir('image'),
+        'baseDir'           => $config->publicDataDir->dir('file'),
+        'outputDir'         => $config->publicDataDir->dir('image'),
         'urlResolver'       => $chalk->url,
         'outputUrlResolver' => $frontend->url,
-        'transforms'        => $chalk->import($chalk->file('app/transforms.php'))
+        'transforms'        => $chalk->load($chalk->file('app/transforms.php'))
     ]))
     ->notFoundHandler(function(Request $req, Response $res) {
         return $res
@@ -85,9 +85,7 @@ $chalk
     ->executable($chalk->image)
     ->executable($chalk->router);
 
-File::baseDir($config->dataPublicDir->dir('file'));
-File::mimeTypes($chalk->import($chalk->file('app/mime-types.php')));
-
-$chalk->import($chalk->file('app/routes.php'));
+File::baseDir($config->publicDataDir->dir('file'));
+File::mimeTypes($chalk->load($chalk->file('app/mime-types.php')));
 
 return $chalk;

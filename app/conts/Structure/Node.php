@@ -8,7 +8,7 @@ namespace Chalk\Core\Controller\Structure;
 
 use Chalk\Chalk,
     Chalk\Core,
-    Coast\App\Controller\Action,
+    Coast\Controller\Action,
     Coast\Request,
     Coast\Response;
 

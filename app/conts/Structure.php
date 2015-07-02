@@ -8,7 +8,7 @@ namespace Chalk\Core\Controller;
 
 use Chalk\Chalk,
 	Chalk\Core\Structure\Node\Iterator,
-	Coast\App\Controller\Action,
+	Coast\Controller\Action,
 	Coast\Request,
 	Coast\Response;
 

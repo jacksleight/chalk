@@ -6,7 +6,7 @@
 
 namespace Chalk\Frontend;
 
-use Coast\App\UrlResolver as CoastUrlResolver;
+use Coast\UrlResolver as CoastUrlResolver;
 
 class UrlResolver extends CoastUrlResolver
 {
