@@ -25,9 +25,10 @@ html, body {
 		top: 0;
 		left: 0;
 		bottom: 0;
-		right: 0;	
+		right: 0;
 		> * {
 			@include flush;
+			@include flex-shrink(0);
 			position: relative;
 		}
 	}
@@ -45,15 +46,19 @@ html, body {
 	.flex, 
 	.flex-1 {
 		@include flex(1);
+		@include flex-shrink(1);
 	}
 	.flex-2 {
 		@include flex(2);
+		@include flex-shrink(1);
 	}
 	.flex-3 {
 		@include flex(3);
+		@include flex-shrink(1);
 	}
 	.flex-4 {
 		@include flex(4);
+		@include flex-shrink(1);
 	}
 }
 
