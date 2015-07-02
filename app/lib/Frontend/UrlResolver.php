@@ -26,9 +26,7 @@ class UrlResolver extends CoastUrlResolver
         if (!is_numeric($content)) {
             $content = $content['id'];
         }
-        $route = $this->router->has($content)
-            ? $this->router->route($content)
-            : null;
+        $route = $this->router->route($content);
         $path = isset($route)
             ? $route['path']
             : "_c{$content}";

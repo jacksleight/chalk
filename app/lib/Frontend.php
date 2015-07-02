@@ -6,14 +6,14 @@
 
 namespace Chalk;
 
-use Coast\App,
-    Closure,
-    DOMDocument,
-    DOMXPath,
-    Coast\Request, 
-    Coast\Response, 
-    Chalk\Core,
-    Chalk\Core\Structure\Node;
+use Coast\App;
+use Closure;
+use DOMDocument;
+use DOMXPath;
+use Coast\Request; 
+use Coast\Response; 
+use Chalk\Core;
+use Chalk\Core\Structure\Node;
 
 class Frontend extends App
 {
@@ -140,7 +140,8 @@ class Frontend extends App
                     continue;
                 }
                 if (isset($data['content'])) {
-                    if ($this->router->has($data['content']['id'])) {
+                    $route = $this->router->route($data['content']['id']);
+                    if (isset($route)) {
                         $url = $this->url([], $data['content']['id'], true);
                     } else {
                         $url = $this->url("_c{$data['content']['id']}");

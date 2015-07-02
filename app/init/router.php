@@ -4,7 +4,9 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-return [
+use Coast\Router;
+
+$routes = [
 	'index' => ['all', "{controller}?/{action}?/{id}?", [
 		'controller' => 'index',
 		'action'     => 'index',
@@ -67,3 +69,8 @@ return [
 		'node'    	 => null,
 	]],
 ];
+
+return new Router([
+    'target' => $app->controller,
+    'routes' => $routes,
+]);

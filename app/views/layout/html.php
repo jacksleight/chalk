@@ -1,5 +1,5 @@
 <?php
-$mode   = $this->app->isDebug() ? '' : '.min';
+$mode   = $this->chalk->isDebug() ? '' : '.min';
 $lang   = 'en-GB';
 $title  = (isset($title) 
     ? $title . ' – '
@@ -34,9 +34,9 @@ $title  = (isset($title)
             ], 'index', true),
             'contentName'   => \Chalk\Chalk::info('Chalk\Core\Content')->name,
             'prefs'         => isset($req->user) ? $req->user->prefs() : [],
-            'styles'        => $this->config->styles,
+            'styles'        => $this->chalk->config->styles,
             'notifications' => $this->notify->notifications(),
-            'widgets'       => array_map('\Chalk\Chalk::info', $this->app->fire('core_listWidgets')->widgets()),
+            'widgets'       => array_map('\Chalk\Chalk::info', $this->chalk->fire('core_listWidgets')->widgets()),
             'editorContent' => [
                 'src'     => (string) $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/editor-content{$mode}.js"),
                 'loaded'  => false,

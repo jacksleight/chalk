@@ -92,7 +92,7 @@ abstract class Module
 
     public function viewDir($path)
     {
-        $this->_chalk->view->dir(
+        $this->_chalk->backend->view->dir(
             $this->name(),
             $this->dir($path)
         );
@@ -101,7 +101,7 @@ abstract class Module
 
     public function controllerNspace($class)
     {
-        $this->_chalk->controller->nspace(
+        $this->_chalk->backend->controller->nspace(
             $this->name(),
             $this->nspace($class)
         );
@@ -110,7 +110,7 @@ abstract class Module
 
     public function controllerAll($class)
     {
-        $this->_chalk->controller->all(
+        $this->_chalk->backend->controller->all(
             [$class, $this->name()]
         );
         return $this;

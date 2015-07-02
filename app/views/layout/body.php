@@ -58,7 +58,7 @@ $secondary	= $navigation->items('Chalk\Core\Secondary');
 					</li>				
 				<?php } ?>
 			</ul>
-			<h1><?= $this->config->name ?></h1>
+			<h1><?= $this->chalk->config->name ?></h1>
 			<ul class="notifications"></ul>
 		</div>
 		<div class="flex">

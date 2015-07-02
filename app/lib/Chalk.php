@@ -7,8 +7,6 @@
 namespace Chalk;
 
 use Coast\App;
-use Chalk\Core;
-use Closure;
 use Chalk\Module;
 use Chalk\Event;
 use Coast\Request;
@@ -17,8 +15,6 @@ use Coast\Response;
 class Chalk extends App
 {
     const VERSION           = '0.3.8';
-
-    const FORMAT_DATE       = 'jS F Y';
 
     const STATUS_DRAFT      = 'draft';
     const STATUS_PENDING    = 'pending';
@@ -40,16 +36,6 @@ class Chalk extends App
             return null;
         }
         return self::$_isFrontend;
-    }
-
-    protected function _preExecute(Request $req = null, Response $res = null)
-    {
-        self::isFrontend(false);
-    }
-
-    protected function _postExecute(Request $req = null, Response $res = null)
-    {
-        self::isFrontend(true);
     }
 
     public static function info($class)
@@ -128,26 +114,6 @@ class Chalk extends App
         ]);
     }
 
-    public function module($name, Module $module = null)
-    {
-        if (func_num_args() > 1) {
-            $this->_modules[$name] = $module;
-            self::$_map[$name] = $module->nspace();
-            $module->chalk($this, $name);
-            $module->init();
-            return $this;
-        }
-        $name = self::info($name)->module->name;
-        return isset($this->_modules[$name])
-            ? $this->_modules[$name]
-            : null;
-    }
-
-    public function modules()
-    {
-        return $this->_modules;
-    }
-
     public function isDebug()
     {
         return (bool) $this->env('DEBUG');
@@ -168,29 +134,24 @@ class Chalk extends App
         return $this->env('SERVER') == 'production';
     }
 
-    public function frontend()
+    public function module($name, Module $module = null)
     {
-        return $this->_frontend;
+        if (func_num_args() > 1) {
+            $this->_modules[$name] = $module;
+            self::$_map[$name] = $module->nspace();
+            $module->chalk($this, $name);
+            $module->init();
+            return $this;
+        }
+        $name = self::info($name)->module->name;
+        return isset($this->_modules[$name])
+            ? $this->_modules[$name]
+            : null;
     }
 
-    public function layouts()
+    public function modules()
     {
-        if (!isset($this->config->layoutDir) || !$this->config->layoutDir->exists()) {
-            return [];
-        }
-
-        $layouts = [];
-        $it = $this->config->layoutDir->iterator(null, true);
-        foreach ($it as $file) {
-            $path   = $file->toRelative($this->config->layoutDir);
-            $path   = $path->extName('');
-            $name   = trim($path, './');
-            $label  = ucwords(str_replace(['-', '/', '_'], [' ', ' – ', ' – '], $name));
-            $layouts[$name] = $label;
-        }
-        unset($layouts['default']);
-        ksort($layouts);
-        return $layouts;
+        return $this->_modules;
     }
 
     public function register($name, $class = 'Chalk\Event')
@@ -232,37 +193,8 @@ class Chalk extends App
         return $event;
     }
 
-    public function publish()
+    public function execute(Request $req = null, Response $res = null)
     {
-        // foreach (self::$_publishables as $class) {
-           $entitys = $this->em('Chalk\Core\Content')->all(['isPublishable' => true]);
-           // if (is_subclass_of($class, 'Chalk\Behaviour\Versionable')) {
-           //     $last = null;
-           //     foreach ($entitys as $entity) {
-           //         $entity->status = $entity->master === $last
-           //         ? Chalk::STATUS_ARCHIVED
-           //         : Chalk::STATUS_PUBLISHED;
-           //         $last = $entity->master;
-           //     }
-           // } else {
-           //     foreach ($entitys as $entity) {
-           //         $entity->status = Chalk::STATUS_PUBLISHED;
-           //     }
-           // }
-           foreach ($entitys as $entity) {
-               $entity->status = Chalk::STATUS_PUBLISHED;
-           }
-        // }
-        $this->em->flush();
-    }
-
-    public function statusClass($status)
-    {
-        return [
-            self::STATUS_DRAFT      => 'negative',
-            self::STATUS_PENDING    => 'negative',
-            self::STATUS_PUBLISHED  => 'positive badge-out',
-            self::STATUS_ARCHIVED   => 'light badge-out',
-        ][$status];
+        throw new \Exception('Chalk app cannot be executed directly, use Frontend or Backend');
     }
 }
