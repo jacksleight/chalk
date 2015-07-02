@@ -3242,7 +3242,6 @@ input[type=radio] + label:before {
 }
 
 select {
-  width: auto;
   padding-right: 0;
   /* Include an arrow icon for WebKit */
   /* Fix Firefox not vertically centering text */

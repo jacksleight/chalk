@@ -752,7 +752,6 @@ input[type=radio] + label {
 	}
 }
 select { 
-	width: auto;
 	optgroup {
 		@include font-size(0);
 		font-family: $font-family;
