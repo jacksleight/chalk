@@ -1,10 +1,10 @@
 Hi <?= $user->name ?>,
 
-We've received a request to reset your <?= $this->config->name ?> CMS password.
+We've received a request to reset your <?= $this->chalk->config->name ?> CMS password.
 
 Please click the link below to reset your password:
 
-<?= $this->req->url()->toString(\Coast\Url::PART_PORT, true) ?><?= $this->url([
+<?= $this->req->url()->toPart(\Coast\Url::PART_PORT) ?><?= $this->url([
 	'token' => $user->token,
 ], 'passwordReset', true) . "\n" ?>
 This link will expire in 24 hours.

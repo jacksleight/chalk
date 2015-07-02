@@ -20,6 +20,10 @@ use Doctrine\ORM\Configuration,
 
 \Coast\Doctrine\register_dbal_types();
 
+if (!isset($app->config->database)) {
+	throw new \Chalk\Exception('Database connection details are required');
+}
+
 $config = new Configuration();
 $config->setNamingStrategy(new NamingStrategy());
 $config->setMetadataDriverImpl($config->newDefaultAnnotationDriver());

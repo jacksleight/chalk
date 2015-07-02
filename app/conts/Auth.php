@@ -76,9 +76,9 @@ class Auth extends Action
         $this->em->flush();
 
         $this->swift->send(\Swift_Message::newInstance()
-            ->setSubject("{$this->config->name} CMS Password Reset")
+            ->setSubject("{$this->chalk->config->name} CMS Password Reset")
             ->setTo($user->emailAddress)
-            ->setFrom($this->config->emailAddress)
+            ->setFrom($this->chalk->config->emailAddress)
             ->setBody((string) $this->view->render('email/password-request', [
                 'user' => $user,
             ])));
