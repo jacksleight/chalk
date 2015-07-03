@@ -55,7 +55,7 @@ $items = [];
             ]) ?>
         </div>  
     <?php $template = $this->end() ?>
-    <?= $this->child('stackable', [
+    <?= $this->inner('stackable', [
         'items'     => $items,
         'template'  => $template,
     ]) ?>

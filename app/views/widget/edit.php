@@ -1,5 +1,5 @@
 <?php if (!$req->isAjax()) { ?>
-	<?php $this->parent('/layout/page_content') ?>
+	<?php $this->outer('/layout/page_content') ?>
 	<?php $this->block('main') ?>
 <?php } ?>
 
@@ -13,7 +13,7 @@
 		<h1>
 			<?= $info->singular ?>
 		</h1>
-		<?= $this->child("{$info->local->path}", [], $info->module->name) ?>
+		<?= $this->inner("{$info->local->path}", [], $info->module->name) ?>
 	</div>
 	<fieldset class="footer">
 		<ul class="toolbar">

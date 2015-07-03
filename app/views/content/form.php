@@ -92,7 +92,7 @@
 <? } $this->block() ?>
 
 <? if (!$content->isProtected()) { ?>
-	<?= $this->child('/behaviour/publishable/form', ['publishable' => $content], 'core') ?>
+	<?= $this->inner('/behaviour/publishable/form', ['publishable' => $content], 'core') ?>
 <?php } ?>
 <?php if (isset($node)) { ?>
 	<fieldset class="form-block">

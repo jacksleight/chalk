@@ -110,7 +110,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
         <ul class="thumbs <?= $isUploadable ? 'uploadable-list' : null ?>">
             <?php if (count($contents)) { ?>
                 <?php foreach ($contents as $content) { ?>
-                    <li><?= $this->child('thumb', ['content' => $content]) ?></li>
+                    <li><?= $this->inner('thumb', ['content' => $content]) ?></li>
                 <?php } ?>
             <?php } else { ?>
                 <li></li>
@@ -238,7 +238,7 @@ $bodyClass     = isset($bodyClass)  ? $bodyClass  : null;
         'action' => 'upload'
     ], 'content', true) ?>" multiple>
     <script type="x-tmpl-mustache" class="uploadable-template">
-        <?= $this->child('/content/thumb', ['template' => true]) ?>
+        <?= $this->inner('/content/thumb', ['template' => true]) ?>
     </script>
     </div>
 <? } ?>

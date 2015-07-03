@@ -1,4 +1,4 @@
-<?php $this->parent('/layout/html') ?>
+<?php $this->outer('/layout/html') ?>
 <?php $this->block('body') ?>
 
 <?php
@@ -8,7 +8,7 @@ $secondary	= $navigation->items('Chalk\Core\Secondary');
 <div class="flex-row">
 	<div class="flex-col sidebar dark">
 		<? if (isset($primary)) { ?>
-			<?= $this->child('nav', [
+			<?= $this->inner('nav', [
 				'items'	=> $primary,
 				'class'	=> 'toggles',
 			]) ?>
@@ -17,7 +17,7 @@ $secondary	= $navigation->items('Chalk\Core\Secondary');
 			<?= $this->content('sidebar') ?>
 		</div>
 		<? if (isset($secondary)) { ?>
-			<?= $this->child('nav', [
+			<?= $this->inner('nav', [
 				'items' => $secondary,
 				'class' => 'toggles',
 			]) ?>

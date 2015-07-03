@@ -1,4 +1,4 @@
-<?php $this->parent('/layout/page', [
+<?php $this->outer('/layout/page', [
 	'title'	=> 'Not Found',
 ]) ?>
 <?php $this->block('main') ?>

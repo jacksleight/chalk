@@ -56,7 +56,7 @@ $render = isset($input)
 		</label>
 	<?php } ?>
 	<div>
-		<?= $this->child($render[0], [
+		<?= $this->inner($render[0], [
 			'md'		=> $md,
 			'type'		=> $type,
 			'name'		=> $md['contextName'],

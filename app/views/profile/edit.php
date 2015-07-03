@@ -1,4 +1,4 @@
-<?php $this->parent('/layout/page') ?>
+<?php $this->outer('/layout/page') ?>
 <?php $this->block('main') ?>
 
 <form action="<?= $this->url->route() ?>" method="post" class="flex-col">

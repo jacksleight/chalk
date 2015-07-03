@@ -1,4 +1,4 @@
-<?php $this->parent('/layout/page_settings') ?>
+<?php $this->outer('/layout/page_settings') ?>
 <?php $this->block('main') ?>
 <?php
 $structures = $this->em($info)

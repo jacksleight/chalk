@@ -1,4 +1,4 @@
-<?php $this->parent('/layout/html') ?>
+<?php $this->outer('/layout/html') ?>
 <?php $this->block('body') ?>
 
 <ul class="notifications"></ul>

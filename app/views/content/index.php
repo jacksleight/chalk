@@ -1,4 +1,4 @@
-<?php $this->parent('/layout/page_content') ?>
+<?php $this->outer('/layout/page_content') ?>
 <?php $this->block('main') ?>
 		
 <form action="<?= $this->url->route() ?>">
@@ -6,7 +6,7 @@
 	$contents = $this->em($req->info)
 		->paged($index->toArray());
 	?>
-	<?= $this->child("/{$info->local->path}/list", [
+	<?= $this->inner("/{$info->local->path}/list", [
 		'contents' => $contents,
 	], $info->module->name) ?>
 </form>

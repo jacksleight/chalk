@@ -1,8 +1,8 @@
-<?php $this->parent('/layout/page_content', [
+<?php $this->outer('/layout/page_content', [
 	'content' => $content,
 ]) ?>
 <?php $this->block('main') ?>
 
 <form action="<?= $this->url->route() ?>" method="post">
-	<?= $this->child("/{$info->local->path}/form", [], $info->module->name) ?>
+	<?= $this->inner("/{$info->local->path}/form", [], $info->module->name) ?>
 </form>

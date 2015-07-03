@@ -81,6 +81,6 @@ class All extends Action
 		return $res->html($this->view->render($path, [
 			'req' => $req,
 			'res' => $res,
-		] + (array) $req->view, $req->set));
+		] + (array) $req->view, isset($req->group) ? $req->group : 'core'));
 	}
 }

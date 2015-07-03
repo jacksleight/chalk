@@ -14,7 +14,7 @@ if (!isset($restricts)) {
 			$content = $this->em('Chalk\Core\Content')->id($value);
 			?>
 			<?php if ($content) { ?>
-				<?= $this->child('/content/card', [
+				<?= $this->inner('/content/card', [
 					'content' => $content
 				]) ?>		
 			<?php } else { ?>
@@ -24,7 +24,7 @@ if (!isset($restricts)) {
 			<span class="placeholder">Nothing Selected</span>
 		<?php } ?>
 	</div>
-	<?= $this->child('input', [
+	<?= $this->inner('input', [
 		'type'		=> 'hidden',
 		'value'		=> $value,
 	]) ?>

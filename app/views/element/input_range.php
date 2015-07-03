@@ -1,5 +1,5 @@
 <?php
-echo $this->child('input', [
+echo $this->inner('input', [
 	'type'		=> 'range',
 	'required'	=> null,
 ]);

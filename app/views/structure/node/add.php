@@ -1,5 +1,5 @@
 <?php if (!$req->isAjax()) { ?>
-	<?php $this->parent('/layout/html') ?>
+	<?php $this->outer('/layout/html') ?>
 	<?php $this->block('body') ?>
 <?php } ?>
 

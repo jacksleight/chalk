@@ -1,4 +1,4 @@
-<?php $this->parent('/layout/page_structure', [
+<?php $this->outer('/layout/page_structure', [
 	'content' => $content,
 ]) ?>
 <?php $this->block('main') ?>
@@ -14,7 +14,7 @@ $info	    = \Chalk\Chalk::info($content->getObject());
 
 <?php if ($info->class != 'Chalk\Core\Content') { ?>
 	<form action="<?= $this->url->route() ?><?= $this->url->query() ?>" method="post">
-		<?= $this->child("/{$info->local->path}/form", [
+		<?= $this->inner("/{$info->local->path}/form", [
 			'structure'	=> $structure,
 			'content'	=> $content,
 			'info'	    => $info,
