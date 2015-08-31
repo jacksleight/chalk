@@ -138,7 +138,7 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
 
     if (Chalk.widgets) {
 
-        var groups = {}, group, entity;
+        var groups = {}, group, entity, item;
         for (var i = 0; i < Chalk.widgets.length; i++) {
             entity = Chalk.widgets[i];
             group  = entity.group;
