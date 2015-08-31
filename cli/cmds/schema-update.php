@@ -10,7 +10,7 @@ if (cli\choose("Are you sure", 'yn', 'n') == 'n') {
 
 require_once $cmds['cache-clear']->name();
 
-$schema	= new \Doctrine\ORM\Tools\SchemaTool($app->em);
+$schema	= new \Doctrine\ORM\Tools\SchemaTool($app->em->value());
 
 cli\line('Calculating changes..');
 $stmts = $schema->getUpdateSchemaSql($app->em->getMetadataFactory()->getAllMetadata(), false);

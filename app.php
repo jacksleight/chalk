@@ -15,6 +15,7 @@ use Coast\Controller;
 use Coast\Request;
 use Coast\Response;
 use Coast\Router;
+use Coast\Session;
 use Coast\Url;
 use Coast\UrlResolver;
 use Coast\View;
@@ -38,9 +39,9 @@ $frontend
         'baseDir' => $app->dir(),
         'router'  => $frontend->router,
     ]))
-    ->param('em', $chalk->param('em'))
-    ->param('cache', $chalk->param('cache'))
-    ->param('swift', $chalk->param('swift'));
+    ->param('em', $chalk->em)
+    ->param('cache', $chalk->cache)
+    ->param('swift', $chalk->swift);
 $chalk->param('frontend', $frontend);
 
 $backend = (new Backend(__DIR__, $config->envs))
@@ -50,6 +51,9 @@ $backend
     ->param('view', new View())
     ->param('notify', new Notifier())
     ->param('controller', new Controller())
+    ->param('session', new Session([
+        'expires' => null,
+    ]))
     ->param('router', $backend->load('app/init/router.php'))
     ->param('image', $backend->load('app/init/image.php'))
     ->param('url', new UrlResolver([
@@ -57,10 +61,10 @@ $backend
         'baseDir' => $backend->dir('public'),
         'router'  => $backend->router,
     ]))
-    ->param('em', $chalk->param('em'))
-    ->param('cache', $chalk->param('cache'))
-    ->param('swift', $chalk->param('swift'))
-    ->notFoundHandler(function(Request $req, Response $res) {
+    ->param('em', $chalk->em)
+    ->param('cache', $chalk->cache)
+    ->param('swift', $chalk->swift)
+    ->failureHandler(function(Request $req, Response $res) {
         return $res
             ->status(404)
             ->html($this->view->render('error/not-found', [
@@ -83,9 +87,9 @@ $backend
 $chalk->param('backend', $backend);
 $frontend->param('backend', $backend);
 
-$backend
-    ->executable($backend->image)
-    ->executable($backend->router);
+$backend->executable($backend->session);
+$backend->executable($backend->image);
+$backend->executable($backend->router);
 
 $chalk
     ->module('core', new Core());

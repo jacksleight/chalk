@@ -12,7 +12,7 @@ class Notifier implements \Coast\App\Access
 
 	public function __invoke($text, $type = null)
 	{
-		$session =& $this->req->session('chalk');
+		$session = $this->session->data('__Chalk');
         if (!isset($session->notifications)) {
         	$session->notifications = [];
         }
@@ -21,7 +21,7 @@ class Notifier implements \Coast\App\Access
 	
 	public function notifications($clear = true)
 	{
-		$session =& $this->req->session('chalk');
+		$session = $this->session->data('__Chalk');
         if (!isset($session->notifications)) {
         	$session->notifications = [];
         }

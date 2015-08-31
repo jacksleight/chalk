@@ -15,7 +15,7 @@ class All extends Action
 {
 	public function preDispatch(Request $req, Response $res)
 	{
-		$session =& $req->session('chalk');
+		$session = $this->session->data('__Chalk');
 		if (!isset($session->user) && $req->controller !== 'auth') {
 			return $res->redirect($this->url(array(), 'login', true));
 		}

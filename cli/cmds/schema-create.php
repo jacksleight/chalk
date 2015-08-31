@@ -10,14 +10,14 @@ if (cli\choose("Are you sure", 'yn', 'n') == 'n') {
 
 require_once $cmds['cache-clear']->name();
 
-$schema	= new \Doctrine\ORM\Tools\SchemaTool($app->em);
+$schema	= new \Doctrine\ORM\Tools\SchemaTool($app->em->value());
 
 cli\line('Deleting existing files..');
 if ($app->config->dataDir->exists()) {
 	$app->config->dataDir->remove(true);
 }
-if ($app->config->dataPublicDir->exists()) {
-	$app->config->dataPublicDir->remove(true);
+if ($app->config->publicDataDir->exists()) {
+	$app->config->publicDataDir->remove(true);
 }
 
 cli\line('Dropping existing database..');

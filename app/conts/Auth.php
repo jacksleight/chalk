@@ -44,7 +44,7 @@ class Auth extends Action
         $user->loginDate = new \Carbon\Carbon();
         $this->em->flush();
 
-        $session =& $req->session('chalk');
+        $session = $this->session->data('__Chalk');
         $session->user = $user->id;
 
         return $res->redirect($this->url(array(), 'index', true));
@@ -119,7 +119,7 @@ class Auth extends Action
 
     public function logout(Request $req, Response $res)
     {
-        $session =& $req->session('chalk');
+        $session = $this->session->data('__Chalk');
         $session->user = null;
 
         return $res->redirect($this->url([], 'login', true));

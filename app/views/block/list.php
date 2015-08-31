@@ -1,1 +1,0 @@
-<?php $this->extend('/content/list', [], 'core') ?>

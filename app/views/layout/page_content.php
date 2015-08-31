@@ -5,8 +5,20 @@
 
 <?php $this->block('sidebar') ?>
 
+<?php
+$classes = $this->chalk->fire('core_listContents')->contents();
+?>
 <nav class="nav" role="navigation">
-	<?= $this->inner('nav', ['items' => $navigation->items('Chalk\Core\Content')]) ?>
+    <ul>
+        <? foreach ($classes as $class) { ?>
+            <?php
+            $classInfo = \Chalk\Chalk::info($class);
+            ?>
+            <li><a href="<?= $this->url([
+                'entity' => $classInfo->name,
+            ], 'content', true) ?>" class="item <?= $classInfo->name == $info->name ? 'active' : null ?>"><?= $classInfo->plural ?></a></li>
+        <? } ?>
+    </ul>
 </nav>
 
 <?php $this->block('foot') ?>

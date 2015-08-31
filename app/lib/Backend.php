@@ -19,12 +19,12 @@ class Backend extends App
 {
     const FORMAT_DATE = 'jS F Y';
 
-    protected function _preExecute(Request $req = null, Response $res = null)
+    public function preExecute(Request $req = null, Response $res = null)
     {
         Chalk::isFrontend(false);
     }
 
-    protected function _postExecute(Request $req = null, Response $res = null)
+    public function postExecute(Request $req = null, Response $res = null)
     {
         Chalk::isFrontend(true);
     }
