@@ -94,18 +94,15 @@ class Chalk extends App
             'class' => $class,
             'name'  => implode('_', $entityLcFirst),
             'path'  => implode('/', $entityLcSplit),
-            'var'   => lcfirst(implode('', $entity)),
             'module' => [
                 'class' => implode('\\', $nspace),
                 'name'  => implode('_', $aliasLcFirst),
                 'path'  => implode('/', $aliasLcSplit),
-                'var'   => lcfirst(implode('', $alias)),
             ],
             'local' => [
                 'class' => implode('\\', $local),
                 'name'  => implode('_', $localLcFirst),
                 'path'  => implode('/', $localLcSplit),
-                'var'   => lcfirst(implode('', $local)),
             ],
             'singular'  => class_exists($class) && isset($class::$chalkSingular) ? $class::$chalkSingular : implode('_', $entityLcFirst),
             'plural'    => class_exists($class) && isset($class::$chalkPlural)   ? $class::$chalkPlural   : implode('_', $entityLcFirst),
