@@ -25,7 +25,6 @@
 /* Elements */
 
 //= require elements/notifications.js
-//= require elements/thumbs.js
 //= require elements/tree.js
 //= require elements/content.js
 //= require elements/editor.js

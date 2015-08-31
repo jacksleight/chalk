@@ -25,11 +25,7 @@ $isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 				</div>
 			<?php } else { ?>
 				<?php if ($content instanceof \Chalk\Core\File && $content->file->exists() && $content->isImage()) { ?>
-					<img src="<?= $this->image(
-						$content->file,
-						'resize',
-						['size' => '400', 'crop' => true]
-					) ?>">
+					<div class="image" style="background-image: url('<?= $this->image($content->file, ['size' => '400']) ?>');"></div>
 				<?php } else { ?>
 					<div class="text"><span class="icon-content"></span></div>
 				<?php } ?>

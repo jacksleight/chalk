@@ -55,12 +55,12 @@ $backend
         'expires' => null,
     ]))
     ->param('router', $backend->load('app/init/router.php'))
-    ->param('image', $backend->load('app/init/image.php'))
     ->param('url', new UrlResolver([
         'baseUrl' => new Url("{$config->backBaseUrl}"),
         'baseDir' => $backend->dir('public'),
         'router'  => $backend->router,
     ]))
+    ->param('image', $backend->load('app/init/image.php'))
     ->param('em', $chalk->em)
     ->param('cache', $chalk->cache)
     ->param('swift', $chalk->swift)

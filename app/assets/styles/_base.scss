@@ -342,16 +342,6 @@ img {
 svg {
 	max-height: 100%;
 }
-.image {
-	margin: $gutter 0 0 0;
-	img, svg {
-		display: block;
-	}
-	img {
-		width: 100%;
-		height: auto;
-	}
-}
 
 /* Audio */
 
@@ -419,15 +409,23 @@ figure {
 
 .thumbs {
 	margin-top: $gutter;
+	margin-right: $gutter * -0.75;
+	margin-bottom: $gutter * -0.75;
 	@include no-bullets;
-	@include inline-blocks('li', $gutter * 0.5, $gutter * 0.5);
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 	li {
-		width: 200px;
+		flex: 1 0 200px;
 		figure {
 			margin-top: 0;
 		}
 	}
+	.thumbs_i {
+		padding: 0 $gutter * 0.75 $gutter * 0.75 0;
+	}
 }
+
 .thumb {
 	position: relative;
 	outline-color: white;
@@ -441,7 +439,7 @@ figure {
 			display: block;
 			@include ratio(1px, 1px);
 		}
-		img, 
+		.image, 
 		.text, 
 		.progress {
 			position: absolute;
@@ -450,13 +448,16 @@ figure {
 			width: 100%;
 			height: 100%;
 		}
-		img {
-			width: 100%;
-			height: auto;
+		.image {
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: contain;
+			@include box-shadow(inset 0 0 0 1px transparentize(black, 0.9));
 		}
 		.text {
 			text-align: center;
 			@include vertically-center('span');
+			@include box-shadow(inset 0 0 0 1px transparentize(black, 0.9));
 			span {
 				color: $color-divide;
 				&::before {

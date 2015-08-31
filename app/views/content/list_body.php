@@ -8,13 +8,10 @@
             'class'  => 'multiselectable-values',
         ]) ?>
         <ul class="thumbs <?= $isUploadable ? 'uploadable-list' : null ?>">
-            <?php if (count($contents)) { ?>
-                <?php foreach ($contents as $content) { ?>
-                    <li><?= $this->inner('thumb', ['content' => $content]) ?></li>
-                <?php } ?>
-            <?php } else { ?>
-                <li></li>
-            <?php } ?>      
+            <?php foreach ($contents as $content) { ?>
+                <li class="thumbs_i"><?= $this->inner('thumb', ['content' => $content]) ?></li>
+            <?php } ?>     
+            <?= str_repeat('<li></li>', 10) ?>
         </ul>
         <?php if (!count($contents)) { ?>
             <div class="notice">
