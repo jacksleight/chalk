@@ -1484,7 +1484,7 @@ legend {
 	&::before {
 		content: '';
 		position: absolute;
-		top: 7px;
+		top: 6px;
 		height: 12px;
 		width: 12px;
 		left: $gutter-x-sidebar;
@@ -1499,7 +1499,7 @@ legend {
 		left: 0;
 		width: $gutter + $gutter-x-sidebar;
 		z-index: 2;
-		height: 26px;
+		height: 24px;
 		text-align: center;
 		cursor: pointer;
 		border: 0;
@@ -1513,7 +1513,7 @@ legend {
 		}
 		span {
 			position: absolute;
-			top: 7px;
+			top: 6px;
 			left: $gutter-x-sidebar;
 			height: 12px;
 			width: 12px;
@@ -1522,7 +1522,7 @@ legend {
 			&:before {
 				@include icon-base();
 				padding-right: 0;
-				font-size: 7px;
+				font-size: 6px;
 				color: $color-primary;
 				vertical-align: 2px;
 			}
@@ -1538,13 +1538,13 @@ legend {
 		text-overflow: ellipsis;
 		overflow: hidden;
 		display: block;
-		padding: $gutter * 0.15 $gutter $gutter * 0.25 ($gutter + $gutter-x-sidebar);
+		padding: $gutter * 0.1 $gutter $gutter * 0.2 ($gutter + $gutter-x-sidebar);
 		&:hover,
 		&.active {
 			@include colors(0, 2);
 		}
 		&.active {
-			@include arrow(26px, 1);
+			@include arrow(24px, 1);
 		}
 		&.tree-item-hidden {
 			@include link-color(transparentize(white, 0.6));
@@ -1572,7 +1572,7 @@ legend {
 	top: 0;
 	left: $gutter * 1.65;
 	right: 0;
-	height: 26px;
+	height: 24px;
 	@include transition(opacity $speed ease);
 	@extend .icon-menu;
 	&:before {

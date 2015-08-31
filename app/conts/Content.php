@@ -119,7 +119,7 @@ class Content extends Basic
 				$upload->html = $this->view->render('content/thumb', [
 					'content'	=> $content,
 					'covered'	=> true,
-				] + (array) $req->view)->toString();
+				] + (array) $req->view, 'core')->toString();
 			}
 		}
 

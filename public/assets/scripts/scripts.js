@@ -16540,7 +16540,7 @@ Chalk.component('.uploadable', function(i, el) {
 		sequentialUploads: true
 	}).bind('fileuploadadd', function (e, data) {
 		var file = data.files[0];
-		data.context = $($.parseHTML('<li>' + Mustache.render(template, file).trim() + '</li>')[0]);
+		data.context = $($.parseHTML('<li class="thumbs_i">' + Mustache.render(template, file).trim() + '</li>')[0]);
 		list.prepend(data.context);
 		panel.remove();
 	}).bind('fileuploadprogress', function (e, data) {
@@ -16551,7 +16551,7 @@ Chalk.component('.uploadable', function(i, el) {
 			.text(perc == 100 ? 'Processing…' : perc + '%' + ' Uploaded');
 	}).bind('fileuploaddone', function (e, data) {
 		var result	= data.result.files[0];
-		var replace	= $($.parseHTML('<li>' + result.html.trim() + '</li>')[0]);
+		var replace	= $($.parseHTML('<li class="thumbs_i">' + result.html.trim() + '</li>')[0]);
 		data.context.replaceWith(replace);
 		data.context = replace;
 		var reveal = function() {
