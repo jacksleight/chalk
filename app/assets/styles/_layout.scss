@@ -121,8 +121,7 @@ html, body {
 		}
 	}
 	.sidebar {
-		width: 23%;
-		min-width: 300px;
+		width: 300px;
 		border-right: 1px solid;
 		@include colors(null, null, 4);
 	}
