@@ -3229,6 +3229,7 @@ input[type=radio] + label:before {
 
 select {
   padding-right: 0;
+  width: auto;
   /* Include an arrow icon for WebKit */
   /* Fix Firefox not vertically centering text */
 }
@@ -4410,14 +4411,14 @@ legend {
   background-color: white;
 }
 .tree-node .tree-item {
-  font-size: 13.91304px;
-  font-size: 0.86957rem;
+  font-size: 12.0983px;
+  font-size: 0.75614rem;
   text-decoration: none;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   display: block;
-  padding: 2px 20px 3px 40px;
+  padding: 3px 20px 5px 40px;
 }
 .tree-node .tree-item:hover, .tree-node .tree-item.active {
   color: #5f5f5f;

@@ -14,7 +14,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 	'structure'	=> $structure->id,
 ], 'structure', true) ?>?redirect=<?= $this->url([]) ?>" class="flex-col structure" method="post">
 	<div class="header">
-		<ul class="toolbar toolbar-space">
+		<ul class="toolbar">
 			<li class="flex">
 				<div class="dropdown">
 					<div class="input-pseudo">
