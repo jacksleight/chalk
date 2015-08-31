@@ -15,7 +15,7 @@
         "intervention/image": "2.1.*",
         "gargron/fileupload": "1.0.*",
         "nesbot/carbon": "1.*",
-        "jacksleight/coast": "0.4.*",
+        "jacksleight/coast": "dev-dev",
         "jacksleight/coast-doctrine": "0.2.*",
         "wp-cli/php-cli-tools": "0.10.*"
     },
