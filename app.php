@@ -10,6 +10,7 @@ use Chalk\Core\Module as Core;
 use Chalk\Backend;
 use Chalk\Frontend;
 use Chalk\Frontend\UrlResolver as FrontendUrlResolver;
+use Chalk\EventManager;
 use Chalk\Notifier;
 use Coast\Controller;
 use Coast\Request;
@@ -51,6 +52,7 @@ $app->param('backend', $app->lazy(function($vars) {
             'router'  => $backend->router,
         ]))
         ->param('image', $backend->load('app/init/image.php'))
+        ->param('event', new EventManager())
         ->param('em', $app->em)
         ->param('cache', $app->cache)
         ->param('swift', $app->swift)

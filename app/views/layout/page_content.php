@@ -6,7 +6,7 @@
 <?php $this->block('sidebar') ?>
 
 <?php
-$classes = $this->chalk->fire('core_listContents')->contents();
+$classes = $this->event->fire('core_listContents')->contents();
 ?>
 <nav class="nav" role="navigation">
     <ul>

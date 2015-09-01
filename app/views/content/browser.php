@@ -1,5 +1,5 @@
 <?php
-$classes = $this->chalk->fire('core_listContents')->contents();
+$classes = $this->event->fire('core_listContents')->contents();
 $restricts = isset($restricts)
 	? $restricts
 	: $index->restricts;

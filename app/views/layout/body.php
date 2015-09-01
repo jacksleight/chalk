@@ -2,8 +2,8 @@
 <?php $this->block('body') ?>
 
 <?php
-$primary	= $navigation->items('Chalk\Core\Primary');
-$secondary	= $navigation->items('Chalk\Core\Secondary');
+$primary	= $navigation->items('core_primary');
+$secondary	= $navigation->items('core_secondary');
 ?>
 <div class="flex-row">
 	<div class="flex-col sidebar dark">
@@ -29,13 +29,13 @@ $secondary	= $navigation->items('Chalk\Core\Secondary');
 				<li>
 					<a href="<?= $this->url([], 'profile', true) ?>" class="icon-user"> <?= $req->user->name ?></a>
 				</li>
-				<li class="space">
+				<li>
 					<a href="<?= $this->url([], 'logout', true) ?>" class="icon-logout"> Logout</a>
 				</li>
 			</ul>
 			<ul class="toolbar">
 				<li>
-					<a href="<?= $this->frontend->url->baseUrl() ?>" target="_blank" class="btn btn-out icon-view">
+					<a href="<?= $this->frontend->url(isset($content) ? $content->getObject() : null) ?>" target="_blank" class="btn btn-out icon-view">
 						View Site
 					</a>
 				</li>	

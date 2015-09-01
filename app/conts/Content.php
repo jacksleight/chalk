@@ -28,7 +28,7 @@ class Content extends Basic
 	public function index(Request $req, Response $res)
 	{
 		if (!$req->entity) {
-			$items = $req->view->navigation->items('Chalk\Core\Content');
+			$items = $req->view->navigation->items('core_content');
 			foreach ($items as $item) {
 				if (!isset($item)) {
 					continue;

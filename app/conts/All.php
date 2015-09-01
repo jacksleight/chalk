@@ -34,7 +34,7 @@ class All extends Action
 
 		$this->em->trackable()->setUser($req->user);
 
-		$req->view->navigation = $this->chalk->fire('core_navigation', $req);
+		$req->view->navigation = $this->event->fire('core_navigation', $req);
 
 		// if ($req->controller != 'index' || $req->action != 'prefs') {
 		// 	$name	= "query_" . md5(serialize($req->route['params']));

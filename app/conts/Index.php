@@ -14,7 +14,7 @@ class Index extends Action
 {
 	public function index(Request $req, Response $res)
 	{
-		$items = $req->view->navigation->items('Chalk\Core\Primary');
+		$items = $req->view->navigation->items('core_primary');
 		foreach ($items as $item) {
 			if (!isset($item)) {
 				continue;
