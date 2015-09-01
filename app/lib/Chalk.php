@@ -52,7 +52,7 @@ class Chalk extends App
             }
             $nspace = self::$_map[array_shift($parts)];
             $parts  = array_map('ucfirst', $parts);
-            $class  = "{$nspace}\\" . implode('\\', $parts);
+            $class  = "{$nspace}" . (count($parts) ? '\\' . implode('\\', $parts) : null);
         }
         if (false !== $pos = strpos($class, '\\__CG__\\')) {
             $class = substr($class, $pos + 8);
