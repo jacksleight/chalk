@@ -41,13 +41,11 @@ class Frontend extends App
         return $this->_handlers;
     }
 
-    public function execute(Request $req, Response $res)
-    {        
-        $req->chalk = (object) [];
-
-        $domain = $this
-            ->em('Chalk\Core\Domain')
-            ->one();   
+    public function preExecute(Request $req, Response $res)
+    {
+        $domain = $this->em('core_domain')->one();   
+        
+        $req->chalk = (object) [];       
         $req->chalk->domain     = $domain;
         $req->chalk->root       = $domain->structures->first()->root;
         $req->chalk->home       = $domain->structures->first()->root->content;
@@ -55,76 +53,81 @@ class Frontend extends App
         foreach ($domain->structures as $structure) {
             $req->chalk->structures[$structure->id] = $structure;
         }
-
-        $conn  = $this->em->getConnection();
-        $nodes = $conn->query("
-            SELECT n.id,
-                n.sort, n.left, n.right, n.depth,
-                n.name, n.slug, n.path,
-                n.structureId,
-                n.parentId,
-                c.type AS contentType,
-                n.contentId
-            FROM core_structure_node AS n
-                INNER JOIN core_structure AS s ON s.id = n.structureId
-                INNER JOIN core_domain__core_structure AS d ON d.core_structureId = s.id
-                INNER JOIN core_content AS c ON c.id = n.contentId
-            WHERE d.core_domainId = {$domain->id}
-        ")->fetchAll();
-        $map = [];
-        foreach ($nodes as $node) {
-            if (!isset($node['contentId'])) {
-                continue;
-            }
-            $map[$node['id']] = $node;
-            $this->router->route($node['contentId'], 'all', $node['path'], [
-                'node'    => $node,
-                'content' => [$node['contentType'], $node['contentId']],
-            ]);
-        }
-
-        $path = rtrim($req->path(), '/');        
-        if (preg_match('/^_c([\d]+)$/', $path, $match)) {
-            $node    = null;
-            $content = ['Chalk\Core\Content', $match[1]];
-        } else {
-            $route = $this->router->match($req->method(), $path);
-            if (!$route) {
-                return;
-            }
-            if ($route['path'] != $req->path()) {
-                return $res->redirect($this->url($route['path']) . ($req->queryParams() ? $this->url->query($req->queryParams()) : null));
-            }
-            $node    = $route['params']['node'];
-            $content = $route['params']['content'];
-        }
-        $nodes = [$node];
-        while (isset($nodes[0]['parentId'])) {
-            array_unshift($nodes, $map[$nodes[0]['parentId']]);
-        }
-        $content = $this->em($content[0])->id($content[1]);
-        $req->chalk->node    = $node;
-        $req->chalk->nodes   = $nodes;
-        $req->chalk->content = $content;
-
-        if (!$content) {
-            return;
-        }
-
-        $name = \Chalk\Chalk::info($content)->class;
-        if (!isset($this->_handlers[$name])) {
-            throw new \Exception("No handler exists for '{$name}' content");
-        }
-        $hander = $this->_handlers[$name];
-        
-        $this->param('req', $req)
-             ->param('res', $res);
-        $result = $hander($req, $res);
-        $this->param('req', null)
-             ->param('res', null);
-
-        return $result;
     }
+
+    // public function execute(Request $req, Response $res)
+    // {        
+
+
+    //     $conn  = $this->em->getConnection();
+    //     $nodes = $conn->query("
+    //         SELECT n.id,
+    //             n.sort, n.left, n.right, n.depth,
+    //             n.name, n.slug, n.path,
+    //             n.structureId,
+    //             n.parentId,
+    //             c.type AS contentType,
+    //             n.contentId
+    //         FROM core_structure_node AS n
+    //             INNER JOIN core_structure AS s ON s.id = n.structureId
+    //             INNER JOIN core_domain__core_structure AS d ON d.core_structureId = s.id
+    //             INNER JOIN core_content AS c ON c.id = n.contentId
+    //         WHERE d.core_domainId = {$domain->id}
+    //     ")->fetchAll();
+    //     $map = [];
+    //     foreach ($nodes as $node) {
+    //         if (!isset($node['contentId'])) {
+    //             continue;
+    //         }
+    //         $map[$node['id']] = $node;
+    //         $this->router->route($node['contentId'], 'all', $node['path'], [
+    //             'node'    => $node,
+    //             'content' => [$node['contentType'], $node['contentId']],
+    //         ]);
+    //     }
+
+    //     $path = rtrim($req->path(), '/');        
+    //     if (preg_match('/^_c([\d]+)$/', $path, $match)) {
+    //         $node    = null;
+    //         $content = ['Chalk\Core\Content', $match[1]];
+    //     } else {
+    //         $route = $this->router->match($req->method(), $path);
+    //         if (!$route) {
+    //             return;
+    //         }
+    //         if ($route['path'] != $req->path()) {
+    //             return $res->redirect($this->url($route['path']) . ($req->queryParams() ? $this->url->query($req->queryParams()) : null));
+    //         }
+    //         $node    = $route['params']['node'];
+    //         $content = $route['params']['content'];
+    //     }
+    //     $nodes = [$node];
+    //     while (isset($nodes[0]['parentId'])) {
+    //         array_unshift($nodes, $map[$nodes[0]['parentId']]);
+    //     }
+    //     $content = $this->em($content[0])->id($content[1]);
+    //     $req->chalk->node    = $node;
+    //     $req->chalk->nodes   = $nodes;
+    //     $req->chalk->content = $content;
+
+    //     if (!$content) {
+    //         return;
+    //     }
+
+    //     $name = \Chalk\Chalk::info($content)->class;
+    //     if (!isset($this->_handlers[$name])) {
+    //         throw new \Exception("No handler exists for '{$name}' content");
+    //     }
+    //     $hander = $this->_handlers[$name];
+        
+    //     $this->param('req', $req)
+    //          ->param('res', $res);
+    //     $result = $hander($req, $res);
+    //     $this->param('req', null)
+    //          ->param('res', null);
+
+    //     return $result;
+    // }
 
     public function parse($html)
     {       

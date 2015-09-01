@@ -7,6 +7,7 @@
 namespace Chalk\Frontend;
 
 use Chalk\Chalk;
+use Chalk\Core\entity;
 use Closure;
 use Coast\UrlResolver as CoastUrlResolver;
 
@@ -20,19 +21,30 @@ class UrlResolver extends CoastUrlResolver
         if (!isset($args[0])) {
             $func = array($this, 'string');
         } else {
-            $func = array($this, 'content');
+            $func = array($this, 'entity');
         }
         return call_user_func_array($func, $args);
     }
 
-    public function content($content)
+    public function entity($entity)
     {
-        $info = Chalk::info($content);
-        if (!isset($this->_resolvers[$info->name])) {
-            return false;
-        }        
-        foreach ($this->_resolvers[$info->name] as $resolver) {
-            $result = $resolver($content);
+        if (is_object($entity)) {
+            $class = get_class($entity);
+        } else if (is_array($entity)) {
+            
+            var_dump($entity);
+            die;
+            
+        }
+
+
+
+ 
+        foreach ($this->_resolvers as $resolver) {
+            if (!is_a($class, $resolver[0], true)) {
+                continue;
+            }
+            $result = $resolver[1]($entity);
             if (isset($result)) {
                 if ($result) {
                     return $result;
@@ -43,9 +55,10 @@ class UrlResolver extends CoastUrlResolver
         }
     }
 
-    public function resolver($entity, Closure $resolver)
+    public function resolver($name, Closure $resolver)
     {
-        $this->_resolvers[$entity][] = $resolver->bindTo($this);
+        $info = Chalk::info($name);
+        $this->_resolvers = array_merge([[$info->class, $resolver->bindTo($this)]], $this->_resolvers);
         return $this;
     }
 }

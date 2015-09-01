@@ -45,7 +45,9 @@ $app->param('backend', $app->lazy(function($vars) {
         ->param('session', new Session([
             'expires' => null,
         ]))
-        ->param('router', $backend->load('app/init/router.php'))
+        ->param('router', new Router([
+            'target'  => $backend->controller,
+        ]))
         ->param('url', new UrlResolver([
             'baseUrl' => new Url("{$app->config->backBaseUrl}"),
             'baseDir' => $backend->dir('public'),

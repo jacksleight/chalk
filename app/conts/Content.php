@@ -82,13 +82,10 @@ class Content extends Basic
 			return;
 		}
 
-
 		if (!$this->em->isPersisted($content)) {
 			$this->em->persist($content);
 		}
 		$this->em->flush();
-
-		die;
 
 		$this->notify("{$req->info->singular} <strong>{$content->name}</strong> was saved successfully", 'positive');
 		return $res->redirect($this->url(array(
