@@ -6,30 +6,41 @@
 
 namespace Chalk\Frontend;
 
+use Chalk\Chalk;
+use Closure;
 use Coast\UrlResolver as CoastUrlResolver;
 
 class UrlResolver extends CoastUrlResolver
 {
+    protected $_resolvers = [];
+
     public function __invoke()
     {
         $args = func_get_args();
-        if (isset($args[0]) && is_numeric($args[0])) {
-            $func = array($this, 'content');
-        } else {
-            $func = array('parent', '__invoke');
-        }
-        return call_user_func_array($func, $args);
+        return call_user_func_array([$this, 'content'], $args);
     }
 
     public function content($content)
     {
-        if (!is_numeric($content)) {
-            $content = $content['id'];
+        $info = Chalk::info($content);
+        if (!isset($this->_resolvers[$info->name])) {
+            return false;
+        }        
+        foreach ($this->_resolvers[$info->name] as $resolver) {
+            $result = $resolver($content);
+            if (isset($result)) {
+                if ($result) {
+                    return $result;
+                } else {
+                    return false;
+                }
+            }
         }
-        $route = $this->router->route($content);
-        $path = isset($route)
-            ? $route['path']
-            : "_c{$content}";
-        return $this->string($path);
+    }
+
+    public function resolver($entity, Closure $resolver)
+    {
+        $this->_resolvers[$entity][] = $resolver->bindTo($this);
+        return $this;
     }
 }

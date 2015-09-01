@@ -34,13 +34,8 @@ $secondary	= $navigation->items('Chalk\Core\Secondary');
 				</li>
 			</ul>
 			<ul class="toolbar">
-				<?php
-				$url = isset($content)
-					? $this->frontend->url->content($content)
-					: $this->frontend->url();
-				?>
 				<li>
-					<a href="<?= $url ?>" target="_blank" class="btn btn-out icon-view">
+					<a href="<?= $this->frontend->url->baseUrl() ?>" target="_blank" class="btn btn-out icon-view">
 						View Site
 					</a>
 				</li>	

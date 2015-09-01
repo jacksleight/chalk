@@ -6,21 +6,27 @@
 
 namespace Chalk;
 
-use Chalk\Chalk,
-    Chalk\Module,
-	Coast\File,
-	Coast\Dir,
-	ReflectionClass,
-    Closure;
+use Chalk\Backend;
+use Chalk\Chalk;
+use Chalk\Frontend;
+use Chalk\Module;
+use Closure;
+use Coast\App\Access;
+use Coast\Dir;
+use Coast\File;
+use ReflectionClass;
 
-abstract class Module
+abstract class Module implements Access
 {
-    protected $_baseDir;
-    protected $_chalk;
+    use Access\Implementation;
+
     protected $_name;
 
-    public function __construct($baseDir = '../')
+    protected $_baseDir;
+
+    public function __construct($name, $baseDir = '../')
     {
+        $this->_name = $name;
     	if (!$baseDir instanceof Dir) {
     		$reflection	= new ReflectionClass(get_class($this));
 			$baseDir = (new File($reflection->getFileName()))
@@ -38,16 +44,6 @@ abstract class Module
             return $this;
         }
         return $this->_baseDir;
-    }
-
-    public function chalk(Chalk $chalk = null, $name = null)
-    {
-        if (isset($chalk)) {
-            $this->_chalk = $chalk;
-            $this->_name  = $name;
-            return $this;
-        }
-        return $this->_chalk;
     }
 
     public function name($name = null)
@@ -81,65 +77,9 @@ abstract class Module
     public function init()
     {}
 
-    public function emDir($path)
-    {
-        $this->_chalk->em->dir(
-            $this->nspace(),
-            $this->dir($path)
-        );
-        return $this;
-    }
+    public function initBackend()
+    {}
 
-    public function viewDir($path)
-    {
-        $this->_chalk->backend->view->dir(
-            $this->name(),
-            $this->dir($path)
-        );
-        return $this;
-    }
-
-    public function controllerNspace($class)
-    {
-        $this->_chalk->backend->controller->nspace(
-            $this->name(),
-            $this->nspace($class)
-        );
-        return $this;
-    }
-
-    public function controllerAll($class)
-    {
-        $this->_chalk->backend->controller->all(
-            [$class, $this->name()]
-        );
-        return $this;
-    }
-
-    public function frontendViewDir()
-    {
-        $this->_chalk->frontend->view->dir(
-            $this->name(),
-            $this->_chalk->config->viewDir->dir(Chalk::info($this->nspace())->name)
-        );
-        return $this;
-    }
-
-    public function register($name, $class = null)
-    {
-        $this->_chalk->register(
-            $this->name($name),
-            isset($class) ? $this->nspace($class) : 'Chalk\Event'
-        );
-        return $this;
-    }
-
-    public function listen($name, callable $listener)
-    {
-        $this->_chalk->listen(
-            $name,
-            $listener instanceof Closure ? $listener->bindTo($this) : $listener
-        );
-        return $this;
-    }
+    public function initFrontend()
+    {}
 }

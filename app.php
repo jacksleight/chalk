@@ -20,81 +20,92 @@ use Coast\Url;
 use Coast\UrlResolver;
 use Coast\View;
 
-$chalk = (new Chalk(__DIR__, $config->envs))
+$app = (new Chalk(__DIR__, $config->envs))
     ->param('root', $app)
     ->param('config', $config);
-$chalk
-    ->param('em', $chalk->lazy('app/init/em.php'))
-    ->param('cache', $chalk->lazy('app/init/cache.php'))
-    ->param('swift', $chalk->lazy('app/init/swift.php'));
-
-$frontend = (new Frontend($app->dir(), $config->envs))
-    ->param('chalk', $chalk);
-$frontend
-    ->param('router', new Router())
-    ->param('controller', new Controller())
-    ->param('view', $config->view)
-    ->param('url', new FrontendUrlResolver([
-        'baseUrl' => new Url("{$config->frontBaseUrl}"),
-        'baseDir' => $app->dir(),
-        'router'  => $frontend->router,
-    ]))
-    ->param('em', $chalk->em)
-    ->param('cache', $chalk->cache)
-    ->param('swift', $chalk->swift);
-$chalk->param('frontend', $frontend);
-
-$backend = (new Backend(__DIR__, $config->envs))
-    ->param('chalk', $chalk)
-    ->param('frontend', $frontend);
-$backend
-    ->param('view', new View())
-    ->param('notify', new Notifier())
-    ->param('controller', new Controller())
-    ->param('session', new Session([
-        'expires' => null,
-    ]))
-    ->param('router', $backend->load('app/init/router.php'))
-    ->param('url', new UrlResolver([
-        'baseUrl' => new Url("{$config->backBaseUrl}"),
-        'baseDir' => $backend->dir('public'),
-        'router'  => $backend->router,
-    ]))
-    ->param('image', $backend->load('app/init/image.php'))
-    ->param('em', $chalk->em)
-    ->param('cache', $chalk->cache)
-    ->param('swift', $chalk->swift)
-    ->failureHandler(function(Request $req, Response $res) {
-        return $res
-            ->status(404)
-            ->html($this->view->render('error/not-found', [
-                'req' => $req,
-                'res' => $res,
-            ]));
-    })
-    ->errorHandler(function(Request $req, Response $res, Exception $e) {
-        if ($this->chalk->isDebug()) {
-            throw $e;
-        }
-        return $res
-            ->status(500)
-            ->html($this->view->render('error/index', [
-                'req' => $req,
-                'res' => $res,
-                'e'   => $e,
-            ]));
-    });
-$chalk->param('backend', $backend);
-$frontend->param('backend', $backend);
-
-$backend->executable($backend->session);
-$backend->executable($backend->image);
-$backend->executable($backend->router);
-
-$chalk
-    ->module('core', new Core());
+$app
+    ->param('em', $app->lazy('app/init/em.php'))
+    ->param('cache', $app->lazy('app/init/cache.php'))
+    ->param('swift', $app->lazy('app/init/swift.php'))
+    ->module(new Core());
 
 File::baseDir($config->publicDataDir->dir('file'));
-File::mimeTypes($chalk->load('app/init/mime-types.php'));
+File::mimeTypes($app->load('app/init/mime-types.php'));
 
-return $chalk;
+$app->param('backend', $app->lazy(function($vars) {
+    $app = $vars['app'];
+    $backend = (new Backend(__DIR__, $app->config->envs))
+        ->param('chalk', $app)
+        ->param('frontend', $app->frontend);
+    $backend
+        ->param('view', new View())
+        ->param('notify', new Notifier())
+        ->param('controller', new Controller())
+        ->param('session', new Session([
+            'expires' => null,
+        ]))
+        ->param('router', $backend->load('app/init/router.php'))
+        ->param('url', new UrlResolver([
+            'baseUrl' => new Url("{$app->config->backBaseUrl}"),
+            'baseDir' => $backend->dir('public'),
+            'router'  => $backend->router,
+        ]))
+        ->param('image', $backend->load('app/init/image.php'))
+        ->param('em', $app->em)
+        ->param('cache', $app->cache)
+        ->param('swift', $app->swift)
+        ->failureHandler(function(Request $req, Response $res) {
+            return $res
+                ->status(404)
+                ->html($this->view->render('error/not-found', [
+                    'req' => $req,
+                    'res' => $res,
+                ]));
+        })
+        ->errorHandler(function(Request $req, Response $res, Exception $e) {
+            if ($this->chalk->isDebug()) {
+                throw $e;
+            }
+            return $res
+                ->status(500)
+                ->html($this->view->render('error/index', [
+                    'req' => $req,
+                    'res' => $res,
+                    'e'   => $e,
+                ]));
+        });
+    $backend->executable($backend->session);
+    $backend->executable($backend->image);
+    $backend->executable($backend->router);
+    $app->param('backend', $backend);
+    foreach ($app->modules() as $module) {
+        $module->initBackend();
+    }
+    return $backend;
+}));
+
+$app->param('frontend', $app->lazy(function($vars) {
+    $app = $vars['app'];
+    $frontend = (new Frontend($app->root->dir(), $app->config->envs))
+        ->param('chalk', $app)
+        ->param('backend', $app->backend);
+    $frontend
+        ->param('router', new Router())
+        ->param('controller', new Controller())
+        ->param('view', $app->config->view)
+        ->param('url', new FrontendUrlResolver([
+            'baseUrl' => new Url("{$app->config->frontBaseUrl}"),
+            'baseDir' => $app->root->dir(),
+            'router'  => $frontend->router,
+        ]))
+        ->param('em', $app->em)
+        ->param('cache', $app->cache)
+        ->param('swift', $app->swift);
+    $app->param('frontend', $frontend);
+    foreach ($app->modules() as $module) {
+        $module->initFrontend();
+    }
+    return $frontend;
+}));
+
+return $app;

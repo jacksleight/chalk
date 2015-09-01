@@ -14,7 +14,7 @@ use Coast\Response;
 
 class Chalk extends App
 {
-    const VERSION           = '0.3.8';
+    const VERSION           = '0.5.0';
 
     const STATUS_DRAFT      = 'draft';
     const STATUS_PENDING    = 'pending';
@@ -131,13 +131,13 @@ class Chalk extends App
         return $this->env('SERVER') == 'production';
     }
 
-    public function module($name, Module $module = null)
+    public function module($name)
     {
-        if (func_num_args() > 1) {
-            $this->_modules[$name] = $module;
-            self::$_map[$name] = $module->nspace();
-            $module->chalk($this, $name);
-            $module->init();
+        if ($name instanceof Module) {
+            $this->_modules[$name->name()] = $name;
+            self::$_map[$name->name()] = $name->nspace();
+            $name->app($this);
+            $name->init();
             return $this;
         }
         $name = self::info($name)->module->name;
