@@ -30,14 +30,24 @@ class Module extends ChalkModule
     public function initFrontend()
     {
         $this->frontend->url
+            ->resolver($this->name('structure_node'), function($node) {
+                return $this->frontend->url
+                    ->route([], "core_structure_node_{$node['id']}", true);
+            })
             ->resolver($this->name('content'), function($content) {
-                return $this->route([], "{$content['type']}_{$content['id']}");
+                return $this->frontend->url
+                    ->route([], "{$content['type']}_{$content['id']}", true);
             })
-            ->resolver($this->name('url'), function($content) {
-                return $content['url'];
+            ->resolver($this->name('url'), function($url) {
+                return $url['url'];
             })
-            ->resolver($this->name('file'), function($content) {
-                return $this->file($content['file']);
+            ->resolver($this->name('file'), function($file) {
+                // @todo Remove this, File doesnt work with array hydration yet
+                if (is_array($file)) {
+                    $file = $this->em($this->name('file'))->id($file['id']);
+                }
+                return $this->frontend->url
+                    ->file($file['file']);
             });
 
         $this->frontend->view
@@ -81,11 +91,11 @@ class Module extends ChalkModule
             $routes = $module->routeNode($node);
 
             foreach ($routes as $key => $params) {
-                // $name = $key
-                //     ? "core_structure_node_{$node['id']}_{$key}"
-                //     : "core_structure_node_{$node['id']}";
-                // $this->frontend->router
-                //     ->route($name, 'all', $node['path'], $params);
+                $name = $key
+                    ? "core_structure_node_{$node['id']}_{$key}"
+                    : "core_structure_node_{$node['id']}";
+                $this->frontend->router
+                    ->route($name, 'all', $node['path'], $params);
                 $name = $key
                     ? "{$node['contentType']}_{$node['contentId']}_{$key}"
                     : "{$node['contentType']}_{$node['contentId']}";
@@ -278,12 +288,10 @@ class Module extends ChalkModule
     {
         return [
             [
-                'node'    => $node,
-                'content' => [$node['contentType'], $node['contentId']],
+                'node' => $node,
             ],
             'potato' => [
-                'node'    => $node,
-                'content' => [$node['contentType'], $node['contentId']],
+                'node' => $node,
             ],
         ];
 

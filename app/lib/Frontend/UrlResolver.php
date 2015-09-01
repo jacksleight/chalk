@@ -31,15 +31,10 @@ class UrlResolver extends CoastUrlResolver
         if (is_object($entity)) {
             $class = get_class($entity);
         } else if (is_array($entity)) {
-            
-            var_dump($entity);
-            die;
-            
+            $class = $entity['__CLASS__'];
+        } else {
+            throw new Chalk\Exception('Unknown class');
         }
-
-
-
- 
         foreach ($this->_resolvers as $resolver) {
             if (!is_a($class, $resolver[0], true)) {
                 continue;
@@ -53,12 +48,13 @@ class UrlResolver extends CoastUrlResolver
                 }
             }
         }
+        return false;
     }
 
     public function resolver($name, Closure $resolver)
     {
         $info = Chalk::info($name);
-        $this->_resolvers = array_merge([[$info->class, $resolver->bindTo($this)]], $this->_resolvers);
+        $this->_resolvers = array_merge([[$info->class, $resolver]], $this->_resolvers);
         return $this;
     }
 }

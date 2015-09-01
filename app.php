@@ -94,8 +94,10 @@ $app->param('frontend', $app->lazy(function($vars) {
         ->param('chalk', $app)
         ->param('backend', $app->backend);
     $frontend
-        ->param('router', new Router())
         ->param('controller', new Controller())
+        ->param('router', new Router([
+            'target'  => $frontend->controller,
+        ]))
         ->param('view', $app->config->view)
         ->param('url', new FrontendUrlResolver([
             'baseUrl' => new Url("{$app->config->frontBaseUrl}"),
@@ -105,6 +107,7 @@ $app->param('frontend', $app->lazy(function($vars) {
         ->param('em', $app->em)
         ->param('cache', $app->cache)
         ->param('swift', $app->swift);
+    // $frontend->executable($frontend->router);
     $app->param('frontend', $frontend);
     foreach ($app->modules() as $module) {
         $module->initFrontend();

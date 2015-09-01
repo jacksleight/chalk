@@ -15,10 +15,10 @@ class Repository extends EntityRepository
 {
     const SORT_RANDOM           = 'random';
 
-    const HYDRATE_OBJECT        = 'object';
-    const HYDRATE_ARRAY         = 'array';
-    const HYDRATE_SCALAR        = 'scalar';
-    const HYDRATE_SINGLE_SCALAR = 'singleScalar';
+    const HYDRATE_OBJECT        = Query::HYDRATE_OBJECT;
+    const HYDRATE_ARRAY         = 'coast_array';
+    const HYDRATE_SCALAR        = Query::HYDRATE_SCALAR;
+    const HYDRATE_SINGLE_SCALAR = Query::HYDRATE_SINGLE_SCALAR;
 
     protected $_sort  = 'id';
     protected $_limit = 1;
@@ -156,13 +156,7 @@ class Repository extends EntityRepository
         ];
 
         if (isset($opts['hydrate'])) {
-            $modes = [
-                self::HYDRATE_OBJECT        => Query::HYDRATE_OBJECT,
-                self::HYDRATE_ARRAY         => Query::HYDRATE_ARRAY,
-                self::HYDRATE_SCALAR        => Query::HYDRATE_SCALAR,
-                self::HYDRATE_SINGLE_SCALAR => Query::HYDRATE_SINGLE_SCALAR,    
-            ];
-            $query->setHydrationMode($modes[$opts['hydrate']]);
+            $query->setHydrationMode($opts['hydrate']);
         }
         if ($opts['cache']) {
             $query->useResultCache(true);
