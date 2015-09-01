@@ -17,7 +17,12 @@ class UrlResolver extends CoastUrlResolver
     public function __invoke()
     {
         $args = func_get_args();
-        return call_user_func_array([$this, 'content'], $args);
+        if (!isset($args[0])) {
+            $func = array($this, 'string');
+        } else {
+            $func = array($this, 'content');
+        }
+        return call_user_func_array($func, $args);
     }
 
     public function content($content)
