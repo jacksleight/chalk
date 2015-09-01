@@ -4,21 +4,17 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Chalk\Core\Backend\Controller;
+namespace Chalk\Core\Frontend\Controller;
 
 use Chalk\Chalk,
-	Chalk\Core\Structure\Node\Iterator,
 	Coast\Controller\Action,
 	Coast\Request,
 	Coast\Response;
 
-class Setting extends Action
+class Url extends Action
 {
 	public function index(Request $req, Response $res)
 	{
-		return $res->redirect($this->url([
-			'controller' => 'setting_user',
-		]));
-	}
+        return $res->redirect($req->url->url);
+    }
 }
-

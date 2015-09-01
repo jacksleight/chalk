@@ -4,7 +4,7 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Chalk\Core\Controller;
+namespace Chalk\Core\Backend\Controller;
 
 use Coast\Controller\Action,
 	Coast\Request,
@@ -82,7 +82,7 @@ class Index extends Action
 			$contents[] = [
 				'id'	=> $content->master->id,
 				'name'	=> $content->master->name,
-				'card'	=> $this->view->render('content/card', ['content' => $content])->toString(),
+				'card'	=> $this->view->render('content/card', ['content' => $content], 'core')->toString(),
 			];
 		}
 		return $res->json(['contents' => $contents]);

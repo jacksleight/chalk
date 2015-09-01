@@ -27,11 +27,11 @@ class Basic extends Action
 
 	public function edit(Request $req, Response $res)
 	{		
-		$var = $req->info->local->var;
+		$name = $req->info->local->name;
 		$entity = isset($req->id)
 			? $this->em($req->info)->id($req->id)
 			: $this->em($req->info)->create();
-		$req->view->$var = $wrap = $this->em->wrap($entity);
+		$req->view->$name = $wrap = $this->em->wrap($entity);
 
 		if (!$req->isPost()) {
 			return;

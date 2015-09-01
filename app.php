@@ -107,7 +107,7 @@ $app->param('frontend', $app->lazy(function($vars) {
         ->param('em', $app->em)
         ->param('cache', $app->cache)
         ->param('swift', $app->swift);
-    // $frontend->executable($frontend->router);
+    $frontend->executable($frontend->router);
     $app->param('frontend', $frontend);
     foreach ($app->modules() as $module) {
         $module->initFrontend();

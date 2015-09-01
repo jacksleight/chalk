@@ -21,12 +21,18 @@
 					'label'		=> 'Name',
 					'autofocus'	=> true,
 				)) ?>
-				<?= $this->render('/element/form-item', array(
-					'entity'	=> $domain,
-					'name'		=> 'structures',
-					'label'		=> 'Structures',
-					'values'    => $this->em('Chalk\Core\Structure')->all(),
-				)) ?>
+				<?php $this->start() ?>
+					<?= $this->render('/element/form-item', array(
+						'entity'	=> $domain,
+						'name'		=> 'structures',
+						'label'		=> 'Structures',
+						'values'    => $this->em('Chalk\Core\Structure')->all(),
+					)) ?>
+				<?php $html = $this->end() ?>
+				<?= $this->render('/element/expandable', [
+					'content'		=> $html,
+					'buttonLabel'	=> 'Advanced',
+				], 'core') ?>				
 			</div>
 		</fieldset>
 		<fieldset class="form-block">

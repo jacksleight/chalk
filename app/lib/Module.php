@@ -24,15 +24,15 @@ abstract class Module implements Access
 
     protected $_baseDir;
 
-    public function __construct($name, $baseDir = '../')
+    public function __construct($name, $baseDir = '..')
     {
         $this->_name = $name;
-    	if (!$baseDir instanceof Dir) {
-    		$reflection	= new ReflectionClass(get_class($this));
-			$baseDir = (new File($reflection->getFileName()))
-				->dir()
-	            ->dir("{$baseDir}")
-				->toReal();
+        if (!$baseDir instanceof Dir) {
+            $reflection = new ReflectionClass(get_class($this));
+            $baseDir = (new File($reflection->getFileName()))
+                ->dir()
+                ->dir("{$baseDir}")
+                ->toReal();
     	}
         $this->baseDir($baseDir);
     }

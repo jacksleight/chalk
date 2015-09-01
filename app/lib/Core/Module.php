@@ -18,7 +18,7 @@ class Module extends ChalkModule
 {
     public function __construct()
     {
-        parent::__construct('core', '../../../');
+        parent::__construct('core', '../../..');
     }
     
     public function init()
@@ -29,20 +29,35 @@ class Module extends ChalkModule
     
     public function initFrontend()
     {
+        $this->frontend->controller
+            ->nspace($this->name(), $this->nspace('Frontend\Controller'))
+            ->all(['All', $this->name()]);
+
+        $this->frontend->view
+            ->dir($this->name(), $this->dir('frontend/views'));
+
         $this->frontend->url
             ->resolver($this->name('structure_node'), function($node) {
-                return $this->frontend->url
-                    ->route([], "core_structure_node_{$node['id']}", true);
+                try {
+                    return $this->frontend->url
+                        ->route([], "core_structure_node_{$node['id']}", true);
+                } catch (\Coast\Router\Exception $e) {
+                    return;
+                }                    
             })
             ->resolver($this->name('content'), function($content) {
-                return $this->frontend->url
-                    ->route([], "{$content['type']}_{$content['id']}", true);
+                try {
+                    return $this->frontend->url
+                        ->route([], "{$content['type']}_{$content['id']}", true);
+                } catch (\Coast\Router\Exception $e) {
+                    return;
+                }
             })
             ->resolver($this->name('url'), function($url) {
                 return $url['url'];
             })
             ->resolver($this->name('file'), function($file) {
-                // @todo Remove this, File doesnt work with array hydration yet
+                // @todo Remove this once File works with array hydration
                 if (is_array($file)) {
                     $file = $this->em($this->name('file'))->id($file['id']);
                 }
@@ -50,19 +65,17 @@ class Module extends ChalkModule
                     ->file($file['file']);
             });
 
-        $this->frontend->view
-            ->dir($this->name(), $this->config->viewDir->dir(Chalk::info($this->nspace())->name));
-
-        $domain = $this->em('core_domain')->one();   
+        $domain = $this->em('core_domain')->id(1);   
         
-        // $req->chalk = (object) [];       
-        // $req->chalk->domain     = $domain;
-        // $req->chalk->root       = $domain->structures->first()->root;
-        // $req->chalk->home       = $domain->structures->first()->root->content;
-        // $req->chalk->structures = [];
-        // foreach ($domain->structures as $structure) {
-        //     $req->chalk->structures[$structure->id] = $structure;
-        // }
+        $this->frontend->domain = $domain;
+        $this->frontend->root   = $domain->structures->first()->root;
+        $this->frontend->home   = $domain->structures->first()->root->content;
+        
+        $structures = [];
+        foreach ($domain->structures as $structure) {
+            $structures[$structure->id] = $structure;
+        }
+        $this->frontend->structures = $structures;
 
         $conn  = $this->em->getConnection();
         $nodes = $conn->query("
@@ -71,97 +84,44 @@ class Module extends ChalkModule
                 n.name, n.slug, n.path,
                 n.structureId,
                 n.parentId,
-                c.type AS contentType,
-                n.contentId
+                c.type AS content_type,
+                n.contentId AS content_id
             FROM core_structure_node AS n
                 INNER JOIN core_structure AS s ON s.id = n.structureId
                 INNER JOIN core_domain__core_structure AS d ON d.core_structureId = s.id
                 INNER JOIN core_content AS c ON c.id = n.contentId
             WHERE d.core_domainId = {$domain->id}
         ")->fetchAll();
-        $map = [];
+
+        $this->map = [];
         foreach ($nodes as $node) {
-            if (!isset($node['contentId'])) {
+            if (!isset($node['content_id'])) {
                 continue;
             }
-            $info   = Chalk::info($node['contentType']);
+            $this->map[$node['id']] = $node;
+            $info   = Chalk::info($node['content_type']);
             $module = $this->app->module($info->module->name);
-
-
-            $routes = $module->routeNode($node);
-
-            foreach ($routes as $key => $params) {
-                $name = $key
-                    ? "core_structure_node_{$node['id']}_{$key}"
-                    : "core_structure_node_{$node['id']}";
-                $this->frontend->router
-                    ->route($name, 'all', $node['path'], $params);
-                $name = $key
-                    ? "{$node['contentType']}_{$node['contentId']}_{$key}"
-                    : "{$node['contentType']}_{$node['contentId']}";
-                $this->frontend->router
-                    ->route($name, 'all', $node['path'], $params);
-            }
-
-
-
+            $params = [
+                'info'       => $info,
+                'node'       => $node,
+                'content'    => $node['content_id'],
+                'module'     => $this->name(),
+                'controller' => $info->local->name,
+                'action'     => 'index',
+            ];
+            $this->frontend->router
+                ->route("core_structure_node_{$node['id']}", 'all', $node['path'], $params)
+                ->route("{$node['content_type']}_{$node['content_id']}", 'all', $node['path'], $params);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // $this->frontend->handlers([
-        //     'Chalk\Core\Page' => function(Request $req, Response $res) {
-        //         $info = Chalk::info($req->chalk->content);
-        //         return $res->html($this->parse($this->view->render($info->local->path, [
-        //             'req'   => $req,
-        //             'res'   => $res,
-        //             'node'  => $req->node,
-        //             'page'  => $req->chalk->content
-        //         ], 'core')));
-        //     },
-        //     'Chalk\Core\File' => function(Request $req, Response $res) {
-        //         $file = $req->chalk->content->file();
-        //         if (!$file->exists()) {
-        //             return false;
-        //         }
-        //         return $res->redirect($this->app->url->file($file));
-        //     },
-        //     'Chalk\Core\Alias' => function(Request $req, Response $res) {
-        //         $content = $req->chalk->content->content();
-        //         return $res->redirect($this->url->content($content->id));
-        //     },
-        //     'Chalk\Core\Url' => function(Request $req, Response $res) {
-        //         $url = $req->chalk->content->url();
-        //         return $res->redirect($url);
-        //     },
-        //     'Chalk\Core\Blank' => function(Request $req, Response $res) {
-        //         return;
-        //     },
-        // ]);
     }
     
     public function initBackend()
     {
         $this->backend->view
-            ->dir($this->name(), $this->dir('app/views'));
+            ->dir($this->name(), $this->dir('backend/views'));
         
         $this->backend->controller
-            ->nspace($this->name(), $this->nspace('Controller'))
+            ->nspace($this->name(), $this->nspace('Backend\Controller'))
             ->all(['All', $this->name()]);
 
         $this->backend->router->routes([
@@ -256,13 +216,13 @@ class Module extends ChalkModule
                         ], $this->name('secondary'));
                 }
                 $event
+                    ->item($this->name('setting\domain'), [
+                        'label' => 'Site',
+                        'url'   => [['controller' => 'setting_domain', 'action' => 'edit', 'id' => 1], 'setting'],
+                    ], $this->name('setting'))
                     ->item($this->name('setting\user'), [
                         'label' => 'Users',
                         'url'   => [['controller' => 'setting_user'], 'setting'],
-                    ], $this->name('setting'))
-                    ->item($this->name('setting\domain'), [
-                        'label' => 'Domains',
-                        'url'   => [['controller' => 'setting_domain'], 'setting'],
                     ], $this->name('setting'))
                     ->item($this->name('setting\structure'), [
                         'label' => 'Structures',
@@ -282,18 +242,5 @@ class Module extends ChalkModule
                     $event->content($this->nspace($class));
                 }
             });
-    }
-
-    public function routeNode($node)
-    {
-        return [
-            [
-                'node' => $node,
-            ],
-            'potato' => [
-                'node' => $node,
-            ],
-        ];
-
     }
 }
