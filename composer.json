@@ -26,7 +26,8 @@
     "autoload": {
         "psr-4": {
             "Chalk\\": "app/lib/",
-            "Chalk\\Core\\Controller\\": "app/conts/",
+            "Chalk\\Core\\Backend\\Controller\\": "backend/conts/",
+            "Chalk\\Core\\Frontend\\Controller\\": "frontend/conts/",
             "Toast\\": "app/toast/"
         }
     }
