@@ -32,57 +32,53 @@ class Repository extends EntityRepository
 
     public function id($id, array $params = array(), array $opts = array())
     {
-        $query = $this->query(['ids' => [$id]] + $params);
-        
+        $query = $this->build(['ids' => [$id]] + $params);
         $query = $this->prepare($query, $opts);    
-        return $query->getOneOrNullResult();
+        return $this->execute($query, true);
     }
 
     public function slug($slug, array $params = array(), array $opts = array())
     {
-        $query = $this->query(['slugs' => [$slug]] + $params);
-        
+        $query = $this->build(['slugs' => [$slug]] + $params);
         $query = $this->prepare($query, $opts);    
-        return $query->getOneOrNullResult();
+        return $this->execute($query, true);
     }
 
     public function one(array $params = array(), array $opts = array())
     {   
-        $query = $this->query($params);
-        
+        $query = $this->build($params);
         $query = $this->prepare($query, $opts);    
-        return $query->getOneOrNullResult();
+        return $this->execute($query, true);
     }
 
     public function all(array $params = array(), array $opts = array())
     {   
-        $query = $this->query($params);
-        
+        $query = $this->build($params);
         $query = $this->prepare($query, $opts);    
-        return $query->getResult();
+        return $this->execute($query);
     }
 
     public function paged(array $params = array(), array $opts = array())
     {   
-        $query = $this->query($params + [
+        $query = $this->build($params + [
             'limit' => $this->_limit,
             'page'  => 1,
         ]);
-        
         $query = $this->prepare($query, $opts);
         return new Paginator($query);
     }
 
     public function count(array $params = array(), array $opts = array())
     {   
-        $query = $this->query($params)
+        $query = $this->build($params)
             ->select("COUNT({$this->alias()})");
-        
-        $query = $this->prepare($query, $opts);
-        return $query->getSingleScalarResult();
+        $query = $this->prepare($query, [
+            'hydrate' => Repository::HYDRATE_SINGLE_SCALAR,
+        ] + $opts);
+        return $this->execute($query);
     }
 
-    public function query(array $params = array())
+    public function build(array $params = array())
     {
         $query = $this->createQueryBuilder($this->alias());
 
@@ -166,6 +162,17 @@ class Repository extends EntityRepository
         }
 
         return $query;
+    }
+
+    public function execute(Query $query, $one = false)
+    {
+        $result = $query->execute();
+
+        if ($one && $query->getHydrationMode() != self::HYDRATE_SINGLE_SCALAR) {
+            $result = current($result);
+        }
+        
+        return $result;
     }
 
     public function alias()

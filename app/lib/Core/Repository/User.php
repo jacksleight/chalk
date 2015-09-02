@@ -13,9 +13,9 @@ class User extends Repository
 {
     use Searchable\Repository;
 
-    public function query(array $params = array())
+    public function build(array $params = array())
     {
-        $query = parent::query($params);
+        $query = parent::build($params);
 
         $params = $params + [
 			'emailAddress'	=> null,

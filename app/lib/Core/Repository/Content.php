@@ -19,9 +19,9 @@ class Content extends Repository
 
     protected $_sort = ['modifyDate', 'DESC'];
 
-    public function query(array $params = array())
+    public function build(array $params = array())
     {
-        $query = parent::query($params);
+        $query = parent::build($params);
 
         $params = $params + [
             'types'         => null,
@@ -108,15 +108,14 @@ class Content extends Repository
 
     public function subtypes(array $params = array(), array $opts = array())
     {
-        $query = $this->query($params);
-
-        $query
+        $query = $this->build($params)
             ->select("{$this->alias()}.subtype AS subtype, COUNT({$this->alias()}) AS total")
             ->groupBy("{$this->alias()}.subtype")
             ->andWhere("{$this->alias()}.subtype IS NOT NULL");
-
-        $query = $this->prepare($query, $opts);
-        return $query->getArrayResult();
+        $query = $this->prepare($query, [
+            'hydrate' => Repository::HYDRATE_ARRAY
+        ] + $opts);
+        return $this->execute($query);
     }
 
     public function parseTypes($types)

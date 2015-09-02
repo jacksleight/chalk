@@ -18,9 +18,9 @@ class Node extends Repository
 
     protected $_sort = 'left';
 
-    public function query(array $params = array())
+    public function build(array $params = array())
     {
-        $query = parent::query($params);
+        $query = parent::build($params);
 
         $params = $params + [
             'structure'  => null,
@@ -96,7 +96,7 @@ class Node extends Repository
 
     public function children($node, $isIncluded = false, $depth = null, array $params = array())
     {
-        $query = $this->query(array_merge($params, [
+        $query = $this->build(array_merge($params, [
             'children'   => $node,
             'isIncluded' => $isIncluded,
             'depth'      => $depth,
@@ -104,12 +104,12 @@ class Node extends Repository
         $query = $this->prepare($query, [
             'hydrate'    => Repository::HYDRATE_ARRAY,
         ]);    
-        return $query->execute();
+        return $this->execute($query);
     }
 
     public function parents($node, $isIncluded = false, $depth = null, $isReversed = false, array $params = array())
     {
-        $query = $this->query(array_merge($params, [
+        $query = $this->build(array_merge($params, [
             'parents'    => $node,
             'isIncluded' => $isIncluded,
             'depth'      => $depth,
@@ -118,24 +118,24 @@ class Node extends Repository
         $query = $this->prepare($query, [
             'hydrate'    => Repository::HYDRATE_ARRAY,
         ]);    
-        return $query->execute();
+        return $this->execute($query);
     }
 
     public function siblings($node, $isIncluded = false, array $params = array())
     {
-        $query = $this->query(array_merge($params, [
+        $query = $this->build(array_merge($params, [
             'siblings'   => $node,
             'isIncluded' => $isIncluded,
         ]));
         $query = $this->prepare($query, [
             'hydrate'    => Repository::HYDRATE_ARRAY,
         ]);    
-        return $query->execute();
+        return $this->execute($query);
     }
 
     public function tree($node, $isIncluded = false, $isMerged = false, $depth = null, array $params = array())
     {
-        $query = $this->query(array_merge($params, [
+        $query = $this->build(array_merge($params, [
             'children'   => $node,
             'isIncluded' => $isIncluded,
             'depth'      => $depth,
@@ -143,7 +143,7 @@ class Node extends Repository
         $query = $this->prepare($query, [
             'hydrate'    => Repository::HYDRATE_ARRAY,
         ]);
-        $nodes = $query->execute();
+        $nodes = $this->execute($query);
 
         $map = [];
         foreach ($nodes as $i => $mapped) {

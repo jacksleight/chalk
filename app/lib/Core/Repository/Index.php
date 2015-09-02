@@ -15,7 +15,7 @@ class Index extends Repository
 {
     public function entities($entities)
     {
-        $query = $this->query();
+        $query = $this->build();
         $wheres = [];
         foreach ($entities as $entity) {
             $wheres[] = "(i.entityType = '" . Chalk::info($entity)->name . "' AND i.entityId = " . $entity->id . ")";
