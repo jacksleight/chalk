@@ -146,7 +146,7 @@ class File extends Content
 	{
 		return isset(self::$_mimeTypes[$subtype])
 			? self::$_mimeTypes[$subtype][0]
-			: 'File';
+			: 'Unknown Type';
 	}
 
 	public function isImage()
