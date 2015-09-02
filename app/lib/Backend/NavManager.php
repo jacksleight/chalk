@@ -4,11 +4,9 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Chalk\Core\Event;
+namespace Chalk\Backend;
 
-use Chalk\Event;
-
-class Navigation extends Event
+class NavManager
 {
     protected $_items = [
         0 => ['children' => []],
@@ -27,17 +25,33 @@ class Navigation extends Event
                 ];
                 $this->_items[$parent]['children'][$name] = &$this->_items[$name];
             } else {
-                $this->_items[$name] = null;
+                unset($this->_items[$name]);
+                foreach ($this->_items as $parent => $item) {
+                    unset($this->_items[$parent]['children'][$name]);
+                }
+            }
+            return $this;   
+        }
+        return isset($this->_items[$name])
+            ? $this->_items[$name]
+            : null;
+    }
+
+    public function items(array $items = null)
+    {
+        if (func_num_args() > 1) {
+            foreach ($items as $name => $value) {
+                $this->item($name, $value[0], $value[1]);
             }
             return $this;
         }
-        return $this->_items[$name];
+        return $this->_items;
     }
 
-    public function items($parent = 0)
+    public function children($name)
     {
-        return isset($this->_items[$parent]['children'])
-            ? $this->_items[$parent]['children']
+        return isset($this->_items[$name]['children'])
+            ? $this->_items[$name]['children']
             : null;
     }
 }

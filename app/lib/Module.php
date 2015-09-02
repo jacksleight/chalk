@@ -14,6 +14,7 @@ use Closure;
 use Coast\App\Access;
 use Coast\Dir;
 use Coast\File;
+use Coast\Router;
 use ReflectionClass;
 
 abstract class Module implements Access
@@ -77,9 +78,90 @@ abstract class Module implements Access
     public function init()
     {}
 
-    public function initBackend()
+    public function entityDir($nspace, $path = 'lib')
+    {
+        $this->em
+            ->dir($nspace, $this->dir($path));
+        return $this;
+    }
+
+    public function frontendInit()
     {}
 
-    public function initFrontend()
+    public function frontendControllerNspace($name, $nspace = 'Frontend\Controller')
+    {
+        $this->frontend->controller
+            ->nspace($name, $this->nspace($nspace));
+        return $this;
+    }
+
+    public function frontendControllerAll($name, $class = 'All')
+    {
+        $this->frontend->controller
+            ->all([$class, $name]);
+        return $this;
+    }
+
+    public function frontendViewDir($name, $path = 'frontend/views')
+    {
+        $name = "_{$name}";
+        $config = $this->config->viewScripts;
+        $this->frontend->view
+            ->dir("__{$this->nspace()}{$name}", $this->dir($path))
+            ->extension($config[1], "{$config[0]}/{$this->name()}{$name}", [null, "__{$this->nspace()}{$name}"]);
+        return $this;
+    }
+
+    public function frontendUrlResolver($name, Closure $resolver)
+    {
+        $this->frontend->url
+            ->resolver($name, $resolver);
+        return $this;
+    }
+
+    public function frontendRoute($name, $method = Router::METHOD_ALL, $path, $params)
+    {
+        $this->frontend->router
+            ->route($name, $method, $path, $params);
+        return $this;
+    }
+
+    public function backendInit()
     {}
+
+    public function backendControllerNspace($name, $nspace = 'Backend\Controller')
+    {
+        $this->backend->controller
+            ->nspace($name, $this->nspace($nspace));
+        return $this;
+    }
+
+    public function backendControllerAll($name, $class = 'All')
+    {
+        $this->backend->controller
+            ->all([$class, $name]);
+        return $this;
+    }
+
+    public function backendViewDir($name, $path = 'backend/views')
+    {
+        $this->backend->view
+            ->dir($name, $this->dir($path));
+        return $this;
+    }
+
+    public function backendNavItem($name, array $item, $parent = 0)
+    {
+        $this->backend->nav
+            ->item($name, $item, $parent);
+        return $this;
+    }
+
+    public function backendRoute($name, $method = Router::METHOD_ALL, $path, $params)
+    {
+        $this->backend->router
+            // ->route($this->name(), $method, $path, $params);
+            ->route($name, $method, $path, $params);
+        return $this;
+    }
 }

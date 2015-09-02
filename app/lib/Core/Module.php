@@ -6,16 +6,20 @@
 
 namespace Chalk\Core;
 
-use Chalk\Chalk,
-	Chalk\Event,
-    Chalk\Backend,
-    Chalk\Frontend,
-	Chalk\Module as ChalkModule,
-    Coast\Request,
-    Coast\Response;
+use Chalk\Backend;
+use Chalk\Chalk;
+use Chalk\Event;
+use Chalk\Frontend;
+use Chalk\Module as ChalkModule;
+use Closure;
+use Coast\Request;
+use Coast\Response;
+use Coast\Router;
 
 class Module extends ChalkModule
 {
+    protected $_contentEntities = [];
+
     public function __construct()
     {
         parent::__construct('core', '../../..');
@@ -23,40 +27,45 @@ class Module extends ChalkModule
     
     public function init()
     {
-        $this->em
-            ->dir($this->nspace(), $this->dir('app/lib'));
+        $this
+            ->entityDir($this->name(), 'app/lib');
+
+        $this
+            ->contentEntity($this->name('page'))
+            ->contentEntity($this->name('file'))
+            ->contentEntity($this->name('block'))
+            ->contentEntity($this->name('url'))
+            ->contentEntity($this->name('blank'));
     }
     
-    public function initFrontend()
+    public function frontendInit()
     {
-        $this->frontend->controller
-            ->nspace($this->name(), $this->nspace('Frontend\Controller'))
-            ->all(['All', $this->name()]);
+        $this
+            ->frontendControllerAll($this->name())
+            ->frontendControllerNspace($this->name())
+            ->frontendViewDir($this->name());
 
-        $this->frontend->view
-            ->dir($this->name(), $this->dir('frontend/views'));
-
-        $this->frontend->url
-            ->resolver($this->name('structure_node'), function($node) {
+        $this
+            ->frontendUrlResolver($this->name('structure_node'), function($node) {
                 try {
                     return $this->frontend->url
-                        ->route([], "core_structure_node_{$node['id']}", true);
+                        ->route([], $this->name("structure_node_{$node['id']}"), true);
                 } catch (\Coast\Router\Exception $e) {
                     return;
                 }                    
             })
-            ->resolver($this->name('content'), function($content) {
+            ->frontendUrlResolver($this->name('content'), function($content) {
                 try {
                     return $this->frontend->url
-                        ->route([], "{$content['type']}_{$content['id']}", true);
+                        ->route([], $this->name("content_{$content['id']}"), true);
                 } catch (\Coast\Router\Exception $e) {
                     return;
                 }
             })
-            ->resolver($this->name('url'), function($url) {
+            ->frontendUrlResolver($this->name('url'), function($url) {
                 return $url['url'];
             })
-            ->resolver($this->name('file'), function($file) {
+            ->frontendUrlResolver($this->name('file'), function($file) {
                 // @todo Remove this once File works with array hydration
                 if (is_array($file)) {
                     $file = $this->em($this->name('file'))->id($file['id']);
@@ -65,7 +74,7 @@ class Module extends ChalkModule
                     ->file($file['file']);
             });
 
-        $domain = $this->em('core_domain')->id(1);   
+        $domain = $this->em($this->name('domain'))->id(1);   
         
         $this->frontend->domain = $domain;
         $this->frontend->root   = $domain->structures->first()->root;
@@ -98,7 +107,6 @@ class Module extends ChalkModule
             if (!isset($node['content_id'])) {
                 continue;
             }
-            $this->map[$node['id']] = $node;
             $info   = Chalk::info($node['content_type']);
             $module = $this->app->module($info->module->name);
             $params = [
@@ -109,138 +117,147 @@ class Module extends ChalkModule
                 'controller' => $info->local->name,
                 'action'     => 'index',
             ];
-            $this->frontend->router
-                ->route("core_structure_node_{$node['id']}", 'all', $node['path'], $params)
-                ->route("{$node['content_type']}_{$node['content_id']}", 'all', $node['path'], $params);
+            $this
+                ->frontendRoute(
+                    $this->name("structure_node_{$node['id']}"),
+                    Router::METHOD_ALL,
+                    $node['path'],
+                    $params
+                )
+                ->frontendRoute(
+                    $this->name("content_{$node['content_id']}"),
+                    Router::METHOD_ALL,
+                    $node['path'],
+                    $params
+                );
+            $this->map[$node['id']] = $node;
         }
     }
     
-    public function initBackend()
+    public function backendInit()
     {
-        $this->backend->view
-            ->dir($this->name(), $this->dir('backend/views'));
-        
-        $this->backend->controller
-            ->nspace($this->name(), $this->nspace('Backend\Controller'))
-            ->all(['All', $this->name()]);
+        $this
+            ->backendControllerAll($this->name())
+            ->backendControllerNspace($this->name())
+            ->backendViewDir($this->name());
 
-        $this->backend->router->routes([
-            'index' => ['all', "{controller}?/{action}?/{id}?", [
+        $this
+            ->backendRoute('index', Router::METHOD_ALL, "{controller}?/{action}?/{id}?", [
                 'controller' => 'index',
                 'action'     => 'index',
                 'id'         => null,
-            ]],
-            'about' => ['all', "about", [
+            ])
+            ->backendRoute('about', Router::METHOD_ALL, "about", [
                 'controller' => 'auth',
                 'action'     => 'about',
-            ]],
-            'sandbox' => ['all', "sandbox", [
+            ])
+            ->backendRoute('sandbox', Router::METHOD_ALL, "sandbox", [
                 'controller' => 'index',
                 'action'     => 'sandbox',
-            ]],
-            'passwordRequest' => ['all', "password-request", [
+            ])
+            ->backendRoute('passwordRequest', Router::METHOD_ALL, "password-request", [
                 'controller' => 'auth',
                 'action'     => 'password-request',
-            ]],
-            'passwordReset' => ['all', "password-reset/{token}", [
+            ])
+            ->backendRoute('passwordReset', Router::METHOD_ALL, "password-reset/{token}", [
                 'controller' => 'auth',
                 'action'     => 'password-reset',
-            ]],
-            'login' => ['all', "login", [
+            ])
+            ->backendRoute('login', Router::METHOD_ALL, "login", [
                 'controller' => 'auth',
                 'action'     => 'login',
-            ]],
-            'logout' => ['all', "logout", [
+            ])
+            ->backendRoute('logout', Router::METHOD_ALL, "logout", [
                 'controller' => 'auth',
                 'action'     => 'logout',
-            ]],
-            'profile' => ['all', "profile", [
+            ])
+            ->backendRoute('profile', Router::METHOD_ALL, "profile", [
                 'controller' => 'profile',
                 'action'     => 'edit',
-            ]],
-            'prefs' => ['all', "prefs", [
+            ])
+            ->backendRoute('prefs', Router::METHOD_ALL, "prefs", [
                 'controller' => 'index',
                 'action'     => 'prefs',
-            ]],
-            'content' => ['all', "content/{entity}?/{action}?/{content}?", [
+            ])
+            ->backendRoute('content', Router::METHOD_ALL, "content/{entity}?/{action}?/{content}?", [
                 'controller' => 'content',
                 'action'     => 'index',
                 'entity'     => null,
                 'content'    => null,
-            ]],
-            'setting' => ['all', "setting/{controller}?/{action}?/{id}?", [
+            ])
+            ->backendRoute('setting', Router::METHOD_ALL, "setting/{controller}?/{action}?/{id}?", [
                 'controller' => 'setting',
                 'action'     => 'index',
                 'id'         => null,
-            ]],
-            'widget' => ['all', "widget/{action}/{entity}", [
+            ])
+            ->backendRoute('widget', Router::METHOD_ALL, "widget/{action}/{entity}", [
                 'controller' => 'widget',
-            ]],
-            'structure' => ['all', "structure/{action}?/{structure}?", [
+            ])
+            ->backendRoute('structure', Router::METHOD_ALL, "structure/{action}?/{structure}?", [
                 'controller' => 'structure',
                 'action'     => 'index',
                 'structure'  => null,
-            ]],
-            'structure_node' => ['all', "structure/node/{structure}/{action}?/{node}?", [
+            ])
+            ->backendRoute('structure_node', Router::METHOD_ALL, "structure/node/{structure}/{action}?/{node}?", [
                 'controller' => 'structure_node',
                 'action'     => 'index',
                 'node'       => null,
-            ]],
-        ]);
+            ]);
+
+        $this
+            ->backendNavItem($this->name('primary'), [])
+            ->backendNavItem($this->name('secondary'), [])
+            ->backendNavItem($this->name('structure'), [
+                'label' => 'Structure',
+                'icon'  => 'structure',
+                'url'   => [[], 'structure'],
+            ], $this->name('primary'))
+            ->backendNavItem($this->name('content'), [
+                'label' => 'Content',
+                'icon'  => 'content',
+                'url'   => [[], 'content'],
+            ], $this->name('primary'))
+            ->backendNavItem($this->name('setting'), [
+                'label' => 'Settings',
+                'icon'  => 'settings',
+                'url'   => [[], 'setting'],
+            ], $this->name('secondary'))
+            ->backendNavItem($this->name('setting\domain'), [
+                'label' => 'Site',
+                'url'   => [['controller' => 'setting_domain', 'action' => 'edit', 'id' => 1], 'setting'],
+            ], $this->name('setting'))
+            ->backendNavItem($this->name('setting\user'), [
+                'label' => 'Users',
+                'url'   => [['controller' => 'setting_user'], 'setting'],
+            ], $this->name('setting'))
+            ->backendNavItem($this->name('setting\structure'), [
+                'label' => 'Structures',
+                'url'   => [['controller' => 'setting_structure'], 'setting'],
+            ], $this->name('setting'));
 
         $this->backend->event
-            ->register($this->name('navigation'), $this->nspace('Event\Navigation'))
-            ->register($this->name('listWidgets'), $this->nspace('Event\ListWidgets'))
-            ->register($this->name('listContents'), $this->nspace('Event\ListContents'))
-            ->listen($this->name('navigation'), function(Event $event, Request $req) {
-                $event
-                    ->item($this->name('primary'), [])
-                    ->item($this->name('secondary'), []);
-                $event
-                    ->item($this->name('structure'), [
-                        'label' => 'Structure',
-                        'icon'  => 'structure',
-                        'url'   => [[], 'structure'],
-                    ], $this->name('primary'))
-                    ->item($this->name('content'), [
-                        'label' => 'Content',
-                        'icon'  => 'content',
-                        'url'   => [[], 'content'],
-                    ], $this->name('primary'));
-                if ($req->user->isAdministrator()) {
-                    $event
-                        ->item($this->name('setting'), [
-                            'label' => 'Settings',
-                            'icon'  => 'settings',
-                            'url'   => [[], 'setting'],
-                        ], $this->name('secondary'));
-                }
-                $event
-                    ->item($this->name('setting\domain'), [
-                        'label' => 'Site',
-                        'url'   => [['controller' => 'setting_domain', 'action' => 'edit', 'id' => 1], 'setting'],
-                    ], $this->name('setting'))
-                    ->item($this->name('setting\user'), [
-                        'label' => 'Users',
-                        'url'   => [['controller' => 'setting_user'], 'setting'],
-                    ], $this->name('setting'))
-                    ->item($this->name('setting\structure'), [
-                        'label' => 'Structures',
-                        'url'   => [['controller' => 'setting_structure'], 'setting'],
-                    ], $this->name('setting'));
-            })
-            ->listen($this->name('listContents'), function(Event $event) {       
-                $classes = [
-                    'Page',
-                    'File',
-                    'Block',
-                    'Alias',
-                    'Url',
-                    'Blank',
-                ];
-                foreach ($classes as $class) {
-                    $event->content($this->nspace($class));
-                }
-            });
+            ->register($this->name('listWidgets'), $this->nspace('Event\ListWidgets'));
+    }
+
+    public function contentEntity($name, $remove = false)
+    {
+        $info = Chalk::info($name);
+        if ($remove) {
+            unset($this->_contentEntities[$info->name]);
+        } else {
+            $this->_contentEntities[$info->name] = $info;
+        }
+        return $this;  
+    }
+
+    public function contentEntities(array $contentEntitys = null)
+    {
+        if (func_num_args() > 1) {
+            foreach ($contentEntitys as $name) {
+                $this->contentEntity($name);
+            }
+            return $this;
+        }
+        return $this->_contentEntities;
     }
 }

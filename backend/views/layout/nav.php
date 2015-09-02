@@ -1,3 +1,8 @@
+<?php
+if (!$items) {
+	return;
+}
+?>
 <ul class="<?= isset($class) ? $class : null ?>">
 	<?php foreach ($items as $item) { ?>
 		<?php

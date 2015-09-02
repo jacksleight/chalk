@@ -1,6 +1,6 @@
 <?php
 return [
-    'extends' => [
+    'extensions' => [
         'page'  => ['content'],
         'file'  => ['content'],
         'block' => ['content'],

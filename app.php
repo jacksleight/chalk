@@ -8,6 +8,7 @@ use Chalk\Chalk;
 use Chalk\Core\File;
 use Chalk\Core\Module as Core;
 use Chalk\Backend;
+use Chalk\Backend\NavManager;
 use Chalk\Frontend;
 use Chalk\Frontend\UrlResolver as FrontendUrlResolver;
 use Chalk\EventManager;
@@ -55,6 +56,7 @@ $app->param('backend', $app->lazy(function($vars) {
         ]))
         ->param('image', $backend->load('app/init/image.php'))
         ->param('event', new EventManager())
+        ->param('nav', new NavManager())
         ->param('em', $app->em)
         ->param('cache', $app->cache)
         ->param('swift', $app->swift)
@@ -83,7 +85,7 @@ $app->param('backend', $app->lazy(function($vars) {
     $backend->executable($backend->router);
     $app->param('backend', $backend);
     foreach ($app->modules() as $module) {
-        $module->initBackend();
+        $module->backendInit();
     }
     return $backend;
 }));
@@ -110,7 +112,7 @@ $app->param('frontend', $app->lazy(function($vars) {
     $frontend->executable($frontend->router);
     $app->param('frontend', $frontend);
     foreach ($app->modules() as $module) {
-        $module->initFrontend();
+        $module->frontendInit();
     }
     return $frontend;
 }));

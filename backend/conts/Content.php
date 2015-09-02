@@ -28,11 +28,9 @@ class Content extends Basic
 	public function index(Request $req, Response $res)
 	{
 		if (!$req->entity) {
-			$items = $req->view->navigation->items('core_content');
-			foreach ($items as $item) {
-				if (!isset($item)) {
-					continue;
-				}
+			$items = $this->nav->children('core_content');
+			if ($items) {
+				$item = current($items);
 				return $res->redirect($this->url($item['url'][0], $item['url'][1], true));
 			}
 		}

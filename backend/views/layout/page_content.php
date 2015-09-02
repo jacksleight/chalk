@@ -6,17 +6,14 @@
 <?php $this->block('sidebar') ?>
 
 <?php
-$classes = $this->event->fire('core_listContents')->contents();
+$entities = $this->chalk->module('core')->contentEntities();
 ?>
 <nav class="nav" role="navigation">
     <ul>
-        <? foreach ($classes as $class) { ?>
-            <?php
-            $classInfo = \Chalk\Chalk::info($class);
-            ?>
+        <? foreach ($entities as $entityInfo) { ?>
             <li><a href="<?= $this->url([
-                'entity' => $classInfo->name,
-            ], 'content', true) ?>" class="item <?= $classInfo->name == $info->name ? 'active' : null ?>"><?= $classInfo->plural ?></a></li>
+                'entity' => $entityInfo->name,
+            ], 'content', true) ?>" class="item <?= $entityInfo->name == $info->name ? 'active' : null ?>"><?= $entityInfo->plural ?></a></li>
         <? } ?>
     </ul>
 </nav>

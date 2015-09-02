@@ -1,27 +1,19 @@
 <?php $this->outer('/layout/html') ?>
 <?php $this->block('body') ?>
 
-<?php
-$primary	= $navigation->items('core_primary');
-$secondary	= $navigation->items('core_secondary');
-?>
 <div class="flex-row">
 	<div class="flex-col sidebar dark">
-		<? if (isset($primary)) { ?>
-			<?= $this->inner('nav', [
-				'items'	=> $primary,
-				'class'	=> 'toggles',
-			]) ?>
-		<? } ?>
+		<?= $this->inner('nav', [
+			'items'	=> $this->nav->children('core_primary'),
+			'class'	=> 'toggles',
+		]) ?>
 		<div class="flex body">
 			<?= $this->content('sidebar') ?>
 		</div>
-		<? if (isset($secondary)) { ?>
-			<?= $this->inner('nav', [
-				'items' => $secondary,
-				'class' => 'toggles',
-			]) ?>
-		<? } ?>
+		<?= $this->inner('nav', [
+			'items'	=> $this->nav->children('core_secondary'),
+			'class'	=> 'toggles',
+		]) ?>
 	</div>
 	<div class="flex flex-col">
 		<div class="header topbar">

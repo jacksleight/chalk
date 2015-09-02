@@ -26,7 +26,7 @@ class All extends Action
 
         $nodes = [$req->node];
         while (isset($nodes[0]['parentId'])) {
-            array_unshift($nodes, $this->map[$nodes[0]['parentId']]);
+            array_unshift($nodes, $this->nodeMap[$nodes[0]['parentId']]);
         }
         $req->nodes = $nodes;
 
@@ -49,12 +49,17 @@ class All extends Action
         if (!$req->isRender) {
             return;
         }
-		$path = "{$req->controller}/{$req->action}";
+		
+        $config = $this->chalk->config->viewScripts;
+        
+        $path = "{$config[0]}/{$req->info->module->name}/{$req->controller}/{$req->action}";
 		$params = (array) $req->view + [
 			'req' => $req,
 			'res' => $res,
 		];
-		$html = $this->view->render($path, $params, $req->info->module->name);
+
+		$html = $this->view->render($path, $params, $config[1]);
+        $html = $this->app->parse($html);
 		return $res->html($html);
 	}
 }

@@ -5,7 +5,7 @@
 
 <form action="<?= $this->url->route() ?>" class="flex-col" data-modal-size="fullscreen">
 	<?= $this->render("/content/browser", [
-		'index'		=> $index,
+		'index'			=> $index,
 	]) ?>
 	<div class="footer">
 		<ul class="toolbar toolbar-right">
