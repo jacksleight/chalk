@@ -85,6 +85,13 @@ abstract class Module implements Access
         return $this;
     }
 
+    public function hookListen($name, Closure $listener)
+    {
+        $this->hook
+            ->listen($name, $listener);
+        return $this;
+    }
+
     public function frontendInit()
     {}
 
@@ -125,6 +132,13 @@ abstract class Module implements Access
         return $this;
     }
 
+    public function frontendHookListen($name, Closure $listener)
+    {
+        $this->frontend->hook
+            ->listen($name, $listener);
+        return $this;
+    }
+
     public function backendInit()
     {}
 
@@ -149,17 +163,16 @@ abstract class Module implements Access
         return $this;
     }
 
-    public function backendNavItem($name, array $item, $parent = 0)
+    public function backendHookListen($name, Closure $listener)
     {
-        $this->backend->nav
-            ->item($name, $item, $parent);
+        $this->backend->hook
+            ->listen($name, $listener);
         return $this;
     }
 
     public function backendRoute($name, $method = Router::METHOD_ALL, $path, $params)
     {
         $this->backend->router
-            // ->route($this->name(), $method, $path, $params);
             ->route($name, $method, $path, $params);
         return $this;
     }

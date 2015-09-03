@@ -1,9 +1,9 @@
 <?php 
-if (!isset($restricts)) {
-	$restricts = \Chalk\Chalk::info($md['entity'])->name;
+if (!isset($filters)) {
+	$filters = \Chalk\Chalk::info($md['entity'])->name;
 }
 ?>
-<div class="input-content" data-params="<?= $this->escape(http_build_query(['restricts' => $restricts])) ?>">
+<div class="input-content" data-params="<?= $this->escape(http_build_query(['filters' => $filters])) ?>">
 	<div class="input-content-controls">
 		<span class="input-content-remove btn btn-lightest btn-out btn-icon icon-remove"><span>Remove</span></span>
 		<span class="input-content-select btn btn-lightest btn-icon icon-browse"><span>Browse</span></span>

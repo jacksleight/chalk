@@ -5,15 +5,12 @@
 
 <?php $this->block('sidebar') ?>
 
-<?php
-$entities = $this->chalk->module('core')->contentEntities();
-?>
 <nav class="nav" role="navigation">
     <ul>
-        <? foreach ($entities as $entityInfo) { ?>
+        <? foreach ($this->contentList as $name => $classInfo) { ?>
             <li><a href="<?= $this->url([
-                'entity' => $entityInfo->name,
-            ], 'content', true) ?>" class="item <?= $entityInfo->name == $info->name ? 'active' : null ?>"><?= $entityInfo->plural ?></a></li>
+                'entity' => $classInfo->name,
+            ], 'content', true) ?>" class="item <?= $classInfo->name == $info->name ? 'active' : null ?>"><?= $classInfo->plural ?></a></li>
         <? } ?>
     </ul>
 </nav>

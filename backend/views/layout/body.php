@@ -4,14 +4,14 @@
 <div class="flex-row">
 	<div class="flex-col sidebar dark">
 		<?= $this->inner('nav', [
-			'items'	=> $this->nav->children('core_primary'),
+			'items'	=> $this->navList->children('core_primary'),
 			'class'	=> 'toggles',
 		]) ?>
 		<div class="flex body">
 			<?= $this->content('sidebar') ?>
 		</div>
 		<?= $this->inner('nav', [
-			'items'	=> $this->nav->children('core_secondary'),
+			'items'	=> $this->navList->children('core_secondary'),
 			'class'	=> 'toggles',
 		]) ?>
 	</div>

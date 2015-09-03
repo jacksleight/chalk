@@ -10,7 +10,7 @@
     </li>
     <?= $this->content('filters-top') ?>
     <?php
-    $subtypes = $this->em($info)->subtypes(['types' => isset($restricts) ? $restricts : null]);
+    $subtypes = $this->em($info)->subtypes(['types' => isset($filters) ? $filters : null]);
     $values   = [];
     $class    = $info->class;
     foreach ($subtypes as $subtype) {

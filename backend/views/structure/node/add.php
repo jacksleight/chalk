@@ -9,7 +9,7 @@ $structure = $this->em('Chalk\Core\Structure')->id($req->structure);
 <form action="<?= $this->url->route() ?>" class="flex-col" data-modal-size="fullscreen">
 	<?= $this->render("/content/browser", [
 		'index'		=> $index,
-		'restricts'	=> 'node',
+		'filters'	=> 'node',
 	]) ?>
 	<div class="footer">
 		<ul class="toolbar toolbar-right">

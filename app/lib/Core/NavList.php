@@ -4,9 +4,9 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE. 
  */
 
-namespace Chalk\Backend;
+namespace Chalk\Core;
 
-class NavManager
+class NavList
 {
     protected $_items = [
         0 => ['children' => []],

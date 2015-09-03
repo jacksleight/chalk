@@ -92,7 +92,7 @@ $render = isset($input)
 				'set'					=> "Please complete this field",
 				'dateTime'				=> "Please enter a valid date/time",
 				'url'					=> "Please enter a valid URL",
-				'login'					=> "Please check your details, an account with that username and password could not be found",
+				'login'					=> "Please check your login, an account with that username and password could not be found",
 				'count_min'				=> "Please select at least %1\$s",
 				'count_max'				=> "Please select no more than %2\$s",
 			];

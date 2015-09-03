@@ -14,8 +14,8 @@ class Index extends Action
 {
 	public function index(Request $req, Response $res)
 	{
-		$items = $this->nav->children('core_primary');
-		if ($items) {
+		$items = $this->navList->children('core_primary');
+		if (count($items)) {
 			$item = current($items);
 			return $res->redirect($this->url($item['url'][0], $item['url'][1], true));
 		}

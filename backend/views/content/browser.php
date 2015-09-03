@@ -1,26 +1,27 @@
 <?php
-$classes = $this->event->fire('core_listContents')->contents();
-$restricts = isset($restricts)
-	? $restricts
-	: $index->restricts;
-if ($restricts == 'node') {
-	$restricts = [];
-	foreach ($classes as $class) {
-		$classInfo = \Chalk\Chalk::info($class);
-		if ($classInfo->isNode) {
-			$restricts[] = $class;
+$filters = isset($filters)
+    ? $filters
+    : $index->filters;
+$classes = [];
+foreach ($this->contentList as $contentInfo) {
+    $classes[] = $contentInfo->class;
+}
+if ($filters == 'node') {
+	$filters = [];
+	foreach ($this->contentList as $contentInfo) {
+		if ($contentInfo->isNode) {
+			$filters[] = $contentInfo->name;
 		}
 	}
-} else if ($restricts == 'url') {
-	$restricts = [];
-	foreach ($classes as $class) {
-		$classInfo = \Chalk\Chalk::info($class);
-		if ($classInfo->isUrl) {
-			$restricts[] = $class;
+} else if ($filters == 'url') {
+	$filters = [];
+	foreach ($this->contentList as $contentInfo) {
+		if ($contentInfo->isUrl) {
+			$filters[] = $contentInfo->name;
 		}
 	}
-} else if ($restricts == 'image') {
-	$restricts = [
+} else if ($filters == 'image') {
+	$filters = [
 		'core_file' => [
 			'image/gif',
 			'image/jpeg',
@@ -28,44 +29,44 @@ if ($restricts == 'node') {
 			'image/webp',
 		],
 	];
-} else if (!isset($restricts)) {
-	$restricts = $classes;
+} else if (!isset($filters)) {
+	$filters = $classes;
 }
-$restricts = $this->em('core_content')->parseTypes($restricts);
-$restricts = \Coast\array_intersect_key($restricts, $classes);
+$filters = $this->em('core_content')->parseTypes($filters);
+$filters = \Coast\array_intersect_key($filters, $classes);
 if (!isset($index->type)) {
-	$index->type = key($restricts);
+	$index->type = $this->contentList->first()->name;
 }
 $info = \Chalk\Chalk::info($index->type);
 ?>
 <div class="flex flex-row">
-	<? if (count($restricts) > 1) { ?>	
-		<div class="sidebar">
-			<div class="body">
-				<nav class="nav" role="navigation">
-					<ul>
-						<? foreach ($restricts as $restrictsType => $restrictsSubrestricts) { ?>
-							<?php
-							$restrictsInfo = \Chalk\Chalk::info($restrictsType);
-							?>
-							<li><a href="<?= $this->url([]) . $this->url->query([
-								'restricts'	=> $index->restricts,
-								'type'		=> $restrictsInfo->name,
-							], true) ?>" class="item <?= $restrictsInfo->name == $info->name ? 'active' : null ?>"><?= $restrictsInfo->plural ?></a></li>
-						<? } ?>
-					</ul>
-				</nav>
-			</div>
-		</div>
-	<? } ?>
+    <? if (count($filters) > 1) { ?>  
+        <div class="sidebar">
+            <div class="body">
+                <nav class="nav" role="navigation">
+                    <ul>
+                        <? foreach ($filters as $filtersType => $filtersSubfilters) { ?>
+                            <?php
+                            $filtersInfo = \Chalk\Chalk::info($filtersType);
+                            ?>
+                            <li><a href="<?= $this->url([]) . $this->url->query([
+                                'filters' => $index->filters,
+                                'type'      => $filtersInfo->name,
+                            ], true) ?>" class="item <?= $filtersInfo->name == $info->name ? 'active' : null ?>"><?= $filtersInfo->plural ?></a></li>
+                        <? } ?>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    <? } ?>
 	<div class="flex">
 		<?= $this->render("/{$info->local->path}/list", [
-			'contents'		=> $this->em($info)->paged(['types' => $restricts] + $index->toArray()),
+			'contents'		=> $this->em($info)->paged(['types' => $filters] + $index->toArray()),
 			'isNewAllowed'	=> false,
 			'isEditAllowed'	=> false,
 			'info'			=> $info,
 			'index'			=> $index,
-			'restricts'		=> $restricts,
+			'filters'		=> $filters,
 		], $info->module->name) ?>
         <?= $this->render('/element/form-input', array(
             'type'          => 'input_hidden',
@@ -75,7 +76,7 @@ $info = \Chalk\Chalk::info($index->type);
         <?= $this->render('/element/form-input', array(
             'type'          => 'input_hidden_array',
             'entity'        => $index,
-            'name'          => 'restricts',
+            'name'          => 'filters',
         ), 'core') ?>
 	</div>
 </div>

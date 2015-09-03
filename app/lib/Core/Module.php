@@ -10,6 +10,7 @@ use Chalk\Backend;
 use Chalk\Chalk;
 use Chalk\Event;
 use Chalk\Frontend;
+use Chalk\InfoList;
 use Chalk\Module as ChalkModule;
 use Closure;
 use Coast\Request;
@@ -18,8 +19,6 @@ use Coast\Router;
 
 class Module extends ChalkModule
 {
-    protected $_contentEntities = [];
-
     public function __construct()
     {
         parent::__construct('core', '../../..');
@@ -29,13 +28,6 @@ class Module extends ChalkModule
     {
         $this
             ->entityDir($this->name(), 'app/lib');
-
-        $this
-            ->contentEntity($this->name('page'))
-            ->contentEntity($this->name('file'))
-            ->contentEntity($this->name('block'))
-            ->contentEntity($this->name('url'))
-            ->contentEntity($this->name('blank'));
     }
     
     public function frontendInit()
@@ -102,7 +94,7 @@ class Module extends ChalkModule
             WHERE d.core_domainId = {$domain->id}
         ")->fetchAll();
 
-        $this->map = [];
+        $nodeMap = [];
         foreach ($nodes as $node) {
             if (!isset($node['content_id'])) {
                 continue;
@@ -130,8 +122,9 @@ class Module extends ChalkModule
                     $node['path'],
                     $params
                 );
-            $this->map[$node['id']] = $node;
+           $nodeMap[$node['id']] = $node;
         }
+        $this->nodeMap = $nodeMap;
     }
     
     public function backendInit()
@@ -205,59 +198,56 @@ class Module extends ChalkModule
             ]);
 
         $this
-            ->backendNavItem($this->name('primary'), [])
-            ->backendNavItem($this->name('secondary'), [])
-            ->backendNavItem($this->name('structure'), [
-                'label' => 'Structure',
-                'icon'  => 'structure',
-                'url'   => [[], 'structure'],
-            ], $this->name('primary'))
-            ->backendNavItem($this->name('content'), [
-                'label' => 'Content',
-                'icon'  => 'content',
-                'url'   => [[], 'content'],
-            ], $this->name('primary'))
-            ->backendNavItem($this->name('setting'), [
-                'label' => 'Settings',
-                'icon'  => 'settings',
-                'url'   => [[], 'setting'],
-            ], $this->name('secondary'))
-            ->backendNavItem($this->name('setting\domain'), [
-                'label' => 'Site',
-                'url'   => [['controller' => 'setting_domain', 'action' => 'edit', 'id' => 1], 'setting'],
-            ], $this->name('setting'))
-            ->backendNavItem($this->name('setting\user'), [
-                'label' => 'Users',
-                'url'   => [['controller' => 'setting_user'], 'setting'],
-            ], $this->name('setting'))
-            ->backendNavItem($this->name('setting\structure'), [
-                'label' => 'Structures',
-                'url'   => [['controller' => 'setting_structure'], 'setting'],
-            ], $this->name('setting'));
-
-        $this->backend->event
-            ->register($this->name('listWidgets'), $this->nspace('Event\ListWidgets'));
-    }
-
-    public function contentEntity($name, $remove = false)
-    {
-        $info = Chalk::info($name);
-        if ($remove) {
-            unset($this->_contentEntities[$info->name]);
-        } else {
-            $this->_contentEntities[$info->name] = $info;
-        }
-        return $this;  
-    }
-
-    public function contentEntities(array $contentEntitys = null)
-    {
-        if (func_num_args() > 1) {
-            foreach ($contentEntitys as $name) {
-                $this->contentEntity($name);
-            }
-            return $this;
-        }
-        return $this->_contentEntities;
+            ->backendHookListen($this->name('contentList'), function(InfoList $list) {
+                return $list
+                    ->item($this->name('page'))
+                    ->item($this->name('file'))
+                    ->item($this->name('block'))
+                    ->item($this->name('alias'))
+                    ->item($this->name('url'))
+                    ->item($this->name('blank'));
+            })
+            ->backendHookListen($this->name('widgetList'), function(InfoList $list) {
+                return $list;
+            })
+            ->backendHookListen($this->name('navList'), function(NavList $list) {
+                return $list->item($this->name('primary'), [])
+                    ->item($this->name('secondary'), [])
+                    ->item($this->name('structure'), [
+                        'label' => 'Structure',
+                        'icon'  => 'structure',
+                        'url'   => [[], 'structure'],
+                    ], $this->name('primary'))
+                    ->item($this->name('content'), [
+                        'label' => 'Content',
+                        'icon'  => 'content',
+                        'url'   => [[], 'content'],
+                    ], $this->name('primary'))
+                    ->item($this->name('setting'), [
+                        'label' => 'Settings',
+                        'icon'  => 'settings',
+                        'url'   => [[], 'setting'],
+                    ], $this->name('secondary'))
+                    ->item($this->name('setting\domain'), [
+                        'label' => 'Site',
+                        'url'   => [[
+                            'controller' => 'setting_domain',
+                            'action'     => 'edit',
+                            'id'         => 1
+                        ], 'setting'],
+                    ], $this->name('setting'))
+                    ->item($this->name('setting\user'), [
+                        'label' => 'Users',
+                        'url'   => [[
+                            'controller' => 'setting_user'
+                        ], 'setting'],
+                    ], $this->name('setting'))
+                    ->item($this->name('setting\structure'), [
+                        'label' => 'Structures',
+                        'url'   => [[
+                            'controller' => 'setting_structure'
+                        ], 'setting'],
+                    ], $this->name('setting'));
+            });
     }
 }

@@ -11,7 +11,7 @@ use Chalk\Backend;
 use Chalk\Backend\NavManager;
 use Chalk\Frontend;
 use Chalk\Frontend\UrlResolver as FrontendUrlResolver;
-use Chalk\EventManager;
+use Chalk\HookManager;
 use Chalk\Notifier;
 use Coast\Controller;
 use Coast\Request;
@@ -29,6 +29,7 @@ $app
     ->param('em', $app->lazy('app/init/em.php'))
     ->param('cache', $app->lazy('app/init/cache.php'))
     ->param('swift', $app->lazy('app/init/swift.php'))
+    ->param('hook', new HookManager())
     ->module(new Core());
 
 File::baseDir($config->publicDataDir->dir('file'));
@@ -55,8 +56,7 @@ $app->param('backend', $app->lazy(function($vars) {
             'router'  => $backend->router,
         ]))
         ->param('image', $backend->load('app/init/image.php'))
-        ->param('event', new EventManager())
-        ->param('nav', new NavManager())
+        ->param('hook', new HookManager())
         ->param('em', $app->em)
         ->param('cache', $app->cache)
         ->param('swift', $app->swift)
@@ -106,6 +106,7 @@ $app->param('frontend', $app->lazy(function($vars) {
             'baseDir' => $app->root->dir(),
             'router'  => $frontend->router,
         ]))
+        ->param('hook', new HookManager())
         ->param('em', $app->em)
         ->param('cache', $app->cache)
         ->param('swift', $app->swift);

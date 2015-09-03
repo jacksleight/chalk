@@ -3,6 +3,6 @@
 	'entity'	=> $content,
 	'name'		=> 'content',
 	'label'		=> 'Content',
-	'restricts'	=> 'url',
+	'filters'	=> 'url',
 	'disabled'	=> $content->isArchived(),
 ), 'core') ?>
