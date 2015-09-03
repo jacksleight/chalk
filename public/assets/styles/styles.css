@@ -1118,7 +1118,7 @@
   content: "\ea0f";
 }
 
-.icon-checkmark:before, .icon-ok:before, .icon-true:before, .icon-positive:before, input[type=checkbox] + label:before {
+.icon-checkmark:before, .icon-ok:before, .icon-true:before, .icon-positive:before, input[type=checkbox] + label span:before {
   content: "\ea10";
 }
 
@@ -2033,29 +2033,29 @@
 /* Fonts */
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Light-webfont.eot?1420464718');
-  src: url('../fonts/OpenSans-Light-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Light-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-Light-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-Light-webfont.svg?1420464718') format('svg');
+  src: url('../fonts/OpenSans-Light-webfont.eot?1429364454');
+  src: url('../fonts/OpenSans-Light-webfont.eot?&1429364454#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Light-webfont.woff?1429364454') format('woff'), url('../fonts/OpenSans-Light-webfont.ttf?1429364454') format('truetype'), url('../fonts/OpenSans-Light-webfont.svg?1429364454') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Regular-webfont.eot?1420464718');
-  src: url('../fonts/OpenSans-Regular-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Regular-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg?1420464718') format('svg');
+  src: url('../fonts/OpenSans-Regular-webfont.eot?1429364454');
+  src: url('../fonts/OpenSans-Regular-webfont.eot?&1429364454#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Regular-webfont.woff?1429364454') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf?1429364454') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg?1429364454') format('svg');
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-LightItalic-webfont.eot?1420464718');
-  src: url('../fonts/OpenSans-LightItalic-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-LightItalic-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-LightItalic-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-LightItalic-webfont.svg?1420464718') format('svg');
+  src: url('../fonts/OpenSans-LightItalic-webfont.eot?1429364454');
+  src: url('../fonts/OpenSans-LightItalic-webfont.eot?&1429364454#iefix') format('embedded-opentype'), url('../fonts/OpenSans-LightItalic-webfont.woff?1429364454') format('woff'), url('../fonts/OpenSans-LightItalic-webfont.ttf?1429364454') format('truetype'), url('../fonts/OpenSans-LightItalic-webfont.svg?1429364454') format('svg');
   font-weight: normal;
   font-style: italic;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Italic-webfont.eot?1420464718');
-  src: url('../fonts/OpenSans-Italic-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Italic-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-Italic-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-Italic-webfont.svg?1420464718') format('svg');
+  src: url('../fonts/OpenSans-Italic-webfont.eot?1429364454');
+  src: url('../fonts/OpenSans-Italic-webfont.eot?&1429364454#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Italic-webfont.woff?1429364454') format('woff'), url('../fonts/OpenSans-Italic-webfont.ttf?1429364454') format('truetype'), url('../fonts/OpenSans-Italic-webfont.svg?1429364454') format('svg');
   font-weight: bold;
   font-style: italic;
 }
@@ -2736,19 +2736,30 @@ figure figcaption {
   z-index: 1;
   cursor: default;
 }
-.thumb input[type=checkbox] + label:before {
+.thumb input[type=checkbox] + label span {
   opacity: 0.5;
   margin: 10px 20px 20px 10px;
-  border: transparent !important;
 }
-.thumb input[type=checkbox] + label:hover:before {
-  opacity: 1;
+.thumb input[type=checkbox] + label span {
+  border-color: white;
+}
+.dark.thumb input[type=checkbox] + label span, .dark .thumb input[type=checkbox] + label span {
+  border-color: #3b464f;
 }
 .thumb a {
   text-decoration: none;
   color: inherit;
 }
-.thumb.selected input[type=checkbox] + label:before {
+.thumb:hover input[type=checkbox] + label span {
+  opacity: 1;
+}
+.thumb:hover input[type=checkbox] + label span {
+  border-color: #c7c7c7;
+}
+.dark.thumb:hover input[type=checkbox] + label span, .dark .thumb:hover input[type=checkbox] + label span {
+  border-color: #181c20;
+}
+.thumb.selected input[type=checkbox] + label span {
   opacity: 1;
 }
 .thumb.selected .preview img {
@@ -2836,8 +2847,12 @@ table .col-select {
   padding-top: 6px;
   padding-bottom: 6px;
 }
-table .col-select input[type=checkbox] + label {
+table .col-select input[type=checkbox] + label span {
   display: block;
+  width: 26px;
+  height: 26px;
+  line-height: 24px;
+  margin: 0;
 }
 
 /* Notice */
@@ -2861,7 +2876,7 @@ table .col-select input[type=checkbox] + label {
   cursor: default;
 }
 
-.selected input[type=checkbox] + label:before {
+.selected input[type=checkbox] + label span {
   background-color: #FCB941 !important;
   border-color: #d69d37 !important;
 }
@@ -3142,63 +3157,60 @@ input[type=radio] {
   position: absolute;
   left: -10000px;
 }
-input[type=checkbox] + label,
-input[type=radio] + label {
-  position: relative;
-  line-height: 28px;
+input[type=checkbox] + label span,
+input[type=radio] + label span {
   display: inline-block;
-  padding-left: 35px;
-}
-input[type=checkbox] + label:before, input[type=checkbox] + label:after,
-input[type=radio] + label:before,
-input[type=radio] + label:after {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 28px;
   height: 28px;
-}
-input[type=checkbox] + label:before,
-input[type=radio] + label:before {
-  z-index: 1;
-  background-color: red;
-  -moz-transition: opacity 0.2s linear;
-  -o-transition: opacity 0.2s linear;
-  -webkit-transition: opacity 0.2s linear;
-  transition: opacity 0.2s linear;
-  margin: 1px;
-  width: 26px;
-  height: 26px;
   line-height: 26px;
-}
-input[type=checkbox] + label:after,
-input[type=radio] + label:after {
-  content: '';
   border: 1px solid;
   background: white;
+  vertical-align: -8px;
+  margin-right: 0.25em;
+  position: relative;
+  -moz-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
 }
-input[type=checkbox] + label:after,
-input[type=radio] + label:after {
+input[type=checkbox] + label span,
+input[type=radio] + label span {
   border-color: #c7c7c7;
 }
-.darkinput[type=checkbox] + label:after, .darkinput[type=radio] + label:after, .dark input[type=checkbox] + label:after, .dark
-input[type=radio] + label:after {
+.darkinput[type=checkbox] + label span, .darkinput[type=radio] + label span, .dark input[type=checkbox] + label span, .dark
+input[type=radio] + label span {
   border-color: #181c20;
 }
-input[type=checkbox]:focus + label:after,
-input[type=radio]:focus + label:after {
+input[type=checkbox] + label span:before,
+input[type=radio] + label span:before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  font-size: 18px;
+  color: #575d63;
+  -moz-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+  opacity: 0;
+}
+input[type=checkbox]:focus + label span,
+input[type=radio]:focus + label span {
   border-color: #00a6b5;
 }
-input[type=checkbox]:checked + label:before,
-input[type=radio]:checked + label:before {
+input[type=checkbox]:checked + label span:before,
+input[type=radio]:checked + label span:before {
   opacity: 1;
 }
-input[type=checkbox][disabled] + label:after,
-input[type=radio][disabled] + label:after {
+input[type=checkbox][disabled] + label span,
+input[type=radio][disabled] + label span {
   background-color: #fdfdfd;
 }
 
-input[type=checkbox] + label:before {
+input[type=checkbox] + label span:before {
   font-family: 'IcoMoon-Free';
   speak: none;
   font-style: normal;
@@ -3214,18 +3226,19 @@ input[type=checkbox] + label:before {
   font-feature-settings: "liga";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  font-size: 18px;
-  color: #575d63;
 }
 
-input[type=radio] + label:before {
+input[type=radio] + label span {
+  border-radius: 50%;
+}
+input[type=radio] + label span:before {
   content: '';
   border-radius: 50%;
+  top: 6px;
+  right: 6px;
+  bottom: 6px;
+  left: 6px;
   background-color: #575d63;
-}
-input[type=radio] + label:after {
-  border-radius: 50%;
 }
 
 select {
@@ -3992,6 +4005,9 @@ legend {
   margin-left: 0.25em;
   float: right;
   font-weight: normal;
+}
+.form-item select {
+  width: 100%;
 }
 
 /* Links */

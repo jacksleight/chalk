@@ -10,8 +10,8 @@
 	</li> -->
 	<?php if (!$content->isNew()) { ?>
 		<li class="icon-updated">
-			Updated <em><?= $content->modifyDate->diffForHumans() ?></em>
-			by <em><?= $content->modifyUserName ?></em>
+			Updated <?= $content->modifyDate->diffForHumans() ?>
+			by <?= $content->modifyUserName ?>
 		</li>
 		<?php
 		$url = $this->frontend->url($content->getObject());

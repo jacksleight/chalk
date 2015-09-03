@@ -11,6 +11,15 @@ Chalk.component('.selectable', function(i, el) {
 	checkbox.change(select);
 	select();
 
+	if (!$(el).find('a').length) {
+		$(el).click(function(ev) {
+			if ($(ev.target).is('input[type=checkbox] + label span')) {
+				return;
+			}
+			checkbox.click();
+		});
+	}
+
 });
 
 Chalk.component('.multiselectable', function(i, el) {
@@ -28,12 +37,12 @@ Chalk.component('.multiselectable', function(i, el) {
 		});
 	});
 	$(el).mousedown(function(ev) {
-		if (!$(ev.target).is('input[type=checkbox] + label')) {
+		if (!$(ev.target).is('input[type=checkbox] + label span')) {
 			return;
 		}
 		ev.preventDefault();
 		active	= true;
-		checked = !$(ev.target).prev().prop('checked');
+		checked = !$(ev.target).parent().prev().prop('checked');
 	});
 	$(el).mouseup(function(ev) {
 		active	= false;

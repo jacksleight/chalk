@@ -17,8 +17,8 @@ use Coast\Validator;
 */
 class Domain extends \Toast\Entity implements Trackable
 {
-	public static $chalkSingular = 'Domain';
-	public static $chalkPlural   = 'Domains';
+	public static $chalkSingular = 'Site';
+	public static $chalkPlural   = 'Sites';
 	
     use Trackable\Entity;
 

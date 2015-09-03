@@ -35,7 +35,7 @@
         <thead>
             <tr>
                 <th scope="col" class="col-select">
-                    <input type="checkbox" id="select" class="multiselectable-all"><label for="select"></label>
+                    <input type="checkbox" id="select" class="multiselectable-all"><label for="select"><span></span></label>
                     <?= $this->render('/element/form-input', [
                         'type'   => 'input_hidden',
                         'entity' => $index,

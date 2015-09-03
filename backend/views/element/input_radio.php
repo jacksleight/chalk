@@ -15,6 +15,6 @@ $values = isset($null)
 		<?= $v == $value ? 'checked' : null ?>
 		<?= isset($class) ? "class=\"{$class}\"" : null ?>>
 	<label for="<?= "{$id}[{$this->escape($v)}]" ?>" class="radio">
-		<?= $l ?>
+		<span></span> <?= $l ?>
 	</label>
 <?php } ?>

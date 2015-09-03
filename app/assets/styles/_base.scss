@@ -509,22 +509,29 @@ figure {
 		left: 0;
 		z-index: 1;
 		cursor: default;
-		&:before {
+		span {
 			opacity: 0.5;
 			margin: $gutter * 0.5 $gutter $gutter $gutter * 0.5;
-			border: transparent !important;
-		}
-		&:hover:before {
-			opacity: 1;
+			@include colors(null, null, 0);
 		}
 	}
 	a {
 		text-decoration: none;
 		@include link-color(inherit);
 	}
+	&:hover {
+		input[type=checkbox] + label {
+			span {
+				opacity: 1;
+				@include colors(null, null, $color-input);
+			}
+		}
+	}
 	&.selected {
-		input[type=checkbox] + label:before {
-			opacity: 1;
+		input[type=checkbox] + label {
+			span {
+				opacity: 1;
+			}
 		}
 		.preview {
 			img {
@@ -611,13 +618,12 @@ table {
 		width: 1px;
 		padding-top: $gutter * 0.3;
 		padding-bottom: $gutter * 0.3;
-		input[type=checkbox] + label {
+		input[type=checkbox] + label span {
 			display: block;
-			// &::before, 
-			// &::after {
-			// 	width: 26px;
-			// 	height: 26px;
-			// }
+			width: $input-toggle-size - 2px;
+			height: $input-toggle-size - 2px;
+			line-height: $input-toggle-size - 4px;
+			margin: 0;
 		}
 	}
 }
@@ -647,7 +653,7 @@ table {
 	}
 }
 .selected {
-	input[type=checkbox] + label:before {
+	input[type=checkbox] + label span {
 		background-color: $color-active !important;
 		border-color: shade($color-active, 15%) !important;
 	}
@@ -716,62 +722,56 @@ input[type=radio] {
 	position: absolute;
 	left: -10000px;
 	& + label {
-		position: relative;
-		line-height: $input-toggle-size;
-		display: inline-block;
-		padding-left:  $input-toggle-size + 7px;
-		&:before,
-		&:after {
-			position: absolute;
-			top: 0;
-			left: 0;
+		span {
+			display: inline-block;
 			width: $input-toggle-size;
 			height: $input-toggle-size;
-		}
-		&:before {
-			z-index: 1;
-			// opacity: 0;
-			background-color: red;
-			@include transition(opacity $speed linear);
-			margin: 1px;
-			width: $input-toggle-size - 2px;
-			height: $input-toggle-size - 2px;
 			line-height: $input-toggle-size - 2px;
-		}
-		&:after {
-			content: '';
 			border: 1px solid;
 			background: white;
 			@include colors(null, null, $color-input);
+			vertical-align: -8px;
+			margin-right: 0.25em;
+			position: relative;
+			@include transition(all $speed linear);
+			&:before {
+				position: absolute;
+				top: 0; right: 0; bottom: 0; left: 0;
+				text-align: center;
+				font-size: 18px;
+				color: $color-input-toggle;
+				@include transition(all $speed linear);
+				opacity: 0;
+			}
 		}
 	}
-	&:focus + label:after {
+	&:focus + label span {
 		border-color: $color-focus;
 	}
-	&:checked + label:before {
+	&:checked + label span:before {
 		opacity: 1;
 	}
-	&[disabled] + label:after {
+	&[disabled] + label span {
 		background-color: $color-shade;
 	}
 }
 input[type=checkbox] + label {
-	@extend .icon-checkmark;
-	&:before {
-		@include icon-base();
-		text-align: center;
-		font-size: 18px;
-		color: $color-input-toggle;
+	span {
+		@extend .icon-checkmark;
+		&:before {
+			@include icon-base();
+		}
 	}
 }
 input[type=radio] + label {
-	&:before {
-		content: '';
-		border-radius: 50%; 
-		background-color: $color-input-toggle;
-	}
-	&:after {
+	span {
 		border-radius: 50%;
+		&:before {
+			content: '';
+			border-radius: 50%;
+			top: 6px; right: 6px; bottom: 6px; left: 6px;
+			background-color: $color-input-toggle;
+		}
 	}
 }
 select { 
@@ -1205,6 +1205,9 @@ legend {
 			float: right;
 			font-weight: normal;
 		}
+	}
+	select {
+		width: 100%;
 	}
 }
 

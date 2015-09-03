@@ -307,7 +307,6 @@ tinyMCE.init({
     style_formats: styles,
     setup: function(editor) {
         editor.on('init', function(ev) {
-            editor.theme.resizeTo(null, $(editor.getElement()).outerHeight() - 37);
             if (editor.getElement().disabled) {
                 $(editor.getContainer()).addClass('disabled');
                 editor.getBody().setAttribute('contenteditable', false);
