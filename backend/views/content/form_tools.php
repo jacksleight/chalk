@@ -7,7 +7,7 @@
 	<?php } ?>
 	<?php if (!$content->isNewMaster() && $info->class != 'Chalk\Core\File') { ?>
 		<?php if (isset($node)) { ?>
-			<? if ($info->class == 'Chalk\Core\Page') { ?>
+			<? if (is_a($info->name, 'Chalk\Core\Page', true)) { ?>
 				<li><a href="<?= $this->url([
 						'action'	=> 'edit',
 						'node'		=> null,
