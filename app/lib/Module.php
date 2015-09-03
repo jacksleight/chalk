@@ -104,11 +104,10 @@ abstract class Module implements Access
 
     public function frontendViewDir($name, $path = 'frontend/views')
     {
-        $name = "_{$name}";
         $config = $this->config->viewScripts;
         $this->frontend->view
-            ->dir("__{$this->nspace()}{$name}", $this->dir($path))
-            ->extension($config[1], "{$config[0]}/{$this->name()}{$name}", [null, "__{$this->nspace()}{$name}"]);
+            ->dir("__Chalk__{$name}", $this->dir($path))
+            ->extension($config[1], "{$config[0]}/{$name}", [null, "__Chalk__{$name}"]);
         return $this;
     }
 
