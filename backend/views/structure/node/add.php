@@ -19,10 +19,5 @@ $structure = $this->em('Chalk\Core\Structure')->id($req->structure);
 				</button>
 			</li>
 		</ul>
-		<ul class="toolbar">
-			<li><span class="btn modal-close icon-cancel">
-				Cancel
-			</span></li>
-		</ul>
 	</div>
 <form>

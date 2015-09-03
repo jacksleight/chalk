@@ -15,7 +15,10 @@
         </ul>
         <?php if (!count($contents)) { ?>
             <div class="notice">
-                No <?= strtolower($info->plural) ?> found
+                <h2>No <?= $info->plural ?> Found</h2>
+                <?php if ($isNewAllowed) { ?>
+                    <p>To create a new <?= strtolower($info->singular) ?> click the 'New <?= $info->singular ?>' button above.</p>
+                <?php } ?>
             </div>
         <?php } ?>  
     </div>
@@ -77,7 +80,10 @@
             <?php } else { ?>
                 <tr>
                     <td class="notice" colspan="4">
-                        No <?= strtolower($info->plural) ?> found
+                        <h2>No <?= $info->plural ?> Found</h2>
+                        <?php if ($isNewAllowed) { ?>
+                            <p>To create a new <?= strtolower($info->singular) ?> click the 'New <?= $info->singular ?>' button above.</p>
+                        <?php } ?>
                     </td>
                 </tr>
             <?php } ?>

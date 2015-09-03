@@ -16,8 +16,8 @@
 			</li>
 		</ul>
 		<ul class="toolbar">
-			<li><span class="btn modal-close icon-cancel">
-				Cancel
+			<li><span class="btn btn-out btn-lighter modal-close icon-cancel">
+				Close
 			</span></li>
 		</ul>
 	</div>

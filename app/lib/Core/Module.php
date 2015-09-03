@@ -214,7 +214,7 @@ class Module extends ChalkModule
                 return $list->item($this->name('primary'), [])
                     ->item($this->name('secondary'), [])
                     ->item($this->name('structure'), [
-                        'label' => 'Structure',
+                        'label' => 'Structures',
                         'icon'  => 'structure',
                         'url'   => [[], $this->name('structure')],
                     ], $this->name('primary'))

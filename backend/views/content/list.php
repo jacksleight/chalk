@@ -1,10 +1,11 @@
 <?php
 $this->params([
-    'isNewAllowed'  => $isNewAllowed  = isset($isNewAllowed) ? $isNewAllowed : true,
-    'isEditAllowed' => $isEditAllowed = isset($isEditAllowed) ? $isEditAllowed : true,
+    'bodyType'      => $bodyType      = isset($bodyType)      ? $bodyType       : 'table',
+    'bodyClass'     => $bodyClass     = isset($bodyClass)     ? $bodyClass      : null,
+    'isNewAllowed'  => $isNewAllowed  = isset($isNewAllowed)  ? $isNewAllowed   : true,
+    'isEditAllowed' => $isEditAllowed = isset($isEditAllowed) ? $isEditAllowed  : true,
+    'isClose'       => $isClose       = isset($isClose)       ? $isClose        : false,
     'isUploadable'  => $isUploadable  = is_a($info->class, 'Chalk\Core\File', true),
-    'bodyType'      => $bodyType      = isset($bodyType)   ? $bodyType   : 'table',
-    'bodyClass'     => $bodyClass     = isset($bodyClass)  ? $bodyClass  : null,
 ]);
 ?>
 

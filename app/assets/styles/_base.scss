@@ -613,11 +613,11 @@ table {
 		padding-bottom: $gutter * 0.3;
 		input[type=checkbox] + label {
 			display: block;
-			&::before {
-				margin: 0;
-				width: 26px;
-				height: 26px;
-			}
+			// &::before, 
+			// &::after {
+			// 	width: 26px;
+			// 	height: 26px;
+			// }
 		}
 	}
 }
@@ -627,8 +627,11 @@ table {
 .notice {
 	margin: $gutter 0 0 0;
 	text-align: center;
-	padding: 100px $gutter;
+	padding: 150px $gutter;
 	color: $color-quiet;
+	p {
+		margin-top: $gutter * 0.4;
+	}
 	background-color: white;
 	.thumbs + & {
 		margin-top: 0;
@@ -714,28 +717,41 @@ input[type=radio] {
 	left: -10000px;
 	& + label {
 		position: relative;
-		&:before {
-			display: inline-block;
+		line-height: $input-toggle-size;
+		display: inline-block;
+		padding-left:  $input-toggle-size + 7px;
+		&:before,
+		&:after {
+			position: absolute;
+			top: 0;
+			left: 0;
 			width: $input-toggle-size;
 			height: $input-toggle-size;
+		}
+		&:before {
+			z-index: 1;
+			// opacity: 0;
+			background-color: red;
+			@include transition(opacity $speed linear);
+			margin: 1px;
+			width: $input-toggle-size - 2px;
+			height: $input-toggle-size - 2px;
+			line-height: $input-toggle-size - 2px;
+		}
+		&:after {
+			content: '';
 			border: 1px solid;
-			color: transparent;
 			background: white;
-			margin-right: 0.25em;
-			@include transition(all $speed linear);
 			@include colors(null, null, $color-input);
-			text-align: center;
-			font-size: 18px;
-			vertical-align: -1px;
 		}
 	}
-	&:focus + label:before {
+	&:focus + label:after {
 		border-color: $color-focus;
 	}
 	&:checked + label:before {
-		@include colors($color-input);
+		opacity: 1;
 	}
-	&[disabled] + label:before {
+	&[disabled] + label:after {
 		background-color: $color-shade;
 	}
 }
@@ -743,13 +759,19 @@ input[type=checkbox] + label {
 	@extend .icon-checkmark;
 	&:before {
 		@include icon-base();
+		text-align: center;
+		font-size: 18px;
+		color: $color-input-toggle;
 	}
 }
 input[type=radio] + label {
-	@extend .icon-radio-checked2;
 	&:before {
+		content: '';
 		border-radius: 50%; 
-		@include icon-base();
+		background-color: $color-input-toggle;
+	}
+	&:after {
+		border-radius: 50%;
 	}
 }
 select { 
@@ -791,13 +813,8 @@ textarea {
 	padding-bottom: $input-padding;
 	&.monospaced {
 		font-family: $font-family-monospace;
+		line-height: $line-height-tight;
 		@include font-size(-1);
-	}
-	&.editor-content {
-		color: white;
-	}
-	&.editor-code {
-		color: white;
 	}
 }
 .input-pseudo {
@@ -1107,11 +1124,8 @@ legend {
 .form-block {
 	@include colors(null, null, 3);
 	border: solid;
-	border-width: 1px 0;
+	border-width: 1px 0 0 0;
 	margin: $gutter * 1 0 0 0;
-	.form-block + & {
-		border-top: 0;
-	}
 	.form-legend {
 		@include flush;
 		@include font-size(-1);
@@ -1217,18 +1231,21 @@ legend {
 /* Meta */
 
 .meta {
-	margin-top: $gutter * 0.4;
+	margin-top: $gutter * 0.6;
 	@include no-bullets;
-	@include inline-blocks('> li', $gutter * 0.75);
+	@include inline-blocks('> li', $gutter * 0.8, $gutter * 0.8);
 	color: $color-quiet;
-	i {
-		color: $color-foreground;
-	}
 	a {
 		text-decoration: none;
 	}
-	.icon::before {
-		opacity: 0.5;
+	li {
+		&::before {
+			color: $color-primary;
+		}
+		max-width: 300px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 	}
 }
 
@@ -1247,6 +1264,9 @@ legend {
 		}
 		&.flex > * {
 			width: 100%;
+		}
+		&.toolbar-gap {
+			padding-left: $gutter * 0.5;
 		}
 		.menu {
 			line-height: $line-height;
@@ -1321,7 +1341,7 @@ legend {
 	}
 	.expandable-toggle {
 		margin-top: 0;
-		text-align: right;
+		text-align: left;
 		&:before {
 			@include transition(all $speed ease);
 		}
@@ -1729,12 +1749,17 @@ legend {
 	&.mce-panel,
 	.mce-panel {
 		border-radius: 0;
+		background-color: white;
 		@include colors(null, null, $color-input);
 	}
 	.mce-menu-item-chalk {
 		i:before {
 			color: $color-focus;
 		}
+	}
+	.mce-toolbar-grp {
+		padding: 1px 1px 3px 1px;
+		background-color: $color-shade;
 	}
 	.mce-menu-item:hover,
 	.mce-menu-item.mce-selected,
@@ -1747,11 +1772,41 @@ legend {
 	.mce-menu-item:focus span[style] {
 		color: white !important;
 	}
-	.mce-btn-group .mce-first {
+	.mce-btn-group .mce-first,
+	.mce-btn-group .mce-btn,
+	.mce-btn-group .mce-last {
 		border-radius: 0;
+		border-color: transparent;
+		background-color: transparent;
+	}
+	.mce-btn-group .mce-btn.mce-active {
+		@include colors(null, 2);
 	}
 	&.disabled .mce-edit-area {
 		background-color: $color-shade;
+	}
+}
+.mce-widget {
+	.mce-tooltip-inner {
+		border-radius: 0;
+		@include box-shadow(none);
+	}
+}
+.mce-menu {
+	&.mce-menu {
+		border-radius: 0;
+		@include box-shadow(0 5px 0 0 transparentize(black, 0.95));
+	}
+	.mce-menu-item:hover,
+	.mce-menu-item.mce-selected,
+	.mce-menu-item:focus {
+		background: $color-focus;
+		&[style], *[style] {
+			color: white !important;
+		}
+	}
+	.mce-menu-item-preview.mce-active {
+		border-left-color: $color-active;
 	}
 }
 

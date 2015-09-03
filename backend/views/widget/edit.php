@@ -6,7 +6,7 @@
 <form action="<?= $this->url->route() ?>?mode=<?= $req->action ?>&amp;post=1" method="post" class="">
 	<div class="body">
 		<ul class="toolbar">
-			<li><span class="btn btn-quieter modal-close icon-cancel">
+			<li><span class="btn btn-out btn-lighter modal-close icon-cancel">
 				Close
 			</span></li>
 		</ul>

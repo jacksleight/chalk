@@ -66,7 +66,8 @@ $info = \Chalk\Chalk::info($index->type);
 			'isEditAllowed'	=> false,
 			'info'			=> $info,
 			'index'			=> $index,
-			'filters'		=> $filters,
+            'filters'       => $filters,
+			'isClose'		=> true,
 		], $info->module->name) ?>
         <?= $this->render('/element/form-input', array(
             'type'          => 'input_hidden',

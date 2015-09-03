@@ -13,6 +13,7 @@
 //= require ../../../bower_components/tinymce/plugins/table/plugin.min.js
 //= require ../../../bower_components/tinymce/plugins/visualblocks/plugin.min.js
 //= require ../../../bower_components/tinymce/plugins/noneditable/plugin.min.js
+//= require ../../../bower_components/tinymce/plugins/autoresize/plugin.min.js
 
 /* Plugin */
 
@@ -282,6 +283,7 @@ tinyMCE.init({
         'link',
         'image',
         'hr',
+        'autoresize',
         'visualblocks',
         'searchreplace',
         'lists',

@@ -6,7 +6,7 @@
 <div class="flex-col" data-modal-size="500x110">
 	<div class="flex">
 		<ul class="toolbar-right">
-			<li><span class="btn modal-close icon-cancel">
+			<li><span class="btn btn-out btn-lighter modal-close icon-cancel">
 				Close
 			</span></li>
 		</ul>

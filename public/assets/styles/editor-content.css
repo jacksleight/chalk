@@ -92,13 +92,13 @@ th, td {
 
 hr {
   border: 0;
-  border-top: 1px solid #d5d6d8;
+  border-top: 1px solid #d5d7d8;
 }
 
 div[data-chalk] {
   margin: 1em 0;
-  border: 1px solid #caccce;
-  color: #caccce;
+  border: 1px solid #cbcdce;
+  color: #cbcdce;
   padding: 10px;
   cursor: pointer;
   text-align: center;

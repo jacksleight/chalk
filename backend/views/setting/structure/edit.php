@@ -37,7 +37,7 @@
 				<li>
 					<a href="<?= $this->url([
 						'action' => 'delete',
-					]) ?>" class="btn btn-negative btn-quiet confirmable icon-delete">
+					]) ?>" class="btn btn-negative btn-out confirmable icon-delete">
 						Delete <?= $info->singular ?>
 					</a>
 				</li>

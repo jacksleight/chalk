@@ -6,7 +6,7 @@
 <form action="<?= $this->url->route() ?>?post=1" method="post" class="flex-col" data-modal-size="fullscreen">
 	<div class="header">
 		<ul class="toolbar toolbar-right">
-			<li><span class="btn btn-quieter modal-close icon-cancel">
+			<li><span class="btn btn-out btn-lighter modal-close icon-cancel">
 				Close
 			</span></li>
 		</ul>
@@ -30,7 +30,7 @@
 		)) ?>
 	</div>
 	<fieldset class="footer">
-		<ul class="toolbar">
+		<ul class="toolbar toolbar-right">
 			<li>
 				<button class="btn btn-positive icon-ok">
 					Update Source

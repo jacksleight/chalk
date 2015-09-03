@@ -66,16 +66,5 @@
 				</button>
 			</li>
 		</ul>
-		<ul class="toolbar">
-			<?php if (!$domain->isNew()) { ?>
-				<li>
-					<a href="<?= $this->url([
-						'action' => 'delete',
-					]) ?>" class="btn btn-negative btn-quiet confirmable icon-delete">
-						Delete <?= $info->singular ?>
-					</a>
-				</li>
-			<?php } ?>
-		</ul>
 	</fieldset>
 </form>
