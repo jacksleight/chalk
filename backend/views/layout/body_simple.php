@@ -5,6 +5,6 @@
 <div class="center"><div>
 	<?= $this->content('main') ?>
 	<footer class="copyright" role="contentinfo">
-		<p><a href="<?= $this->url([], 'about', true) ?>" rel="modal">Chalk <?= \Chalk\Chalk::VERSION ?></a></p>
+		<p><a href="<?= $this->url([], 'core_about', true) ?>" rel="modal">Chalk <?= \Chalk\Chalk::VERSION ?></a></p>
 	</footer>
 </div></div>

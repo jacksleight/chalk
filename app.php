@@ -49,6 +49,10 @@ $app->param('backend', $app->lazy(function($vars) {
         ]))
         ->param('router', new Router([
             'target'  => $backend->controller,
+            'prefix'  => '{module}?',
+            'params'  => [
+                'module' => 'core',
+            ],
         ]))
         ->param('url', new UrlResolver([
             'baseUrl' => new Url("{$app->config->backBaseUrl}"),

@@ -12,7 +12,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 <form action="<?= $this->url([
 	'action'	=> 'reorder',
 	'structure'	=> $structure->id,
-], 'structure', true) ?>?redirect=<?= $this->url([]) ?>" class="flex-col structure" method="post">
+], 'core_structure', true) ?>?redirect=<?= $this->url([]) ?>" class="flex-col structure" method="post">
 	<div class="header">
 		<ul class="toolbar">
 			<li class="flex">
@@ -27,7 +27,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 									<a href="<?= $this->url([
 										'structure'	=> $listStructure->id,
 										'action'	=> 'index',
-									], 'structure') ?>" class="item">
+									], 'core_structure') ?>" class="item">
 										<?= $listStructure->name ?>
 									</a>
 								</li>
@@ -51,7 +51,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 							'action'	=> 'add',
 							'structure'	=> $structure->id,
 							'node'		=> $req->node,
-						], 'structure_node', true) ?>" class="btn btn-focus structure-add btn-collapse btn-icon btn-block icon-add" rel="modal">
+						], 'core_structure_node', true) ?>" class="btn btn-focus structure-add btn-collapse btn-icon btn-block icon-add" rel="modal">
 							<span>Add Content</span>
 						</a>
 						<button class="btn btn-positive btn-icon btn-block structure-save btn-collapse icon-ok disabled">
@@ -73,7 +73,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 						'structure'	=> $structure->id,
 						'action'	=> 'edit',
 						'node'		=> $structure->root['id'],
-					], 'structure_node') ?>" class="tree-item <?= $structure->root['id'] == $req->node ? 'active' : '' ?> tree-item-<?= $content['status'] ?> <?= $structure->root['isHidden'] ? 'tree-item-hidden' : '' ?>">
+					], 'core_structure_node') ?>" class="tree-item <?= $structure->root['id'] == $req->node ? 'active' : '' ?> tree-item-<?= $content['status'] ?> <?= $structure->root['isHidden'] ? 'tree-item-hidden' : '' ?>">
 						<?= isset($structure->root['name']) ? $structure->root['name'] : $structure->root['content']['name'] ?>
 					</a>
 				</li>
@@ -103,7 +103,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 							'structure'	=> $structure->id,
 							'action'	=> 'edit',
 							'node'		=> $node['id'],
-						], 'structure_node') ?>" class="tree-item <?= $node['id'] == $req->node ? 'active' : '' ?> tree-item-<?= $content['status'] ?> <?= $node['isHidden'] ? 'tree-item-hidden' : '' ?>">
+						], 'core_structure_node') ?>" class="tree-item <?= $node['id'] == $req->node ? 'active' : '' ?> tree-item-<?= $content['status'] ?> <?= $node['isHidden'] ? 'tree-item-hidden' : '' ?>">
 							<?= isset($node['name']) ? $node['name'] : $node['content']['name'] ?>
 						</a>
 						<span class="tree-handle"></span>

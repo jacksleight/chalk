@@ -5,7 +5,7 @@
 				'entity'	=> $info->name,
 				'action'	=> 'archive',
 				'content'	=> $content->id,
-			], 'content', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-lighter btn-out confirmable icon-archive">
+			], 'core_content', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-lighter btn-out confirmable icon-archive">
 				Archive <?= $info->singular ?>
 			</a></li>
 		<?php } ?>
@@ -14,7 +14,7 @@
 				'entity'	=> $info->name,
 				'action'	=> 'delete',
 				'content'	=> $content->id,
-			], 'content', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-negative btn-out confirmable icon-delete" data-message="Are you sure?<?= "\n" ?>This will delete the <?= strtolower($info->singular) ?> and cannot be undone.">
+			], 'core_content', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-negative btn-out confirmable icon-delete" data-message="Are you sure?<?= "\n" ?>This will delete the <?= strtolower($info->singular) ?> and cannot be undone.">
 				Delete <?= $info->singular ?>
 			</a></li>
 		<?php } ?>

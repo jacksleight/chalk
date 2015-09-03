@@ -13,6 +13,14 @@
 			Updated <em><?= $content->modifyDate->diffForHumans() ?></em>
 			by <em><?= $content->modifyUserName ?></em>
 		</li>
+		<?php
+		$url = $this->frontend->url($content->getObject());
+		?>
+		<?php if ($url) { ?>
+			<li class="icon-view">
+				<a href="<?= $url ?>" target="_blank"><?= $url ?></a>
+			</li>
+		<?php } ?>
 	<?php } ?>
 	<?= $this->partial('meta-bottom') ?>
 </ul>

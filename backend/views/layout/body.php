@@ -19,15 +19,15 @@
 		<div class="header topbar">
 			<ul class="toolbar toolbar-right toolbar-space">
 				<li>
-					<a href="<?= $this->url([], 'profile', true) ?>" class="icon-user"> <?= $req->user->name ?></a>
+					<a href="<?= $this->url([], 'core_profile', true) ?>" class="icon-user"> <?= $req->user->name ?></a>
 				</li>
 				<li>
-					<a href="<?= $this->url([], 'logout', true) ?>" class="icon-logout"> Logout</a>
+					<a href="<?= $this->url([], 'core_logout', true) ?>" class="icon-logout"> Logout</a>
 				</li>
 			</ul>
 			<ul class="toolbar">
 				<li>
-					<a href="<?= $this->frontend->url(isset($content) ? $content->getObject() : null) ?>" target="_blank" class="btn btn-out icon-view">
+					<a href="<?= $this->frontend->url() ?>" target="_blank" class="btn btn-out icon-view">
 						View Site
 					</a>
 				</li>	
@@ -39,7 +39,7 @@
 						<a href="<?= $this->url([
 							'controller' => 'index',
 							'action'	 => 'publish',
-						], 'index', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-positive btn-out icon-publish">
+						], 'core_index', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-positive btn-out icon-publish">
 							Publish All
 						</a>						
 					</li>				

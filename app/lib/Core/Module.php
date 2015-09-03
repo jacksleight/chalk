@@ -135,63 +135,63 @@ class Module extends ChalkModule
             ->backendViewDir($this->name());
 
         $this
-            ->backendRoute('index', Router::METHOD_ALL, "{controller}?/{action}?/{id}?", [
+            ->backendRoute($this->name('index'), Router::METHOD_ALL, "{controller}?/{action}?/{id}?", [
                 'controller' => 'index',
                 'action'     => 'index',
                 'id'         => null,
             ])
-            ->backendRoute('about', Router::METHOD_ALL, "about", [
+            ->backendRoute($this->name('about'), Router::METHOD_ALL, "about", [
                 'controller' => 'auth',
                 'action'     => 'about',
             ])
-            ->backendRoute('sandbox', Router::METHOD_ALL, "sandbox", [
+            ->backendRoute($this->name('sandbox'), Router::METHOD_ALL, "sandbox", [
                 'controller' => 'index',
                 'action'     => 'sandbox',
             ])
-            ->backendRoute('passwordRequest', Router::METHOD_ALL, "password-request", [
+            ->backendRoute($this->name('passwordRequest'), Router::METHOD_ALL, "password-request", [
                 'controller' => 'auth',
                 'action'     => 'password-request',
             ])
-            ->backendRoute('passwordReset', Router::METHOD_ALL, "password-reset/{token}", [
+            ->backendRoute($this->name('passwordReset'), Router::METHOD_ALL, "password-reset/{token}", [
                 'controller' => 'auth',
                 'action'     => 'password-reset',
             ])
-            ->backendRoute('login', Router::METHOD_ALL, "login", [
+            ->backendRoute($this->name('login'), Router::METHOD_ALL, "login", [
                 'controller' => 'auth',
                 'action'     => 'login',
             ])
-            ->backendRoute('logout', Router::METHOD_ALL, "logout", [
+            ->backendRoute($this->name('logout'), Router::METHOD_ALL, "logout", [
                 'controller' => 'auth',
                 'action'     => 'logout',
             ])
-            ->backendRoute('profile', Router::METHOD_ALL, "profile", [
+            ->backendRoute($this->name('profile'), Router::METHOD_ALL, "profile", [
                 'controller' => 'profile',
                 'action'     => 'edit',
             ])
-            ->backendRoute('prefs', Router::METHOD_ALL, "prefs", [
+            ->backendRoute($this->name('prefs'), Router::METHOD_ALL, "prefs", [
                 'controller' => 'index',
                 'action'     => 'prefs',
             ])
-            ->backendRoute('content', Router::METHOD_ALL, "content/{entity}?/{action}?/{content}?", [
+            ->backendRoute($this->name('content'), Router::METHOD_ALL, "content/{entity}?/{action}?/{content}?", [
                 'controller' => 'content',
                 'action'     => 'index',
                 'entity'     => null,
                 'content'    => null,
             ])
-            ->backendRoute('setting', Router::METHOD_ALL, "setting/{controller}?/{action}?/{id}?", [
+            ->backendRoute($this->name('setting'), Router::METHOD_ALL, "setting/{controller}?/{action}?/{id}?", [
                 'controller' => 'setting',
                 'action'     => 'index',
                 'id'         => null,
             ])
-            ->backendRoute('widget', Router::METHOD_ALL, "widget/{action}/{entity}", [
+            ->backendRoute($this->name('widget'), Router::METHOD_ALL, "widget/{action}/{entity}", [
                 'controller' => 'widget',
             ])
-            ->backendRoute('structure', Router::METHOD_ALL, "structure/{action}?/{structure}?", [
+            ->backendRoute($this->name('structure'), Router::METHOD_ALL, "structure/{action}?/{structure}?", [
                 'controller' => 'structure',
                 'action'     => 'index',
                 'structure'  => null,
             ])
-            ->backendRoute('structure_node', Router::METHOD_ALL, "structure/node/{structure}/{action}?/{node}?", [
+            ->backendRoute($this->name('structure_node'), Router::METHOD_ALL, "structure/node/{structure}/{action}?/{node}?", [
                 'controller' => 'structure_node',
                 'action'     => 'index',
                 'node'       => null,
@@ -216,17 +216,17 @@ class Module extends ChalkModule
                     ->item($this->name('structure'), [
                         'label' => 'Structure',
                         'icon'  => 'structure',
-                        'url'   => [[], 'structure'],
+                        'url'   => [[], $this->name('structure')],
                     ], $this->name('primary'))
                     ->item($this->name('content'), [
                         'label' => 'Content',
                         'icon'  => 'content',
-                        'url'   => [[], 'content'],
+                        'url'   => [[], $this->name('content')],
                     ], $this->name('primary'))
                     ->item($this->name('setting'), [
                         'label' => 'Settings',
                         'icon'  => 'settings',
-                        'url'   => [[], 'setting'],
+                        'url'   => [[], $this->name('setting')],
                     ], $this->name('secondary'))
                     ->item($this->name('setting\domain'), [
                         'label' => 'Site',
@@ -234,19 +234,19 @@ class Module extends ChalkModule
                             'controller' => 'setting_domain',
                             'action'     => 'edit',
                             'id'         => 1
-                        ], 'setting'],
+                        ], $this->name('setting')],
                     ], $this->name('setting'))
                     ->item($this->name('setting\user'), [
                         'label' => 'Users',
                         'url'   => [[
                             'controller' => 'setting_user'
-                        ], 'setting'],
+                        ], $this->name('setting')],
                     ], $this->name('setting'))
                     ->item($this->name('setting\structure'), [
                         'label' => 'Structures',
                         'url'   => [[
                             'controller' => 'setting_structure'
-                        ], 'setting'],
+                        ], $this->name('setting')],
                     ], $this->name('setting'));
             });
     }

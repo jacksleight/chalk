@@ -22,14 +22,14 @@ class Structure extends Action
 				'structure'	=> $domain->structures->first()->id,
 				'action'	=> 'edit',
 				'node'		=> $domain->structures->first()->root->id,
-			], 'structure_node', true));
+			], 'core_structure_node', true));
 		} if (!$req->node) {
 			$structure = $this->em('Chalk\Core\Structure')->id($req->structure);
 			return $res->redirect($this->url([
 				'structure'	=> $structure->id,
 				'action'	=> 'edit',
 				'node'		=> $structure->root->id,
-			], 'structure_node', true));
+			], 'core_structure_node', true));
 		}
 	}
 

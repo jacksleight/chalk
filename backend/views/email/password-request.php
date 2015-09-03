@@ -6,7 +6,7 @@ Please click the link below to reset your password:
 
 <?= $this->req->url()->toPart(\Coast\Url::PART_PORT) ?><?= $this->url([
 	'token' => $user->token,
-], 'passwordReset', true) . "\n" ?>
+], 'core_passwordReset', true) . "\n" ?>
 This link will expire in 24 hours.
 
 If you did not send this request please ignore this email.

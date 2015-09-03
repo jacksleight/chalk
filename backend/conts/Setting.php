@@ -16,9 +16,11 @@ class Setting extends Action
 {
 	public function index(Request $req, Response $res)
 	{
-		return $res->redirect($this->url([
-			'controller' => 'setting_user',
-		]));
+		$items = $this->navList->children('core_setting');
+		if (count($items)) {
+			$item = current($items);
+			return $res->redirect($this->url($item['url'][0], $item['url'][1], true));
+		}
 	}
 }
 

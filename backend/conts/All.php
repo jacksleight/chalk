@@ -17,9 +17,13 @@ class All extends Action
 {
     public function preDispatch(Request $req, Response $res)
     {
+        $this->navList     = $this->hook->fire('core_navList', new NavList());
+        $this->contentList = $this->hook->fire('core_contentList', new InfoList());
+        $this->widgetList  = $this->hook->fire('core_widgetList', new InfoList());
+
         $session = $this->session->data('__Chalk');
         if (!isset($session->user) && $req->controller !== 'auth') {
-            return $res->redirect($this->url(array(), 'login', true));
+            return $res->redirect($this->url([], 'core_login', true));
         }
 
         $req->view = (object) [];
@@ -31,14 +35,10 @@ class All extends Action
         $req->user = $this->em('Chalk\Core\User')->id($session->user);
         if (!isset($req->user)) {
             $session->user = null;
-            return $res->redirect($this->url(array(), 'login', true));
+            return $res->redirect($this->url([], 'core_login', true));
         }
 
         $this->em->trackable()->setUser($req->user);
-
-        $this->navList     = $this->hook->fire('core_navList', new NavList());
-        $this->contentList = $this->hook->fire('core_contentList', new InfoList());
-        $this->widgetList  = $this->hook->fire('core_widgetList', new InfoList());
         
         // if ($req->controller != 'index' || $req->action != 'prefs') {
         //  $name   = "query_" . md5(serialize($req->route['params']));

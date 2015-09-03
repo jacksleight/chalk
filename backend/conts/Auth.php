@@ -47,7 +47,7 @@ class Auth extends Action
         $session = $this->session->data('__Chalk');
         $session->user = $user->id;
 
-        return $res->redirect($this->url(array(), 'index', true));
+        return $res->redirect($this->url(array(), 'core_index', true));
     }
 
     public function passwordRequest(Request $req, Response $res)
@@ -81,10 +81,10 @@ class Auth extends Action
             ->setFrom($this->chalk->config->emailAddress)
             ->setBody((string) $this->view->render('email/password-request', [
                 'user' => $user,
-            ])));
+            ], 'core')));
 
         $this->notify('Please check your email for password reset instructions');
-        return $res->redirect($this->url([], 'login', true));
+        return $res->redirect($this->url([], 'core_login', true));
     }
 
     public function passwordReset(Request $req, Response $res)
@@ -92,7 +92,7 @@ class Auth extends Action
         $user = $this->em('Chalk\Core\User')->one(['token' => $req->token]);
         if (!isset($user)) {
           $this->notify('Sorry, your password reset link has expired, please request a new one', 'negative');
-            return $res->redirect($this->url([], 'passwordRequest', true));
+            return $res->redirect($this->url([], 'core_passwordRequest', true));
         }
 
         $req->view->passwordReset = $wrap = $this->em->wrap(
@@ -114,7 +114,7 @@ class Auth extends Action
         $this->em->flush();
 
         $this->notify('Your password has been reset successfully', 'positive');
-        return $res->redirect($this->url([], 'login', true));
+        return $res->redirect($this->url([], 'core_login', true));
     }
 
     public function logout(Request $req, Response $res)
@@ -122,6 +122,6 @@ class Auth extends Action
         $session = $this->session->data('__Chalk');
         $session->user = null;
 
-        return $res->redirect($this->url([], 'login', true));
+        return $res->redirect($this->url([], 'core_login', true));
     }
 }

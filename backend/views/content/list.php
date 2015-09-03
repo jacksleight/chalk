@@ -28,7 +28,7 @@ $this->params([
     <input class="uploadable-input" type="file" name="files[]" data-url="<?= $this->url([
         'entity' => $info->name,
         'action' => 'upload'
-    ], 'content', true) ?>" multiple>
+    ], 'core_content', true) ?>" multiple>
     <script type="x-tmpl-mustache" class="uploadable-template">
         <?= $this->inner('/content/thumb', ['template' => true]) ?>
     </script>

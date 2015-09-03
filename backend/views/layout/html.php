@@ -23,20 +23,20 @@ $title  = (isset($title)
             'selectUrl'     => (string) $this->url([
                 'controller' => 'index',
                 'action'     => 'select',
-            ], 'index', true),
+            ], 'core_index', true),
             'widgetUrl'     => (string) $this->url([
                 'action' => 'edit',
                 'entity' => '{entity}',
-            ], 'widget', true),
+            ], 'core_widget', true),
             'sourceUrl'     => (string) $this->url([
                 'controller' => 'index',
                 'action'     => 'source',
-            ], 'index', true),
+            ], 'core_index', true),
             'contentName'   => \Chalk\Chalk::info('Chalk\Core\Content')->name,
             'prefs'         => isset($req->user) ? $req->user->prefs() : [],
             'styles'        => $this->chalk->config->styles,
             'notifications' => $this->notify->notifications(),
-            'widgets'       => array_map('\Chalk\Chalk::info', $this->widgetList->items()),
+            'widgets'       => $this->widgetList->items(),
             'editorContent' => [
                 'src'     => (string) $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/editor-content{$mode}.js"),
                 'loaded'  => false,

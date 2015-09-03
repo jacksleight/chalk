@@ -10,7 +10,7 @@
         <? foreach ($this->contentList as $name => $classInfo) { ?>
             <li><a href="<?= $this->url([
                 'entity' => $classInfo->name,
-            ], 'content', true) ?>" class="item <?= $classInfo->name == $info->name ? 'active' : null ?>"><?= $classInfo->plural ?></a></li>
+            ], 'core_content', true) ?>" class="item <?= $classInfo->name == $info->name ? 'active' : null ?>"><?= $classInfo->plural ?></a></li>
         <? } ?>
     </ul>
 </nav>

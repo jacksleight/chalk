@@ -15,14 +15,14 @@
 						'parent'	=> $node->id,
 						'type'		=> $info->name,
 					]) ?>" class="btn btn-focus btn-out icon-add">
-					New <?= $info->singular ?>
+					New Child <?= $info->singular ?>
 				</a></li>
 			<? } ?>
 		<? } else { ?>
 			<li><a href="<?= $this->url([
 					'entity'	=> $info->name,
 					'action'	=> 'edit',
-				], 'content', true) ?>" class="btn btn-focus btn-out icon-add">
+				], 'core_content', true) ?>" class="btn btn-focus btn-out icon-add">
 				New <?= $info->singular ?>
 			</a></li>
 		<? } ?>
