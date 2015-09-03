@@ -262,9 +262,11 @@ if (Chalk.styles) {
             inline:   style.inline   || undefined,
             classes:  style.classes  || undefined
         };
-        if (group && groups[group]) {
+        if (group && groups.hasOwnProperty(group)) {
             styles[groups[group]].items.push(style);
         } else if (group) {
+            log(group);
+            log(groups[group]);
             styles.push({title: group, items: [style]});
             groups[group] = styles.length - 1;
         } else {
@@ -281,8 +283,8 @@ if (Chalk.styles) {
         block    = style.block    || '',
         inline   = style.inline   || '',
         classes  = style.classes.split(' ')
-        for (var i = 0; i < classes.length; i++) {
-            css.push(selector + ' ' + (block || inline) + '.' + classes[i] + ' { ' + style.css + ' }');
+        for (var j = 0; j < classes.length; j++) {
+            css.push(selector + ' ' + (block || inline) + '.' + classes[j] + ' { ' + style.css + ' }');
         }
 
     }
