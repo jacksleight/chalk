@@ -4954,6 +4954,18 @@ html, body {
   height: 100%;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(45, 53, 60, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(45, 53, 60, 0.2);
+}
+
 /* Layout */
 .flex-col > * {
   border-top: 1px solid;
@@ -5093,6 +5105,12 @@ html, body {
 .dark.sidebar, .dark .sidebar {
   color: #dedede;
   background-color: #2f383f;
+}
+.sidebar ::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+.sidebar ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 @media screen and (min-width: 800px) {
