@@ -169,7 +169,9 @@ class Repository extends EntityRepository
         $result = $query->execute();
 
         if ($one && $query->getHydrationMode() != self::HYDRATE_SINGLE_SCALAR) {
-            $result = current($result);
+            $result = count($result)
+                ? current($result)
+                : null;
         }
         
         return $result;
