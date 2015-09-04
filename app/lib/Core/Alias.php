@@ -17,7 +17,8 @@ class Alias extends Content
 	public static $chalkSingular = 'Alias';
 	public static $chalkPlural   = 'Aliases';
     public static $chalkIcon     = 'alias';
-	public static $chalkIsNode   = true;
+    public static $chalkIsNode   = true;
+	public static $chalkIsUrl    = false;
 
     /**
      * @ManyToOne(targetEntity="\Chalk\Core\Content")

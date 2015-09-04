@@ -4,7 +4,7 @@
 <?php } ?>
 
 <form action="<?= $this->url->route() ?>" class="flex-col" data-modal-size="fullscreen">
-	<div class="footer">
+	<div class="header">
 		<ul class="toolbar toolbar-right">
 	        <li class="toolbar-gap"><span class="btn btn-out btn-lighter modal-close icon-cancel">
 	            Close

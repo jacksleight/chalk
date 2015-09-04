@@ -35,7 +35,7 @@ if ($filters == 'node') {
 $filters = $this->em('core_content')->parseTypes($filters);
 $filters = \Coast\array_intersect_key($filters, $classes);
 if (!isset($index->type)) {
-	$index->type = $this->contentList->first()->name;
+	$index->type = Chalk\Chalk::info(key($filters))->name;
 }
 $info = \Chalk\Chalk::info($index->type);
 ?>

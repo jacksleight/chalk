@@ -97,6 +97,9 @@ html, body {
 		padding-bottom: $gutter-y;
 	}
 }
+.header {
+	@include colors(null, 1);
+}
 
 /* Bars */
 
