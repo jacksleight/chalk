@@ -17,6 +17,7 @@ class File extends Content
 {
 	public static $chalkSingular = 'File';
 	public static $chalkPlural   = 'Files';
+	public static $chalkIcon     = 'image';
 	public static $chalkIsNode   = true;
 	public static $chalkIsUrl    = true;
 

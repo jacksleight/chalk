@@ -174,7 +174,7 @@
   content: "\e923";
 }
 
-.icon-file-empty:before {
+.icon-file-empty:before, .icon-blank:before {
   content: "\e924";
 }
 
@@ -446,7 +446,7 @@
   content: "\e967";
 }
 
-.icon-redo2:before {
+.icon-redo2:before, .icon-alias:before {
   content: "\e968";
 }
 
@@ -1510,7 +1510,7 @@
   content: "\ea71";
 }
 
-.icon-insert-template:before {
+.icon-insert-template:before, .icon-box:before {
   content: "\ea72";
 }
 
@@ -2328,6 +2328,11 @@ small {
   padding-right: 0;
 }
 
+.icon-sidebar {
+  opacity: 0.5;
+  margin-right: 0.3em;
+}
+
 /* Toggles */
 .toggles {
   margin: 0;
@@ -2684,13 +2689,10 @@ figure figcaption {
   *display: inline;
 }
 .thumb .preview .text span {
-  color: #d5d7d8;
-}
-.thumb .preview .text span::before {
-  margin-right: 0;
-  width: 80px;
-  height: 80px;
   opacity: 0.15;
+}
+.thumb .preview .text span:before {
+  font-size: 80px;
 }
 .thumb .preview .progress {
   z-index: 2;

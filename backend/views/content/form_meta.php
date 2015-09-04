@@ -10,8 +10,8 @@
 	</li> -->
 	<?php if (!$content->isNew()) { ?>
 		<li class="icon-updated">
-			Updated <?= $content->modifyDate->diffForHumans() ?>
-			by <?= $content->modifyUserName ?>
+			Updated <em><?= $content->modifyDate->diffForHumans() ?></em>
+			by <em><?= $content->modifyUserName ?></em>
 		</li>
 	<?php } ?>
 	<?= $this->partial('meta-bottom') ?>

@@ -201,6 +201,10 @@ small {
 		padding-right: 0;
 	}
 }
+.icon-sidebar {
+	opacity: 0.5;
+	margin-right: 0.3em;
+}
 
 /* Toggles */
 
@@ -459,12 +463,9 @@ figure {
 			@include vertically-center('span');
 			@include box-shadow(inset 0 0 0 1px transparentize(black, 0.9));
 			span {
-				color: $color-divide;
-				&::before {
-					margin-right: 0;
-					width: 80px;
-					height: 80px;
-					opacity: 0.15;
+				opacity: 0.15;
+				&:before {
+					font-size: 80px;
 				}
 			}
 		}
@@ -1460,6 +1461,7 @@ legend {
 			padding-right: $gutter-x-sidebar;
 		}
 	}
+
 }
 
 /* Tree */

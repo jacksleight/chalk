@@ -52,7 +52,10 @@ $info = \Chalk\Chalk::info($index->type);
                             <li><a href="<?= $this->url([]) . $this->url->query([
                                 'filters' => $index->filters,
                                 'type'      => $filtersInfo->name,
-                            ], true) ?>" class="item <?= $filtersInfo->name == $info->name ? 'active' : null ?>"><?= $filtersInfo->plural ?></a></li>
+                            ], true) ?>" class="item <?= $filtersInfo->name == $info->name ? 'active' : null ?>">
+                                <span class="icon-sidebar icon-<?= $filtersInfo->icon ?>"></span>
+                                <?= $filtersInfo->plural ?>
+                            </a></li>
                         <? } ?>
                     </ul>
                 </nav>

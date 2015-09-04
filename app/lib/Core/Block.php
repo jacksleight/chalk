@@ -18,6 +18,7 @@ class Block extends Content
 {
 	public static $chalkSingular = 'Block';
 	public static $chalkPlural   = 'Blocks';
+    public static $chalkIcon     = 'box';
 
     /**
      * @Column(type="text", nullable=true)

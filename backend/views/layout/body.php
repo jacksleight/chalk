@@ -35,7 +35,7 @@
 				$count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
 				?>
 				<?php if ($count) { ?>
-					<li>
+					<li class="toolbar-gap">
 						<a href="<?= $this->url([
 							'controller' => 'index',
 							'action'	 => 'publish',

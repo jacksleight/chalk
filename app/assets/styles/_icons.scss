@@ -64,7 +64,10 @@ $icons: (
 	positive:	checkmark,
 	negative:	cross,
 	subtype:	files-empty,
-	browse:		folder-open
+	browse:		folder-open,
+	alias:		redo2,
+	box:		insert-template,
+	blank:		file-empty
 );
 
 @each $class, $name in $icons {

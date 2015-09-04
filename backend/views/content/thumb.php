@@ -27,7 +27,7 @@ $isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 				<?php if ($content instanceof \Chalk\Core\File && $content->file->exists() && $content->isImage()) { ?>
 					<div class="image" style="background-image: url('<?= $this->image($content->file, ['size' => '400']) ?>');"></div>
 				<?php } else { ?>
-					<div class="text"><span class="icon-content"></span></div>
+					<div class="text"><span class="icon-<?= $info->icon ?>"></span></div>
 				<?php } ?>
 				<span class="badge badge-upper badge-<?= $this->app->statusClass($content->status) ?>">
 					<?= $content->status ?>

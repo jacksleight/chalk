@@ -214,19 +214,19 @@ class Module extends ChalkModule
                 return $list->item($this->name('primary'), [])
                     ->item($this->name('secondary'), [])
                     ->item($this->name('structure'), [
-                        'label' => 'Structures',
-                        'icon'  => 'structure',
-                        'url'   => [[], $this->name('structure')],
+                        'label'      => 'Structures',
+                        'icon-block' => 'structure',
+                        'url'        => [[], $this->name('structure')],
                     ], $this->name('primary'))
                     ->item($this->name('content'), [
-                        'label' => 'Content',
-                        'icon'  => 'content',
-                        'url'   => [[], $this->name('content')],
+                        'label'      => 'Content',
+                        'icon-block' => 'content',
+                        'url'        => [[], $this->name('content')],
                     ], $this->name('primary'))
                     ->item($this->name('setting'), [
-                        'label' => 'Settings',
-                        'icon'  => 'settings',
-                        'url'   => [[], $this->name('setting')],
+                        'label'      => 'Settings',
+                        'icon-block' => 'settings',
+                        'url'        => [[], $this->name('setting')],
                     ], $this->name('secondary'))
                     ->item($this->name('setting\domain'), [
                         'label' => 'Site',
