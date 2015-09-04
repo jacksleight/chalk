@@ -11,10 +11,10 @@ Chalk.component('.stackable', function(i, el) {
 		items.append(content);
 		setTimeout(function() {
 			Chalk.initialize(content);
-			items.height('auto');
-			setTimeout(function() {
-				items.height(items.height());
-			}, 1000);
+			// items.height('auto');
+			// setTimeout(function() {
+			// 	items.height(items.height());
+			// }, 1000);
 		}, 1);
 	}
 	var addMulti = function(contents) {
@@ -27,18 +27,18 @@ Chalk.component('.stackable', function(i, el) {
 			items.append(content);
 			setTimeout(function() {
 				Chalk.initialize(content);
-				items.height('auto');
-				setTimeout(function() {
-					items.height(items.height());
-				}, 1000);
+				// items.height('auto');
+				// setTimeout(function() {
+				// 	items.height(items.height());
+				// }, 1000);
 			}, 1);
 		});
 	}
 	var del = function(el) {
 		el.remove();
 		refresh();
-		items.height('auto');
-		items.height(items.height());
+		// items.height('auto');
+		// items.height(items.height());
 	}
 	var refresh = function() {
 		items.children().each(function(i) {
@@ -70,10 +70,10 @@ Chalk.component('.stackable', function(i, el) {
 		forceHelperSize: true,
 		axis: 'y',
 		create: function(ev, ui) {
-			items.height('auto');
-			setTimeout(function() {
-				items.height(items.height());
-			}, 1000);
+			// items.height('auto');
+			// setTimeout(function() {
+			// 	items.height(items.height());
+			// }, 1000);
 		},
 		start: function(ev, ui) {
 			$(ui.item).find('.editor-content').each(function () {

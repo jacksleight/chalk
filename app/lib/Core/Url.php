@@ -29,7 +29,7 @@ class Url extends Content
 
 	protected static function _defineMetadata($class)
 	{
-		return array(
+		return \Coast\array_merge_smart(parent::_defineMetadata($class), array(
 			'fields' => array(
 				'mailtoEmailAddress' => array(
 					'type'		=> 'string',
@@ -44,7 +44,7 @@ class Url extends Content
 					'nullable'	=> true,
 				),
 			),
-		);
+		));
 	}
 
 	protected function _alterMailtoEmailAddressMetadata($meta)
