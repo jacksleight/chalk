@@ -17,6 +17,17 @@
 					]) ?>" class="btn btn-focus btn-out icon-add">
 					New Child <?= $info->singular ?>
 				</a></li>
+				<?php if (isset($node->parent)) { ?>
+					<li><a href="<?= $this->url([
+							'action'	=> 'edit',
+							'node'		=> null,
+						]) ?><?= $this->url->query([
+							'parent'	=> $node->parent->id,
+							'type'		=> $info->name,
+						]) ?>" class="btn btn-focus btn-out icon-add">
+						New Sibling <?= $info->singular ?>
+					</a></li>
+				<?php } ?>
 			<? } ?>
 		<? } else { ?>
 			<li><a href="<?= $this->url([

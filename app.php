@@ -30,6 +30,11 @@ $app
     ->param('cache', $app->lazy('app/init/cache.php'))
     ->param('swift', $app->lazy('app/init/swift.php'))
     ->param('hook', new HookManager())
+    ->param('session', new Session([
+        'expires' => null,
+        'name'    => '__Chalk__session',
+        'path'    => (new Url("{$app->config->frontBaseUrl}"))->path(),
+    ]))
     ->module(new Core());
 
 File::baseDir($config->publicDataDir->dir('file'));
@@ -39,14 +44,12 @@ $app->param('backend', $app->lazy(function($vars) {
     $app = $vars['app'];
     $backend = (new Backend(__DIR__, $app->config->envs))
         ->param('chalk', $app)
-        ->param('frontend', $app->frontend);
+        ->param('frontend', $app->frontend)
+        ->param('session', $app->session);
     $backend
         ->param('view', new View())
         ->param('notify', new Notifier())
         ->param('controller', new Controller())
-        ->param('session', new Session([
-            'expires' => null,
-        ]))
         ->param('router', new Router([
             'target'  => $backend->controller,
             'prefix'  => '{module}?',
@@ -98,7 +101,8 @@ $app->param('frontend', $app->lazy(function($vars) {
     $app = $vars['app'];
     $frontend = (new Frontend($app->root->dir(), $app->config->envs))
         ->param('chalk', $app)
-        ->param('backend', $app->backend);
+        ->param('backend', $app->backend)
+        ->param('session', $app->session);
     $frontend
         ->param('controller', new Controller())
         ->param('router', new Router([
@@ -114,6 +118,7 @@ $app->param('frontend', $app->lazy(function($vars) {
         ->param('em', $app->em)
         ->param('cache', $app->cache)
         ->param('swift', $app->swift);
+    $frontend->executable($frontend->session);
     $frontend->executable($frontend->router);
     $app->param('frontend', $frontend);
     foreach ($app->modules() as $module) {

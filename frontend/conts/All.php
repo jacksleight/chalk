@@ -15,9 +15,9 @@ class All extends Action
 {
 	public function preDispatch(Request $req, Response $res)
 	{
-        $name = $req->info->local->name;
+        $session = $this->session->data('__Chalk');
 
-		if ($req->path() != $req->node['path']) {
+        if ($req->path() != $req->node['path']) {
             return $res->redirect(
                 $this->url->string($req->node['path']) .
                 ($req->queryParams() ? $this->url->query($req->queryParams()) : null)
@@ -31,12 +31,15 @@ class All extends Action
         $req->nodes = $nodes;
 
         $content = $this->em($req->info->name)
-            ->id($req->content);
-        $req->content = $content;
-        $req->$name   = $content;
+            ->id($req->content, isset($session->user) ? ['isPublished' => null] : []);
         if (!$content) {
             return false;
         }
+
+        $name = $req->info->local->name;
+
+        $req->content = $content;
+        $req->$name   = $content;
 
         $req->isRender = true;
 		$req->view     = (object) [
