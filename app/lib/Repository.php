@@ -97,8 +97,8 @@ class Repository extends EntityRepository
             ? $params['sort']
             : $this->_sort;
         if (isset($sorts)) {
-                if (!is_array($sorts)) {
-                $sorts = [$sorts];
+            if (!is_array($sorts)) {
+                $sorts = explode(',', $sorts);
             }
             if (!is_array($sorts[0])) {
                 $sorts = [$sorts];

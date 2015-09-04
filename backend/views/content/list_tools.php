@@ -14,9 +14,4 @@
         </a></li>
     <? } ?>
     <?= $this->content('tools-bottom') ?>
-    <?php if ($isClose) { ?>
-        <li class="toolbar-gap"><span class="btn btn-out btn-lighter modal-close icon-cancel">
-            Close
-        </span></li>
-    <?php } ?>
 </ul>

@@ -4,6 +4,14 @@
 <?php } ?>
 
 <form action="<?= $this->url->route() ?>" class="flex-col" data-modal-size="fullscreen">
+	<div class="footer">
+		<ul class="toolbar toolbar-right">
+	        <li class="toolbar-gap"><span class="btn btn-out btn-lighter modal-close icon-cancel">
+	            Close
+	        </span></li>
+		</ul>
+		<h1>Browse</h1>
+	</div>
 	<?= $this->render("/content/browser", [
 		'index'	=> $index,
 	]) ?>
@@ -14,11 +22,6 @@
 					Select Content
 				</button>
 			</li>
-		</ul>
-		<ul class="toolbar">
-			<li><span class="btn btn-out btn-lighter modal-close icon-cancel">
-				Close
-			</span></li>
 		</ul>
 	</div>
 <form>

@@ -15,8 +15,8 @@ use Chalk\Core,
 */
 class Url extends Content
 {
-	public static $chalkSingular = 'URL';
-	public static $chalkPlural   = 'URLs';
+	public static $chalkSingular = 'External Link';
+	public static $chalkPlural   = 'External Links';
 	public static $chalkIsNode   = true;
 	public static $chalkIsUrl    = true;
 

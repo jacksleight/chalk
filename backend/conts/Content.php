@@ -38,22 +38,22 @@ class Content extends Basic
 		$req->view->index = $wrap = $this->em->wrap($index);
 		$wrap->graphFromArray($req->queryParams());
 
-		if (!isset($index->action)) {
+		if (!isset($index->batch)) {
 			return;
 		}
 
 		foreach ($index->contents as $content) {
-			if ($index->action == 'archive') {
+			if ($index->batch == 'archive') {
 				$content->status = \Chalk\Chalk::STATUS_ARCHIVED;
-			} else if ($index->action == 'restore') {
+			} else if ($index->batch == 'restore') {
 				$content->restore();
-			} else if ($index->action == 'delete') {
+			} else if ($index->batch == 'delete') {
 				$this->em->remove($content);
 			}
 		}
 		$this->em->flush();
 
-		$this->notify("{$req->info->plural} were {$index->action}d successfully", 'positive');
+		$this->notify("{$req->info->plural} were {$index->batch}d successfully", 'positive');
 		return $res->redirect($this->url->query(array(
 			'action' => null,
 		)));

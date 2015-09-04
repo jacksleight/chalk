@@ -1,5 +1,5 @@
 <ul class="toolbar toolbar-right autosubmitable">
-    <li>
+    <li class="toolbar-gap">
         Show&nbsp;
         <?= $this->render('/element/form-input', array(
             'type'   => 'select',
@@ -8,14 +8,22 @@
             'null'   => 'All',
         )) ?>
     </li>
+    <li class="toolbar-gap">
+        Sort&nbsp;
+        <?= $this->render('/element/form-input', array(
+            'type'   => 'select',
+            'entity' => $index,
+            'name'   => 'sort',
+            'null'   => 'Default',
+        )) ?>
+    </li>
     <? if ($isEditAllowed) { ?>
-        <li>
-            &nbsp;
+        <li class="toolbar-gap">
             Selected&nbsp;
             <?= $this->render('/element/form-input', array(
                 'type'   => 'select',
                 'entity' => $index,
-                'name'   => 'action',
+                'name'   => 'batch',
                 'null'   => 'Action',
             )) ?>
         </li>

@@ -40,19 +40,19 @@ class All extends Action
 
         $this->em->trackable()->setUser($req->user);
         
-        // if ($req->controller != 'index' || $req->action != 'prefs') {
-        //  $name   = "query_" . md5(serialize($req->route['params']));
-        //  $value  = $req->queryParams();
-        //  if (count($value)) {
-        //      $req->user->pref($name, $value);
-        //      $this->em->flush();
-        //  } else {
-        //      $value = $req->user->pref($name);
-        //      if (isset($value)) {
-        //          $req->queryParams($value);
-        //      }
-        //  }
-        // }
+        if ($req->controller == 'content' && $req->action == 'index') {
+           $name   = "query_" . md5(serialize($req->route['params']));
+           $value  = $req->queryParams();
+           if (count($value)) {
+               $req->user->pref($name, $value);
+               $this->em->flush();
+           } else {
+               $value = $req->user->pref($name);
+               if (isset($value)) {
+                   $req->queryParams($value);
+               }
+           }
+       }
     }
 
     public function postDispatch(Request $req, Response $res)

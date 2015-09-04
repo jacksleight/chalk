@@ -28,7 +28,7 @@ class Index extends \Toast\Entity
 	protected $contents = [];
 	protected $contentIds;
 	protected $entity;
-	protected $action;
+	protected $batch;
 
 	protected static function _defineMetadata($class)
 	{
@@ -55,6 +55,12 @@ class Index extends \Toast\Entity
 				'sort' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
+					'values'	=> [
+						'name'				=> 'Name',
+						'modifyDate,DESC'	=> 'Updated',
+						'publishDate'		=> 'Published',
+						'status'			=> 'Status',
+					]
 				),
 				'subtypes' => array(
 					'type'		=> 'array',
@@ -141,7 +147,7 @@ class Index extends \Toast\Entity
 					'type'		=> 'text',
 					'nullable'	=> true,
 				),
-				'action' => array(
+				'batch' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
 					'values'	=> [
