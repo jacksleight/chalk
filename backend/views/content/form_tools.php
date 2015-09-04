@@ -28,14 +28,16 @@
 		<? } ?>
 	<?php } ?>
 	<?= $this->partial('tools-bottom') ?>
-	<?php
-	$url = $this->frontend->url($content->getObject());
-	?>
-	<?php if ($url) { ?>
-		<li><a href="<?= $url ?>" target="_blank" class="btn btn-out icon-view">
-			View <?= $content->subtype == 'mailto'
-	            ? str_replace('External', 'Email', $info->singular)
-	            : $info->singular ?>
-		</a></li>
+	<?php if (!$content->isNewMaster()) { ?>
+		<?php
+		$url = $this->frontend->url($content->getObject());
+		?>
+		<?php if ($url) { ?>
+			<li class="toolbar-gap"><a href="<?= $url ?>" target="_blank" class="btn btn-out icon-view">
+				View <?= $content->subtype == 'mailto'
+		            ? str_replace('External', 'Email', $info->singular)
+		            : $info->singular ?>
+			</a></li>
+		<?php } ?>
 	<?php } ?>
 </ul>

@@ -33,8 +33,6 @@ class Url extends Content
 				'mailtoEmailAddress' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
-					'validator'	=> (new Validator)
-						->emailAddress(),
 				),
 				'mailtoSubject' => array(
 					'type'		=> 'string',
@@ -46,6 +44,24 @@ class Url extends Content
 				),
 			),
 		);
+	}
+
+	protected function _alterMailtoEmailAddressMetadata($meta)
+	{
+		if ($this->subtype != 'mailto') {
+			return $meta;
+		}
+
+		$validator = new Validator();
+		$validator
+			->set()->break()
+			->emailAddress();
+		$validator->steps($meta['validator']->steps());
+
+		$meta['nullable']  = false;
+		$meta['validator'] = $validator;
+
+		return $meta;
 	}
 
 	public function url(CoastUrl $url = null)

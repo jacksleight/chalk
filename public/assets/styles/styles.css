@@ -4109,7 +4109,7 @@ legend {
   width: 100%;
 }
 .toolbar > *.toolbar-gap {
-  padding-left: 10px;
+  padding-left: 15px;
 }
 .toolbar > * .menu {
   line-height: 1.5;
