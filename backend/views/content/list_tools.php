@@ -1,5 +1,5 @@
 <ul class="toolbar toolbar-right">
-    <?= $this->content('tools-top') ?>
+    <?= $this->partial('tools-top') ?>
     <? if ($isUploadable) { ?>
         <ul class="toolbar">
             <li><span class="btn btn-focus icon-upload uploadable-button">
@@ -13,5 +13,5 @@
                 New <?= $info->singular ?>
         </a></li>
     <? } ?>
-    <?= $this->content('tools-bottom') ?>
+    <?= $this->partial('tools-bottom') ?>
 </ul>

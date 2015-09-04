@@ -4,5 +4,6 @@
 <?php $this->block('main') ?>
 
 <form action="<?= $this->url->route() ?>" method="post">
-	<?= $this->inner("/{$info->local->path}/form", [], $info->module->name) ?>
+    <?= $this->url->queryInputs() ?>
+    <?= $this->inner("/{$info->local->path}/form", [], $info->module->name) ?>
 </form>

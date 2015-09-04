@@ -8,7 +8,7 @@
             'placeholder'   => 'Search…',
         )) ?>
     </li>
-    <?= $this->content('filters-top') ?>
+    <?= $this->partial('filters-top') ?>
     <?php
     $subtypes = $this->em($info)->subtypes(['types' => isset($filters) ? $filters : null]);
     $values   = [];
@@ -49,5 +49,5 @@
             'placeholder'   => 'Status',
         )) ?>
     </li>
-    <?= $this->content('filters-bottom') ?>
+    <?= $this->partial('filters-bottom') ?>
 </ul>

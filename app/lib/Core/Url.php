@@ -9,6 +9,7 @@ namespace Chalk\Core;
 use Chalk\Core,
 	Coast\Url as CoastUrl,
 	Doctrine\Common\Collections\ArrayCollection;
+use Coast\Validator;
 
 /**
  * @Entity
@@ -25,6 +26,28 @@ class Url extends Content
      */
 	protected $url;
 
+	protected static function _defineMetadata($class)
+	{
+		return array(
+			'fields' => array(
+				'mailtoEmailAddress' => array(
+					'type'		=> 'string',
+					'nullable'	=> true,
+					'validator'	=> (new Validator)
+						->emailAddress(),
+				),
+				'mailtoSubject' => array(
+					'type'		=> 'string',
+					'nullable'	=> true,
+				),
+				'mailtoBody' => array(
+					'type'		=> 'text',
+					'nullable'	=> true,
+				),
+			),
+		);
+	}
+
 	public function url(CoastUrl $url = null)
 	{
 		if (isset($url)) {
@@ -35,14 +58,55 @@ class Url extends Content
 		return $this->url;
 	}
 
+	public function mailtoEmailAddress($emailAddress = null)
+	{
+		if (isset($emailAddress)) {
+			$this->url = clone $this->url;
+			$this->url->path($emailAddress);
+			return $this;
+		}
+		return $this->url->path();
+	}
+
+	public function mailtoSubject($subject = null)
+	{
+		if (isset($subject)) {
+			$this->url = clone $this->url;
+			$this->url->queryParam('subject', $subject);
+			return $this;
+		}
+		return $this->url->queryParam('subject');
+	}
+
+	public function mailtoBody($body = null)
+	{
+		if (isset($body)) {
+			$this->url = clone $this->url;
+			$this->url->queryParam('body', $body);
+			return $this;
+		}
+		return $this->url->queryParam('body');
+	}
+
 	public static function staticSubtypeLabel($subtype)
 	{	
-		return strtoupper($subtype);
+		return $subtype == 'mailto'
+			? 'Email'
+			: strtoupper($subtype);
 	}
 
 	public function clarifier($context = false, $parts = [])
 	{
-		return parent::clarifier($context, [$this->url->toString()]);
+		if ($this->url->scheme() == 'mailto') {
+			$params = $this->url->queryParams();
+			$parts = [$this->url->path()];
+			if (isset($params['subject'])) {
+				$parts[] = $params['subject'];
+			}
+		} else {
+			$parts = [$this->url->toString()];
+		}
+		return parent::clarifier($context, $parts);
 	}
 	
 	public function searchableContent()

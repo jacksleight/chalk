@@ -202,9 +202,9 @@ class Module extends ChalkModule
                 return $list
                     ->item($this->name('page'))
                     ->item($this->name('file'))
-                    ->item($this->name('block'))
-                    ->item($this->name('alias'))
                     ->item($this->name('url'))
+                    ->item($this->name('alias'))
+                    ->item($this->name('block'))
                     ->item($this->name('blank'));
             })
             ->backendHookListen($this->name('widgetList'), function(InfoList $list) {

@@ -65,6 +65,9 @@ class Content extends Basic
 			? $this->em($req->info)->id($req->route['params']['content'])
 			: $this->em($req->info)->create();
 		$req->view->content = $wrap = $this->em->wrap($content);
+		if ($content->isNew()) {
+			$wrap->graphFromArray($req->queryParams());
+		}
 
 		if (!$req->isPost()) {
 			return;
