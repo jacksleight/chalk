@@ -55,13 +55,8 @@ class Frontend extends App
                     continue;
                 }
                 if (isset($data['content'])) {
-                    $route = $this->router->route($data['content']['id']);
-                    if (isset($route)) {
-                        $url = $this->url([], $data['content']['id'], true);
-                    } else {
-                        $url = $this->url("_c{$data['content']['id']}");
-                    }
-                    $el->setAttribute('href', $url);
+                    $content = $this->em('core_content')->id($data['content']['id']);
+                    $el->setAttribute('href', $this->url($content));
                 } else if (isset($data['widget'])) {
                     $info   = \Chalk\Chalk::info($data['widget']['name']);
                     $class  = $info->class;

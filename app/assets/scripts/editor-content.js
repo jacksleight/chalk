@@ -123,12 +123,6 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
 
     var menu = [ 
         {
-            text: 'Page Link',
-            onclick: openLinkModal
-        }, {
-            text: 'Other Link',
-            onclick: function() { tinyMCE.activeEditor.buttons.link.onclick(); }
-        }, {
             text: 'Horizontal Rule',
             onclick: function() { tinyMCE.activeEditor.buttons.hr.onclick(); }
         }, {
@@ -168,9 +162,16 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
         menu: menu
     });
 
+    editor.addButton('chalklink', {
+        type: 'button',
+        tooltip: 'Add link',
+        icon: 'link',
+        onclick: openLinkModal
+    });
+
     editor.addButton('chalksource', {
         type: 'button',
-        tooltip: 'Source',
+        tooltip: 'Edit source',
         icon: 'code',
         onclick: openSourceModal
     });
@@ -293,7 +294,7 @@ tinyMCE.init({
     toolbar: [
         'styleselect', 'bold', 'italic', '|',
         'bullist', 'numlist', 'table', '|',
-        'chalkinsert', 'unlink', '|',
+        'chalkinsert', 'chalklink', 'unlink', '|',
         'pastetext', '|',
         'chalksource'].join(' '),
     statusbar: false,

@@ -8,8 +8,9 @@
         </ul>
     <? } else if ($isNewAllowed) { ?>
         <li><a href="<?= $this->url([
+                'entity' => $info->name,
                 'action' => 'edit',
-            ]) ?>" class="btn btn-focus icon-add">
+            ], 'core_content', true) ?>" class="btn btn-focus icon-add">
                 New <?= $info->singular ?>
         </a></li>
     <? } ?>
