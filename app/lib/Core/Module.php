@@ -230,6 +230,7 @@ class Module extends ChalkModule
                     ], $this->name('secondary'))
                     ->item($this->name('setting\domain'), [
                         'label' => 'Site',
+                        'icon' => 'publish',
                         'url'   => [[
                             'controller' => 'setting_domain',
                             'action'     => 'edit',
@@ -238,12 +239,14 @@ class Module extends ChalkModule
                     ], $this->name('setting'))
                     ->item($this->name('setting\user'), [
                         'label' => 'Users',
+                        'icon' => 'user',
                         'url'   => [[
                             'controller' => 'setting_user'
                         ], $this->name('setting')],
                     ], $this->name('setting'))
                     ->item($this->name('setting\structure'), [
                         'label' => 'Structures',
+                        'icon' => 'structure',
                         'url'   => [[
                             'controller' => 'setting_structure'
                         ], $this->name('setting')],

@@ -74,7 +74,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 						'action'	=> 'edit',
 						'node'		=> $structure->root['id'],
 					], 'core_structure_node') ?>" class="tree-item <?= $structure->root['id'] == $req->node ? 'active' : '' ?> tree-item-<?= $content['status'] ?> <?= $structure->root['isHidden'] ? 'tree-item-hidden' : '' ?>">
-						<?= isset($structure->root['name']) ? $structure->root['name'] : $structure->root['content']['name'] ?>
+						<strong><?= isset($structure->root['name']) ? $structure->root['name'] : $structure->root['content']['name'] ?></strong>
 					</a>
 				</li>
 			</ol>

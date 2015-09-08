@@ -16,8 +16,8 @@ use Coast\Validator;
 */
 class Url extends Content
 {
-	public static $chalkSingular = 'External Link';
-	public static $chalkPlural   = 'External Links';
+	public static $chalkSingular = 'Link';
+	public static $chalkPlural   = 'Links';
 	public static $chalkIcon     = 'link';
 	public static $chalkIsNode   = true;
 	public static $chalkIsUrl    = true;

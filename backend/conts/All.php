@@ -40,19 +40,21 @@ class All extends Action
 
         $this->em->trackable()->setUser($req->user);
         
-        if ($req->controller == 'content' && $req->action == 'index') {
-            $name   = "query_" . md5(serialize($req->route['params']));
-            $params = $req->queryParams();
-            if (count($params)) {
-                unset($params['contentIds']);
-                $req->user->pref($name, $params);
-                $this->em->flush();
-            } else {
-                $params = $req->user->pref($name);
-                if (isset($params)) {
-                    $req->queryParams($params);
-                }
+        $saves = [
+            'index__select',
+            'structure_node__add',
+            'content__index',
+        ];
+        if (in_array("{$req->controller}__{$req->action}", $saves)) {
+            $name   = "query_" . md5(serialize($req->route['params']));           
+            $params = $req->user->pref($name);
+            if (isset($params)) {
+                $req->queryParams($req->queryParams() + $params);
             }
+            $params = $req->queryParams();
+            unset($params['contentIds']);
+            $req->user->pref($name, $params);
+            $this->em->flush();
         }
     }
 

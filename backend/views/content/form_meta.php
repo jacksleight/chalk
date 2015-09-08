@@ -5,6 +5,9 @@
 			<?= $content->status ?>
 		</span>
 	</li>
+	<li class="icon-<?= $info->icon ?>">
+		<?= $info->singular ?>
+	</li>
 	<!-- <li>
 		Version <em><?= $content->version ?></em>
 	</li> -->

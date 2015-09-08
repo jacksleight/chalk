@@ -22,6 +22,9 @@ html {
 }
 h1 { 
 	@include font-size($input-height);
+	.icon {
+		// color: $color-quiet;
+	}
 }
 h2 { 
 	@include font-size(2);
