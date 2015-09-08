@@ -12,5 +12,5 @@
 	<?= $value ? 'checked' : null ?>
 	<?= isset($class) ? "class=\"{$class}\"" : null ?>>
 <label for="<?= "{$id}" ?>">
-	<span></span> <?= $label ?>
+	<?= $label ?>
 </label>

@@ -13,7 +13,7 @@ Chalk.component('.selectable', function(i, el) {
 
 	if (!$(el).find('a').length) {
 		$(el).click(function(ev) {
-			if ($(ev.target).is('input[type=checkbox] + label span')) {
+			if ($(ev.target).is('input[type=checkbox] + label')) {
 				return;
 			}
 			checkbox.click();
@@ -37,12 +37,12 @@ Chalk.component('.multiselectable', function(i, el) {
 		});
 	});
 	$(el).mousedown(function(ev) {
-		if (!$(ev.target).is('input[type=checkbox] + label span')) {
+		if (!$(ev.target).is('input[type=checkbox] + label')) {
 			return;
 		}
 		ev.preventDefault();
 		active	= true;
-		checked = !$(ev.target).parent().prev().prop('checked');
+		checked = !$(ev.target).prev().prop('checked');
 	});
 	$(el).mouseup(function(ev) {
 		active	= false;

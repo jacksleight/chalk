@@ -21,7 +21,7 @@
 							<?= in_array($v, $value) ? 'checked' : null ?>
 							<?= isset($class) ? "class=\"{$class}\"" : null ?>> 
 						<label for="<?= "{$id}[{$this->escape($v)}]" ?>" class="item checkbox">
-							<span></span> <?= $l ?>
+							<?= $l ?>
 						</label>
 					</li>
 				<?php } ?>
