@@ -169,11 +169,10 @@ html, body {
 	text-align: center;
 	color: white;
 	cursor: pointer;
-	&::before {
-		margin-right: 0.5em;
-		width: 22px;
-		height: 22px;
-		vertical-align: -4px;
+	&:before {
+		font-size: 24px;
+		margin-right: 0.25em;
+		vertical-align: -0.15em;
 	}
 }
 .notification-positive {

@@ -5161,11 +5161,10 @@ html, body {
   color: white;
   cursor: pointer;
 }
-.notification::before {
-  margin-right: 0.5em;
-  width: 22px;
-  height: 22px;
-  vertical-align: -4px;
+.notification:before {
+  font-size: 24px;
+  margin-right: 0.25em;
+  vertical-align: -0.15em;
 }
 
 .notification-positive {
