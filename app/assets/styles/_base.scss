@@ -22,9 +22,6 @@ html {
 }
 h1 { 
 	@include font-size($input-height);
-	.icon {
-		// color: $color-quiet;
-	}
 }
 h2 { 
 	@include font-size(2);
@@ -1116,7 +1113,7 @@ legend {
 	display: none;
 }
 .form-block {
-	@include colors(null, null, 3);
+	@include colors(null, null, 2);
 	border: solid;
 	border-width: 1px 0 0 0;
 	margin: $gutter * 1 0 0 0;
@@ -1142,23 +1139,23 @@ legend {
 	.form-block {
 		display: table;
 		width: 100%;
-		& + .form-block {
-			margin-top: 0;
-		}
+		padding: $gutter-x 0 0 0;
+		margin: $gutter-x 0 0 0;
 		.form-legend {
 			display: table-cell;
+			vertical-align: top;
 			margin-top: 0;
-			padding: $gutter;
-			padding-left: 0;
+			padding: 0;
+			padding-right: $gutter;
 			min-width: 210px - ($gutter * 1.5);
-			background-image: linear-gradient(to right, white tint($color-dark-min, 97%));
 		}
 		.form-items {
 			width: 100%;
 			display: table-cell;
+			vertical-align: top;
 			margin-top: 0;
-			padding: $gutter;
-			padding-right: 0;
+			padding: 0;
+			padding-left: $gutter;
 		}
 	}
 }
@@ -1171,16 +1168,16 @@ legend {
 		color: $color-loud;
 		display: block;
 		font-weight: bold;
-		line-height: $line-height-tight;
+		line-height: 1;
 		+  div {
-			margin: $gutter * 0.35 0 0 0;
+			margin: $gutter * 0.5 0 0 0;
 		}
 	}
 	> div { 
 		@include flush;
 		p { 
 			@include font-size(-1);
-			margin-top: $gutter  * 0.35;
+			margin-top: $gutter * 0.35;
 			line-height: $line-height-tight;
 			& + p {
 				margin-top: 0;
@@ -1193,7 +1190,7 @@ legend {
 	&.optional {
 		> label:after {
 			content: 'Optional';
-			line-height: $line-height-tight;
+			line-height: 1;
 			color: tint($color-quiet, 0%);
 			margin-left: 0.25em;
 			float: right;
