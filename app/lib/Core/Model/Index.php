@@ -151,6 +151,7 @@ class Index extends \Toast\Entity
 					'type'		=> 'string',
 					'nullable'	=> true,
 					'values'	=> [
+						'publish'	=> 'Publish',
 						'archive'	=> 'Archive',
 						'restore'	=> 'Restore',
 						'delete'	=> 'Delete',

@@ -52,11 +52,14 @@ class All extends Action
         if (in_array("{$req->controller}__{$req->action}", $saves)) {
             $name   = "query_" . md5(serialize($req->route['params']));           
             $params = $req->user->pref($name);
+            unset($params['contentIds']);
+            unset($params['batch']);
             if (isset($params)) {
                 $req->queryParams($req->queryParams() + $params);
             }
             $params = $req->queryParams();
             unset($params['contentIds']);
+            unset($params['batch']);
             $req->user->pref($name, $params);
             $this->em->flush();
         }
