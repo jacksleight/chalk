@@ -31,9 +31,9 @@
 
 /* Behaviours */
 
+//= require behaviours/confirmable.js
 //= require behaviours/autosubmitable.js
 //= require behaviours/clickable.js
-//= require behaviours/confirmable.js
 //= require behaviours/expandable.js
 //= require behaviours/uploadable.js
 //= require behaviours/selectable.js
