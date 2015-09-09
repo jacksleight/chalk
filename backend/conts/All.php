@@ -8,6 +8,7 @@ namespace Chalk\Core\Backend\Controller;
 
 use Chalk\Chalk;
 use Coast\Controller\Action;
+use Coast\Url;
 use Coast\Request;
 use Coast\Response;
 use Chalk\InfoList;
@@ -23,7 +24,10 @@ class All extends Action
 
         $session = $this->session->data('__Chalk');
         if (!isset($session->user) && $req->controller !== 'auth') {
-            return $res->redirect($this->url([], 'core_login', true));
+            $referrer = (string) $req->url()->toPart(Url::PART_PATH, true);
+            return $res->redirect($this->url([], 'core_login', true) . $this->url->query([
+                'referrer' => $referrer,
+            ], true));
         }
 
         $req->view = (object) [];

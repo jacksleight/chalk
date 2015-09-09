@@ -1,4 +1,6 @@
-<?php $this->outer('/layout/page_content') ?>
+<?php $this->outer('/layout/page_content', [
+    'title' => $info->plural,
+]) ?>
 <?php $this->block('main') ?>
 		
 <form action="<?= $this->url->route() ?>">

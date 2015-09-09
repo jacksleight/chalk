@@ -20,6 +20,9 @@ class Auth extends Action
         $req->view->login = $wrap = $this->em->wrap(
             $login = new \Chalk\Core\Model\Login()
         );
+        if ($req->referrer) {
+            $login->referrer = $req->referrer;
+        }
 
         if (!$req->isPost()) {
             return;
@@ -47,7 +50,9 @@ class Auth extends Action
         $session = $this->session->data('__Chalk');
         $session->user = $user->id;
 
-        return $res->redirect($this->url(array(), 'core_index', true));
+        return $res->redirect(isset($login->referrer)
+            ? $login->referrer
+            : $this->url([], 'core_index', true));
     }
 
     public function passwordRequest(Request $req, Response $res)

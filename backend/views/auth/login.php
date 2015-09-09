@@ -16,6 +16,11 @@
 			'label'		=> 'Password',
 			'autofocus'	=> true,
 		)) ?>
+		<?= $this->render('/element/form-input', array(
+			'entity'	=> $login,
+			'name'		=> 'referrer',
+			'type'		=> 'input_hidden',
+		)) ?>
 		<button class="btn btn-block btn-focus">Login</button>
 		<p class="login-password">
 			<a href="<?= $this->url([], 'core_passwordRequest', true) ?>">Forgotten your password?</a>

@@ -14,6 +14,8 @@ class Login extends \Toast\Entity
 	
 	protected $password;
 
+	protected $referrer;
+
 	protected static function _defineMetadata($class)
 	{
 		return array(
@@ -25,6 +27,10 @@ class Login extends \Toast\Entity
 				),
 				'password' => array(
 					'type'		=> 'string',
+				),
+				'referrer' => array(
+					'type'		=> 'string',
+					'nullable'	=> true,
 				),
 			),
 		);
