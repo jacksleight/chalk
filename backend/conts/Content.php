@@ -60,7 +60,9 @@ class Content extends Basic
 		}
 		$this->em->flush();
 
-		$this->notify("{$req->info->plural} were {$notice} successfully", 'positive');
+		if (isset($notice)) {
+			$this->notify("{$req->info->plural} were {$notice} successfully", 'positive');
+		}
 		return $res->redirect($this->url->query(array(
 			'batch' => null,
 		)));
