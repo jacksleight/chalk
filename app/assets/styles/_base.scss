@@ -321,10 +321,8 @@ small {
 	&.badge-center {
 		text-align: center;
 	}
-	&::before {
+	&:before {
 		margin-right: 0;
-		position: relative;
-		bottom: -1px;
 	}
 }
 
