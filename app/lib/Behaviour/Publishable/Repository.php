@@ -55,7 +55,7 @@ trait Repository
         }
     }
 
-    public function months(array $params = array(), array $opts = array())
+    public function publishMonths(array $params = array(), array $opts = array())
     {
         $query = $this->build($params + [
             'sort' => ['publishDate', 'DESC'],
@@ -78,7 +78,7 @@ trait Repository
         return $this->execute($query);
     }
 
-    public function years(array $params = array(), array $opts = array())
+    public function publishYears(array $params = array(), array $opts = array())
     {
         $years = [];
 
@@ -97,9 +97,5 @@ trait Repository
         $years = array_values($years);
 
         return $years;
-
-    }
-
-
-   
+    }  
 }
