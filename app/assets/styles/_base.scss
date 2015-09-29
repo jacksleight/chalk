@@ -1138,6 +1138,10 @@ legend {
 		width: 100%;
 		padding: $gutter-x 0 0 0;
 		margin: $gutter-x 0 0 0;
+		&:first-child {
+			border-top: 0;
+			padding-top: 0;			
+		}
 		.form-legend {
 			display: table-cell;
 			vertical-align: top;
@@ -1221,10 +1225,10 @@ legend {
 
 /* Meta */
 
-.meta {
-	margin-top: $gutter * 0.6;
+.meta-list {
+	margin-top: $gutter * 0.5;
 	@include no-bullets;
-	@include inline-blocks('> li', $gutter * 0.8, $gutter * 0.8);
+	@include inline-blocks('> li', $gutter, $gutter);
 	color: $color-quiet;
 	a {
 		text-decoration: none;
@@ -1257,7 +1261,7 @@ legend {
 			width: 100%;
 		}
 		&.toolbar-gap {
-			padding-left: $gutter * 0.75;
+			padding-left: $gutter * 0.5;
 		}
 		.menu {
 			line-height: $line-height;

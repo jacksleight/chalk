@@ -1,8 +1,10 @@
 <div class="flex-col">
-	<div class="flex body">
+	<fieldset class="header">
 		<?= $this->partial('tools') ?>
 		<?= $this->partial('header') ?>
 		<?= $this->partial('meta') ?>
+	</fieldset>
+	<div class="flex body">
 		<?= $this->partial('general') ?>
 		<?= $this->partial('publishable') ?>
 		<?= $this->partial('node') ?>

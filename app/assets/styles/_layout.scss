@@ -100,6 +100,15 @@ html, body {
 .header {
 	@include colors(null, 1);
 }
+.main {
+	.header {
+		background-color: transparent;
+		padding-top: $gutter-y-body;
+	}
+	.flex-col > * {
+		@include colors(null, null, 3);
+	}
+}
 
 /* Bars */
 

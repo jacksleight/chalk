@@ -30,25 +30,12 @@
 					<a href="<?= $this->frontend->url() ?>" target="_blank" class="btn btn-out icon-view">
 						View Site
 					</a>
-				</li>	
-				<?php
-				$count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
-				?>
-				<?php if ($count) { ?>
-					<li class="toolbar-gap">
-						<a href="<?= $this->url([
-							'controller' => 'index',
-							'action'	 => 'publish',
-						], 'core_index', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-negative btn-out icon-publish">
-							Publish All
-						</a>						
-					</li>				
-				<?php } ?>
+				</li>
 			</ul>
 			<h1><?= $this->chalk->config->name ?></h1>
 			<ul class="notifications"></ul>
 		</div>
-		<div class="flex">
+		<div class="flex main">
 			<?= $this->content('main') ?>
 		</div>
 	</div>
