@@ -107,6 +107,7 @@ html, body {
 	margin-right: $gutter-x * -1;
 	margin-top: $gutter-y-body * -1 !important;
 	border-bottom: 1px solid;
+	margin-bottom: $gutter-y-body;
 	@include colors(null, null, 3);
 }
 .sidebar {

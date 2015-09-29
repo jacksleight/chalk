@@ -1,3 +1,7 @@
+<?php
+echo $content;
+return;
+?>
 <div class="expandable">
 	<div class="expandable-body">
 		<?= $content ?>
