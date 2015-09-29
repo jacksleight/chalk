@@ -1,3 +1,19 @@
+<ul class="meta meta-right">
+	<?php if (!$content->isNewMaster()) { ?>
+		<?php
+		$url = $this->frontend->url($content->getObject());
+		?>
+		<?php if ($url) { ?>
+			<li>
+				<a href="<?= $url ?>" target="_blank" class="icon-view">
+					View <?= $content->subtype == 'mailto'
+			            ? str_replace('Link', 'strongail Link', $info->singular)
+			            : $info->singular ?>
+				</a>
+			</li>
+		<?php } ?>
+	<?php } ?>
+</ul>
 <ul class="meta">
 	<?= $this->partial('meta-top') ?>
 	<li>
@@ -9,12 +25,12 @@
 		<?= $info->singular ?>
 	</li>
 	<!-- <li>
-		Version <em><?= $content->version ?></em>
+		Version <strong><?= $content->version ?></strong>
 	</li> -->
 	<?php if (!$content->isNew()) { ?>
 		<li class="icon-updated">
-			Updated <em><?= $content->modifyDate->diffForHumans() ?></em>
-			by <em><?= $content->modifyUserName ?></em>
+			Updated <strong><?= $content->modifyDate->diffForHumans() ?></strong>
+			by <strong><?= $content->modifyUserName ?></strong>
 		</li>
 	<?php } ?>
 	<?= $this->partial('meta-bottom') ?>

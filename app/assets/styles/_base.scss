@@ -1229,7 +1229,6 @@ legend {
 	margin-top: $gutter * 0.5;
 	@include no-bullets;
 	@include inline-blocks('> li', $gutter, $gutter);
-	color: $color-quiet;
 	a {
 		text-decoration: none;
 	}
@@ -1241,6 +1240,12 @@ legend {
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
+	}
+	@include media(800px) {
+		&.meta-right {
+			float: right;
+			@include flush-next;
+		}
 	}
 }
 

@@ -4026,7 +4026,6 @@ legend {
   margin-right: -10px;
   margin-bottom: -20px;
   font-size: 0;
-  color: #969a9e;
 }
 .meta li {
   list-style-image: none;
@@ -4058,6 +4057,14 @@ legend {
 }
 .meta li::before {
   color: #2d353c;
+}
+@media screen and (min-width: 800px) {
+  .meta.meta-right {
+    float: right;
+  }
+  .meta.meta-right:first-child + * {
+    margin-top: 0 !important;
+  }
 }
 
 /* Toolbar */

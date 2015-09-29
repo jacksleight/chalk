@@ -39,16 +39,4 @@
 		<? } ?>
 	<?php } ?>
 	<?= $this->partial('tools-bottom') ?>
-	<?php if (!$content->isNewMaster()) { ?>
-		<?php
-		$url = $this->frontend->url($content->getObject());
-		?>
-		<?php if ($url) { ?>
-			<li class="toolbar-gap"><a href="<?= $url ?>" target="_blank" class="btn btn-out icon-view">
-				View <?= $content->subtype == 'mailto'
-		            ? str_replace('Link', 'Email Link', $info->singular)
-		            : $info->singular ?>
-			</a></li>
-		<?php } ?>
-	<?php } ?>
 </ul>
