@@ -32,16 +32,12 @@ class Repository extends EntityRepository
 
     public function id($id, array $params = array(), array $opts = array())
     {
-        $query = $this->build(['ids' => [$id]] + $params);
-        $query = $this->prepare($query, $opts);    
-        return $this->execute($query, true);
+        return $this->one(['ids' => [$id]] + $params, $opts);
     }
 
     public function slug($slug, array $params = array(), array $opts = array())
     {
-        $query = $this->build(['slugs' => [$slug]] + $params);
-        $query = $this->prepare($query, $opts);    
-        return $this->execute($query, true);
+        return $this->one(['slugs' => [$slug]] + $params, $opts);
     }
 
     public function one(array $params = array(), array $opts = array())
@@ -58,16 +54,6 @@ class Repository extends EntityRepository
         return $this->execute($query);
     }
 
-    public function paged(array $params = array(), array $opts = array())
-    {   
-        $query = $this->build($params + [
-            'limit' => $this->_limit,
-            'page'  => 1,
-        ]);
-        $query = $this->prepare($query, $opts);
-        return new Paginator($query);
-    }
-
     public function count(array $params = array(), array $opts = array())
     {   
         $query = $this->build($params)
@@ -76,6 +62,16 @@ class Repository extends EntityRepository
             'hydrate' => Repository::HYDRATE_SINGLE_SCALAR,
         ] + $opts);
         return $this->execute($query);
+    }
+
+    public function paged(array $params = array(), array $opts = array())
+    {   
+        $query = $this->build($params + [
+            'limit' => $this->_limit,
+            'page'  => 1,
+        ]);
+        $query = $this->prepare($query, $opts);
+        return new Paginator($query);
     }
 
     public function build(array $params = array())

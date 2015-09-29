@@ -6,11 +6,12 @@
 
 namespace Chalk\Behaviour\Publishable;
 
-use Chalk\Chalk,
-    Doctrine\ORM\EntityRepository,
-    Doctrine\ORM\QueryBuilder,
-    Doctrine\ORM\Query,
-    DateTime;
+use Chalk\Chalk;
+use Chalk\Core\Content;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query;
+use DateTime;
 
 trait Repository
 {
@@ -41,7 +42,7 @@ trait Repository
                 ? $criteria['publishDateMin']
                 : new DateTime($criteria['publishDateMin']);
             $query
-                ->andWhere("c.publishDate >= :publishDateMin")
+                ->andWhere("{$alias}.publishDate >= :publishDateMin")
                 ->setParameter('publishDateMin', $publishDateMin);
         }
         if (isset($criteria['publishDateMax'])) {
@@ -49,8 +50,56 @@ trait Repository
                 ? $criteria['publishDateMax']
                 : new DateTime($criteria['publishDateMax']);
             $query
-                ->andWhere("c.publishDate <= :publishDateMax")
+                ->andWhere("{$alias}.publishDate <= :publishDateMax")
                 ->setParameter('publishDateMax', $publishDateMax);
         }
     }
+
+    public function months(array $params = array(), array $opts = array())
+    {
+        $query = $this->build($params + [
+            'sort' => ['publishDate', 'DESC'],
+        ]);
+
+        $query
+            ->select("
+                DATE_FORMAT({$this->alias()}.publishDate, '%Y') AS year,
+                DATE_FORMAT({$this->alias()}.publishDate, '%m') AS month,
+                DATE_FORMAT({$this->alias()}.publishDate, '%Y-%m') AS yearMonth,
+                {$this->alias()}.publishDate AS date,
+                COUNT({$this->alias()}) AS contentCount
+            ")
+            ->andWhere("{$this->alias()}.publishDate IS NOT NULL")
+            ->groupBy("yearMonth");
+
+        $query = $this->prepare($query, [
+            'hydrate' => \Chalk\Repository::HYDRATE_ARRAY,
+        ] + $opts);
+        return $this->execute($query);
+    }
+
+    public function years(array $params = array(), array $opts = array())
+    {
+        $years = [];
+
+        foreach ($this->months() as $month) {
+            if (!isset($years[$month['year']])) {
+                $years[$month['year']] = [
+                    'year'         => $month['year'],
+                    'date'         => $month['date'],
+                    'months'       => [],
+                    'contentCount' => 0,
+                ];
+            }
+            $years[$month['year']]['months'][] = $month;
+            $years[$month['year']]['contentCount'] += $month['contentCount'];
+        }
+        $years = array_values($years);
+
+        return $years;
+
+    }
+
+
+   
 }
