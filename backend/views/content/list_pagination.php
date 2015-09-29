@@ -25,6 +25,7 @@
                 'entity' => $index,
                 'name'   => 'batch',
                 'null'   => 'Action',
+                'class'  => 'confirmable',
             )) ?>
         </li>
     <? } ?>

@@ -48,7 +48,7 @@ $users = $this->em($info)
 				<?php foreach ($users as $user) { ?>
 					<tr class="clickable">
 						<td class="col-badge">
-							<span class="badge badge-center badge-<?= $user->isEnabled ? 'positive' : 'negative' ?> icon-<?= $user->isEnabled ? 'true' : 'false' ?>"></span>	
+							<span class="badge badge-center <?= $user->isEnabled ? 'badge-positive' : 'badge-light badge-out' ?> icon-<?= $user->isEnabled ? 'true' : 'false' ?>"></span>	
 						</td>
 						<th class="" scope="row">
 							<a href="<?= $this->url([

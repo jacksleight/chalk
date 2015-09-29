@@ -1,5 +1,5 @@
 <?php $this->outer('/layout/page_structure', [
-	'content' => $content,
+    'title'   => isset($node) ? $node->content->name : null,
 ]) ?>
 <?php $this->block('main') ?>
 

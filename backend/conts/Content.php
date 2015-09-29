@@ -42,20 +42,29 @@ class Content extends Basic
 			return;
 		}
 
+		$notice = null;
 		foreach ($index->contents as $content) {
-			if ($index->batch == 'archive') {
+			if ($index->batch == 'publish') {
+				$content->status = \Chalk\Chalk::STATUS_PUBLISHED;
+				$notice = 'published';
+			} else if ($index->batch == 'archive') {
 				$content->status = \Chalk\Chalk::STATUS_ARCHIVED;
+				$notice = 'archived';
 			} else if ($index->batch == 'restore') {
 				$content->restore();
+				$notice = 'restored';
 			} else if ($index->batch == 'delete') {
 				$this->em->remove($content);
+				$notice = 'deleted';
 			}
 		}
 		$this->em->flush();
 
-		$this->notify("{$req->info->plural} were {$index->batch}d successfully", 'positive');
+		if (isset($notice)) {
+			$this->notify("{$req->info->plural} were {$notice} successfully", 'positive');
+		}
 		return $res->redirect($this->url->query(array(
-			'action' => null,
+			'batch' => null,
 		)));
 	}
 

@@ -1,6 +1,6 @@
 <?php if (!$req->isAjax()) { ?>
     <?php $this->outer('/layout/page_content', [
-        'content' => $content,
+        'title'   => $content->isNew() ? "New {$info->singular}" : $content->name,
     ]) ?>
     <?php $this->block('main') ?>
 <?php } ?>
