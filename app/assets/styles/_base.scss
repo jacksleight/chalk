@@ -267,9 +267,6 @@ small {
 	padding-top: 1px;
 	padding-bottom: 2px;
 	display: inline-block;
-	&.badge-out {
-		@include colors(1);
-	}
 	&.badge-light {
 		@include colors(null, 6, 6);
 	}
@@ -304,9 +301,6 @@ small {
 			color: $color-active;
 		}
 	}
-	&.badge-out {
-		background-color: white !important;
-	}
 	&.badge-figure {
 		border-radius: 1000px;
 		min-width: 26px;
@@ -317,6 +311,9 @@ small {
 	}
 	&.badge-center {
 		text-align: center;
+	}
+	&.badge-out {
+		background-color: transparent;
 	}
 	&:before {
 		margin-right: 0;

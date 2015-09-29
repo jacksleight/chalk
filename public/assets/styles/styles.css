@@ -2033,29 +2033,29 @@
 /* Fonts */
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Light-webfont.eot?1429364454');
-  src: url('../fonts/OpenSans-Light-webfont.eot?&1429364454#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Light-webfont.woff?1429364454') format('woff'), url('../fonts/OpenSans-Light-webfont.ttf?1429364454') format('truetype'), url('../fonts/OpenSans-Light-webfont.svg?1429364454') format('svg');
+  src: url('../fonts/OpenSans-Light-webfont.eot?1420464718');
+  src: url('../fonts/OpenSans-Light-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Light-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-Light-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-Light-webfont.svg?1420464718') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Regular-webfont.eot?1429364454');
-  src: url('../fonts/OpenSans-Regular-webfont.eot?&1429364454#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Regular-webfont.woff?1429364454') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf?1429364454') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg?1429364454') format('svg');
+  src: url('../fonts/OpenSans-Regular-webfont.eot?1420464718');
+  src: url('../fonts/OpenSans-Regular-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Regular-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg?1420464718') format('svg');
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-LightItalic-webfont.eot?1429364454');
-  src: url('../fonts/OpenSans-LightItalic-webfont.eot?&1429364454#iefix') format('embedded-opentype'), url('../fonts/OpenSans-LightItalic-webfont.woff?1429364454') format('woff'), url('../fonts/OpenSans-LightItalic-webfont.ttf?1429364454') format('truetype'), url('../fonts/OpenSans-LightItalic-webfont.svg?1429364454') format('svg');
+  src: url('../fonts/OpenSans-LightItalic-webfont.eot?1420464718');
+  src: url('../fonts/OpenSans-LightItalic-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-LightItalic-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-LightItalic-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-LightItalic-webfont.svg?1420464718') format('svg');
   font-weight: normal;
   font-style: italic;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Italic-webfont.eot?1429364454');
-  src: url('../fonts/OpenSans-Italic-webfont.eot?&1429364454#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Italic-webfont.woff?1429364454') format('woff'), url('../fonts/OpenSans-Italic-webfont.ttf?1429364454') format('truetype'), url('../fonts/OpenSans-Italic-webfont.svg?1429364454') format('svg');
+  src: url('../fonts/OpenSans-Italic-webfont.eot?1420464718');
+  src: url('../fonts/OpenSans-Italic-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Italic-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-Italic-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-Italic-webfont.svg?1420464718') format('svg');
   font-weight: bold;
   font-style: italic;
 }
@@ -2416,12 +2416,6 @@ small {
   background-color: #181c20;
   border-color: #181c20;
 }
-.badge.badge-out {
-  color: #5f5f5f;
-}
-.dark.badge.badge-out, .dark .badge.badge-out {
-  color: #dedede;
-}
 .badge.badge-light {
   background-color: #bcbcbc;
   border-color: #bcbcbc;
@@ -2468,9 +2462,6 @@ small {
 .badge.badge-active.badge-out {
   color: #FCB941;
 }
-.badge.badge-out {
-  background-color: white !important;
-}
 .badge.badge-figure {
   border-radius: 1000px;
   min-width: 26px;
@@ -2481,6 +2472,9 @@ small {
 }
 .badge.badge-center {
   text-align: center;
+}
+.badge.badge-out {
+  background-color: transparent;
 }
 .badge:before {
   margin-right: 0;

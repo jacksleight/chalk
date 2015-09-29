@@ -39,7 +39,7 @@
 						<a href="<?= $this->url([
 							'controller' => 'index',
 							'action'	 => 'publish',
-						], 'core_index', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-positive btn-out icon-publish">
+						], 'core_index', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-negative btn-out icon-publish">
 							Publish All
 						</a>						
 					</li>				
