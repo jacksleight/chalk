@@ -8,6 +8,9 @@ namespace Toast;
 
 abstract class Wrapper implements \ArrayAccess
 {
+	public static $em;
+	public static $timezone;
+
 	protected $_object;
 	protected $_allowed;
 	protected $_parent;

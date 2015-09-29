@@ -44,7 +44,6 @@ $evm->addEventSubscriber(new SearchableListener());
 $evm->addEventSubscriber(new VersionableListener());
 $evm->addEventSubscriber($trackable = new TrackableListener());
 
-global $em;
 $em = new ChalkEntityManager(EntityManager::create(
 	$app->config->database + [
 		'driver'  => 'pdo_mysql',
@@ -56,6 +55,6 @@ $em = new ChalkEntityManager(EntityManager::create(
 $em->trackable($trackable);
 $em->getConnection()->exec("SET NAMES utf8");
 
-Toast\Wrapper\Collection::$em = $em;
+Toast\Wrapper::$em = $em;
 
 return $em;

@@ -40,6 +40,8 @@ $app
 File::baseDir($config->publicDataDir->dir('file'));
 File::mimeTypes($app->load('app/init/mime-types.php'));
 
+Toast\Wrapper::$timezone = $app->config->timezone;
+
 $app->param('backend', $app->lazy(function($vars) {
     $app = $vars['app'];
     $backend = (new Backend(__DIR__, $app->config->envs))

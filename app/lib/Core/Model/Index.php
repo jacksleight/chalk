@@ -6,6 +6,8 @@
 
 namespace Chalk\Core\Model;
 
+use Toast\Wrapper;
+
 class Index extends \Toast\Entity
 {
 	protected $page  = 1;
@@ -169,11 +171,10 @@ class Index extends \Toast\Entity
 	public function contentIds($value = null)
 	{
 		if (func_num_args() > 0) {
-			global $em;
 			$this->contents->clear();
 			$ids = json_decode($value, true);
 			foreach ($ids as $id) {
-				$content = $em->getReference('Chalk\Core\Content', $id);
+				$content = Wrapper::$em->getReference('Chalk\Core\Content', $id);
 				if ($content) {
 					$this->contents->add($content);
 				}

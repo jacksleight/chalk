@@ -1,4 +1,7 @@
 <?php
+if (isset($value)) {
+    $value->setTimezone(new \DateTimeZone($this->chalk->config->timezone));
+}
 echo $this->inner('input', [
 	'type'	=> 'datetime-local',
 	'value'	=> isset($value)

@@ -6,6 +6,8 @@
 
 namespace Toast\Wrapper;
 
+use Toast\Wrapper;
+
 class Entity extends \Toast\Wrapper
 {	
 	public function __construct(\Toast\Entity $object, array $allowed = null, $parent = null, $reference = null)
@@ -116,7 +118,8 @@ class Entity extends \Toast\Wrapper
 					case 'time':
 					case 'datetime':
 						try {
-							$value = new \DateTime($value);
+							$value = new \DateTime($value, new \DateTimeZone(Wrapper::$timezone));
+							$value->setTimezone(new \DateTimeZone('UTC'));
 						} catch (\Exception $e) {
 							$value = new \Toast\DateTime\Invalid($value);
 						}
@@ -129,8 +132,7 @@ class Entity extends \Toast\Wrapper
 						}
 					break;
 					case 'manyToOne':
-						global $em;
-						$value = $em->getReference($md['entity'], $value);
+						$value = Wrapper::$em->getReference($md['entity'], $value);
 					break;
 				}
 			}
