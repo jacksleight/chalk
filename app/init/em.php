@@ -13,6 +13,7 @@ use Doctrine\ORM\Configuration,
 	Chalk\Listener as Listener,
 	Chalk\Core\File\Listener as FileListener,
 	Chalk\Core\Structure\Node\Listener as NodeListener,
+	Chalk\Behaviour\Publishable\Listener as PublishableListener,
 	Chalk\Behaviour\Loggable\Listener as LoggableListener,
 	Chalk\Behaviour\Searchable\Listener as SearchableListener,
 	Chalk\Behaviour\Trackable\Listener as TrackableListener,
@@ -39,6 +40,7 @@ $evm = new EventManager();
 $evm->addEventSubscriber(new Listener());
 $evm->addEventSubscriber(new FileListener());
 $evm->addEventSubscriber(new NodeListener());
+$evm->addEventSubscriber(new PublishableListener());
 // $evm->addEventSubscriber(new LoggableListener());
 $evm->addEventSubscriber(new SearchableListener());
 $evm->addEventSubscriber(new VersionableListener());

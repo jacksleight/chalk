@@ -39,9 +39,9 @@ class Content extends Repository
             $lines = [];
             $i = 0;
             foreach ($types as $class => $subtypes) {
-                $line = "c INSTANCE OF {$class}";
+                $line = "{$this->alias()} INSTANCE OF {$class}";
                 if (isset($subtypes) && count($subtypes)) {
-                    $line .= " AND c.subtype IN (:types_{$i}_subtypes)";
+                    $line .= " AND {$this->alias()}.subtype IN (:types_{$i}_subtypes)";
                     $query->setParameter("types_{$i}_subtypes", $subtypes);
                 }
                 $lines[] = "({$line})";
@@ -51,7 +51,7 @@ class Content extends Repository
         }   
         if (isset($params['subtypes']) && count($params['subtypes'])) {
             $query
-                ->andWhere("c.subtype IN (:subtypes)")
+                ->andWhere("{$this->alias()}.subtype IN (:subtypes)")
                 ->setParameter('subtypes', $params['subtypes']);
         }
 
@@ -60,7 +60,7 @@ class Content extends Repository
                 ? $params['createDateMin']
                 : new DateTime($params['createDateMin']);
             $query
-                ->andWhere("c.createDate >= :createDateMin")
+                ->andWhere("{$this->alias()}.createDate >= :createDateMin")
                 ->setParameter('createDateMin', $createDateMin);
         }
         if (isset($params['createDateMax'])) {
@@ -68,7 +68,7 @@ class Content extends Repository
                 ? $params['createDateMax']
                 : new DateTime($params['createDateMax']);
             $query
-                ->andWhere("c.createDate <= :createDateMax")
+                ->andWhere("{$this->alias()}.createDate <= :createDateMax")
                 ->setParameter('createDateMax', $createDateMax);
         }
 
@@ -77,7 +77,7 @@ class Content extends Repository
                 ? $params['modifyDateMin']
                 : new DateTime($params['modifyDateMin']);
             $query
-                ->andWhere("c.modifyDate >= :modifyDateMin")
+                ->andWhere("{$this->alias()}.modifyDate >= :modifyDateMin")
                 ->setParameter('modifyDateMin', $modifyDateMin);
         }
         if (isset($params['modifyDateMax'])) {
@@ -85,23 +85,26 @@ class Content extends Repository
                 ? $params['modifyDateMax']
                 : new DateTime($params['modifyDateMax']);
             $query
-                ->andWhere("c.modifyDate <= :modifyDateMax")
+                ->andWhere("{$this->alias()}.modifyDate <= :modifyDateMax")
                 ->setParameter('modifyDateMax', $modifyDateMax);
         }
 
         if (isset($params['createUsers'])) {
             $query
-                ->andWhere("c.createUser IN (:createUsers)")
+                ->andWhere("{$this->alias()}.createUser IN (:createUsers)")
                 ->setParameter('createUsers', $params['createUsers']);
         }
         if (isset($params['statuses']) && count($params['statuses'])) {
             $query
-                ->andWhere("c.status IN (:statuses)")
+                ->andWhere("{$this->alias()}.status IN (:statuses)")
                 ->setParameter('statuses', $params['statuses']);
         }
 
         $this->publishableQueryModifier($query, $params);
         $this->searchableQueryModifier($query, $params);
+
+        // echo $query->getQuery()->getSql();
+        // die;
 
         return $query;
     }

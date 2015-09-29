@@ -82,11 +82,7 @@ class Content extends Basic
 			return;
 		}
 
-		$params = $req->bodyParams();
-		$status = isset($params['status']) ? $params['status'] : $wrap->status;
-		unset($params['status']);
-		$wrap->graphFromArray($params);
-		$wrap->graphFromArray(['status' => $status]); // @hack setting dates should be a listener
+		$wrap->graphFromArray($req->bodyParams());
 		if (!$wrap->isValid()) {
 			return;
 		}
