@@ -103,9 +103,6 @@ class Content extends Repository
         $this->publishableQueryModifier($query, $params);
         $this->searchableQueryModifier($query, $params);
 
-        // echo $query->getQuery()->getSql();
-        // die;
-
         return $query;
     }
 

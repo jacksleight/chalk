@@ -45,8 +45,8 @@ class All extends Action
         $this->em->trackable()->setUser($req->user);
         
         $saves = [
-            'index__select',
-            'structure_node__add',
+            // 'index__select', @todo Can't enable these unless the route path contains the type, or you get subtype conflicts
+            // 'structure_node__add',
             'content__index',
         ];
         if (in_array("{$req->controller}__{$req->action}", $saves)) {

@@ -27,6 +27,11 @@ class Url extends Content
      */
 	protected $url;
 
+    /**
+     * @Column(type="coast_url", nullable=true)
+     */
+	protected $urlCanonical;
+
 	protected static function _defineMetadata($class)
 	{
 		return \Coast\array_merge_smart(parent::_defineMetadata($class), array(
@@ -68,11 +73,19 @@ class Url extends Content
 	public function url(CoastUrl $url = null)
 	{
 		if (isset($url)) {
+			if ($url != $this->url && $url->isHttp()) {
+				$this->urlCanonical = $this->resolveCanonical($url);
+			}
 			$this->url		= $url;
 			$this->subtype	= $url->scheme();
 			return $this;
 		}
 		return $this->url;
+	}
+
+	public function resolveCanonical(CoastUrl $url = null)
+	{
+		return $url;
 	}
 
 	public function mailtoEmailAddress($emailAddress = null)

@@ -52,21 +52,21 @@ class Backend extends App
     public function publish()
     {
         // foreach (self::$_publishables as $class) {
-           $entitys = $this->em('Chalk\Core\Content')->all(['isPublishable' => true]);
+           $entities = $this->em('core_content')->all(['isPublishable' => true]);
            // if (is_subclass_of($class, 'Chalk\Behaviour\Versionable')) {
            //     $last = null;
-           //     foreach ($entitys as $entity) {
+           //     foreach ($entities as $entity) {
            //         $entity->status = $entity->master === $last
            //         ? Chalk::STATUS_ARCHIVED
            //         : Chalk::STATUS_PUBLISHED;
            //         $last = $entity->master;
            //     }
            // } else {
-           //     foreach ($entitys as $entity) {
+           //     foreach ($entities as $entity) {
            //         $entity->status = Chalk::STATUS_PUBLISHED;
            //     }
            // }
-           foreach ($entitys as $entity) {
+           foreach ($entities as $entity) {
                $entity->status = Chalk::STATUS_PUBLISHED;
            }
         // }

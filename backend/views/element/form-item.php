@@ -48,7 +48,7 @@ $render = isset($input)
 	? $input
 	: [$type, null];
 ?>
-<div class="form-item <?= !$md['nullable'] ? 'required' : 'optional' ?>">
+<div class="form-item <?= $type == 'input_pseudo' || !$md['nullable'] ? 'required' : 'optional' ?>">
 	<?php if (isset($label) && $type != 'input_checkbox') { ?>
 		<label
 			<?= !in_array($type, ['checkboxes', 'radio']) ? "for=\"_" . "{$md['contextName']}\"" : null ?>>

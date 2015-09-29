@@ -17,9 +17,18 @@
     ), 'core') ?>    
 <?php } else { ?>
     <?= $this->render('/element/form-item', array(
-    	'entity'		=> $content,
-    	'name'			=> 'url',
-    	'label'			=> 'URL',
-    	'placeholder'	=> 'http://example.com/',
+        'entity'        => $content,
+        'name'          => 'url',
+        'label'         => 'URL',
+        'placeholder'   => 'http://example.com/',
     ), 'core') ?>
+    <?php if ($content->url->isHttp()) { ?>
+        <?= $this->render('/element/form-item', array(
+            'entity'        => $content,
+            'name'          => 'urlCanonical',
+            'label'         => 'Canonical URL',
+            'type'          => 'input_pseudo',
+            'readOnly'      => true,
+        ), 'core') ?>
+    <?php } ?>
 <?php } ?>
