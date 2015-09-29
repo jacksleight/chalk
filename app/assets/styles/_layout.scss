@@ -98,12 +98,28 @@ html, body {
 	}
 }
 .header {
-	@include colors(null, 1);
+	@include colors(null, 2);
+}
+.hanging.hanging {
+	@include flush;
+	padding: $gutter-y $gutter-x;
+	margin-left: $gutter-x * -1;
+	margin-right: $gutter-x * -1;
+	margin-top: $gutter-y-body * -1 !important;
+	border-bottom: 1px solid;
+	@include colors(null, null, 3);
+}
+.sidebar {
+	.header {
+		background-color: transparent;
+	}
 }
 .main {
 	.header {
-		background-color: transparent;
-		padding-top: $gutter-y-body;
+		@include colors(null, 0.5);
+	}
+	.hanging {
+		@include colors(null, 0.5, 3);
 	}
 	.flex-col > * {
 		@include colors(null, null, 3);
@@ -113,7 +129,6 @@ html, body {
 /* Bars */
 
 .topbar {
-	@include colors(null, 1);
 	h1 {
 		margin-top: 0;
 		text-align: center;

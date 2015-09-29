@@ -1138,7 +1138,7 @@ legend {
 		width: 100%;
 		padding: $gutter-x 0 0 0;
 		margin: $gutter-x 0 0 0;
-		&:first-child {
+		.hanging + & {
 			border-top: 0;
 			padding-top: 0;			
 		}
@@ -1225,7 +1225,7 @@ legend {
 
 /* Meta */
 
-.meta-list {
+.meta {
 	margin-top: $gutter * 0.5;
 	@include no-bullets;
 	@include inline-blocks('> li', $gutter, $gutter);

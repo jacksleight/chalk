@@ -1,4 +1,4 @@
-<ul class="meta-list">
+<ul class="meta">
 	<?= $this->partial('meta-top') ?>
 	<li>
 		<span class="badge badge-upper badge-<?= $this->app->statusClass($content->status) ?>">

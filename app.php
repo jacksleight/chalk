@@ -33,7 +33,7 @@ $app
     ->param('session', new Session([
         'expires' => null,
         'name'    => '__Chalk__session',
-        'path'    => (new Url("{$app->config->frontBaseUrl}"))->path(),
+        'path'    => (new Url("{$app->config->frontendBaseUrl}"))->path(),
     ]))
     ->module(new Core());
 
@@ -60,7 +60,7 @@ $app->param('backend', $app->lazy(function($vars) {
             ],
         ]))
         ->param('url', new UrlResolver([
-            'baseUrl' => new Url("{$app->config->backBaseUrl}"),
+            'baseUrl' => new Url("{$app->config->backendBaseUrl}"),
             'baseDir' => $backend->dir('public'),
             'router'  => $backend->router,
         ]))
@@ -112,7 +112,7 @@ $app->param('frontend', $app->lazy(function($vars) {
         ]))
         ->param('view', $app->config->view)
         ->param('url', new FrontendUrlResolver([
-            'baseUrl' => new Url("{$app->config->frontBaseUrl}"),
+            'baseUrl' => new Url("{$app->config->frontendBaseUrl}"),
             'baseDir' => $app->root->dir(),
             'router'  => $frontend->router,
         ]))

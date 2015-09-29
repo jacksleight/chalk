@@ -14,10 +14,14 @@ $this->params([
 <? } ?>
 
 <div class="flex-col">
-    <div class="flex body">
+    <div class="header">
         <?= $this->partial('tools') ?>
         <?= $this->partial('header') ?>
-        <?= $this->partial('filters') ?>
+    </div>
+    <div class="flex body">
+        <div class="hanging">
+            <?= $this->partial('filters') ?>
+        </div>
         <?= $this->partial('body') ?>
     </div>
     <div class="footer">

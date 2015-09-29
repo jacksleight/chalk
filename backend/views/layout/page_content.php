@@ -34,7 +34,7 @@
             <a href="<?= $this->url([
                 'controller' => 'index',
                 'action'     => 'publish',
-            ], 'core_index', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-focus btn-block icon-publish">
+            ], 'core_index', true) ?>?redirect=<?= $this->url([]) ?>" class="confirmable btn btn-focus btn-block icon-publish">
                 Publish All Drafts
             </a>
         </div>

@@ -3925,7 +3925,7 @@ legend {
     padding: 25px 0 0 0;
     margin: 25px 0 0 0;
   }
-  .form-block:first-child {
+  .hanging + .form-block {
     border-top: 0;
     padding-top: 0;
   }
@@ -4019,7 +4019,7 @@ legend {
 }
 
 /* Meta */
-.meta-list {
+.meta {
   margin-top: 10px;
   list-style: none;
   margin-left: -10px;
@@ -4028,16 +4028,16 @@ legend {
   font-size: 0;
   color: #969a9e;
 }
-.meta-list li {
+.meta li {
   list-style-image: none;
   list-style-type: none;
   margin-left: 0;
 }
-.meta-list > li {
+.meta > li {
   font-size: 16px;
   font-size: 1rem;
 }
-.meta-list > li {
+.meta > li {
   padding-left: 10px;
   padding-right: 10px;
   margin-bottom: 20px;
@@ -4047,16 +4047,16 @@ legend {
   *zoom: 1;
   *display: inline;
 }
-.meta-list a {
+.meta a {
   text-decoration: none;
 }
-.meta-list li {
+.meta li {
   max-width: 300px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.meta-list li::before {
+.meta li::before {
   color: #2d353c;
 }
 
@@ -5061,15 +5061,46 @@ html, body {
 }
 
 .header {
-  background-color: #f4f4f4;
+  background-color: #e9e9e9;
 }
 .dark.header, .dark .header {
-  background-color: #2f383f;
+  background-color: #232a2f;
+}
+
+.hanging.hanging {
+  padding: 13px 25px;
+  margin-left: -25px;
+  margin-right: -25px;
+  margin-top: -25px !important;
+  border-bottom: 1px solid;
+}
+.hanging.hanging > *:first-child {
+  margin-top: 0 !important;
+}
+.hanging.hanging {
+  border-color: #dedede;
+}
+.dark.hanging.hanging, .dark .hanging.hanging {
+  border-color: #181c20;
+}
+
+.sidebar .header {
+  background-color: transparent;
 }
 
 .main .header {
-  background-color: transparent;
-  padding-top: 25px;
+  background-color: #f9f9f9;
+}
+.dark.main .header, .dark .main .header {
+  background-color: #353f47;
+}
+.main .hanging {
+  background-color: #f9f9f9;
+  border-color: #dedede;
+}
+.dark.main .hanging, .dark .main .hanging {
+  background-color: #353f47;
+  border-color: #181c20;
 }
 .main .flex-col > * {
   border-color: #dedede;
@@ -5079,12 +5110,6 @@ html, body {
 }
 
 /* Bars */
-.topbar {
-  background-color: #f4f4f4;
-}
-.dark.topbar, .dark .topbar {
-  background-color: #2f383f;
-}
 .topbar h1 {
   margin-top: 0;
   text-align: center;

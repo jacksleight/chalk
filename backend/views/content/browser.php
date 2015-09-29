@@ -62,7 +62,7 @@ $info = \Chalk\Chalk::info($index->type);
             </div>
         </div>
     <? } ?>
-	<div class="flex">
+	<div class="flex main">
 		<?= $this->render("/{$info->local->path}/list", [
 			'contents'		=> $this->em($info)->paged(['types' => $filters] + $index->toArray()),
 			'isNewAllowed'	=> false,
