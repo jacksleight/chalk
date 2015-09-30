@@ -29,6 +29,7 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
     use Publishable\Entity,
     	Trackable\Entity,
     	Versionable\Entity {
+            Publishable\Entity::_defineMetadata as _defineMetadataPublishable;
         	Versionable\Entity::__construct as __constructVersionable;
     	}
 	
@@ -53,6 +54,11 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
      * @Column(type="string", nullable=true)
      */
 	protected $subtype;
+
+    /**
+     * @Column(type="json_array", nullable=true)
+     */
+    protected $data = [];
 	
 	/**
      * @OneToMany(targetEntity="\Chalk\Core\Structure\Node", mappedBy="content")
@@ -64,12 +70,32 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
      */
 	protected $isProtected = false;
 	
+    protected static function _defineMetadata($class)
+    {
+        return \Coast\array_merge_smart(parent::_defineMetadata($class), array(
+            'fields' => array(
+                'dataJson' => [
+                    'type' => 'text',
+                ],
+            ),
+        ), self::_defineMetadataPublishable($class));
+    }
+
 	public function __construct()
 	{	
 		$this->nodes = new ArrayCollection();
 		
 		$this->__constructVersionable();
 	}
+
+    public function dataJson($value = null)
+    {
+        if (func_num_args() > 0) {
+            $this->data = json_decode($value, true);
+            return $this;
+        }
+        return json_encode($this->data, JSON_PRETTY_PRINT);
+    }
 			
 	public function searchableContent()
 	{

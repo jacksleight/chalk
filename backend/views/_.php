@@ -6,6 +6,5 @@ return [
         'block' => ['content'],
         'alias' => ['content'],
         'url'   => ['content'],
-        'blank' => ['content'],
     ],
 ];

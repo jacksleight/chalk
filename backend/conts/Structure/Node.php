@@ -107,6 +107,6 @@ class Node extends Action
         return $res->redirect($this->url(array(
             'action'    => 'index',
             'structure' => $node->structure->id,
-        ), 'structure', true));
+        ), 'core_structure', true));
     }
 }

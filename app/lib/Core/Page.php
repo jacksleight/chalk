@@ -32,10 +32,19 @@ class Page extends Content
     /**
      * @Column(type="json_array")
      */
-	protected $blocks = [
-		['name' => 'primary',   'value' => ''],
-		['name' => 'secondary', 'value' => ''],
-	];
+    protected $blocks = [
+        ['name' => 'primary',   'value' => ''],
+        ['name' => 'secondary', 'value' => ''],
+    ];
+
+    public function block($name)
+    {
+        foreach ($this->blocks as $block) {
+            if ($block['name'] == $name) {
+                return $block['value'];
+            }
+        }
+    }
 		
 	public function searchableContent()
 	{

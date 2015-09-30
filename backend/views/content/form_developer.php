@@ -4,11 +4,21 @@
 			<h2>Developer</h2>
 		</div>
 		<div class="form-items">
+			<?= $this->partial('developer-top') ?>
 			<?= $this->render('/element/form-item', array(
 				'entity'		=> $content,
 				'name'			=> 'isProtected',
 				'label'			=> 'Protected',
-			)) ?>	
+			)) ?>
+			<?= $this->render('/element/form-item', array(
+				'type'		=> 'textarea',
+			    'rows'      => 10,
+				'entity'	=> $content,
+				'name'		=> 'dataJson',
+				'label'		=> 'Configuration',
+			    'class'     => 'monospaced editor-code editor-code-json',
+			), 'core') ?>
+			<?= $this->partial('developer-bottom') ?>
 			<?php $this->start() ?>
 				<?= $this->render('/element/form-item', array(
 					'entity'		=> $content,

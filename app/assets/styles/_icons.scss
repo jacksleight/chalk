@@ -66,8 +66,7 @@ $icons: (
 	subtype:	files-empty,
 	browse:		folder-open,
 	alias:		redo2,
-	box:		insert-template,
-	blank:		file-empty
+	box:		insert-template
 );
 
 @each $class, $name in $icons {

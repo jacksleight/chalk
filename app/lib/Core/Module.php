@@ -38,7 +38,7 @@ class Module extends ChalkModule
             ->frontendViewDir($this->name());
 
         $this
-            ->frontendUrlResolver($this->name('structure_node'), function($node) {
+            ->frontendUrlResolver($this->name('structure_node'), function($node, $info) {
                 try {
                     return $this->frontend->url
                         ->route([], $this->name("structure_node_{$node['id']}"), true);
@@ -46,18 +46,18 @@ class Module extends ChalkModule
                     return;
                 }                    
             })
-            ->frontendUrlResolver($this->name('content'), function($content) {
+            ->frontendUrlResolver($this->name('content'), function($content, $info) {
                 try {
                     return $this->frontend->url
-                        ->route([], $this->name("content_{$content['id']}"), true);
+                        ->route([], "{$info->name}_{$content['id']}", true);
                 } catch (\Coast\Router\Exception $e) {
                     return;
                 }
             })
-            ->frontendUrlResolver($this->name('url'), function($url) {
+            ->frontendUrlResolver($this->name('url'), function($url, $info) {
                 return $url['url'];
             })
-            ->frontendUrlResolver($this->name('file'), function($file) {
+            ->frontendUrlResolver($this->name('file'), function($file, $info) {
                 // @todo Remove this once File works with array hydration
                 if (is_array($file)) {
                     $file = $this->em($this->name('file'))->id($file['id']);
@@ -66,6 +66,12 @@ class Module extends ChalkModule
                     ->file($file['file']);
             });
 
+        $this->_frontendInitDomain();
+        $this->_frontendInitRoutes();
+    }
+
+    protected function _frontendInitDomain()
+    {
         $domain = $this->em($this->name('domain'))->id(1);   
         
         $this->frontend->domain = $domain;
@@ -77,7 +83,10 @@ class Module extends ChalkModule
             $structures[$structure->id] = $structure;
         }
         $this->frontend->structures = $structures;
+    }
 
+    protected function _frontendInitRoutes()
+    {
         $conn  = $this->em->getConnection();
         $nodes = $conn->query("
             SELECT n.id,
@@ -86,12 +95,13 @@ class Module extends ChalkModule
                 n.structureId,
                 n.parentId,
                 c.type AS content_type,
+                c.data AS content_data,
                 n.contentId AS content_id
             FROM core_structure_node AS n
                 INNER JOIN core_structure AS s ON s.id = n.structureId
                 INNER JOIN core_domain__core_structure AS d ON d.core_structureId = s.id
                 INNER JOIN core_content AS c ON c.id = n.contentId
-            WHERE d.core_domainId = {$domain->id}
+            WHERE d.core_domainId = {$this->frontend->domain->id}
         ")->fetchAll();
 
         $nodeMap = [];
@@ -99,30 +109,60 @@ class Module extends ChalkModule
             if (!isset($node['content_id'])) {
                 continue;
             }
-            $info   = Chalk::info($node['content_type']);
-            $module = $this->app->module($info->module->name);
-            $params = [
-                'info'       => $info,
-                'node'       => $node,
-                'content'    => $node['content_id'],
-                'module'     => $this->name(),
-                'controller' => $info->local->name,
-                'action'     => 'index',
-            ];
-            $this
-                ->frontendRoute(
-                    $this->name("structure_node_{$node['id']}"),
-                    Router::METHOD_ALL,
-                    $node['path'],
-                    $params
-                )
-                ->frontendRoute(
-                    $this->name("content_{$node['content_id']}"),
-                    Router::METHOD_ALL,
-                    $node['path'],
-                    $params
+            $params    = [];
+            $info      = Chalk::info($node['content_type']);
+            $data      = json_decode($node['content_data'], true);
+            $module    = $this->app->module($info->module->name);
+            $routeInfo = $info;
+            if (isset($data['delegate'])) {
+                $routeInfo = Chalk::info($data['delegate']['name']);
+                $module    = $this->app->module($routeInfo->module->name);
+                $params    = isset($data['delegate']['params'])
+                    ? $data['delegate']['params']
+                    : [];
+            }
+            if (!method_exists($module, 'core_frontendRoutes')) {
+                continue;
+            }
+            $routes = $module->core_frontendRoutes($routeInfo->local->name, $node);
+            if (!$routes) {
+                throw new \Chalk\Exception("No routes were provided for '{$routeInfo->name}' on node '{$node['id']}'");
+            }
+            $i = 0;
+            foreach ($routes as $name => $route) {
+                $route = $route + ['all', '', [], null];
+                $name = $name
+                    ? $module->name("{$info->local->name}_{$node['content_id']}_{$name}")
+                    : $module->name("{$info->local->name}_{$node['content_id']}");
+                $route[1] = $route[1]
+                    ? "{$node['path']}/{$route[1]}"
+                    : "{$node['path']}";
+                $route[2] = [
+                    'info'    => $info,
+                    'node'    => $node,
+                    'data'    => $data,
+                    'content' => $node['content_id'],
+                    'module'  => $module->name(),
+                ] + $route[2] + $params;
+                if (!$i) {
+                    $this->frontendRoute(
+                        $this->name("structure_node_{$node['id']}"),
+                        $route[0],
+                        $route[1],
+                        $route[2],
+                        $route[3]
+                    );
+                }
+                $this->frontendRoute(
+                    $name,
+                    $route[0],
+                    $route[1],
+                    $route[2],
+                    $route[3]
                 );
-           $nodeMap[$node['id']] = $node;
+                $i++;
+            }
+            $nodeMap[$node['id']] = $node;
         }
         $this->nodeMap = $nodeMap;
     }
@@ -204,15 +244,13 @@ class Module extends ChalkModule
                         ->item($this->name('page'), [])
                         ->item($this->name('file'), [])
                         ->item($this->name('url'), [])
-                        ->item($this->name('alias'), [])
-                        ->item($this->name('blank'), []);
+                        ->item($this->name('alias'), []);
                 } else if ($list->filter() == $this->name('link')) {
                     return $list
                         ->item($this->name('page'), [])
                         ->item($this->name('file'), [])
                         ->item($this->name('url'), [])
-                        ->item($this->name('alias'), [])
-                        ->item($this->name('blank'), []);
+                        ->item($this->name('alias'), []);
                 } else if ($list->filter() == $this->name('image')) {
                     return $list
                         ->item($this->name('file'), [
@@ -229,8 +267,7 @@ class Module extends ChalkModule
                         ->item($this->name('file'), [])
                         ->item($this->name('url'), [])
                         ->item($this->name('alias'), [])
-                        ->item($this->name('block'), [])
-                        ->item($this->name('blank'), []);
+                        ->item($this->name('block'), []);
                 }
             })
             ->backendHookListen($this->name('widgetList'), function(InfoList $list) {
@@ -278,5 +315,45 @@ class Module extends ChalkModule
                         ], $this->name('setting')],
                     ], $this->name('setting'));
             });
+    }
+
+    public function core_frontendRoutes($name, $node)
+    {
+        if ($name == 'alias') {
+            return [
+                '' => [Router::METHOD_ALL, '', [
+                    'controller' => 'alias',
+                    'action'     => 'index',
+                ]],
+            ];
+        } else if ($name == 'file') {
+            return [
+                '' => [Router::METHOD_ALL, '', [
+                    'controller' => 'file',
+                    'action'     => 'index',
+                ]],
+            ];
+        } else if ($name == 'null') {
+            return [
+                '' => [Router::METHOD_ALL, '', [
+                    'controller' => 'null',
+                    'action'     => 'index',
+                ]],
+            ];
+        } else if ($name == 'page') {
+            return [
+                '' => [Router::METHOD_ALL, '', [
+                    'controller' => 'page',
+                    'action'     => 'index',
+                ]],
+            ];
+        } else if ($name == 'url') {
+            return [
+                '' => [Router::METHOD_ALL, '', [
+                    'controller' => 'url',
+                    'action'     => 'index',
+                ]],
+            ];
+        }
     }
 }

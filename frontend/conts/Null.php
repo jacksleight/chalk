@@ -11,7 +11,7 @@ use Chalk\Chalk,
 	Coast\Request,
 	Coast\Response;
 
-class Blank extends Action
+class Null extends Action
 {
 	public function index(Request $req, Response $res)
 	{

@@ -10,7 +10,7 @@
 			'type'		=> 'array_textarea',
 			'class'		=> 'monospaced editor-content',
 			'rows'		=> 20,
-			'stackable'	=> false,
+			'stackable'	=> $req->user->isDeveloper(),
 		), 'core') ?>
 	</div>
 </fieldset>

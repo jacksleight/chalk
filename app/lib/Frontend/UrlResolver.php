@@ -35,11 +35,12 @@ class UrlResolver extends CoastUrlResolver
         } else {
             throw new Chalk\Exception('Unknown class');
         }
+        $info = Chalk::info($class);
         foreach ($this->_resolvers as $resolver) {
             if (!is_a($class, $resolver[0], true)) {
                 continue;
             }
-            $result = $resolver[1]($entity);
+            $result = $resolver[1]($entity, $info);
             if (isset($result)) {
                 if ($result) {
                     return $result;

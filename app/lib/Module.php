@@ -125,10 +125,10 @@ abstract class Module implements Access
         return $this;
     }
 
-    public function frontendRoute($name, $method = Router::METHOD_ALL, $path, $params)
+    public function frontendRoute($name, $method = Router::METHOD_ALL, $path, $params = [], \Closure $target = null)
     {
         $this->frontend->router
-            ->route($name, $method, $path, $params);
+            ->route($name, $method, $path, $params, $target);
         return $this;
     }
 
