@@ -17,7 +17,7 @@ $structure = $this->em('Chalk\Core\Structure')->id($req->structure);
 	</div>
 	<?= $this->render("/content/browser", [
 		'index'		=> $index,
-		'filters'	=> 'node',
+		'filters'	=> 'core_node',
 	]) ?>
 	<div class="footer">
 		<ul class="toolbar toolbar-right">

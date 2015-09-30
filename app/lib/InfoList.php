@@ -11,24 +11,42 @@ use Countable;
 
 class InfoList implements Iterator, Countable
 {
+    protected $_filter;
+
     protected $_items = [];
 
-    public function item($name, $remove = false)
+    public function __construct($filter = null)
     {
-        $info = Chalk::info($name);
-        if ($remove) {
-            unset($this->_items[array_search($info, $this->_items)]);
-        } else {
-            $this->_items[] = $info;
+        $this->_filter = $filter;
+    }
+
+    public function filter($filter = null)
+    {
+        if (func_num_args() > 0) {
+            $this->_filter = $filter;
+            return $this;
         }
-        return $this;  
+        return $this->_filter;  
+    }
+
+    public function item($name, $info = null)
+    {
+        if (func_num_args() > 1) {
+            if (isset($info)) {
+                $this->_items[$name] = (object) (((array) Chalk::info($name)) + $info + ['subtypes' => []]);
+            } else {
+                unset($this->_items[$name]);
+            }
+            return $this;
+        }
+        return $this->_items[$name];  
     }
 
     public function items(array $items = null)
     {
-        if (func_num_args() > 1) {
-            foreach ($items as $name) {
-                $this->item($name);
+        if (func_num_args() > 0) {
+            foreach ($items as $name => $info) {
+                $this->item($name, $info);
             }
             return $this;
         }
@@ -67,11 +85,13 @@ class InfoList implements Iterator, Countable
 
     public function first()
     {
-        return count($this->_items) ? $this->_items[0] : null;
+        reset($this->_items);
+        return count($this->_items) ? current($this->_items) : null;
     }
 
     public function last()
     {
-        return count($this->_items) ? $this->_items[count($this->_items) - 1] : null;
+        end($this->_items);
+        return count($this->_items) ? current($this->_items) : null;
     }
 }

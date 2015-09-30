@@ -27,7 +27,7 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
             text            = selection.getContent({format: 'text'})
             richSelection   = /</.test(code) && (!/^<a [^>]+>[^<]+<\/a>$/.test(code) || code.indexOf('href=') == -1);
     
-        Chalk.modal(Chalk.selectUrl.replace('{entity}', Chalk.contentName), {}, function(res) {
+        Chalk.modal(Chalk.selectUrl + '?filters=core_link', {}, function(res) {
             if (!res) {
                 return;
             }

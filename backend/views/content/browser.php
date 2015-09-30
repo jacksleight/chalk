@@ -1,41 +1,23 @@
 <?php
 $filters = isset($filters)
     ? $filters
-    : $index->filters;
-$classes = [];
-foreach ($this->contentList as $contentInfo) {
-    $classes[] = $contentInfo->class;
+    : null;
+if (is_array($filters)) {
+    $infoList = new \Chalk\InfoList();
+    foreach ($filters as $name => $subtypes) {
+        $subtypes = is_array($subtypes)
+            ? $subtypes
+            : [];
+        $infoList->item($name, [
+            'subtypes' => $subtypes,
+        ]);
+    }
+    $filters = $infoList;
+} else {
+    $filters = $this->hook->fire('core_contentList', new \Chalk\InfoList($filters));
 }
-if ($filters == 'node') {
-	$filters = [];
-	foreach ($this->contentList as $contentInfo) {
-		if ($contentInfo->isNode) {
-			$filters[] = $contentInfo->name;
-		}
-	}
-} else if ($filters == 'url') {
-	$filters = [];
-	foreach ($this->contentList as $contentInfo) {
-		if ($contentInfo->isUrl) {
-			$filters[] = $contentInfo->name;
-		}
-	}
-} else if ($filters == 'image') {
-	$filters = [
-		'core_file' => [
-			'image/gif',
-			'image/jpeg',
-			'image/png',
-			'image/webp',
-		],
-	];
-} else if (!isset($filters)) {
-	$filters = $classes;
-}
-$filters = $this->em('core_content')->parseTypes($filters);
-$filters = \Coast\array_intersect_key($filters, $classes);
 if (!isset($index->type)) {
-	$index->type = Chalk\Chalk::info(key($filters))->name;
+    $index->type = $filters->first()->name;
 }
 $info = \Chalk\Chalk::info($index->type);
 ?>
@@ -45,16 +27,13 @@ $info = \Chalk\Chalk::info($index->type);
             <div class="body">
                 <nav class="nav" role="navigation">
                     <ul>
-                        <? foreach ($filters as $filtersType => $filtersSubfilters) { ?>
-                            <?php
-                            $filtersInfo = \Chalk\Chalk::info($filtersType);
-                            ?>
+                        <? foreach ($filters as $filter) { ?>
                             <li><a href="<?= $this->url([]) . $this->url->query([
                                 'filters' => $index->filters,
-                                'type'      => $filtersInfo->name,
-                            ], true) ?>" class="item <?= $filtersInfo->name == $info->name ? 'active' : null ?>">
-                                <span class="icon-sidebar icon-<?= $filtersInfo->icon ?>"></span>
-                                <?= $filtersInfo->plural ?>
+                                'type'    => $filter->name,
+                            ], true) ?>" class="item <?= $filter->name == $info->name ? 'active' : null ?>">
+                                <span class="icon-sidebar icon-<?= $filter->icon ?>"></span>
+                                <?= $filter->plural ?>
                             </a></li>
                         <? } ?>
                     </ul>

@@ -6,11 +6,12 @@
 
 namespace Chalk\Core\Repository;
 
-use Chalk\Chalk,
-    Chalk\Repository,
-    Chalk\Behaviour\Publishable,
-    Chalk\Behaviour\Searchable,
-    DateTime;
+use Chalk\Chalk;
+use Chalk\InfoList;
+use Chalk\Repository;
+use Chalk\Behaviour\Publishable;
+use Chalk\Behaviour\Searchable;
+use DateTime;
 
 class Content extends Repository
 {
@@ -35,7 +36,24 @@ class Content extends Repository
         ];
              
         if (isset($params['types']) && count($params['types'])) {
-            $types = $this->parseTypes($params['types']);
+            if ($params['types'] instanceof InfoList) {
+                $types = [];
+                foreach ($params['types'] as $filter) {
+                    $types[$filter->class] = $filter->subtypes;
+                }
+            } else {
+                $types = $params['types'];
+            }
+            foreach ($types as $class => $subtypes) {
+                $info = Chalk::info($class);
+                $classes = array_merge(
+                    [$info->class],
+                    $this->_em->getClassMetadata($info->class)->subClasses
+                );
+                foreach ($classes as $class) {
+                    $types[$class] = $subtypes;
+                }
+            }
             $lines = [];
             $i = 0;
             foreach ($types as $class => $subtypes) {
@@ -116,30 +134,5 @@ class Content extends Repository
             'hydrate' => Repository::HYDRATE_ARRAY
         ] + $opts);
         return $this->execute($query);
-    }
-
-    public function parseTypes($types)
-    {
-        if (!is_array($types)) {
-            $types = [$types];
-        }
-        $temp = [];
-        foreach ($types as $type => $subtypes) {
-            if (is_numeric($type)) {
-                $type = $subtypes;
-                $subtypes = [];
-            } else if (!is_array($subtypes)) {
-                $subtypes = [$subtypes];
-            }
-            $info = Chalk::info($type);
-            $classes = array_merge(
-                [$info->class],
-                $this->_em->getClassMetadata($info->class)->subClasses
-            );
-            foreach ($classes as $class) {
-                $temp[$class] = $subtypes;
-            }
-        }
-        return $temp;
     }
 }

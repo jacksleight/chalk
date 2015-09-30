@@ -13,7 +13,8 @@
 		<h1>Browse</h1>
 	</div>
 	<?= $this->render("/content/browser", [
-		'index'	=> $index,
+		'index'		=> $index,
+		'filters'	=> $req->filters,
 	]) ?>
 	<div class="footer">
 		<ul class="toolbar toolbar-right">

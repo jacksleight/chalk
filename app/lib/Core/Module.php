@@ -199,13 +199,39 @@ class Module extends ChalkModule
 
         $this
             ->backendHookListen($this->name('contentList'), function(InfoList $list) {
-                return $list
-                    ->item($this->name('page'))
-                    ->item($this->name('file'))
-                    ->item($this->name('url'))
-                    ->item($this->name('alias'))
-                    ->item($this->name('block'))
-                    ->item($this->name('blank'));
+                if ($list->filter() == $this->name('node')) {
+                    return $list
+                        ->item($this->name('page'), [])
+                        ->item($this->name('file'), [])
+                        ->item($this->name('url'), [])
+                        ->item($this->name('alias'), [])
+                        ->item($this->name('blank'), []);
+                } else if ($list->filter() == $this->name('link')) {
+                    return $list
+                        ->item($this->name('page'), [])
+                        ->item($this->name('file'), [])
+                        ->item($this->name('url'), [])
+                        ->item($this->name('alias'), [])
+                        ->item($this->name('blank'), []);
+                } else if ($list->filter() == $this->name('image')) {
+                    return $list
+                        ->item($this->name('file'), [
+                            'subtypes' => [
+                                'image/gif',
+                                'image/jpeg',
+                                'image/png',
+                                'image/webp',
+                            ],
+                        ]);
+                } else {
+                    return $list
+                        ->item($this->name('page'), [])
+                        ->item($this->name('file'), [])
+                        ->item($this->name('url'), [])
+                        ->item($this->name('alias'), [])
+                        ->item($this->name('block'), [])
+                        ->item($this->name('blank'), []);
+                }
             })
             ->backendHookListen($this->name('widgetList'), function(InfoList $list) {
                 return $list;
