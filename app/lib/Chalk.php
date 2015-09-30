@@ -107,8 +107,6 @@ class Chalk extends App
             'singular'  => class_exists($class) && isset($class::$chalkSingular) ? $class::$chalkSingular : implode('_', $entityLcFirst),
             'plural'    => class_exists($class) && isset($class::$chalkPlural)   ? $class::$chalkPlural   : implode('_', $entityLcFirst),
             'icon'      => class_exists($class) && isset($class::$chalkIcon)     ? $class::$chalkIcon     : 'content',
-            'isNode'    => class_exists($class) && isset($class::$chalkIsNode)   ? $class::$chalkIsNode   : false,
-            'isUrl'     => class_exists($class) && isset($class::$chalkIsUrl)    ? $class::$chalkIsUrl    : false,
         ]);
     }
 

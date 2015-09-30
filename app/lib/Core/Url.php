@@ -19,8 +19,6 @@ class Url extends Content
 	public static $chalkSingular = 'Link';
 	public static $chalkPlural   = 'Links';
 	public static $chalkIcon     = 'link';
-	public static $chalkIsNode   = true;
-	public static $chalkIsUrl    = true;
 
     /**
      * @Column(type="coast_url")

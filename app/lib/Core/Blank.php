@@ -17,6 +17,4 @@ class Blank extends Content
 	public static $chalkSingular = 'Placeholder';
 	public static $chalkPlural   = 'Placeholders';
     public static $chalkIcon     = 'blank';
-	public static $chalkIsNode   = true;
-	public static $chalkIsUrl    = true;
 }
