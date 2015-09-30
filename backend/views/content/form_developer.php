@@ -15,7 +15,7 @@
 			    'rows'      => 10,
 				'entity'	=> $content,
 				'name'		=> 'dataJson',
-				'label'		=> 'Configuration',
+				'label'		=> 'Data',
 			    'class'     => 'monospaced editor-code editor-code-json',
 			), 'core') ?>
 			<?= $this->partial('developer-bottom') ?>

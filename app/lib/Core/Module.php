@@ -67,7 +67,7 @@ class Module extends ChalkModule
             });
 
         $this->_frontendInitDomain();
-        $this->_frontendInitRoutes();
+        $this->_frontendInitRouter();
     }
 
     protected function _frontendInitDomain()
@@ -85,7 +85,7 @@ class Module extends ChalkModule
         $this->frontend->structures = $structures;
     }
 
-    protected function _frontendInitRoutes()
+    protected function _frontendInitRouter()
     {
         $conn  = $this->em->getConnection();
         $nodes = $conn->query("

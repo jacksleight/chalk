@@ -2357,7 +2357,7 @@ small {
   text-decoration: none;
   text-align: center;
   display: block;
-  padding: 13px;
+  padding: 11px;
 }
 .toggles a {
   background-color: #dedede;
@@ -4316,7 +4316,7 @@ legend {
 }
 
 .sidebar .tree-root {
-  margin-top: 13px;
+  margin-top: 11px;
 }
 
 .tree {
@@ -5034,7 +5034,7 @@ html, body {
 .header,
 .body,
 .footer {
-  padding: 13px 25px;
+  padding: 11px 25px;
 }
 .header > *:first-child,
 .body > *:first-child,
@@ -5050,8 +5050,8 @@ html, body {
 
 .header,
 .footer {
-  padding-top: 13px;
-  padding-bottom: 13px;
+  padding-top: 11px;
+  padding-bottom: 11px;
 }
 
 .body {
@@ -5060,8 +5060,8 @@ html, body {
   overflow: auto;
 }
 .sidebar .body {
-  padding-top: 13px;
-  padding-bottom: 13px;
+  padding-top: 11px;
+  padding-bottom: 11px;
 }
 
 .header {
@@ -5072,7 +5072,7 @@ html, body {
 }
 
 .hanging.hanging {
-  padding: 13px 25px;
+  padding: 11px 25px;
   margin-left: -25px;
   margin-right: -25px;
   margin-top: -25px !important;
@@ -5192,7 +5192,7 @@ html, body {
 
 .notification {
   line-height: 38px;
-  padding: 13px 25px 14px 25px;
+  padding: 11px 25px 12px 25px;
   background-color: rgba(150, 154, 158, 0.9);
   text-align: center;
   color: white;

@@ -22,7 +22,7 @@
         'label'         => 'URL',
         'placeholder'   => 'http://example.com/',
     ), 'core') ?>
-    <?php if ($content->url->isHttp()) { ?>
+    <?php if ($content->subtype == 'http' || $content->subtype == 'https') { ?>
         <?= $this->render('/element/form-item', array(
             'entity'        => $content,
             'name'          => 'urlCanonical',
