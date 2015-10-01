@@ -6,7 +6,7 @@
             'name'          => 'search',
             'autofocus'     => true,
             'placeholder'   => 'Search…',
-        )) ?>
+        ), 'core') ?>
     </li>
     <?= $this->partial('filters-top') ?>
     <?php
@@ -27,7 +27,7 @@
                 'icon'          => 'icon-subtype',
                 'placeholder'   => 'Type',
                 'values'        => $values,
-            )) ?>
+            ), 'core') ?>
         </li>
     <? } ?>
     <li class="flex-2">
@@ -38,7 +38,7 @@
             'name'          => 'modifyDateMin',
             'icon'          => 'icon-updated',
             'placeholder'   => 'Updated',
-        )) ?>
+        ), 'core') ?>
     </li>
     <li class="flex-2">
         <?= $this->render('/element/form-input', array(
@@ -47,7 +47,7 @@
             'name'          => 'statuses',
             'icon'          => 'icon-status',
             'placeholder'   => 'Status',
-        )) ?>
+        ), 'core') ?>
     </li>
     <?= $this->partial('filters-bottom') ?>
 </ul>

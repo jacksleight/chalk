@@ -111,7 +111,8 @@ class Module extends ChalkModule
                 continue;
             }
             $info = Chalk::info($node['content_type']);
-            if (isset($content['data']['delegate'])) {
+            $name = $info->local->name;
+            if ($info->name == 'core_page' && isset($content['data']['delegate'])) {
                 $delegate = $content['data']['delegate'] + [
                     'name'   => null,
                     'params' => [],
@@ -126,15 +127,15 @@ class Module extends ChalkModule
                 throw new \Chalk\Exception("Module '{$info->module->name}' does not implment 'core_frontendInitNode'");
             }
             $params = [
-                'module'           => $module->name(),
-                'node'             => $node,
-                'content'          => $content,
-                $info->local->name => $content['id'],
+                'group'   => $module->name(),
+                'node'    => $node,
+                'content' => $content,
+                $name     => $content['id'],
             ] + $params;
             $primary = $module->core_frontendInitNode(
+                $info->local->name,
                 $node,
                 $content,
-                $info,
                 $params
             );
             if (!$primary) {
@@ -346,21 +347,22 @@ class Module extends ChalkModule
             });
     }
 
-    public function core_frontendInitNode($node, $content, $info, $params)
+    public function core_frontendInitNode($name, $node, $content, $params)
     {
-        switch ($info->local->name) {
+        switch ($name) {
             case 'page':
             case 'file':
             case 'url':
             case 'alias':
             case 'null':
+                $primary = $this->name("{$name}_{$content['id']}");
                 $this
                     ->frontendRoute(
-                        $primary = $this->name("{$info->local->name}_{$content['id']}"),
+                        $primary,
                         Router::METHOD_ALL,
                         "{$node['path']}",
                         $params + [
-                            'controller' => "{$info->local->name}",
+                            'controller' => "{$name}",
                             'action'     => 'index',
                         ]);
                 return $primary;      

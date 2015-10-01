@@ -6,7 +6,7 @@
             'entity' => $index,
             'name'   => 'contentIds',
             'class'  => 'multiselectable-values',
-        ]) ?>
+        ], 'core') ?>
         <ul class="thumbs <?= $isUploadable ? 'uploadable-list' : null ?>">
             <?php foreach ($contents as $content) { ?>
                 <li class="thumbs_i"><?= $this->inner('thumb', ['content' => $content]) ?></li>
@@ -41,7 +41,7 @@
                         'entity' => $index,
                         'name'   => 'contentIds',
                         'class'  => 'multiselectable-values',
-                    ]) ?>
+                    ], 'core') ?>
                 </th>
                 <th scope="col" class="">Name</th>
                 <th scope="col" class="col-right col-contract">Updated</th>
@@ -56,7 +56,7 @@
                             <?= $this->render('/behaviour/selectable/checkbox', [
                                 'entity'   => $content,
                                 'entities' => $index->contents,
-                            ]) ?>
+                            ], 'core') ?>
                         </td>
                         <th class="" scope="row">
                             <? if ($isEditAllowed) { ?>

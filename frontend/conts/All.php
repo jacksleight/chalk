@@ -36,7 +36,7 @@ class All extends Action
 	{	
         $config = $this->chalk->config->viewScripts;
         
-        $path = "{$config[0]}/{$req->module}/{$req->controller}/{$req->action}";
+        $path = "{$config[0]}/{$req->group}/{$req->controller}/{$req->action}";
 		$params = (array) $req->view + [
 			'req' => $req,
 			'res' => $res,

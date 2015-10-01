@@ -6,7 +6,7 @@
 	'class'		=> 'monospaced editor-content',
 	'rows'		=> 7,
 ), 'core') ?>
-<?php if (!isset($content->advanced['delegate'])) { ?>
+<?php if (!isset($content->data['delegate'])) { ?>
 	<?= $this->render('/element/form-item', array(
 		'type'		=> 'select',
 		'entity'	=> $content,
