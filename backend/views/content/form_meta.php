@@ -6,7 +6,7 @@
 		<?php if ($url) { ?>
 			<li>
 				<a href="<?= $url ?>" target="_blank" class="icon-view">
-					View <?= $content->subtype == 'mailto'
+					<?= $content->status != Chalk\Chalk::STATUS_PUBLISHED ? 'Preview' : 'View' ?> <?= $content->subtype == 'mailto'
 			            ? str_replace('Link', 'strongail Link', $info->singular)
 			            : $info->singular ?>
 				</a>

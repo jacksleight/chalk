@@ -38,36 +38,6 @@ class Module extends ChalkModule
             ->frontendViewDir($this->name());
 
         $this
-            ->frontendRoute(
-                $this->name('page'),
-                Router::METHOD_ALL,
-                "{$this->name('page')}/{page}", [
-                    'module'     => $this->name(),
-                    'controller' => 'page',
-                    'action'     => 'index',
-                ])
-            ->frontendRoute(
-                $this->name('alias'),
-                Router::METHOD_ALL,
-                "{$this->name('alias')}/{alias}", [
-                    'module'     => $this->name(),
-                    'controller' => 'alias',
-                    'action'     => 'index',
-                ]);
-
-        $this
-            ->frontendUrlResolver($this->name('page'), function($page, $info) {
-                return $this->frontend->url
-                    ->route([
-                        'page' => $page['id'],
-                    ], $this->name("page"), true);
-            })
-            ->frontendUrlResolver($this->name('alias'), function($alias, $info) {
-                return $this->frontend->url
-                    ->route([
-                        'alias' => $alias['id'],
-                    ], $this->name("alias"), true);
-            })
             ->frontendUrlResolver($this->name('url'), function($url, $info) {
                 return $url['url'];
             })
@@ -296,7 +266,14 @@ class Module extends ChalkModule
 
         $this
             ->backendHookListen($this->name('contentList'), function(InfoList $list) {
-                if ($list->filter() == $this->name('node')) {
+                if ($list->filter() == $this->name('main')) {
+                    return $list
+                        ->item($this->name('page'), [])
+                        ->item($this->name('file'), [])
+                        ->item($this->name('url'), [])
+                        ->item($this->name('alias'), [])
+                        ->item($this->name('block'), []);
+                } else if ($list->filter() == $this->name('node')) {
                     return $list
                         ->item($this->name('page'), [])
                         ->item($this->name('file'), [])
@@ -318,13 +295,6 @@ class Module extends ChalkModule
                                 'image/webp',
                             ],
                         ]);
-                } else {
-                    return $list
-                        ->item($this->name('page'), [])
-                        ->item($this->name('file'), [])
-                        ->item($this->name('url'), [])
-                        ->item($this->name('alias'), [])
-                        ->item($this->name('block'), []);
                 }
             })
             ->backendHookListen($this->name('widgetList'), function(InfoList $list) {

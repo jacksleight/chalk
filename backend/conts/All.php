@@ -18,9 +18,9 @@ class All extends Action
 {
     public function preDispatch(Request $req, Response $res)
     {
-        $this->navList     = $this->hook->fire('core_navList', new NavList());
-        $this->contentList = $this->hook->fire('core_contentList', new InfoList());
+        $this->contentList = $this->hook->fire('core_contentList', new InfoList('core_main'));
         $this->widgetList  = $this->hook->fire('core_widgetList', new InfoList());
+        $this->navList     = $this->hook->fire('core_navList', new NavList());
 
         $session = $this->session->data('__Chalk');
         if (!isset($session->user) && $req->controller !== 'auth') {
