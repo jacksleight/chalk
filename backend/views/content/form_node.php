@@ -2,7 +2,7 @@
 	<fieldset class="form-block">
 		<div class="form-legend">
 			<h2>Structure</h2>
-			<p>These only apply when the <?= strtolower($info->singular) ?> is used in the <strong><?= $node->structure->name ?></strong>.</p>
+			<p>These only apply when the <?= strtolower($info->singular) ?> is used in the <strong><?= $node->structure->name ?></strong> structure.</p>
 		</div>
 		<div class="form-items">
 			<?= $this->render('/element/form-item', array(

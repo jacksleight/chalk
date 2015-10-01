@@ -72,18 +72,13 @@ class Url extends Content
 	{
 		if (isset($url)) {
 			if ($url != $this->url && $url->isHttp()) {
-				$this->urlCanonical = $this->resolveCanonical($url);
+				$this->urlCanonical = $url->toCanonical();
 			}
 			$this->url		= $url;
 			$this->subtype	= $url->scheme();
 			return $this;
 		}
 		return $this->url;
-	}
-
-	public function resolveCanonical(CoastUrl $url = null)
-	{
-		return $url;
 	}
 
 	public function mailtoEmailAddress($emailAddress = null)
