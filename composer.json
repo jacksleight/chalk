@@ -1,7 +1,7 @@
 {
     "name": "jacksleight/chalk",
     "type": "project",
-    "description": "Content management system built on Coast",
+    "description": "Chalk content managment system",
     "keywords": ["cms"],
     "homepage": "http://chalk.jacksleight.com/",
     "license": "MIT",
