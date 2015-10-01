@@ -30,6 +30,6 @@ class Null extends Action
 
 	public function index(Request $req, Response $res)
 	{
-        return Controller::STOP;
+        return $this->stop();
     }
 }

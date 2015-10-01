@@ -33,7 +33,7 @@ class Auth extends Action
             return;
         }
 
-        $user = $this->em('Chalk\Core\User')->one(['emailAddress' => $login->emailAddress]);
+        $user = $this->em('core_user')->one(['emailAddress' => $login->emailAddress]);
         if (!isset($user)) {
             $login->password = null;
             $login->addError('emailAddress', 'login');
@@ -71,7 +71,7 @@ class Auth extends Action
             return;
         }
 
-        $user = $this->em('Chalk\Core\User')->one(['emailAddress' => $passwordRequest->emailAddress]);
+        $user = $this->em('core_user')->one(['emailAddress' => $passwordRequest->emailAddress]);
         if (!isset($user)) {
             $passwordRequest->addError('emailAddress', 'Sorry, that account could not be found');
             return;
@@ -95,7 +95,7 @@ class Auth extends Action
 
     public function passwordReset(Request $req, Response $res)
     {
-        $user = $this->em('Chalk\Core\User')->one(['token' => $req->token]);
+        $user = $this->em('core_user')->one(['token' => $req->token]);
         if (!isset($user)) {
           $this->notify('Sorry, your password reset link has expired, please request a new one', 'negative');
             return $res->redirect($this->url([], 'core_passwordRequest', true));
