@@ -183,7 +183,7 @@ html, body {
 		width: 100%;
 		@include transition(bottom $speed ease);
 		&.notification-show {
-			bottom: -65px;
+			bottom: -61px;
 		}
 	}
 }
