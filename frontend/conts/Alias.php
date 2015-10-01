@@ -13,6 +13,20 @@ use Chalk\Chalk,
 
 class Alias extends Action
 {
+    public function preDispatch(Request $req, Response $res)
+    {
+        $session = $this->session->data('__Chalk');
+        $alias = $this->em('core_alias')
+            ->id($req->alias, [
+                'isPublished' => isset($session->user) ? null : true,
+            ]);
+        if (!$alias) {
+            return false;
+        }
+        $req->alias       = $alias;
+        $req->view->alias = $alias;
+    }
+
 	public function index(Request $req, Response $res)
 	{
         return $res->redirect($this->url($req->alias->content));

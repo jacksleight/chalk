@@ -6,15 +6,16 @@
 
 namespace Chalk\Core\Frontend\Controller;
 
-use Chalk\Chalk,
-	Coast\Controller\Action,
-	Coast\Request,
-	Coast\Response;
+use Chalk\Chalk;
+use Coast\Controller;
+use Coast\Controller\Action;
+use Coast\Request;
+use Coast\Response;
 
 class Null extends Action
 {
 	public function index(Request $req, Response $res)
 	{
-        $req->isRender = false;
+        return Controller::STOP;
     }
 }

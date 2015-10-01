@@ -13,6 +13,20 @@ use Chalk\Chalk,
 
 class Page extends Action
 {
+    public function preDispatch(Request $req, Response $res)
+    {
+        $session = $this->session->data('__Chalk');
+        $page = $this->em('core_page')
+            ->id($req->page, [
+                'isPublished' => isset($session->user) ? null : true,
+            ]);
+        if (!$page) {
+            return false;
+        }
+        $req->page       = $page;
+        $req->view->page = $page;
+    }
+
 	public function index(Request $req, Response $res)
 	{}
 }

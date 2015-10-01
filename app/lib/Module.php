@@ -95,6 +95,9 @@ abstract class Module implements Access
     public function frontendInit()
     {}
 
+    public function frontendInitSecondary()
+    {}
+
     public function frontendControllerNspace($name, $nspace = 'Frontend\Controller')
     {
         $this->frontend->controller
@@ -129,6 +132,13 @@ abstract class Module implements Access
     {
         $this->frontend->router
             ->route($name, $method, $path, $params, $target);
+        return $this;
+    }
+
+    public function frontendRouteAlias($name, $value)
+    {
+        $this->frontend->router
+            ->alias($name, $value);
         return $this;
     }
 
@@ -174,6 +184,13 @@ abstract class Module implements Access
     {
         $this->backend->router
             ->route($name, $method, $path, $params);
+        return $this;
+    }
+
+    public function backendRouteAlias($name, $value)
+    {
+        $this->backend->router
+            ->alias($name, $value);
         return $this;
     }
 }
