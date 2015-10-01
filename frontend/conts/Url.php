@@ -6,19 +6,20 @@
 
 namespace Chalk\Core\Frontend\Controller;
 
-use Chalk\Chalk,
-    Coast\Controller\Action,
-    Coast\Request,
-    Coast\Response;
+use Chalk\Chalk;
+use Coast\Controller\Action;
+use Coast\Request;
+use Coast\Response;
 
 class Url extends Action
 {
     public function preDispatch(Request $req, Response $res)
     {
-        $session = $this->session->data('__Chalk');
         $url = $this->em('core_url')
             ->id($req->url, [
-                'isPublished' => isset($session->user) ? null : true,
+                'isPublished' => isset($this->session->data('__Chalk\Backend')->user)
+                    ? null
+                    : true,
             ]);
         if (!$url) {
             return false;

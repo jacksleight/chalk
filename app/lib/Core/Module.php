@@ -38,6 +38,18 @@ class Module extends ChalkModule
             ->frontendViewDir($this->name());
 
         $this
+            ->frontendUrlResolver($this->name('structure_node'), function($node, $info) {
+                try {
+                    return $this->frontend->url
+                        ->route([], $this->name("structure_node_{$node['id']}"), true);   
+                } catch (\Coast\Router\Exception $e) {}             
+            })
+            ->frontendUrlResolver($this->name('content'), function($content, $info) {
+                try {
+                    return $this->frontend->url
+                        ->route([], $this->name("content_{$content['id']}"), true);
+                } catch (\Coast\Router\Exception $e) {}
+            })
             ->frontendUrlResolver($this->name('url'), function($url, $info) {
                 return $url['url'];
             })
@@ -48,26 +60,13 @@ class Module extends ChalkModule
                 }
                 return $this->frontend->url
                     ->file($file['file']);
-            })
-            ->frontendUrlResolver($this->name('content'), function($content, $info) {
-                try {
-                    return $this->frontend->url
-                        ->route([], $this->name("content_{$content['id']}"), true);
-                } catch (\Coast\Router\Exception $e) {
-                    return;
-                }
-            })
-            ->frontendUrlResolver($this->name('structure_node'), function($node, $info) {
-                try {
-                    return $this->frontend->url
-                        ->route([], $this->name("structure_node_{$node['id']}"), true);   
-                } catch (\Coast\Router\Exception $e) {
-                    return;
-                }             
             });
+
+        $this->frontendInitDomain();
+        $this->frontendInitNodes();
     }
 
-    public function frontendInitSecondary()
+    public function frontendInitDomain()
     {
         $domain = $this->em($this->name('domain'))->id(1);   
         
@@ -80,7 +79,10 @@ class Module extends ChalkModule
             $structures[$structure->id] = $structure;
         }
         $this->frontend->structures = $structures;
+    }
 
+    public function frontendInitNodes()
+    {
         $conn  = $this->em->getConnection();
         $nodes = $conn->query("
             SELECT n.id,
@@ -88,9 +90,9 @@ class Module extends ChalkModule
                 n.name, n.slug, n.path,
                 n.structureId,
                 n.parentId,
+                c.id AS content_id,
                 c.type AS content_type,
-                c.data AS content_data,
-                n.contentId AS content_id
+                c.data AS content_data
             FROM core_structure_node AS n
                 INNER JOIN core_structure AS s ON s.id = n.structureId
                 INNER JOIN core_domain__core_structure AS d ON d.core_structureId = s.id
@@ -104,11 +106,11 @@ class Module extends ChalkModule
                 'id'   => $node['content_id'],
                 'type' => $node['content_type'],
                 'data' => json_decode($node['content_data'], true),
-                'info' => Chalk::info($node['content_type']),
             ];
             if (!isset($content['id'])) {
                 continue;
             }
+            $info = Chalk::info($node['content_type']);
             if (isset($content['data']['delegate'])) {
                 $delegate = $content['data']['delegate'] + [
                     'name'   => null,
@@ -117,22 +119,22 @@ class Module extends ChalkModule
                 $info   = Chalk::info($delegate['name']);
                 $params = $delegate['params'];
             } else {
-                $info   = $content['info'];
                 $params = [];
             }
             $module = $this->app->module($info->module->name);
             if (!method_exists($module, 'core_frontendInitNode')) {
-                continue;
+                throw new \Chalk\Exception("Module '{$info->module->name}' does not implment 'core_frontendInitNode'");
             }
             $params = [
                 'module'           => $module->name(),
                 'node'             => $node,
+                'content'          => $content,
                 $info->local->name => $content['id'],
             ] + $params;
             $primary = $module->core_frontendInitNode(
                 $node,
-                $info,
                 $content,
+                $info,
                 $params
             );
             if (!$primary) {
@@ -344,7 +346,7 @@ class Module extends ChalkModule
             });
     }
 
-    public function core_frontendInitNode($node, $info, $content, $params)
+    public function core_frontendInitNode($node, $content, $info, $params)
     {
         switch ($info->local->name) {
             case 'page':

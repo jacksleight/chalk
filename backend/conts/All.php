@@ -22,7 +22,7 @@ class All extends Action
         $this->widgetList  = $this->hook->fire('core_widgetList', new InfoList());
         $this->navList     = $this->hook->fire('core_navList', new NavList());
 
-        $session = $this->session->data('__Chalk');
+        $session = $this->session->data('__Chalk\Backend');
         if (!isset($session->user) && $req->controller !== 'auth') {
             $referrer = (string) $req->url()->toPart(Url::PART_PATH, true);
             return $res->redirect($this->url([], 'core_login', true) . $this->url->query([

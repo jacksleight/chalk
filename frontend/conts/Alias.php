@@ -6,19 +6,20 @@
 
 namespace Chalk\Core\Frontend\Controller;
 
-use Chalk\Chalk,
-	Coast\Controller\Action,
-	Coast\Request,
-	Coast\Response;
+use Chalk\Chalk;
+use Coast\Controller\Action;
+use Coast\Request;
+use Coast\Response;
 
 class Alias extends Action
 {
     public function preDispatch(Request $req, Response $res)
     {
-        $session = $this->session->data('__Chalk');
         $alias = $this->em('core_alias')
             ->id($req->alias, [
-                'isPublished' => isset($session->user) ? null : true,
+                'isPublished' => isset($this->session->data('__Chalk\Backend')->user)
+                    ? null
+                    : true,
             ]);
         if (!$alias) {
             return false;

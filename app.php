@@ -126,9 +126,6 @@ $app->param('frontend', $app->lazy(function($vars) {
     foreach ($app->modules() as $module) {
         $module->frontendInit();
     }
-    foreach ($app->modules() as $module) {
-        $module->frontendInitSecondary();
-    }
     return $frontend;
 }));
 
