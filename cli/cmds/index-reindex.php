@@ -4,6 +4,8 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
+use Chalk\App as Chalk;
+
 if (cli\choose("Are you sure", 'yn', 'n') == 'n') {
 	exit;
 }
@@ -15,12 +17,12 @@ try {
 
 	cli\line('Clearing index..');
 	$conn = $app->em->getConnection();
-	$table = \Chalk\Chalk::info('Chalk\Core\Index')->name;
+	$table = Chalk::info('Chalk\Core\Index')->name;
 	$conn->exec("TRUNCATE TABLE {$table}");
 
 	$metas = $app->em->getMetadataFactory()->getAllMetadata();
 	foreach ($metas as $meta) {
-		if (!is_a($meta->name, 'Chalk\Behaviour\Searchable', true) || $meta->name != $meta->rootEntityName) {
+		if (!is_a($meta->name, 'Chalk\Core\Behaviour\Searchable', true) || $meta->name != $meta->rootEntityName) {
 			continue;
 		}
 		$limit	= 100;

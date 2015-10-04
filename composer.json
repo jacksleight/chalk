@@ -25,10 +25,11 @@
     "bin": ["cli/chalk", "cli/chalk.php"],
     "autoload": {
         "psr-4": {
+            "Toast\\": "app/toast/",
             "Chalk\\": "app/lib/",
-            "Chalk\\Core\\Backend\\Controller\\": "backend/conts/",
-            "Chalk\\Core\\Frontend\\Controller\\": "frontend/conts/",
-            "Toast\\": "app/toast/"
+            "Chalk\\Core\\": "modules/core/lib/",
+            "Chalk\\Core\\Backend\\Controller\\": "modules/core/backend/conts/",
+            "Chalk\\Core\\Frontend\\Controller\\": "modules/core/frontend/conts/"
         }
     }
 }

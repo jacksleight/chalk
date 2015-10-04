@@ -7,7 +7,7 @@
 namespace Chalk;
 
 use Chalk\Backend;
-use Chalk\Chalk;
+use Chalk\App as Chalk;
 use Chalk\Frontend;
 use Chalk\Module;
 use Closure;
@@ -16,6 +16,7 @@ use Coast\Dir;
 use Coast\File;
 use Coast\Router;
 use ReflectionClass;
+use Doctrine\Common\EventSubscriber;
 
 abstract class Module implements Access
 {
@@ -82,6 +83,13 @@ abstract class Module implements Access
     {
         $this->em
             ->dir($nspace, $this->dir($path));
+        return $this;
+    }
+
+    public function entityListener($name, EventSubscriber $listener)
+    {
+        $this->em
+            ->listener($name, $listener);
         return $this;
     }
 

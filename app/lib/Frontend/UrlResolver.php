@@ -6,8 +6,7 @@
 
 namespace Chalk\Frontend;
 
-use Chalk\Chalk;
-use Chalk\Core\entity;
+use Chalk\App as Chalk;
 use Closure;
 use Coast\UrlResolver as CoastUrlResolver;
 

@@ -12,6 +12,7 @@ use DOMDocument;
 use DOMXPath;
 use Coast\Request; 
 use Coast\Response; 
+use Chalk\App as Chalk;
 use Chalk\Core;
 use Chalk\Core\Structure\Node;
 
@@ -58,7 +59,7 @@ class Frontend extends App
                     $content = $this->em('core_content')->id($data['content']['id']);
                     $el->setAttribute('href', $this->url($content));
                 } else if (isset($data['widget'])) {
-                    $info   = \Chalk\Chalk::info($data['widget']['name']);
+                    $info   = Chalk::info($data['widget']['name']);
                     $class  = $info->class;
                     $widget = (new $class())->fromArray($data['widget']['params']);
                     $html   = $this->view->render('chalk/' . $info->module->path . '/' . $info->local->path, $widget->toArray());

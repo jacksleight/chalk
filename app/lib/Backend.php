@@ -6,8 +6,7 @@
 
 namespace Chalk;
 
-use Chalk\Chalk;
-use Chalk\Core;
+use Chalk\App as Chalk;
 use Chalk\Event;
 use Chalk\Module;
 use Closure;
@@ -47,30 +46,6 @@ class Backend extends App
         unset($layouts['default']);
         ksort($layouts);
         return $layouts;
-    }
-
-    public function publish()
-    {
-        // foreach (self::$_publishables as $class) {
-           $entities = $this->em('core_content')->all(['isPublishable' => true]);
-           // if (is_subclass_of($class, 'Chalk\Behaviour\Versionable')) {
-           //     $last = null;
-           //     foreach ($entities as $entity) {
-           //         $entity->status = $entity->master === $last
-           //         ? Chalk::STATUS_ARCHIVED
-           //         : Chalk::STATUS_PUBLISHED;
-           //         $last = $entity->master;
-           //     }
-           // } else {
-           //     foreach ($entities as $entity) {
-           //         $entity->status = Chalk::STATUS_PUBLISHED;
-           //     }
-           // }
-           foreach ($entities as $entity) {
-               $entity->status = Chalk::STATUS_PUBLISHED;
-           }
-        // }
-        $this->em->flush();
     }
 
     public function statusClass($status)

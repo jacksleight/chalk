@@ -6,7 +6,7 @@
 
 namespace Chalk;
 
-use Chalk\Chalk,
+use Chalk\App as Chalk,
     Doctrine\ORM\Event\LoadClassMetadataEventArgs,
     Doctrine\ORM\Events,
     Doctrine\Common\EventSubscriber;

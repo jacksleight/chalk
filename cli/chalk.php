@@ -4,7 +4,7 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-use Chalk\Chalk;
+use Chalk\App as Chalk;
 
 if (php_sapi_name() != 'cli') {
 	exit("Must be run from the command line\n");

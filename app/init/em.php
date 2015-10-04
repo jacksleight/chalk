@@ -4,20 +4,13 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-use Doctrine\ORM\Configuration,
-	Doctrine\Common\EventManager,
-	Doctrine\ORM\EntityManager,
-	Doctrine\ORM\Proxy\Autoloader,
-	Chalk\Doctrine\ORM\EntityManager as ChalkEntityManager,
-	Chalk\Doctrine\NamingStrategy as NamingStrategy,
-	Chalk\Listener as Listener,
-	Chalk\Core\File\Listener as FileListener,
-	Chalk\Core\Structure\Node\Listener as NodeListener,
-	Chalk\Behaviour\Publishable\Listener as PublishableListener,
-	Chalk\Behaviour\Loggable\Listener as LoggableListener,
-	Chalk\Behaviour\Searchable\Listener as SearchableListener,
-	Chalk\Behaviour\Trackable\Listener as TrackableListener,
-	Chalk\Behaviour\Versionable\Listener as VersionableListener;
+use Doctrine\ORM\Configuration;
+use Doctrine\Common\EventManager;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Proxy\Autoloader;
+use Chalk\Doctrine\ORM\EntityManager as ChalkEntityManager;
+use Chalk\Doctrine\NamingStrategy as NamingStrategy;
+use Chalk\Listener as Listener;
 
 \Coast\Doctrine\register_dbal_types();
 
@@ -38,13 +31,6 @@ Autoloader::register($app->config->dataDir->dir('proxy'), 'Chalk\Proxy');
 
 $evm = new EventManager();
 $evm->addEventSubscriber(new Listener());
-$evm->addEventSubscriber(new FileListener());
-$evm->addEventSubscriber(new NodeListener());
-$evm->addEventSubscriber(new PublishableListener());
-// $evm->addEventSubscriber(new LoggableListener());
-$evm->addEventSubscriber(new SearchableListener());
-$evm->addEventSubscriber(new VersionableListener());
-$evm->addEventSubscriber($trackable = new TrackableListener());
 
 $em = new ChalkEntityManager(EntityManager::create(
 	$app->config->database + [
@@ -54,7 +40,6 @@ $em = new ChalkEntityManager(EntityManager::create(
 	$config,
 	$evm
 ));
-$em->trackable($trackable);
 $em->getConnection()->exec("SET NAMES utf8");
 
 Toast\Wrapper::$em = $em;

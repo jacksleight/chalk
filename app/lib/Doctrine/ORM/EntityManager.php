@@ -6,11 +6,12 @@
 
 namespace Chalk\Doctrine\ORM;
 
-use Chalk\Chalk;
+use Chalk\App as Chalk;
+use Doctrine\Common\EventSubscriber;
 
 class EntityManager extends \Coast\Doctrine\ORM\EntityManager
 {
-    protected $_trackable;
+    protected $_listeners = [];
 
     public function __invoke($class)
     {
@@ -28,20 +29,25 @@ class EntityManager extends \Coast\Doctrine\ORM\EntityManager
         }
     }
 
-    public function trackable(\Chalk\Behaviour\Trackable\Listener $trackable = null)
-    {
-        if (isset($trackable)) {
-            $this->_trackable = $trackable;
-            return $this;
-        }
-        return $this->_trackable;
-    }
-
     public function dir($name, \Coast\Dir $dir)
     {
         $this
             ->getConfiguration()
             ->getMetadataDriverImpl()
             ->addPaths([$name => $dir->name()]);
+    }
+
+    public function listener($name, EventSubscriber $listener = null)
+    {
+        if (func_num_args() > 1) {
+            $this->_listeners[$name] = $listener;
+            $this
+                ->getEventManager()
+                ->addEventSubscriber($listener);
+            return $this;
+        }
+        return isset($this->_listeners[$name])
+            ? $this->_listeners[$name]
+            : null;
     }
 }

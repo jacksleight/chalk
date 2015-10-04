@@ -6,6 +6,7 @@
 
 namespace Chalk;
 
+use Chalk\App as Chalk;
 use Iterator;
 use Countable;
 

@@ -6,7 +6,7 @@
 
 namespace Chalk\Doctrine;
 
-use Chalk\Chalk,
+use Chalk\App as Chalk,
     Doctrine\ORM\Mapping\NamingStrategy as DoctrineNamingStrategy;
 
 class NamingStrategy implements DoctrineNamingStrategy

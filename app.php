@@ -4,15 +4,14 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-use Chalk\Chalk;
+use Chalk\App as Chalk;
 use Chalk\Core\File;
 use Chalk\Core\Module as Core;
 use Chalk\Backend;
-use Chalk\Backend\NavManager;
+use Chalk\Backend\Notifier;
 use Chalk\Frontend;
 use Chalk\Frontend\UrlResolver as FrontendUrlResolver;
 use Chalk\HookManager;
-use Chalk\Notifier;
 use Coast\Controller;
 use Coast\Request;
 use Coast\Response;
