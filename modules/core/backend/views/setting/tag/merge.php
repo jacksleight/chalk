@@ -4,11 +4,7 @@
 <form action="<?= $this->url->route() ?>" method="post" class="flex-col">
 	<div class="header">
 		<h1>
-			<?php if (!$structure->isNew()) { ?>
-				<?= $structure->name ?>
-			<?php } else { ?>
-				New <?= $info->singular ?>
-			<?php } ?>
+			Merge Tags
 		</h1>
 	</div>
 	<div class="flex body">
@@ -18,10 +14,18 @@
 			</div>
 			<div class="form-items">
 				<?= $this->render('/element/form-item', array(
-					'entity'	=> $structure,
-					'name'		=> 'name',
-					'label'		=> 'Name',
-					'autofocus'	=> true,
+					'entity'	=> $merge,
+					'name'		=> 'sourceTag',
+					'label'		=> 'Source',
+					'null'		=> 'Select…',
+					'values'	=> $tags = $this->em('core_tag')->all(),
+				)) ?>
+				<?= $this->render('/element/form-item', array(
+					'entity'	=> $merge,
+					'name'		=> 'targetTag',
+					'label'		=> 'Target',
+					'null'		=> 'Select…',
+					'values'	=> $tags,
 				)) ?>
 			</div>
 		</fieldset>
@@ -30,20 +34,9 @@
 		<ul class="toolbar toolbar-right">
 			<li>
 				<button class="btn btn-positive icon-ok">
-					Save <?= $info->singular ?>
+					Merge <?= $info->plural ?>
 				</button>
 			</li>
-		</ul>
-		<ul class="toolbar">
-			<?php if (!$structure->isNew()) { ?>
-				<li>
-					<a href="<?= $this->url([
-						'action' => 'delete',
-					]) ?>" class="btn btn-negative btn-out confirmable icon-delete">
-						Delete <?= $info->singular ?>
-					</a>
-				</li>
-			<?php } ?>
 		</ul>
 	</fieldset>
 </form>

@@ -270,11 +270,17 @@ small {
 	padding-top: 1px;
 	padding-bottom: 2px;
 	display: inline-block;
+	&.badge-out {
+		@include colors(1);
+	}
 	&.badge-light {
 		@include colors(null, 6, 6);
 	}
 	&.badge-lighter {
 		@include colors(1, 2, 2);
+		&.badge-out {
+			color: $color-positive;
+		}
 	}
 	&.badge-positive {
 		background-color: $color-positive;
@@ -1143,6 +1149,7 @@ legend {
 		width: 100%;
 		padding: $gutter-x 0 0 0;
 		margin: $gutter-x 0 0 0;
+		&:first-child,
 		.hanging + & {
 			border-top: 0;
 			padding-top: 0;			

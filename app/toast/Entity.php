@@ -8,6 +8,7 @@ namespace Toast;
 
 use Coast\Model;
 use Coast\Validator;
+use Toast\Wrapper;
 
 class Entity extends Model
 {
@@ -30,7 +31,7 @@ class Entity extends Model
 	{
 		$class = get_called_class();
 		try {
-			$meta = \Toast\Wrapper\Collection::$em->getClassMetadata($class);
+			$meta = Wrapper::$em->getClassMetadata($class);
 		} catch(\Exception $e) {
 			return [];
 		}

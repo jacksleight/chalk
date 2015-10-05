@@ -4,8 +4,8 @@
 <form action="<?= $this->url->route() ?>" method="post" class="flex-col">
 	<div class="header">
 		<h1>
-			<?php if (!$structure->isNew()) { ?>
-				<?= $structure->name ?>
+			<?php if (!$tag->isNew()) { ?>
+				<?= $tag->name ?>
 			<?php } else { ?>
 				New <?= $info->singular ?>
 			<?php } ?>
@@ -18,10 +18,9 @@
 			</div>
 			<div class="form-items">
 				<?= $this->render('/element/form-item', array(
-					'entity'	=> $structure,
+					'entity'	=> $tag,
 					'name'		=> 'name',
 					'label'		=> 'Name',
-					'autofocus'	=> true,
 				)) ?>
 			</div>
 		</fieldset>
@@ -35,7 +34,7 @@
 			</li>
 		</ul>
 		<ul class="toolbar">
-			<?php if (!$structure->isNew()) { ?>
+			<?php if (!$tag->isNew()) { ?>
 				<li>
 					<a href="<?= $this->url([
 						'action' => 'delete',

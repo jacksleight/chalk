@@ -27,6 +27,7 @@ class Content extends Repository
         $params = $params + [
             'types'         => null,
             'subtypes'      => null,
+            'tags'          => null,
             'createDateMin' => null,
             'createDateMax' => null,
             'modifyDateMin' => null,
@@ -66,11 +67,17 @@ class Content extends Repository
                 $i++;
             }
             $query->andWhere(implode(' OR ', $lines));
-        }   
+        }
         if (isset($params['subtypes']) && count($params['subtypes'])) {
             $query
                 ->andWhere("{$this->alias()}.subtype IN (:subtypes)")
                 ->setParameter('subtypes', $params['subtypes']);
+        }
+
+        if (isset($params['tags']) && count($params['tags'])) {
+            $query
+                ->andWhere(":tags MEMBER OF {$this->alias()}.tags")
+                ->setParameter('tags', $params['tags']);
         }
 
         if (isset($params['createDateMin'])) {
@@ -117,6 +124,10 @@ class Content extends Repository
                 ->andWhere("{$this->alias()}.status IN (:statuses)")
                 ->setParameter('statuses', $params['statuses']);
         }
+
+        $query
+            ->addSelect("{$this->alias()}t")
+            ->leftJoin("{$this->alias()}.tags", "{$this->alias()}t");
 
         $this->publishableQueryModifier($query, $params);
         $this->searchableQueryModifier($query, $params);

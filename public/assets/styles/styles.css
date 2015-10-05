@@ -2033,29 +2033,29 @@
 /* Fonts */
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Light-webfont.eot?1420464718');
-  src: url('../fonts/OpenSans-Light-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Light-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-Light-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-Light-webfont.svg?1420464718') format('svg');
+  src: url('../fonts/OpenSans-Light-webfont.eot?1444076319');
+  src: url('../fonts/OpenSans-Light-webfont.eot?&1444076319#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Light-webfont.woff?1444076319') format('woff'), url('../fonts/OpenSans-Light-webfont.ttf?1444076319') format('truetype'), url('../fonts/OpenSans-Light-webfont.svg?1444076319') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Regular-webfont.eot?1420464718');
-  src: url('../fonts/OpenSans-Regular-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Regular-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg?1420464718') format('svg');
+  src: url('../fonts/OpenSans-Regular-webfont.eot?1444076319');
+  src: url('../fonts/OpenSans-Regular-webfont.eot?&1444076319#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Regular-webfont.woff?1444076319') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf?1444076319') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg?1444076319') format('svg');
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-LightItalic-webfont.eot?1420464718');
-  src: url('../fonts/OpenSans-LightItalic-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-LightItalic-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-LightItalic-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-LightItalic-webfont.svg?1420464718') format('svg');
+  src: url('../fonts/OpenSans-LightItalic-webfont.eot?1444076319');
+  src: url('../fonts/OpenSans-LightItalic-webfont.eot?&1444076319#iefix') format('embedded-opentype'), url('../fonts/OpenSans-LightItalic-webfont.woff?1444076319') format('woff'), url('../fonts/OpenSans-LightItalic-webfont.ttf?1444076319') format('truetype'), url('../fonts/OpenSans-LightItalic-webfont.svg?1444076319') format('svg');
   font-weight: normal;
   font-style: italic;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Italic-webfont.eot?1420464718');
-  src: url('../fonts/OpenSans-Italic-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Italic-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-Italic-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-Italic-webfont.svg?1420464718') format('svg');
+  src: url('../fonts/OpenSans-Italic-webfont.eot?1444076319');
+  src: url('../fonts/OpenSans-Italic-webfont.eot?&1444076319#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Italic-webfont.woff?1444076319') format('woff'), url('../fonts/OpenSans-Italic-webfont.ttf?1444076319') format('truetype'), url('../fonts/OpenSans-Italic-webfont.svg?1444076319') format('svg');
   font-weight: bold;
   font-style: italic;
 }
@@ -2419,6 +2419,12 @@ small {
   background-color: #181c20;
   border-color: #181c20;
 }
+.badge.badge-out {
+  color: #5f5f5f;
+}
+.dark.badge.badge-out, .dark .badge.badge-out {
+  color: #dedede;
+}
 .badge.badge-light {
   background-color: #bcbcbc;
   border-color: #bcbcbc;
@@ -2436,6 +2442,9 @@ small {
   color: #dedede;
   background-color: #232a2f;
   border-color: #232a2f;
+}
+.badge.badge-lighter.badge-out {
+  color: #09bd5e;
 }
 .badge.badge-positive {
   background-color: #09bd5e;
@@ -3925,7 +3934,7 @@ legend {
     padding: 25px 0 0 0;
     margin: 25px 0 0 0;
   }
-  .hanging + .form-block {
+  .form-block:first-child, .hanging + .form-block {
     border-top: 0;
     padding-top: 0;
   }

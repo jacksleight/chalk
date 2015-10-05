@@ -6,7 +6,7 @@ $structures = $this->em($info)
 ?>
 
 <div class="flex-col">
-	<div class="body">
+	<div class="header">
 		<ul class="toolbar toolbar-right">
 			<li>
 				<a href="<?= $this->url([
@@ -17,6 +17,8 @@ $structures = $this->em($info)
 			</li>
 		</ul>
 		<h1><?= $info->plural ?></h1>
+	</div>
+	<div class="body">
 		<table>
 			<colgroup>
 				<col class="col-name">

@@ -357,6 +357,13 @@ class Module extends ChalkModule
                         'url'   => [[
                             'controller' => 'setting_structure'
                         ], $this->name('setting')],
+                    ], $this->name('setting'))
+                    ->item($this->name('setting\tag'), [
+                        'label' => 'Tags',
+                        'icon'  => 'price-tag',
+                        'url'   => [[
+                            'controller' => 'setting_tag'
+                        ], $this->name('setting')],
                     ], $this->name('setting'));
             });
     }

@@ -176,7 +176,7 @@ class Content extends Basic
 			$this->em->remove($content);
 			$this->em->flush();
 		} catch (ForeignKeyConstraintViolationException $e) {
-			$this->notify("{$req->info->singular} <strong>{$content->name}</strong> cannot be deleted as it is in use", 'negative');
+			$this->notify("{$req->info->singular} <strong>{$content->name}</strong> cannot be deleted because it is in use", 'negative');
 			if (isset($req->redirect)) {
 				return $res->redirect($req->redirect);
 			} else {

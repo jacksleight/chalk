@@ -3,7 +3,7 @@
 <?php
 $index = $this->em->wrap(new \Chalk\Core\Model\Index())
 	->graphFromArray($req->queryParams());
-$users = $this->em($info)
+$tags = $this->em($info)
 	->paged($index->toArray());
 ?>
 
@@ -17,8 +17,15 @@ $users = $this->em($info)
 					Add <?= $info->singular ?>
 				</a>
 			</li>
+			<li>
+				<a href="<?= $this->url([
+					'action' => 'merge',
+				]) ?>" class="btn btn-focus icon-shuffle">
+					Merge <?= $info->plural ?>
+				</a>
+			</li>
 		</ul>
-		<h1><?= $info->plural ?></h1>		
+		<h1><?= $info->plural ?></h1>
 	</div>
 	<div class="flex body">
 		<div class="hanging">
@@ -37,34 +44,24 @@ $users = $this->em($info)
 		</div>
 		<table>
 			<colgroup>
-				<col class="col-badge">
 				<col class="">
-				<col class="col-right">
 			</colgroup>
 			<thead>
 				<tr>
-					<th scope="col" class="">Enabled</th>
 					<th scope="col" class="">Name</th>
-					<th scope="col" class="col-right">Role</th>
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($users as $user) { ?>
+				<?php foreach ($tags as $tag) { ?>
 					<tr class="clickable">
-						<td class="col-badge">
-							<span class="badge badge-center <?= $user->isEnabled ? 'badge-positive' : 'badge-light badge-out' ?> icon-<?= $user->isEnabled ? 'true' : 'false' ?>"></span>	
-						</td>
 						<th class="" scope="row">
 							<a href="<?= $this->url([
 								'action'	=> 'edit',
-								'id'		=> $user->id,
+								'id'		=> $tag->id,
 							]) ?>">
-								<?= $user->name ?>
+								<?= $tag->name ?>
 							</a>
 						</th>
-						<td class="col-right">
-							<?= ucfirst($user->role) ?>
-						</td>
 					</tr>
 				<?php } ?>
 			</tbody>
@@ -76,7 +73,7 @@ $users = $this->em($info)
 		    'entity'    => $index,
 		    'name'      => 'page',
 		    'limit'     => $index->limit,
-		    'count'     => $users->count(),
+		    'count'     => $tags->count(),
 		]) ?>		
 	</div>
 </div>

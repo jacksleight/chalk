@@ -2,14 +2,17 @@
 <?php $this->block('main') ?>
 
 <form action="<?= $this->url->route() ?>" method="post" class="flex-col">
-	<div class="flex body">
+	<div class="header">
 		<h1>
 			<?php if (!$domain->isNew()) { ?>
-				<?= $domain->name ?>
+				Site
+				<? //$domain->name ?>
 			<?php } else { ?>
 				New <?= $info->singular ?>
 			<?php } ?>
 		</h1>
+	</div>
+	<div class="flex body">
 		<fieldset class="form-block">
 			<div class="form-legend">
 				<h2>General</h2>

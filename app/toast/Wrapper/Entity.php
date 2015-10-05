@@ -8,7 +8,7 @@ namespace Toast\Wrapper;
 
 use Toast\Wrapper;
 
-class Entity extends \Toast\Wrapper
+class Entity extends Wrapper
 {	
 	public function __construct(\Toast\Entity $object, array $allowed = null, $parent = null, $reference = null)
 	{
