@@ -6,12 +6,13 @@
 
 namespace Chalk\Core\Structure\Node;
 
-use Chalk\Core\Structure\Node, 
-    Doctrine\Common\EventSubscriber,
-    Doctrine\ORM\Event\OnFlushEventArgs,
-    Doctrine\ORM\Event\PostFlushEventArgs,
-    Doctrine\ORM\Events,
-    Doctrine\ORM\UnitOfWork;
+use Chalk\Core\Content;
+use Chalk\Core\Structure\Node;
+use Doctrine\Common\EventSubscriber;
+use Doctrine\ORM\Event\OnFlushEventArgs;
+use Doctrine\ORM\Event\PostFlushEventArgs;
+use Doctrine\ORM\Events;
+use Doctrine\ORM\UnitOfWork;
 
 class Listener implements EventSubscriber
 {
@@ -36,18 +37,26 @@ class Listener implements EventSubscriber
         $em  = $args->getEntityManager();
         $uow = $em->getUnitOfWork();
 
-        $structures = [];
         $entities = array_merge(
             $uow->getScheduledEntityInsertions(),
             $uow->getScheduledEntityUpdates(),
             $uow->getScheduledEntityDeletions()
         );
         foreach ($entities as $entity) {
-            if (!$entity instanceof Node) {
+            $structures = [];
+            if ($entity instanceof Node) {
+                $structures[] = $entity->structure;
+            } else if ($entity instanceof Content) {
+                foreach ($entity->nodes as $node) {
+                    $structures[] = $node->structure;
+                }
+            } else {
                 continue;
             }
-            if (!in_array($entity->structure, $this->_structures, true)) {
-                $this->_structures[] = $entity->structure;
+            foreach ($structures as $structure) {
+                if (!in_array($structure, $this->_structures, true)) {
+                    $this->_structures[] = $structure;
+                }
             }
         }
     }

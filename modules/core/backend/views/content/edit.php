@@ -5,6 +5,6 @@
     <?php $this->block('main') ?>
 <?php } ?>
 
-<form action="<?= $this->url->route() . $this->url->query() ?>" method="post" data-modal-size="800px">
+<form action="<?= $this->url->route() . $this->url->query() ?>" method="post" data-modal-size="800">
     <?= $this->inner("/{$info->local->path}/form", [], $info->module->name) ?>
 </form>

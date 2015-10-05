@@ -84,6 +84,7 @@ class Content extends Basic
 
 		$wrap->graphFromArray($req->bodyParams());
 		if (!$wrap->isValid()) {
+			$this->notify("{$req->info->singular} could not be saved, please check the messages below", 'negative');
 			return;
 		}
 
@@ -119,8 +120,9 @@ class Content extends Basic
 				$this->em->flush();
 				unset($upload->path);
 				$upload->html = $this->view->render('content/thumb', [
-					'content'	=> $content,
-					'covered'	=> true,
+					'content'		=> $content,
+					'covered'		=> true,
+					'isEditAllowed'	=> (bool) $req->isEditAllowed,
 				] + (array) $req->view, 'core')->toString();
 			}
 		}

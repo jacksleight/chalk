@@ -39,6 +39,7 @@ class Basic extends Action
 
 		$wrap->graphFromArray($req->bodyParams());
 		if (!$wrap->isValid()) {
+			$this->notify("{$req->info->singular} could not be saved, please check the messages below", 'negative');
 			return;
 		}
 
