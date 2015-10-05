@@ -32,7 +32,7 @@
 					</a>
 				</li>
 			</ul>
-			<h1><?= $this->chalk->config->name ?></h1>
+			<h1><a href="<?= $this->url([], 'core_about', true) ?>" rel="modal"><?= $this->chalk->config->name ?></a></h1>
 			<ul class="notifications"></ul>
 		</div>
 		<div class="flex main">

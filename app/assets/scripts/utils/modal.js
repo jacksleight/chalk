@@ -44,18 +44,15 @@
 			}, 1);			
 			
 			var size = content.find('> :first-child').attr('data-modal-size');
-			content.removeClass('modal-fullscreen');
 			content.removeAttr('style');
-			if (size == 'fullscreen') {
-				content.addClass('modal-fullscreen');
-			} else if (size) {
+			if (size) {
 				size = size.split('x');
 				content.css({
 					maxWidth: size[0] + 'px'
 				});
 				if (size[1]) {
 					content.css({
-						height: size[1] + 'px'
+						maxHeight: size[1] + 'px'
 					});
 				}
 			}
