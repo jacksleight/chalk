@@ -18,7 +18,7 @@ class Content extends Repository
     use Publishable\Repository, 
         Searchable\Repository;
 
-    protected $_sort = ['modifyDate', 'DESC'];
+    protected $_sort = ['name', 'ASC'];
 
     public function build(array $params = array())
     {

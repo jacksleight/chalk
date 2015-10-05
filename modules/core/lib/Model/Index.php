@@ -15,7 +15,7 @@ class Index extends \Toast\Entity
 	protected $limit = 50;
 	protected $filters;
 	protected $type;
-	protected $sort;
+	protected $sort = 'modifyDate,DESC';
 	protected $search;
 	protected $createDateMin;
 	protected $createDateMax;
