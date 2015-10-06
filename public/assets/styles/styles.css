@@ -3629,15 +3629,15 @@ input[type=reset].btn-lightest,
 input[type=submit].btn-lightest,
 input[type=button].btn-lightest,
 .btn.btn-lightest {
-  background-color: #f4f4f4;
-  border-color: #f4f4f4;
+  background-color: #e9e9e9;
+  border-color: #e9e9e9;
 }
 .darkinput[type=reset].btn-lightest, .darkinput[type=submit].btn-lightest, .darkinput[type=button].btn-lightest, .dark.btn.btn-lightest, .dark input[type=reset].btn-lightest, .dark
 input[type=submit].btn-lightest, .dark
 input[type=button].btn-lightest, .dark
 .btn.btn-lightest {
-  background-color: #2f383f;
-  border-color: #2f383f;
+  background-color: #232a2f;
+  border-color: #232a2f;
 }
 input[type=reset].btn-lightest:hover, input[type=reset].btn-lightest:focus, input[type=reset].btn-lightest:active, input[type=reset].btn-lightest.active,
 input[type=submit].btn-lightest:hover,
@@ -3652,8 +3652,8 @@ input[type=button].btn-lightest.active,
 .btn.btn-lightest:focus,
 .btn.btn-lightest:active,
 .btn.btn-lightest.active {
-  background-color: #dedede;
-  border-color: #dedede;
+  background-color: #d2d2d2;
+  border-color: #d2d2d2;
 }
 .darkinput[type=reset].btn-lightest:hover, .darkinput[type=reset].btn-lightest:focus, .darkinput[type=reset].btn-lightest:active, .darkinput[type=reset].btn-lightest.active, .darkinput[type=submit].btn-lightest:hover, .darkinput[type=submit].btn-lightest:focus, .darkinput[type=submit].btn-lightest:active, .darkinput[type=submit].btn-lightest.active, .darkinput[type=button].btn-lightest:hover, .darkinput[type=button].btn-lightest:focus, .darkinput[type=button].btn-lightest:active, .darkinput[type=button].btn-lightest.active, .dark.btn.btn-lightest:hover, .dark.btn.btn-lightest:focus, .dark.btn.btn-lightest:active, .dark.btn.btn-lightest.active, .dark input[type=reset].btn-lightest:hover, .dark input[type=reset].btn-lightest:focus, .dark input[type=reset].btn-lightest:active, .dark input[type=reset].btn-lightest.active, .dark
 input[type=submit].btn-lightest:hover, .dark
@@ -4231,7 +4231,8 @@ legend {
 }
 .expandable .expandable-toggle {
   margin-top: 0;
-  text-align: left;
+  text-align: right;
+  cursor: pointer;
 }
 .expandable .expandable-toggle:before {
   -moz-transition: all 0.2s ease;
@@ -4244,10 +4245,10 @@ legend {
   max-height: 500px;
 }
 .expandable.active .expandable-toggle:before {
-  -moz-transform: rotate(-45deg) translate(1px, 0);
-  -ms-transform: rotate(-45deg) translate(1px, 0);
-  -webkit-transform: rotate(-45deg) translate(1px, 0);
-  transform: rotate(-45deg) translate(1px, 0);
+  -moz-transform: rotate(-90deg) translate(1px, 0);
+  -ms-transform: rotate(-90deg) translate(1px, 0);
+  -webkit-transform: rotate(-90deg) translate(1px, 0);
+  transform: rotate(-90deg) translate(1px, 0);
 }
 
 /* Clickable */
@@ -4606,10 +4607,15 @@ legend {
 }
 .stackable .stackable-item {
   border-bottom: 5px solid white;
-  background-color: #d5d7d8;
   position: relative;
   overflow: hidden;
   *zoom: 1;
+}
+.stackable .stackable-item {
+  background-color: #e9e9e9;
+}
+.dark.stackable .stackable-item, .dark .stackable .stackable-item {
+  background-color: #232a2f;
 }
 .stackable .stackable-controls {
   float: right;

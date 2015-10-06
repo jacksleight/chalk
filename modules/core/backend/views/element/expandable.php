@@ -2,7 +2,7 @@
 	<div class="expandable-body">
 		<?= $content ?>
 	</div>
-	<div class="expandable-toggle btn btn-lightest btn-block btn-out btn icon-plus">
+	<div class="expandable-toggle icon-circle-right">
 		<?= isset($buttonLabel) ? $buttonLabel : 'Expand' ?>
 	</div>
 </div>

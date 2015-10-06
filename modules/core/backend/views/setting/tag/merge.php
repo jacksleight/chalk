@@ -8,9 +8,10 @@
 		</h1>
 	</div>
 	<div class="flex body">
+		<p>This will merge all items tagged with the source tag into the target tag, and then delete the source tag. <strong>This action cannot be undone.</strong></p>
 		<fieldset class="form-block">
 			<div class="form-legend">
-				<h2>General</h2>
+				<h2>Tags</h2>
 			</div>
 			<div class="form-items">
 				<?= $this->render('/element/form-item', array(
@@ -33,7 +34,7 @@
 	<fieldset class="footer">
 		<ul class="toolbar toolbar-right">
 			<li>
-				<button class="btn btn-positive icon-ok">
+				<button class="btn btn-positive icon-ok confirmable">
 					Merge <?= $info->plural ?>
 				</button>
 			</li>

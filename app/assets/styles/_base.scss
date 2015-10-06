@@ -982,12 +982,12 @@ input[type=button],
 	}
 	&.btn-lightest {
 		@include colors(1);
-		@include colors(null, 1, 1);
+		@include colors(null, 2, 2);
 		&:hover,
 		&:focus,
 		&:active,
 		&.active { 
-			@include colors(null, 3, 3);
+			@include colors(null, 4, 4);
 		}
 	}
 	&.btn-focus {
@@ -1390,7 +1390,8 @@ legend {
 	}
 	.expandable-toggle {
 		margin-top: 0;
-		text-align: left;
+		text-align: right;
+		cursor: pointer;
 		&:before {
 			@include transition(all $speed ease);
 		}
@@ -1402,7 +1403,7 @@ legend {
 		}
 		.expandable-toggle {
 			&:before {
-				@include transform(rotate(-45deg) translate(1px, 0));
+				@include transform(rotate(-90deg) translate(1px, 0));
 			}
 		}
 	}
@@ -1691,7 +1692,7 @@ legend {
 	}
 	.stackable-item {
 		border-bottom: $gutter * 0.25 solid white;
-		background-color: $color-divide;
+		@include colors(null, 2);
 		position: relative;
 		@include clearfix;
 	}
