@@ -73,9 +73,7 @@ class File extends Content
 
 		$this->remove();
 		
-		if (!$this->name()) {
-			$this->name(ucwords(trim(preg_replace('/[_]+/', ' ', $file->fileName()))));
-		}
+		$this->name(ucwords(trim(preg_replace('/[_]+/', ' ', $file->fileName()))));
 		$this->size	= $file->size();
 		$this->hash	= $file->hash('md5');
 

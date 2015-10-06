@@ -14,7 +14,7 @@
 		<?= $this->partial('general-bottom') ?>
 		<?= $this->render('/element/expandable', [
 			'content'		=> $this->partial('general-advanced'),
-			'buttonLabel'	=> 'Advanced',
+			'buttonLabel'	=> '',
 		], 'core') ?>		
 	</div>
 </fieldset>

@@ -1162,6 +1162,7 @@ legend {
 	border: solid;
 	border-width: 1px 0 0 0;
 	margin: $gutter * 1 0 0 0;
+	position: relative;
 	.form-legend {
 		@include flush;
 		@include font-size(-1);
@@ -1380,7 +1381,6 @@ legend {
 /* Expandable */
 
 .expandable {
-	margin: $gutter 0 0 0;
 	.expandable-body {
 		max-height: 0;
 		overflow: hidden;
@@ -1390,20 +1390,28 @@ legend {
 	}
 	.expandable-toggle {
 		margin-top: 0;
-		text-align: right;
 		cursor: pointer;
+		position: absolute;
+		line-height: 1;
+		opacity: 0.35;
+		bottom: 0;
+		left: 0;
+		@include transition(all $speed ease);
 		&:before {
 			@include transition(all $speed ease);
+		}
+		&:hover {
+			opacity: 1;
 		}
 	}
 	&.active {
 		.expandable-body {
-			padding-bottom: $gutter;
+			padding-top: $gutter;
 			max-height: 500px;
 		}
 		.expandable-toggle {
 			&:before {
-				@include transform(rotate(-90deg) translate(1px, 0));
+				@include transform(rotate(180deg) translate(1px, 0));
 			}
 		}
 	}
