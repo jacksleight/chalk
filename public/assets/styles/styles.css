@@ -2033,29 +2033,29 @@
 /* Fonts */
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Light-webfont.eot?1444076319');
-  src: url('../fonts/OpenSans-Light-webfont.eot?&1444076319#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Light-webfont.woff?1444076319') format('woff'), url('../fonts/OpenSans-Light-webfont.ttf?1444076319') format('truetype'), url('../fonts/OpenSans-Light-webfont.svg?1444076319') format('svg');
+  src: url('../fonts/OpenSans-Light-webfont.eot?1420464718');
+  src: url('../fonts/OpenSans-Light-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Light-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-Light-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-Light-webfont.svg?1420464718') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Regular-webfont.eot?1444076319');
-  src: url('../fonts/OpenSans-Regular-webfont.eot?&1444076319#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Regular-webfont.woff?1444076319') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf?1444076319') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg?1444076319') format('svg');
+  src: url('../fonts/OpenSans-Regular-webfont.eot?1420464718');
+  src: url('../fonts/OpenSans-Regular-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Regular-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg?1420464718') format('svg');
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-LightItalic-webfont.eot?1444076319');
-  src: url('../fonts/OpenSans-LightItalic-webfont.eot?&1444076319#iefix') format('embedded-opentype'), url('../fonts/OpenSans-LightItalic-webfont.woff?1444076319') format('woff'), url('../fonts/OpenSans-LightItalic-webfont.ttf?1444076319') format('truetype'), url('../fonts/OpenSans-LightItalic-webfont.svg?1444076319') format('svg');
+  src: url('../fonts/OpenSans-LightItalic-webfont.eot?1420464718');
+  src: url('../fonts/OpenSans-LightItalic-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-LightItalic-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-LightItalic-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-LightItalic-webfont.svg?1420464718') format('svg');
   font-weight: normal;
   font-style: italic;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Italic-webfont.eot?1444076319');
-  src: url('../fonts/OpenSans-Italic-webfont.eot?&1444076319#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Italic-webfont.woff?1444076319') format('woff'), url('../fonts/OpenSans-Italic-webfont.ttf?1444076319') format('truetype'), url('../fonts/OpenSans-Italic-webfont.svg?1444076319') format('svg');
+  src: url('../fonts/OpenSans-Italic-webfont.eot?1420464718');
+  src: url('../fonts/OpenSans-Italic-webfont.eot?&1420464718#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Italic-webfont.woff?1420464718') format('woff'), url('../fonts/OpenSans-Italic-webfont.ttf?1420464718') format('truetype'), url('../fonts/OpenSans-Italic-webfont.svg?1420464718') format('svg');
   font-weight: bold;
   font-style: italic;
 }
@@ -2912,7 +2912,8 @@ input[type=week],
 textarea,
 select,
 .input-pseudo,
-.input-content {
+.input-content,
+.input-upload {
   display: inline-block;
   font-size: 16px;
   font-size: 1rem;
@@ -2948,12 +2949,13 @@ input[type=week],
 textarea,
 select,
 .input-pseudo,
-.input-content {
+.input-content,
+.input-upload {
   color: #5f5f5f;
   background-color: white;
   border-color: #d2d2d2;
 }
-.darkinput[type=date], .darkinput[type=datetime], .darkinput[type=datetime-local], .darkinput[type=email], .darkinput[type=month], .darkinput[type=number], .darkinput[type=password], .darkinput[type=search], .darkinput[type=tel], .darkinput[type=text], .darkinput[type=time], .darkinput[type=url], .darkinput[type=week], .darktextarea, .darkselect, .dark.input-pseudo, .dark.input-content, .dark input[type=date], .dark
+.darkinput[type=date], .darkinput[type=datetime], .darkinput[type=datetime-local], .darkinput[type=email], .darkinput[type=month], .darkinput[type=number], .darkinput[type=password], .darkinput[type=search], .darkinput[type=tel], .darkinput[type=text], .darkinput[type=time], .darkinput[type=url], .darkinput[type=week], .darktextarea, .darkselect, .dark.input-pseudo, .dark.input-content, .dark.input-upload, .dark input[type=date], .dark
 input[type=datetime], .dark
 input[type=datetime-local], .dark
 input[type=email], .dark
@@ -2969,7 +2971,8 @@ input[type=week], .dark
 textarea, .dark
 select, .dark
 .input-pseudo, .dark
-.input-content {
+.input-content, .dark
+.input-upload {
   color: #dedede;
   background-color: #3b464f;
   border-color: #181c20;
@@ -3038,7 +3041,11 @@ select.readonly,
 .input-content[disabled],
 .input-content[readonly],
 .input-content.disabled,
-.input-content.readonly {
+.input-content.readonly,
+.input-upload[disabled],
+.input-upload[readonly],
+.input-upload.disabled,
+.input-upload.readonly {
   background-color: #fdfdfd;
 }
 input[type=date]:focus:invalid,
@@ -3057,7 +3064,8 @@ input[type=week]:focus:invalid,
 textarea:focus:invalid,
 select:focus:invalid,
 .input-pseudo:focus:invalid,
-.input-content:focus:invalid {
+.input-content:focus:invalid,
+.input-upload:focus:invalid {
   border-color: #FC6042;
 }
 input[type=date]::-webkit-input-placeholder,
@@ -3076,7 +3084,8 @@ input[type=week]::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder,
 select::-webkit-input-placeholder,
 .input-pseudo::-webkit-input-placeholder,
-.input-content::-webkit-input-placeholder {
+.input-content::-webkit-input-placeholder,
+.input-upload::-webkit-input-placeholder {
   color: #cbcdce;
 }
 input[type=date]:-moz-placeholder,
@@ -3095,7 +3104,8 @@ input[type=week]:-moz-placeholder,
 textarea:-moz-placeholder,
 select:-moz-placeholder,
 .input-pseudo:-moz-placeholder,
-.input-content:-moz-placeholder {
+.input-content:-moz-placeholder,
+.input-upload:-moz-placeholder {
   color: #cbcdce;
 }
 input[type=date]::-moz-placeholder,
@@ -3114,7 +3124,8 @@ input[type=week]::-moz-placeholder,
 textarea::-moz-placeholder,
 select::-moz-placeholder,
 .input-pseudo::-moz-placeholder,
-.input-content::-moz-placeholder {
+.input-content::-moz-placeholder,
+.input-upload::-moz-placeholder {
   color: #cbcdce;
 }
 input[type=date]:-ms-input-placeholder,
@@ -3133,7 +3144,8 @@ input[type=week]:-ms-input-placeholder,
 textarea:-ms-input-placeholder,
 select:-ms-input-placeholder,
 .input-pseudo:-ms-input-placeholder,
-.input-content:-ms-input-placeholder {
+.input-content:-ms-input-placeholder,
+.input-upload:-ms-input-placeholder {
   color: #cbcdce;
 }
 input[type=date]::before,
@@ -3152,7 +3164,8 @@ input[type=week]::before,
 textarea::before,
 select::before,
 .input-pseudo::before,
-.input-content::before {
+.input-content::before,
+.input-upload::before {
   color: #969a9e;
 }
 
@@ -3320,6 +3333,46 @@ textarea.monospaced {
 .input-content .btn.btn-icon:before {
   font-size: 20px;
   padding-right: 0;
+}
+
+.input-upload {
+  height: auto;
+  padding: 6px;
+  line-height: 1.5;
+}
+.input-upload .input-upload-controls {
+  float: right;
+}
+.input-upload .input-upload-controls .btn {
+  vertical-align: middle;
+}
+.input-upload .placeholder {
+  color: #cbcdce;
+  height: 48px;
+  line-height: 46px;
+  vertical-align: baseline;
+  padding: 0 10px;
+  border: transparent 1px solid;
+  display: inline-block;
+}
+.input-upload input[type=reset].btn-icon,
+.input-upload input[type=submit].btn-icon,
+.input-upload input[type=button].btn-icon,
+.input-upload .btn.btn-icon {
+  width: 48px;
+  height: 48px;
+  line-height: 46px;
+  text-align: center;
+}
+.input-upload input[type=reset].btn-icon:before,
+.input-upload input[type=submit].btn-icon:before,
+.input-upload input[type=button].btn-icon:before,
+.input-upload .btn.btn-icon:before {
+  font-size: 20px;
+  padding-right: 0;
+}
+.input-upload .input-upload-input {
+  display: none;
 }
 
 input[type=reset],
@@ -4600,6 +4653,7 @@ legend {
 .form-group.form-group-horizontal select,
 .form-group.form-group-horizontal .mce-tinymce,
 .form-group.form-group-horizontal .input-content,
+.form-group.form-group-horizontal .input-upload,
 .form-group.form-group-horizontal .input-pseudo {
   flex: 1;
   border-left-width: 0;
@@ -4608,6 +4662,7 @@ legend {
 .form-group.form-group-horizontal select:first-child,
 .form-group.form-group-horizontal .mce-tinymce:first-child,
 .form-group.form-group-horizontal .input-content:first-child,
+.form-group.form-group-horizontal .input-upload:first-child,
 .form-group.form-group-horizontal .input-pseudo:first-child {
   border-left-width: 1px;
 }
@@ -4648,6 +4703,18 @@ legend {
 .form-group.form-group-horizontal .input-content.width-10,
 .form-group.form-group-horizontal .input-content.width-11,
 .form-group.form-group-horizontal .input-content.width-12,
+.form-group.form-group-horizontal .input-upload.width-1,
+.form-group.form-group-horizontal .input-upload.width-2,
+.form-group.form-group-horizontal .input-upload.width-3,
+.form-group.form-group-horizontal .input-upload.width-4,
+.form-group.form-group-horizontal .input-upload.width-5,
+.form-group.form-group-horizontal .input-upload.width-6,
+.form-group.form-group-horizontal .input-upload.width-7,
+.form-group.form-group-horizontal .input-upload.width-8,
+.form-group.form-group-horizontal .input-upload.width-9,
+.form-group.form-group-horizontal .input-upload.width-10,
+.form-group.form-group-horizontal .input-upload.width-11,
+.form-group.form-group-horizontal .input-upload.width-12,
 .form-group.form-group-horizontal .input-pseudo.width-1,
 .form-group.form-group-horizontal .input-pseudo.width-2,
 .form-group.form-group-horizontal .input-pseudo.width-3,
@@ -4667,6 +4734,7 @@ legend {
 .form-group.form-group-vertical textarea,
 .form-group.form-group-vertical .mce-tinymce.mce-tinymce[style],
 .form-group.form-group-vertical .input-content,
+.form-group.form-group-vertical .input-upload,
 .form-group.form-group-vertical .input-pseudo {
   border-top-width: 0 !important;
 }
@@ -4675,6 +4743,7 @@ legend {
 .form-group.form-group-vertical textarea:first-child,
 .form-group.form-group-vertical .mce-tinymce.mce-tinymce[style]:first-child,
 .form-group.form-group-vertical .input-content:first-child,
+.form-group.form-group-vertical .input-upload:first-child,
 .form-group.form-group-vertical .input-pseudo:first-child {
   border-top-width: 1px !important;
 }

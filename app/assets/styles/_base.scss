@@ -693,7 +693,8 @@ input[type=week],
 textarea,
 select,
 .input-pseudo,
-.input-content { 
+.input-content,
+.input-upload { 
 	display: inline-block;
 	@include font-size(0);
 	font-family: $font-family;
@@ -856,6 +857,42 @@ textarea {
 			font-size: 20px;
 			padding-right: 0;
 		}
+	}
+}
+.input-upload {
+	height: auto;
+	padding: $input-padding;
+	line-height: $line-height;
+	.input-upload-controls {
+		float: right;
+		.btn {
+			vertical-align: middle;
+		}
+	}
+	.placeholder {
+		color: $color-quieter;
+		height: 48px;
+		line-height: 48px - ($input-border-width * 2);
+		vertical-align: baseline;
+		padding: 0 $input-padding-horiz;
+		border: transparent $input-border-width solid;
+		display: inline-block;
+	}
+	input[type=reset].btn-icon, 
+	input[type=submit].btn-icon, 
+	input[type=button].btn-icon, 
+	.btn.btn-icon {
+		width: 48px;
+		height: 48px;
+		line-height: 46px;
+		text-align: center;
+		&:before {
+			font-size: 20px;
+			padding-right: 0;
+		}
+	}
+	.input-upload-input {
+		display: none;
 	}
 }
 
@@ -1698,6 +1735,7 @@ legend {
 		select,
 		.mce-tinymce,
 		.input-content,
+		.input-upload,
 		.input-pseudo {
 			flex: 1;
 			border-left-width: 0;
@@ -1726,6 +1764,7 @@ legend {
 		textarea,
 		.mce-tinymce.mce-tinymce[style],
 		.input-content,
+		.input-upload,
 		.input-pseudo {
 			border-top-width: 0 !important;
 			&:first-child {

@@ -106,7 +106,7 @@ class Content extends Basic
 			throw new \Chalk\Exception("Upload action only accepts POST requests");
 		}
 
-		$dir      = $this->frontend->dir('data/upload', true);
+		$dir      = $this->chalk->config->dataDir->dir('upload', true);
 		$uploader = new FileUpload($req->bodyParam('files'), $req->servers());
 		$uploader->setPathResolver(new PathResolver\Simple($dir->name()));
 		$uploader->setFileSystem(new FileSystem\Simple());
@@ -114,12 +114,19 @@ class Content extends Basic
 		list($uploads, $headers) = $uploader->processAll();
 		foreach ($uploads as $upload) {
 			if (isset($upload->path)) {
-				$content = $this->em($req->info)->create();
-				$content->newFile = new \Coast\File($upload->path);
-				$this->em->persist($content);
+				$content = isset($req->route['params']['content'])
+					? $this->em($req->info)->id($req->route['params']['content'])
+					: $this->em($req->info)->create();		
+				$view = $content->isNew() ? 'content/thumb' : 'content/card-upload';	
+				if (!$this->em->isPersisted($content)) {
+					$content->newFile = new \Coast\File($upload->path);
+					$this->em->persist($content);
+				} else {
+					$content->move(new \Coast\File($upload->path));
+				}
 				$this->em->flush();
 				unset($upload->path);
-				$upload->html = $this->view->render('content/thumb', [
+				$upload->html = $this->view->render($view, [
 					'content'		=> $content,
 					'covered'		=> true,
 					'isEditAllowed'	=> (bool) $req->isEditAllowed,

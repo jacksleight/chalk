@@ -113,8 +113,3 @@ $render = isset($input)
 		<?php } ?>
 	</div>
 </div>
-
-
-
-
-
