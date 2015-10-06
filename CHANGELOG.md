@@ -1,10 +1,25 @@
 # Chalk Changelog
 
-### 0.4.0
+### 0.5.0
 
+* **Features**
+	* Replace existing files
+	* Preview draft content (when logged in)
+	* Open current content directly from CMS
+	* Bulk publish/archive/restore/delete
+	* Use local timezone for date/time inputs
+	* Basic content tagging
+	* Create child and sibling pages from within structure tab
+	* Login form remembers requested URL
+	* Full internal linking support for all types of content 
+	* Control sorting of items in content lists
 * **Improvements**
-	* Ability to create pages within structure
-	* Improved design
+	* New content browser for selecting files/pages/links etc.
+	* Remember content list sorting/page/filters between requests
+	* Refreshed design
+	* Speed improvements
+* **Fixes**
+	* Bug fixes
 
 ### 0.3.8
 

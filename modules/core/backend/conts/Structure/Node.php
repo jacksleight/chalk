@@ -36,7 +36,7 @@ class Node extends Action
         foreach ($index->contents as $content) {
             $node = new \Chalk\Core\Structure\Node();
             $node->parent  = $parent;
-            $node->content = $content->master;
+            $node->content = $content;
             $this->em->persist($node);
         }
         $this->em->flush();

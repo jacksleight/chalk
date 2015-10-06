@@ -78,8 +78,8 @@ class Index extends Action
 		$contents = [];
 		foreach ($index->contents as $content) {
 			$contents[] = [
-				'id'	=> $content->master->id,
-				'name'	=> $content->master->name,
+				'id'	=> $content->id,
+				'name'	=> $content->name,
 				'card'	=> $this->view->render('content/card', ['content' => $content], 'core')->toString(),
 			];
 		}

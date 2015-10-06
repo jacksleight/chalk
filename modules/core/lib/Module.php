@@ -398,10 +398,10 @@ class Module extends ChalkModule
            // if (is_subclass_of($class, 'Chalk\Core\Behaviour\Versionable')) {
            //     $last = null;
            //     foreach ($entities as $entity) {
-           //         $entity->status = $entity->master === $last
+           //         $entity->status = $entity === $last
            //         ? Chalk::STATUS_ARCHIVED
            //         : Chalk::STATUS_PUBLISHED;
-           //         $last = $entity->master;
+           //         $last = $entity;
            //     }
            // } else {
            //     foreach ($entities as $entity) {
