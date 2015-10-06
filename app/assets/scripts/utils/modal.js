@@ -71,11 +71,16 @@
 			if (target.is('a')) {
 				ev.preventDefault();
 				request(target.attr('href'));
-			} else if (target.attr('formmethod')) {
-				target.closest('form').attr('method', target.attr('formmethod'));
 			} else if (target.hasClass('modal-close')) {
 				ev.preventDefault();
 				close();
+			} else {
+				if (target.attr('formmethod')) {
+					target.closest('form').attr('method', target.attr('formmethod'));
+				}
+				if (target.attr('formaction')) {
+					target.closest('form').attr('action', target.attr('formaction'));
+				}
 			}
 		});	
 		content.submit(function(ev) {

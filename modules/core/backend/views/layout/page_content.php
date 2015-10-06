@@ -26,19 +26,6 @@
             </ul>
         </nav>   
     </div>
-    <?php
-    $count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
-    ?>
-    <?php if ($count) { ?>
-        <div class="footer">
-            <a href="<?= $this->url([
-                'controller' => 'index',
-                'action'     => 'publish',
-            ], 'core_index', true) ?>?redirect=<?= $this->url([]) ?>" class="confirmable btn btn-focus btn-block icon-publish">
-                Publish All Drafts
-            </a>
-        </div>
-    <?php } ?>
 </div>
 
 <?php $this->block('foot') ?>

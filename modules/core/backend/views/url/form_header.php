@@ -4,7 +4,7 @@
         <?= $content->name ?>
     <?php } else { ?>
         New <?= $content->subtype == 'mailto'
-            ? str_replace('Link', 'Email Link', $info->singular)
+            ? str_replace('URL', 'Email URL', $info->singular)
             : $info->singular ?>
     <?php } ?>
 </h1>

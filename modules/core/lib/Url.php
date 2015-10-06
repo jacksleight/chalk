@@ -6,9 +6,9 @@
 
 namespace Chalk\Core;
 
-use Chalk\Core,
-	Coast\Url as CoastUrl,
-	Doctrine\Common\Collections\ArrayCollection;
+use Chalk\Core;
+use Coast\Url as CoastUrl;
+use Doctrine\Common\Collections\ArrayCollection;
 use Coast\Validator;
 
 /**
@@ -16,8 +16,8 @@ use Coast\Validator;
 */
 class Url extends Content
 {
-	public static $chalkSingular = 'Link';
-	public static $chalkPlural   = 'Links';
+	public static $chalkSingular = 'URL';
+	public static $chalkPlural   = 'URLs';
 	public static $chalkIcon     = 'link';
 
     /**

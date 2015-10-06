@@ -23,7 +23,7 @@
 		<?php $html = $this->end() ?>
 		<?= $this->render('/element/expandable', [
 			'content'		=> $html,
-			'buttonLabel'	=> '',
+			'buttonLabel'	=> 'Advanced',
 		], 'core') ?>
 	</div>
 </fieldset>

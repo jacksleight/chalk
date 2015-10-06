@@ -6,7 +6,7 @@
 <?php
 $structure = $this->em('Chalk\Core\Structure')->id($req->structure);
 ?>
-<form action="<?= $this->url->route() ?>" class="flex-col">
+<form action="<?= $this->url->route() ?>" class="flex-col" novalidate>
 	<div class="header">
 		<ul class="toolbar toolbar-right">
 	        <li class="toolbar-gap"><span class="btn btn-out btn-lighter modal-close icon-cancel">
@@ -22,8 +22,8 @@ $structure = $this->em('Chalk\Core\Structure')->id($req->structure);
 	<div class="footer">
 		<ul class="toolbar toolbar-right">
 			<li>
-				<button class="btn btn-positive icon-add" formmethod="post">
-					Add to <?= $structure->name ?>
+				<button class="btn btn-positive icon-ok" formmethod="post">
+					Select Content
 				</button>
 			</li>
 		</ul>

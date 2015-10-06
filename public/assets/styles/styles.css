@@ -2120,13 +2120,13 @@ h1, h2, h3, h4, h5, h6 {
   margin: 20px 0 0 0;
   line-height: 1;
 }
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+  text-decoration: none;
+}
 
 h1 {
-  font-size: 38px;
-  font-size: 2.375rem;
-}
-h1 a {
-  text-decoration: none;
+  font-size: 27.9841px;
+  font-size: 1.74901rem;
 }
 
 h2 {
@@ -4215,6 +4215,9 @@ legend {
 }
 
 /* Expandable */
+.expandable {
+  margin-top: 20px;
+}
 .expandable .expandable-body {
   max-height: 0;
   overflow: hidden;
@@ -4230,11 +4233,9 @@ legend {
 .expandable .expandable-toggle {
   margin-top: 0;
   cursor: pointer;
-  position: absolute;
-  line-height: 1;
-  opacity: 0.35;
-  bottom: 0;
-  left: 0;
+  color: #969a9e;
+  line-height: 0.8;
+  text-align: right;
   -moz-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
   -webkit-transition: all 0.2s ease;
@@ -4245,19 +4246,17 @@ legend {
   -o-transition: all 0.2s ease;
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
-}
-.expandable .expandable-toggle:hover {
-  opacity: 1;
+  padding-right: 1px;
 }
 .expandable.active .expandable-body {
-  padding-top: 20px;
+  padding-bottom: 20px;
   max-height: 500px;
 }
 .expandable.active .expandable-toggle:before {
-  -moz-transform: rotate(180deg) translate(1px, 0);
-  -ms-transform: rotate(180deg) translate(1px, 0);
-  -webkit-transform: rotate(180deg) translate(1px, 0);
-  transform: rotate(180deg) translate(1px, 0);
+  -moz-transform: rotate(90deg) translate(1px, 0);
+  -ms-transform: rotate(90deg) translate(1px, 0);
+  -webkit-transform: rotate(90deg) translate(1px, 0);
+  transform: rotate(90deg) translate(1px, 0);
 }
 
 /* Clickable */
@@ -4666,6 +4665,7 @@ legend {
 }
 .form-group.form-group-horizontal input,
 .form-group.form-group-horizontal select,
+.form-group.form-group-horizontal button,
 .form-group.form-group-horizontal .mce-tinymce,
 .form-group.form-group-horizontal .input-content,
 .form-group.form-group-horizontal .input-upload,
@@ -4675,6 +4675,7 @@ legend {
 }
 .form-group.form-group-horizontal input:first-child,
 .form-group.form-group-horizontal select:first-child,
+.form-group.form-group-horizontal button:first-child,
 .form-group.form-group-horizontal .mce-tinymce:first-child,
 .form-group.form-group-horizontal .input-content:first-child,
 .form-group.form-group-horizontal .input-upload:first-child,
@@ -4694,6 +4695,18 @@ legend {
 .form-group.form-group-horizontal select.width-10,
 .form-group.form-group-horizontal select.width-11,
 .form-group.form-group-horizontal select.width-12,
+.form-group.form-group-horizontal button.width-1,
+.form-group.form-group-horizontal button.width-2,
+.form-group.form-group-horizontal button.width-3,
+.form-group.form-group-horizontal button.width-4,
+.form-group.form-group-horizontal button.width-5,
+.form-group.form-group-horizontal button.width-6,
+.form-group.form-group-horizontal button.width-7,
+.form-group.form-group-horizontal button.width-8,
+.form-group.form-group-horizontal button.width-9,
+.form-group.form-group-horizontal button.width-10,
+.form-group.form-group-horizontal button.width-11,
+.form-group.form-group-horizontal button.width-12,
 .form-group.form-group-horizontal .mce-tinymce.width-1,
 .form-group.form-group-horizontal .mce-tinymce.width-2,
 .form-group.form-group-horizontal .mce-tinymce.width-3,
@@ -4747,6 +4760,7 @@ legend {
 .form-group.form-group-vertical input,
 .form-group.form-group-vertical select,
 .form-group.form-group-vertical textarea,
+.form-group.form-group-vertical button,
 .form-group.form-group-vertical .mce-tinymce.mce-tinymce[style],
 .form-group.form-group-vertical .input-content,
 .form-group.form-group-vertical .input-upload,
@@ -4756,6 +4770,7 @@ legend {
 .form-group.form-group-vertical input:first-child,
 .form-group.form-group-vertical select:first-child,
 .form-group.form-group-vertical textarea:first-child,
+.form-group.form-group-vertical button:first-child,
 .form-group.form-group-vertical .mce-tinymce.mce-tinymce[style]:first-child,
 .form-group.form-group-vertical .input-content:first-child,
 .form-group.form-group-vertical .input-upload:first-child,
@@ -5166,6 +5181,11 @@ html, body {
 .dark.header, .dark .header {
   background-color: #232a2f;
 }
+.header h1 {
+  line-height: 38px;
+  font-size: 36px;
+  font-size: 2.25rem;
+}
 
 .hanging.hanging {
   padding: 11px 25px;
@@ -5194,6 +5214,10 @@ html, body {
 }
 .dark.main .header, .dark .main .header {
   background-color: #353f47;
+}
+.main .header h1 {
+  font-size: 32px;
+  font-size: 2rem;
 }
 .main .hanging {
   background-color: #f9f9f9;

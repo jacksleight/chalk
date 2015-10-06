@@ -99,6 +99,10 @@ html, body {
 }
 .header {
 	@include colors(null, 2);
+	h1 {
+		line-height: $input-height;
+		@include font-size($input-height - 2px);
+	}
 }
 .hanging.hanging {
 	@include flush;
@@ -118,6 +122,9 @@ html, body {
 .main {
 	.header {
 		@include colors(null, 0.5);
+		h1 {
+			@include font-size($input-height - 6px);
+		}
 	}
 	.hanging {
 		@include colors(null, 0.5, 3);

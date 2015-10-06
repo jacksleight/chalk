@@ -3,7 +3,7 @@
 ]) ?>
 <?php $this->block('main') ?>
 		
-<form action="<?= $this->url->route() ?>">
+<form action="<?= $this->url->route() ?>" novalidate>
 	<?php
 	$contents = $this->em($req->info)
 		->paged($index->toArray());

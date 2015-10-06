@@ -31,6 +31,19 @@
 						View Site
 					</a>
 				</li>
+				<?php
+			    $count = $this->em('Chalk\Core\Content')->count(['isPublishable' => true]);
+			    ?>
+			    <?php if ($count) { ?>
+			        <li>
+			            <a href="<?= $this->url([
+			                'controller' => 'index',
+			                'action'     => 'publish',
+			            ], 'core_index', true) ?>?redirect=<?= $this->url([]) ?>" class="confirmable btn btn-out btn-positive btn-block icon-publish">
+			                Publish All
+			            </a>
+			        </a>
+			    <?php } ?>
 			</ul>
 			<h1><a href="<?= $this->url([], 'core_about', true) ?>" rel="modal"><?= $this->chalk->config->name ?></a></h1>
 			<ul class="notifications"></ul>

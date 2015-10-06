@@ -19,12 +19,12 @@ html {
 	color: $color-loud;
 	margin: $gutter 0 0 0;
 	line-height: 1;
-}
-h1 { 
-	@include font-size($input-height);
 	a {
 		text-decoration: none;
 	}
+}
+h1 { 
+	@include font-size(4);
 }
 h2 { 
 	@include font-size(2);
@@ -1381,6 +1381,7 @@ legend {
 /* Expandable */
 
 .expandable {
+	margin-top: $gutter;
 	.expandable-body {
 		max-height: 0;
 		overflow: hidden;
@@ -1391,27 +1392,23 @@ legend {
 	.expandable-toggle {
 		margin-top: 0;
 		cursor: pointer;
-		position: absolute;
-		line-height: 1;
-		opacity: 0.35;
-		bottom: 0;
-		left: 0;
+		color: $color-quiet;
+		line-height: 0.8;
+		text-align: right;
 		@include transition(all $speed ease);
 		&:before {
 			@include transition(all $speed ease);
-		}
-		&:hover {
-			opacity: 1;
+			padding-right: 1px;
 		}
 	}
 	&.active {
 		.expandable-body {
-			padding-top: $gutter;
+			padding-bottom: $gutter;
 			max-height: 500px;
 		}
 		.expandable-toggle {
 			&:before {
-				@include transform(rotate(180deg) translate(1px, 0));
+				@include transform(rotate(90deg) translate(1px, 0));
 			}
 		}
 	}
@@ -1742,6 +1739,7 @@ legend {
 		flex-direction: row;
 		input,
 		select,
+		button,
 		.mce-tinymce,
 		.input-content,
 		.input-upload,
@@ -1771,6 +1769,7 @@ legend {
 		input,
 		select,
 		textarea,
+		button,
 		.mce-tinymce.mce-tinymce[style],
 		.input-content,
 		.input-upload,

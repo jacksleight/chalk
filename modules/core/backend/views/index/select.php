@@ -3,7 +3,7 @@
 	<?php $this->block('body') ?>
 <?php } ?>
 
-<form action="<?= $this->url->route() ?>" class="flex-col">
+<form action="<?= $this->url->route() ?>" class="flex-col" novalidate>
 	<div class="header">
 		<ul class="toolbar toolbar-right">
 	        <li class="toolbar-gap"><span class="btn btn-out btn-lighter modal-close icon-cancel">

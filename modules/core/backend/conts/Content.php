@@ -100,6 +100,46 @@ class Content extends Basic
 		)));
 	}
 
+	public function quick(Request $req, Response $res)
+	{
+		if (!$req->isPost()) {
+			throw new \Chalk\Exception("Upload action only accepts POST requests");
+		}
+		
+		$quick = new \Chalk\Core\Model\Url\Quick();
+		$wrap  = $this->em->wrap($quick);
+
+		$wrap->graphFromArray($req->bodyParams());
+		if (!$wrap->isValid()) {
+			$this->notify("{$req->info->singular} could not be added, please try again", 'negative');
+			return $res->redirect($this->url(array(
+				'action' => 'index',
+			)));
+			return;
+		}
+
+		$content = $this->em($req->info)->create();
+		$content->status = \Chalk\App::STATUS_PUBLISHED;
+		$content->fromArray($quick->toArray());
+
+		$this->em->persist($content);
+		$this->em->flush();
+
+		if ($req->isAjax()) {
+			$contents = [[
+				'id'	=> $content->id,
+				'name'	=> $content->name,
+				'card'	=> $this->view->render('content/card', ['content' => $content], 'core')->toString(),
+			]];
+			return $res->json(['contents' => $contents]);
+		} else {
+			$this->notify("{$req->info->singular} <strong>{$content->name}</strong> was added successfully", 'positive');
+			return $res->redirect($this->url(array(
+				'action' => 'index',
+			)));
+		}
+	}
+
 	public function upload(Request $req, Response $res)
 	{
 		if (!$req->isPost()) {
