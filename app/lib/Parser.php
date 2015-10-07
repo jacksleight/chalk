@@ -7,32 +7,24 @@
 namespace Chalk;
 
 use Chalk\Parser;
+use Chalk\Parser\Plugin;
+use Coast\Request;
+use Coast\Response;
 use Closure;
 use DOMDocument;
 use DOMXPath;
 
-class Parser
+class Parser implements \Coast\App\Access, \Coast\App\Executable
 {
+    use \Coast\App\Access\Implementation;
+    use \Coast\App\Executable\Implementation;
+
+    protected $_isTidy = false;
+
     protected $_plugins = [];
 
-    public function plugin($name, $plugin = null)
+    public static function htmlToDoc($html)
     {
-        if (func_num_args() > 0) {
-            if (!$plugin instanceof Closure && !$plugin instanceof Plugin) {
-                throw new Parser\Exception("Object is not a closure or instance of Chalk\Parser\Plugin");
-            }
-            $this->_plugins[$name] = $plugin instanceof Closure
-                ? $plugin->bindTo($this)
-                : $plugin;
-            return $this;
-        }
-        $this->_plugins[$name];
-    }
-
-    public function parse($html, $tidy = false)
-    {
-        $partial = strpos($html, '<!DOCTYPE') === false;
-
         $doc = new DOMDocument();
         libxml_use_internal_errors(true);
         // Ensures correct encoding as libxml doesn't understand <meta charset="utf-8">
@@ -44,6 +36,45 @@ class Parser
                 break;
             }
         }
+        return $doc;
+    }
+
+    public function __construct(array $options = array())
+    {
+        foreach ($options as $name => $value) {
+            if ($name[0] == '_') {
+                throw new \Chalk\Exception("Access to '{$name}' is prohibited");  
+            }
+            $this->$name($value);
+        }
+    }
+
+    public function isTidy($isTidy = null)
+    {
+        if (func_num_args() > 0) {
+            $this->_isTidy = (bool) $isTidy;
+            return $this;
+        }
+        return $this->_isTidy;
+    }
+
+    public function plugin($name, $plugin = null)
+    {
+        if (func_num_args() > 0) {
+            if (!$plugin instanceof Closure && !$plugin instanceof Plugin) {
+                throw new Parser\Exception("Object is not a closure or instance of Chalk\Parser\Plugin");
+            }
+            $this->_plugins[$name] = $plugin;
+            return $this;
+        }
+        $this->_plugins[$name];
+    }
+
+    public function parse($html)
+    {
+        $partial = strpos($html, '<!DOCTYPE') === false;
+
+        $doc = self::htmlToDoc($html);
 
         $xpath = new DOMXPath($doc);
 
@@ -69,7 +100,7 @@ class Parser
             $doc = $frag;
         }
 
-        if ($tidy) {
+        if ($this->_isTidy) {
             $doc->preserveWhiteSpace = false;
             $doc->formatOutput = true;
         }
@@ -80,5 +111,13 @@ class Parser
         $html = preg_replace('/<\/(area|base|basefont|br|col|frame|hr|img|input|isindex|link|meta|param)>/u', '', $html);
         $html = preg_replace('/\n(\s+)/u', "\n$1$1", $html);
         return $html;
+    }
+
+    public function postExecute(Request $req, Response $res)
+    {
+        if (strpos($res->header('content-type'), 'text/html') !== 0) {
+            return;
+        }
+        $res->body($this->parse($res->body()));
     }
 }

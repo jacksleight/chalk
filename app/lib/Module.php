@@ -6,17 +6,18 @@
 
 namespace Chalk;
 
-use Chalk\Backend;
 use Chalk\App as Chalk;
+use Chalk\Backend;
 use Chalk\Frontend;
 use Chalk\Module;
+use Chalk\Parser\Plugin;
 use Closure;
 use Coast\App\Access;
 use Coast\Dir;
 use Coast\File;
 use Coast\Router;
-use ReflectionClass;
 use Doctrine\Common\EventSubscriber;
+use ReflectionClass;
 
 abstract class Module implements Access
 {
@@ -126,6 +127,13 @@ abstract class Module implements Access
         $this->frontend->view
             ->dir("__Chalk__{$name}", $this->dir($path))
             ->extension($config[1], "{$config[0]}/{$name}", [null, "__Chalk__{$name}"]);
+        return $this;
+    }
+
+    public function frontendParserPlugin($name, $plugin)
+    {
+        $this->frontend->parser
+            ->plugin($name, $plugin);
         return $this;
     }
 

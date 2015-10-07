@@ -42,8 +42,6 @@ class All extends Action
 			'res' => $res,
 		];
 
-		$html = $this->view->render($path, $params, $config[1]);
-        $html = $this->app->parse($html);
-		return $res->html($html);
+		return $res->html($this->view->render($path, $params, $config[1]));
 	}
 }

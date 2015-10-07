@@ -11,8 +11,12 @@ use Chalk\App as Chalk;
 use Chalk\Event;
 use Chalk\Frontend;
 use Chalk\InfoList;
+use Chalk\Parser;
+use Chalk\Core\Parser\Plugin\StripEmpty;
 use Chalk\Module as ChalkModule;
 use Closure;
+use DOMDocument;
+use DOMXPath;
 use Coast\Request;
 use Coast\Response;
 use Coast\Router;
@@ -49,7 +53,39 @@ class Module extends ChalkModule
         $this
             ->frontendControllerAll($this->name())
             ->frontendControllerNspace($this->name())
-            ->frontendViewDir($this->name());
+            ->frontendViewDir($this->name())
+            ->frontendParserPlugin($this->name('dataChalk'), function(DOMDocument $doc, DOMXPath $xpath) {
+                $els = $xpath->query('//*[@data-chalk]');
+                while ($els->length) {
+                    foreach ($els as $el) {
+                        $data = json_decode($el->getAttribute('data-chalk'), true);
+                        $el->removeAttribute('data-chalk');
+                        if (!$data) {
+                            continue;
+                        }
+                        if (isset($data['content'])) {
+                            $content = $this->em('core_content')->id($data['content']['id']);
+                            $el->setAttribute('href', $this->frontend->url($content));
+                        } else if (isset($data['widget'])) {
+                            $info   = Chalk::info($data['widget']['name']);
+                            $class  = $info->class;
+                            $widget = (new $class())->fromArray($data['widget']['params']);
+                            $html   = $this->frontend->view->render('chalk/' . $info->module->path . '/' . $info->local->path, $widget->toArray());
+                            $temp   = Parser::htmlToDoc($html);
+                            $nodes  = $temp->getElementsByTagName('body')->item(0)->childNodes;
+                            for ($i = 0; $i < $nodes->length; $i++) {
+                                $node = $doc->importNode($nodes->item($i), true);
+                                $el->parentNode->insertBefore($node, $el);
+                            }
+                            $el->parentNode->removeChild($el);
+                        }
+                    }
+                    $els = $xpath->query('//*[@data-chalk]');
+                }
+            })
+            ->frontendParserPlugin($this->name('stripEmpty'), new StripEmpty([
+                'tags' => ['p'],
+            ]));
 
         $this
             ->frontendUrlResolver($this->name('structure_node'), function($node, $info) {

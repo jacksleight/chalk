@@ -5,13 +5,14 @@
  */
 
 use Chalk\App as Chalk;
-use Chalk\Core\File;
-use Chalk\Core\Module as Core;
 use Chalk\Backend;
 use Chalk\Backend\Notifier;
+use Chalk\Core\File;
+use Chalk\Core\Module as Core;
 use Chalk\Frontend;
 use Chalk\Frontend\UrlResolver as FrontendUrlResolver;
 use Chalk\HookManager;
+use Chalk\Parser;
 use Coast\Controller;
 use Coast\Request;
 use Coast\Response;
@@ -110,6 +111,9 @@ $app->param('frontend', $app->lazy(function($vars) {
             'target'  => $frontend->controller,
         ]))
         ->param('view', $app->config->view)
+        ->param('parser', new Parser([
+            'isTidy' => false,
+        ]))
         ->param('url', new FrontendUrlResolver([
             'baseUrl' => new Url("{$app->config->frontendBaseUrl}"),
             'baseDir' => $app->root->dir(),
@@ -121,6 +125,7 @@ $app->param('frontend', $app->lazy(function($vars) {
         ->param('swift', $app->swift);
     $frontend->executable($frontend->session);
     $frontend->executable($frontend->router);
+    $frontend->executable($frontend->parser);
     $app->param('frontend', $frontend);
     foreach ($app->modules() as $module) {
         $module->frontendInit();
