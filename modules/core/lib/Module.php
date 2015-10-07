@@ -160,16 +160,17 @@ class Module extends ChalkModule
             if (!isset($content['id'])) {
                 continue;
             }
-            $info = Chalk::info($node['content_type']);
-            $name = $info->local->name;
-            if ($info->name == 'core_page' && isset($content['data']['delegate'])) {
+            if (isset($content['data']['delegate'])) {
                 $delegate = $content['data']['delegate'] + [
                     'name'   => null,
                     'params' => [],
                 ];
                 $info   = Chalk::info($delegate['name']);
+                $name   = 'content';
                 $params = $delegate['params'];
             } else {
+                $info   = Chalk::info($node['content_type']);
+                $name   = $info->local->name;
                 $params = [];
             }
             $module = $this->app->module($info->module->name);
