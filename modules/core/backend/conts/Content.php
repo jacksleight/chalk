@@ -126,6 +126,16 @@ class Content extends Basic
 			return;
 		}
 
+		$redirect = new Url($req->redirect);
+
+		$content = $this->em($req->info)->one([
+			'url' => $quick->url,
+		]);
+		if ($content) {
+			$redirect->queryParam('contentNew', $content->id);
+			return $res->redirect($redirect);
+		}
+
 		$content = $this->em($req->info)->create();
 		$content->status = \Chalk\App::STATUS_PUBLISHED;
 		$content->fromArray($quick->toArray());
@@ -133,7 +143,6 @@ class Content extends Basic
 		$this->em->persist($content);
 		$this->em->flush();
 
-		$redirect = new Url($req->redirect);
 		$redirect->queryParam('contentNew', $content->id);
 		return $res->redirect($redirect);
 	}

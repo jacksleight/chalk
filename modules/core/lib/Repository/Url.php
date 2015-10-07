@@ -8,15 +8,21 @@ namespace Chalk\Core\Repository;
 
 use Chalk\Repository;
 
-class Alias extends Content
+class Url extends Content
 {
     public function build(array $params = array())
     {
         $query = parent::build($params);
 
-        $query
-            ->addSelect("ac")
-            ->leftJoin("a.content", "ac");
+        $params = $params + [
+            'url' => null,
+        ];
+             
+        if (isset($params['url'])) {
+            $query
+                ->andWhere("u.url = :url")
+                ->setParameter('url', $params['url']);
+        }
 
         return $query;
     }

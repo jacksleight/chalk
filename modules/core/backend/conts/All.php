@@ -47,7 +47,7 @@ class All extends Action
         $saves = [
             // 'index__select', @todo Can't enable these unless the route path contains the type, or you get subtype conflicts
             // 'structure_node__add',
-            'content__index',
+            // 'content__index',
         ];
         if (in_array("{$req->controller}__{$req->action}", $saves)) {
             $name   = "query_" . md5(serialize($req->route['params']));           
