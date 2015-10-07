@@ -17,7 +17,6 @@ use Coast\Controller;
 use Coast\Request;
 use Coast\Response;
 use Coast\Router;
-use Coast\Session;
 use Coast\Url;
 use Coast\UrlResolver;
 use Coast\View;
@@ -30,11 +29,7 @@ $app
     ->param('cache', $app->lazy('app/init/cache.php'))
     ->param('swift', $app->lazy('app/init/swift.php'))
     ->param('hook', new HookManager())
-    ->param('session', new Session([
-        'expires' => null,
-        'name'    => '__Chalk__session',
-        'path'    => (new Url("{$app->config->frontendBaseUrl}"))->path(),
-    ]))
+    ->param('session', $app->config->session)
     ->module(new Core());
 
 File::baseDir($config->publicDataDir->dir('file'));
@@ -89,7 +84,6 @@ $app->param('backend', $app->lazy(function($vars) {
                     'e'   => $e,
                 ]));
         });
-    $backend->executable($backend->session);
     $backend->executable($backend->image);
     $backend->executable($backend->router);
     $app->param('backend', $backend);
@@ -123,7 +117,6 @@ $app->param('frontend', $app->lazy(function($vars) {
         ->param('em', $app->em)
         ->param('cache', $app->cache)
         ->param('swift', $app->swift);
-    $frontend->executable($frontend->session);
     $frontend->executable($frontend->router);
     $frontend->executable($frontend->parser);
     $app->param('frontend', $frontend);
