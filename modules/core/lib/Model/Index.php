@@ -30,6 +30,7 @@ class Index extends \Toast\Entity
 	protected $subtypes = [];
 	protected $contents = [];
 	protected $contentIds;
+	protected $contentNew;
 	protected $entity;
 	protected $batch;
 
@@ -70,6 +71,10 @@ class Index extends \Toast\Entity
 					'nullable'	=> true,
 				),
 				'contentIds' => array(
+					'type'		=> 'string',
+					'nullable'	=> true,
+				),
+				'contentNew' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
 				),
@@ -188,5 +193,15 @@ class Index extends \Toast\Entity
 			$ids[] = $content->id;
 		}
 		return json_encode($ids);
+	}
+
+	public function contentNew($value = null)
+	{
+		if (func_num_args() > 0) {
+			$this->contentNew = $value;
+			$this->contentIds(json_encode([$this->contentNew]));
+			return $this;
+		}
+		return $this->contentNew;
 	}
 }

@@ -24,9 +24,9 @@ class All extends Action
 
         $session = $this->session->data('__Chalk\Backend');
         if (!isset($session->user) && $req->controller !== 'auth') {
-            $referrer = (string) $req->url()->toPart(Url::PART_PATH, true);
+            $redirect = (string) $req->url()->toPart(Url::PART_PATH, true);
             return $res->redirect($this->url([], 'core_login', true) . $this->url->query([
-                'referrer' => $referrer,
+                'redirect' => $redirect,
             ], true));
         }
 

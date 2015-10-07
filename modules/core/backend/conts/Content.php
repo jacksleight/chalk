@@ -6,15 +6,16 @@
 
 namespace Chalk\Core\Backend\Controller;
 
-use Chalk\App as Chalk,
-	Chalk\Core,
-	FileUpload\FileUpload,
-	FileUpload\PathResolver,
-	FileUpload\FileSystem,
-	Chalk\Controller\Basic,
-	Coast\Request,
-	Coast\Response,
-	Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Chalk\App as Chalk;
+use Chalk\Controller\Basic;
+use Chalk\Core;
+use Coast\Request;
+use Coast\Response;
+use Coast\Url;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use FileUpload\FileSystem;
+use FileUpload\FileUpload;
+use FileUpload\PathResolver;
 
 class Content extends Basic
 {
@@ -42,23 +43,30 @@ class Content extends Basic
 			return;
 		}
 
-		$notice = null;
-		foreach ($index->contents as $content) {
-			if ($index->batch == 'publish') {
-				$content->status = Chalk::STATUS_PUBLISHED;
-				$notice = 'published';
-			} else if ($index->batch == 'archive') {
-				$content->status = Chalk::STATUS_ARCHIVED;
-				$notice = 'archived';
-			} else if ($index->batch == 'restore') {
-				$content->restore();
-				$notice = 'restored';
-			} else if ($index->batch == 'delete') {
-				$this->em->remove($content);
-				$notice = 'deleted';
+		try {
+			$notice = null;
+			foreach ($index->contents as $content) {
+				if ($index->batch == 'publish') {
+					$notice = 'published';
+					$content->status = Chalk::STATUS_PUBLISHED;
+				} else if ($index->batch == 'archive') {
+					$notice = 'archived';
+					$content->status = Chalk::STATUS_ARCHIVED;
+				} else if ($index->batch == 'restore') {
+					$notice = 'restored';
+					$content->restore();
+				} else if ($index->batch == 'delete') {
+					$notice = 'deleted';
+					$this->em->remove($content);
+				}
 			}
+			$this->em->flush();
+		} catch (ForeignKeyConstraintViolationException $e) {
+			if (isset($notice)) {
+				$this->notify("{$req->info->singular} <strong>{$content->name}</strong> cannot be deleted because it is in use", 'negative');
+			}
+			return;
 		}
-		$this->em->flush();
 
 		if (isset($notice)) {
 			$this->notify("{$req->info->plural} were {$notice} successfully", 'positive');
@@ -125,19 +133,9 @@ class Content extends Basic
 		$this->em->persist($content);
 		$this->em->flush();
 
-		if ($req->isAjax()) {
-			$contents = [[
-				'id'	=> $content->id,
-				'name'	=> $content->name,
-				'card'	=> $this->view->render('content/card', ['content' => $content], 'core')->toString(),
-			]];
-			return $res->json(['contents' => $contents]);
-		} else {
-			$this->notify("{$req->info->singular} <strong>{$content->name}</strong> was added successfully", 'positive');
-			return $res->redirect($this->url(array(
-				'action' => 'index',
-			)));
-		}
+		$redirect = new Url($req->redirect);
+		$redirect->queryParam('contentNew', $content->id);
+		return $res->redirect($redirect);
 	}
 
 	public function upload(Request $req, Response $res)

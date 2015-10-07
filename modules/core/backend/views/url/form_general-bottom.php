@@ -1,4 +1,4 @@
-<?php if ($content->subtype == 'mailto') { ?>
+<?php if ($content->subtype == 'MAILTO') { ?>
     <?= $this->render('/element/form-item', array(
         'entity'        => $content,
         'name'          => 'mailtoEmailAddress',
@@ -22,7 +22,7 @@
         'label'         => 'URL',
         'placeholder'   => 'http://example.com/',
     ), 'core') ?>
-    <?php if ($content->subtype == 'http' || $content->subtype == 'https') { ?>
+    <?php if (isset($content->url) && $content->url->isHttp()) { ?>
         <?= $this->render('/element/form-item', array(
             'entity'        => $content,
             'name'          => 'urlCanonical',

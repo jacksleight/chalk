@@ -71,11 +71,15 @@ class Url extends Content
 	public function url(CoastUrl $url = null)
 	{
 		if (isset($url)) {
-			if ($url != $this->url && $url->isHttp()) {
+			if ($url != $this->url) {
 				$this->urlCanonical = $url->toCanonical();
 			}
-			$this->url		= $url;
-			$this->subtype	= $url->scheme();
+			$this->url = $url;
+			if (isset($this->urlCanonical)) {
+				$this->subtype = $this->urlCanonical->isHttp()
+					? str_replace('www.', '', $this->urlCanonical->host())
+					: strtoupper($this->urlCanonical->scheme());
+			}
 			return $this;
 		}
 		return $this->url;
@@ -113,9 +117,9 @@ class Url extends Content
 
 	public static function staticSubtypeLabel($subtype)
 	{	
-		return $subtype == 'mailto'
+		return $subtype == 'MAILTO'
 			? 'Email'
-			: strtoupper($subtype);
+			: $subtype;
 	}
 
 	public function clarifier($context = false, $parts = [])

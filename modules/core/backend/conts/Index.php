@@ -70,7 +70,7 @@ class Index extends Action
 		$wrap->graphFromArray($req->queryParams());
 		$req->view->index = $wrap;
 
-        if (!$req->isPost()) {
+        if (!$req->isPost() && !$index->contentNew) {
             return;
         }
 
