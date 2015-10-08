@@ -45,6 +45,9 @@ $app->param('backend', $app->lazy(function($vars) {
         ->param('session', $app->session);
     $backend
         ->param('view', new View())
+        ->param('parser', new Parser([
+            'isTidy' => true,
+        ]))
         ->param('notify', new Notifier())
         ->param('controller', new Controller())
         ->param('router', new Router([

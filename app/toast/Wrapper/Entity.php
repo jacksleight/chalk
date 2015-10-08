@@ -101,7 +101,7 @@ class Entity extends Wrapper
 		if (!$this->hasProperty($name)) {
 			return;
 		}
-		if (is_string($value)) {
+		if (is_scalar($value)) {
 			$value = trim($value);
 			if (strlen($value) == 0) {
 				$value = null;

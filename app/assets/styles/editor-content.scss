@@ -73,18 +73,14 @@ hr {
 
 div[data-chalk] {
 	margin: 1em 0;
-	border: 1px solid $color-quieter;
-	color: $color-quieter;
+	border: 1px dashed $color-quieter;
 	padding: 10px;
 	cursor: pointer;
-	text-align: center;
-	font-weight: bold;
 	&:hover {
 		border-color: $color-focus;
-		color: $color-focus;
 	}
 	&:before {
-		content: 'Placeholder – Click to Edit';
+		// content: 'Placeholder – Click to Edit';
 		// content: attr(data-chalk-widget);
 	}
 }

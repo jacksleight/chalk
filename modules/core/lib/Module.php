@@ -53,19 +53,21 @@ class Module extends ChalkModule
         $this
             ->frontendControllerAll($this->name())
             ->frontendControllerNspace($this->name())
-            ->frontendViewDir($this->name())
+            ->frontendViewDir($this->name());
+
+        $this
             ->frontendParserPlugin($this->name('dataChalk'), function(DOMDocument $doc, DOMXPath $xpath) {
-                $els = $xpath->query('//*[@data-chalk]');
-                while ($els->length) {
-                    foreach ($els as $el) {
-                        $data = json_decode($el->getAttribute('data-chalk'), true);
-                        $el->removeAttribute('data-chalk');
+                $nodes = $xpath->query('//*[@data-chalk]');
+                while ($nodes->length) {
+                    foreach ($nodes as $node) {
+                        $data = json_decode($node->getAttribute('data-chalk'), true);
+                        $node->removeAttribute('data-chalk');
                         if (!$data) {
                             continue;
                         }
                         if (isset($data['content'])) {
                             $content = $this->em('core_content')->id($data['content']['id']);
-                            $el->setAttribute('href', $this->frontend->url($content));
+                            $node->setAttribute('href', $this->frontend->url($content));
                         } else if (isset($data['widget'])) {
                             $info   = Chalk::info($data['widget']['name']);
                             $class  = $info->class;
@@ -74,15 +76,15 @@ class Module extends ChalkModule
                             $path   = "{$config[0]}/{$info->module->name}/{$info->local->path}";
                             $html   = $this->frontend->view->render($path, $widget->toArray(), $config[1]);
                             $temp   = Parser::htmlToDoc($html);
-                            $nodes  = $temp->getElementsByTagName('body')->item(0)->childNodes;
-                            for ($i = 0; $i < $nodes->length; $i++) {
-                                $node = $doc->importNode($nodes->item($i), true);
-                                $el->parentNode->insertBefore($node, $el);
+                            $temps  = $temp->getElementsByTagName('body')->item(0)->childNodes;
+                            for ($i = 0; $i < $temps->length; $i++) {
+                                $temp = $doc->importNode($temps->item($i), true);
+                                $node->parentNode->insertBefore($temp, $node);
                             }
-                            $el->parentNode->removeChild($el);
+                            $node->parentNode->removeChild($node);
                         }
                     }
-                    $els = $xpath->query('//*[@data-chalk]');
+                    $nodes = $xpath->query('//*[@data-chalk]');
                 }
             })
             ->frontendParserPlugin($this->name('stripEmpty'), new StripEmpty([
@@ -214,6 +216,46 @@ class Module extends ChalkModule
             ->backendControllerAll($this->name())
             ->backendControllerNspace($this->name())
             ->backendViewDir($this->name());
+
+        $this
+            ->backendParserPlugin($this->name('backend'), function(DOMDocument $doc, DOMXPath $xpath) {
+                
+                $nodes = $xpath->query('//*[@data-chalk]');
+
+                foreach ($nodes as $node) {
+                    while ($node->hasChildNodes()) {
+                        $node->removeChild($node->firstChild);
+                    }
+                    $data = json_decode($node->getAttribute('data-chalk'), true);
+                    if (!$data) {
+                        continue;
+                    }
+                    $info   = Chalk::info($data['widget']['name']);
+                    $class  = $info->class;
+                    $widget = $this->em->wrap(new $class())->graphFromArray($data['widget']['params']);
+                    $html   = $this->backend->view->render('widget/card', ['widget' => $widget->getObject()], 'core');
+                    $temp   = Parser::htmlToDoc($html);
+                    $temps  = $temp->getElementsByTagName('body')->item(0)->childNodes;
+                    for ($i = 0; $i < $temps->length; $i++) {
+                        $temp = $doc->importNode($temps->item($i), true);
+                        $node->appendChild($temp);
+                    }
+                    
+
+
+
+
+
+                    if (isset($data['widget'])) {
+                        $node->setAttribute('class', $node->getAttribute('class')
+                            ? "{$node->getAttribute('class')} mceNonEditable"
+                            : "mceNonEditable");
+                    }
+                }
+
+
+
+            });
 
         $this
             ->backendRoute(

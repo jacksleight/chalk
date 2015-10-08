@@ -1,3 +1,8 @@
+<?php
+if (isset($value) && isset($class) && strpos($class, 'editor-content') !== false) {
+	$value = $this->parser->parse($value);
+}
+?>
 <textarea
 	<?= isset($name) ? "name=\"{$name}\"" : null ?>
 	<?= isset($id) ? "id=\"{$id}\"" : null ?>

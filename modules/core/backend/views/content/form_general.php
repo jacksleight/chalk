@@ -4,13 +4,14 @@
 	</div>
 	<div class="form-items">
 		<?= $this->partial('general-top') ?>
-		<?= $this->render('/element/form-item', array(
-			'entity'	=> $content,
-			'name'		=> 'name',
-			'label'		=> 'Name',
-			'autofocus'	=> true,
-			'disabled'	=> $content->isProtected(),
-		), 'core') ?>
+		<?php if (!$content->isProtected()) { ?>
+			<?= $this->render('/element/form-item', array(
+				'entity'	=> $content,
+				'name'		=> 'name',
+				'label'		=> 'Name',
+				'autofocus'	=> true,
+			), 'core') ?>
+		<?php } ?>
 		<?= $this->partial('general-bottom') ?>
 		<?= $this->render('/element/expandable', [
 			'content'		=> $this->partial('general-advanced'),

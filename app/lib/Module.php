@@ -189,6 +189,13 @@ abstract class Module implements Access
         return $this;
     }
 
+    public function backendParserPlugin($name, $plugin)
+    {
+        $this->backend->parser
+            ->plugin($name, $plugin);
+        return $this;
+    }
+
     public function backendHookListen($name, Closure $listener)
     {
         $this->backend->hook

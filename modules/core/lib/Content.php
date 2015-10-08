@@ -146,7 +146,7 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
 		if (!$context) {
 			array_unshift($parts, $this->typeLabel);
 		}
-		return implode(' – ', $parts);
+		return $parts;
 	}
 
 	public function type()

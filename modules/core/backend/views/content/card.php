@@ -24,5 +24,5 @@ $info = isset($info)
 		<a href="<?= $url ?>" target="_blank" class="icon-view"></a>
 	<?php } ?>
 	<br>
-	<small><?= $content->clarifier ?></small>
+	<small><?= implode(' – ', $content->clarifier) ?></small>
 </div>

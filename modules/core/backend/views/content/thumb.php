@@ -45,7 +45,7 @@ $isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 				<?php if ($template) { ?>
 					Waiting…
 				<?php } else { ?>
-					<?= $content->clarifier($info->class != 'Chalk\Core\Content') ?>
+					<?= implode(' – ', $content->clarifier($info->class != 'Chalk\Core\Content')) ?>
 				<?php } ?>
 			</small>
 		</figcaption>

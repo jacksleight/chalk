@@ -125,13 +125,13 @@ class Url extends Content
 	public function clarifier($context = false, $parts = [])
 	{
 		if ($this->url->scheme() == 'mailto') {
-			$params = $this->url->queryParams();
-			$parts = [$this->url->path()];
+			$params  = $this->url->queryParams();
+			$parts[] = $this->url->path();
 			if (isset($params['subject'])) {
 				$parts[] = $params['subject'];
 			}
 		} else {
-			$parts = [$this->url->toString()];
+			$parts[] = $this->url->toString();
 		}
 		return parent::clarifier($context, $parts);
 	}

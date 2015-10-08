@@ -66,7 +66,7 @@
                                 ]) ?>"><? } ?><?= $content->name ?><? if ($isEditAllowed) { ?></a>
                             <? } ?>
                             <br>
-                            <small><?= $content->clarifier($info->class != 'Chalk\Core\Content') ?></small>
+                            <small><?= implode(' – ', $content->clarifier($info->class != 'Chalk\Core\Content')) ?></small>
                         </th>
                         <td class="col-right col-contract">
                             <?= $content->modifyDate->diffForHumans() ?>

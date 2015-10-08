@@ -204,14 +204,14 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
 
     editor.on('click', function(ev) {
         ev.preventDefault();
-        var target = $(ev.target);
-        var code = target.attr('data-chalk');
-        if (code) {
+        var el = $(ev.target).closest('div[data-chalk]');
+        if (el.length) {
+            var code = el.attr('data-chalk');
             if (ev.shiftKey) {
-                openWidgetSourceModal(code, target);
+                openWidgetSourceModal(code, el);
             } else {
                 data = JSON.parse(code).widget;
-                openWidgetModal(data.name, 'edit', data.params, target);
+                openWidgetModal(data.name, 'edit', data.params, el);
             }
         }
     });

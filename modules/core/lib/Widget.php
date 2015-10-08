@@ -9,10 +9,10 @@ namespace Chalk\Core;
 use Chalk\App as Chalk,
 	Toast\Entity;
 
-class Widget extends Entity
+abstract class Widget extends Entity
 {
-	public function name()
-	{
-		return null;
-	}
+    public function clarifier($parts = [])
+    {   
+        return $parts;
+    }
 }
