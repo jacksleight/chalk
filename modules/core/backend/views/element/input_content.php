@@ -1,8 +1,9 @@
 <?php 
 use Chalk\App as Chalk;
-
 if (!isset($filters)) {
-	$filters = Chalk::info($md['entity'])->name;
+	$filters = [
+		Chalk::info($md['entity'])->name => true,
+	];
 }
 ?>
 <div class="input-content" data-params="<?= $this->escape(http_build_query(['filters' => $filters])) ?>">

@@ -134,7 +134,7 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
     if (Chalk.widgets) {
 
         var groups = {}, group, entity, item;
-        for (var i = 0; i < Chalk.widgets.length; i++) {
+        for (i in Chalk.widgets) {
             entity = Chalk.widgets[i];
             group  = entity.group;
             item = {
@@ -150,8 +150,8 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
                 menu.push(item);
             }
         }
-        menu.push(menu.splice(2, 1)[0]);
-        menu.push(menu.splice(2, 1)[0]);
+        menu.push(menu.splice(0, 1)[0]);
+        menu.push(menu.splice(0, 1)[0]);
 
     }
 

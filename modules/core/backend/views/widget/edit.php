@@ -3,34 +3,38 @@
 	<?php $this->block('main') ?>
 <?php } ?>
 
-<form action="<?= $this->url->route() ?>?mode=<?= $req->action ?>&amp;post=1" method="post" class="">
-	<div class="body">
-		<ul class="toolbar">
-			<li><span class="btn btn-out btn-lighter modal-close icon-cancel">
-				Close
-			</span></li>
-		</ul>
-		<h1>
-			<?= $info->singular ?>
-		</h1>
-		<?= $this->inner("{$info->local->path}", [], $info->module->name) ?>
+<form action="<?= $this->url->route() ?>?mode=<?= $req->mode ?>&amp;post=1" method="post" data-modal-size="800x800">
+	<div class="flex-col">
+		<div class="header">
+			<ul class="toolbar toolbar-right">
+				<li><span class="btn btn-out btn-lighter modal-close icon-cancel">
+					Close
+				</span></li>
+			</ul>
+			<h1>
+				<?= $info->singular ?>
+			</h1>
+		</div>
+		<div class="body flex">
+			<?= $this->inner("{$info->local->path}", [], $info->module->name) ?>
+		</div>
+		<div class="footer">
+			<ul class="toolbar toolbar-right">
+				<li>
+					<button class="btn btn-positive icon-ok">
+						Update <?= $info->singular ?>
+					</button>
+				</li>
+			</ul>
+			<ul class="toolbar">
+				<? if ($req->mode == 'edit') { ?>
+					<li><a href="<?= $this->url([
+						'action'	=> 'delete',
+					]) ?>" class="btn btn-negative btn-out confirmable icon-delete">
+						Delete <?= $info->singular ?>
+					</a></li>
+				<? } ?>
+			</ul>
+		</div>
 	</div>
-	<fieldset class="footer">
-		<ul class="toolbar">
-			<li>
-				<button class="btn btn-positive icon-ok">
-					Update <?= $info->singular ?>
-				</button>
-			</li>
-		</ul>
-		<ul class="toolbar">
-			<? if ($req->mode == 'edit') { ?>
-				<li><a href="<?= $this->url([
-					'action'	=> 'delete',
-				]) ?>" class="btn btn-negative btn-quiet confirmable icon-delete" data-message="Are you sure?<?= "\n" ?>This will delete the <?= strtolower($info->singular) ?> and cannot be undone.">
-					Delete <?= $info->singular ?>
-				</a></li>
-			<? } ?>
-		</ul>
-	</fieldset>
 </form>

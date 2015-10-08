@@ -70,7 +70,9 @@ class Module extends ChalkModule
                             $info   = Chalk::info($data['widget']['name']);
                             $class  = $info->class;
                             $widget = (new $class())->fromArray($data['widget']['params']);
-                            $html   = $this->frontend->view->render('chalk/' . $info->module->path . '/' . $info->local->path, $widget->toArray());
+                            $config = $this->config->viewScripts;
+                            $path   = "{$config[0]}/{$info->module->name}/{$info->local->path}";
+                            $html   = $this->frontend->view->render($path, $widget->toArray(), $config[1]);
                             $temp   = Parser::htmlToDoc($html);
                             $nodes  = $temp->getElementsByTagName('body')->item(0)->childNodes;
                             for ($i = 0; $i < $nodes->length; $i++) {
