@@ -4031,12 +4031,6 @@ legend {
 .meta a {
   text-decoration: none;
 }
-.meta li {
-  max-width: 300px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
 .meta li::before {
   color: #2d353c;
 }

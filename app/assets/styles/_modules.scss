@@ -960,10 +960,6 @@ legend {
 		&::before {
 			color: $color-primary;
 		}
-		max-width: 300px;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
 	}
 	@include media(800px) {
 		&.meta-right {
