@@ -2355,7 +2355,7 @@ body > *:first-child {
 /* Header */
 h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
-  color: #20252a;
+  color: #2d353c;
   margin: 20px 0 0 0;
 }
 

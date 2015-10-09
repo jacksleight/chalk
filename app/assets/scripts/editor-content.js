@@ -83,9 +83,11 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
                 if (el) {
                     el.remove();
                 }
+                editor.focus();
                 return;
             }
             var attrs = {
+                'class': 'mceNonEditable',
                 'data-chalk': JSON.stringify({
                     widget: {
                         name: res.entity,
@@ -95,13 +97,15 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
             };
             if (!el) {
                 el = editor.dom.create('div', attrs, res.html);
-                editor.execCommand('mceInsertContent', false, el.outerHTML + '<p></p>');
+                editor.execCommand('mceInsertContent', false, el.outerHTML);
             } else {
                 for (var name in attrs) {
                     el.attr(name, attrs[name]);
                 }
                 el.html(res.html);
-            }            
+            }    
+            editor.focus();
+            editor.selection.collapse();
         });
 
     };

@@ -9,6 +9,7 @@
 	* Bulk publish/archive/restore/delete
 	* Use local timezone for date/time inputs
 	* Basic content tagging
+	* Filtering content by subtype
 	* Create child and sibling pages from within structure tab
 	* Login form remembers requested URL
 	* Full internal linking support for all types of content 
@@ -16,7 +17,7 @@
 * **Improvements**
 	* New content browser for selecting files/pages/links etc.
 	* Remember content list sorting/page/filters between requests
-	* Refreshed design
+	* Update and improved UI throughout
 	* Speed improvements
 * **Fixes**
 	* Bug fixes
