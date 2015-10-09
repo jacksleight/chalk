@@ -60,4 +60,7 @@ class StripEmpty implements Plugin
             $node->parentNode->removeChild($node);
         }
     }
+    
+    public function reverse(DOMDocument $doc, DOMXPath $xpath)
+    {}
 }

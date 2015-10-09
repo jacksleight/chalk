@@ -6,6 +6,8 @@
 
 namespace Chalk;
 
+use Coast\App\Executable;
+use Coast\App\Access;
 use Chalk\Parser;
 use Chalk\Parser\Plugin;
 use Coast\Request;
@@ -14,16 +16,16 @@ use Closure;
 use DOMDocument;
 use DOMXPath;
 
-class Parser implements \Coast\App\Access, \Coast\App\Executable
+class Parser implements Access, Executable
 {
-    use \Coast\App\Access\Implementation;
-    use \Coast\App\Executable\Implementation;
+    use Access\Implementation;
+    use Executable\Implementation;
 
     protected $_isTidy = false;
 
     protected $_plugins = [];
 
-    public static function htmlToDoc($html)
+    public function htmlToDoc($html)
     {
         $doc = new DOMDocument();
         libxml_use_internal_errors(true);
@@ -37,6 +39,16 @@ class Parser implements \Coast\App\Access, \Coast\App\Executable
             }
         }
         return $doc;
+    }
+
+    public function docToHtml(DOMDocument $doc)
+    {
+        $html = $doc->saveXML($doc, LIBXML_NOEMPTYTAG);
+        $html = preg_replace('/<\?xml.*?\?>\n/u', '', $html);
+        $html = preg_replace('/<!\[CDATA\[(.*?)\]\]>/us', '$1', $html);
+        $html = preg_replace('/<\/(area|base|basefont|br|col|frame|hr|img|input|isindex|link|meta|param)>/u', '', $html);
+        $html = preg_replace('/\n(\s+)/u', "\n$1$1", $html);
+        return $html;
     }
 
     public function __construct(array $options = array())
@@ -58,11 +70,11 @@ class Parser implements \Coast\App\Access, \Coast\App\Executable
         return $this->_isTidy;
     }
 
-    public function plugin($name, $plugin = null)
+    public function plugin($name, Plugin $plugin = null)
     {
         if (func_num_args() > 0) {
-            if (!$plugin instanceof Closure && !$plugin instanceof Plugin) {
-                throw new Parser\Exception("Object is not a closure or instance of Chalk\Parser\Plugin");
+            if ($plugin instanceof Access) {
+                $plugin->app($this->app());
             }
             $this->_plugins[$name] = $plugin;
             return $this;
@@ -72,9 +84,23 @@ class Parser implements \Coast\App\Access, \Coast\App\Executable
 
     public function parse($html)
     {
+        return $this->_run($html, 'parse');
+    }
+
+    public function reverse($html)
+    {
+        return $this->_run($html, 'reverse');
+    }
+
+    protected function _run($html, $method)
+    {
+        if (!$html) {
+            return $html;
+        }
+
         $partial = strpos($html, '<!DOCTYPE') === false;
 
-        $doc = self::htmlToDoc($html);
+        $doc = $this->htmlToDoc($html);
 
         $xpath = new DOMXPath($doc);
 
@@ -87,9 +113,7 @@ class Parser implements \Coast\App\Access, \Coast\App\Executable
         }
 
         foreach ($this->_plugins as $plugin) {
-            call_user_func($plugin instanceof Plugin
-                ? [$plugin, 'parse']
-                : $plugin, $doc, $xpath);
+            call_user_func([$plugin, $method], $doc, $xpath);
         }
 
         if ($partial) {
@@ -105,12 +129,7 @@ class Parser implements \Coast\App\Access, \Coast\App\Executable
             $doc->formatOutput = true;
         }
 
-        $html = $doc->saveXML($doc, LIBXML_NOEMPTYTAG);
-        $html = preg_replace('/<\?xml.*?\?>\n/u', '', $html);
-        $html = preg_replace('/<!\[CDATA\[(.*?)\]\]>/us', '$1', $html);
-        $html = preg_replace('/<\/(area|base|basefont|br|col|frame|hr|img|input|isindex|link|meta|param)>/u', '', $html);
-        $html = preg_replace('/\n(\s+)/u', "\n$1$1", $html);
-        return $html;
+        return $this->docToHtml($doc);        
     }
 
     public function postExecute(Request $req, Response $res)

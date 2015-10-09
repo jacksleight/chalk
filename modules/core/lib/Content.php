@@ -26,7 +26,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 abstract class Content extends \Toast\Entity implements Loggable, Publishable, Searchable, Trackable, Versionable
 {
 	public static $chalkSingular = 'Content';
-	public static $chalkPlural   = 'Content';
+    public static $chalkPlural   = 'Content';
+	public static $chalkIcon     = 'content';
 	
     use Publishable\Entity,
     	Trackable\Entity,
@@ -137,7 +138,7 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
         return $this->slug;
     }
 
-	public function clarifier($context = false, $parts = [])
+	public function previewText($context = false, $parts = [])
 	{	
 		$type = $this->typeLabel;
 		if (!$parts && isset($this->subtype)) {

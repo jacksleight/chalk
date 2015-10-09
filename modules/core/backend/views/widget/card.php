@@ -1,16 +1,19 @@
 <?php
 use Chalk\App as Chalk;
 $info = Chalk::info($widget);
+$file = $widget->previewFile;
 ?>
 <div class="card">
 	<div class="preview">
-		<?php if ($widget instanceof \Chalk\Core\File && $widget->file->exists() && $widget->isImage()) { ?>
-			<div class="image" style="background-image: url('<?= $this->image($widget->file, ['size' => '96']) ?>');"></div>
+		<?php if (isset($file) && $file->exists() && \Chalk\is_image($file)) { ?>
+			<div class="image" style="background-image: url('<?= $this->image($file, ['size' => '96']) ?>');"><i class="remove">&nbsp;</i></div>
 		<?php } else { ?>
-			<div class="text"><span class="icon-<?= $info->icon ?>"></span></div>
+			<div class="text"><span class="icon-<?= $info->icon ?>"><i class="remove">&nbsp;</i></span></div>
 		<?php } ?>
 	</div>
-	<strong><?= $info->singular ?></strong>&nbsp;
-	<br>
-	<small><?= implode(' – ', $widget->clarifier) ?></small>
+	<div class="card-inner">
+		<strong><?= $info->singular ?></strong>&nbsp;
+		<br>
+		<small><?= $widget->previewText ? implode(' – ', $widget->previewText) : '&nbsp;' ?></small>
+	</div>
 </div>

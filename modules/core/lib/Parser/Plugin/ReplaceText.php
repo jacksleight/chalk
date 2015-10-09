@@ -59,4 +59,7 @@ class ReplaceText implements Plugin
             }
         }
     }
+    
+    public function reverse(DOMDocument $doc, DOMXPath $xpath)
+    {}
 }

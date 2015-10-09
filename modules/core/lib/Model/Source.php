@@ -7,6 +7,7 @@
 namespace Chalk\Core\Model;
 
 use Chalk\Parser;
+use Toast\Wrapper;
 
 class Source extends \Toast\Entity
 {
@@ -31,12 +32,7 @@ class Source extends \Toast\Entity
 	public function code($value = null)
 	{
 		if (func_num_args() > 0) {
-			if ($this->lang == 'html') {
-                $parser = new Parser([
-                    'isTidy' => true,
-                ]);
-				$value = $parser->parse($value);
-			} else if ($this->lang == 'json') {
+			if ($this->lang == 'json') {
 				$value = json_encode(json_decode($value, true), JSON_PRETTY_PRINT);
 			}
 			$this->code = $value;
@@ -48,7 +44,9 @@ class Source extends \Toast\Entity
 	public function codeRaw()
 	{
 		$value = $this->code;
-		if ($this->lang == 'json') {
+		if ($this->lang == 'html') {
+			$value = Wrapper::$backend->parser->parse($value);
+		} else if ($this->lang == 'json') {
 			$value = json_encode(json_decode($value, true));
 		}
 		return $value;

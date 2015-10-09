@@ -41,6 +41,7 @@ class Widget extends Basic
 			'params'	=> array_map(function($value) {
 				return is_object($value) ? $value->id : $value;
 			}, $widget->toArray()),
+			'html'		=> $this->view->render('widget/card', ['widget' => $widget], 'core')->toString(),
 		]);
 	}
 

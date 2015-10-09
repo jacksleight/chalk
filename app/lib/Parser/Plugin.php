@@ -12,4 +12,6 @@ use DOMXPath;
 interface Plugin
 {
     public function parse(DOMDocument $doc, DOMXPath $xpath);
+
+    public function reverse(DOMDocument $doc, DOMXPath $xpath);
 }

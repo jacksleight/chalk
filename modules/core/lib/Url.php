@@ -122,7 +122,7 @@ class Url extends Content
 			: $subtype;
 	}
 
-	public function clarifier($context = false, $parts = [])
+	public function previewText($context = false, $parts = [])
 	{
 		if ($this->url->scheme() == 'mailto') {
 			$params  = $this->url->queryParams();
@@ -133,7 +133,7 @@ class Url extends Content
 		} else {
 			$parts[] = $this->url->toString();
 		}
-		return parent::clarifier($context, $parts);
+		return parent::previewText($context, $parts);
 	}
 	
 	public function searchableContent()

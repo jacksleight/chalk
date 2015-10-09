@@ -10,6 +10,8 @@ use Chalk\Backend;
 use Chalk\App as Chalk;
 use Chalk\Event;
 use Chalk\Frontend;
+use Chalk\Core\Parser\Plugin\Frontend as PluginFrontend;
+use Chalk\Core\Parser\Plugin\Backend as PluginBackend;
 use Chalk\InfoList;
 use Chalk\Parser;
 use Chalk\Core\Parser\Plugin\StripEmpty;
@@ -56,37 +58,7 @@ class Module extends ChalkModule
             ->frontendViewDir($this->name());
 
         $this
-            ->frontendParserPlugin($this->name('dataChalk'), function(DOMDocument $doc, DOMXPath $xpath) {
-                $nodes = $xpath->query('//*[@data-chalk]');
-                while ($nodes->length) {
-                    foreach ($nodes as $node) {
-                        $data = json_decode($node->getAttribute('data-chalk'), true);
-                        $node->removeAttribute('data-chalk');
-                        if (!$data) {
-                            continue;
-                        }
-                        if (isset($data['content'])) {
-                            $content = $this->em('core_content')->id($data['content']['id']);
-                            $node->setAttribute('href', $this->frontend->url($content));
-                        } else if (isset($data['widget'])) {
-                            $info   = Chalk::info($data['widget']['name']);
-                            $class  = $info->class;
-                            $widget = (new $class())->fromArray($data['widget']['params']);
-                            $config = $this->config->viewScripts;
-                            $path   = "{$config[0]}/{$info->module->name}/{$info->local->path}";
-                            $html   = $this->frontend->view->render($path, $widget->toArray(), $config[1]);
-                            $temp   = Parser::htmlToDoc($html);
-                            $temps  = $temp->getElementsByTagName('body')->item(0)->childNodes;
-                            for ($i = 0; $i < $temps->length; $i++) {
-                                $temp = $doc->importNode($temps->item($i), true);
-                                $node->parentNode->insertBefore($temp, $node);
-                            }
-                            $node->parentNode->removeChild($node);
-                        }
-                    }
-                    $nodes = $xpath->query('//*[@data-chalk]');
-                }
-            })
+            ->frontendParserPlugin($this->name('frontend'), new PluginFrontend())
             ->frontendParserPlugin($this->name('stripEmpty'), new StripEmpty([
                 'tags' => ['p'],
             ]));
@@ -218,44 +190,7 @@ class Module extends ChalkModule
             ->backendViewDir($this->name());
 
         $this
-            ->backendParserPlugin($this->name('backend'), function(DOMDocument $doc, DOMXPath $xpath) {
-                
-                $nodes = $xpath->query('//*[@data-chalk]');
-
-                foreach ($nodes as $node) {
-                    while ($node->hasChildNodes()) {
-                        $node->removeChild($node->firstChild);
-                    }
-                    $data = json_decode($node->getAttribute('data-chalk'), true);
-                    if (!$data) {
-                        continue;
-                    }
-                    $info   = Chalk::info($data['widget']['name']);
-                    $class  = $info->class;
-                    $widget = $this->em->wrap(new $class())->graphFromArray($data['widget']['params']);
-                    $html   = $this->backend->view->render('widget/card', ['widget' => $widget->getObject()], 'core');
-                    $temp   = Parser::htmlToDoc($html);
-                    $temps  = $temp->getElementsByTagName('body')->item(0)->childNodes;
-                    for ($i = 0; $i < $temps->length; $i++) {
-                        $temp = $doc->importNode($temps->item($i), true);
-                        $node->appendChild($temp);
-                    }
-                    
-
-
-
-
-
-                    if (isset($data['widget'])) {
-                        $node->setAttribute('class', $node->getAttribute('class')
-                            ? "{$node->getAttribute('class')} mceNonEditable"
-                            : "mceNonEditable");
-                    }
-                }
-
-
-
-            });
+            ->backendParserPlugin($this->name('backend'), new PluginBackend());
 
         $this
             ->backendRoute(

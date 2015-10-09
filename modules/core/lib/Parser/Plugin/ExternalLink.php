@@ -97,4 +97,7 @@ class ExternalLink implements Plugin
             }
         }
     }
+    
+    public function reverse(DOMDocument $doc, DOMXPath $xpath)
+    {}
 }

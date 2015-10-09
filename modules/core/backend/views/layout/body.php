@@ -46,13 +46,13 @@
 			    <?php } ?>
 			</ul>
 			<h1><a href="<?= $this->url([], 'core_about', true) ?>" rel="modal"><?= $this->chalk->config->name ?></a></h1>
-			<ul class="notifications"></ul>
 		</div>
 		<div class="flex main">
 			<?= $this->content('main') ?>
 		</div>
 	</div>
 </div>
+<ul class="notifications"></ul>
 
 <?php $this->block('foot') ?>
 

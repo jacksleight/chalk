@@ -11,8 +11,13 @@ use Chalk\App as Chalk,
 
 abstract class Widget extends Entity
 {
-    public function clarifier($parts = [])
+    public static $chalkIcon = 'stack';
+
+    public function previewText($parts = [])
     {   
         return $parts;
     }
+
+    public function previewFile()
+    {}
 }

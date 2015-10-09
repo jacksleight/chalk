@@ -1,0 +1,155 @@
+/* General */
+
+*, *:before, *:after {
+	@include box-sizing(border-box); 
+}	
+body {
+	@include experimental(text-size-adjust, 100%);
+	font-size: $font-size;
+	line-height: $line-height;
+	font-family: $font-family;
+	color: $color-foreground;
+	font-weight: normal;
+}
+
+/* Paragraph */
+
+p { 
+	margin: $gutter 0 0 0;
+}
+
+/* List */
+
+ul, ol { 
+	margin: $gutter 0 0 0;
+	padding: 0;
+	ul, ol { 
+		margin-top: 0;
+	}
+	li { 
+		margin: 0 0 0 $gutter;
+	}
+}
+ul { 
+	list-style: disc;
+	ul { 
+		list-style: circle;
+		ul { 
+			list-style: square;
+		}
+	}
+}
+ol { 
+	list-style: decimal;
+	ol { 
+		list-style: lower-alpha;
+		ol { 
+			list-style: lower-roman;
+		}
+	}
+}
+dl { 
+	margin: $gutter 0 0 0;
+	dt { 
+		font-weight: bold;
+		float: left;
+		width: (100px - $gutter);
+	}
+	dd { 
+		margin-left: 100px;
+	}
+}
+
+/* Emphasised & Marked */
+
+em { 
+	font-style: normal;
+	color: $color-foreground;
+}
+strong { 
+	font-weight: bold;
+}
+mark { 
+	background-color: yellow;
+	@include border-radius(2px);
+}
+
+/* Quote */
+
+blockquote { 
+	font-style: oblique;
+	margin: $gutter 0 0 0;
+	padding: 0 $gutter;
+	border-left: 1px solid $color-divide;
+	@include flush;
+}
+q { 
+	quotes: '\201C' '\201D' '\2018' '\2019';
+	&:before { 
+		content: open-quote;
+	}
+	&:after { 
+		content: close-quote;
+	}
+}
+
+/* Preformatted & Code */
+
+pre, code { 
+	font-family: $font-family-monospace;
+	@include font-size(-1);
+	line-height: 1;
+}
+pre { 
+	margin: $gutter 0 0 0; padding: $gutter;
+	@include experimental(tab-size, 4);
+	background: $color-shade;
+}
+
+/* Abbreviation */
+
+abbr { 
+	border-bottom: 1px dotted;
+	cursor: help;
+}
+
+/* Superscript & Subscript */
+
+sup { 
+	vertical-align: super;
+	vertical-align: 5px;
+}
+sub { 
+	vertical-align: sub;
+	vertical-align: -3px;
+}
+
+/* Deleted & Inserted */
+
+del, strike { 
+	text-decoration: line-through;
+}
+ins, u { 
+	text-decoration: underline;
+}
+
+/* Note & Error */
+
+small { 
+	color: $color-quiet;
+	font-size: inherit;
+}
+
+/* Rule */
+
+hr { 
+	margin: $gutter 0;
+	border: 0;
+	border-top: 1px solid $color-divide;
+}
+
+/* Remove */
+
+.remove {
+	display: none;
+}

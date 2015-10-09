@@ -21,16 +21,18 @@ $covered  = isset($covered) ? $covered : false;
 			<?php } ?>
 		<?php } ?>
 	</div>
-	<?= $template ? '{{name}}' : $content->file->baseName() ?>&nbsp;
-	<?php if (!$template) { ?>
-		<a href="<?= $this->frontend->url->file($content->file) ?>" target="_blank" class="icon-view"></a>
-	<?php } ?>
-	<br>
-	<small>
-		<?php if ($template) { ?>
-			Waiting…
-		<?php } else { ?>
-			<?= \Coast\str_size_format($content->file->size()) ?>
+	<div class="card-inner">
+		<?= $template ? '{{name}}' : $content->file->baseName() ?>&nbsp;
+		<?php if (!$template) { ?>
+			<a href="<?= $this->frontend->url->file($content->file) ?>" target="_blank" class="icon-view"></a>
 		<?php } ?>
-	</small>
+		<br>
+		<small>
+			<?php if ($template) { ?>
+				Waiting…
+			<?php } else { ?>
+				<?= \Coast\str_size_format($content->file->size()) ?>
+			<?php } ?>
+		</small>
+	</div>
 </div>

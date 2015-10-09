@@ -16266,6 +16266,9 @@ var widget = $.widget;
 		content.click(function(ev) {
 			var target = $(ev.target);
 			if (target.is('a')) {
+				if (target.is('a[target]')) {
+					return;
+				}
 				ev.preventDefault();
 				request(target.attr('href'));
 			} else if (target.hasClass('modal-close')) {

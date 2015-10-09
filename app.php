@@ -32,6 +32,8 @@ $app
     ->param('session', $app->config->session)
     ->module(new Core());
 
+$app->load('app/init/funcs.php');
+
 File::baseDir($config->publicDataDir->dir('file'));
 File::mimeTypes($app->load('app/init/mime-types.php'));
 
@@ -93,6 +95,7 @@ $app->param('backend', $app->lazy(function($vars) {
     foreach ($app->modules() as $module) {
         $module->backendInit();
     }
+    Toast\Wrapper::$backend = $backend;
     return $backend;
 }));
 
@@ -126,6 +129,7 @@ $app->param('frontend', $app->lazy(function($vars) {
     foreach ($app->modules() as $module) {
         $module->frontendInit();
     }
+    Toast\Wrapper::$frontend = $frontend;
     return $frontend;
 }));
 

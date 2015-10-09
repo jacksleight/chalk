@@ -120,13 +120,14 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
                 })
             };
             if (!el) {
-                el = editor.dom.create('div', attrs);
+                el = editor.dom.create('div', attrs, res.html);
                 editor.execCommand('mceInsertContent', false, el.outerHTML + '<p></p>');
             } else {
                 for (var name in attrs) {
                     el.attr(name, attrs[name]);
                 }
-            }
+                el.html(res.html);
+            }            
         });
 
     };
@@ -203,6 +204,7 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
     });
 
     editor.on('click', function(ev) {
+        ev.stopPropagation();
         ev.preventDefault();
         var el = $(ev.target).closest('div[data-chalk]');
         if (el.length) {
@@ -326,6 +328,7 @@ tinyMCE.init({
     statusbar: false,
     browser_spellcheck: true,
     element_format: 'html',
+    autoresize_max_height: 1000,
     paste_retain_style_properties: 'none',
     paste_word_valid_elements: [
         '-strong/b', '-em/i',
