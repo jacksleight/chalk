@@ -2130,8 +2130,7 @@ dl dd {
 
 /* Emphasised & Marked */
 em {
-  font-style: normal;
-  color: #2d353c;
+  font-style: italic;
 }
 
 strong {
@@ -2336,6 +2335,9 @@ hr {
 .card .card-inner {
   margin-left: 58px;
 }
+.card .card-inner strong {
+  font-weight: normal;
+}
 
 /* Styles */
 body[style] {
@@ -2347,7 +2349,7 @@ body[style] {
 }
 
 body > *:first-child {
-  margin-top: 0;
+  margin-top: 0 !important;
 }
 
 /* Header */
@@ -2408,22 +2410,27 @@ table th, table td {
 
 /* Widget */
 div[data-chalk] {
-  margin: 1em -20px;
-  border: dashed;
+  margin: 20px 0 0 0;
+  margin-left: -20px;
+  margin-right: -20px;
+  border: solid;
   border-width: 1px 0;
   padding: 0.5em 20px;
   cursor: pointer;
 }
 div[data-chalk] {
-  color: #5f5f5f;
-  background-color: white;
   border-color: #d2d2d2;
 }
 .darkdiv[data-chalk], .dark div[data-chalk] {
-  color: #dedede;
-  background-color: #3b464f;
   border-color: #181c20;
 }
 div[data-chalk]:hover {
-  border-color: #00a6b5;
+  background-color: #f9f9f9;
+}
+.darkdiv[data-chalk]:hover, .dark div[data-chalk]:hover {
+  background-color: #353f47;
+}
+div[data-chalk] + div[data-chalk] {
+  margin-top: 0;
+  border-top: 0;
 }

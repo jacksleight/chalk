@@ -81,5 +81,8 @@
 	}
 	.card-inner {
 		margin-left: 48px + ($gutter * 0.5);
+		strong {
+			font-weight: normal;
+		}
 	}
 }

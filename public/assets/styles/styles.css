@@ -2303,8 +2303,7 @@ dl dd {
 
 /* Emphasised & Marked */
 em {
-  font-style: normal;
-  color: #2d353c;
+  font-style: italic;
 }
 
 strong {
@@ -5043,6 +5042,9 @@ legend {
 }
 .card .card-inner {
   margin-left: 58px;
+}
+.card .card-inner strong {
+  font-weight: normal;
 }
 
 /* Page */
