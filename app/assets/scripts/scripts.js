@@ -9,10 +9,14 @@
 //= require ../../../bower_components/jquery.ui/ui/widget.js
 //= require ../../../bower_components/jquery.ui/ui/mouse.js
 //= require ../../../bower_components/jquery.ui/ui/sortable.js
+
 //= require ../../../bower_components/Nestable/jquery.nestable.js
+
 //= require ../../../bower_components/jquery-file-upload/js/vendor/jquery.ui.widget.js
 //= require ../../../bower_components/jquery-file-upload/js/jquery.iframe-transport.js
 //= require ../../../bower_components/jquery-file-upload/js/jquery.fileupload.js
+
+//= require ../../../bower_components/selectize/dist/js/standalone/selectize.js
 
 //= require ../../../bower_components/mustache/mustache.js
 
@@ -28,6 +32,7 @@
 //= require elements/tree.js
 //= require elements/content.js
 //= require elements/editor.js
+//= require elements/tag.js
 
 /* Behaviours */
 

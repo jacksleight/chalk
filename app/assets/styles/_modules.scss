@@ -344,7 +344,7 @@ input,
 select,
 textarea,
 .btn { 
-	@include transition(all $speed linear);
+	@include transition(border $speed linear, background $speed linear);
 }
 
 input[type=date],
@@ -364,7 +364,10 @@ textarea,
 select,
 .input-pseudo,
 .input-content,
-.input-upload { 
+.input-upload,
+.selectize-input,
+.selectize-input input,
+.selectize-input div { 
 	display: inline-block;
 	@include font-size(0);
 	font-family: $font-family;
@@ -568,6 +571,66 @@ textarea {
 	.input-upload-input {
 		display: none;
 	}
+}
+.selectize-input {
+	height: auto;
+	line-height: 1;
+	padding-top: $input-padding;
+	padding-bottom: $input-padding - 3px;
+	cursor: text;
+	input, 
+	div {
+		border: 0;
+		padding: 0;
+		height: $input-height-small - ($input-border-width * 2);
+		line-height: $input-height-small - ($input-border-width * 2);
+	}
+	input {
+		margin: 0 0 3px 0;
+		outline: none !important;
+		&::-ms-clear {
+		 	display: none;
+		}
+		&:after {
+			content: ' ';
+			display: block;
+			clear: left;
+		}
+	}
+	div {
+		width: auto;
+		@include colors(null, 2);
+		padding: 0 0.55em;
+		margin: 0 3px 3px 0;
+		cursor: default;
+		&.active {
+			background-color: $color-active !important;
+		}
+	}
+}
+.selectize-control {
+    position: relative;
+}
+.selectize-dropdown {
+    position: absolute;
+    z-index: 10;
+    border: 1px solid;
+    @include colors(0, 0, $color-input);
+    background: #ffffff;
+    border-top: 0;
+    [data-selectable] {
+        padding: 0 $input-padding-horiz;
+        height: $input-height-small - ($input-border-width * 2);
+        line-height: $input-height-small - ($input-border-width * 2);
+    }
+    .active {
+        @include colors(null, 1);
+    }
+}
+.selectize-dropdown-content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 200px;
 }
 
 input[type=reset],
@@ -1058,7 +1121,6 @@ legend {
 		max-height: 0;
 		overflow: hidden;
 		padding: 0 0;
-		@include transition(all $speed ease);
 		@include flush;
 	}
 	.expandable-toggle {
@@ -1067,9 +1129,7 @@ legend {
 		color: $color-quiet;
 		line-height: 0.8;
 		text-align: right;
-		@include transition(all $speed ease);
 		&:before {
-			@include transition(all $speed ease);
 			padding-right: 1px;
 		}
 	}
@@ -1077,10 +1137,11 @@ legend {
 		.expandable-body {
 			padding-bottom: $gutter;
 			max-height: 500px;
+			overflow: visible;
 		}
 		.expandable-toggle {
 			&:before {
-				@include transform(rotate(90deg) translate(1px, 0));
+				@include transform(rotate(-90deg) translate(1px, 0));
 			}
 		}
 	}

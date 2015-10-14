@@ -11,6 +11,7 @@
     "Nestable": "git://github.com/jacksleight/Nestable#master",
     "js-base64": "~2.1.9",
     "tinymce": "~4.2.6",
-    "ace-builds": "~1.2.0"
+    "ace-builds": "~1.2.0",
+    "selectize": "~0.12.1"
   }
 }

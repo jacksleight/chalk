@@ -77,6 +77,9 @@ $input-padding-horiz:	$input-padding + 4px;
 $input-height:			round($font-size * $line-height)
 						+ ($input-padding * 2)
 						+ ($input-border-width * 2);
+$input-height-small:	round($font-size * $line-height)
+						+ ($input-padding)
+						+ ($input-border-width * 2);
 $input-toggle-size:		$input-height - 10px;
 
 /* Transitions */
