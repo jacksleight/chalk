@@ -5,10 +5,10 @@
 //= require ../../../bower_components/js-base64/base64.js
 
 //= require ../../../bower_components/jquery/dist/jquery.js
-//= require ../../../bower_components/jquery.ui/ui/jquery.ui.core.js
-//= require ../../../bower_components/jquery.ui/ui/jquery.ui.widget.js
-//= require ../../../bower_components/jquery.ui/ui/jquery.ui.mouse.js
-//= require ../../../bower_components/jquery.ui/ui/jquery.ui.sortable.js
+//= require ../../../bower_components/jquery.ui/ui/core.js
+//= require ../../../bower_components/jquery.ui/ui/widget.js
+//= require ../../../bower_components/jquery.ui/ui/mouse.js
+//= require ../../../bower_components/jquery.ui/ui/sortable.js
 //= require ../../../bower_components/Nestable/jquery.nestable.js
 //= require ../../../bower_components/jquery-file-upload/js/vendor/jquery.ui.widget.js
 //= require ../../../bower_components/jquery-file-upload/js/jquery.iframe-transport.js

@@ -266,7 +266,7 @@ figure {
 		text-overflow: ellipsis;
 		padding: $gutter * 0.3 0 0 0;
 	}
-	.badge {
+	.badge-out {
 		background-color: white;
 	}
 	input[type=checkbox] + label {
@@ -786,6 +786,7 @@ textarea,
 		padding-right: 35px;
 	}
 	.menu {
+		@include colors(null, 0);
 		margin-top: 0;
 		position: absolute;
 		top: 100%;
@@ -796,6 +797,7 @@ textarea,
 		border-top-width: 0;
 		max-height: 300px;
 		overflow-y: auto;
+		overflow-x: hidden;
 		@include box-shadow(0 5px 0 0 transparentize(black, 0.95));
 	}
 	&:hover .menu {
@@ -1454,62 +1456,31 @@ legend {
 
 /* TinyMCE */
 
-.mce-tinymce * {
-	background-image: none !important;
-	box-shadow: none !important;
-}
 .mce-tinymce {
 	&.mce-panel,
 	.mce-panel {
-		border-radius: 0;
 		background-color: white;
 		@include colors(null, null, $color-input);
 	}
-	.mce-menu-item-chalk {
-		i:before {
-			color: $color-focus;
-		}
-	}
 	.mce-toolbar-grp {
 		padding: 1px 1px 3px 1px;
-		background-color: $color-shade;
-	}
-	.mce-menu-item:hover,
-	.mce-menu-item.mce-selected,
-	.mce-menu-item:focus,
-	.mce-menu-item:hover i[style],
-	.mce-menu-item.mce-selected i[style],
-	.mce-menu-item:focus i[style],
-	.mce-menu-item:hover span[style],
-	.mce-menu-item.mce-selected span[style],
-	.mce-menu-item:focus span[style] {
-		color: white !important;
 	}
 	.mce-btn-group .mce-first,
 	.mce-btn-group .mce-btn,
 	.mce-btn-group .mce-last {
-		border-radius: 0;
 		border-color: transparent;
 		background-color: transparent;
 	}
 	.mce-btn-group .mce-btn.mce-active {
-		@include colors(null, 2);
+		@include colors(null, 1);
+		border-color: transparent;
 	}
 	&.disabled .mce-edit-area {
 		background-color: $color-shade;
 	}
 }
-.mce-widget {
-	.mce-tooltip-inner {
-		border-radius: 0;
-		@include box-shadow(none);
-	}
-}
+
 .mce-menu {
-	&.mce-menu {
-		border-radius: 0;
-		@include box-shadow(0 5px 0 0 transparentize(black, 0.95));
-	}
 	.mce-menu-item:hover,
 	.mce-menu-item.mce-selected,
 	.mce-menu-item:focus {
@@ -1520,6 +1491,28 @@ legend {
 	}
 	.mce-menu-item-preview.mce-active {
 		border-left-color: $color-active;
+	}
+}
+
+.mce-container {
+	&.mce-window {
+		border: 0;
+	}
+	.mce-foot {
+		@include colors(null, null, 4);
+	}
+	.mce-primary,
+	.mce-primary:hover,
+	.mce-primary:focus,
+	.mce-primary.mce-active,
+	.mce-primary.mce-active:hover,
+	.mce-primary:not(.mce-disabled):active {
+		background-color: $color-focus;
+	}
+	.mce-grid-border a:hover,
+	.mce-grid-border a.mce-active {
+		background-color: $color-active;
+		border-color: $color-active;
 	}
 }
 
