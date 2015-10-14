@@ -104,7 +104,7 @@ class Node extends Repository
         $query = $this->prepare($query, [
             'hydrate'    => Repository::HYDRATE_ARRAY,
         ]);    
-        return $this->execute($query);
+        return $this->fetch($query);
     }
 
     public function parents($node, $isIncluded = false, $depth = null, $isReversed = false, array $params = array())
@@ -118,7 +118,7 @@ class Node extends Repository
         $query = $this->prepare($query, [
             'hydrate'    => Repository::HYDRATE_ARRAY,
         ]);    
-        return $this->execute($query);
+        return $this->fetch($query);
     }
 
     public function siblings($node, $isIncluded = false, array $params = array())
@@ -130,7 +130,7 @@ class Node extends Repository
         $query = $this->prepare($query, [
             'hydrate'    => Repository::HYDRATE_ARRAY,
         ]);    
-        return $this->execute($query);
+        return $this->fetch($query);
     }
 
     public function tree($node, $isIncluded = false, $isMerged = false, $depth = null, array $params = array())

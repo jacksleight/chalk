@@ -75,7 +75,7 @@ trait Repository
         $query = $this->prepare($query, [
             'hydrate' => \Chalk\Repository::HYDRATE_ARRAY,
         ] + $opts);
-        return $this->execute($query);
+        return $this->fetch($query);
     }
 
     public function publishYears(array $params = array(), array $opts = array())

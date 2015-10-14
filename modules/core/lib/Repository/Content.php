@@ -144,6 +144,6 @@ class Content extends Repository
         $query = $this->prepare($query, [
             'hydrate' => Repository::HYDRATE_ARRAY
         ] + $opts);
-        return $this->execute($query);
+        return $this->fetch($query);
     }
 }

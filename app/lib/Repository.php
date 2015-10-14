@@ -43,35 +43,25 @@ class Repository extends EntityRepository
     public function one(array $params = array(), array $opts = array())
     {   
         $query = $this->build($params);
-        $query = $this->prepare($query, $opts);    
-        return $this->execute($query, true);
+        $query = $this->prepare($query, $opts);  
+        return $this->fetch($query, true);
     }
 
     public function all(array $params = array(), array $opts = array())
     {   
         $query = $this->build($params);
-        $query = $this->prepare($query, $opts);    
-        return $this->execute($query);
+        $query = $this->prepare($query, $opts);
+        return $this->fetch($query);
     }
 
     public function count(array $params = array(), array $opts = array())
     {   
         $query = $this->build($params)
-            ->select("COUNT({$this->alias()})");
+            ->select("COUNT(DISTINCT {$this->alias()})");
         $query = $this->prepare($query, [
             'hydrate' => Repository::HYDRATE_SINGLE_SCALAR,
         ] + $opts);
-        return $this->execute($query);
-    }
-
-    public function paged(array $params = array(), array $opts = array())
-    {   
-        $query = $this->build($params + [
-            'limit' => $this->_limit,
-            'page'  => 1,
-        ]);
-        $query = $this->prepare($query, $opts);
-        return new Paginator($query);
+        return $this->fetch($query);
     }
 
     public function build(array $params = array())
@@ -160,17 +150,16 @@ class Repository extends EntityRepository
         return $query;
     }
 
-    public function execute(Query $query, $one = false)
+    public function fetch(Query $query, $one = false)
     {
-        $result = $query->execute();
-
-        if ($one && $query->getHydrationMode() != self::HYDRATE_SINGLE_SCALAR) {
-            $result = count($result)
-                ? current($result)
-                : null;
+        if ($one) {
+            $query->setMaxResults(1);
+            return (new Paginator($query))->getIterator()->current();
+        } else {
+            return $query->getMaxResults() !== null
+                ? new Paginator($query)
+                : $query->execute();
         }
-        
-        return $result;
     }
 
     public function alias()

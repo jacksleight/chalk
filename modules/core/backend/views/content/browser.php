@@ -45,7 +45,7 @@ $info = Chalk::info($index->type);
     <? } ?>
 	<div class="flex main">
 		<?= $this->render("/{$info->local->path}/list", [
-			'contents'		=> $this->em($info)->paged(['types' => $filters] + $index->toArray()),
+			'contents'		=> $this->em($info)->all(['types' => $filters] + $index->toArray()),
 			'isNewAllowed'	=> false,
 			'isEditAllowed'	=> false,
 			'info'			=> $info,

@@ -6,7 +6,7 @@
 <form action="<?= $this->url->route() ?>" novalidate>
 	<?php
 	$contents = $this->em($req->info)
-		->paged($index->toArray());
+		->all($index->toArray());
 	?>
 	<?= $this->inner("/{$info->local->path}/list", [
 		'contents' => $contents,
