@@ -8,6 +8,8 @@ namespace Chalk\Core;
 
 class NavList
 {
+    protected $_i = 0;
+
     protected $_items = [
         0 => ['children' => []],
     ];
@@ -16,14 +18,20 @@ class NavList
     {
         if (func_num_args() > 1) {
             if (isset($item)) {
-                $this->_items[$name] = $item + [
-                    'label'    => null,
-                    'badge'    => null,
-                    'icon'     => null,
-                    'url'      => null,
-                    'children' => [],
-                ];
-                $this->_items[$parent]['children'][$name] = &$this->_items[$name];
+                if (isset($this->_items[$name])) {
+                    $this->_items[$name] = $item + $this->_items[$name];
+                } else {
+                    $this->_items[$name] = $item + [
+                        'i'         => $this->_i++,
+                        'label'     => null,
+                        'badge'     => null,
+                        'icon'      => null,
+                        'url'       => null,
+                        'children'  => [],
+                        'sort'      => 0,
+                    ];
+                    $this->_items[$parent]['children'][$name] = &$this->_items[$name];
+                }
             } else {
                 unset($this->_items[$name]);
                 foreach ($this->_items as $parent => $item) {
@@ -50,8 +58,15 @@ class NavList
 
     public function children($name)
     {
-        return isset($this->_items[$name]['children'])
-            ? $this->_items[$name]['children']
-            : null;
+        if (!isset($this->_items[$name]['children'])) {
+            return null;
+        }
+        $items = $this->_items[$name]['children'];
+        uasort($items, function($a, $b) {
+            return $a['sort'] == $b['sort']
+                ? $a['i'] - $b['i']
+                : $a['sort'] - $b['sort'];
+        });
+        return $items;
     }
 }
