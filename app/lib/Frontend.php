@@ -6,7 +6,6 @@
 
 namespace Chalk;
 
-use Coast\App;
 use Closure;
 use DOMDocument;
 use DOMXPath;
@@ -16,7 +15,7 @@ use Chalk\App as Chalk;
 use Chalk\Core;
 use Chalk\Core\Structure\Node;
 
-class Frontend extends App
+class Frontend extends \Coast\App
 {
     protected $_handlers = [];
 

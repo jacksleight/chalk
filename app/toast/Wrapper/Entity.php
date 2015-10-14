@@ -142,16 +142,16 @@ class Entity extends Wrapper
 		$isEditorContent = function($value) {
 			return strpos($value, 'mceNonEditable') !== false && strpos($value, 'data-chalk') !== false;
 		};
-		if (isset($value) && isset(Wrapper::$backend)) {
+		if (isset($value) && isset(Wrapper::$chalk->backend)) {
 			if (is_scalar($value)) {
 				if ($isEditorContent($value)) {
-					$value = Wrapper::$backend->parser->reverse($value);
+					$value = Wrapper::$chalk->backend->parser->reverse($value);
 				}
 			} else if (is_array($value)) {
 				array_walk_recursive($value, function($value) use ($isEditorContent) {
 					if (isset($value) && is_scalar($value)) {
 						if ($isEditorContent($value)) {
-							$value = Wrapper::$backend->parser->reverse($value);
+							$value = Wrapper::$chalk->backend->parser->reverse($value);
 						}
 					}
 				});

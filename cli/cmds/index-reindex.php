@@ -29,7 +29,10 @@ try {
 		$page	= 0;
 		do {
 			$page++;	
-			$entities = $app->em($meta->name)->all([], null, $limit, $page);
+			$entities = $app->em($meta->name)->all([
+				'limit' => $limit,
+				'page'  => $page,
+			]);
 			if ($page == 1) {
 				$total = $entities->count();
 				$pages = ceil($total / $limit);

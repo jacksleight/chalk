@@ -10,11 +10,10 @@ use Chalk\App as Chalk;
 use Chalk\Event;
 use Chalk\Module;
 use Closure;
-use Coast\App;
 use Coast\Request;
 use Coast\Response;
 
-class Backend extends App
+class Backend extends \Coast\App
 {
     const FORMAT_DATE = 'jS F Y';
 

@@ -10,8 +10,7 @@ abstract class Wrapper implements \ArrayAccess
 {
 	public static $em;
 	public static $timezone;
-	public static $backend;
-	public static $frontend;
+	public static $chalk;
 
 	protected $_object;
 	protected $_allowed;

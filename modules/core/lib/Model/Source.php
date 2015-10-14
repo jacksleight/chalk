@@ -45,7 +45,7 @@ class Source extends \Toast\Entity
 	{
 		$value = $this->code;
 		if ($this->lang == 'html') {
-			$value = Wrapper::$backend->parser->parse($value);
+			$value = Wrapper::$chalk->backend->parser->parse($value);
 		} else if ($this->lang == 'json') {
 			$value = json_encode(json_decode($value, true));
 		}
