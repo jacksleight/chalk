@@ -108,7 +108,6 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
                 if (el) {
                     el.remove();
                 }
-                editor.focus();
                 return;
             }
             var attrs = {
@@ -128,9 +127,7 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
                     el.attr(name, attrs[name]);
                 }
                 el.html(res.html);
-            }    
-            editor.focus();
-            editor.selection.collapse();
+            }
         });
 
     };
@@ -211,6 +208,7 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
         ev.preventDefault();
         var el = $(ev.target).closest('div[data-chalk]');
         if (el.length) {
+            editor.selection.collapse();
             var code = el.attr('data-chalk');
             if (ev.shiftKey) {
                 openWidgetSourceModal(code, el);
