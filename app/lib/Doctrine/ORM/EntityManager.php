@@ -50,4 +50,79 @@ class EntityManager extends \Coast\Doctrine\ORM\EntityManager
             ? $this->_listeners[$name]
             : null;
     }
+
+    public function objects(array $items, $classes = null, $filters = null, array $opts = array())
+    {
+        if (!isset($classes)) {
+            $classes = ['__ROOT__' => null];
+        } else if (!is_array($classes)) {
+            $classes = ['__ROOT__' => $classes];        
+        }
+
+        $map = [];
+        foreach ($items as $i => &$item) {
+            foreach ($classes as $key => $class) {
+                if ($key == '__ROOT__') {
+                    $value = &$item;
+                } else {
+                    $value = &$item[$key];
+                }
+                if (!isset($value)) {
+                    continue;
+                }
+                if (isset($class)) {
+                    $class = $class;
+                    $id    = $value;
+                } else if (is_array($value)) {
+                    $class = $value['__CLASS__'];
+                    $id    = $value['id'];
+                }
+                if (!isset($map[$class][$id])) {
+                    $map[$class][$id] = [];
+                }
+                $map[$class][$id][] = &$value;
+            }
+        }
+
+        foreach ($map as $class => $ids) {
+            $entities = $this->__invoke($class)->all([
+                'ids' => array_keys($ids),
+            ], $opts);
+            foreach ($entities as $entity) {
+                foreach ($ids[$entity['id']] as &$ref) {
+                    $ref = $entity;
+                }
+            }
+            foreach ($ids as $id => &$refs) {
+                foreach ($refs as &$ref) {
+                    if (is_object($ref)) {
+                        continue;
+                    }
+                    $ref = null;
+                }
+            }
+        }
+
+        if (!isset($filters)) {
+            return $items;
+        } else if ($filters === true) {
+            $filters = ['__ROOT__'];
+        }
+
+        foreach ($items as $i => &$item) {
+            foreach ($filters as $key) {
+                if ($key == '__ROOT__') {
+                    if (!isset($item)) {
+                        unset($items[$i]);
+                    }
+                } else {
+                    if (!isset($item[$key])) {
+                        unset($items[$i]);
+                    }
+                }
+            }
+        }
+
+        return $items;
+    }
 }
