@@ -21,6 +21,7 @@
 					'entity'	=> $tag,
 					'name'		=> 'name',
 					'label'		=> 'Name',
+					'autofocus'	=> true,
 				)) ?>
 			</div>
 		</fieldset>

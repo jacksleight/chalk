@@ -6,7 +6,7 @@
 <form action="<?= $this->url->route() ?>" novalidate>
 	<?php
 	$contents = $this->em($req->info)
-		->all($index->toArray());
+		->all($index->toArray(), [], Chalk\Repository::FETCH_ALL_PAGED);
 	?>
 	<?= $this->inner("/{$info->local->path}/list", [
 		'contents' => $contents,

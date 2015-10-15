@@ -1,5 +1,6 @@
 <?php
 use Chalk\App as Chalk;
+use Chalk\Repository;
 
 $filters = isset($filters)
     ? $filters
@@ -45,7 +46,7 @@ $info = Chalk::info($index->type);
     <? } ?>
 	<div class="flex main">
 		<?= $this->render("/{$info->local->path}/list", [
-			'contents'		=> $this->em($info)->all(['types' => $filters] + $index->toArray()),
+			'contents'		=> $this->em($info)->all(['types' => $filters] + $index->toArray(), [], Repository::FETCH_ALL_PAGED),
 			'isNewAllowed'	=> false,
 			'isEditAllowed'	=> false,
 			'info'			=> $info,

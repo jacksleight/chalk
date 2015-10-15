@@ -4,7 +4,7 @@
 $index = $this->em->wrap(new \Chalk\Core\Model\Index())
 	->graphFromArray($req->queryParams());
 $tags = $this->em($info)
-	->all($index->toArray());
+	->all($index->toArray(), [], Chalk\Repository::FETCH_ALL_PAGED);
 ?>
 
 <div class="flex-col">

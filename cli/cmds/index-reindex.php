@@ -5,6 +5,7 @@
  */
 
 use Chalk\App as Chalk;
+use Chalk\Repository;
 
 if (cli\choose("Are you sure", 'yn', 'n') == 'n') {
 	exit;
@@ -32,11 +33,14 @@ try {
 			$entities = $app->em($meta->name)->all([
 				'limit' => $limit,
 				'page'  => $page,
-			]);
+			], [], Repository::FETCH_ALL_PAGED);
 			if ($page == 1) {
 				$total = $entities->count();
 				$pages = ceil($total / $limit);
 				$bar   = new cli\progress\Bar("Indexing {$meta->name}..", $total, 1);
+				if ($total == 0) {
+					break;
+				}
 			}
 			$indexes = $app->em('Chalk\Core\Index')->entities($entities);
 			foreach ($indexes as $index) {

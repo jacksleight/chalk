@@ -20,6 +20,11 @@ class Repository extends EntityRepository
     const HYDRATE_SCALAR        = Query::HYDRATE_SCALAR;
     const HYDRATE_SINGLE_SCALAR = Query::HYDRATE_SINGLE_SCALAR;
 
+    const FETCH_ALL             = 'all';
+    const FETCH_ALL_PAGED       = 'allPaged';
+    const FETCH_ONE             = 'one';
+    const FETCH_ONE_UNIQUE      = 'oneUnique';
+
     protected $_sort  = 'id';
     protected $_limit = 1;
 
@@ -32,26 +37,30 @@ class Repository extends EntityRepository
 
     public function id($id, array $params = array(), array $opts = array())
     {
-        return $this->one(['ids' => [$id]] + $params, $opts);
+        $query = $this->build(['ids' => [$id]] + $params);
+        $query = $this->prepare($query, $opts);  
+        return $this->fetch($query, self::FETCH_ONE_UNIQUE);
     }
 
     public function slug($slug, array $params = array(), array $opts = array())
     {
-        return $this->one(['slugs' => [$slug]] + $params, $opts);
+        $query = $this->build(['slugs' => [$slug]] + $params);
+        $query = $this->prepare($query, $opts);  
+        return $this->fetch($query, self::FETCH_ONE);
     }
 
-    public function one(array $params = array(), array $opts = array())
-    {   
+    public function one(array $params = array(), array $opts = array(), $mode = self::FETCH_ONE)
+    {
         $query = $this->build($params);
         $query = $this->prepare($query, $opts);  
-        return $this->fetch($query, true);
+        return $this->fetch($query, $mode);
     }
 
-    public function all(array $params = array(), array $opts = array())
+    public function all(array $params = array(), array $opts = array(), $mode = self::FETCH_ALL)
     {   
         $query = $this->build($params);
         $query = $this->prepare($query, $opts);
-        return $this->fetch($query);
+        return $this->fetch($query, $mode);
     }
 
     public function count(array $params = array(), array $opts = array())
@@ -150,15 +159,25 @@ class Repository extends EntityRepository
         return $query;
     }
 
-    public function fetch(Query $query, $one = false)
+    public function fetch(Query $query, $mode = self::FETCH_ALL)
     {
-        if ($one) {
+        if ($mode == self::FETCH_ALL) {
+            if ($query->getMaxResults() !== null && $query->getHydrationMode() != self::HYDRATE_SINGLE_SCALAR) {
+                return (new Paginator($query))->getIterator()->getArrayCopy();
+            } else {
+                return $query->execute();
+            }
+        } else if ($mode == self::FETCH_ALL_PAGED) {
+            return new Paginator($query);
+        } else if ($mode == self::FETCH_ONE) {
             $query->setMaxResults(1);
-            return (new Paginator($query))->getIterator()->current();
-        } else {
-            return $query->getMaxResults() !== null
-                ? new Paginator($query)
-                : $query->execute();
+            if ($query->getHydrationMode() != self::HYDRATE_SINGLE_SCALAR) {
+                return (new Paginator($query))->getIterator()->current();
+            } else {
+                return $query->getOneOrNullResult();
+            }         
+        } else if ($mode == self::FETCH_ONE_UNIQUE) {
+            return $query->getOneOrNullResult();
         }
     }
 

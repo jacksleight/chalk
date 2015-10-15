@@ -16,7 +16,6 @@
 	* Control sorting of items in content lists
 * **Improvements**
 	* New content browser for selecting files/pages/links etc.
-	* Remember content list sorting/page/filters between requests
 	* Update and improved UI throughout
 	* Speed improvements
 * **Fixes**

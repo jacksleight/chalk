@@ -28,6 +28,7 @@
 					'name'		=> 'name',
 					'label'		=> 'Name',
 					'disabled'	=> $user->isDeveloper() && !$req->user->isDeveloper(),
+					'autofocus'	=> true,
 				)) ?>
 				<?= $this->render('/element/form-item', array(
 					'entity'	=> $user,
