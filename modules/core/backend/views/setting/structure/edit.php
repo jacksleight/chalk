@@ -27,7 +27,7 @@
 					<?= $this->render('/element/form-item', array(
 						'entity'	=> $structure,
 						'name'		=> 'path',
-						'label'		=> 'Path Prefix',
+						'label'		=> 'URL Path Prefix',
 						'autofocus'	=> true,
 					)) ?>
 				<?php $html = $this->end() ?>
