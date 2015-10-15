@@ -116,9 +116,9 @@ class Node extends \Toast\Entity
     public function content(Content $content = null)
     {
         if (isset($content)) {
-            if (!$content->isMaster()) {
-                throw new \Chalk\Exception("Content can only be set to a master content version");
-            }
+            // if (!$content->isMaster()) {
+            //     throw new \Chalk\Exception("Content can only be set to a master content version");
+            // }
             $this->content = $content;
             $this->content->nodes->add($this);
         }

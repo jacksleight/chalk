@@ -7,6 +7,7 @@
 namespace Chalk\Core\Structure\Node;
 
 use Chalk\Core\Content;
+use Chalk\Core\Structure;
 use Chalk\Core\Structure\Node;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\OnFlushEventArgs;
@@ -44,7 +45,9 @@ class Listener implements EventSubscriber
         );
         foreach ($entities as $entity) {
             $structures = [];
-            if ($entity instanceof Node) {
+            if ($entity instanceof Structure) {
+                $structures[] = $entity;
+            } else if ($entity instanceof Node) {
                 $structures[] = $entity->structure;
             } else if ($entity instanceof Content) {
                 foreach ($entity->nodes as $node) {
@@ -103,11 +106,15 @@ class Listener implements EventSubscriber
                 $node->left  = $j++;
                 $node->sort  = $i;
                 $node->depth = $tree->getDepth();
-                $nodes = $stack;
-                array_shift($nodes);
-                $node->path = implode('/', array_map(function($node) {
+                $nodes       = $stack;
+                array_shift($nodes);               
+                $parts = array_map(function($node) {
                     return isset($node->slug) ? $node->slug : $node->content->slug;
-                }, $nodes));
+                }, $nodes);
+                if (isset($structure->path)) {
+                    array_unshift($parts, $structure->path);
+                }
+                $node->path = implode('/', $parts);
             }
             foreach (array_reverse($stack) as $reverse) {
                 $reverse->right = $j++;

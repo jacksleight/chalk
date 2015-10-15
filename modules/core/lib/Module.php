@@ -88,13 +88,15 @@ class Module extends ChalkModule
                     ->file($file['file']);
             });
 
-        $this->frontendInitDomain();
-        $this->frontendInitNodes();
+        if ($this->app->isHttp()) {
+            $this->frontendInitDomain();
+            $this->frontendInitNodes();
+        }
     }
 
     public function frontendInitDomain()
     {
-        $domain = $this->em($this->name('domain'))->id(1);   
+        $domain = $this->em($this->name('domain'))->id(1);
         
         $this->frontend->domain = $domain;
         $this->frontend->root   = $domain->structures->first()->root;
@@ -102,7 +104,8 @@ class Module extends ChalkModule
         
         $structures = [];
         foreach ($domain->structures as $structure) {
-            $structures[$structure->id] = $structure;
+            $structures[$structure->id]   = $structure;
+            $structures[$structure->slug] = $structure;
         }
         $this->frontend->structures = $structures;
     }

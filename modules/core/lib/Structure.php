@@ -47,6 +47,11 @@ class Structure extends \Toast\Entity implements Trackable
      * @Column(type="string")
      */
     protected $slug;
+
+    /**
+     * @Column(type="string", nullable=true)
+     */
+    protected $path;
 	
 	/**
      * @OneToMany(targetEntity="\Chalk\Core\Structure\Node", mappedBy="structure", cascade={"persist"})
