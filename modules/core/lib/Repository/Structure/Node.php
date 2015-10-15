@@ -143,7 +143,7 @@ class Node extends Repository
         $query = $this->prepare($query, [
             'hydrate'    => Repository::HYDRATE_ARRAY,
         ]);
-        $nodes = $this->execute($query);
+        $nodes = $this->fetch($query);
 
         $map = [];
         foreach ($nodes as $i => $mapped) {
