@@ -14,6 +14,9 @@ use Coast\Validator;
 
 /**
  * @Entity
+ * @Table(
+ *     uniqueConstraints={@UniqueConstraint(columns={"name"})}
+ * )
 */
 class Domain extends \Toast\Entity implements Trackable
 {

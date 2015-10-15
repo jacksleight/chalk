@@ -3,7 +3,7 @@ use Chalk\App as Chalk;
 ?>
 
 <ul class="meta meta-right">
-	<?php if (!$content->isNewMaster()) { ?>
+	<?php if (!$content->isNew()) { ?>
 		<?php
 		$url = $this->frontend->url($content->getObject());
 		?>

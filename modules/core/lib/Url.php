@@ -13,6 +13,9 @@ use Coast\Validator;
 
 /**
  * @Entity
+ * @Table(
+ *     uniqueConstraints={@UniqueConstraint(columns={"url"})}
+ * )
 */
 class Url extends Content
 {

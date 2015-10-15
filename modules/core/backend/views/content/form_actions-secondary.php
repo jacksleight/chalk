@@ -1,6 +1,6 @@
 <ul class="toolbar">
 	<? if (!$content->isProtected()) { ?>		
-		<?php if (!$content->isArchived() && !$content->isNewMaster()) { ?>
+		<?php if (!$content->isArchived() && !$content->isNew()) { ?>
 			<li><a href="<?= $this->url([
 				'entity'	=> $info->name,
 				'action'	=> 'archive',

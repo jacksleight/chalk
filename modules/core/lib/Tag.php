@@ -14,7 +14,9 @@ use Coast\Validator;
 
 /**
  * @Entity
- * @Table(uniqueConstraints={@UniqueConstraint(columns={"slug"})})
+ * @Table(
+ *     uniqueConstraints={@UniqueConstraint(columns={"slug"})}
+ * )
 */
 class Tag extends \Toast\Entity implements Trackable, Searchable
 {

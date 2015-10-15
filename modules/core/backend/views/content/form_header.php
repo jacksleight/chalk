@@ -1,6 +1,6 @@
 <?= $this->partial('header-before') ?>
 <h1>
-	<?php if (!$content->isNewMaster()) { ?>
+	<?php if (!$content->isNew()) { ?>
 		<?= $content->name ?>
 	<?php } else { ?>
 		New <?= $info->singular ?>

@@ -23,18 +23,19 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @DiscriminatorColumn(name="type", type="string")
  * @DiscriminatorMap({"content" = "Chalk\Core\Content"})
 */
-abstract class Content extends \Toast\Entity implements Loggable, Publishable, Searchable, Trackable, Versionable
+abstract class Content extends \Toast\Entity implements Publishable, Searchable, Trackable
 {
 	public static $chalkSingular = 'Content';
     public static $chalkPlural   = 'Content';
 	public static $chalkIcon     = 'content';
 	
-    use Publishable\Entity,
-    	Trackable\Entity,
-    	Versionable\Entity {
+    use Publishable\Entity {
             Publishable\Entity::_defineMetadata as _defineMetadataPublishable;
-        	Versionable\Entity::__construct as __constructVersionable;
-    	}
+        }
+    use Trackable\Entity;
+    // use Versionable\Entity {
+    //     	Versionable\Entity::__construct as __constructVersionable;
+    // 	}
 	
 	/**
      * @Id
@@ -98,7 +99,7 @@ abstract class Content extends \Toast\Entity implements Loggable, Publishable, S
         $this->tags  = new ArrayCollection();
 		$this->nodes = new ArrayCollection();
 		
-		$this->__constructVersionable();
+		// $this->__constructVersionable();
 	}
 
     public function dataJson($value = null)

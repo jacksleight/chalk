@@ -13,7 +13,11 @@ use Toast\Wrapper;
 
 /**
  * @Entity
- * @Table(options={"engine"="MyISAM"}, indexes={@Index(columns={"content"}, flags={"fulltext"})})
+ * @Table(
+ *     options={"engine"="MyISAM"},
+ *     indexes={@Index(columns={"content"}, flags={"fulltext"})},
+ *     uniqueConstraints={@UniqueConstraint(columns={"entityType", "entityId"})}
+ * )
 */
 class Index extends \Toast\Entity
 {

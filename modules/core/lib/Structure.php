@@ -16,17 +16,20 @@ use Chalk\Core\Structure\Node,
 
 /**
  * @Entity
+ * @Table(
+ *     uniqueConstraints={@UniqueConstraint(columns={"slug"})}
+ * )
 */
-class Structure extends \Toast\Entity implements Loggable, Publishable, Trackable, Versionable
+class Structure extends \Toast\Entity implements Trackable
 {
 	public static $chalkSingular = 'Structure';
 	public static $chalkPlural   = 'Structures';
     
-    use Publishable\Entity,
-    	Trackable\Entity,
-    	Versionable\Entity {
-        	Versionable\Entity::__construct as __constructVersionable;
-    	}
+    // use Publishable\Entity;
+    use Trackable\Entity;
+    // use Versionable\Entity {
+    //     	Versionable\Entity::__construct as __constructVersionable;
+    // 	}
 
 	/**
      * @Id
@@ -39,6 +42,11 @@ class Structure extends \Toast\Entity implements Loggable, Publishable, Trackabl
      * @Column(type="string")
      */
 	protected $name;
+        
+    /**
+     * @Column(type="string")
+     */
+    protected $slug;
 	
 	/**
      * @OneToMany(targetEntity="\Chalk\Core\Structure\Node", mappedBy="structure", cascade={"persist"})
@@ -59,7 +67,7 @@ class Structure extends \Toast\Entity implements Loggable, Publishable, Trackabl
 		$node->structure = $this;
 		$this->nodes->add($node);
 
-		$this->__constructVersionable();
+		// $this->__constructVersionable();
 	}
 
 	public function root()
@@ -67,8 +75,24 @@ class Structure extends \Toast\Entity implements Loggable, Publishable, Trackabl
 		return $this->nodes->first();
 	}
 
-	// public function __clone()
-	// {
-	// 	throw new \Exception('TODO');
-	// }
+    public function name($name = null)
+    {
+        if (func_num_args() > 0) {
+            $this->name = $name;
+            $this->slug($this->name);
+            return $this;
+        }
+        return $this->name;
+    }
+
+    public function slug($slug = null)
+    {
+        if (func_num_args() > 0) {
+            $this->slug = isset($slug)
+                ? strtolower(\Coast\str_slugify(iconv('utf-8', 'ascii//translit//ignore', $slug)))
+                : $slug;
+            return $this;
+        }
+        return $this->slug;
+    }
 }

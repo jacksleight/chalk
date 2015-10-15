@@ -1,4 +1,4 @@
-<?php if (!$content->isNewMaster()) { ?>
+<?php if (!$content->isNew()) { ?>
     <li><a href="<?= $this->url([
         'entity'    => $info->name,
         'action'    => 'edit',

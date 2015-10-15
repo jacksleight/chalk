@@ -1,11 +1,11 @@
 <ul class="toolbar toolbar-right">
 	<?= $this->partial('tools-top') ?>
-	<?php if (false && !$content->isNewMaster()) { ?>
+	<?php if (false && !$content->isNew()) { ?>
 		<li><a href="#" class="btn icon-history">
 			View <?= $info->singular ?> History
 		</a></li>
 	<?php } ?>
-	<?php if (!$content->isNewMaster() && $info->class != 'Chalk\Core\File') { ?>
+	<?php if (!$content->isNew() && $info->class != 'Chalk\Core\File') { ?>
 		<?php if (isset($node)) { ?>
 			<? if (is_a($info->class, 'Chalk\Core\Page', true)) { ?>
 				<li><a href="<?= $this->url([

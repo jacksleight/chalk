@@ -13,6 +13,9 @@ use Chalk\Core,
 
 /**
  * @Entity
+ * @Table(
+ *     indexes={@Index(columns={"entityType", "entityId"})}
+ * )
 */
 class Log extends \Toast\Entity implements Trackable
 {

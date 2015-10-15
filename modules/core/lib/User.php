@@ -14,6 +14,9 @@ use Coast\Validator;
 
 /**
  * @Entity
+ * @Table(
+ *     uniqueConstraints={@UniqueConstraint(columns={"emailAddress"})}
+ * )
 */
 class User extends \Toast\Entity implements Trackable, Searchable
 {
