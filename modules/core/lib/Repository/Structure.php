@@ -21,9 +21,8 @@ class Structure extends Repository
 
         $query
             ->addSelect("n", "c")
-            ->leftJoin("s.nodes", "n")
-            ->leftJoin("n.content", "c")
-            ->andWhere("n.left = 0");
+            ->leftJoin("s.nodes", "n", "WITH", "n.left = 0")
+            ->leftJoin("n.content", "c");
 
         return $query;
     }

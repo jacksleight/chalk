@@ -6,29 +6,30 @@
 
 namespace Chalk\Core;
 
-use Chalk\Backend;
 use Chalk\App as Chalk;
-use Chalk\Event;
-use Chalk\Frontend;
-use Chalk\Core\Parser\Plugin\Frontend as PluginFrontend;
-use Chalk\Core\Parser\Plugin\Backend as PluginBackend;
-use Chalk\InfoList;
-use Chalk\Parser;
-use Chalk\Core\Parser\Plugin\StripEmpty;
-use Chalk\Module as ChalkModule;
-use Closure;
-use DOMDocument;
-use DOMXPath;
-use Coast\Request;
-use Coast\Response;
-use Coast\Router;
-use Chalk\Core\File\Listener as FileListener;
-use Chalk\Core\Structure\Node\Listener as StructureNodeListener;
-use Chalk\Core\Behaviour\Publishable\Listener as PublishableListener;
+use Chalk\Backend;
 use Chalk\Core\Behaviour\Loggable\Listener as LoggableListener;
+use Chalk\Core\Behaviour\Publishable\Listener as PublishableListener;
 use Chalk\Core\Behaviour\Searchable\Listener as SearchableListener;
 use Chalk\Core\Behaviour\Trackable\Listener as TrackableListener;
 use Chalk\Core\Behaviour\Versionable\Listener as VersionableListener;
+use Chalk\Core\File\Listener as FileListener;
+use Chalk\Core\Parser\Plugin\Backend as PluginBackend;
+use Chalk\Core\Parser\Plugin\Frontend as PluginFrontend;
+use Chalk\Core\Parser\Plugin\StripEmpty;
+use Chalk\Core\Structure\Node\Listener as StructureNodeListener;
+use Chalk\Event;
+use Chalk\Frontend;
+use Chalk\InfoList;
+use Chalk\Module as ChalkModule;
+use Chalk\Parser;
+use Chalk\Repository;
+use Closure;
+use Coast\Request;
+use Coast\Response;
+use Coast\Router;
+use DOMDocument;
+use DOMXPath;
 
 class Module extends ChalkModule
 {
@@ -96,16 +97,19 @@ class Module extends ChalkModule
 
     public function frontendInitDomain()
     {
-        $domain = $this->em($this->name('domain'))->id(1);
+        $domain = $this->em($this->name('domain'))->id(1, [], [
+            'hydrate' => Repository::HYDRATE_ARRAY,
+        ]);
         
         $this->frontend->domain = $domain;
-        $this->frontend->root   = $domain->structures->first()->root;
-        $this->frontend->home   = $domain->structures->first()->root->content;
+        $this->frontend->root   = $domain['structures'][0]['nodes'][0];
+        $this->frontend->home   = $domain['structures'][0]['nodes'][0]['content'];
         
         $structures = [];
-        foreach ($domain->structures as $structure) {
-            $structures[$structure->id]   = $structure;
-            $structures[$structure->slug] = $structure;
+        foreach ($domain['structures'] as $structure) {
+            $structure['root']              = $structure['nodes'][0];
+            $structures[$structure['id']]   = $structure;
+            $structures[$structure['slug']] = $structure;
         }
         $this->frontend->structures = $structures;
     }
@@ -126,7 +130,7 @@ class Module extends ChalkModule
                 INNER JOIN core_structure AS s ON s.id = n.structureId
                 INNER JOIN core_domain__core_structure AS d ON d.core_structureId = s.id
                 INNER JOIN core_content AS c ON c.id = n.contentId
-            WHERE d.core_domainId = {$this->frontend->domain->id}
+            WHERE d.core_domainId = {$this->frontend->domain['id']}
         ")->fetchAll();
 
         $nodeMap = [];
