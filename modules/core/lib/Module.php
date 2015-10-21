@@ -375,6 +375,7 @@ class Module extends ChalkModule
                         ], $this->name('setting')],
                     ], $this->name('setting'))
                     ->item($this->name('setting\structure'), [
+                        'isDeveloper' => true,
                         'label' => 'Structures',
                         'icon' => 'structure',
                         'url'   => [[

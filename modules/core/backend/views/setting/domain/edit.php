@@ -21,21 +21,17 @@
 				<?= $this->render('/element/form-item', array(
 					'entity'	=> $domain,
 					'name'		=> 'name',
-					'label'		=> 'Name',
+					'label'		=> 'Domain Name',
 					'autofocus'	=> true,
 				)) ?>
-				<?php $this->start() ?>
+				<?php if ($req->user->isDeveloper()) { ?>
 					<?= $this->render('/element/form-item', array(
 						'entity'	=> $domain,
 						'name'		=> 'structures',
 						'label'		=> 'Structures',
 						'values'    => $this->em('Chalk\Core\Structure')->all(),
 					)) ?>
-				<?php $html = $this->end() ?>
-				<?= $this->render('/element/expandable', [
-					'content'		=> $html,
-					'buttonLabel'	=> 'Advanced',
-				], 'core') ?>				
+				<?php } ?>
 			</div>
 		</fieldset>
 		<fieldset class="form-block">

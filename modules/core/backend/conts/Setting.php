@@ -23,4 +23,3 @@ class Setting extends Action
 		}
 	}
 }
-

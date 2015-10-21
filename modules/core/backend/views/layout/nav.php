@@ -9,6 +9,9 @@ if (!$items) {
 		if (!isset($item)) {
 			continue;
 		}
+		if (isset($item['isDeveloper']) && !$req->user->isDeveloper()) {
+			continue;
+		}
 		$path	= $this->url->route($item['url'][0], $item['url'][1], true, false);
 		$class  = [
 			strlen($path->toString()) && strpos($req->path(), $path->toString()) === 0 ? 'active' : null,
