@@ -56,6 +56,7 @@ $render = isset($input)
 		</label>
 	<?php } ?>
 	<div>
+		<?= isset($before) ? "{$before} &nbsp;&nbsp;" : null ?>
 		<?= $this->inner($render[0], [
 			'md'		=> $md,
 			'type'		=> $type,
@@ -69,6 +70,7 @@ $render = isset($input)
 				? $disabled
 				: ($entity->getObject() instanceof \Chalk\Core\Behaviour\Publishable && $entity->isArchived()),
 		], $render[1]) ?>
+		<?= isset($after) ? "&nbsp;&nbsp; {$after}" : null ?>
 		<?php
 		$errors = $entity->getErrors([$name]);
 		?>
