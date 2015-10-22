@@ -1,73 +1,55 @@
 # Chalk Changelog
 
-### 0.5.0
+### 0.1.0
+
+* Initial release
+
+### 0.2.0
 
 * **Features**
-	* Replace existing files
-	* Preview draft content (when logged in)
-	* Open current content directly from CMS
-	* Bulk publish/archive/restore/delete
-	* Use local timezone for date/time inputs
-	* Basic content tagging
-	* Filtering content by subtype
-	* Create child and sibling pages from within structure tab
-	* Login form remembers requested URL
-	* Full internal linking support for all types of content 
-	* Control sorting of items in content lists
-* **Improvements**
-	* New content browser for selecting files/pages/links etc.
-	* Update and improved UI throughout
-	* Speed improvements
-* **Fixes**
-	* Bug fixes
-
-### 0.3.8
-
-* **Improvements**
-	* Updated Coast to 0.4
-
-### 0.3.7
-
+	* Custom HTML for <head> and <body> sections
+	* Forgotten password reset
+	* Notifications
+	* Sorting and removing items in stacked blocks
+	* New source code editor
 * **Improvements**
 	* Speed optimisations
-	* Tweaked file name handling
-* **Fixes**
-	* Bug fixes
+	* Updated design
+	* Less glitchy structure reorganisation UI
+	* General usability improvements
+* Fixes
 
-### 0.3.6
+### 0.2.1
+
+* **Fixes**
+	* Fix incorrect url in user delete button
+	* Fix error in source code editor when value is blank
+	* Fix icon rendering method
+	* Fix array syntax in node tree methods
+	* Fix widget element ordering issue
+
+### 0.2.2
 
 * **Improvements**
-	* Include query string in frontend redirect
+	* Link to download uploaded files
 * **Fixes**
-	* Moved Doctrine metadata parsing to ensure cached data works
-	* Bug fixes
+	* Fix colour of tick and dot in checkbox and radio controls
+	* Fix links to content not added to structure
+	* Change sortable UI to avoid glitches with other controls
+	* Fix search icon
+	* Fix node moving when a node has zero children
 
-### 0.3.5
-
-* **Fixes**
-	* Bug fixes
-
-### 0.3.4
+### 0.2.3
 
 * **Fixes**
-	* Bug fixes
+	* Fix issue with multiple levels of nested widgets and links
 
-### 0.3.3
-
-* **Fixes**
-	* Bug fixes
-
-### 0.3.2
-
-* **Fixes**
-	* Bug fixes
-
-### 0.3.1
+### 0.2.4
 
 * **Improvements**
-	* Support random sorting in repository query
+	* Ability to add multiple items to stackable blocks
 * **Fixes**
-	* Bug fixes
+	* Fix stackable first item issue
 
 ### 0.3.0
 
@@ -97,53 +79,74 @@
 	* Fix deleting content carying ID through to index
 	* Fix stackable first item issue
 
-### 0.2.4
+### 0.3.1
 
 * **Improvements**
-	* Ability to add multiple items to stackable blocks
+	* Support random sorting in repository query
 * **Fixes**
-	* Fix stackable first item issue
+	* Bug fixes
 
-### 0.2.3
+### 0.3.2
 
 * **Fixes**
-	* Fix issue with multiple levels of nested widgets and links
+	* Bug fixes
 
-### 0.2.2
+### 0.3.3
+
+* **Fixes**
+	* Bug fixes
+
+### 0.3.4
+
+* **Fixes**
+	* Bug fixes
+
+### 0.3.5
+
+* **Fixes**
+	* Bug fixes
+
+### 0.3.6
 
 * **Improvements**
-	* Link to download uploaded files
+	* Include query string in frontend redirect
 * **Fixes**
-	* Fix colour of tick and dot in checkbox and radio controls
-	* Fix links to content not added to structure
-	* Change sortable UI to avoid glitches with other controls
-	* Fix search icon
-	* Fix node moving when a node has zero children
+	* Moved Doctrine metadata parsing to ensure cached data works
+	* Bug fixes
 
-### 0.2.1
+### 0.3.7
 
-* **Fixes**
-	* Fix incorrect url in user delete button
-	* Fix error in source code editor when value is blank
-	* Fix icon rendering method
-	* Fix array syntax in node tree methods
-	* Fix widget element ordering issue
-
-### 0.2.0
-
-* **Features**
-	* Custom HTML for <head> and <body> sections
-	* Forgotten password reset
-	* Notifications
-	* Sorting and removing items in stacked blocks
-	* New source code editor
 * **Improvements**
 	* Speed optimisations
-	* Updated design
-	* Less glitchy structure reorganisation UI
-	* General usability improvements
-* Fixes
+	* Tweaked file name handling
+* **Fixes**
+	* Bug fixes
 
-### 0.1.0
+### 0.3.8
 
-* Initial release
+* **Improvements**
+	* Updated Coast to 0.4
+
+### 0.5.0
+
+* **Features**
+	* Replace existing files
+	* Preview draft content (when logged in)
+	* Open current content directly from CMS
+	* Bulk publish/archive/restore/delete
+	* Use local timezone for date/time inputs
+	* Basic content tagging
+	* Filtering content by subtype
+	* Create child and sibling pages from within structure tab
+	* Login form remembers requested URL
+	* Full internal linking support for all types of content 
+	* Control sorting of items in content lists
+	* Quick add URLs
+	* Full editor widget previews
+	* Structure path prefixes
+* **Improvements**
+	* New content browser for selecting files/pages/links etc.
+	* Update and improved UI throughout
+	* Speed improvements
+* **Fixes**
+	* Bug fixes
