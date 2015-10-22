@@ -23,18 +23,12 @@
 					'label'		=> 'Name',
 					'autofocus'	=> true,
 				)) ?>
-				<?php $this->start() ?>
-					<?= $this->render('/element/form-item', array(
-						'entity'	=> $structure,
-						'name'		=> 'path',
-						'label'		=> 'URL Path Prefix',
-						'autofocus'	=> true,
-					)) ?>
-				<?php $html = $this->end() ?>
-				<?= $this->render('/element/expandable', [
-					'content'		=> $html,
-					'buttonLabel'	=> 'Advanced',
-				], 'core') ?>
+				<?= $this->render('/element/form-item', array(
+					'entity'	=> $structure,
+					'name'		=> 'path',
+					'label'		=> 'URL Path Prefix',
+					'autofocus'	=> true,
+				)) ?>
 			</div>
 		</fieldset>
 	</div>
