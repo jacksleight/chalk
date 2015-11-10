@@ -136,7 +136,7 @@ class Entity extends Wrapper
 					break;
 				}
 			}
-		} else if (is_array($value) && $this->_isBooleanList($value)) {
+		} else if ($name != 'filters' && is_array($value) && $this->_isBooleanList($value)) {
 			$value = $this->_mapBooleanList($value);
 		}
 		$isEditorContent = function($value) {
