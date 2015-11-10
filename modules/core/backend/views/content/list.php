@@ -30,12 +30,18 @@ $this->params([
 </div>
 
 <? if ($isUploadable) { ?>
-    <input class="uploadable-input" type="file" name="files[]" data-url="<?= $this->url([
-        'entity' => $info->name,
-        'action' => 'upload',
-    ], 'core_content', true) . $this->url->query([
-        'isEditAllowed' => (int) $isEditAllowed,
-    ], true) ?>" multiple>
+    <input
+        class="uploadable-input"
+        type="file"
+        name="files[]"
+            data-url="<?= $this->url([
+            'entity' => $info->name,
+            'action' => 'upload',
+        ], 'core_content', true) . $this->url->query([
+            'isEditAllowed' => (int) $isEditAllowed,
+        ], true) ?>"
+        data-max-file-size="<?= isset($this->chalk->config->maxFileSize) ? $this->chalk->config->maxFileSize : null ?>"
+        multiple>
     <script type="x-tmpl-mustache" class="uploadable-template">
         <?= $this->inner('/content/thumb', ['template' => true]) ?>
     </script>

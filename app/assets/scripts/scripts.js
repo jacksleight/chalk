@@ -15,6 +15,8 @@
 //= require ../../../bower_components/jquery-file-upload/js/vendor/jquery.ui.widget.js
 //= require ../../../bower_components/jquery-file-upload/js/jquery.iframe-transport.js
 //= require ../../../bower_components/jquery-file-upload/js/jquery.fileupload.js
+//= require ../../../bower_components/jquery-file-upload/js/jquery.fileupload-process.js
+//= require ../../../bower_components/jquery-file-upload/js/jquery.fileupload-validate.js
 
 //= require ../../../bower_components/selectize/dist/js/standalone/selectize.js
 

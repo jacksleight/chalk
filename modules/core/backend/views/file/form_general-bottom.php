@@ -10,8 +10,13 @@
         <script type="x-tmpl-mustache" class="input-upload-template">
             <?= $this->inner('/content/card-upload', ['template' => true]) ?>
         </script>
-        <input class="input-upload-input" type="file" name="files[]" data-url="<?= $this->url([
-            'action' => 'upload',
-        ]) ?>">
+        <input
+            class="input-upload-input"
+            type="file"
+            name="files[]"
+                data-url="<?= $this->url([
+                'action' => 'upload',
+            ]) ?>"
+            data-max-file-size="<?= isset($this->chalk->config->maxFileSize) ? $this->chalk->config->maxFileSize : null ?>">
     </div>
 </div>
