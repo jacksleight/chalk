@@ -150,3 +150,13 @@
 	* Speed improvements
 * **Fixes**
 	* Bug fixes
+
+### 0.5.1
+
+* **Features**
+	* Ability to retain whitespace in HTML parser
+	* Option to set maximum file upload size
+* **Improvements**
+	* Session keep-alive while the browser window is open
+* **Fixes**
+	* Bug fixes
