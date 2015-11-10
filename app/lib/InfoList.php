@@ -30,11 +30,14 @@ class InfoList implements Iterator, Countable
         return $this->_filter;  
     }
 
-    public function item($name, $info = null)
+    public function item($name, $info = null, $append = false)
     {
         if (func_num_args() > 1) {
             if (isset($info)) {
-                $this->_items[$name] = (object) (((array) Chalk::info($name)) + $info + ['subtypes' => []]);
+                $items = [$name => (object) (((array) Chalk::info($name)) + $info + ['subtypes' => []])];
+                $this->_items = $append
+                    ? $items + $this->_items
+                    : $this->_items + $items;
             } else {
                 unset($this->_items[$name]);
             }
