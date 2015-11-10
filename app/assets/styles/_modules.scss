@@ -518,7 +518,7 @@ textarea {
 		height: 48px;
 		line-height: 48px - ($input-border-width * 2);
 		vertical-align: baseline;
-		padding: 0 $input-padding-horiz;
+		padding: 0 ($input-padding-horiz - $input-padding);
 		border: transparent $input-border-width solid;
 		display: inline-block;
 	}
