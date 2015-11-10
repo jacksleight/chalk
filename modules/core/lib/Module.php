@@ -258,13 +258,6 @@ class Module extends ChalkModule
                     'action'     => 'edit',
                 ])
             ->backendRoute(
-                $this->name('prefs'),
-                Router::METHOD_ALL,
-                "prefs", [
-                    'controller' => 'index',
-                    'action'     => 'prefs',
-                ])
-            ->backendRoute(
                 $this->name('content'),
                 Router::METHOD_ALL,
                 "content/{entity}?/{action}?/{content}?", [

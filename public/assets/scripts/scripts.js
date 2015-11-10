@@ -20032,8 +20032,16 @@ var widget = $.widget;
 
 (function() {
 
+	setInterval(function() {
+        $.ajax(Chalk.pingUrl);
+    }, 1000 * 60);
+
+})();
+
+(function() {
+
 	Chalk.set = function(prefs) {
-		$.ajax(Chalk.baseUrl + 'prefs', {data: prefs});
+		$.ajax(Chalk.prefsUrl, {data: prefs});
 	};
 
 })();

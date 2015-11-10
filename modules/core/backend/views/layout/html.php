@@ -22,6 +22,14 @@ $title  = (isset($title)
         var Chalk = <?= json_encode([
             'baseUrl'       => (string) $this->url->baseUrl(),
             'rootBaseUrl'   => (string) $this->frontend->url->baseUrl(),
+            'pingUrl'       => (string) $this->url([
+                'controller' => 'index',
+                'action'     => 'ping',
+            ], 'core_index', true),
+            'prefsUrl'       => (string) $this->url([
+                'controller' => 'index',
+                'action'     => 'prefs',
+            ], 'core_index', true),
             'selectUrl'     => (string) $this->url([
                 'controller' => 'index',
                 'action'     => 'select',

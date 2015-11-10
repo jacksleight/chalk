@@ -23,6 +23,7 @@
 /* Utilities */
 
 //= require utils/initialize.js
+//= require utils/ping.js
 //= require utils/prefs.js
 //= require utils/modal.js
 

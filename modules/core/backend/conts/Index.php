@@ -92,4 +92,9 @@ class Index extends Action
             ->status(403)
             ->html($this->view->render('error/forbidden', ['req' => $req, 'res' => $res]));
 	}
+	
+	public function ping(Request $req, Response $res)
+	{
+		return true;
+	}
 }
