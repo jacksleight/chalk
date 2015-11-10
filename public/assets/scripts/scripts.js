@@ -20705,12 +20705,12 @@ Chalk.component('.stackable', function(i, el) {
 	});
 	
 	var content = $($.parseHTML(Mustache.render(template, {i: 0}).trim())[0]);
-	var control = content.find('.content');
+	var control = content.find('.input-content');
 	if (control.length) {
-		var entity = control.attr('data-entity');
+		var params = control.attr('data-params');
 		addMultiBtn.css('display', 'inline-block');
 		addMultiBtn.click(function(ev) {
-			Chalk.modal(Chalk.selectUrl.replace('{entity}', entity), {}, function(res) {
+			Chalk.modal(Chalk.selectUrl + '?' + params, {}, function(res) {
 				if (res.contents) {
 					addMulti(res.contents);
 				}
