@@ -307,26 +307,26 @@ class Module extends ChalkModule
         $this
             ->backendHookListen($this->name('contentList'), function(InfoList $list) {
                 if ($list->filter() == $this->name('main')) {
-                    return $list
+                    $list
                         ->item($this->name('page'), [])
                         ->item($this->name('file'), [])
                         ->item($this->name('url'), [])
                         ->item($this->name('alias'), [])
                         ->item($this->name('block'), []);
                 } else if ($list->filter() == $this->name('node')) {
-                    return $list
+                    $list
                         ->item($this->name('page'), [])
                         ->item($this->name('file'), [])
                         ->item($this->name('url'), [])
                         ->item($this->name('alias'), []);
                 } else if ($list->filter() == $this->name('link')) {
-                    return $list
+                    $list
                         ->item($this->name('page'), [])
                         ->item($this->name('file'), [])
                         ->item($this->name('url'), [])
                         ->item($this->name('alias'), []);
                 } else if ($list->filter() == $this->name('image')) {
-                    return $list
+                    $list
                         ->item($this->name('file'), [
                             'subtypes' => [
                                 'image/gif',
@@ -336,6 +336,7 @@ class Module extends ChalkModule
                             ],
                         ]);
                 }
+                return $list;
             })
             ->backendHookListen($this->name('widgetList'), function(InfoList $list) {
                 return $list;
