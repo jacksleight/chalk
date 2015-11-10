@@ -11,12 +11,12 @@
 				'label'			=> 'Label',
 				'placeholder'	=> $content->name,
 				'note'			=> 'Text used in navigation and URLs',
-			)) ?>
+			), 'core') ?>
 			<?= $this->render('/element/form-item', array(
 				'entity'		=> $node,
 				'name'			=> 'isHidden',
 				'label'			=> 'Hidden',
-			)) ?>	
+			), 'core') ?>	
 		</div>
 	</fieldset>
 <?php } ?>
