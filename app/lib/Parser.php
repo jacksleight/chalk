@@ -108,6 +108,9 @@ class Parser implements Access, Executable
         $nodes = $xpath->query('.//text()');
         foreach ($nodes as $node) {
             if ($node->isWhitespaceInElementContent() && $node->parentNode) {
+                if (strpos($node->parentNode->getAttribute('class'), 'chalk-whitespace') !== false) {
+                    continue;
+                }
                 $node->parentNode->removeChild($node);
             }
         }
