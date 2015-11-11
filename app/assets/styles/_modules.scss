@@ -402,8 +402,12 @@ select,
 }
 input[type=checkbox],
 input[type=radio] {
-  position: fixed;
-  left: 110%;
+  opacity: 0;
+  position: absolute;
+  margin: 0;
+  z-index: -1;
+  width: $input-toggle-size;
+  height: $input-toggle-size;
 }
 input[type=checkbox] + label:before,
 input[type=radio] + label:before {
@@ -965,6 +969,7 @@ legend {
 	}
 	> div { 
 		@include flush;
+		position: relative;
 		p { 
 			@include font-size(-1);
 			margin-top: $gutter * 0.35;
