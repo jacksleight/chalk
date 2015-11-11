@@ -20943,10 +20943,10 @@ Chalk.component('.stackable', function(i, el) {
 	var addMulti = function(contents) {
 		$(contents).each(function() {
 			var content = $($.parseHTML(Mustache.render(template, {i: count++}).trim())[0]);
-			var control = content.find('.content');
+			var control = content.find('.input-content');
 			control.find('input[type=hidden]').val(this.id);
-			control.find('.content-holder').html(this.card);
-			control.find('.content-remove').css('display', 'inline-block');
+			control.find('.input-content-holder').html(this.card);
+			control.find('.input-content-remove').css('display', 'inline-block');
 			items.append(content);
 			setTimeout(function() {
 				Chalk.initialize(content);
