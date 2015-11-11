@@ -160,3 +160,8 @@
 	* Session keep-alive while the browser window is open
 * **Fixes**
 	* Bug fixes
+
+### 0.5.2
+
+* **Fixes**
+	* Bug fixes
