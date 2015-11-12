@@ -100,18 +100,21 @@ class Module extends ChalkModule
         $domain = $this->em($this->name('domain'))->id(1, [], [
             'hydrate' => Repository::HYDRATE_ARRAY,
         ]);
+        $structures = $this->em($this->name('structure'))->all([], [
+            'hydrate' => Repository::HYDRATE_ARRAY,
+        ]);
         
         $this->frontend->domain = $domain;
         $this->frontend->root   = $domain['structures'][0]['nodes'][0];
         $this->frontend->home   = $domain['structures'][0]['nodes'][0]['content'];
         
-        $structures = [];
-        foreach ($domain['structures'] as $structure) {
-            $structure['root']              = $structure['nodes'][0];
-            $structures[$structure['id']]   = $structure;
-            $structures[$structure['slug']] = $structure;
+        $temp = [];
+        foreach ($structures as $structure) {
+            $structure['root']        = $structure['nodes'][0];
+            $temp[$structure['id']]   = $structure;
+            $temp[$structure['slug']] = $structure;
         }
-        $this->frontend->structures = $structures;
+        $this->frontend->structures = $temp;
     }
 
     public function frontendInitNodes()
