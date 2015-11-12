@@ -165,3 +165,8 @@
 
 * **Fixes**
 	* Bug fixes
+
+### 0.5.3
+
+* **Fixes**
+	* Bug fixes
