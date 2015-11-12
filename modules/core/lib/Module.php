@@ -186,7 +186,7 @@ class Module extends ChalkModule
                 );
             $nodeMap[$node['id']] = $node;
         }
-        $this->nodeMap = $nodeMap;
+        $this->frontend->nodeMap = $nodeMap;
     }
     
     public function backendInit()
