@@ -53,7 +53,7 @@ class Node extends Action
                 'redirect' => $this->url([
                     'action' => 'index',
                     'node'   => null,
-                ], 'structure')->toString(),
+                ], 'core_structure')->toString(),
             ]);
         }
     }
