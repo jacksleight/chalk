@@ -884,6 +884,22 @@ textarea,
 	display: none;
 }
 
+/* Checkboxes */
+
+.checkboxes {
+	@include no-bullets;
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: $gutter * -0.25;
+	li {
+		flex: 1 0 200px;
+	}
+	.checkboxes_i {
+		padding: 0 $gutter * 0.25 $gutter * 0.25 0;
+	}
+}
+
 /* Form */
 
 form { 
