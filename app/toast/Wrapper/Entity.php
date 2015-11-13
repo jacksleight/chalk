@@ -71,7 +71,7 @@ class Entity extends Wrapper
 
 		foreach ($array as $name => $value) {
 			$object = $this->__get($name);
-			if ($object instanceof \Toast\Wrapper && is_array($value) && !$this->_isBooleanList($value)) {
+			if ($object instanceof \Toast\Wrapper && is_array($value)) {
 				$object->graphFromArray($value);
 			} else {
 				$this->__set($name, $value);
@@ -101,13 +101,13 @@ class Entity extends Wrapper
 		if (!$this->hasProperty($name)) {
 			return;
 		}
-		$md = $this->getMetadata(\Toast\Entity::MD_PROPERTY, $name);
 		if (is_scalar($value)) {
 			$value = trim($value);
 			if (strlen($value) == 0) {
 				$value = null;
 			}
 			if (isset($value)) {
+				$md = $this->getMetadata(\Toast\Entity::MD_PROPERTY, $name);
 				switch ($md['type']) {
 					case 'boolean':
 						$value = $value == 'false'
@@ -131,26 +131,13 @@ class Entity extends Wrapper
 							$value = new \Coast\Url\Invalid($value);
 						}
 					break;
-					case 'oneToOne':
 					case 'manyToOne':
 						$value = Wrapper::$em->getReference($md['entity'], $value);
 					break;
 				}
 			}
-		} else if (is_array($value)) {
-			if ($this->_isBooleanList($value) && $name != 'filters') {
-				$value = $this->_mapBooleanList($value);
-			}
-			if (count($value)) {
-				switch ($md['type']) {
-					case 'oneToMany':
-					case 'manyToMany':
-						foreach ($value as $i => $id) {
-							$value[$i] = Wrapper::$em->getReference($md['entity'], $id);
-						}
-					break;
-				}
-			}
+		} else if ($name != 'filters' && is_array($value) && $this->_isBooleanList($value)) {
+			$value = $this->_mapBooleanList($value);
 		}
 		$isEditorContent = function($value) {
 			return strpos($value, 'mceNonEditable') !== false && strpos($value, 'data-chalk') !== false;
