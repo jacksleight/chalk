@@ -6,11 +6,6 @@
 <form action="<?= $this->url->route() ?>?mode=<?= $req->mode ?>&amp;post=1" method="post" data-modal-size="800x800">
 	<div class="flex-col">
 		<div class="header">
-			<ul class="toolbar toolbar-right">
-				<li><span class="btn btn-out btn-lighter modal-close icon-cancel">
-					Close
-				</span></li>
-			</ul>
 			<h1>
 				<?= $info->singular ?>
 			</h1>

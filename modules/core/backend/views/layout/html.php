@@ -70,8 +70,11 @@ $title  = (isset($title)
     </script>
     <script type="x-tmpl-mustache" class="modal-template">
         <div class="modal hideable hideable-hidden">
-            <div class="modal-content hideable hideable-hidden"></div>
             <div class="modal-loader hideable hideable-hidden"></div>
+            <div class="modal-inner hideable hideable-hidden">
+                <button class="modal-close btn btn-block btn-light btn-icon btn-collapse icon-cross" type="button"><span>Close</span></button>
+                <div class="modal-content"></div>
+            </div>
         </div>
     </script>
     <?= $this->content('foot') ?>

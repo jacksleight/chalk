@@ -8,11 +8,6 @@ $structure = $this->em('Chalk\Core\Structure')->id($req->structure);
 ?>
 <form action="<?= $this->url->route() ?>" class="flex-col" novalidate>
 	<div class="header">
-		<ul class="toolbar toolbar-right">
-	        <li class="toolbar-gap"><span class="btn btn-out btn-lighter modal-close icon-cancel">
-	            Close
-	        </span></li>
-		</ul>
 		<h1>Browse</h1>
 	</div>
 	<?= $this->render("/content/browser", [

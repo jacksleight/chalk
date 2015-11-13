@@ -9,11 +9,6 @@ use Chalk\App as Chalk;
 
 <div class="flex-col" data-modal-size="500x500">
 	<div class="header">
-		<ul class="toolbar toolbar-right">
-			<li><span class="btn btn-out btn-lighter modal-close icon-cancel">
-				Close
-			</span></li>
-		</ul>
 		<h1>
 			Chalk
 			<small><?= Chalk::VERSION ?></small>

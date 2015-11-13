@@ -7,6 +7,7 @@
 		
 		cb = cb || function() {};
 		var modal	= $($.parseHTML(Mustache.render(template).trim())[0]);
+		var inner	= $(modal).find('.modal-inner');
 		var content	= $(modal).find('.modal-content');
 		var loader	= $(modal).find('.modal-loader');
 		$(document.body).append(modal);
@@ -33,7 +34,7 @@
 						}
 					}
 					loader.addClass('hideable-hidden');
-					content.removeClass('hideable-hidden');
+					inner.removeClass('hideable-hidden');
 					update(res);
 				});
 		};
@@ -44,14 +45,14 @@
 			}, 1);			
 			
 			var size = content.find('> :first-child').attr('data-modal-size');
-			content.removeAttr('style');
+			inner.removeAttr('style');
 			if (size) {
 				size = size.split('x');
-				content.css({
+				inner.css({
 					maxWidth: size[0] + 'px'
 				});
 				if (size[1]) {
-					content.css({
+					inner.css({
 						maxHeight: size[1] + 'px'
 					});
 				}
@@ -66,7 +67,7 @@
 		};
 
 		request(url, options);
-		content.click(function(ev) {
+		modal.click(function(ev) {
 			var target = $(ev.target);
 			if (target.is('a')) {
 				if (target.is('a[target]')) {
@@ -86,7 +87,7 @@
 				}
 			}
 		});	
-		content.submit(function(ev) {
+		modal.submit(function(ev) {
 			var target = $(ev.target);
 			if (target.is('form')) {
 				ev.preventDefault();
