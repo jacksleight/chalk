@@ -43,7 +43,7 @@ class Collection extends \Toast\Wrapper implements \Iterator, \Countable
 		if ($this->_isBooleanList($array)) {
 			$array = $this->_mapBooleanList($array);
 			foreach ($this->toArray() as $name => $value) {
-				if (!isset($array[$name])) {
+				if (!isset($array[$value->id])) {
 					$inverse = $this->_md['inverse'];
 					$this->_object->removeElement($value);
 					if ($this->_md['type'] == 'manyToMany') {
