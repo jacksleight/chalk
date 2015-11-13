@@ -56,6 +56,13 @@ abstract class Module implements Access
             : $this->_name;
     }
 
+    public function path($path = null)
+    {
+        return isset($path)
+            ? $this->_name . '/' . $path
+            : $this->_name;
+    }
+
     public function nspace($nspace = null)
     {
         $class = get_class($this);

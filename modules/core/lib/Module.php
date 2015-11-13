@@ -206,7 +206,8 @@ class Module extends ChalkModule
             ->backendRoute(
                 $this->name('index'),
                 Router::METHOD_ALL,
-                "{controller}?/{action}?/{id}?", [
+                "", [
+                    'group'      => $this->name(),
                     'controller' => 'index',
                     'action'     => 'index',
                     'id'         => null,
@@ -214,56 +215,64 @@ class Module extends ChalkModule
             ->backendRoute(
                 $this->name('about'),
                 Router::METHOD_ALL,
-                "about", [
+                $this->path("about"), [
+                    'group'      => $this->name(),
                     'controller' => 'auth',
                     'action'     => 'about',
                 ])
             ->backendRoute(
                 $this->name('sandbox'),
                 Router::METHOD_ALL,
-                "sandbox", [
+                $this->path("sandbox"), [
+                    'group'      => $this->name(),
                     'controller' => 'index',
                     'action'     => 'sandbox',
                 ])
             ->backendRoute(
                 $this->name('passwordRequest'),
                 Router::METHOD_ALL,
-                "password-request", [
+                $this->path("password-request"), [
+                    'group'      => $this->name(),
                     'controller' => 'auth',
                     'action'     => 'password-request',
                 ])
             ->backendRoute(
                 $this->name('passwordReset'),
                 Router::METHOD_ALL,
-                "password-reset/{token}", [
+                $this->path("password-reset/{token}"), [
+                    'group'      => $this->name(),
                     'controller' => 'auth',
                     'action'     => 'password-reset',
                 ])
             ->backendRoute(
                 $this->name('login'),
                 Router::METHOD_ALL,
-                "login", [
+                $this->path("login"), [
+                    'group'      => $this->name(),
                     'controller' => 'auth',
                     'action'     => 'login',
                 ])
             ->backendRoute(
                 $this->name('logout'),
                 Router::METHOD_ALL,
-                "logout", [
+                $this->path("logout"), [
+                    'group'      => $this->name(),
                     'controller' => 'auth',
                     'action'     => 'logout',
                 ])
             ->backendRoute(
                 $this->name('profile'),
                 Router::METHOD_ALL,
-                "profile", [
+                $this->path("profile"), [
+                    'group'      => $this->name(),
                     'controller' => 'profile',
                     'action'     => 'edit',
                 ])
             ->backendRoute(
                 $this->name('content'),
                 Router::METHOD_ALL,
-                "content/{entity}?/{action}?/{content}?", [
+                $this->path("content/{entity}?/{action}?/{content}?"), [
+                    'group'      => $this->name(),
                     'controller' => 'content',
                     'action'     => 'index',
                     'entity'     => null,
@@ -272,7 +281,8 @@ class Module extends ChalkModule
             ->backendRoute(
                 $this->name('setting'),
                 Router::METHOD_ALL,
-                "setting/{controller}?/{action}?/{id}?", [
+                $this->path("setting/{controller}?/{action}?/{id}?"), [
+                    'group'      => $this->name(),
                     'controller' => 'setting',
                     'action'     => 'index',
                     'id'         => null,
@@ -280,13 +290,15 @@ class Module extends ChalkModule
             ->backendRoute(
                 $this->name('widget'),
                 Router::METHOD_ALL,
-                "widget/{action}/{entity}", [
+                $this->path("widget/{action}/{entity}"), [
+                    'group'      => $this->name(),
                     'controller' => 'widget',
                 ])
             ->backendRoute(
                 $this->name('structure'),
                 Router::METHOD_ALL,
-                "structure/{action}?/{structure}?", [
+                $this->path("structure/{action}?/{structure}?"), [
+                    'group'      => $this->name(),
                     'controller' => 'structure',
                     'action'     => 'index',
                     'structure'  => null,
@@ -294,7 +306,8 @@ class Module extends ChalkModule
             ->backendRoute(
                 $this->name('structure_node'),
                 Router::METHOD_ALL,
-                "structure/node/{structure}/{action}?/{node}?", [
+                $this->path("structure/node/{structure}/{action}?/{node}?"), [
+                    'group'      => $this->name(),
                     'controller' => 'structure_node',
                     'action'     => 'index',
                     'node'       => null,

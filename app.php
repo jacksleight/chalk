@@ -55,7 +55,6 @@ $app->param('backend', $app->lazy(function($vars) {
         ->param('controller', new Controller())
         ->param('router', new Router([
             'target'  => $backend->controller,
-            'prefix'  => '{module}?',
             'params'  => [
                 'module' => 'core',
             ],
