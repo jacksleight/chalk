@@ -154,7 +154,7 @@ class Content extends Basic
 		}
 
 		$dir      = $this->chalk->config->dataDir->dir('upload', true);
-		$uploader = new FileUpload($_FILES, $req->servers());
+		$uploader = new FileUpload($_FILES['files'], $req->servers());
 		$uploader->setPathResolver(new PathResolver\Simple($dir->name()));
 		$uploader->setFileSystem(new FileSystem\Simple());
 
