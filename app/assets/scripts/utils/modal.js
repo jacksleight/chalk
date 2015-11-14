@@ -9,6 +9,7 @@
 		var modal	= $($.parseHTML(Mustache.render(template).trim())[0]);
 		var inner	= $(modal).find('.modal-inner');
 		var content	= $(modal).find('.modal-content');
+		var button	= $(modal).find('.modal-close');
 		var loader	= $(modal).find('.modal-loader');
 		$(document.body).append(modal);
 		setTimeout(function() {
@@ -21,6 +22,7 @@
 				xhr.abort();
 				xhr = null;
 			}
+			button.addClass('hideable-hidden');
 			loader.removeClass('hideable-hidden');
 			xhr = $.ajax(url, options)
 				.done(function(res) {
@@ -33,6 +35,7 @@
 							return;
 						}
 					}
+					button.removeClass('hideable-hidden');
 					loader.addClass('hideable-hidden');
 					inner.removeClass('hideable-hidden');
 					update(res);
@@ -97,7 +100,7 @@
 					data: target.serialize()
 				});
 			}
-		});	
+		});
 
 	};
 

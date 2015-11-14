@@ -253,10 +253,10 @@ html, body {
 }
 .modal-loader {
 	position: absolute;
-	top: $gutter * 1.25;
-	right: $gutter * 1.25;
-	width: $gutter;
-	height: $gutter;
+	top: $gutter * 0.5;
+	right: $gutter * 0.5;
+	width: $input-height;
+	height: $input-height;
 	background-color: $color-active;
 	@include animation(spin 1s infinite linear);
 }
@@ -270,7 +270,7 @@ html, body {
 }
 .modal-close {
 	position: absolute;
-	top: 0;
-	left: 100%;
+	top: $gutter * 0.5;
+	right: $gutter * 0.5;
 	margin: 0 !important;
 }
