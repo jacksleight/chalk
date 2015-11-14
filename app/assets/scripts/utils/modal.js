@@ -40,6 +40,7 @@
 		};
 		var update = function(html) {
 			content.html(html);
+			content.find('*[autofocus]:lt(1)').focus();
 			setTimeout(function() {
 				Chalk.initialize(content);
 			}, 1);			
