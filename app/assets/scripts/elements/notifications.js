@@ -3,7 +3,7 @@ Chalk.component('.notifications', function(i, el) {
     var stack    = [];
     var visible  = false;
     var interval = 100;
-    var maximum  = 6000;
+    var maximum  = 4000;
 
     var add = function(text, type) {
         var notification = $('<li class="notification">' + text + '</li>');
@@ -24,7 +24,7 @@ Chalk.component('.notifications', function(i, el) {
             }, 200);
         };
         setTimeout(dismiss, maximum);
-        notification.click(dismiss);
+        notification.mouseover(dismiss);
     }
 
     setInterval(function() {
