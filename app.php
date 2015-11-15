@@ -75,7 +75,7 @@ $app->param('backend', $app->lazy(function($vars) {
                 ->html($this->view->render('error/not-found', [
                     'req' => $req,
                     'res' => $res,
-                ]));
+                ], 'core'));
         })
         ->errorHandler(function(Request $req, Response $res, Exception $e) {
             if ($this->chalk->isDebug()) {
@@ -87,7 +87,7 @@ $app->param('backend', $app->lazy(function($vars) {
                     'req' => $req,
                     'res' => $res,
                     'e'   => $e,
-                ]));
+                ], 'core'));
         });
     $backend->executable($backend->image);
     $backend->executable($backend->router);
