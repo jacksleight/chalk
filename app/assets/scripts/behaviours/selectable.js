@@ -14,7 +14,6 @@ Chalk.component('.selectable', function(i, el) {
 	if (!$(el).find('a').length) {
 		$(el).click(function(ev) {
 			if ($(ev.target).is('input[type=checkbox]') || $(ev.target).is('input[type=checkbox] + label')) {
-				log(1);
 				return;
 			}
 			checkbox.click();
