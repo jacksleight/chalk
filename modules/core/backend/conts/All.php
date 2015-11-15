@@ -30,6 +30,7 @@ class All extends Action
             ], true));
         }
 
+        $req->data = (object) [];
         $req->view = (object) [];
 
         if ($req->controller == 'auth') {
@@ -69,32 +70,25 @@ class All extends Action
     {
         $controller = strtolower(str_replace('_', '/', $req->controller));
         $action     = strtolower(str_replace('_', '-', $req->action));
-        $path = isset($req->view->path)
+        $path       = isset($req->view->path)
             ? $req->view->path
             : "{$controller}/{$action}";
 
-        // if ($req->isAjax()) {
-        //  $notifications = $this->notify->notifications(false);
-        //  $negative = false;
-        //  foreach ($notifications as $notification) {
-        //      if ($notification[1] == 'negative') {
-        //          $negative = true;
-        //          break;
-        //      }
-        //  }
-        //  return $res->json([
-        //      'notifications' => $this->notify->notifications(),
-        //      'html' => $negative
-        //          ? $res->html($this->view->render($path, [
-        //              'req' => $req,
-        //              'res' => $res,
-        //          ] + (array) $req->view))
-        //          : null]);
-        // }
+        $isJson   = $req->isAjax() && count((array) $req->data);
+        $isNotify = $req->isAjax() && !isset($req->data->redirect);
 
-        return $res->html($this->view->render($path, [
-            'req' => $req,
-            'res' => $res,
-        ] + (array) $req->view, isset($req->group) ? $req->group : 'core'));
+        if ($isNotify) {
+            $req->data->notifications = $this->notify->notifications();
+        }
+        if ($isJson) {
+            return $res->json($req->data);
+        }
+
+        return $res
+            ->header('X-JSON', json_encode($req->data))
+            ->html($this->view->render($path, [
+                'req' => $req,
+                'res' => $res,
+            ] + (array) $req->view, $req->group));
     }
 }

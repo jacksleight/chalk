@@ -59,9 +59,7 @@ class Index extends Action
             return;
         }
 
-		return $res->json([
-			'code' => $source->codeRaw,
-		]);
+		$req->data->code = $source->codeRaw;
 	}
 
 	public function select(Request $req, Response $res)
@@ -80,17 +78,22 @@ class Index extends Action
 			$contents[] = [
 				'id'	=> $content->id,
 				'name'	=> $content->name,
-				'card'	=> $this->view->render('content/card', ['content' => $content], 'core')->toString(),
+				'card'	=> $this->view->render('content/card', [
+					'content' => $content,
+				], 'core')->toString(),
 			];
 		}
-		return $res->json(['contents' => $contents]);
+		$req->data->contents = $contents;
 	}
 
 	public function forbidden(Request $req, Response $res)
 	{
         return $res
             ->status(403)
-            ->html($this->view->render('error/forbidden', ['req' => $req, 'res' => $res]));
+            ->html($this->view->render('error/forbidden', [
+            	'req' => $req,
+            	'res' => $res,
+            ], 'core'));
 	}
 	
 	public function ping(Request $req, Response $res)

@@ -36,19 +36,17 @@ class Widget extends Basic
 			return;
 		}
 
-		return $res->json([
-			'entity'	=> $req->info->name,
-			'params'	=> array_map(function($value) {
-				return is_object($value) ? $value->id : $value;
-			}, $widget->toArray()),
-			'html'		=> $this->view->render('widget/card', ['widget' => $widget], 'core')->toString(),
-		]);
+		$req->data->entity = $req->info->name;
+		$req->data->params = array_map(function($value) {
+			return is_object($value) ? $value->id : $value;
+		}, $widget->toArray());
+		$req->data->html = $this->view->render('widget/card', [
+			'widget' => $widget,
+		], 'core')->toString();
 	}
 
 	public function delete(Request $req, Response $res)
 	{
-		return $res->json([
-			'mode' => 'delete',
-		]);
+		$req->data->mode = 'delete';
 	}
 }

@@ -5422,10 +5422,10 @@ html, body {
   margin-top: 0;
   list-style: none;
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 5000;
 }
 .notifications li {
   list-style-image: none;
@@ -5434,7 +5434,7 @@ html, body {
 }
 .notifications .notification {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
   -moz-transition: all 0.2s ease;
@@ -5443,29 +5443,32 @@ html, body {
   transition: all 0.2s ease;
 }
 .notifications .notification.notification-show {
-  top: -61px;
+  bottom: -38px;
 }
 
 .notification {
   line-height: 38px;
-  padding: 11px 25px 12px 25px;
+  padding: 0 25px 0 25px;
   background-color: rgba(150, 154, 158, 0.9);
-  text-align: center;
   color: white;
-  cursor: pointer;
+  cursor: default;
+  white-space: nowrap;
+  text-align: center;
+  font-size: 13.91304px;
+  font-size: 0.86957rem;
 }
 .notification:before {
-  font-size: 24px;
+  font-size: 1.25em;
   margin-right: 0.25em;
-  vertical-align: -0.15em;
+  vertical-align: -0.2em;
 }
 
 .notification-positive {
-  background-color: rgba(9, 189, 94, 0.9);
+  background-color: rgba(9, 189, 94, 0.95);
 }
 
 .notification-negative {
-  background-color: rgba(239, 91, 63, 0.9);
+  background-color: rgba(239, 91, 63, 0.95);
 }
 
 /* Modal */
@@ -5537,7 +5540,7 @@ html, body {
   margin-top: 0 !important;
 }
 
-.modal-close {
+.modal-button {
   position: absolute;
   top: 10px;
   right: 10px;

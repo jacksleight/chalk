@@ -20358,7 +20358,7 @@ var widget = $.widget;
 		var modal	= $($.parseHTML(Mustache.render(template).trim())[0]);
 		var inner	= $(modal).find('.modal-inner');
 		var content	= $(modal).find('.modal-content');
-		var button	= $(modal).find('.modal-close');
+		var button	= $(modal).find('.modal-button');
 		var loader	= $(modal).find('.modal-loader');
 		$(document.body).append(modal);
 		setTimeout(function() {
@@ -20374,20 +20374,38 @@ var widget = $.widget;
 			button.addClass('hideable-hidden');
 			loader.removeClass('hideable-hidden');
 			xhr = $.ajax(url, options)
-				.done(function(res) {
+				.done(function(res, status, xhr) {
+					var data;
+					var html; 
+					var json = xhr.getResponseHeader('X-JSON');
+					if (json) {
+						data = JSON.parse(json);
+					}
 					if (typeof res == 'object') {
-						if (res.redirect) {
-							window.location.href = res.redirect;
+						data = $.extend(data, res);
+					} else {
+						html = res;
+					}
+					if (data.notifications) {
+						var notification;
+						for (var i = 0; i < data.notifications.length; i++) {
+							notification = data.notifications[i];
+							Chalk.notify(notification[0], notification[1]);
+						}
+					}
+					if (!html) {
+						if (data.redirect) {
+							window.location.href = data.redirect;
 							return;
 						} else {
-							close(res);
+							close(data);
 							return;
 						}
 					}
 					button.removeClass('hideable-hidden');
 					loader.addClass('hideable-hidden');
 					inner.removeClass('hideable-hidden');
-					update(res);
+					update(html);
 				});
 		};
 		var update = function(html) {
@@ -20468,7 +20486,7 @@ Chalk.component('.notifications', function(i, el) {
     var stack    = [];
     var visible  = false;
     var interval = 100;
-    var maximum  = 6000;
+    var maximum  = 4000;
 
     var add = function(text, type) {
         var notification = $('<li class="notification">' + text + '</li>');
@@ -20489,7 +20507,7 @@ Chalk.component('.notifications', function(i, el) {
             }, 200);
         };
         setTimeout(dismiss, maximum);
-        notification.click(dismiss);
+        notification.mouseover(dismiss);
     }
 
     setInterval(function() {
@@ -20868,7 +20886,6 @@ Chalk.component('.selectable', function(i, el) {
 	if (!$(el).find('a').length) {
 		$(el).click(function(ev) {
 			if ($(ev.target).is('input[type=checkbox]') || $(ev.target).is('input[type=checkbox] + label')) {
-				log(1);
 				return;
 			}
 			checkbox.click();

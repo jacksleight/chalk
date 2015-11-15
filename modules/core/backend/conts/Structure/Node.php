@@ -43,18 +43,14 @@ class Node extends Action
 
         $this->notify("Content was added successfully", 'positive');
         if (isset($req->node)) {
-            return $res->json([
-                'redirect' => $this->url([
-                    'action' => 'edit',
-                ])->toString(),
-            ]);
+            $req->data->redirect = $this->url([
+                'action' => 'edit',
+            ])->toString();
         } else {
-            return $res->json([
-                'redirect' => $this->url([
-                    'action' => 'index',
-                    'node'   => null,
-                ], 'core_structure')->toString(),
-            ]);
+            $req->data->redirect = $this->url([
+                'action' => 'index',
+                'node'   => null,
+            ], 'core_structure')->toString();
         }
     }
 

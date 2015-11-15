@@ -74,7 +74,7 @@ $title  = (isset($title)
                 <div class="modal-content"></div>
             </div>
             <div class="modal-loader hideable hideable-hidden"></div>
-            <button class="modal-close hideable hideable-hidden btn btn-block btn-light btn-icon btn-collapse icon-cross" type="button"><span>Close</span></button>
+            <button class="modal-button modal-close hideable hideable-hidden btn btn-block btn-light btn-icon btn-collapse icon-cross" type="button"><span>Close</span></button>
         </div>
     </script>
     <?= $this->content('foot') ?>

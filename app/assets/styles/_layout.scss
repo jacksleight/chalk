@@ -176,39 +176,41 @@ html, body {
 	margin-top: 0;
 	@include no-bullets;
 	position: fixed;
-	bottom: 0;
+	top: 0;
 	left: 0;
 	width: 100%;
-	z-index: 1000;
+	z-index: 5000;
 	.notification {
 		position: absolute;
-		top: 0;
+		bottom: 0;
 		left: 0;
 		width: 100%;
 		@include transition(all $speed ease);
 		&.notification-show {
-			top: -61px;
+			bottom: -38px;
 		}
 	}
 }
 .notification {
 	line-height: $input-height;
-	padding: $gutter-y $gutter-x $gutter-y + 1 $gutter-x;
+	padding: 0 $gutter-x 0 $gutter-x;
 	background-color: transparentize($color-quiet, 0.1);
-	text-align: center;
 	color: white;
-	cursor: pointer;
+	cursor: default;
+	white-space: nowrap;
+	text-align: center;
+	@include font-size(-1);
 	&:before {
-		font-size: 24px;
+		font-size: 1.25em;
 		margin-right: 0.25em;
-		vertical-align: -0.15em;
+		vertical-align: -0.2em;
 	}
 }
 .notification-positive {
-	background-color: transparentize($color-positive, 0.1);
+	background-color: transparentize($color-positive, 0.05);
 }
 .notification-negative {
-	background-color: transparentize(shade($color-negative, 5%), 0.1);
+	background-color: transparentize(shade($color-negative, 5%), 0.05);
 }
 
 /* Modal */
@@ -268,7 +270,7 @@ html, body {
 	@include colors(null, 0);
 	@include flush;
 }
-.modal-close {
+.modal-button {
 	position: absolute;
 	top: $gutter * 0.5;
 	right: $gutter * 0.5;
