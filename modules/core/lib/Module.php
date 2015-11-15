@@ -204,6 +204,14 @@ class Module extends ChalkModule
 
         $this
             ->backendRoute(
+                $this->name('null'),
+                Router::METHOD_ALL,
+                "", [
+                    'group'      => $this->name(),
+                    'controller' => 'index',
+                    'action'     => 'index',
+                ])
+            ->backendRoute(
                 $this->name('index'),
                 Router::METHOD_ALL,
                 $this->path("{controller}?/{action}?/{id}?"), [
