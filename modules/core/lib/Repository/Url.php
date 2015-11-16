@@ -10,6 +10,8 @@ use Chalk\Repository;
 
 class Url extends Content
 {
+    protected $_sort = ['createDate', 'DESC'];
+    
     public function build(array $params = array())
     {
         $query = parent::build($params);
