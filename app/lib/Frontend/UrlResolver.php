@@ -32,7 +32,7 @@ class UrlResolver extends CoastUrlResolver
         } else if (is_array($entity)) {
             $class = $entity['__CLASS__'];
         } else {
-            throw new Chalk\Exception('Unknown class');
+            throw new \Chalk\Exception('Unknown class');
         }
         $info = Chalk::info($class);
         foreach ($this->_resolvers as $resolver) {
