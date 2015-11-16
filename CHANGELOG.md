@@ -170,3 +170,10 @@
 
 * **Fixes**
 	* Bug fixes
+
+### 0.5.4
+
+* **Improvements**
+	* Modal window and notification changes
+* **Fixes**
+	* Bug fixes

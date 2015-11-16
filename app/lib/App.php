@@ -14,7 +14,7 @@ use Coast\Response;
 
 class App extends CoastApp
 {
-    const VERSION           = '0.5.3';
+    const VERSION           = '0.5.4';
 
     const STATUS_DRAFT      = 'draft';
     const STATUS_PENDING    = 'pending';
