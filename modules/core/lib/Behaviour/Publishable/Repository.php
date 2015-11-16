@@ -82,7 +82,7 @@ trait Repository
     {
         $years = [];
 
-        foreach ($this->months() as $month) {
+        foreach ($this->publishMonths() as $month) {
             if (!isset($years[$month['year']])) {
                 $years[$month['year']] = [
                     'year'         => $month['year'],
