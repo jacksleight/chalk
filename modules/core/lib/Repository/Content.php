@@ -45,6 +45,7 @@ class Content extends Repository
             } else {
                 $types = $params['types'];
             }
+            $all = [];
             foreach ($types as $class => $subtypes) {
                 $info = Chalk::info($class);
                 $classes = array_merge(
@@ -52,12 +53,12 @@ class Content extends Repository
                     $this->_em->getClassMetadata($info->class)->subClasses
                 );
                 foreach ($classes as $class) {
-                    $types[$class] = $subtypes;
+                    $all[$class] = $subtypes;
                 }
             }
             $lines = [];
             $i = 0;
-            foreach ($types as $class => $subtypes) {
+            foreach ($all as $class => $subtypes) {
                 $line = "{$this->alias()} INSTANCE OF {$class}";
                 if (isset($subtypes) && count($subtypes)) {
                     $line .= " AND {$this->alias()}.subtype IN (:types_{$i}_subtypes)";
