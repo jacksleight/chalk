@@ -58,7 +58,7 @@ class Index extends Repository
         $table = Chalk::info('Chalk\Core\Index')->name;
         return $conn->query("
             SELECT i.entityType, i.entityId,
-                MATCH(i.content) AGAINST ({$query} IN BOOLEAN MODE) AS score
+                MATCH(i.content) AGAINST ({$query}) AS score
             FROM {$table} AS i
             WHERE MATCH(i.content) AGAINST ({$query} IN BOOLEAN MODE)
                 {$where}
