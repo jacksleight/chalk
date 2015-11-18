@@ -99,6 +99,8 @@ table {
 	.col-contract {
 		width: 1px;
 		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 	.col-badge {
 		width: 1px;
