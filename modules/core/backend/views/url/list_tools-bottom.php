@@ -1,4 +1,4 @@
-<?php if ($isNewAllowed) { ?>
+<?php if ($isAddAllowed) { ?>
     <li><a href="<?= $this->url([
         'action' => 'edit',
     ]) . $this->url->query([

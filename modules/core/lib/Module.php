@@ -456,4 +456,22 @@ class Module extends ChalkModule
         // }
         $this->em->flush();
     }
+
+    public function contentList($filters)
+    {
+        if (is_array($filters)) {
+            $infoList = new \Chalk\InfoList();
+            foreach ($filters as $name => $subtypes) {
+                $subtypes = is_array($subtypes)
+                    ? $subtypes
+                    : [];
+                $infoList->item($name, [
+                    'subtypes' => $subtypes,
+                ]);
+            }
+            return $infoList;
+        } else {
+            return $this->backend->hook->fire($this->name('contentList'), new \Chalk\InfoList($filters));
+        }
+    }
 }

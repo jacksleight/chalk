@@ -16,11 +16,22 @@ class Node extends Action
 {
     public function add(Request $req, Response $res)
     {
-        $req->view->info = Chalk::info('Chalk\Core\Content');
+        $filters = $this->chalk->module('core')->contentList('core_node');
+        $info = isset($req->type)
+            ? Chalk::info($req->type)
+            : $filters->first();
+        $req->queryParam('type', $info->name);
 
-        $wrap = $this->em->wrap($index = new \Chalk\Core\Model\Index());
+        $class = "\\{$info->module->class}\\Model\\{$info->local->class}\\Index";
+        if (!class_exists($class)) {
+            $class = "\Chalk\Core\Model\Content\Index";
+        }
+        $index = new $class();
+
+        $wrap = $this->em->wrap($index);
         $wrap->graphFromArray($req->queryParams());
-        $req->view->index = $wrap;
+        $req->view->index   = $wrap;
+        $req->view->filters = $filters;
 
         if (!$req->isPost() && !$index->contentNew) {
             return;

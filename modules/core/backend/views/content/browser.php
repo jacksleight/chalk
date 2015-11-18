@@ -1,27 +1,6 @@
 <?php
 use Chalk\App as Chalk;
 use Chalk\Repository;
-
-$filters = isset($filters)
-    ? $filters
-    : null;
-if (is_array($filters)) {
-    $infoList = new \Chalk\InfoList();
-    foreach ($filters as $name => $subtypes) {
-        $subtypes = is_array($subtypes)
-            ? $subtypes
-            : [];
-        $infoList->item($name, [
-            'subtypes' => $subtypes,
-        ]);
-    }
-    $filters = $infoList;
-} else {
-    $filters = $this->hook->fire('core_contentList', new \Chalk\InfoList($filters));
-}
-if (!isset($index->type)) {
-    $index->type = $filters->first()->name;
-}
 $info = Chalk::info($index->type);
 ?>
 <div class="flex flex-row">
@@ -47,12 +26,11 @@ $info = Chalk::info($index->type);
 	<div class="flex main">
 		<?= $this->render("/{$info->local->path}/list", [
 			'contents'		=> $this->em($info)->all(['types' => $filters] + $index->toArray(), [], Repository::FETCH_ALL_PAGED),
-			'isNewAllowed'	=> false,
+			'isAddAllowed'	=> false,
 			'isEditAllowed'	=> false,
 			'info'			=> $info,
 			'index'			=> $index,
             'filters'       => $filters,
-			'isClose'		=> true,
 		], $info->module->name) ?>
         <?= $this->render('/element/form-input', array(
             'type'          => 'input_hidden',

@@ -1,10 +1,8 @@
 <?php
 $this->params([
     'bodyType'      => $bodyType      = isset($bodyType)      ? $bodyType       : 'table',
-    'bodyClass'     => $bodyClass     = isset($bodyClass)     ? $bodyClass      : null,
-    'isNewAllowed'  => $isNewAllowed  = isset($isNewAllowed)  ? $isNewAllowed   : true,
+    'isAddAllowed'  => $isAddAllowed  = isset($isAddAllowed)  ? $isAddAllowed   : true,
     'isEditAllowed' => $isEditAllowed = isset($isEditAllowed) ? $isEditAllowed  : true,
-    'isClose'       => $isClose       = isset($isClose)       ? $isClose        : false,
     'isUploadable'  => $isUploadable  = is_a($info->class, 'Chalk\Core\File', true),
 ]);
 ?>
@@ -22,7 +20,7 @@ $this->params([
         <div class="hanging">
             <?= $this->partial('filters') ?>
         </div>
-        <?= $this->partial('body') ?>
+        <?= $this->partial($bodyType) ?>
     </div>
     <div class="footer">
         <?= $this->partial('pagination') ?>

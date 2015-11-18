@@ -1,4 +1,4 @@
-<?php if (!$isNewAllowed) { ?>
+<?php if (!$isAddAllowed) { ?>
     <li>
         <?php
         $quick = $this->em->wrap(new Chalk\Core\Model\Url\Quick());

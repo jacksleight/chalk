@@ -6,9 +6,10 @@
 
 namespace Chalk\Core\Backend\Controller;
 
-use Coast\Controller\Action,
-	Coast\Request,
-	Coast\Response;
+use Chalk\App as Chalk;
+use Coast\Controller\Action;
+use Coast\Request;
+use Coast\Response;
 
 class Index extends Action
 {
@@ -64,9 +65,22 @@ class Index extends Action
 
 	public function select(Request $req, Response $res)
 	{
-		$wrap = $this->em->wrap($index = new \Chalk\Core\Model\Index());
+        $filters = $this->chalk->module('core')->contentList($req->filters);
+        $info = isset($req->type)
+            ? Chalk::info($req->type)
+            : $filters->first();
+        $req->queryParam('type', $info->name);
+
+        $class = "\\{$info->module->class}\\Model\\{$info->local->class}\\Index";
+        if (!class_exists($class)) {
+            $class = "\Chalk\Core\Model\Content\Index";
+        }
+        $index = new $class();
+
+		$wrap = $this->em->wrap($index);
 		$wrap->graphFromArray($req->queryParams());
-		$req->view->index = $wrap;
+		$req->view->index   = $wrap;
+		$req->view->filters = $filters;
 
         if (!$req->isPost() && !$index->contentNew) {
             return;

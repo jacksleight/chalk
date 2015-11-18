@@ -35,7 +35,11 @@ class Content extends Basic
 			}
 		}
 
-		$index = new \Chalk\Core\Model\Index();
+		$class = "\\{$req->info->module->class}\\Model\\{$req->info->local->class}\\Index";
+		if (!class_exists($class)) {
+			$class = "\Chalk\Core\Model\Content\Index";
+		}
+		$index = new $class();
 		$req->view->index = $wrap = $this->em->wrap($index);
 		$wrap->graphFromArray($req->queryParams());
 

@@ -1,3 +1,17 @@
+<?php
+$this->params([
+    'filterFields' => $filterFields = isset($filterFields) ? $filterFields : [],
+]);
+foreach ($filterFields as $i => $col) {
+    $filterFields[$i] = $col + [
+        'class'    => null,
+        'style'    => null,
+        'partial'  => null,
+        'params'   => [],
+    ];
+}
+?>
+
 <ul class="toolbar toolbar-flush autosubmitable">
     <li class="flex-3">
         <?= $this->render('/element/form-input', array(
@@ -8,7 +22,11 @@
             'placeholder'   => 'Search…',
         ), 'core') ?>
     </li>
-    <?= $this->partial('filters-top') ?>
+    <?php foreach ($filterFields as $field) { ?>
+        <li class="<?= $field['class'] ?>" style="<?= $col['style'] ?>">
+            <?= $this->inner("list_filters-{$field['partial']}", ['index' => $index] + $field['params']) ?>
+        </li>
+    <?php } ?>
     <?php
     $subtypes = $this->em($info)->subtypes(['types' => isset($filters) ? $filters : null]);
     $values   = [];
@@ -30,17 +48,7 @@
             ), 'core') ?>
         </li>
     <? } ?>
-    <li class="flex-2">
-        <?= $this->render('/element/form-input', array(
-            'type'          => 'dropdown_single',
-            'entity'        => $index,
-            'null'          => 'Any',
-            'name'          => 'modifyDateMin',
-            'icon'          => 'icon-updated',
-            'placeholder'   => 'Updated',
-        ), 'core') ?>
-    </li>
-    <li class="flex-2">
+    <li>
         <?= $this->render('/element/form-input', array(
             'type'          => 'dropdown_multiple',
             'entity'        => $index,
@@ -49,5 +57,4 @@
             'placeholder'   => 'Status',
         ), 'core') ?>
     </li>
-    <?= $this->partial('filters-bottom') ?>
 </ul>

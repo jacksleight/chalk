@@ -6,7 +6,7 @@
                 Upload <?= $info->plural ?>
             </span></li>
         </ul>
-    <? } else if ($isNewAllowed) { ?>
+    <? } else if ($isAddAllowed) { ?>
         <li><a href="<?= $this->url([
                 'entity' => $info->name,
                 'action' => 'edit',

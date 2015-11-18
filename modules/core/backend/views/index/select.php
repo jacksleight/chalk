@@ -6,10 +6,11 @@
 <form action="<?= $this->url->route() ?>" class="flex-col" novalidate>
 	<div class="header">
 		<h1>Browse</h1>
+		<button style="display: none;"></button>
 	</div>
 	<?= $this->render("/content/browser", [
 		'index'		=> $index,
-		'filters'	=> $req->filters,
+		'filters'	=> $filters,
 	]) ?>
 	<div class="footer">
 		<ul class="toolbar toolbar-right">

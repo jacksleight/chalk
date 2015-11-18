@@ -9,10 +9,11 @@ $structure = $this->em('Chalk\Core\Structure')->id($req->structure);
 <form action="<?= $this->url->route() ?>" class="flex-col" novalidate>
 	<div class="header">
 		<h1>Browse</h1>
+		<button style="display: none;"></button>
 	</div>
 	<?= $this->render("/content/browser", [
-		'index'		=> $index,
-		'filters'	=> 'core_node',
+		'index'	  => $index,
+		'filters' => $filters,
 	]) ?>
 	<div class="footer">
 		<ul class="toolbar toolbar-right">
