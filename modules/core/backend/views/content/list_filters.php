@@ -1,13 +1,6 @@
 <?php
 $this->params([
-    'filterFields' => $filterFields = isset($filterFields) ? $filterFields : [
-        [
-            'class'   => 'flex-2',
-            'style'   => 'max-width: 200px;',
-            'partial' => 'date-min',
-            'params'  => ['property' => 'modify', 'placeholder' => 'Updated'],
-        ],
-    ],
+    'filterFields' => $filterFields = isset($filterFields) ? $filterFields : [],
 ]);
 foreach ($filterFields as $i => $col) {
     $filterFields[$i] = $col + [
@@ -51,11 +44,11 @@ foreach ($filterFields as $i => $col) {
         </li>
     <? } ?>
     <?php foreach ($filterFields as $field) { ?>
-        <li class="<?= $field['class'] ?>" style="<?= $col['style'] ?>">
+        <li class="<?= $field['class'] ?>" style="<?= $field['style'] ?>">
             <?= $this->inner("list_filters-{$field['partial']}", ['index' => $index] + $field['params']) ?>
         </li>
     <?php } ?>
-    <li style="max-width: 200px;">
+    <li style="width: 200px;">
         <?= $this->render('/element/form-input', array(
             'type'          => 'dropdown_multiple',
             'entity'        => $index,
