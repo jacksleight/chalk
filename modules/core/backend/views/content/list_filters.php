@@ -1,6 +1,13 @@
 <?php
 $this->params([
-    'filterFields' => $filterFields = isset($filterFields) ? $filterFields : [],
+    'filterFields' => $filterFields = isset($filterFields) ? $filterFields : [
+        [
+            'class'   => 'flex-2',
+            'style'   => 'max-width: 200px;',
+            'partial' => 'date-min',
+            'params'  => ['property' => 'modify', 'placeholder' => 'Updated'],
+        ],
+    ],
 ]);
 foreach ($filterFields as $i => $col) {
     $filterFields[$i] = $col + [
@@ -22,11 +29,6 @@ foreach ($filterFields as $i => $col) {
             'placeholder'   => 'Search…',
         ), 'core') ?>
     </li>
-    <?php foreach ($filterFields as $field) { ?>
-        <li class="<?= $field['class'] ?>" style="<?= $col['style'] ?>">
-            <?= $this->inner("list_filters-{$field['partial']}", ['index' => $index] + $field['params']) ?>
-        </li>
-    <?php } ?>
     <?php
     $subtypes = $this->em($info)->subtypes(['types' => isset($filters) ? $filters : null]);
     $values   = [];
@@ -48,7 +50,12 @@ foreach ($filterFields as $i => $col) {
             ), 'core') ?>
         </li>
     <? } ?>
-    <li>
+    <?php foreach ($filterFields as $field) { ?>
+        <li class="<?= $field['class'] ?>" style="<?= $col['style'] ?>">
+            <?= $this->inner("list_filters-{$field['partial']}", ['index' => $index] + $field['params']) ?>
+        </li>
+    <?php } ?>
+    <li style="max-width: 200px;">
         <?= $this->render('/element/form-input', array(
             'type'          => 'dropdown_multiple',
             'entity'        => $index,
