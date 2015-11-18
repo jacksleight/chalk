@@ -7,6 +7,7 @@
 use Chalk\App as Chalk;
 use Chalk\Backend;
 use Chalk\Backend\Notifier;
+use Chalk\Backend\View as BackendView;
 use Chalk\Core\File;
 use Chalk\Core\Module as Core;
 use Chalk\Frontend;
@@ -47,7 +48,7 @@ $app->param('backend', $app->lazy(function($vars) {
         ->param('frontend', $app->frontend)
         ->param('session', $app->session);
     $backend
-        ->param('view', new View())
+        ->param('view', new BackendView())
         ->param('parser', new Parser([
             'isTidy' => true,
         ]))
