@@ -579,8 +579,8 @@ textarea {
 .selectize-input {
 	height: auto;
 	line-height: 1;
-	padding-top: $input-padding;
-	padding-bottom: $input-padding - 3px;
+	padding-top: 3px;
+	padding-bottom: 0;
 	cursor: text;
 	input, 
 	div {

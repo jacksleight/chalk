@@ -3340,8 +3340,8 @@ textarea.editor-content, textarea.editor-code {
 .selectize-input {
   height: auto;
   line-height: 1;
-  padding-top: 6px;
-  padding-bottom: 3px;
+  padding-top: 3px;
+  padding-bottom: 0;
   cursor: text;
 }
 .selectize-input input,
