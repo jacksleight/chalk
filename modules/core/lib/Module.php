@@ -67,14 +67,12 @@ class Module extends ChalkModule
         $this
             ->frontendUrlResolver($this->name('structure_node'), function($node, $info) {
                 try {
-                    return $this->frontend->url
-                        ->route([], $this->name("structure_node_{$node['id']}"), true);   
+                    return $this->frontend->url->route([], $this->name("structure_node_{$node['id']}"), true);   
                 } catch (\Coast\Router\Exception $e) {}             
             })
             ->frontendUrlResolver($this->name('content'), function($content, $info) {
                 try {
-                    return $this->frontend->url
-                        ->route([], $this->name("content_{$content['id']}"), true);
+                    return $this->frontend->url->route([], $this->name("content_{$content['id']}"), true);
                 } catch (\Coast\Router\Exception $e) {}
             })
             ->frontendUrlResolver($this->name('url'), function($url, $info) {
@@ -421,7 +419,7 @@ class Module extends ChalkModule
                 $primary = $this->name("{$name}_{$content['id']}");
                 $this
                     ->frontendRoute(
-                        $primary,
+                        "{$primary}",
                         Router::METHOD_ALL,
                         "{$node['path']}",
                         $params + [
