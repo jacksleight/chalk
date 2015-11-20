@@ -63,6 +63,8 @@ abstract class Content extends \Toast\Entity implements Publishable, Searchable,
      * @Column(type="json_array", nullable=true)
      */
     protected $data = [];
+
+    protected $dataJson;
     
     /**
      * @ManyToMany(targetEntity="\Chalk\Core\Tag", inversedBy="contents", cascade={"persist"})
@@ -105,10 +107,22 @@ abstract class Content extends \Toast\Entity implements Publishable, Searchable,
     public function dataJson($value = null)
     {
         if (func_num_args() > 0) {
-            $this->data = json_decode($value, true);
+            $this->dataJson = $value;
+            $this->data = json_decode($this->dataJson, true);
             return $this;
+        } if (!isset($this->dataJson)) {
+            $this->dataJson = json_encode($this->data, JSON_PRETTY_PRINT);
         }
-        return json_encode($this->data, JSON_PRETTY_PRINT);
+        return $this->dataJson;
+    }
+
+    protected function _postValidate()
+    {
+        if (isset($this->dataJson)) {
+            if (json_decode($this->dataJson) === null) {
+                $this->addError('dataJson', 'Please enter valid JSON');
+            }
+        }
     }
 			
 	public function searchableContent()
