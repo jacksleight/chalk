@@ -44,7 +44,7 @@ class Auth extends Action
         $user->loginDate = new \Carbon\Carbon();
         $this->em->flush();
 
-        $this->session->regenerate();
+        // $this->session->regenerate();
         $session = $this->session->data('__Chalk\Backend');
         $session->user = $user->id;
 
@@ -122,7 +122,7 @@ class Auth extends Action
 
     public function logout(Request $req, Response $res)
     {
-        $this->session->regenerate();
+        // $this->session->regenerate();
         $session = $this->session->data('__Chalk\Backend');
         $session->user = null;
 
