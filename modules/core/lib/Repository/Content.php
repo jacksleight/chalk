@@ -147,4 +147,26 @@ class Content extends Repository
         ] + $opts);
         return $this->fetch($query);
     }
+
+    public function tags(array $params = array(), array $opts = array())
+    {
+        $repo  = $this->_em->getRepository('Chalk\Core\Tag');
+        $query = $repo->build($params);
+
+        $query
+            ->select("
+                t,
+                COUNT(tc) AS contentCount
+            ")
+            ->innerJoin("t.contents", "tc")
+            ->groupBy("t.id");
+
+        $this->publishableQueryModifier($query, $params, 'tc');
+        $this->searchableQueryModifier($query, $params, 'tc');
+
+        $query = $repo->prepare($query, [
+            'hydrate' => \Chalk\Repository::HYDRATE_ARRAY,
+        ] + $opts);
+        return $repo->fetch($query);
+    }
 }
