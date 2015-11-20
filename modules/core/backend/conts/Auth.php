@@ -26,7 +26,7 @@ class Auth extends Action
         }
 
         $wrap->graphFromArray($req->bodyParams());
-        if (!$wrap->isValid()) {
+        if (!$wrap->graphIsValid()) {
             return;
         }
 
@@ -64,7 +64,7 @@ class Auth extends Action
         }
 
         $wrap->graphFromArray($req->bodyParams());
-        if (!$wrap->isValid()) {
+        if (!$wrap->graphIsValid()) {
             return;
         }
 
@@ -107,7 +107,7 @@ class Auth extends Action
         }
 
         $wrap->graphFromArray($req->bodyParams());
-        if (!$wrap->isValid()) {
+        if (!$wrap->graphIsValid()) {
             return;
         }
 

@@ -95,7 +95,7 @@ class Content extends Basic
 		}
 
 		$wrap->graphFromArray($req->bodyParams());
-		if (!$wrap->isValid()) {
+		if (!$wrap->graphIsValid()) {
 			$this->notify("{$req->info->singular} could not be saved, please check the messages below", 'negative');
 			return;
 		}
@@ -122,7 +122,7 @@ class Content extends Basic
 		$wrap  = $this->em->wrap($quick);
 
 		$wrap->graphFromArray($req->bodyParams());
-		if (!$wrap->isValid()) {
+		if (!$wrap->graphIsValid()) {
 			$this->notify("{$req->info->singular} could not be added, please try again", 'negative');
 			return $res->redirect($this->url(array(
 				'action' => 'index',

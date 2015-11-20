@@ -40,7 +40,7 @@ class Basic extends Action
 		}
 
 		$wrap->graphFromArray($req->bodyParams());
-		if (!$wrap->isValid()) {
+		if (!$wrap->graphIsValid()) {
 			$this->notify("{$req->info->singular} <strong>{$entity->name}</strong> could not be saved, please check the messages below", 'negative');
 			return;
 		}

@@ -36,7 +36,7 @@ class Domain extends Basic
 		}
 
 		$wrap->graphFromArray($req->bodyParams());
-		if (!$wrap->isValid()) {
+		if (!$wrap->graphIsValid()) {
 			return;
 		}
 

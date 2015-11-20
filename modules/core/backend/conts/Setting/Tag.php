@@ -26,7 +26,7 @@ class Tag extends Basic
         }
 
         $wrap->graphFromArray($req->bodyParams());
-        if (!$wrap->isValid()) {
+        if (!$wrap->graphIsValid()) {
             $this->notify("{$req->info->plural} could not be merged, please check the messages below", 'negative');
             return;
         }

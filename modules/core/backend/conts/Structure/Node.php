@@ -81,7 +81,7 @@ class Node extends Action
         }
 
         $wrap->graphFromArray($req->bodyParams());
-        if (!$wrap->isValid()) {
+        if (!$wrap->graphIsValid()) {
             return;
         }
 
