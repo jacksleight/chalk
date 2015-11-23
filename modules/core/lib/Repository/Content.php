@@ -142,6 +142,7 @@ class Content extends Repository
             ->select("{$this->alias()}.subtype AS subtype, COUNT({$this->alias()}) AS total")
             ->groupBy("{$this->alias()}.subtype")
             ->andWhere("{$this->alias()}.subtype IS NOT NULL");
+        
         $query = $this->prepare($query, [
             'hydrate' => Repository::HYDRATE_ARRAY
         ] + $opts);
@@ -150,23 +151,20 @@ class Content extends Repository
 
     public function tags(array $params = array(), array $opts = array())
     {
-        $repo  = $this->_em->getRepository('Chalk\Core\Tag');
-        $query = $repo->build($params);
-
-        $query
+        $query = $this->build($params)
+            ->resetDQLParts(['select', 'from', 'join', 'orderBy'])
             ->select("
-                t,
-                COUNT(tc) AS contentCount
+                {$this->alias()}t,
+                COUNT({$this->alias()}) AS contentCount
             ")
-            ->innerJoin("t.contents", "tc")
-            ->groupBy("t.id");
+            ->from("Chalk\Core\Tag", "{$this->alias()}t")
+            ->innerJoin("{$this->alias()}t.contents", "{$this->alias()}", "WITH", "{$this->alias()} INSTANCE OF {$this->_entityName}")
+            ->groupBy("{$this->alias()}t.id")
+            ->orderBy("{$this->alias()}t.name");
 
-        $this->publishableQueryModifier($query, $params, 'tc');
-        $this->searchableQueryModifier($query, $params, 'tc');
-
-        $query = $repo->prepare($query, [
+        $query = $this->prepare($query, [
             'hydrate' => \Chalk\Repository::HYDRATE_ARRAY,
         ] + $opts);
-        return $repo->fetch($query);
+        return $this->fetch($query);
     }
 }
