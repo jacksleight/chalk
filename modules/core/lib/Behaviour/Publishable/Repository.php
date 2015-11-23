@@ -15,7 +15,7 @@ use DateTime;
 
 trait Repository
 {
-    public function publishableQueryModifier(QueryBuilder $query, array $criteria = array(), $alias = null)
+    public function publishable_modify(QueryBuilder $query, array $criteria = array(), $alias = null)
     {
         $alias = isset($alias)
             ? $alias
@@ -55,7 +55,7 @@ trait Repository
         }
     }
 
-    public function publishableMonths(array $params = array(), array $opts = array())
+    public function publishMonths(array $params = array(), array $opts = array())
     {
         $query = $this->build($params + [
             'sort' => ['publishDate', 'DESC'],
@@ -78,11 +78,11 @@ trait Repository
         return $this->fetch($query);
     }
 
-    public function publishableYears(array $params = array(), array $opts = array())
+    public function publishYears(array $params = array(), array $opts = array())
     {
         $years = [];
 
-        foreach ($this->publishableMonths() as $month) {
+        foreach ($this->publishMonths() as $month) {
             if (!isset($years[$month['year']])) {
                 $years[$month['year']] = [
                     'year'         => $month['year'],

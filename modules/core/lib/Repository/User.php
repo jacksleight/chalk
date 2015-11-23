@@ -33,7 +33,7 @@ class User extends Repository
                 ->setParameter('token', $params['token']);
         }
 
-        $this->searchableQueryModifier($query, $params);
+        $this->searchable_modify($query, $params);
 
         return $query;
     }

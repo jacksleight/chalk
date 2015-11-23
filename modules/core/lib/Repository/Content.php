@@ -15,8 +15,8 @@ use DateTime;
 
 class Content extends Repository
 {
-    use Publishable\Repository, 
-        Searchable\Repository;
+    use Publishable\Repository;
+    use Searchable\Repository;
 
     protected $_sort = ['name', 'ASC'];
 
@@ -130,8 +130,8 @@ class Content extends Repository
             ->addSelect("{$this->alias()}t")
             ->leftJoin("{$this->alias()}.tags", "{$this->alias()}t");
 
-        $this->publishableQueryModifier($query, $params);
-        $this->searchableQueryModifier($query, $params);
+        $this->publishable_modify($query, $params);
+        $this->searchable_modify($query, $params);
 
         return $query;
     }
