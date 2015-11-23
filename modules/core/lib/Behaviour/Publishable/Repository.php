@@ -58,10 +58,8 @@ trait Repository
     public function publishMonths(array $params = array(), array $opts = array())
     {
         $query = $this->build($params + [
-            'sort' => ['publishDate', 'DESC'],
-        ]);
-
-        $query
+                'sort' => ['a.publishDate', 'DESC'],
+            ])
             ->select("
                 DATE_FORMAT({$this->alias()}.publishDate, '%Y') AS year,
                 DATE_FORMAT({$this->alias()}.publishDate, '%m') AS month,
@@ -81,7 +79,6 @@ trait Repository
     public function publishYears(array $params = array(), array $opts = array())
     {
         $years = [];
-
         foreach ($this->publishMonths() as $month) {
             if (!isset($years[$month['year']])) {
                 $years[$month['year']] = [

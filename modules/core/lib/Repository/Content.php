@@ -151,16 +151,17 @@ class Content extends Repository
 
     public function tags(array $params = array(), array $opts = array())
     {
-        $query = $this->build($params)
-            ->resetDQLParts(['select', 'from', 'join', 'orderBy'])
+        $query = $this->build($params + [
+                'sort' => ["{$this->alias()}t.name"],
+            ])
+            ->resetDQLParts(['select', 'from', 'join'])
             ->select("
                 {$this->alias()}t,
                 COUNT({$this->alias()}) AS contentCount
             ")
             ->from("Chalk\Core\Tag", "{$this->alias()}t")
             ->innerJoin("{$this->alias()}t.contents", "{$this->alias()}", "WITH", "{$this->alias()} INSTANCE OF {$this->_entityName}")
-            ->groupBy("{$this->alias()}t.id")
-            ->orderBy("{$this->alias()}t.name");
+            ->groupBy("{$this->alias()}t.id");
 
         $query = $this->prepare($query, [
             'hydrate' => \Chalk\Repository::HYDRATE_ARRAY,
