@@ -15,7 +15,10 @@ class All extends Action
 {
 	public function preDispatch(Request $req, Response $res)
 	{
-        $req->view = (object) [];
+        $req->view = (object) [
+            'head' => '',
+            'body' => '',
+        ];
 
         if (isset($req->node)) {
             // if ($req->path() != $req->node['path']) {
