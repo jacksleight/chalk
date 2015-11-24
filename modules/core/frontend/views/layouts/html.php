@@ -14,6 +14,9 @@ $metas = isset($metas)
     <?php foreach ($metas as $name => $value) { ?>
         <meta name="<?= $this->escape($name) ?>" content="<?= $this->escape($value) ?>">
     <?php } ?>
+    <?php foreach ($links as $link) { ?>
+        <link rel="<?= $this->escape($link['rel']) ?>" type="<?= $this->escape($link['type']) ?>" href="<?= $this->escape($link['href']) ?>" title="<?= $this->escape($link['title']) ?>">
+    <?php } ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?= $this->ck->domain['head'] ?>
     <?= isset($head) ? $head : null ?>

@@ -17,10 +17,7 @@ class All extends Action
 	{
         $this->app->module = $this->chalk->module($req->group);
         
-        $req->view = (object) [
-            'head' => '',
-            'body' => '',
-        ];
+        $req->view = (object) [];
 
         if (isset($req->node)) {
             // if ($req->path() != $req->node['path']) {
