@@ -5,6 +5,9 @@ $title = (isset($title)
 $metas = isset($metas) 
     ? $metas
     : [];
+$links = isset($links) 
+    ? $links
+    : [];
 ?>
 <!DOCTYPE html>
 <html lang="en-GB">

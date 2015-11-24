@@ -20,12 +20,6 @@ class All extends Action
         $req->view = (object) [];
 
         if (isset($req->node)) {
-            // if ($req->path() != $req->node['path']) {
-            //     return $res->redirect(
-            //         $this->url->string($req->node['path']) .
-            //         ($req->queryParams() ? $this->url->query($req->queryParams(), true) : null)
-            //     );
-            // }
             $nodes = [$req->node];
             while (isset($nodes[0]['parentId'])) {
                 array_unshift($nodes, $this->nodeMap[$nodes[0]['parentId']]);
