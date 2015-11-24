@@ -41,10 +41,10 @@ class Frontend extends \Coast\App
         return $this->_handlers;
     }
 
-    public function date(\DateTime $date, $format)
+    public function date(\DateTime $date)
     {
         $date->setTimezone(new \DateTimezone($this->chalk->config->timezone));
-        return $date->format($format);
+        return $date;
     }
 
     public function children($node, $isIncluded = false, $depth = null, array $criteria = array())
