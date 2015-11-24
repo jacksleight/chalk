@@ -11,12 +11,10 @@ use Coast\View as CoastView;
 
 class View extends CoastView
 {
-    public function module($class = null)
+    protected function _render()
     {
-        if (!isset($class)) {
-            $render = &$this->_active->renders[0];
-            $class  = $render->script->group;
-        }
-        return $this->chalk->module($class);
+        $render = &$this->_active->renders[0];
+        $this->app->module = $this->chalk->module($render->script->group);
+        return parent::_render();
     }
 }

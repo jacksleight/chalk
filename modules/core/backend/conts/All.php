@@ -18,6 +18,8 @@ class All extends Action
 {
     public function preDispatch(Request $req, Response $res)
     {
+        $this->app->module = $this->chalk->module($req->group);
+        
         $this->contentList = $this->hook->fire('core_contentList', new InfoList('core_main'));
         $this->widgetList  = $this->hook->fire('core_widgetList', new InfoList());
         $this->navList     = $this->hook->fire('core_navList', new NavList());

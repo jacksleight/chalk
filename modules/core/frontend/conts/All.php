@@ -15,6 +15,8 @@ class All extends Action
 {
 	public function preDispatch(Request $req, Response $res)
 	{
+        $this->app->module = $this->chalk->module($req->group);
+        
         $req->view = (object) [
             'head' => '',
             'body' => '',
