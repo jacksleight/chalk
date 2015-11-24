@@ -27,7 +27,9 @@ abstract class Module implements Access
 
     protected $_baseDir;
 
-    public function __construct($name, $baseDir = '..')
+    protected $_options = [];
+
+    public function __construct($name, $options = null, $baseDir = '..')
     {
         $this->_name = $name;
         if (!$baseDir instanceof Dir) {
@@ -37,7 +39,22 @@ abstract class Module implements Access
                 ->dir("{$baseDir}")
                 ->toReal();
     	}
+        $this->options($options);
         $this->baseDir($baseDir);
+    }
+
+    public function options($options = null)
+    {
+        if (isset($options)) {
+            $this->_options = \Coast\array_merge_smart($this->_options, $options);
+            return $this;
+        }
+        return $this->_options;
+    }
+
+    public function option($name)
+    {
+        return $this->_options[$name];
     }
 
     public function baseDir(Dir $baseDir = null)
