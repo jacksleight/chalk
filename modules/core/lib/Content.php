@@ -86,7 +86,8 @@ abstract class Content extends \Toast\Entity implements Publishable, Searchable,
         return \Coast\array_merge_smart(parent::_defineMetadata($class), array(
             'fields' => array(
                 'dataJson' => [
-                    'type' => 'text',
+                    'type'     => 'text',
+                    'nullable' => true,
                 ],
                 'tagsText' => [
                     'type'     => 'string',
