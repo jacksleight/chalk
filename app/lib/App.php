@@ -140,7 +140,11 @@ class App extends CoastApp
             $name->init();
             return $this;
         }
-        $name = self::info($name)->module->name;
+        try {
+            $name = self::info($name)->module->name;
+        } catch (\Chalk\Exception $e) {
+            return null;
+        }            
         return isset($this->_modules[$name])
             ? $this->_modules[$name]
             : null;
