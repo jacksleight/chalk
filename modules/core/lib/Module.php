@@ -28,6 +28,7 @@ use Closure;
 use Coast\Request;
 use Coast\Response;
 use Coast\Router;
+use Coast\Sitemap;
 use DOMDocument;
 use DOMXPath;
 
@@ -90,6 +91,28 @@ class Module extends ChalkModule
         if ($this->app->isHttp()) {
             $this->frontendInitDomain();
             $this->frontendInitNodes();
+        }
+
+        if ($sitemap = $this->app->module('Chalk\Sitemap')) {
+            $this
+                ->frontendHookListen($sitemap->name('xml'), function(Sitemap $sitemap) {
+                    foreach ($this->frontend->domain['structures'] as $structure) {
+                        $nodes = $this->frontend->children($structure['nodes'][0], true);
+                        foreach ($nodes as $node) {
+                            $content = $node['content'];
+                            if (isset($content['data']['delegate'])) {
+                                continue;
+                            }
+                            $sitemap->add(
+                                $this->frontend->url($node),
+                                $content['modifyDate'],
+                                Sitemap::CHANGEFREQ_ALWAYS,
+                                1
+                            );
+                        }
+                    }
+                    return $sitemap;
+                });
         }
     }
 
