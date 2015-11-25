@@ -115,9 +115,7 @@ class Module extends ChalkModule
                             }
                             $sitemap->add(
                                 $this->frontend->url($node),
-                                $content['modifyDate'],
-                                Sitemap::CHANGEFREQ_ALWAYS,
-                                1
+                                $content['modifyDate']
                             );
                         }
                     }
