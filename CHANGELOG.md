@@ -177,3 +177,15 @@
 	* Modal window and notification changes
 * **Fixes**
 	* Bug fixes
+
+### 0.5.5
+
+* **Improvements**
+	* Fetch related contet tags repo method
+	* Frontend timezone method
+	* Styling tweaks
+	* Sitemap module support
+	* Dynamic robots.txt support
+	* Module related enhancements
+* **Fixes**
+	* Bug fixes
