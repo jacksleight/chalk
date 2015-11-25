@@ -93,6 +93,16 @@ class Module extends ChalkModule
             $this->frontendInitNodes();
         }
 
+        $this
+            ->frontendRoute(
+                $this->name('robots'),
+                Router::METHOD_ALL,
+                "robots.txt", [
+                    'group'      => $this->name(),
+                    'controller' => 'index',
+                    'action'     => 'robots',
+                ]);
+
         if ($sitemap = $this->app->module('Chalk\Sitemap')) {
             $this
                 ->frontendHookListen($sitemap->name('xml'), function(Sitemap $sitemap) {
