@@ -20,3 +20,6 @@
 		</li>
 	<?php } ?>
 </ul>
+<?php if (!count($values)) { ?>
+	<small>No options available.</small>
+<?php } ?>
