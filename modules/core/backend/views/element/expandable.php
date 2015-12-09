@@ -1,3 +1,8 @@
+<?php
+if (!strlen(trim($content))) {
+    return;
+}
+?>
 <div class="expandable">
 	<div class="expandable-body">
 		<?= $content ?>
