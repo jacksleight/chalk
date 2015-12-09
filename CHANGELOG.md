@@ -189,3 +189,11 @@
 	* Module related enhancements
 * **Fixes**
 	* Bug fixes
+
+### 0.5.6
+
+* **Improvements**
+	* Add file list date filter
+	* Layout tweaks
+* **Fixes**
+	* Bug fixes
