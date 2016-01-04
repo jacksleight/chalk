@@ -197,3 +197,8 @@
 	* Layout tweaks
 * **Fixes**
 	* Bug fixes
+
+### 0.5.7
+
+* **Fixes**
+	* Bug fixes
