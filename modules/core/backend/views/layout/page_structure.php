@@ -118,7 +118,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 			</ol>
 		</div>
 	</div>
-	<input type="hidden" name="data" class="structure-data">
+	<input type="hidden" name="nodeData" class="structure-data">
 </form>
 
 <?php $this->block('foot') ?>

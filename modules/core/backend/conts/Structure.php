@@ -38,13 +38,13 @@ class Structure extends Action
 		if (!$req->isPost()) {
 			throw new \Chalk\Exception("Reorder action only accepts POST requests");
 		}
-		if (!$req->data) {
+		if (!$req->nodeData) {
 			return $res->redirect($this->url(array(
 				'action' => 'index',
 			)));
 		}
 
-		$data = json_decode($req->data);
+		$data = json_decode($req->nodeData);
 		$structure = $this
 			->em('Chalk\Core\Structure')
 			->id($req->structure);
