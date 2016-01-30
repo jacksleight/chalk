@@ -38,10 +38,13 @@ class Frontend implements Plugin, Access
                     $path   = "{$config[0]}/{$info->module->name}/{$info->local->path}";
                     $html   = $this->view->render($path, $widget->toArray(), $config[1]);
                     $temp   = $this->parser->htmlToDoc($html);
-                    $temps  = $temp->getElementsByTagName('body')->item(0)->childNodes;
-                    for ($i = 0; $i < $temps->length; $i++) {
-                        $temp = $doc->importNode($temps->item($i), true);
-                        $node->parentNode->insertBefore($temp, $node);
+                    $query  = $temp->getElementsByTagName('body');
+                    if ($query->length > 0) {
+                        $temps = $query->item(0)->childNodes;
+                        for ($i = 0; $i < $temps->length; $i++) {
+                            $temp = $doc->importNode($temps->item($i), true);
+                            $node->parentNode->insertBefore($temp, $node);
+                        }
                     }
                     $node->parentNode->removeChild($node);
                 }
