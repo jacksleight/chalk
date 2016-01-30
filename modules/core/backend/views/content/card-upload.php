@@ -30,8 +30,10 @@ $covered  = isset($covered) ? $covered : false;
 		<small>
 			<?php if ($template) { ?>
 				Waiting…
-			<?php } else { ?>
+			<?php } else if ($content->file->exists()) { ?>
 				<?= \Coast\str_size_format($content->file->size()) ?>
+			<?php } else { ?>
+				<span class="error">File not found, please reupload</span>
 			<?php } ?>
 		</small>
 	</div>
