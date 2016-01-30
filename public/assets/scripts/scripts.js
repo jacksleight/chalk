@@ -20375,11 +20375,11 @@ var widget = $.widget;
 			loader.removeClass('hideable-hidden');
 			xhr = $.ajax(url, options)
 				.done(function(res, status, xhr) {
-					var data;
-					var html; 
+					var data = {};
+					var html = null; 
 					var json = xhr.getResponseHeader('X-JSON');
 					if (json) {
-						data = JSON.parse(json);
+						data = $.extend(data, JSON.parse(json));
 					}
 					if (typeof res == 'object') {
 						data = $.extend(data, res);
