@@ -161,12 +161,13 @@ class Module extends ChalkModule
             FROM core_structure_node AS n
                 INNER JOIN core_structure AS s ON s.id = n.structureId
                 INNER JOIN core_domain__core_structure AS d ON d.core_structureId = s.id
-                INNER JOIN core_content AS c ON c.id = n.contentId
+                LEFT JOIN core_content AS c ON c.id = n.contentId
             WHERE d.core_domainId = {$this->frontend->domain['id']}
         ")->fetchAll();
 
         $nodeMap = [];
         foreach ($nodes as $node) {
+            $nodeMap[$node['id']] = $node;
             $content = [
                 'id'   => $node['content_id'],
                 'type' => $node['content_type'],
@@ -216,7 +217,6 @@ class Module extends ChalkModule
                     $this->name("structure_node_{$node['id']}"),
                     $primary
                 );
-            $nodeMap[$node['id']] = $node;
         }
         $this->frontend->nodeMap = $nodeMap;
     }
