@@ -24,6 +24,8 @@ $value = isset($value)
 			<?= $this->inner('/content/card', [
 				'content' => $content
 			]) ?>		
+		<?php } else if (isset($placeholder)) { ?>
+			<span class="placeholder"><?= $placeholder ?></span>
 		<?php } else { ?>
 			<span class="placeholder">Nothing Selected</span>
 		<?php } ?>
