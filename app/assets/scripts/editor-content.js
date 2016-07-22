@@ -296,7 +296,7 @@ tinyMCE.init({
         'lists',
         'chalk'].join(' '),
     toolbar: [
-        'styleselect', 'bold', 'italic', '|',
+        'styleselect', 'bold', 'italic', 'removeformat', '|',
         'bullist', 'numlist', 'table', '|',
         'chalkinsert', 'chalklink', 'unlink', '|',
         'pastetext', '|',
