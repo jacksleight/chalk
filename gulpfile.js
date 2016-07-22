@@ -9,13 +9,11 @@ var gulp		= require('gulp'),
 	minifycss	= require('gulp-minify-css'),
 	rename		= require('gulp-rename'),
 	replace		= require('gulp-replace'),
-	sprites		= require('gulp-include'),
 	svg2png		= require('gulp-svg2png'),
 	svgmin		= require('gulp-svgmin'),
 	uglify		= require('gulp-uglify'),
 	sequence 	= require('run-sequence'),
 	server		= require('tiny-lr')(),
-	sprite 		= require('css-sprite').stream,
 	path		= require('path');
 
 var projectPath	= __dirname,
