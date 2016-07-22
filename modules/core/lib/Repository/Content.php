@@ -127,8 +127,8 @@ class Content extends Repository
         }
 
         $query
-            ->addSelect("{$this->alias()}t")
-            ->leftJoin("{$this->alias()}.tags", "{$this->alias()}t");
+            ->addSelect("{$this->alias()}_tags")
+            ->leftJoin("{$this->alias()}.tags", "{$this->alias()}_tags");
 
         $this->publishable_modify($query, $params);
         $this->searchable_modify($query, $params);
