@@ -60,6 +60,7 @@ trait Repository
         $query = $this->build($params + [
                 'sort' => ["{$this->alias()}.publishDate", "DESC"],
             ])
+            ->resetDQLParts(['select', 'from', 'join'])
             ->select("
                 DATE_FORMAT({$this->alias()}.publishDate, '%Y') AS year,
                 DATE_FORMAT({$this->alias()}.publishDate, '%m') AS month,
@@ -67,6 +68,7 @@ trait Repository
                 {$this->alias()}.publishDate AS date,
                 COUNT({$this->alias()}) AS contentCount
             ")
+            ->from("{$this->_entityName}", "{$this->alias()}")
             ->andWhere("{$this->alias()}.publishDate IS NOT NULL")
             ->groupBy("yearMonth");
 
