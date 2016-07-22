@@ -212,3 +212,8 @@
 
 * **Fixes**
 	* Bug fixes
+
+### 0.5.10
+
+* **Fixes**
+	* Bug fixes
