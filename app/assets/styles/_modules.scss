@@ -265,6 +265,7 @@ figure {
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		padding: $gutter * 0.3 0 0 0;
+		max-width: 200px - $gutter * 0.75 * 2;
 	}
 	.badge-out {
 		background-color: white;

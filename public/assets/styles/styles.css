@@ -2736,6 +2736,7 @@ figure figcaption {
   white-space: nowrap;
   text-overflow: ellipsis;
   padding: 6px 0 0 0;
+  max-width: 170px;
 }
 .thumb .badge-out {
   background-color: white;
