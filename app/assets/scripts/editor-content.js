@@ -269,7 +269,7 @@ if (Chalk.styles) {
         }
 
     }
-    css = css.join();
+    css = css.join(' ');
 
 }
 
