@@ -217,3 +217,8 @@
 
 * **Fixes**
 	* Bug fixes
+
+### 0.5.11
+
+* **Improvements**
+	* Support additional cache drivers
