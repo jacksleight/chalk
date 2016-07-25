@@ -4,14 +4,15 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-use Doctrine\Common\Cache\ArrayCache,
-	Doctrine\Common\Cache\MemcacheCache,
-	Doctrine\Common\Cache\MemcachedCache,
-	Doctrine\Common\Cache\RedisCache,
-	Doctrine\Common\Cache\XcacheCache;
+use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\Common\Cache\MemcacheCache;
+use Doctrine\Common\Cache\MemcachedCache;
+use Doctrine\Common\Cache\RedisCache;
+use Doctrine\Common\Cache\XcacheCache;
+use Doctrine\Common\Cache\FileCache;
 
 $config = $app->config->cache;
-if ($app->isDevelopment()) {
+if (!$app->isDevelopment()) {
 	$cache = new ArrayCache();
 } else if ($config['driver'] == 'memcache' && extension_loaded('memcache')) {
 	$memcache = new Memcache();
@@ -28,10 +29,13 @@ if ($app->isDevelopment()) {
 	$redis->connect($config['host'], $config['port']);
 	$cache = new RedisCache();
 	$cache->setRedis($redis);
-} else if ($config['driver'] == 'xcache' && extension_loaded('xcache')) {
-	$cache = new XcacheCache();
 } else {
-	$cache = new ArrayCache();
+	$class = 'Doctrine\\Common\\Cache\\' . ucfirst($config['driver']) . 'Cache';
+	if (is_a($class, 'Doctrine\\Common\\Cache\\FileCache', true)) {
+		$cache = new $class($app->config->dataDir->dir('cache'));
+	} else {
+		$cache = new $class();
+	}
 }
 $cache->setNamespace($config['namespace']);
 
