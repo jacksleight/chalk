@@ -32,10 +32,16 @@ class Listener implements EventSubscriber
 		}
 
 		if ($entity->status == Chalk::STATUS_PUBLISHED) {
-			$entity->publishDate = new Carbon();
+			if (!isset($entity->publishDate)) {
+				$entity->publishDate = new Carbon();
+			}
 		} else if ($entity->status == Chalk::STATUS_ARCHIVED) {
-			$entity->publishDate = new Carbon();
-			$entity->archiveDate = new Carbon();
+			if (!isset($entity->publishDate)) {
+				$entity->publishDate = new Carbon();
+			}
+			if (!isset($entity->archiveDate)) {
+				$entity->archiveDate = new Carbon();
+			}
 		}
 	}
 
