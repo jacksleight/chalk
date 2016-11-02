@@ -60,12 +60,12 @@ foreach ($tableCols as $i => $col) {
                         ], 'core') ?>
                     </td>
                     <th scope="row">
-                        <? if ($isEditAllowed) { ?>
+                        <?php if ($isEditAllowed) { ?>
                             <a href="<?= $this->url([
                                 'action'    => 'edit',
                                 'content'   => $content->id,
-                            ]) ?>"><? } ?><?= $content->name ?><? if ($isEditAllowed) { ?></a>
-                        <? } ?>
+                            ]) ?>"><?php } ?><?= $content->name ?><?php if ($isEditAllowed) { ?></a>
+                        <?php } ?>
                         <br>
                         <small><?= implode(' – ', $content->previewText($info->class != 'Chalk\Core\Content')) ?></small>
                     </th>

@@ -6,7 +6,7 @@
 		<h1>
 			<?php if (!$domain->isNew()) { ?>
 				Site
-				<? //$domain->name ?>
+				<?php //$domain->name ?>
 			<?php } else { ?>
 				New <?= $info->singular ?>
 			<?php } ?>

@@ -1,6 +1,6 @@
 <div class="stackable">
 	<ul class="stackable-items">
-		<? foreach ($items as $i => $item) { ?>
+		<?php foreach ($items as $i => $item) { ?>
 			<li class="stackable-item">
 				<div class="stackable-controls">
 					<span class="btn btn-icon btn-lighter stackable-move icon-move"><span>Move</span></span>
@@ -10,7 +10,7 @@
 					<?= $item ?>
 				</div>
 			</li>
-		<? } ?>
+		<?php } ?>
     </ul>
     <span class="btn btn-lighter btn-out stackable-add icon-add">
     	Add

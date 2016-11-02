@@ -1,5 +1,5 @@
 <ul class="toolbar">
-	<? if (!$content->isProtected()) { ?>		
+	<?php if (!$content->isProtected()) { ?>		
 		<?php if (!$content->isArchived() && !$content->isNew()) { ?>
 			<li><a href="<?= $this->url([
 				'entity'	=> $info->name,
@@ -18,7 +18,7 @@
 				Delete <?= $info->singular ?>
 			</a></li>
 		<?php } ?>
-	<? } ?>
+	<?php } ?>
 	<?php if (isset($node) && !$node->isRoot()) { ?>
 		<li><a href="<?= $this->url([
 			'action' => 'delete'

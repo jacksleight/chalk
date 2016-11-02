@@ -7,7 +7,7 @@
 	<?php } ?>
 	<?php if (!$content->isNew() && $info->class != 'Chalk\Core\File') { ?>
 		<?php if (isset($node)) { ?>
-			<? if (is_a($info->class, 'Chalk\Core\Page', true)) { ?>
+			<?php if (is_a($info->class, 'Chalk\Core\Page', true)) { ?>
 				<li><a href="<?= $this->url([
 						'action'	=> 'edit',
 						'node'		=> null,
@@ -28,15 +28,15 @@
 						New Sibling <?= $info->singular ?>
 					</a></li>
 				<?php } ?>
-			<? } ?>
-		<? } else { ?>
+			<?php } ?>
+		<?php } else { ?>
 			<li><a href="<?= $this->url([
 					'entity'	=> $info->name,
 					'action'	=> 'edit',
 				], 'core_content', true) ?>" class="btn btn-focus btn-out icon-add">
 				New <?= $info->singular ?>
 			</a></li>
-		<? } ?>
+		<?php } ?>
 	<?php } ?>
 	<?= $this->partial('tools-bottom') ?>
 </ul>

@@ -38,7 +38,7 @@ $items = [];
         </div>  
     <?php $items[] = $this->end() ?>
 <?php } ?>
-<? if (isset($stackable) ? $stackable : true) { ?>
+<?php if (isset($stackable) ? $stackable : true) { ?>
     <?php $this->start() ?>
         <div class="form-group form-group-vertical">
             <?= $this->render('input_text', [
@@ -63,6 +63,6 @@ $items = [];
         'items'     => $items,
         'template'  => $template,
     ]) ?>
-<? } else { ?>
+<?php } else { ?>
     <?= implode(null, $items) ?>
-<? } ?>
+<?php } ?>

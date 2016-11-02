@@ -22,13 +22,13 @@
 				</li>
 			</ul>
 			<ul class="toolbar">
-				<? if ($req->mode == 'edit') { ?>
+				<?php if ($req->mode == 'edit') { ?>
 					<li><a href="<?= $this->url([
 						'action'	=> 'delete',
 					]) ?>" class="btn btn-negative btn-out confirmable icon-delete">
 						Delete <?= $info->singular ?>
 					</a></li>
-				<? } ?>
+				<?php } ?>
 			</ul>
 		</div>
 	</div>

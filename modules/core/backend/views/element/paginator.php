@@ -22,13 +22,13 @@ $pages = isset($limit) && $count
 			'page' => max($value - 1, 1),
 		)) ?>" class="btn btn-light btn-icon icon-prev <?= $value == 1 ? 'disabled' : null ?>" rel="prev"><span>Previous</span></a>
 	</li>
-	<? for ($i = $min1; $i <= $max1; $i++) { ?>
+	<?php for ($i = $min1; $i <= $max1; $i++) { ?>
 		<li>
 			<a href="<?= $this->url([]) . $this->url->query(array(
 				'page' => $i,
 			)) ?>" class="btn btn-light <?= $i == $value ? 'active' : '' ?>"><?= $i ?></a>
 		</li>
-	<? } ?>
+	<?php } ?>
 	<li>
 		<a href="<?= $this->url([]) . $this->url->query(array(
 			'page' => min($value + 1, $pages),

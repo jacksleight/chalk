@@ -17,7 +17,7 @@
             'null'   => 'Default',
         ], 'core') ?>
     </li>
-    <? if ($isEditAllowed) { ?>
+    <?php if ($isEditAllowed) { ?>
         <li class="toolbar-gap">
             Selected&nbsp;
             <?= $this->render('/element/form-input', [
@@ -28,7 +28,7 @@
                 'class'  => 'confirmable',
             ], 'core') ?>
         </li>
-    <? } ?>
+    <?php } ?>
 </ul>
 <?= $this->render('/element/form-input', [
     'type'      => 'paginator',

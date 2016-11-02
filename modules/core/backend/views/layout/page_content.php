@@ -9,7 +9,7 @@
     <div class="flex body">
         <nav class="nav" role="navigation">
             <ul>
-                <? foreach ($this->contentList as $name => $classInfo) { ?>
+                <?php foreach ($this->contentList as $name => $classInfo) { ?>
                     <?php
                     $count = $this->em($classInfo)->count(['isPublishable' => true]);
                     ?>
@@ -22,7 +22,7 @@
                             <span class="badge badge-figure badge-negative badge-out"><?= $count ?></span>
                         <?php } ?>
                     </a></li>
-                <? } ?>
+                <?php } ?>
             </ul>
         </nav>   
     </div>

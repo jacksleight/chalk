@@ -31,7 +31,7 @@ foreach ($filterFields as $i => $col) {
     }
     asort($values);
     ?>
-    <? if (count($subtypes)) { ?>
+    <?php if (count($subtypes)) { ?>
         <li class="flex-2">
             <?= $this->render('/element/form-input', array(
                 'type'          => 'dropdown_multiple',
@@ -42,7 +42,7 @@ foreach ($filterFields as $i => $col) {
                 'values'        => $values,
             ), 'core') ?>
         </li>
-    <? } ?>
+    <?php } ?>
     <?php foreach ($filterFields as $field) { ?>
         <li class="<?= $field['class'] ?>" style="<?= $field['style'] ?>">
             <?= $this->inner("list_filters-{$field['partial']}", ['index' => $index] + $field['params']) ?>

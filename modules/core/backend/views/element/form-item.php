@@ -101,11 +101,11 @@ $render = isset($input)
 			?>
 			<p class="error">
 				<?php foreach ($errors[$name] as $code => $params) { ?>
-					<? if (isset($mgs[$code])) { ?>
+					<?php if (isset($mgs[$code])) { ?>
 						<?= vsprintf($mgs[$code], $params) ?>
-					<? } else { ?>
+					<?php } else { ?>
 						<?= $code ?>
-					<? } ?>
+					<?php } ?>
 					<br>
 				<?php } ?>
 			</p>

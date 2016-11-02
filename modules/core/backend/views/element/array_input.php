@@ -36,7 +36,7 @@ $items = [];
         </div>  
     <?php $items[] = $this->end() ?>
 <?php } ?>
-<? if (isset($stackable) ? $stackable : true) { ?>
+<?php if (isset($stackable) ? $stackable : true) { ?>
     <?php $this->start() ?>
         <div class="form-group form-group-vertical">
             <?= $this->render('input_text', [
@@ -59,13 +59,13 @@ $items = [];
         'items'     => $items,
         'template'  => $template,
     ]) ?>
-<? } else { ?>
+<?php } else { ?>
     <?= implode(null, $items) ?>
-<? } ?>
-<? if (isset($datalist)) { ?>
+<?php } ?>
+<?php if (isset($datalist)) { ?>
     <datalist id="<?= "{$id}_datalist" ?>">
         <?php foreach ($datalist as $value) { ?>
             <option value="<?= $value ?>">
         <?php } ?>
     </datalist>
-<? } ?>
+<?php } ?>

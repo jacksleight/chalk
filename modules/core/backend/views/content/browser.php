@@ -4,12 +4,12 @@ use Chalk\Repository;
 $info = Chalk::info($index->type);
 ?>
 <div class="flex flex-row">
-    <? if (count($filters) > 1) { ?>  
+    <?php if (count($filters) > 1) { ?>  
         <div class="sidebar">
             <div class="body">
                 <nav class="nav" role="navigation">
                     <ul>
-                        <? foreach ($filters as $filter) { ?>
+                        <?php foreach ($filters as $filter) { ?>
                             <li><a href="<?= $this->url([]) . $this->url->query([
                                 'filters' => $index->filters,
                                 'type'    => $filter->name,
@@ -17,12 +17,12 @@ $info = Chalk::info($index->type);
                                 <span class="icon-sidebar icon-<?= $filter->icon ?>"></span>
                                 <?= $filter->plural ?>
                             </a></li>
-                        <? } ?>
+                        <?php } ?>
                     </ul>
                 </nav>
             </div>
         </div>
-    <? } ?>
+    <?php } ?>
 	<div class="flex main">
 		<?= $this->render("/{$info->local->path}/list", [
 			'contents'		=> $this->em($info)->all(['types' => $filters] + $index->toArray(), [], Repository::FETCH_ALL_PAGED),

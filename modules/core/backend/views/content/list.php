@@ -7,9 +7,9 @@ $this->params([
 ]);
 ?>
 
-<? if ($isUploadable) { ?>
+<?php if ($isUploadable) { ?>
     <div class="uploadable">
-<? } ?>
+<?php } ?>
 
 <div class="flex-col">
     <div class="header">
@@ -27,7 +27,7 @@ $this->params([
     </div>
 </div>
 
-<? if ($isUploadable) { ?>
+<?php if ($isUploadable) { ?>
     <input
         class="uploadable-input"
         type="file"
@@ -44,4 +44,4 @@ $this->params([
         <?= $this->inner('/content/thumb', ['template' => true]) ?>
     </script>
     </div>
-<? } ?>
+<?php } ?>
