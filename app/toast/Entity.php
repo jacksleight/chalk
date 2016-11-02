@@ -91,8 +91,12 @@ class Entity implements ArrayAccess
 				'validator'	=> new Validator(),
 			), $field);
 			$validator = new Validator();
-			if (!$field['id'] && !$field['nullable']) {
-				$validator->set()->break();
+			if (!$field['id']) {
+                if (!$field['nullable']) {
+                    $validator->set()->break();                    
+                } else {
+                    $validator->break();
+                }
 			}
 			if ($field['type'] == 'integer' || $field['type'] == 'smallint' || $field['type'] == 'bigint') {
 				$validator->integer();
@@ -105,11 +109,11 @@ class Entity implements ArrayAccess
 			} else if ($field['type'] == 'string' || $field['type'] == 'text' || $field['type'] == 'guid') {
 				$validator->string();
 			} else if ($field['type'] == 'date') {
-				$validator->dateTime('Y-m-d');
+				$validator->object('DateTime');
 			} else if ($field['type'] == 'time') {
-				$validator->dateTime('H:i:s');
+				$validator->object('DateTime');
 			} else if ($field['type'] == 'datetime' || $field['type'] == 'datetimez') {
-				$validator->dateTime('Y-m-d H:i:s');
+				$validator->object('DateTime');
 			}
 			if (isset($field['length'])) {
 				$validator->length(null, $field['length']);
