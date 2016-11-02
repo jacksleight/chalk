@@ -51,9 +51,9 @@ $transforms = [
 ];
 
 return new Image([
-    'baseDir'           => $app->chalk->config->publicDataDir->dir('file'),
-    'outputDir'         => $app->chalk->config->publicDataDir->dir('image'),
-    'urlResolver'       => $app->url,
-    'outputUrlResolver' => $app->frontend->url,
-    'transforms'        => $transforms,
+    'baseDir'        => $app->chalk->config->publicDataDir->dir('file'),
+    'outputDir'      => $app->chalk->config->publicDataDir->dir('image'),
+    'resolver'       => $app->resolver,
+    'outputResolver' => $app->frontend->resolver,
+    'transforms'     => $transforms,
 ]);

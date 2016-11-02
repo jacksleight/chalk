@@ -170,7 +170,7 @@ abstract class Module implements Access
         return $this;
     }
 
-    public function frontendUrlResolver($name, Closure $resolver)
+    public function frontendResolver($name, Closure $resolver)
     {
         $this->frontend->url
             ->resolver($name, $resolver);

@@ -20,14 +20,14 @@
 			<div class="form-items">
 				<?= $this->render('/element/form-item', array(
 					'entity'	=> $domain,
-					'name'		=> 'name',
-					'label'		=> 'Domain',
+					'name'		=> 'label',
+					'label'		=> 'Title',
 					'autofocus'	=> true,
 				)) ?>
 				<?= $this->render('/element/form-item', array(
 					'entity'	=> $domain,
-					'name'		=> 'label',
-					'label'		=> 'Label',
+					'name'		=> 'name',
+					'label'		=> 'Domain',
 					'autofocus'	=> true,
 				)) ?>
 				<?= $this->render('/element/form-item', array(

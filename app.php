@@ -11,7 +11,7 @@ use Chalk\Backend\View as BackendView;
 use Chalk\Core\File;
 use Chalk\Core\Module as Core;
 use Chalk\Frontend;
-use Chalk\Frontend\UrlResolver as FrontendUrlResolver;
+use Chalk\Frontend\Resolver as FrontendResolver;
 use Chalk\HookManager;
 use Chalk\Parser;
 use Coast\Controller;
@@ -19,7 +19,7 @@ use Coast\Request;
 use Coast\Response;
 use Coast\Router;
 use Coast\Url;
-use Coast\UrlResolver;
+use Coast\Resolver;
 use Coast\View;
 
 $app = (new Chalk(__DIR__, $config->envs))
@@ -60,11 +60,12 @@ $app->param('backend', $app->lazy(function($vars) {
                 'module' => 'core',
             ],
         ]))
-        ->param('url', new UrlResolver([
+        ->param('resolver', new Resolver([
             'baseUrl' => new Url("{$app->config->backendBaseUrl}"),
             'baseDir' => $backend->dir('public'),
             'router'  => $backend->router,
         ]))
+        ->param('url', $backend->resolver)
         ->param('image', $backend->load('app/init/image.php'))
         ->param('hook', new HookManager())
         ->param('em', $app->em)
@@ -114,11 +115,12 @@ $app->param('frontend', $app->lazy(function($vars) {
         ->param('parser', new Parser([
             'isTidy' => false,
         ]))
-        ->param('url', new FrontendUrlResolver([
+        ->param('resolver', new FrontendResolver([
             'baseUrl' => new Url("{$app->config->frontendBaseUrl}"),
             'baseDir' => $app->root->dir(),
             'router'  => $frontend->router,
         ]))
+        ->param('url', $frontend->resolver)
         ->param('hook', new HookManager())
         ->param('em', $app->em)
         ->param('cache', $app->cache)

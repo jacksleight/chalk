@@ -68,20 +68,20 @@ class Module extends ChalkModule
             ]));
 
         $this
-            ->frontendUrlResolver($this->name('structure_node'), function($node, $info) {
+            ->frontendResolver($this->name('structure_node'), function($node, $info) {
                 try {
                     return $this->frontend->url->route([], $this->name("structure_node_{$node['id']}"), true);   
                 } catch (\Coast\Router\Exception $e) {}             
             })
-            ->frontendUrlResolver($this->name('content'), function($content, $info) {
+            ->frontendResolver($this->name('content'), function($content, $info) {
                 try {
                     return $this->frontend->url->route([], $this->name("content_{$content['id']}"), true);
                 } catch (\Coast\Router\Exception $e) {}
             })
-            ->frontendUrlResolver($this->name('url'), function($url, $info) {
+            ->frontendResolver($this->name('url'), function($url, $info) {
                 return $url['url'];
             })
-            ->frontendUrlResolver($this->name('file'), function($file, $info) {
+            ->frontendResolver($this->name('file'), function($file, $info) {
                 if (is_array($file)) {
                     // @todo Remove this once File works with array hydration
                     $file = $this->em($this->name('file'))->id($file['id']);

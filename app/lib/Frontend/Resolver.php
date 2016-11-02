@@ -8,10 +8,10 @@ namespace Chalk\Frontend;
 
 use Chalk\App as Chalk;
 use Closure;
-use Coast\UrlResolver as CoastUrlResolver;
+use Coast\Resolver as CoastResolver;
 use Toast\Entity;
 
-class UrlResolver extends CoastUrlResolver
+class Resolver extends CoastResolver
 {
     protected $_resolvers = [];
 
