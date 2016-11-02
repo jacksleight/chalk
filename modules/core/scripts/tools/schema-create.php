@@ -4,6 +4,8 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
+use Chalk\InfoList;
+
 return function() {
 
 	$em = $this->app->em;
@@ -12,7 +14,7 @@ return function() {
 		exit;
 	}
 
-	$this->execScript('cli', 'cache-clear');
+	$this->execScript('tools', 'cache-clear');
 
 	$schema	= new \Doctrine\ORM\Tools\SchemaTool($em->value());
 
@@ -46,7 +48,9 @@ return function() {
 		$em->flush();
 		
 		cli\line('Creating default page..');
-		$page = new \Chalk\Core\Page();
+		$contentList = $this->backend->hook->fire('core_contentList', new InfoList('core_main'));
+		$class = $contentList->first()->class;
+		$page = new $class();
 		$page->fromArray([
 			'name'			=> 'Site',
 		]);
@@ -88,6 +92,6 @@ return function() {
 
 	}
 
-	$this->execScript('cli', 'proxy-generate');
+	$this->execScript('tools', 'proxy-generate');
 
 };

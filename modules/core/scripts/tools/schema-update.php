@@ -12,7 +12,7 @@ return function() {
 		exit;
 	}
 
-	$this->execScript('cli', 'cache-clear');
+	$this->execScript('tools', 'cache-clear');
 
 	$schema	= new \Doctrine\ORM\Tools\SchemaTool($em->value());
 
@@ -49,6 +49,6 @@ return function() {
 
 	}
 
-	$this->execScript('cli', 'proxy-generate');
+	$this->execScript('tools', 'proxy-generate');
 
 };
