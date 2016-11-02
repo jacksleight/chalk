@@ -48,6 +48,7 @@ class Parser implements Access, Executable
         $html = preg_replace('/<!\[CDATA\[(.*?)\]\]>/us', '$1', $html);
         $html = preg_replace('/<\/(area|base|basefont|br|col|frame|hr|img|input|isindex|link|meta|param)>/u', '', $html);
         $html = preg_replace('/\n(\s+)/u', "\n$1$1", $html);
+        $html = preg_replace('/&#13;/u', " ", $html);
         return $html;
     }
 
