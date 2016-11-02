@@ -8,13 +8,19 @@ return function() {
 
     $em   = $this->app->em;
     $conn = $em->getConnection();
+    $name = $this->name();
 
     $conn->exec("
-        CREATE TABLE core_setting (
+        CREATE TABLE {$name}_setting (
             name VARCHAR(255) NOT NULL,
             value LONGTEXT DEFAULT NULL,
             PRIMARY KEY(name)
         ) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB
+    ");
+    $conn->exec("
+        ALTER TABLE {$name}_domain
+            ADD `label` VARCHAR(255) NOT NULL,
+            ADD emailAddress VARCHAR(255) NOT NULL
     ");
 
 };

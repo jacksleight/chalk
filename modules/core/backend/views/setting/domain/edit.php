@@ -21,7 +21,19 @@
 				<?= $this->render('/element/form-item', array(
 					'entity'	=> $domain,
 					'name'		=> 'name',
-					'label'		=> 'Domain Name',
+					'label'		=> 'Domain',
+					'autofocus'	=> true,
+				)) ?>
+				<?= $this->render('/element/form-item', array(
+					'entity'	=> $domain,
+					'name'		=> 'label',
+					'label'		=> 'Label',
+					'autofocus'	=> true,
+				)) ?>
+				<?= $this->render('/element/form-item', array(
+					'entity'	=> $domain,
+					'name'		=> 'emailAddress',
+					'label'		=> 'Email Address',
 					'autofocus'	=> true,
 				)) ?>
 				<?php if ($req->user->isDeveloper()) { ?>

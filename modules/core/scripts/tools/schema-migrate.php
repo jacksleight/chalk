@@ -14,8 +14,6 @@ return function() {
 
 	$this->execScript('tools', 'cache-clear');
 
-	$schema	= new \Doctrine\ORM\Tools\SchemaTool($em->value());
-
 	$em->beginTransaction();
 
 	try {

@@ -88,6 +88,8 @@ return function() {
 		$domain = new \Chalk\Core\Domain();
 		$domain->fromArray([
 			'name'			=> 'example.com',
+			'label'			=> 'Example',
+			'emailAddress'	=> 'root@example.com',
 		]);
 		$domain->structures->add($struct1);
 		$domain->structures->add($struct2);

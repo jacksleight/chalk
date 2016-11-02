@@ -49,11 +49,21 @@ class Domain extends \Toast\Entity implements Trackable
      * @GeneratedValue
      */
     protected $id;
-	
+    
     /**
      * @Column(type="string")
      */
-	protected $name;
+    protected $name;
+    
+    /**
+     * @Column(type="string")
+     */
+    protected $label;
+    
+    /**
+     * @Column(type="string")
+     */
+    protected $emailAddress;
 	
     /**
      * @Column(type="text", nullable=true)

@@ -45,7 +45,7 @@
 			        </a>
 			    <?php } ?>
 			</ul>
-			<h1><a href="<?= $this->url([], 'core_about', true) ?>" rel="modal"><?= $this->chalk->config->name ?></a></h1>
+			<h1><a href="<?= $this->url([], 'core_about', true) ?>" rel="modal"><?= $this->domain->label ?></a></h1>
 		</div>
 		<div class="flex main">
 			<?= $this->content('main') ?>
