@@ -9,6 +9,7 @@ namespace Chalk\Frontend;
 use Chalk\App as Chalk;
 use Closure;
 use Coast\UrlResolver as CoastUrlResolver;
+use Toast\Entity;
 
 class UrlResolver extends CoastUrlResolver
 {
@@ -17,16 +18,23 @@ class UrlResolver extends CoastUrlResolver
     public function __invoke()
     {
         $args = func_get_args();
-        if (!isset($args[0])) {
-            $func = array($this, 'string');
-        } else {
-            $func = array($this, 'entity');
-        }
-        return call_user_func_array($func, $args);
+        $isEntity = 
+            (count($args) == 2 && is_string($args[0]) && is_numeric($args[1])) ||
+            (count($args) == 1 && is_array($args[0]) && isset($args[0]['__CLASS__'])) ||
+            (count($args) == 1 && $args[0] instanceof Entity);
+        return $isEntity
+            ? call_user_func_array([$this, 'entity'], $args)
+            : call_user_func_array(['parent', '__invoke'], $args);
     }
 
-    public function entity($entity)
+    public function entity($entity, $id = null)
     {
+        if (isset($id)) {
+            $entity = [
+                '__CLASS__' => Chalk::info($entity)->class,
+                'id'        => $id,
+            ];
+        }
         if (is_object($entity)) {
             $class = get_class($entity);
         } else if (is_array($entity)) {
