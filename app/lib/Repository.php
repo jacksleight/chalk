@@ -25,8 +25,9 @@ class Repository extends EntityRepository
     const FETCH_ONE             = 'one';
     const FETCH_ONE_UNIQUE      = 'oneUnique';
 
-    protected $_sort  = 'id';
-    protected $_limit = 1;
+    protected $_sort    = 'id';
+    protected $_limit   = 1;
+    protected $_indexBy = null;
 
     public function create()
     {
@@ -75,7 +76,7 @@ class Repository extends EntityRepository
 
     public function build(array $params = array())
     {
-        $query = $this->createQueryBuilder($this->alias());
+        $query = $this->createQueryBuilder($this->alias(), isset($this->_indexBy) ? "{$this->alias()}.{$this->_indexBy}" : null);
 
         if (isset($params['limit']) && isset($params['page'])) {
             $params['offset'] = $params['limit'] * ($params['page'] - 1);
