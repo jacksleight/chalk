@@ -17,15 +17,23 @@ if (!is_file($init)) {
 $app = require_once $init;
 Chalk::isFrontend(false);
 
-if (count($_SERVER['argv']) < 3) {
-    cli\err("You must specify the module and command name");
+if (!isset($_SERVER['argv'][1])) {
+    cli\err("You must specify the module and tool name");
+    exit;
+}
+$parts = explode(':', $_SERVER['argv'][1]);
+if (count($parts) != 2) {
+    cli\err("You must specify the module and tool name");
     exit;
 }
 
-$module = $app->module($_SERVER['argv'][1]);
+$module = $app->module($parts[0]);
 if (!isset($module)) {
     cli\err("Invalid module");
     exit;
 }
 
-$module->execScript('cli', $_SERVER['argv'][2]);
+$result = $module->execScript('tools', $parts[1], array_slice($_SERVER['argv'], 2));
+if (!$result) {
+    cli\err("Tool '{$module->name()}:{$parts[1]}' does not exist");
+}

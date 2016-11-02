@@ -256,10 +256,11 @@ abstract class Module implements Access
     {
         $file = $this->file("{$this->_scriptsPath}/{$type}/{$name}.php");
         if (!$file->exists()) {
-            throw new \Chalk\Exception("Module '{$this->name()}' script '{$type}/{$name}' does not exist");
+            return false;
         }
         $func = require $file;
         $func = $func->bindTo($this);
-        return call_user_func_array($func, $args);
+        call_user_func_array($func, $args);
+        return true;
     }
 }
