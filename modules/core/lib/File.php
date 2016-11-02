@@ -150,11 +150,24 @@ class File extends Content
 
 	public function isImage()
 	{
+		return $this->isImageBitmap() || $this->isImageVector();
+	}
+
+	public function isImageBitmap()
+	{
 		$mimeTypes = [
 			'image/gif',
 			'image/jpeg',
 			'image/png',
 			'image/webp',
+		];
+		return in_array($this->subtype, $mimeTypes);
+	}
+
+	public function isImageVector()
+	{
+		$mimeTypes = [
+			'image/svg+xml',
 		];
 		return in_array($this->subtype, $mimeTypes);
 	}

@@ -25,7 +25,11 @@ $isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 				</div>
 			<?php } else { ?>
 				<?php if ($content instanceof \Chalk\Core\File && $content->file->exists() && $content->isImage()) { ?>
-					<div class="image" style="background-image: url('<?= $this->image($content->file, ['size' => '400']) ?>');"></div>
+					<?php if ($content->isImageBitmap()) { ?>
+						<div class="image" style="background-image: url('<?= $this->image($content->file, ['size' => '400']) ?>');"></div>
+					<?php } else if ($content->isImageVector()) { ?>
+						<div class="image" style="background-image: url('<?= $this->frontend->url->file($content->file) ?>');"></div>
+					<?php } ?>
 				<?php } else { ?>
 					<div class="text"><span class="icon-<?= $info->icon ?>"></span></div>
 				<?php } ?>
