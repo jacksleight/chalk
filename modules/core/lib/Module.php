@@ -34,6 +34,8 @@ use DOMXPath;
 
 class Module extends ChalkModule
 {
+    const VERSION = Chalk::VERSION;
+    
     public function __construct()
     {
         parent::__construct('core');

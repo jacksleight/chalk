@@ -21,6 +21,8 @@ use ReflectionClass;
 
 abstract class Module implements Access
 {
+    const VERSION = null;
+
     use Access\Implementation;
 
     protected $_name;
@@ -43,6 +45,11 @@ abstract class Module implements Access
     	}
         $this->options($options);
         $this->baseDir($baseDir);
+    }
+
+    public function version()
+    {
+        return static::VERSION;
     }
 
     public function options($options = null)
@@ -245,8 +252,12 @@ abstract class Module implements Access
 
     public function scripts($type)
     {
+        $dir = $this->dir("{$this->_scriptsPath}/{$type}");
+        if (!$dir->exists()) {
+            return [];
+        }
         $scripts = [];
-        foreach ($this->dir("{$this->_scriptsPath}/{$type}") as $file) {
+        foreach ($dir as $file) {
             $scripts[] = $file->fileName();
         }
         return $scripts;
