@@ -17,14 +17,15 @@ if (!is_file($init)) {
 $app = require_once $init;
 Chalk::isFrontend(false);
 
-$cmds = [];
-foreach ($app->dir('cli/cmds') as $file) {
-	$cmds[$file->fileName()] = $file;
+if (count($_SERVER['argv']) < 3) {
+    cli\err("You must specify the module and command name");
+    exit;
 }
 
-if (!isset($_SERVER['argv'][1]) || !isset($cmds[$_SERVER['argv'][1]])) {
-	cli\err("Invalid command, valid commands are:\n  " . implode("\n  ", array_keys($cmds)));
-	exit;
+$module = $app->module($_SERVER['argv'][1]);
+if (!isset($module)) {
+    cli\err("Invalid module");
+    exit;
 }
 
-require_once $cmds[$_SERVER['argv'][1]]->name();
+$module->execScript('cli', $_SERVER['argv'][2]);

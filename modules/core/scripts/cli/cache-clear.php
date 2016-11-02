@@ -4,5 +4,9 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-cli\line('Clearing cache..');
-$app->cache->deleteAll();
+return function() {
+
+    cli\line('Clearing cache..');
+    $this->app->cache->flushAll();
+
+};

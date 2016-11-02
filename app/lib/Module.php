@@ -29,6 +29,8 @@ abstract class Module implements Access
 
     protected $_options = [];
 
+    protected $_scriptsPath = 'scripts';
+
     public function __construct($name, $options = null, $baseDir = '..')
     {
         $this->_name = $name;
@@ -239,5 +241,25 @@ abstract class Module implements Access
         $this->backend->router
             ->alias($name, $value);
         return $this;
+    }
+
+    public function scripts($type)
+    {
+        $scripts = [];
+        foreach ($this->dir("{$this->_scriptsPath}/{$type}") as $file) {
+            $scripts[] = $file->fileName();
+        }
+        return $scripts;
+    }
+
+    public function execScript($type, $name, array $args = [])
+    {
+        $file = $this->file("{$this->_scriptsPath}/{$type}/{$name}.php");
+        if (!$file->exists()) {
+            throw new \Chalk\Exception("Module '{$this->name()}' script '{$type}/{$name}' does not exist");
+        }
+        $func = require $file;
+        $func = $func->bindTo($this);
+        return call_user_func_array($func, $args);
     }
 }
