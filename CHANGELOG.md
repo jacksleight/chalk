@@ -222,3 +222,11 @@
 
 * **Improvements**
 	* Support additional cache drivers
+
+### 0.5.12
+
+* **Improvements**
+	* SVG image previews
+	* New date picker
+* **Fixes**
+	* Bug fixes
