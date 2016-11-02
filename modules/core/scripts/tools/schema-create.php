@@ -35,7 +35,18 @@ return function() {
 
 		cli\line('Creating schema..');
 		$schema->createSchema($em->getMetadataFactory()->getAllMetadata());
-		
+	
+		cli\line("Updating version numbers..");
+		foreach ($this->app->modules() as $module) {
+		    $setting = new Chalk\Core\Setting();
+	        $setting->fromArray([
+	            'name'  => "{$module->name()}_version",
+	            "value" => $module->version(),
+	        ]);
+	        $em->persist($setting);
+		}
+		$em->flush();
+
 		cli\line('Creating default user..');
 		$user = new \Chalk\Core\User();
 		$user->fromArray([

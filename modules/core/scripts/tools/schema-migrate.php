@@ -16,44 +16,55 @@ return function() {
 
 	$schema	= new \Doctrine\ORM\Tools\SchemaTool($em->value());
 
-	cli\line('Calculating changes..');
-	$stmts = $schema->getUpdateSchemaSql($em->getMetadataFactory()->getAllMetadata(), false);
-	if (!count($stmts)) {
-		cli\line("Nothing to update");
-		exit;
-	}
-
-	cli\line("The following statements will be executed:\n  " . implode("\n  ", $stmts));
-	if (cli\choose("Execute these statements", 'yn', 'n') == 'n') {
-		exit;
-	}
-
 	$em->beginTransaction();
 
 	try {
 
-		$bar = new cli\progress\Bar("Executing statements..", count($stmts), 1);
-		$conn = $em->getConnection();
-		foreach ($stmts as $stmt) {
-			$conn->exec($stmt);
-			$bar->tick();
+		try {
+		    $settings = $em('core_setting')->all([]);
+		} catch (Doctrine\DBAL\Exception\TableNotFoundException $e) {
+		    $settings = [];
 		}
-		$bar->finish();
 
-		cli\line("Updating version numbers..");
-		$settings = $em('core_setting')->all([]);
 		foreach ($this->app->modules() as $module) {
+
+		    $to = $module->version();
 		    if (isset($settings["{$module->name()}_version"])) {
 		        $setting = $settings["{$module->name()}_version"];
 		    } else {
 		        $setting = new Chalk\Core\Setting();
 		        $setting->fromArray([
 		            'name'  => "{$module->name()}_version",
-		            "value" => $module->version(),
+		            "value" => '0.0.0',
 		        ]);
 		        $em->persist($setting);
 		    }
+		    $from = $setting->value;
+		    $setting->value = $to;
+		    if (!isset($from) || !isset($to) || $from == $to) {
+		    	continue;
+		    }
+
+		    $scripts = $module->scripts('migrations');
+		    usort($scripts, 'version_compare');
+		    $migrations = [];
+		    foreach ($scripts as $script) {
+		        if (version_compare($script, $from, '>') && version_compare($script, $to, '<=')) {
+		            $migrations[] = $script;
+		        }
+		    }
+		    if (!$migrations) {
+				continue;
+		    }
+
+			cli\line("Migrating '{$module->name()}' module from '{$from}' to '{$to}'..");
+		    foreach ($migrations as $migration) {
+				cli\line("  Executing '{$migration}' script..");
+		        $module->execScript('migrations', $migration);
+		    }
+
 		}
+
 		$em->flush();
 
 		$em->commit();
