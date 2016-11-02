@@ -17,10 +17,17 @@ return function() {
             PRIMARY KEY(name)
         ) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB
     ");
+    
     $conn->exec("
         ALTER TABLE {$name}_domain
             ADD `label` VARCHAR(255) NOT NULL,
             ADD emailAddress VARCHAR(255) NOT NULL
     ");
+    $domain = $em('core_domain')->id(1);
+    $domain->fromArray([
+        'label'        => $this->root->config->chalk['name'],
+        'emailAddress' => $this->root->config->chalk['emailAddress'],
+    ]);
+    $em->flush();
 
 };
