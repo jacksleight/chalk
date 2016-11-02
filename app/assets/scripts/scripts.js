@@ -9,6 +9,7 @@
 //= require ../../../bower_components/jquery.ui/ui/widget.js
 //= require ../../../bower_components/jquery.ui/ui/mouse.js
 //= require ../../../bower_components/jquery.ui/ui/sortable.js
+//= require ../../../bower_components/jquery.ui/ui/datepicker.js
 
 //= require ../../../bower_components/Nestable/jquery.nestable.js
 
@@ -36,6 +37,7 @@
 //= require elements/content.js
 //= require elements/editor.js
 //= require elements/tag.js
+//= require elements/date.js
 
 /* Behaviours */
 

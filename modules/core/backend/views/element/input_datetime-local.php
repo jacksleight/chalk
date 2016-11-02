@@ -1,10 +1,11 @@
 <?php
-if (isset($value)) {
+if (isset($value) && $value instanceof DateTime) {
     $value->setTimezone(new \DateTimeZone($this->chalk->config->timezone));
 }
 echo $this->inner('input', [
-	'type'	=> 'datetime-local',
-	'value'	=> isset($value)
-		? $value->format("Y-m-d\TH:i:s")
+    'type'  => 'text',
+	'class'	=> isset($class) ? "{$class} picker-datetime" : "picker-datetime",
+	'value'	=> isset($value) && $value instanceof DateTime
+		? $value->format("Y-m-d H:i")
 		: $value,
 ]);

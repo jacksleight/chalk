@@ -121,7 +121,7 @@ class Entity extends Wrapper
 							$value = new \DateTime($value, new \DateTimeZone(Wrapper::$timezone));
 							$value->setTimezone(new \DateTimeZone('UTC'));
 						} catch (\Exception $e) {
-							$value = new \Toast\DateTime\Invalid($value);
+							
 						}
 					break;
 					case 'coast_url':

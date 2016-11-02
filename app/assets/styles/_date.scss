@@ -1,0 +1,107 @@
+/*!
+ * jQuery UI Datepicker 1.11.4
+ * http://jqueryui.com
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/datepicker/#theming
+ */
+.ui-datepicker {
+	width: 17em;
+	display: none;
+	background-color: white;
+	border: 1px solid;
+	@include colors(null, null, $color-input);
+	z-index: 9999999 !important;
+}
+.ui-datepicker .ui-datepicker-header {
+	position: relative;
+	@include colors(null, 2);
+	padding: 5px 8px;
+}
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next {
+	position: absolute;
+	text-decoration: none;
+	cursor: pointer;
+}
+.ui-datepicker .ui-datepicker-prev-hover,
+.ui-datepicker .ui-datepicker-next-hover {
+	
+}
+.ui-datepicker .ui-datepicker-prev {
+	left: 8px;
+}
+.ui-datepicker .ui-datepicker-next {
+	right: 8px;
+}
+.ui-datepicker .ui-datepicker-prev-hover {
+	
+}
+.ui-datepicker .ui-datepicker-next-hover {
+	
+}
+.ui-datepicker .ui-datepicker-prev span {
+	@extend .icon-arrow-left2;
+	&:before {
+		@include icon-base();
+		
+	}
+}
+.ui-datepicker .ui-datepicker-next span {
+	@extend .icon-arrow-right2;
+	&:before {
+		@include icon-base();
+		
+	}
+}
+.ui-datepicker .ui-datepicker-title {
+	text-align: center;
+	font-weight: bold;
+}
+.ui-datepicker .ui-datepicker-title select {
+	font-size: 1em;
+	margin: 1px 0;
+}
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year {
+	width: 45%;
+}
+.ui-datepicker table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 0;
+}
+.ui-datepicker th,
+.ui-datepicker td {
+	text-align: center;
+}
+.ui-datepicker th {
+	padding: 5px 8px !important;
+	& + & {
+		padding-left: 0 !important;
+	}
+}
+.ui-datepicker td {
+	padding: 0 !important;
+}
+.ui-datepicker td span,
+.ui-datepicker td a {
+	display: block;
+	text-decoration: none;
+	padding: 5px 8px;
+	&:hover {
+		@include colors(null, 2);
+	}
+}
+.ui-datepicker-today span,
+.ui-datepicker-today a {
+	font-weight: bold;
+}
+.ui-datepicker-current-day span,
+.ui-datepicker-current-day a {
+	background-color: $color-focus;
+	color: white;
+}
