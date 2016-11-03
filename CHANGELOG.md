@@ -235,3 +235,8 @@
 
 * **Fixes**
 	* Bug fixes
+
+### 0.5.14
+
+* **Fixes**
+	* Bug fixes
