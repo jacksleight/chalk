@@ -230,3 +230,13 @@
 	* New date picker
 * **Fixes**
 	* Bug fixes
+
+### 0.5.13
+
+* **Fixes**
+	* Bug fixes
+
+### 0.5.14
+
+* **Fixes**
+	* Bug fixes

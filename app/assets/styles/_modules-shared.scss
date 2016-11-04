@@ -2,6 +2,7 @@
 
 .preview {
 	position: relative;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEX////z8/P5ZQ8vAAAAD0lEQVQI12P4z4Ad4ZAAAH6/D/Hgw85/AAAAAElFTkSuQmCC');
 	&::before {
 		content: '';
 		display: block;
