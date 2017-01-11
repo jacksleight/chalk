@@ -1,12 +1,12 @@
 <?php
 /*
- * Copyright 2015 Jack Sleight <http://jacksleight.com/>
+ * Copyright 2017 Jack Sleight <http://jacksleight.com/>
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
 use Coast\Image;
 
-$transforms = [
+$actions = [
     'default' => function($image, $params) {
         $this->run('orientate', $image, $params);
         $this->run('resize', $image, $params);
@@ -51,9 +51,10 @@ $transforms = [
 ];
 
 return new Image([
+    'prefix'         => 'image',
     'baseDir'        => $app->chalk->config->publicDataDir->dir('file'),
     'outputDir'      => $app->chalk->config->publicDataDir->dir('image'),
     'resolver'       => $app->resolver,
     'outputResolver' => $app->frontend->resolver,
-    'transforms'     => $transforms,
+    'actions'        => $actions,
 ]);
