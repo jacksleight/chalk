@@ -27,10 +27,11 @@ class All extends Action
 
         $session = $this->session->data('__Chalk\Backend');
         if (!isset($session->user) && $req->controller !== 'auth') {
-            $redirect = (string) $req->url()->toPart(Url::PART_PATH, true);
-            return $res->redirect($this->url([], 'core_login', true) . $this->url->query([
-                'redirect' => $redirect,
-            ], true));
+            $query = [];
+            if ($req->controller != 'index' || $req->action != 'index') {
+                $query['redirect'] = (string) $req->url()->toPart(Url::PART_PATH, true);
+            }
+            return $res->redirect($this->url([], 'core_login', true) . $this->url->query($query, true));
         }
 
         $req->data = (object) [];
