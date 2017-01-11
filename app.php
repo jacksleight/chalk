@@ -15,11 +15,12 @@ use Chalk\Frontend\Resolver as FrontendResolver;
 use Chalk\HookManager;
 use Chalk\Parser;
 use Coast\Controller;
+use Coast\Path;
 use Coast\Request;
+use Coast\Resolver;
 use Coast\Response;
 use Coast\Router;
 use Coast\Url;
-use Coast\Resolver;
 use Coast\View;
 
 $app = (new Chalk(__DIR__, $config->envs))
@@ -61,9 +62,12 @@ $app->param('backend', $app->lazy(function($vars) {
             ],
         ]))
         ->param('resolver', new Resolver([
-            'baseUrl' => new Url("{$app->config->backendBaseUrl}"),
-            'baseDir' => $backend->dir('public'),
-            'router'  => $backend->router,
+            'baseUrl'   => new Url("{$app->config->backendBaseUrl}"),
+            'baseDir'   => $backend->dir('public'),
+            'router'    => $backend->router,
+            'cacheBust' => function(Url $url, Path $path) {
+                $url->queryParam('v', $path->modifyTime()->getTimestamp());
+            },
         ]))
         ->param('url', $backend->resolver)
         ->param('image', $backend->load('app/init/image.php'))
@@ -116,9 +120,12 @@ $app->param('frontend', $app->lazy(function($vars) {
             'isTidy' => false,
         ]))
         ->param('resolver', new FrontendResolver([
-            'baseUrl' => new Url("{$app->config->frontendBaseUrl}"),
-            'baseDir' => $app->root->dir(),
-            'router'  => $frontend->router,
+            'baseUrl'   => new Url("{$app->config->frontendBaseUrl}"),
+            'baseDir'   => $app->root->dir(),
+            'router'    => $frontend->router,
+            'cacheBust' => function(Url $url, Path $path) {
+                $url->queryParam('v', $path->modifyTime()->getTimestamp());
+            },
         ]))
         ->param('url', $frontend->resolver)
         ->param('hook', new HookManager())
