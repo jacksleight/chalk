@@ -113,7 +113,7 @@ abstract class Module implements Access
     public function init()
     {}
 
-    public function entityDir($nspace, $path = 'lib')
+    public function entityDir($nspace, $path = 'library')
     {
         $this->em
             ->dir($nspace, $this->dir($path));

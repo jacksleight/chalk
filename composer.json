@@ -26,10 +26,10 @@
     "autoload": {
         "psr-4": {
             "Toast\\": "app/toast/",
-            "Chalk\\": "app/lib/",
-            "Chalk\\Core\\": "modules/core/lib/",
-            "Chalk\\Core\\Backend\\Controller\\": "modules/core/backend/conts/",
-            "Chalk\\Core\\Frontend\\Controller\\": "modules/core/frontend/conts/"
+            "Chalk\\": "app/library/",
+            "Chalk\\Core\\": "modules/core/library/",
+            "Chalk\\Core\\Backend\\Controller\\": "modules/core/backend/controllers/",
+            "Chalk\\Core\\Frontend\\Controller\\": "modules/core/frontend/controllers/"
         }
     }
 }

@@ -27,17 +27,17 @@ $app = (new Chalk(__DIR__, $config->envs))
     ->param('root', $app)
     ->param('config', $config);
 $app
-    ->param('em', $app->lazy('app/init/em.php'))
-    ->param('cache', $app->lazy('app/init/cache.php'))
-    ->param('swift', $app->lazy('app/init/swift.php'))
+    ->param('em', $app->lazy('_em.php'))
+    ->param('cache', $app->lazy('_cache.php'))
+    ->param('swift', $app->lazy('_swift.php'))
     ->param('hook', new HookManager())
     ->param('session', $app->config->session)
     ->module(new Core());
 
-$app->load('app/init/funcs.php');
+$app->load('_funcs.php');
 
 File::baseDir($config->publicDataDir->dir('file'));
-File::mimeTypes($app->load('app/init/mime-types.php'));
+File::mimeTypes($app->load('_mime-types.php'));
 
 Toast\Wrapper::$chalk = $app;
 Toast\Wrapper::$timezone = $app->config->timezone;
@@ -70,7 +70,7 @@ $app->param('backend', $app->lazy(function($vars) {
             },
         ]))
         ->param('url', $backend->resolver)
-        ->param('image', $backend->load('app/init/image.php'))
+        ->param('image', $backend->load('_image.php'))
         ->param('hook', new HookManager())
         ->param('em', $app->em)
         ->param('cache', $app->cache)
