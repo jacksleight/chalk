@@ -8,6 +8,11 @@ use Chalk\InfoList;
 
 return function($args, $flags, $params) {
 
+	if (!$this->app->isDevelopment()) {\
+		cli\line('schema-create is disabled in production mode');
+		exit;
+	}
+
 	$em = $this->app->em;
 
 	if (!in_array('non-interactive', $flags)) {
