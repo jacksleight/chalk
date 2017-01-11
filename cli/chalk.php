@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2015 Jack Sleight <http://jacksleight.com/>
+ * Copyright 2017 Jack Sleight <http://jacksleight.com/>
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
@@ -18,12 +18,12 @@ $app = require_once $init;
 Chalk::isFrontend(false);
 
 if (!isset($_SERVER['argv'][1])) {
-    cli\err("You must specify the module and tool name");
+    cli\err("You must specify the module and tool name (module:tool)");
     exit;
 }
 $parts = explode(':', $_SERVER['argv'][1]);
 if (count($parts) != 2) {
-    cli\err("You must specify the module and tool name");
+    cli\err("You must specify the module and tool name (module:tool)");
     exit;
 }
 
