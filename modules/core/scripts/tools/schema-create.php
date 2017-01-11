@@ -6,12 +6,14 @@
 
 use Chalk\InfoList;
 
-return function() {
+return function($args, $flags, $params) {
 
 	$em = $this->app->em;
 
-	if (cli\choose("Are you sure", 'yn', 'n') == 'n') {
-		exit;
+	if (!in_array('non-interactive', $flags)) {
+		if (cli\choose("Are you sure", 'yn', 'n') == 'n') {
+			exit;
+		}
 	}
 
 	$this->execScript('tools', 'cache-clear');

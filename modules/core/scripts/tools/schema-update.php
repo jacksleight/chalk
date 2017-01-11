@@ -4,12 +4,14 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-return function() {
+return function($args, $flags, $params) {
 
 	$em = $this->app->em;
 
-	if (cli\choose("Are you sure", 'yn', 'n') == 'n') {
-		exit;
+	if (!in_array('non-interactive', $flags)) {
+		if (cli\choose("Are you sure", 'yn', 'n') == 'n') {
+			exit;
+		}
 	}
 
 	$this->execScript('tools', 'cache-clear');
@@ -24,8 +26,10 @@ return function() {
 	}
 
 	cli\line("The following statements will be executed:\n  " . implode("\n  ", $stmts));
-	if (cli\choose("Execute these statements", 'yn', 'n') == 'n') {
-		exit;
+	if (!in_array('non-interactive', $flags)) {
+		if (cli\choose("Execute these statements", 'yn', 'n') == 'n') {
+			exit;
+		}
 	}
 
 	$em->beginTransaction();

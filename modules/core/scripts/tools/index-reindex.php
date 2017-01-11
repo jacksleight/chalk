@@ -7,12 +7,14 @@
 use Chalk\App as Chalk;
 use Chalk\Repository;
 
-return function() {
+return function($args, $flags, $params) {
 
 	$em = $this->app->em;
 
-	if (cli\choose("Are you sure", 'yn', 'n') == 'n') {
-		exit;
+	if (!in_array('non-interactive', $flags)) {
+		if (cli\choose("Are you sure", 'yn', 'n') == 'n') {
+			exit;
+		}
 	}
 
 	cli\line('Clearing cache..');

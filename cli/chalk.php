@@ -33,7 +33,20 @@ if (!isset($module)) {
     exit;
 }
 
-$result = $module->execScript('tools', $parts[1], array_slice($_SERVER['argv'], 2));
+$params = [];
+$flags  = [];
+$args   = [];
+foreach (array_slice($_SERVER['argv'], 2) as $arg) {
+    if (preg_match('/^--([\w-]+)=([\w-]+)$/', $arg, $match)) {
+        $params[$match[1]] = $match[2];
+    } else if (preg_match('/^--([\w-]+)$/', $arg, $match)) {
+        $flags[] = $match[1];
+    } else {
+        $args[] = $arg;        
+    }
+}
+
+$result = $module->execScript('tools', $parts[1], [$args, $flags, $params]);
 if (!$result) {
     cli\err("Tool '{$module->name()}:{$parts[1]}' does not exist");
 }
