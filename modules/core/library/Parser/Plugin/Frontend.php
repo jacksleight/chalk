@@ -31,14 +31,16 @@ class Frontend implements Plugin, Access
                     $content = $this->em('core_content')->id($data['content']['id']);
                     $node->setAttribute('href', $this->url($content));
                 } else if (isset($data['widget'])) {
-                    $info   = Chalk::info($data['widget']['name']);
-                    $class  = $info->class;
-                    $widget = (new $class())->fromArray($data['widget']['params']);
-                    $config = $this->chalk->config->viewScripts;
-                    $path   = "{$config[0]}/{$info->module->name}/{$info->local->path}";
-                    $html   = $this->view->render($path, $widget->toArray(), $config[1]);
-                    $temp   = $this->parser->htmlToDoc($html);
-                    $query  = $temp->getElementsByTagName('body');
+                    $info       = Chalk::info($data['widget']['name']);
+                    $module     = $this->chalk->module($info->module->name);
+                    $class      = $info->class;
+                    $widget     = (new $class())->fromArray($data['widget']['params']);
+                    $renderView = $module->widgetRenderView($widget);
+                    $html       = is_array($renderView)
+                        ? $this->view->render($renderView[0], $widget->toArray(), $renderView[1])
+                        : $this->view->render($renderView, $widget->toArray());
+                    $temp       = $this->parser->htmlToDoc($html);
+                    $query      = $temp->getElementsByTagName('body');
                     if ($query->length > 0) {
                         $temps = $query->item(0)->childNodes;
                         for ($i = 0; $i < $temps->length; $i++) {

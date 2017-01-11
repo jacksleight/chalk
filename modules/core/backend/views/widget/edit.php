@@ -11,7 +11,13 @@
 			</h1>
 		</div>
 		<div class="body flex">
-			<?= $this->inner("{$info->local->path}", [], $info->module->name) ?>
+			<?php 
+			$module   = $this->app->chalk->module($info->module->name);
+			$editView = $module->widgetEditView($widget->getObject());
+			?>
+			<?= is_array($editView)
+				? $this->inner($editView[0], [], $editView[1])
+				: $this->inner($editView) ?>
 		</div>
 		<div class="footer">
 			<ul class="toolbar toolbar-right">

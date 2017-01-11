@@ -11,6 +11,7 @@ use Chalk\Backend;
 use Chalk\Frontend;
 use Chalk\Module;
 use Chalk\Parser\Plugin;
+use Chalk\Core\Widget;
 use Closure;
 use Coast\App\Access;
 use Coast\Dir;
@@ -273,5 +274,19 @@ abstract class Module implements Access
         $func = $func->bindTo($this);
         call_user_func_array($func, $args);
         return true;
+    }
+
+    public function widgetEditView(Widget $widget)
+    {
+        $info = Chalk::info($widget);
+        return [$info->local->path, $info->module->name];
+    }
+
+    public function widgetRenderView(Widget $widget)
+    {
+        $info   = Chalk::info($widget);
+        $config = $this->config->viewScripts;
+        $path   = "{$config[0]}/{$info->module->name}/{$info->local->path}";
+        return [$path, $config[1]];
     }
 }
