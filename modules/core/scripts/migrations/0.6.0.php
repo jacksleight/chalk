@@ -4,10 +4,8 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-return function() {
+return function($conn, $em) {
 
-    $em   = $this->app->em;
-    $conn = $em->getConnection();
     $name = $this->name();
 
     $conn->exec("
@@ -23,10 +21,11 @@ return function() {
             ADD `label` VARCHAR(255) NOT NULL,
             ADD emailAddress VARCHAR(255) NOT NULL
     ");
+    
     $domain = $em('core_domain')->id(1);
     $domain->fromArray([
-        'label'        => $this->root->config->chalk['name'],
-        'emailAddress' => $this->root->config->chalk['emailAddress'],
+        'label'        => $this->config->name,
+        'emailAddress' => $this->config->emailAddress,
     ]);
     $em->flush();
 

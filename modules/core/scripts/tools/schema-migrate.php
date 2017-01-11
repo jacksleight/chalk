@@ -60,7 +60,7 @@ return function($args, $flags, $params) {
 			cli\line("Migrating '{$module->name()}' module from '{$from}' to '{$to}'..");
 		    foreach ($migrations as $migration) {
 				cli\line("  Executing '{$migration}' script..");
-		        $module->execScript('migrations', $migration);
+		        $module->execScript('migrations', $migration, [$em->getConnection(), $em]);
 		    }
 
 		}
