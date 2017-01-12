@@ -240,3 +240,17 @@
 
 * **Fixes**
 	* Bug fixes
+
+### 0.6.0
+
+* **Improvements**
+	* CLI scripts per module
+	* CLI non-interactive mode
+	* CLI arguments/params/flags
+	* Migrations support
+	* Repository INDEXBY support
+	* Settings table
+	* Ability to confifure mail driver
+	* Customisable widgtet view paths
+* **Fixes**
+	* Bug fixes
