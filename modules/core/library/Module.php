@@ -115,10 +115,10 @@ class Module extends ChalkModule
                             if (isset($content['data']['delegate'])) {
                                 continue;
                             }
-                            $sitemap->add(
-                                $this->frontend->url($node),
-                                $content['modifyDate']
-                            );
+                            $sitemap->urls[] = (new Sitemap\Url())->fromArray([
+                                'url'        => $this->frontend->url($node),
+                                'modifyDate' => $content['modifyDate'],
+                            ]);
                         }
                     }
                     return $sitemap;
