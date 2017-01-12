@@ -286,7 +286,6 @@ abstract class Module implements Access
     {
         $info   = Chalk::info($widget);
         $config = $this->config->viewScripts;
-        $path   = "{$config[0]}/{$info->module->name}/{$info->local->path}";
-        return [$path, $config[1]];
+        return ["{$config[0]}/{$info->module->name}/{$info->local->path}", $config[1]];
     }
 }
