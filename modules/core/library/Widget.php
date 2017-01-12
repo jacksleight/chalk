@@ -20,4 +20,9 @@ abstract class Widget extends Entity
 
     public function previewFile()
     {}
+
+    public function renderParams()
+    {
+        return $this->toArray();
+    }
 }

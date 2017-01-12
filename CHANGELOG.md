@@ -251,6 +251,7 @@
 	* Repository INDEXBY support
 	* Settings table
 	* Ability to confifure mail driver
-	* Customisable widgtet view paths
+	* Customisable widget form/render view paths
+	* Customisable widget render params
 * **Fixes**
 	* Bug fixes

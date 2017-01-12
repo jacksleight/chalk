@@ -31,16 +31,17 @@ class Frontend implements Plugin, Access
                     $content = $this->em('core_content')->id($data['content']['id']);
                     $node->setAttribute('href', $this->url($content));
                 } else if (isset($data['widget'])) {
-                    $info       = Chalk::info($data['widget']['name']);
-                    $module     = $this->chalk->module($info->module->name);
-                    $class      = $info->class;
-                    $widget     = (new $class())->fromArray($data['widget']['params']);
-                    $renderView = $module->widgetRenderView($widget);
-                    $html       = is_array($renderView)
-                        ? $this->view->render($renderView[0], $widget->toArray(), $renderView[1])
-                        : $this->view->render($renderView, $widget->toArray());
-                    $temp       = $this->parser->htmlToDoc($html);
-                    $query      = $temp->getElementsByTagName('body');
+                    $info         = Chalk::info($data['widget']['name']);
+                    $module       = $this->chalk->module($info->module->name);
+                    $class        = $info->class;
+                    $widget       = (new $class())->fromArray($data['widget']['params']);
+                    $renderView   = $module->widgetRenderView($widget);
+                    $renderParams = $widget->renderParams();
+                    $html         = is_array($renderView)
+                        ? $this->view->render($renderView[0], $renderParams, $renderView[1])
+                        : $this->view->render($renderView, $renderParams);
+                    $temp         = $this->parser->htmlToDoc($html);
+                    $query        = $temp->getElementsByTagName('body');
                     if ($query->length > 0) {
                         $temps = $query->item(0)->childNodes;
                         for ($i = 0; $i < $temps->length; $i++) {
