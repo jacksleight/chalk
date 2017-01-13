@@ -57,6 +57,14 @@ class InfoList implements Iterator, Countable
         return $this->_items;
     }
 
+    public function sort()
+    {
+        uasort($this->_items, function($a, $b) {
+            return strcmp("{$a->group} {$a->singular}", "{$b->group} {$b->singular}");
+        });
+        return $this;
+    }
+
     public function rewind()
     {
         return reset($this->_items);

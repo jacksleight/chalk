@@ -25,6 +25,8 @@ class All extends Action
         $this->navList     = $this->hook->fire('core_navList', new NavList());
         $this->domain      = $this->em('core_domain')->id(1);
 
+        $this->widgetList->sort();
+
         $session = $this->session->data('__Chalk\Backend');
         if (!isset($session->user) && $req->controller !== 'auth') {
             $query = [];
