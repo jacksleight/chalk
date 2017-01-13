@@ -255,3 +255,8 @@
 	* Customisable widget render params
 * **Fixes**
 	* Bug fixes
+
+### 0.6.1
+
+* **Fixes**
+	* Bug fixes
