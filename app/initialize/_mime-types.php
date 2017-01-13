@@ -65,7 +65,7 @@ return [
     'application/zip'                                                           => ['Zip Archive', ['zip']],
     'audio/midi'                                                                => ['MIDI Audio', ['mid']],
     'audio/mp4'                                                                 => ['MPEG-4 Audio', ['m4a']],
-    'audio/mpeg'                                                                => ['MPEG Audio', ['mpga']],
+    'audio/mpeg'                                                                => ['MPEG Audio', ['mpga', 'mp3']],
     'audio/ogg'                                                                 => ['Ogg Audio', ['oga']],
     'audio/webm'                                                                => ['WebM Audio', ['weba']],
     'audio/x-aac'                                                               => ['AAC Audio', ['aac']],
