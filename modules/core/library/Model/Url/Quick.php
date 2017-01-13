@@ -49,8 +49,13 @@ class Quick extends \Toast\Entity
         if (!$url->isHttp()) {
             return $url->toString();
         }
-        $http = new Http(5);
-        $res = $http->get($url);
+        $http = new Http([
+            'timeout' => 5,
+        ]);
+        $req = new Http\Request([
+            'url' => $url,
+        ]);
+        $res = $http->execute($req);
         if (!$res->isSuccess()) {
             return $url->toString();
         }
