@@ -5,9 +5,11 @@
 
 <?php $this->block('sidebar') ?>
 
-<nav class="nav" role="navigation">
-	<?= $this->inner('nav', ['items' => $this->navList->children('core_setting')]) ?>
-</nav>
+<div class="body">
+    <nav class="nav" role="navigation">
+    	<?= $this->inner('nav', ['items' => $this->navList->children('core_setting')]) ?>
+    </nav>
+</div>
 
 <?php $this->block('foot') ?>
 

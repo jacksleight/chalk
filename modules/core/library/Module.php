@@ -393,11 +393,11 @@ class Module extends ChalkModule
             ->backendHookListen($this->name('navList'), function(NavList $list) {
                 return $list->item($this->name('primary'), [])
                     ->item($this->name('secondary'), [])
-                    ->item($this->name('structure'), [
-                        'label'      => 'Structures',
-                        'icon-block' => 'structure',
-                        'url'        => [[], $this->name('structure')],
-                    ], $this->name('primary'))
+                    // ->item($this->name('structure'), [
+                    //     'label'      => 'Structures',
+                    //     'icon-block' => 'structure',
+                    //     'url'        => [[], $this->name('structure')],
+                    // ], $this->name('primary'))
                     ->item($this->name('content'), [
                         'label'      => 'Content',
                         'icon-block' => 'content',

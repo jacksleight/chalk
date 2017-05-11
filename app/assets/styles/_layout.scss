@@ -20,12 +20,6 @@ html, body {
 
 /* Layout */
 
-.flex-col {
-	& > * {
-		border-top: 1px solid;
-		@include colors(null, null, 4);
-	}
-}
 @include media(800px) {
 	.flex-row,
 	.flex-col {
@@ -98,7 +92,7 @@ html, body {
 	}
 }
 .header {
-	@include colors(null, 2);
+	@include colors(0, 1);
 	h1 {
 		line-height: $input-height;
 		@include font-size($input-height - 2px);
@@ -106,17 +100,23 @@ html, body {
 }
 .hanging.hanging {
 	@include flush;
-	padding: $gutter-y $gutter-x;
-	margin-left: $gutter-x * -1;
-	margin-right: $gutter-x * -1;
-	margin-top: $gutter-y-body * -1 !important;
-	border-bottom: 1px solid;
-	margin-bottom: $gutter-y-body;
-	@include colors(null, null, 3);
+	// padding: $gutter-y $gutter-x;
+	// margin-left: $gutter-x * -1;
+	// margin-right: $gutter-x * -1;
+	// margin-top: $gutter-y-body * -1 !important;
+	// border-bottom: 1px solid;
+	// margin-bottom: $gutter-y-body;
+	// @include colors(null, null, 1.5);
 }
 .sidebar {
 	.header {
 		background-color: transparent;
+	}
+	.flex-col {
+		> * + * {
+			border-top: 1px solid;
+			@include colors(null, null, 4);
+		}
 	}
 }
 .main {
@@ -126,11 +126,11 @@ html, body {
 			@include font-size($input-height - 6px);
 		}
 	}
-	.hanging {
-		@include colors(null, 0.5, 3);
-	}
-	.flex-col > * {
-		@include colors(null, null, 3);
+	.flex-col {
+		> * + * {
+			border-top: 1px solid;
+			@include colors(null, null, 2);
+		}
 	}
 }
 
@@ -164,7 +164,7 @@ html, body {
 		}
 	}
 	.sidebar {
-		width: 300px;
+		width: 200px;
 		border-right: 1px solid;
 		@include colors(null, null, 4);
 	}

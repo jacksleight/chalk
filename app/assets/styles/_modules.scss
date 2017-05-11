@@ -25,10 +25,10 @@ p {
 	.icon-block-text {
 		@include font-size(-2);
 		display: block;
-		margin: 4px 0 -2px 0;
+		margin: 6px 0 -0px 0;
 	}
 	&:before {
-		font-size: 24px;
+		font-size: 20px;
 		padding-right: 0;
 	}
 }
@@ -54,7 +54,6 @@ p {
 		text-align: center;
 		display: block;
 		padding: $gutter-y null;
-		@include colors(null, 3);
 		span {
 			opacity: 0.65;
 		}
@@ -64,24 +63,7 @@ p {
 			}
 		}
 		&.active {
-			background: transparent;
-			position: relative;
-			&::before, 
-			&::after {
-				content: '';
-				border-top: 1px solid;
-				@include colors(null, null, 1);
-				position: absolute;
-				left: 0;
-				width: 100%;
-				z-index: 100;
-			}
-			&::before {
-				bottom: 100%;
-			}
-			&::after {
-				top: 100%;
-			}
+			@include colors(null, 3);
 		}
 	}
 }
@@ -918,16 +900,20 @@ legend {
 	display: none;
 }
 .form-block {
-	@include colors(null, null, 2);
+	@include colors(null, null, 1.5);
 	border: solid;
 	border-width: 1px 0 0 0;
 	margin: $gutter * 1 0 0 0;
+	padding: $gutter * 1 0 0 0;
 	position: relative;
+	&:first-child {
+		border-top: 0;
+		padding-top: 0;			
+		margin-top: 0;			
+	}
 	.form-legend {
 		@include flush;
 		@include font-size(-1);
-		margin: $gutter 0 0 0;
-		padding: $gutter 0 0 0;
 		h2 {
 			@include force-wrap;
 		}
@@ -937,38 +923,32 @@ legend {
 	}
 	.form-items {
 		margin: $gutter 0 0 0;
-		@include flush;
-		@include colors(null, null, 1);
 	}
 }
 @include media(800px) {
-	.form-block {
-		display: table;
-		width: 100%;
-		padding: $gutter-x 0 0 0;
-		margin: $gutter-x 0 0 0;
-		&:first-child,
-		.hanging + & {
-			border-top: 0;
-			padding-top: 0;			
-		}
-		.form-legend {
-			display: table-cell;
-			vertical-align: top;
-			margin-top: 0;
-			padding: 0;
-			padding-right: $gutter;
-			min-width: 210px - ($gutter * 1.5);
-		}
-		.form-items {
-			width: 100%;
-			display: table-cell;
-			vertical-align: top;
-			margin-top: 0;
-			padding: 0;
-			padding-left: $gutter;
-		}
-	}
+	// .form-block {
+	// 	display: table;
+	// 	width: 100%;
+	// 	padding: $gutter-x 0 0 0;
+	// 	margin: $gutter-x 0 0 0;
+	// 
+	// 	.form-legend {
+	// 		display: table-cell;
+	// 		vertical-align: top;
+	// 		margin-top: 0;
+	// 		padding: 0;
+	// 		padding-right: $gutter;
+	// 		min-width: 210px - ($gutter * 1.5);
+	// 	}
+	// 	.form-items {
+	// 		width: 100%;
+	// 		display: table-cell;
+	// 		vertical-align: top;
+	// 		margin-top: 0;
+	// 		padding: 0;
+	// 		padding-left: $gutter;
+	// 	}
+	// }
 }
 .form-item { 
 	margin: $gutter 0 0 0;
