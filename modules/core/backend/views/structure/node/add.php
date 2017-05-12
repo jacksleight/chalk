@@ -6,7 +6,7 @@
 <?php
 $structure = $this->em('Chalk\Core\Structure')->id($req->structure);
 ?>
-<form action="<?= $this->url->route() ?>" class="flex-col" novalidate>
+<form action="<?= $this->url->route() ?>" class="flex-col bottombar" novalidate>
 	<div class="header">
 		<h1>Browse</h1>
 		<button style="display: none;"></button>

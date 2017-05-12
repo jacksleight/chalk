@@ -17,7 +17,7 @@ if (!$items) {
 			strlen($path->toString()) && strpos($req->path(), $path->toString()) === 0 ? 'active' : null,
 		];
 		?>
-		<li>
+		<li class="<?= implode(' ', $class) ?>">
 			<a href="<?= $this->url() . $path ?>" class="item <?= implode(' ', $class) ?>">
 				<?php if (isset($item['label'])) { ?>
 					<?php if (isset($item['icon-block'])) { ?>
@@ -35,6 +35,12 @@ if (!$items) {
 					<span class="badge badge-figure badge-pending"><?= $item['badge'] ?></span>
 				<?php } ?>
 			</a>
+			<?php if (count($item['children'])) { ?>
+				<?= $this->inner('nav', [
+					'class' => null,
+					'items' => $item['children'],
+				]) ?>
+			<?php } ?>
 		</li>
 	<?php } ?>
 </ul>

@@ -67,95 +67,9 @@ html, body {
 
 /* Header, Body, Footer */
 
-.header, 
-.body,
-.footer {
-	@include flush;
-	padding: $gutter-y $gutter-x;
-	.sidebar & {
-		padding-left: $gutter-x-sidebar;
-		padding-right: $gutter-x-sidebar;
-	}
-}
-.header, 
-.footer {
-	padding-top: $gutter-y;
-	padding-bottom: $gutter-y;
-}
-.body {
-	padding-top: $gutter-y-body;
-	padding-bottom: $gutter-y-body;
-	overflow: auto;
-	.sidebar & {
-		padding-top: $gutter-y;
-		padding-bottom: $gutter-y;
-	}
-}
-.header {
-	@include colors(0, 1);
-	h1 {
-		line-height: $input-height;
-		@include font-size($input-height - 2px);
-	}
-}
-.hanging.hanging {
-	@include flush;
-	// padding: $gutter-y $gutter-x;
-	// margin-left: $gutter-x * -1;
-	// margin-right: $gutter-x * -1;
-	// margin-top: $gutter-y-body * -1 !important;
-	// border-bottom: 1px solid;
-	// margin-bottom: $gutter-y-body;
-	// @include colors(null, null, 1.5);
-}
-.sidebar {
-	.header {
-		background-color: transparent;
-	}
-	.flex-col {
-		> * + * {
-			border-top: 1px solid;
-			@include colors(null, null, 4);
-		}
-	}
-}
-.main {
-	.header {
-		@include colors(null, 0.5);
-		h1 {
-			@include font-size($input-height - 6px);
-		}
-	}
-	.flex-col {
-		> * + * {
-			border-top: 1px solid;
-			@include colors(null, null, 2);
-		}
-	}
-}
-
-/* Bars */
-
 .topbar {
-	h1 {
-		margin-top: 0;
-		text-align: center;
-		font-weight: bold;
-		line-height: $input-height;
-		@include font-size(0);
-	}
-}
-.sidebar {
 	@include colors(0, 1);
-	::-webkit-scrollbar-track {
-	    background: transparentize(white, 0.9);
-	}
-	::-webkit-scrollbar-thumb {
-	    background: transparentize(white, 0.8);
-	}
-}
-@include media(800px) {
-	.topbar {
+	@include media(800px) {
 		.toolbar {
 			float: left; 
 			&:first-child {
@@ -163,10 +77,150 @@ html, body {
 			}
 		}
 	}
-	.sidebar {
-		width: 200px;
+}
+.leftbar {
+	@include colors(0, 1);
+	@include media(800px) {
+		width: 20%;
+		min-width: 200px;
 		border-right: 1px solid;
 		@include colors(null, null, 4);
+	}
+}
+.header {
+	@include flush;
+	@include colors(0, 0);
+	padding: $gutter-y $gutter-x;
+	h1 {
+		line-height: $input-height;
+		@include font-size($input-height - 6px);
+	}
+	&.topbar,
+	.topbar & {
+		padding: 0;
+		h1 {
+			margin-top: 0;
+			text-align: center;
+			font-weight: bold;
+			line-height: $input-height + ($input-extra * 2);
+			color: white;
+			@include font-size(0);
+		}
+		.input-pseudo {
+			border-color: transparent;
+			background-color: transparent;
+			padding-left: $gutter-x;
+			padding-right: $gutter-x;
+		}
+		.dropdown .menu {
+			border-color: transparent;		
+		}
+		.menu .item,
+		.btn {
+			padding-left: $gutter-x;
+			padding-right: $gutter-x;		
+		}
+		.toolbar {
+			padding-left: $gutter-x;
+			padding-right: $gutter-x;
+		}
+		&.leftbar,
+		.leftbar & {
+			.input-pseudo {
+				padding-left: $gutter-x-sidebar;
+				padding-right: $gutter-x-sidebar;
+			}
+			.menu .item,
+			.btn {
+				padding-left: $gutter-x-sidebar;
+				padding-right: $gutter-x-sidebar;		
+			}
+			.toolbar.toolbar-right {
+				padding-right: $gutter-x-sidebar;
+			}
+		}
+	}
+	&.bottombar,
+	.bottombar & {
+		&:not(:first-child) {
+			border-top: 1px solid;
+			@include colors(null, null, 3);
+		}
+	}
+}
+.body {
+	@include flush;
+	padding: $gutter-y-body $gutter-x;
+	overflow-y: auto;
+	&.bottombar,
+	.bottombar & {
+		&:not(:first-child) {
+			border-top: 1px solid;
+			@include colors(null, null, 3);
+		}
+	}
+	&.leftbar,
+	.leftbar & {
+		padding-top: $gutter-y;
+		padding-bottom: $gutter-y;
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+.main {
+	@include flush;
+	&.bottombar,
+	.bottombar & {
+		&:not(:first-child) {
+			border-top: 1px solid;
+			@include colors(null, null, 3);
+		}
+	}
+}
+.footer {
+	@include flush;
+	padding: $gutter-y $gutter-x;
+	&.bottombar,
+	.bottombar & {
+		&:not(:first-child) {
+			border-top: 1px solid;
+			@include colors(null, null, 3);
+		}
+	}
+	&.leftbar,
+	.leftbar & {
+		padding-left: $gutter-x-sidebar;
+		padding-right: $gutter-x-sidebar;
+	}
+}
+
+/* Hanging */
+
+.hanging.hanging {
+	@include flush;
+	margin-left: $gutter-x * -1;
+	margin-right: $gutter-x * -1;
+	margin-top: $gutter-y;
+	margin-bottom: $gutter-y * -1;
+	padding-left: $gutter-x;
+	padding-right: $gutter-x;
+	border-top: 1px solid;
+	line-height: $input-height;
+	@include colors(null, null, 3);
+	.toolbar {
+		margin-left: $input-padding-horiz * -1;
+		margin-right: $input-padding-horiz * -1;
+		input,
+		.input-pseudo {
+			border: 0;
+		}
+		li + li {
+			input,
+			.input-pseudo {
+				border-left: 1px solid;
+				@include colors(null, null, 3);
+			}
+		}
 	}
 }
 
@@ -187,12 +241,12 @@ html, body {
 		width: 100%;
 		@include transition(all $speed ease);
 		&.notification-show {
-			bottom: -38px;
+			bottom: -46px;
 		}
 	}
 }
 .notification {
-	line-height: $input-height;
+	line-height: $input-height + ($input-extra * 2);
 	padding: 0 $gutter-x 0 $gutter-x;
 	background-color: transparentize($color-quiet, 0.1);
 	color: white;

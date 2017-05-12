@@ -26,8 +26,6 @@ $tags = $this->em($info)
 			</li>
 		</ul>
 		<h1><?= $info->plural ?></h1>
-	</div>
-	<div class="flex body">
 		<div class="hanging">
 			<form action="<?= $this->url->route() ?>" class="submitable">
 				<ul class="toolbar">
@@ -42,6 +40,8 @@ $tags = $this->em($info)
 				</ul>
 			</form>
 		</div>
+	</div>
+	<div class="flex body">
 		<table>
 			<colgroup>
 				<col class="">

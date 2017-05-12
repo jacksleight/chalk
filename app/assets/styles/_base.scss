@@ -34,6 +34,10 @@ a {
 	@include link-color(inherit);
 	@include transition(all $speed ease);
 	text-decoration: underline;
+	&.positive {
+		@include link-color($color-positive);
+		font-weight: bold;
+	}
 }
 
 /* Table */

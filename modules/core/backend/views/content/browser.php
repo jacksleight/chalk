@@ -3,9 +3,9 @@ use Chalk\App as Chalk;
 use Chalk\Repository;
 $info = Chalk::info($index->type);
 ?>
-<div class="flex flex-row">
+<div class="flex flex-row main">
     <?php if (count($filters) > 1) { ?>  
-        <div class="sidebar">
+        <div class="leftbar">
             <div class="body">
                 <nav class="nav" role="navigation">
                     <ul>
@@ -23,7 +23,7 @@ $info = Chalk::info($index->type);
             </div>
         </div>
     <?php } ?>
-	<div class="flex main">
+	<div class="flex rightbar">
 		<?= $this->render("/{$info->local->path}/list", [
 			'contents'		=> $this->em($info)->all(['types' => $filters] + $index->toArray(), [], Repository::FETCH_ALL_PAGED),
 			'isAddAllowed'	=> false,

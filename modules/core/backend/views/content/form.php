@@ -2,11 +2,11 @@
 	<fieldset class="header">
 		<?= $this->partial('tools') ?>
 		<?= $this->partial('header') ?>
-	</fieldset>
-	<div class="flex body">
 		<div class="hanging">
 			<?= $this->partial('meta') ?>
 		</div>
+	</fieldset>
+	<div class="flex body">
 		<?= $this->partial('general') ?>
 		<?= $this->partial('publishable') ?>
 		<?= $this->partial('node') ?>

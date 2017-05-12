@@ -80,6 +80,7 @@ $input-height:			round($font-size * $line-height)
 $input-height-small:	round($font-size * $line-height)
 						+ ($input-padding)
 						+ ($input-border-width * 2);
+$input-extra:			4px;
 $input-toggle-size:		$input-height - 10px;
 
 /* Transitions */

@@ -25,9 +25,9 @@ use Chalk\App as Chalk;
 			<?= $content->status ?>
 		</span>
 	</li>
-	<!-- <li class="icon-<?= $info->icon ?>">
+	<li class="icon-<?= $info->icon ?>">
 		<?= $info->singular ?>
-	</li> -->
+	</li>
 	<!-- <li>
 		Version <strong><?= $content->version ?></strong>
 	</li> -->

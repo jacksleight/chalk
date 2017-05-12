@@ -393,11 +393,11 @@ class Module extends ChalkModule
             ->backendHookListen($this->name('navList'), function(NavList $list) {
                 return $list->item($this->name('primary'), [])
                     ->item($this->name('secondary'), [])
-                    // ->item($this->name('structure'), [
-                    //     'label'      => 'Structures',
-                    //     'icon-block' => 'structure',
-                    //     'url'        => [[], $this->name('structure')],
-                    // ], $this->name('primary'))
+                    ->item($this->name('structure'), [
+                        'label'      => 'Structures',
+                        'icon-block' => 'structure',
+                        'url'        => [[], $this->name('structure')],
+                    ], $this->name('primary'))
                     ->item($this->name('content'), [
                         'label'      => 'Content',
                         'icon-block' => 'content',
@@ -439,6 +439,39 @@ class Module extends ChalkModule
                             'controller' => 'setting_tag'
                         ], $this->name('setting')],
                     ], $this->name('setting'));
+
+
+                    // ->item($this->name('setting\domain-1'), [
+                    //     'label' => 'Site',
+                    //     // 'icon' => 'publish',
+                    //     'url'   => [[
+                    //         'controller' => 'setting_domain',
+                    //         'action'     => 'edit',
+                    //         'id'         => 1
+                    //     ], $this->name('setting')],
+                    // ], $this->name('setting\domain'))
+                    // ->item($this->name('setting\user-1'), [
+                    //     'label' => 'Users',
+                    //     // 'icon' => 'user',
+                    //     'url'   => [[
+                    //         'controller' => 'setting_user'
+                    //     ], $this->name('setting')],
+                    // ], $this->name('setting\domain'))
+                    // ->item($this->name('setting\structure-1'), [
+                    //     'isDeveloper' => true,
+                    //     'label' => 'Structures',
+                    //     // 'icon' => 'structure',
+                    //     'url'   => [[
+                    //         'controller' => 'setting_structure'
+                    //     ], $this->name('setting')],
+                    // ], $this->name('setting\domain'))
+                    // ->item($this->name('setting\tag-1'), [
+                    //     'label' => 'Tags',
+                    //     // 'icon'  => 'price-tag',
+                    //     'url'   => [[
+                    //         'controller' => 'setting_tag'
+                    //     ], $this->name('setting')],
+                    // ], $this->name('setting\domain'));
             });
     }
 

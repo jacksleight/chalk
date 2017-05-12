@@ -8,7 +8,7 @@
 		</h1>
 	</div>
 	<div class="flex body">
-		<p>This will merge all items tagged with the source tag into the target tag, and then delete the source tag. <strong>This action cannot be undone.</strong></p>
+		<p>This will tag all items tagged with the source tag with the target tag, and then delete the source tag. <strong>This action cannot be undone.</strong></p>
 		<fieldset class="form-block">
 			<div class="form-legend">
 				<h2>Tags</h2>

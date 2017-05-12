@@ -32,41 +32,10 @@ p {
 		padding-right: 0;
 	}
 }
-.icon-sidebar {
-	opacity: 0.5;
-	margin-right: 0.3em;
-}
-
-/* Toggles */
-
-.toggles {
-	margin: 0;
-	@include no-bullets;
-	@include display-flex;
-	@include flex-direction(row);
-	line-height: $input-height;
-	li {
-		@include flex(1);
-		line-height: $line-height;
-	}
-	a {
-		text-decoration: none;
-		text-align: center;
-		display: block;
-		padding: $gutter-y null;
-		span {
-			opacity: 0.65;
-		}
-		&:hover, &:focus, &.active {
-			span {
-				opacity: 1;
-			}
-		}
-		&.active {
-			@include colors(null, 3);
-		}
-	}
-}
+// .icon-sidebar {
+// 	opacity: 0.5;
+// 	margin-right: 0.3em;
+// }
 
 /* Badge */
 
@@ -76,10 +45,10 @@ p {
 	@include link-color(white);
 	font-weight: normal;
 	@include font-size(-1);
-	padding: 0 $gutter * 0.25;
-	padding-top: 1px;
-	padding-bottom: 2px;
+	padding: 2px $gutter * 0.25;
 	display: inline-block;
+	line-height: $line-height;
+	vertical-align: 1px;
 	&.badge-out {
 		@include colors(1);
 	}
@@ -218,7 +187,7 @@ figure {
 /* Thumbs */
 
 .thumbs {
-	margin-top: $gutter;
+	margin-top: 0;
 	margin-right: $gutter * -0.75;
 	margin-bottom: $gutter * -0.75;
 	@include no-bullets;
@@ -381,6 +350,11 @@ select,
 	}
 	&::before {
 		color: $color-quiet;
+	}
+	&.input-extra {
+		height: $input-height + ($input-extra * 2);
+		line-height: $input-height + ($input-extra * 2) - ($input-border-width * 2);
+		padding: 0 $input-padding-horiz + ($input-extra);	
 	}
 }
 input[type=checkbox],
@@ -652,6 +626,11 @@ input[type=button],
 	&.active { 
 		@include colors(null, 14, 14);
 	}
+	&.btn-extra {
+		height: $input-height + ($input-extra * 2);
+		line-height: $input-height + ($input-extra * 2) - ($input-border-width * 2);
+		padding: 0 $input-padding-horiz + ($input-extra);
+	}
 	&.btn-collapse {
 		max-height: $input-height;
 		overflow: hidden;
@@ -844,7 +823,6 @@ textarea,
 		right: 0;
 		white-space: nowrap;
 		display: none;
-		border-top-width: 0;
 		max-height: 300px;
 		overflow-y: auto;
 		overflow-x: hidden;
@@ -1017,9 +995,8 @@ legend {
 /* Meta */
 
 .meta {
-	margin-top: $gutter * 0.5;
 	@include no-bullets;
-	@include inline-blocks('> li', $gutter, $gutter);
+	@include inline-blocks('> li', $gutter * 0.75, 0);
 	a {
 		text-decoration: none;
 	}
@@ -1062,6 +1039,9 @@ legend {
 	a {
 		text-decoration: none;
 	}
+	&.toolbar-extra {
+		line-height: $input-height + ($input-extra * 2);
+	}
 }
 .toolbar-tight {
 	> * {
@@ -1073,9 +1053,6 @@ legend {
 		padding-left: 0;
 		.input-pseudo {
 			border-left: 0;
-		}
-		.menu {
-			margin-left: -1px;
 		}
 	}
 }
@@ -1204,50 +1181,53 @@ legend {
 
 .nav {
 	margin: $gutter 0 0 0;
-	border: 1px solid $color-quieter;
-	ul {
-		margin: 0;
-		background-color: white;
-		@include no-bullets;
-	}
-	li {
-		border-top: 1px solid $color-shade;
-		&:first-child {
-			border-top: 0;
-		}
-	}
 	.item {
-		padding: $gutter * 0.25 $input-padding-horiz;
 		display: block;
 		cursor: pointer;
 		text-decoration: none;
 		@include link-color(inherit);
-		.badge {
-			float: right;
-			margin-right: $gutter * 0.25;
-		}
 		&:hover,
 		&:focus,
-		&:active,
-		&.active {
+		&:active {
 			@include colors(null, 2);
 		}
-	}
-	.sidebar & {
-		margin-left: $gutter-x-sidebar * -1;
-		margin-right: $gutter-x-sidebar * -1;
-		&, li {
-			border: 0;
-		}
-		ul {
-			background-color: transparent;
-		}
-		.item {
-			padding-left: $gutter-x-sidebar;
-			padding-right: $gutter-x-sidebar;
+		&.active {
+			font-weight: bold;
 		}
 	}
-
+	.badge {
+		float: right;
+		margin-right: $gutter * 0.25;
+	}
+	> ul {
+		margin: 0;
+		@include no-bullets;
+		> li {
+			&:first-child {
+				border-top: 0;
+			}
+			&.active {
+				background-color: white;
+				border-style: solid;
+				border-width: 1px 0;
+				@include colors(null, null, 3);
+			}
+			> .item {
+				padding: $gutter * 0.25 $gutter-x-sidebar;
+			}
+			ul {
+				padding: $gutter * 0.5 0;
+				padding-top: 0;
+				@include font-size(-1);
+				> li {
+					> .item {
+						padding: $gutter * 0.05 $gutter-x-sidebar;
+						padding-left: $gutter-x-sidebar + 23px;
+					}
+				}
+			}
+		}
+	}
 }
 
 /* Tree */

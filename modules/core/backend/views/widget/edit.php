@@ -4,7 +4,7 @@
 <?php } ?>
 
 <form action="<?= $this->url->route() ?>?mode=<?= $req->mode ?>&amp;post=1" method="post" data-modal-size="800x800">
-	<div class="flex-col">
+	<div class="flex-col bottombar">
 		<div class="header">
 			<h1>
 				<?= $info->singular ?>

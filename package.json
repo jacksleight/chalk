@@ -1,7 +1,7 @@
 {
   "name": "-",
   "devDependencies": {
-    "gulp": "~3.5.6",
+    "gulp": "~3.9.0",
     "gulp-cached": "~1.0.1",
     "gulp-clean": "~0.3.1",
     "gulp-compass": "~1.1.9",

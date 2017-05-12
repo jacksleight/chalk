@@ -15,11 +15,11 @@ $this->params([
     <div class="header">
         <?= $this->partial('tools') ?>
         <?= $this->partial('header') ?>
-    </div>
-    <div class="flex body">
         <div class="hanging">
             <?= $this->partial('filters') ?>
         </div>
+    </div>
+    <div class="flex body">
         <?= $this->partial($bodyType) ?>
     </div>
     <div class="footer">
