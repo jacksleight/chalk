@@ -31,9 +31,9 @@
 			<?php } ?>
 		<?php } else { ?>
 			<li><a href="<?= $this->url([
-					'entity'	=> $info->name,
 					'action'	=> 'edit',
-				], 'core_content', true) ?>" class="btn btn-focus btn-out icon-add">
+					'id'		=> null,
+				]) ?>" class="btn btn-focus btn-out icon-add">
 				New <?= $info->singular ?>
 			</a></li>
 		<?php } ?>

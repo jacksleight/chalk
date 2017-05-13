@@ -7,9 +7,9 @@ $isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 <figure class="thumb selectable">
 	<?php if ($isEditAllowed) { ?>
 		<a href="<?= !$template ? $this->url([
-			'entity'=> $info->name,
-			'action'	=> 'edit',
-			'content'	=> $content->id,
+            'entity' => $info->name,
+            'action' => 'edit',
+            'id'     => $content->id,
 		]) : '#' ?>">
 	<?php } ?>
 		<?php if (!$template) { ?>

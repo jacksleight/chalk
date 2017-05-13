@@ -5,10 +5,8 @@
 		</button></li>
 	<?php } else { ?>
 		<li><a href="<?= $this->url([
-			'entity'	=> $info->name,
 			'action'	=> 'restore',
-			'content'	=> $content->id,
-		], 'core_content', true) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-positive icon-restore">
+		]) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-positive icon-restore">
 			Restore <?= $info->singular ?>
 		</a></li>
 	<?php } ?>

@@ -1,7 +1,7 @@
 <?php if ($isEditAllowed) { ?>
     <a href="<?= $this->url([
-        'action'    => 'edit',
-        'content'   => $content->id,
+        'action' => 'edit',
+        'id'     => $content->id,
     ]) ?>"><?php } ?><?= $content->name ?><?php if ($isEditAllowed) { ?></a>
 <?php } ?>
 <br>

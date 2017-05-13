@@ -183,4 +183,20 @@ class Index extends CoreIndex
 		}
 		return $this->contentNew;
 	}
+
+	public function rememberFields(array $fields = [])
+	{
+		return parent::rememberFields(array_merge([
+			'createDateMin',
+			'createDateMax',
+			'modifyDateMin',
+			'modifyDateMax',
+			'publishDateMin',
+			'publishDateMax',
+			'statuses',
+			'subtypes',
+		], $fields));
+	}
 }
+
+

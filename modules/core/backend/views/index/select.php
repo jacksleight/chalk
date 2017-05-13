@@ -3,7 +3,7 @@
 	<?php $this->block('body') ?>
 <?php } ?>
 
-<form action="<?= $this->url->route() ?>" class="flex-col bottombar" novalidate>
+<form action="<?= $this->url->route() ?>" class="flex-col" novalidate>
 	<div class="header">
 		<h1>Browse</h1>
 		<button style="display: none;"></button>

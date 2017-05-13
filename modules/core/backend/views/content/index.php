@@ -1,6 +1,6 @@
-<?php $this->outer('/layout/page_content', [
+<?php $this->outer('layout/page_site', [
     'title' => $info->plural,
-]) ?>
+], 'core') ?>
 <?php $this->block('main') ?>
 		
 <form action="<?= $this->url->route() ?>" novalidate>
@@ -8,7 +8,12 @@
 	$contents = $this->em($req->info)
 		->all($index->toArray(), [], Chalk\Repository::FETCH_ALL_PAGED);
 	?>
-	<?= $this->inner("/{$info->local->path}/list", [
+	<?= $this->inner("list", [
 		'contents' => $contents,
-	], $info->module->name) ?>
+	]) ?>
+    <?= $this->render('/element/form-input', array(
+        'type'          => 'input_hidden',
+        'entity'        => $index,
+        'name'          => 'remember',
+    ), 'core') ?>
 </form>

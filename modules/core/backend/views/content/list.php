@@ -33,9 +33,8 @@ $this->params([
         type="file"
         name="files[]"
             data-url="<?= $this->url([
-            'entity' => $info->name,
             'action' => 'upload',
-        ], 'core_content', true) . $this->url->query([
+        ]) . $this->url->query([
             'isEditAllowed' => (int) $isEditAllowed,
         ], true) ?>"
         data-max-file-size="<?= isset($this->chalk->config->maxFileSize) ? $this->chalk->config->maxFileSize : null ?>"

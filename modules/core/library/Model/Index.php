@@ -15,6 +15,7 @@ class Index extends \Toast\Entity
 	protected $limit = 50;
 	protected $sort;
 	protected $search;
+	protected $remember;
 
 	protected static function _defineMetadata($class)
 	{
@@ -43,7 +44,29 @@ class Index extends \Toast\Entity
 					'type'		=> 'string',
 					'nullable'	=> true,
 				),
+				'remember' => array(
+					'type'		=> 'string',
+					'nullable'	=> true,
+				),
 			),
 		);
+	}
+
+	public function remember()
+	{
+		if (func_num_args() > 0) {
+			return $this;
+		}
+		return implode(',', $this->rememberFields());
+	}
+
+	public function rememberFields(array $fields = [])
+	{
+		return array_merge([
+			'page',
+			'limit',
+			'sort',
+			'search',
+		], $fields);
 	}
 }

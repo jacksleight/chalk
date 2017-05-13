@@ -25,6 +25,7 @@ class All extends Action
         $this->navList     = $this->hook->fire('core_navList', new NavList());
         $this->domain      = $this->em('core_domain')->id(1);
 
+        $this->navList->activate($this->url, $req->path());
         $this->widgetList->sort();
 
         $session = $this->session->data('__Chalk\Backend');
@@ -51,23 +52,16 @@ class All extends Action
 
         $this->em->listener('core_trackable')->setUser($req->user);
         
-        $saves = [
-            // 'index__select', @todo Can't enable these unless the route path contains the type, or you get subtype conflicts
-            // 'structure_node__add',
-            // 'content__index',
-        ];
-        if (in_array("{$req->controller}__{$req->action}", $saves)) {
-            $name   = "query_" . md5(serialize($req->route['params']));           
+        $name   = "query_" . md5($req->path);
+        $params = $req->queryParams();
+        if (!count($params)) {
             $params = $req->user->pref($name);
-            unset($params['contentIds']);
-            unset($params['batch']);
             if (isset($params)) {
-                $req->queryParams($req->queryParams() + $params);
+                return $res->redirect($this->url->query($params));
             }
-            $params = $req->queryParams();
-            unset($params['contentIds']);
-            unset($params['batch']);
-            $req->user->pref($name, $params);
+        } else if (isset($params['remember'])) {
+            $fields = explode(',', $params['remember']);
+            $req->user->pref($name, \Coast\array_intersect_key($params, $fields));
             $this->em->flush();
         }
     }

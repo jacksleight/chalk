@@ -7,7 +7,7 @@ use Chalk\App as Chalk;
 	<?php $this->block('main') ?>
 <?php } ?>
 
-<div class="flex-col bottombar" data-modal-size="500x500">
+<div class="flex-col" data-modal-size="500x500">
 	<div class="header">
 		<h1>
 			Chalk

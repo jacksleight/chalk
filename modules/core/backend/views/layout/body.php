@@ -10,24 +10,25 @@
 				$this->navList->children('core_secondary')
 			);
 			foreach ($items as $i => $item) {
-				$item['path']   = $this->url->route($item['url'][0], $item['url'][1], true, false);
-				$item['active'] = strlen($item['path']->toString()) && strpos($req->path(), $item['path']->toString()) === 0;
-				if ($item['active']) {
+				if ($item['isActivePath']) {
 					$current = $item;
 				}
-				$items[$i] = $item;
 			}
 			?>
 			<div class="dropdown">
 				<div class="input-pseudo input-extra">
-					<span class="icon-<?= isset($current['icon-block']) ? $current['icon-block'] : $current['icon'] ?>"></span>
-					<?= $current['label'] ?>
+					<?php if (isset($current)) { ?>
+						<span class="icon-<?= isset($current['icon-block']) ? $current['icon-block'] : $current['icon'] ?>"></span>
+						<?= $current['label'] ?>
+					<?php } else { ?>	
+						Chalk
+					<?php } ?>
 				</div>
 				<nav class="menu">
 					<ul>
 						<?php foreach ($items as $item) { ?>
 							<li>
-								<a href="<?= $this->url() . $item['path'] ?>" class="item">
+								<a href="<?= $item['url'] ?>" class="item">
 									<span class="icon-<?= isset($item['icon-block']) ? $item['icon-block'] : $item['icon'] ?>"></span>
 									<?= $item['label'] ?>
 								</a>
@@ -64,8 +65,8 @@
 			            <a href="<?= $this->url([
 			                'controller' => 'index',
 			                'action'     => 'publish',
-			            ], 'core_index', true) ?>?redirect=<?= $this->url([]) ?>" class="confirmable positive icon-publish">
-			                Publish
+			            ], 'core_index', true) ?>?redirect=<?= $this->url([]) ?>" class="confirmable positive">
+			                <span class="badge badge-figure badge-positive"><?= $count ?></span> Publish 
 			            </a>
 			        </a>
 			    <?php } ?>

@@ -22588,12 +22588,13 @@ Chalk.component('.notifications', function(i, el) {
         notification.addClass('notification-show');
         var dismiss = function() {
             visible = false;
+            notification.removeClass('notification-show');
             setTimeout(function() {
-                notification.removeClass('notification-show');
+                notification.remove();
             }, 200);
         };
         setTimeout(dismiss, maximum);
-        notification.mouseover(dismiss);
+        notification.click(dismiss);
     }
 
     setInterval(function() {

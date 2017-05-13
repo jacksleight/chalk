@@ -140,25 +140,11 @@ html, body {
 			}
 		}
 	}
-	&.bottombar,
-	.bottombar & {
-		&:not(:first-child) {
-			border-top: 1px solid;
-			@include colors(null, null, 3);
-		}
-	}
 }
 .body {
 	@include flush;
 	padding: $gutter-y-body $gutter-x;
 	overflow-y: auto;
-	&.bottombar,
-	.bottombar & {
-		&:not(:first-child) {
-			border-top: 1px solid;
-			@include colors(null, null, 3);
-		}
-	}
 	&.leftbar,
 	.leftbar & {
 		padding-top: $gutter-y;
@@ -167,30 +153,22 @@ html, body {
 		padding-right: 0;
 	}
 }
-.main {
-	@include flush;
-	&.bottombar,
-	.bottombar & {
-		&:not(:first-child) {
-			border-top: 1px solid;
-			@include colors(null, null, 3);
-		}
-	}
-}
 .footer {
 	@include flush;
 	padding: $gutter-y $gutter-x;
-	&.bottombar,
-	.bottombar & {
-		&:not(:first-child) {
-			border-top: 1px solid;
-			@include colors(null, null, 3);
-		}
-	}
 	&.leftbar,
 	.leftbar & {
 		padding-left: $gutter-x-sidebar;
 		padding-right: $gutter-x-sidebar;
+	}
+}
+.flex-col {
+	> *:not(:first-child) {
+		border-top: 1px solid;
+		@include colors(null, null, 3);
+	}
+	.bottombar {
+		border-top: 0;
 	}
 }
 
@@ -236,12 +214,13 @@ html, body {
 	z-index: 5000;
 	.notification {
 		position: absolute;
-		bottom: 0;
+		top: 0;
 		left: 0;
 		width: 100%;
-		@include transition(all $speed ease);
+		opacity: 0;
+		@include transition(opacity $speed ease);
 		&.notification-show {
-			bottom: -46px;
+			opacity: 1;
 		}
 	}
 }

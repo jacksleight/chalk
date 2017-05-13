@@ -62,8 +62,8 @@ foreach ($tableCols as $i => $col) {
                     <th scope="row">
                         <?php if ($isEditAllowed) { ?>
                             <a href="<?= $this->url([
-                                'action'    => 'edit',
-                                'content'   => $content->id,
+                                'action' => 'edit',
+                                'id'     => $content->id,
                             ]) ?>"><?php } ?><?= $content->name ?><?php if ($isEditAllowed) { ?></a>
                         <?php } ?>
                         <br>
@@ -85,7 +85,9 @@ foreach ($tableCols as $i => $col) {
             <tr>
                 <td class="notice" colspan="<?= 3 + count($tableCols) ?>">
                     <h2>No <?= $info->plural ?> Found</h2>
-                    <?php if ($isAddAllowed) { ?>
+                    <?php if (isset($index->search) && strrpos($index->search, '*') === false) { ?>
+                        <p>To search for partial words use an asterisk, eg. "<a href="<?= $this->url->query(['search' => "*{$index->search}*"]) ?>"><?= "*{$index->search}*" ?></a>".</p>
+                    <?php } else if ($isAddAllowed) { ?>
                         <p>To create a new <?= strtolower($info->singular) ?> click the 'New <?= $info->singular ?>' button above.</p>
                     <?php } ?>
                 </td>

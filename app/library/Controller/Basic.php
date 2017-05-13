@@ -13,7 +13,7 @@ use Coast\Response;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 
-class Basic extends Action
+abstract class Basic extends Action
 {
 	protected $_entityClass;
 

@@ -6,6 +6,9 @@
 
 namespace Chalk\Core;
 
+use Chalk\App as Chalk;
+use Coast\Resolver;
+
 class NavList
 {
     protected $_i = 0;
@@ -22,13 +25,16 @@ class NavList
                     $this->_items[$name] = $item + $this->_items[$name];
                 } else {
                     $this->_items[$name] = $item + [
-                        'i'         => $this->_i++,
-                        'label'     => null,
-                        'badge'     => null,
-                        'icon'      => null,
-                        'url'       => null,
-                        'children'  => [],
-                        'sort'      => 0,
+                        'i'            => $this->_i++,
+                        'label'        => null,
+                        'badge'        => null,
+                        'icon'         => null,
+                        'url'          => null,
+                        'parent'       => $parent,
+                        'children'     => [],
+                        'sort'         => 0,
+                        'isActive'     => false,
+                        'isActivePath' => false,
                     ];
                     $this->_items[$parent]['children'][$name] = &$this->_items[$name];
                 }
@@ -56,6 +62,28 @@ class NavList
         return $this->_items;
     }
 
+    public function itemEntity($name, $item = null, $parent = 0, $route = 'core_site')
+    {
+        $info = Chalk::info($name);
+        $name = $info->name;
+        if (func_num_args() > 1) {
+            if (isset($item)) {
+                $this->item($name, [
+                    'label' => $info->plural,
+                    'icon'  => $info->icon,
+                    'url'   => [[
+                        'group'      => $info->module->name,
+                        'controller' => $info->local->name,
+                    ], 'core_site'],
+                ] + $item, $parent);
+            } else {
+                $this->item($name, $item);
+            }
+            return $this;   
+        }
+        return $this->item($name);
+    }
+
     public function children($name)
     {
         if (!isset($this->_items[$name]['children'])) {
@@ -68,5 +96,36 @@ class NavList
                 : $a['sort'] - $b['sort'];
         });
         return $items;
+    }
+
+    public function activate(Resolver $url, $active)
+    {
+        $map = [];
+        foreach ($this->_items as $name => $item) {
+            if (!isset($item['url'])) {
+                continue;
+            }
+            $path = $url->route($item['url'][0], $item['url'][1], true, false);
+            $this->_items[$name]['url'] = $url->string($path);
+            $map[$path->toString()] = $name;
+        }
+        foreach (array_reverse($map) as $path => $name) {
+            if (strpos($active, $path) === 0) {
+                $found = $name;
+                break;
+            }
+        }
+        if (isset($found)) {
+            $i = 0;
+            do {
+                if ($i == 0) {
+                    $this->_items[$found]['isActive'] = true;
+                }
+                $this->_items[$found]['isActivePath'] = true;
+                $found = $this->_items[$found]['parent'];
+                $i++;
+            } while ($found !== 0);
+        }
+        return $this;
     }
 }

@@ -308,21 +308,34 @@ class Module extends ChalkModule
                     'action'     => 'edit',
                 ])
             ->backendRoute(
-                $this->name('content'),
+                $this->name('site_redirect'),
                 Router::METHOD_ALL,
-                $this->path("content/{entity}?/{action}?/{content}?"), [
+                $this->path("site"), [
                     'group'      => $this->name(),
-                    'controller' => 'content',
+                    'controller' => 'site',
                     'action'     => 'index',
-                    'entity'     => null,
-                    'content'    => null,
+                ])
+            ->backendRoute(
+                $this->name('site'),
+                Router::METHOD_ALL,
+                $this->path("site/{group}/{controller}/{action}?/{id}?"), [
+                    'group'      => $this->name(),
+                    'action'     => 'index',
+                    'id'         => null,
+                ])
+            ->backendRoute(
+                $this->name('setting_redirect'),
+                Router::METHOD_ALL,
+                $this->path("setting"), [
+                    'group'      => $this->name(),
+                    'controller' => 'setting',
+                    'action'     => 'index',
                 ])
             ->backendRoute(
                 $this->name('setting'),
                 Router::METHOD_ALL,
-                $this->path("setting/{controller}?/{action}?/{id}?"), [
+                $this->path("setting/{group}/{controller}?/{action}?/{id}?"), [
                     'group'      => $this->name(),
-                    'controller' => 'setting',
                     'action'     => 'index',
                     'id'         => null,
                 ])
@@ -354,14 +367,7 @@ class Module extends ChalkModule
 
         $this
             ->backendHookListen($this->name('contentList'), function(InfoList $list) {
-                if ($list->filter() == $this->name('main')) {
-                    $list
-                        ->item($this->name('page'), [])
-                        ->item($this->name('file'), [])
-                        ->item($this->name('url'), [])
-                        ->item($this->name('alias'), [])
-                        ->item($this->name('block'), []);
-                } else if ($list->filter() == $this->name('node')) {
+                if ($list->filter() == $this->name('node')) {
                     $list
                         ->item($this->name('page'), [])
                         ->item($this->name('file'), [])
@@ -391,24 +397,33 @@ class Module extends ChalkModule
                 return $list;
             })
             ->backendHookListen($this->name('navList'), function(NavList $list) {
-                return $list->item($this->name('primary'), [])
-                    ->item($this->name('secondary'), [])
-                    ->item($this->name('structure'), [
-                        'label'      => 'Structures',
-                        'icon-block' => 'structure',
-                        'url'        => [[], $this->name('structure')],
+                $list
+                    ->item($this->name('primary'), [])
+                    ->item($this->name('secondary'), []);
+                $list
+                    ->item($this->name('site'), [
+                        'label'     => 'Site Content',
+                        'icon'      => 'publish',
+                        'url'       => [[], $this->name('site_redirect')],
                     ], $this->name('primary'))
-                    ->item($this->name('content'), [
-                        'label'      => 'Content',
-                        'icon-block' => 'content',
-                        'url'        => [[], $this->name('content')],
+                    ->item($this->name('structure'), [
+                        'label'     => 'Structures',
+                        'icon'      => 'structure',
+                        'url'       => [[], $this->name('structure')],
                     ], $this->name('primary'))
                     ->item($this->name('setting'), [
-                        'label'      => 'Settings',
-                        'icon-block' => 'settings',
-                        'url'        => [[], $this->name('setting')],
-                    ], $this->name('secondary'))
-                    ->item($this->name('setting\domain'), [
+                        'label'     => 'Settings',
+                        'icon'      => 'settings',
+                        'url'       => [[], $this->name('setting_redirect')],
+                    ], $this->name('secondary'));
+                $list
+                    ->itemEntity($this->name('page'), [], $this->name('site'))
+                    ->itemEntity($this->name('file'), [], $this->name('site'))
+                    ->itemEntity($this->name('url'), [], $this->name('site'))
+                    ->itemEntity($this->name('alias'), [], $this->name('site'))
+                    ->itemEntity($this->name('block'), [], $this->name('site'));
+                $list
+                    ->item($this->name('setting_domain'), [
                         'label' => 'Site',
                         'icon' => 'publish',
                         'url'   => [[
@@ -417,14 +432,14 @@ class Module extends ChalkModule
                             'id'         => 1
                         ], $this->name('setting')],
                     ], $this->name('setting'))
-                    ->item($this->name('setting\user'), [
+                    ->item($this->name('setting_user'), [
                         'label' => 'Users',
                         'icon' => 'user',
                         'url'   => [[
                             'controller' => 'setting_user'
                         ], $this->name('setting')],
                     ], $this->name('setting'))
-                    ->item($this->name('setting\structure'), [
+                    ->item($this->name('setting_structure'), [
                         'isDeveloper' => true,
                         'label' => 'Structures',
                         'icon' => 'structure',
@@ -432,46 +447,14 @@ class Module extends ChalkModule
                             'controller' => 'setting_structure'
                         ], $this->name('setting')],
                     ], $this->name('setting'))
-                    ->item($this->name('setting\tag'), [
+                    ->item($this->name('setting_tag'), [
                         'label' => 'Tags',
                         'icon'  => 'price-tag',
                         'url'   => [[
                             'controller' => 'setting_tag'
                         ], $this->name('setting')],
                     ], $this->name('setting'));
-
-
-                    // ->item($this->name('setting\domain-1'), [
-                    //     'label' => 'Site',
-                    //     // 'icon' => 'publish',
-                    //     'url'   => [[
-                    //         'controller' => 'setting_domain',
-                    //         'action'     => 'edit',
-                    //         'id'         => 1
-                    //     ], $this->name('setting')],
-                    // ], $this->name('setting\domain'))
-                    // ->item($this->name('setting\user-1'), [
-                    //     'label' => 'Users',
-                    //     // 'icon' => 'user',
-                    //     'url'   => [[
-                    //         'controller' => 'setting_user'
-                    //     ], $this->name('setting')],
-                    // ], $this->name('setting\domain'))
-                    // ->item($this->name('setting\structure-1'), [
-                    //     'isDeveloper' => true,
-                    //     'label' => 'Structures',
-                    //     // 'icon' => 'structure',
-                    //     'url'   => [[
-                    //         'controller' => 'setting_structure'
-                    //     ], $this->name('setting')],
-                    // ], $this->name('setting\domain'))
-                    // ->item($this->name('setting\tag-1'), [
-                    //     'label' => 'Tags',
-                    //     // 'icon'  => 'price-tag',
-                    //     'url'   => [[
-                    //         'controller' => 'setting_tag'
-                    //     ], $this->name('setting')],
-                    // ], $this->name('setting\domain'));
+                return $list;
             });
     }
 

@@ -1203,27 +1203,28 @@ legend {
 		margin: 0;
 		@include no-bullets;
 		> li {
-			&:first-child {
-				border-top: 0;
-			}
-			&.active {
-				background-color: white;
-				border-style: solid;
-				border-width: 1px 0;
-				@include colors(null, null, 3);
-			}
+			border-style: solid;
+			border-width: 1px 0;
+			border-color: transparent;
 			> .item {
 				padding: $gutter * 0.25 $gutter-x-sidebar;
 			}
-			ul {
-				padding: $gutter * 0.5 0;
-				padding-top: 0;
+			> ul {
+				display: none;
+				padding-bottom: $gutter * 0.25;
 				@include font-size(-1);
 				> li {
 					> .item {
 						padding: $gutter * 0.05 $gutter-x-sidebar;
 						padding-left: $gutter-x-sidebar + 23px;
 					}
+				}
+			}
+			&.active-path {
+				background-color: white;
+				@include colors(null, null, 3);
+				> ul {
+					display: block;
 				}
 			}
 		}

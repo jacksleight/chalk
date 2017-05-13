@@ -12,13 +12,13 @@ if (!$items) {
 		if (isset($item['isDeveloper']) && !$req->user->isDeveloper()) {
 			continue;
 		}
-		$path	= $this->url->route($item['url'][0], $item['url'][1], true, false);
 		$class  = [
-			strlen($path->toString()) && strpos($req->path(), $path->toString()) === 0 ? 'active' : null,
+			$item['isActive']     ? 'active' : null,
+			$item['isActivePath'] ? 'active-path' : null,
 		];
 		?>
 		<li class="<?= implode(' ', $class) ?>">
-			<a href="<?= $this->url() . $path ?>" class="item <?= implode(' ', $class) ?>">
+			<a href="<?= $item['url'] ?>" class="item <?= implode(' ', $class) ?>">
 				<?php if (isset($item['label'])) { ?>
 					<?php if (isset($item['icon-block'])) { ?>
 						<span class="icon-block icon-<?= $item['icon-block'] ?>">

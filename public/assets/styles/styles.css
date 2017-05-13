@@ -2033,29 +2033,29 @@
 /* Fonts */
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Light-webfont.eot?1484217082');
-  src: url('../fonts/OpenSans-Light-webfont.eot?&1484217082#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Light-webfont.woff?1484217082') format('woff'), url('../fonts/OpenSans-Light-webfont.ttf?1484217082') format('truetype'), url('../fonts/OpenSans-Light-webfont.svg?1484217082') format('svg');
+  src: url('../fonts/OpenSans-Light-webfont.eot?1479317538');
+  src: url('../fonts/OpenSans-Light-webfont.eot?&1479317538#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Light-webfont.woff?1479317538') format('woff'), url('../fonts/OpenSans-Light-webfont.ttf?1479317538') format('truetype'), url('../fonts/OpenSans-Light-webfont.svg?1479317538') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Regular-webfont.eot?1484217082');
-  src: url('../fonts/OpenSans-Regular-webfont.eot?&1484217082#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Regular-webfont.woff?1484217082') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf?1484217082') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg?1484217082') format('svg');
+  src: url('../fonts/OpenSans-Regular-webfont.eot?1479317538');
+  src: url('../fonts/OpenSans-Regular-webfont.eot?&1479317538#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Regular-webfont.woff?1479317538') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf?1479317538') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg?1479317538') format('svg');
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-LightItalic-webfont.eot?1484217082');
-  src: url('../fonts/OpenSans-LightItalic-webfont.eot?&1484217082#iefix') format('embedded-opentype'), url('../fonts/OpenSans-LightItalic-webfont.woff?1484217082') format('woff'), url('../fonts/OpenSans-LightItalic-webfont.ttf?1484217082') format('truetype'), url('../fonts/OpenSans-LightItalic-webfont.svg?1484217082') format('svg');
+  src: url('../fonts/OpenSans-LightItalic-webfont.eot?1479317538');
+  src: url('../fonts/OpenSans-LightItalic-webfont.eot?&1479317538#iefix') format('embedded-opentype'), url('../fonts/OpenSans-LightItalic-webfont.woff?1479317538') format('woff'), url('../fonts/OpenSans-LightItalic-webfont.ttf?1479317538') format('truetype'), url('../fonts/OpenSans-LightItalic-webfont.svg?1479317538') format('svg');
   font-weight: normal;
   font-style: italic;
 }
 @font-face {
   font-family: "Open Sans";
-  src: url('../fonts/OpenSans-Italic-webfont.eot?1484217082');
-  src: url('../fonts/OpenSans-Italic-webfont.eot?&1484217082#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Italic-webfont.woff?1484217082') format('woff'), url('../fonts/OpenSans-Italic-webfont.ttf?1484217082') format('truetype'), url('../fonts/OpenSans-Italic-webfont.svg?1484217082') format('svg');
+  src: url('../fonts/OpenSans-Italic-webfont.eot?1479317538');
+  src: url('../fonts/OpenSans-Italic-webfont.eot?&1479317538#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Italic-webfont.woff?1479317538') format('woff'), url('../fonts/OpenSans-Italic-webfont.ttf?1479317538') format('truetype'), url('../fonts/OpenSans-Italic-webfont.svg?1479317538') format('svg');
   font-weight: bold;
   font-style: italic;
 }
@@ -4359,32 +4359,35 @@ legend {
   list-style-type: none;
   margin-left: 0;
 }
-.nav > ul > li:first-child {
-  border-top: 0;
-}
-.nav > ul > li.active {
-  background-color: white;
+.nav > ul > li {
   border-style: solid;
   border-width: 1px 0;
-}
-.nav > ul > li.active {
-  border-color: #dedede;
-}
-.dark.nav > ul > li.active, .dark .nav > ul > li.active {
-  border-color: #181c20;
+  border-color: transparent;
 }
 .nav > ul > li > .item {
   padding: 5px 20px;
 }
-.nav > ul > li ul {
-  padding: 10px 0;
-  padding-top: 0;
+.nav > ul > li > ul {
+  display: none;
+  padding-bottom: 5px;
   font-size: 13.91304px;
   font-size: 0.86957rem;
 }
-.nav > ul > li ul > li > .item {
+.nav > ul > li > ul > li > .item {
   padding: 1px 20px;
   padding-left: 43px;
+}
+.nav > ul > li.active-path {
+  background-color: white;
+}
+.nav > ul > li.active-path {
+  border-color: #dedede;
+}
+.dark.nav > ul > li.active-path, .dark .nav > ul > li.active-path {
+  border-color: #181c20;
+}
+.nav > ul > li.active-path > ul {
+  display: block;
 }
 
 /* Tree */
@@ -5475,15 +5478,6 @@ html, body {
 .header.topbar.leftbar .toolbar.toolbar-right, .leftbar .header.topbar .toolbar.toolbar-right, .topbar .header.leftbar .toolbar.toolbar-right, .leftbar .topbar .header .toolbar.toolbar-right {
   padding-right: 20px;
 }
-.header.bottombar:not(:first-child), .bottombar .header:not(:first-child) {
-  border-top: 1px solid;
-}
-.header.bottombar:not(:first-child), .bottombar .header:not(:first-child) {
-  border-color: #dedede;
-}
-.dark.header.bottombar:not(:first-child), .dark.bottombar .header:not(:first-child), .dark .header.bottombar:not(:first-child), .dark .bottombar .header:not(:first-child) {
-  border-color: #181c20;
-}
 
 .body {
   padding: 25px 25px;
@@ -5492,33 +5486,11 @@ html, body {
 .body > *:first-child {
   margin-top: 0 !important;
 }
-.body.bottombar:not(:first-child), .bottombar .body:not(:first-child) {
-  border-top: 1px solid;
-}
-.body.bottombar:not(:first-child), .bottombar .body:not(:first-child) {
-  border-color: #dedede;
-}
-.dark.body.bottombar:not(:first-child), .dark.bottombar .body:not(:first-child), .dark .body.bottombar:not(:first-child), .dark .bottombar .body:not(:first-child) {
-  border-color: #181c20;
-}
 .body.leftbar, .leftbar .body {
   padding-top: 11px;
   padding-bottom: 11px;
   padding-left: 0;
   padding-right: 0;
-}
-
-.main > *:first-child {
-  margin-top: 0 !important;
-}
-.main.bottombar:not(:first-child), .bottombar .main:not(:first-child) {
-  border-top: 1px solid;
-}
-.main.bottombar:not(:first-child), .bottombar .main:not(:first-child) {
-  border-color: #dedede;
-}
-.dark.main.bottombar:not(:first-child), .dark.bottombar .main:not(:first-child), .dark .main.bottombar:not(:first-child), .dark .bottombar .main:not(:first-child) {
-  border-color: #181c20;
 }
 
 .footer {
@@ -5527,18 +5499,22 @@ html, body {
 .footer > *:first-child {
   margin-top: 0 !important;
 }
-.footer.bottombar:not(:first-child), .bottombar .footer:not(:first-child) {
-  border-top: 1px solid;
-}
-.footer.bottombar:not(:first-child), .bottombar .footer:not(:first-child) {
-  border-color: #dedede;
-}
-.dark.footer.bottombar:not(:first-child), .dark.bottombar .footer:not(:first-child), .dark .footer.bottombar:not(:first-child), .dark .bottombar .footer:not(:first-child) {
-  border-color: #181c20;
-}
 .footer.leftbar, .leftbar .footer {
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.flex-col > *:not(:first-child) {
+  border-top: 1px solid;
+}
+.flex-col > *:not(:first-child) {
+  border-color: #dedede;
+}
+.dark.flex-col > *:not(:first-child), .dark .flex-col > *:not(:first-child) {
+  border-color: #181c20;
+}
+.flex-col .bottombar {
+  border-top: 0;
 }
 
 /* Hanging */
@@ -5599,16 +5575,17 @@ html, body {
 }
 .notifications .notification {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 100%;
-  -moz-transition: all 0.2s ease;
-  -o-transition: all 0.2s ease;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  opacity: 0;
+  -moz-transition: opacity 0.2s ease;
+  -o-transition: opacity 0.2s ease;
+  -webkit-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 .notifications .notification.notification-show {
-  bottom: -46px;
+  opacity: 1;
 }
 
 .notification {
