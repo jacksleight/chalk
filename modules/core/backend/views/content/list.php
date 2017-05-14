@@ -23,6 +23,7 @@ $this->params([
         <?= $this->partial($bodyType) ?>
     </div>
     <div class="footer">
+        <?= $this->partial('selection') ?>
         <?= $this->partial('pagination') ?>
     </div>
 </div>

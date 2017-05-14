@@ -1,11 +1,15 @@
-<?php $this->outer('/layout/page') ?>
-<?php $this->block('main') ?>
+<?php if (!$req->isAjax()) { ?>
+	<?php $this->outer('/layout/page') ?>
+	<?php $this->block('main') ?>
+<?php } ?>
 
-<form action="<?= $this->url->route() ?>" method="post" class="flex-col">
-	<div class="flex body">
+<form action="<?= $this->url->route() ?>" method="post" class="flex-col" data-modal-size="800x600">
+	<div class="header">
 		<h1>
 			Your Profile
 		</h1>
+	</div>
+	<div class="flex body">
 		<fieldset class="form-block">
 			<div class="form-legend">
 				<h2>General</h2>

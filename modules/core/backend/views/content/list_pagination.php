@@ -1,21 +1,5 @@
-<ul class="toolbar toolbar-right autosubmitable">
-    <?php if ($isEditAllowed) { ?>
-        <li class="toolbar-gap">
-            Selected&nbsp;
-            <?= $this->render('/element/form-input', [
-                'type'   => 'select',
-                'entity' => $index,
-                'name'   => 'batch',
-                'null'   => 'Action',
-                'class'  => 'confirmable',
-            ], 'core') ?>
-        </li>
-        <li>
-            <a href="" class="btn btn-light">Manage Tags</a>
-        </li>
-    <?php } ?>
-</ul>
 <ul class="toolbar autosubmitable">
+    <?= $this->partial('pagination-top') ?>
     <li>
         <?= $this->render('/element/form-input', [
             'type'      => 'paginator',
@@ -43,4 +27,5 @@
             'null'   => 'Default',
         ], 'core') ?>
     </li>
+    <?= $this->partial('pagination-bottom') ?>
 </ul>

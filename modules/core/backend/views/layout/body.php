@@ -45,7 +45,7 @@
 		<div class="flex rightbar header">
 			<ul class="toolbar toolbar-extra toolbar-right toolbar-space">
 				<li>
-					<a href="<?= $this->url([], 'core_profile', true) ?>" class="icon-user"> <?= $req->user->name ?></a>
+					<a href="<?= $this->url([], 'core_profile', true) ?>" class="icon-user" rel="modal"> <?= $req->user->name ?></a>
 				</li>
 				<li>
 					<a href="<?= $this->url([], 'core_logout', true) ?>" class="icon-logout"> Logout</a>
