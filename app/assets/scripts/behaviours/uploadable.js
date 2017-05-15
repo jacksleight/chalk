@@ -34,6 +34,7 @@ Chalk.component('.uploadable', function(i, el) {
 		var replace	= $($.parseHTML('<li class="thumbs_i">' + result.html.trim() + '</li>')[0]);
 		data.context.replaceWith(replace);
 		data.context = replace;
+		Chalk.initialize(replace);
 		setTimeout(function() {
 			data.context.find('.progress')
 				.addClass('out')
@@ -80,6 +81,7 @@ Chalk.component('.input-upload', function(i, el) {
 		var replace	= $($.parseHTML(result.html.trim())[0]);
 		data.context.replaceWith(replace);
 		data.context = replace;
+		Chalk.initialize(replace);
 		setTimeout(function() {
 			data.context.find('.progress')
 				.addClass('out')

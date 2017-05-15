@@ -1,5 +1,5 @@
 <?php
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 ?>
 
 <?php $this->outer('/layout/page_structure', [

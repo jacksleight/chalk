@@ -6,7 +6,7 @@
 
 namespace Chalk\Core\Behaviour\Publishable;
 
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 use Chalk\Core\Content;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;

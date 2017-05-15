@@ -6,7 +6,7 @@
 
 namespace Chalk\Core\Behaviour\Publishable;
 
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 
 trait Entity
 {

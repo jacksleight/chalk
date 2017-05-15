@@ -6,7 +6,7 @@
 
 namespace Chalk\Core;
 
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 use Coast\Resolver;
 
 class NavList

@@ -6,8 +6,8 @@
 		<div class="leftbar header">
 			<?php
 			$items = array_merge(
-				$this->navList->children('core_primary'),
-				$this->navList->children('core_secondary')
+				$this->navList->children(0),
+				$this->navList->children(0)
 			);
 			foreach ($items as $i => $item) {
 				if ($item['isActivePath']) {

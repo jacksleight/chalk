@@ -19,6 +19,7 @@
 			</label>
 		</li>
 	<?php } ?>
+	<?= str_repeat('<li></li>', 10) ?>
 </ul>
 <?php if (!count($values)) { ?>
 	<small>No options available.</small>

@@ -1,0 +1,1 @@
+<span class="badge badge-center <?= $entity->isEnabled ? 'badge-positive' : 'badge-light badge-out' ?> icon-<?= $entity->isEnabled ? 'true' : 'false' ?>"></span>

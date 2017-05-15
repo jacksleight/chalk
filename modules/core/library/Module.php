@@ -6,7 +6,7 @@
 
 namespace Chalk\Core;
 
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 use Chalk\Backend;
 use Chalk\Core\Behaviour\Loggable\Listener as LoggableListener;
 use Chalk\Core\Behaviour\Publishable\Listener as PublishableListener;
@@ -398,24 +398,21 @@ class Module extends ChalkModule
             })
             ->backendHookListen($this->name('navList'), function(NavList $list) {
                 $list
-                    ->item($this->name('primary'), [])
-                    ->item($this->name('secondary'), []);
-                $list
                     ->item($this->name('site'), [
                         'label'     => 'Site Content',
                         'icon'      => 'publish',
                         'url'       => [[], $this->name('site_redirect')],
-                    ], $this->name('primary'))
+                    ])
                     ->item($this->name('structure'), [
                         'label'     => 'Structures',
                         'icon'      => 'structure',
                         'url'       => [[], $this->name('structure')],
-                    ], $this->name('primary'))
+                    ])
                     ->item($this->name('setting'), [
                         'label'     => 'Settings',
                         'icon'      => 'settings',
                         'url'       => [[], $this->name('setting_redirect')],
-                    ], $this->name('secondary'));
+                    ]);
                 $list
                     ->itemEntity($this->name('page'), [], $this->name('site'))
                     ->itemEntity($this->name('file'), [], $this->name('site'))
@@ -428,8 +425,6 @@ class Module extends ChalkModule
                         'icon' => 'publish',
                         'url'   => [[
                             'controller' => 'setting_domain',
-                            'action'     => 'edit',
-                            'id'         => 1
                         ], $this->name('setting')],
                     ], $this->name('setting'))
                     ->item($this->name('setting_user'), [

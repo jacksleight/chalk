@@ -1,10 +1,10 @@
 /* General */
 
 *, *:before, *:after {
-	@include box-sizing(border-box); 
+	box-sizing: border-box; 
 }	
 body {
-	@include experimental(text-size-adjust, 100%);
+	text-size-adjust: 100%;
 	font-size: $font-size;
 	line-height: $line-height;
 	font-family: $font-family;
@@ -70,7 +70,7 @@ strong {
 }
 mark { 
 	background-color: yellow;
-	@include border-radius(2px);
+	border-radius: 2px;
 }
 
 /* Quote */
@@ -101,7 +101,7 @@ pre, code {
 }
 pre { 
 	margin: $gutter 0 0 0; padding: $gutter;
-	@include experimental(tab-size, 4);
+	tab-size: 4;
 	background: $color-shade;
 }
 

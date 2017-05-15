@@ -6,8 +6,8 @@
 
 namespace Chalk\Core\Backend\Controller;
 
-use Chalk\App as Chalk;
-use Chalk\Controller\Basic;
+use Chalk\Chalk;
+use Chalk\Controller\Crud;
 use Chalk\Core;
 use Coast\Request;
 use Coast\Response;
@@ -17,7 +17,7 @@ use FileUpload\FileSystem;
 use FileUpload\FileUpload;
 use FileUpload\PathResolver;
 
-abstract class Content extends Basic
+abstract class Content extends Crud
 {
     public function index(Request $req, Response $res)
     {
@@ -127,7 +127,7 @@ abstract class Content extends Basic
         }
 
         $content = $this->em($req->info)->create();
-        $content->status = \Chalk\App::STATUS_PUBLISHED;
+        $content->status = \Chalk\Chalk::STATUS_PUBLISHED;
         $content->fromArray($quick->toArray());
 
         $this->em->persist($content);

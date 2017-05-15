@@ -21,13 +21,13 @@
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: contain;
-		@include box-shadow(inset 0 0 0 1px transparentize(black, 0.85));
+		box-shadow: inset 0 0 0 1px transparentize(black, 0.85);
 	}
 	.text {
 		background-color: white;
 		text-align: center;
 		@include vertically-center('span');
-		@include box-shadow(inset 0 0 0 1px transparentize(black, 0.85));
+		box-shadow: inset 0 0 0 1px transparentize(black, 0.85);
 		span {
 			opacity: 0.15;
 			&:before {
@@ -46,7 +46,7 @@
 			width: 100%;
 			overflow: hidden;
 			background-color: $color-active;
-			@include transition(height $speed linear);
+			transition: height $speed linear;
 		}
 		&.out {
 			background-color: transparent;

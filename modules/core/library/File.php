@@ -7,7 +7,7 @@
 namespace Chalk\Core;
 
 use Chalk\Core;
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**

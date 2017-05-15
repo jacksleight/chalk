@@ -1,5 +1,5 @@
 <?php
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 use Chalk\Repository;
 $info = Chalk::info($index->type);
 ?>
@@ -9,7 +9,7 @@ $info = Chalk::info($index->type);
             <nav class="nav" role="navigation">
                 <ul>
                     <?php foreach ($filters as $filter) { ?>
-                        <li class="item <?= $filter->name == $info->name ? 'active' : null ?>"><a href="<?= $this->url([]) . $this->url->query([
+                        <li class="<?= $filter->name == $info->name ? 'active' : null ?>"><a href="<?= $this->url([]) . $this->url->query([
                             'filters' => $index->filters,
                             'type'    => $filter->name,
                         ], true) ?>" class="item <?= $filter->name == $info->name ? 'active' : null ?>">

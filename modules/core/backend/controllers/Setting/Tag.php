@@ -6,13 +6,13 @@
 
 namespace Chalk\Core\Backend\Controller\Setting;
 
-use Chalk\App as Chalk;
-use Chalk\Controller\Basic;
+use Chalk\Chalk;
+use Chalk\Controller\Crud;
 use Coast\Request;
 use Coast\Response;
 use Chalk\Core\Model\Tag\Merge;
 
-class Tag extends Basic
+class Tag extends Crud
 {
 	protected $_entityClass = 'Chalk\Core\Tag';
 

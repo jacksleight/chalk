@@ -6,7 +6,7 @@
 
 namespace Chalk;
 
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 use Chalk\Backend;
 use Chalk\Frontend;
 use Chalk\Module;

@@ -6,14 +6,14 @@
 
 namespace Chalk\Controller;
 
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 use Coast\Controller\Action;
 use Coast\Request;
 use Coast\Response;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 
-abstract class Basic extends Action
+abstract class Crud extends Action
 {
 	protected $_entityClass;
 
@@ -24,16 +24,59 @@ abstract class Basic extends Action
 			= Chalk::info($this->_entityClass);
 	}
 
-	public function index(Request $req, Response $res)
-	{}
+    public function index(Request $req, Response $res)
+    {
+        $class = "\\{$req->info->module->class}\\Model\\{$req->info->local->class}\\Index";
+        if (!class_exists($class)) {
+            $class = "\Chalk\Core\Model\Index";
+        }
+        $index = new $class();
+        $req->view->index = $wrap = $this->em->wrap($index);
+        $wrap->graphFromArray($req->queryParams());
+
+        // if (!isset($index->batch)) {
+        //     return;
+        // }
+
+        // try {
+        //     $notice = null;
+        //     foreach ($index->contents as $content) {
+        //         if ($index->batch == 'publish') {
+        //             $notice = 'published';
+        //             $content->status = Chalk::STATUS_PUBLISHED;
+        //         } else if ($index->batch == 'archive') {
+        //             $notice = 'archived';
+        //             $content->status = Chalk::STATUS_ARCHIVED;
+        //         } else if ($index->batch == 'restore') {
+        //             $notice = 'restored';
+        //             $content->restore();
+        //         } else if ($index->batch == 'delete') {
+        //             $notice = 'deleted';
+        //             $this->em->remove($content);
+        //         }
+        //     }
+        //     $this->em->flush();
+        // } catch (ForeignKeyConstraintViolationException $e) {
+        //     if (isset($notice)) {
+        //         $this->notify("{$req->info->singular} <strong>{$content->name}</strong> cannot be deleted because it is in use", 'negative');
+        //     }
+        //     return;
+        // }
+
+        // if (isset($notice)) {
+        //     $this->notify("{$req->info->plural} were {$notice} successfully", 'positive');
+        // }
+        // return $res->redirect($this->url->query(array(
+        //     'batch' => null,
+        // )));
+    }
 
 	public function edit(Request $req, Response $res)
 	{		
-		$name = $req->info->local->name;
 		$entity = isset($req->id)
 			? $this->em($req->info)->id($req->id)
 			: $this->em($req->info)->create();
-		$req->view->$name = $wrap = $this->em->wrap($entity);
+		$req->view->entity = $wrap = $this->em->wrap($entity);
 
 		if (!$req->isPost()) {
 			return;

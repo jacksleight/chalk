@@ -1,5 +1,5 @@
 <?php
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 $info = Chalk::info($widget);
 $file = $widget->previewFile;
 ?>
@@ -14,6 +14,6 @@ $file = $widget->previewFile;
 	<div class="card-inner">
 		<strong><?= $info->singular ?></strong>&nbsp;
 		<br>
-		<small><?= $widget->previewText ? implode(' – ', $widget->previewText) : '&nbsp;' ?></small>
+		<small><?= implode(' – ', $widget->previewText) . '&nbsp;' ?></small>
 	</div>
 </div>

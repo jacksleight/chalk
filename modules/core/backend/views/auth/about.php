@@ -1,5 +1,5 @@
 <?php
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 ?>
 
 <?php if (!$req->isAjax()) { ?>

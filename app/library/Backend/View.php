@@ -6,7 +6,7 @@
 
 namespace Chalk\Backend;
 
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 use Coast\View as CoastView;
 
 class View extends CoastView

@@ -11,7 +11,7 @@ use DOMDocument;
 use DOMXPath;
 use Coast\Request; 
 use Coast\Response; 
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 use Chalk\Core;
 use Chalk\Core\Structure\Node;
 

@@ -6,7 +6,7 @@
 
 namespace Chalk\Core\Repository\Structure;
 
-use Chalk\App as Chalk,
+use Chalk\Chalk,
     Chalk\Core\Structure,
     Chalk\Repository,
     Chalk\Core\Behaviour\Publishable,

@@ -16,18 +16,18 @@
 			</div>
 			<div class="form-items">
 				<?= $this->render('/element/form-item', array(
-					'entity'	=> $user,
+					'entity'	=> $entity,
 					'name'		=> 'name',
 					'label'		=> 'Name',
 				)) ?>
 				<?= $this->render('/element/form-item', array(
-					'entity'	=> $user,
+					'entity'	=> $entity,
 					'type'		=> 'input_email',
 					'name'		=> 'emailAddress',
 					'label'		=> 'Email Address',
 				)) ?>
 				<?= $this->render('/element/form-item', array(
-					'entity'	=> $user,
+					'entity'	=> $entity,
 					'name'		=> 'passwordPlain',
 					'label'		=> 'Password',
 					'type'		=> 'input_password',

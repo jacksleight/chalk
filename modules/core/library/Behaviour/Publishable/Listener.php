@@ -6,7 +6,7 @@
 
 namespace Chalk\Core\Behaviour\Publishable;
 
-use Chalk\App as Chalk,
+use Chalk\Chalk,
 	Chalk\Core\Behaviour\Publishable,
 	Doctrine\Common\EventSubscriber,
 	Doctrine\ORM\Event\LifecycleEventArgs,

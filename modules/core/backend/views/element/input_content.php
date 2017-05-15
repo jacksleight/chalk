@@ -1,5 +1,5 @@
 <?php 
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 if (!isset($filters)) {
 	$filters = [
 		Chalk::info($md['entity'])->name => true,

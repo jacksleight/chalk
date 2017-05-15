@@ -6,7 +6,7 @@
 
 namespace Chalk\Core\Behaviour\Loggable;
 
-use Chalk\App as Chalk,
+use Chalk\Chalk,
 	Chalk\Core\Structure\Node,
 	Chalk\Core\Log,
 	Chalk\Core\Behaviour\Loggable,

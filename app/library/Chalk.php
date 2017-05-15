@@ -12,7 +12,7 @@ use Chalk\Event;
 use Coast\Request;
 use Coast\Response;
 
-class App extends CoastApp
+class Chalk extends CoastApp
 {
     const VERSION           = '0.7.0';
 

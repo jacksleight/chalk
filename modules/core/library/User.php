@@ -22,6 +22,7 @@ class User extends \Toast\Entity implements Trackable, Searchable
 {
 	public static $chalkSingular = 'User';
 	public static $chalkPlural   = 'Users';
+	public static $chalkIcon     = 'user';
 	
     use Trackable\Entity;
 
@@ -113,6 +114,17 @@ class User extends \Toast\Entity implements Trackable, Searchable
 				),
 			),
 		);
+	}
+
+	protected function _alterMetadata($name, $value)
+	{
+		if ($name == 'passwordPlain' && $this->isNew()) {
+			$validator = (new Validator)
+				->set();
+			$value['nullable'] = false;
+			$value['validator']->steps($validator->steps(), 0);
+		}
+		return $value;
 	}
 
 	public function passwordPlain($passwordPlain = null)

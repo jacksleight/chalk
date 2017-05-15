@@ -8,7 +8,7 @@ namespace Chalk\Core\Model\Content;
 
 use Toast\Wrapper;
 use Chalk\Core\Model\Index as CoreIndex;
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 
 class Index extends CoreIndex
 {

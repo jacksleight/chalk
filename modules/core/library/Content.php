@@ -6,7 +6,7 @@
 
 namespace Chalk\Core;
 
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 use Chalk\Core;
 use Chalk\Core\Behaviour\Loggable;
 use Chalk\Core\Behaviour\Publishable;
