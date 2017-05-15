@@ -52,18 +52,18 @@ class All extends Action
 
         $this->em->listener('core_trackable')->setUser($req->user);
         
-        $name   = "query_" . md5($req->path);
-        $params = $req->queryParams();
-        if (!count($params)) {
-            $params = $req->user->pref($name);
-            if (isset($params)) {
-                return $res->redirect($this->url->query($params));
-            }
-        } else if (isset($params['remember'])) {
-            $fields = explode(',', $params['remember']);
-            $req->user->pref($name, \Coast\array_intersect_key($params, $fields));
-            $this->em->flush();
-        }
+        // $name   = "query_" . md5($req->path);
+        // $params = $req->queryParams();
+        // if (!count($params)) {
+        //     $params = $req->user->pref($name);
+        //     if (isset($params)) {
+        //         return $res->redirect($this->url->query($params));
+        //     }
+        // } else if (isset($params['remember'])) {
+        //     $fields = explode(',', $params['remember']);
+        //     $req->user->pref($name, \Coast\array_intersect_key($params, $fields));
+        //     $this->em->flush();
+        // }
     }
 
     public function postDispatch(Request $req, Response $res)

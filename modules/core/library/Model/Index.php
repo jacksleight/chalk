@@ -15,6 +15,9 @@ class Index extends \Toast\Entity
 	protected $limit = 50;
 	protected $sort;
 	protected $search;
+	protected $entities = [];
+	protected $entityIds;
+	protected $batch;
 	protected $remember;
 
 	protected static function _defineMetadata($class)
@@ -38,9 +41,13 @@ class Index extends \Toast\Entity
 					'nullable'	=> true,
 					'values'	=> [
 						'name' => 'Name',
-					]
+					],
 				),
 				'search' => array(
+					'type'		=> 'string',
+					'nullable'	=> true,
+				),
+				'entityIds' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
 				),
@@ -48,8 +55,40 @@ class Index extends \Toast\Entity
 					'type'		=> 'string',
 					'nullable'	=> true,
 				),
+				'batch' => array(
+					'type'		=> 'string',
+					'nullable'	=> true,
+					'values'	=> [
+						'delete'	=> 'Delete',
+					],
+				),
 			),
+			'associations' => [
+				'entities' => array(
+					'type' => 'oneToMany',
+				),
+			]
 		);
+	}
+
+	public function entityIds($value = null)
+	{
+		// if (func_num_args() > 0) {
+		// 	$this->contents->clear();
+		// 	$ids = json_decode($value, true);
+		// 	foreach ($ids as $id) {
+		// 		$content = Wrapper::$em->getReference('Chalk\Core\Content', $id);
+		// 		if ($content) {
+		// 			$this->contents->add($content);
+		// 		}
+		// 	}
+		// 	return $this;
+		// }
+		// $ids = [];
+		// foreach ($this->contents as $content) {
+		// 	$ids[] = $content->id;
+		// }
+		// return json_encode($ids);
 	}
 
 	public function remember()

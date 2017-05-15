@@ -23,7 +23,8 @@ use Chalk\Core\Structure\Node,
 class Structure extends \Toast\Entity implements Trackable
 {
 	public static $chalkSingular = 'Structure';
-	public static $chalkPlural   = 'Structures';
+    public static $chalkPlural   = 'Structures';
+	public static $chalkIcon     = 'structure';
     
     // use Publishable\Entity;
     use Trackable\Entity;

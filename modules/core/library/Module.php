@@ -425,8 +425,6 @@ class Module extends ChalkModule
                         'icon' => 'publish',
                         'url'   => [[
                             'controller' => 'setting_domain',
-                            'action'     => 'edit',
-                            'id'         => 1
                         ], $this->name('setting')],
                     ], $this->name('setting'))
                     ->item($this->name('setting_user'), [

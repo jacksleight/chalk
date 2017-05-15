@@ -7,7 +7,7 @@
 namespace Chalk\Core\Backend\Controller;
 
 use Chalk\Chalk;
-use Chalk\Controller\Basic;
+use Chalk\Controller\Crud;
 use Chalk\Core;
 use Coast\Request;
 use Coast\Response;
@@ -17,7 +17,7 @@ use FileUpload\FileSystem;
 use FileUpload\FileUpload;
 use FileUpload\PathResolver;
 
-abstract class Content extends Basic
+abstract class Content extends Crud
 {
     public function index(Request $req, Response $res)
     {

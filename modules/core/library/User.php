@@ -22,6 +22,7 @@ class User extends \Toast\Entity implements Trackable, Searchable
 {
 	public static $chalkSingular = 'User';
 	public static $chalkPlural   = 'Users';
+	public static $chalkIcon     = 'user';
 	
     use Trackable\Entity;
 
