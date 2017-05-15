@@ -116,6 +116,12 @@ class Entity extends Wrapper
 					break;
 					case 'date':
 					case 'time':
+						try {
+							$value = new \DateTime($value);
+						} catch (\Exception $e) {
+							$value = new \Toast\DateTime\Invalid($value);
+						}
+					break;
 					case 'datetime':
 						try {
 							$value = new \DateTime($value, new \DateTimeZone(Wrapper::$timezone));
