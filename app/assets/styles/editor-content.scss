@@ -1,10 +1,5 @@
 @charset 'utf-8';
 
-/* Configuration */
-
-@import 'compass.scss';
-@import 'compass/layout.scss';
-
 /* Partials */
 
 @import '_variables.scss';
@@ -30,7 +25,7 @@ body > *:first-child {
 
 /* Header */
 
-#{headers(1, 6)} { 
+h1, h2, h3, h4, h5, h6 { 
 	font-weight: bold;
 	color: $color-foreground;
 	margin: $gutter 0 0 0;

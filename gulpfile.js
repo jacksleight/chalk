@@ -1,111 +1,124 @@
-var gulp		= require('gulp'),
-	gutil		= require('gulp-util'),
-	cached		= require('gulp-cached'),
-	clean		= require('gulp-clean'),
-	compass		= require('gulp-compass'),
-	imagemin	= require('gulp-imagemin'),
-	include		= require('gulp-include'),
-	livereload	= require('gulp-livereload'),
-	minifycss	= require('gulp-minify-css'),
-	rename		= require('gulp-rename'),
-	replace		= require('gulp-replace'),
-	svg2png		= require('gulp-svg2png'),
-	svgmin		= require('gulp-svgmin'),
-	uglify		= require('gulp-uglify'),
-	sequence 	= require('run-sequence'),
-	server		= require('tiny-lr')(),
-	path		= require('path');
+var del         = require('del');
+var fs          = require('fs');
+var gulp        = require('gulp');
+var gutil       = require('gulp-util');
+var livereload  = require('gulp-livereload');
+var plumber     = require('gulp-plumber');
+var rename      = require('gulp-rename');
+var path        = require('path');
 
-var projectPath	= __dirname,
-	bowerName	= 'bower_components',
-	viewsName	= 'app/views',
-	sourceName	= 'app/assets',
-	targetName	= 'public/assets',
-	bowerPath	= projectPath + '/' + bowerName,
-	viewsPath	= projectPath + '/' + viewsName,
-	sourcePath	= projectPath + '/' + sourceName,
-	targetPath	= projectPath + '/' + targetName,
-	stylesDir	= '/styles',
-	scriptsDir	= '/scripts',
-	imagesDir	= '/images',
-	fontsDir	= '/fonts',
-	flashDir	= '/flash',
-	templatesDir= '/templates';
+var browsers    = '> 1% in GB, ie 11, last 2 versions';
+var projectPath = __dirname;
+var sourcePath  = projectPath + '/app/assets';
+var targetPath  = projectPath + '/public/assets';
+var bowerPath   = projectPath + '/bower_components';
+
+var stylesGlob    = '/styles/**/*.{scss,css}';
+var scriptsGlob   = '/scripts/**/*.js';
+var phpGlob       = '/**/views/**/*.php';
+
+/* Error Handler */
+
+var errorHandler = function(error) {
+    gutil.log(error.toString());
+    this.emit('end');
+};
 
 /* Tasks */
 
-gulp.task('default', function() {
-	return sequence(
-		'clean',
-		'copy-default',
-		'copy-bower',
-		'images-general',
-		'scripts-default',
-		'scripts-editor-content',
-		'scripts-editor-code',
-		'styles'
-	);
+gulp.task('watch', function() {
+    livereload.listen();
+    gulp.watch(sourcePath + stylesGlob, ['styles']);
+    gulp.watch(sourcePath + scriptsGlob, ['scripts']);
+    gulp.watch(projectPath + phpGlob, function(ev) {
+        livereload.reload();
+    });
 });
 
-gulp.task('watch', function() {
-	server.listen(35729, function(err) {
-		if (err) {
-			return console.log(err)
-		}
-		gulp.watch(sourcePath + stylesDir + '/**/*.scss', ['styles']);
-		gulp.watch(sourcePath + scriptsDir + '/**/*.js', ['scripts']);
-		gulp.watch(viewsPath + '/**/*.php', function(ev) {
-			server.changed({body: {files: [ev.path]}});
-		});
-	});
+gulp.task('default', function() {
+    var sequence = require('run-sequence');
+    return sequence(
+        'clean',
+        'copy-default',
+        'copy-bower',
+        'styles',
+        'scripts-default',
+        'scripts-editor-content',
+        'scripts-editor-code'
+    );
 });
 
 gulp.task('clean', function() {
-	return gulp.src(targetPath, {read: false})
-		.pipe(clean());
+    return del([targetPath + '/**']);
 });
 
 gulp.task('copy', function() {
-	return sequence(
-		'copy-default',
-		'copy-bower'
-	);
+    var sequence = require('run-sequence');
+    return sequence(
+        'copy-default',
+        'copy-bower'
+    );
 });
 gulp.task('copy-default', function() {
-	return gulp.src([
-			sourcePath + fontsDir + '/**/*.{ttf,otf,woff,woff2,svg,eot}',
-			sourcePath + flashDir + '/**/*.swf',
-		], {base: sourcePath})
-		.pipe(gulp.dest(targetPath));
+    return gulp.src([
+            sourcePath + '/fonts/**/*.*',
+            sourcePath + '/images/**/*.*',
+        ], {base: sourcePath})
+        .pipe(gulp.dest(targetPath));
 });
 gulp.task('copy-bower', function() {
-	return gulp.src([
-			bowerPath + '/tinymce/skins/lightgray' + '/**/*.*'
-		], {base: bowerPath})
-		.pipe(gulp.dest(targetPath + '/vendor'));
+    return gulp.src([
+            bowerPath + '/tinymce/skins/lightgray' + '/**/*.*'
+        ], {base: bowerPath})
+        .pipe(gulp.dest(targetPath + '/vendor'));
 });
 
-/* Images */
+/* Styles */
 
-gulp.task('images', function() {
-	return sequence(
-		'images-clean',
-		'images-general'
-	);
-});
-gulp.task('images-clean', function() {
-	return gulp.src(targetPath + imagesDir, {read: false})
-		.pipe(clean());
-});
-gulp.task('images-general', function() {
-	return gulp.src(sourcePath + imagesDir + '/*.svg')
-		.pipe(svgmin([{removeViewBox: true}]))
-		.pipe(gulp.dest(targetPath + imagesDir));
+gulp.task('styles', function() {
+    var anylink      = require('postcss-pseudo-class-any-link');
+    var autoprefixer = require('autoprefixer');
+    var cssnano      = require('cssnano');
+    var include      = require('gulp-include');
+    var position     = require('postcss-position');
+    var postcss      = require('gulp-postcss');
+    var sass         = require('gulp-sass');
+    var vmin         = require('postcss-vmin');
+    var willchange   = require('postcss-will-change');
+    return gulp.src([
+        sourcePath + '/styles/styles.scss',
+       // sourcePath + '/styles/editor-content.scss',
+    ], {base: sourcePath})
+        .pipe(plumber({errorHandler: errorHandler}))
+        .pipe(include({extensions: ['scss', 'css'], hardFail: true}))
+        .pipe(sass({
+            outputStyle: 'expanded',
+            precision: 8
+        }))
+        .pipe(gulp.dest(targetPath))
+        .pipe(postcss([
+            position(),
+            autoprefixer({
+                browsers: browsers,
+                cascade: false
+            }),
+            vmin(),
+            willchange(),
+            anylink()
+        ]))
+        .pipe(gulp.dest(targetPath))
+        .pipe(livereload())
+        .pipe(postcss([
+            cssnano()
+        ]))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest(targetPath));
 });
 
 /* Scripts */
 
 gulp.task('scripts', function() {
+    var sequence = require('run-sequence');
 	return sequence(
 		'scripts-default',
 		'scripts-editor-content',
@@ -113,48 +126,43 @@ gulp.task('scripts', function() {
 	);
 });
 gulp.task('scripts-default', function() {
-	return gulp.src([sourcePath + scriptsDir + '/*.js', '!**/_*.js', '!**/editor-*.js'])
+    var include = require('gulp-include');
+    var uglify  = require('gulp-uglify');
+	return gulp.src([
+        sourcePath + '/scripts/*.js',
+        '!**/_*.js',
+        '!**/editor-*.js'
+    ], {base: sourcePath})
 		.pipe(include({extensions: ['js']}))
-		.pipe(cached('scripts'))
-		.pipe(gulp.dest(targetPath + scriptsDir))
-		.pipe(livereload(server))
+		.pipe(gulp.dest(targetPath))
+		.pipe(livereload())
 		.pipe(uglify())
 		.pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest(targetPath + scriptsDir));
+		.pipe(gulp.dest(targetPath));
 });
 gulp.task('scripts-editor-content', function() {
-	return gulp.src([sourcePath + scriptsDir + '/editor-content.js', '!**/_*.js'])
+    var include = require('gulp-include');
+    var uglify  = require('gulp-uglify');
+	return gulp.src([
+        sourcePath + '/scripts/editor-content.js',
+        '!**/_*.js'
+    ], {base: sourcePath})
 		.pipe(include({extensions: ['js']}))
-		.pipe(cached('scripts'))
-		.pipe(gulp.dest(targetPath + scriptsDir))
-		.pipe(livereload(server))
+		.pipe(gulp.dest(targetPath))
+		.pipe(livereload())
 		.pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest(targetPath + scriptsDir));
+		.pipe(gulp.dest(targetPath));
 });
 gulp.task('scripts-editor-code', function() {
-	return gulp.src([sourcePath + scriptsDir + '/editor-code.js', '!**/_*.js'])
+    var include = require('gulp-include');
+    var uglify  = require('gulp-uglify');
+	return gulp.src([
+        sourcePath + '/scripts/editor-code.js',
+        '!**/_*.js'
+    ], {base: sourcePath})
 		.pipe(include({extensions: ['js']}))
-		.pipe(cached('scripts'))
-		.pipe(gulp.dest(targetPath + scriptsDir))
-		.pipe(livereload(server))
+		.pipe(gulp.dest(targetPath))
+		.pipe(livereload())
 		.pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest(targetPath + scriptsDir));
-});
-
-/* Styles */
-
-gulp.task('styles', function() {
-	var c;
-	return gulp.src([sourcePath + stylesDir + '/*.scss', '!**/_*.scss'])
-		.pipe(c = compass({
-			config_file: projectPath + '/compass.rb',
-			project: projectPath,
-			sass: sourceName + stylesDir,
-			css: targetName + stylesDir
-		}).on('error', function(e) { c.end; this.emit('end'); }))
-		.pipe(cached('styles'))
-		.pipe(livereload(server))
-		.pipe(minifycss())
-		.pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest(targetPath + stylesDir));
+		.pipe(gulp.dest(targetPath));
 });

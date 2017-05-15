@@ -41,8 +41,8 @@
 
 @mixin font-size($value: 0) {
 	@if (unitless($value)) {
-		font-size: pow($font-scale, strip-units($value)) * $font-size;
-		font-size: pow($font-scale, strip-units($value)) * 1rem;
+		font-size: math-pow($font-scale, strip-units($value)) * $font-size;
+		font-size: math-pow($font-scale, strip-units($value)) * 1rem;
 	} @else {
 		font-size: $value;
 		font-size: ($value / $font-size) * 1rem;
@@ -57,6 +57,17 @@
 	// 	$color,
 	// 	$color
 	// );
+}
+@mixin no-bullets {
+  list-style: none;
+  li {
+    @include no-bullet;
+  }
+}
+@mixin no-bullet {
+  list-style-image: none;
+  list-style-type: none;
+  margin-left: 0;
 }
 
 /* Inline Block */
@@ -78,7 +89,8 @@
 		@if ($y) {
 			margin-bottom: $y;
 		}
-		@include inline-block(top);
+        display: inline-block;
+        vertical-align: top;
 	}
 }
 @mixin inline-blocks-justify($selector, $x: null, $y: null, $font-size: 0) {
@@ -87,7 +99,8 @@
 	&:after {
 		content: '';
 		width: 100%;
-		@include inline-block(top);
+        display: inline-block;
+        vertical-align: top;
 	}
 	#{$selector} {
 		text-align: left;
@@ -99,11 +112,13 @@
 	&:before {
 		content: '';
 		height: 100%;
-		@include inline-block(middle);
+        display: inline-block;
+        vertical-align: middle;
 	}
 	#{$selector} {
 		width: 100%;
-		@include inline-block(middle);
+        display: inline-block;
+        vertical-align: middle;
 	}
 }
 
@@ -117,7 +132,7 @@
 /* Ratio */
 
 .ratio {
-	@include box-sizing(content-box);
+	box-sizing: content-box;
 }
 @mixin ratio($width, $height) {
 	@extend .ratio;
@@ -176,4 +191,99 @@
 			margin-left: $margin;
 		}
 	}
+}
+
+/* Fonts */
+
+@mixin font-face($name, $file, $weight: normal, $style: normal) {
+    $file: '../fonts/' + $file;
+    @font-face {
+        font-family: '#{$name}';
+        src: url('#{$file}.woff') format('woff'),
+             url('#{$file}.ttf') format('ttf'),
+             url('#{$file}.svg') format('svg');
+        font-weight: $weight;
+        font-style: $style;
+    }
+}
+
+/* Math */
+
+@function math-pow($number, $exp) {
+    @if (round($exp) != $exp) {
+        @return math-exp($exp * math-ln($number));
+    }
+    $value: 1;
+    @if $exp > 0 {
+        @for $i from 1 through $exp {
+            $value: $value * $number;
+        }
+    }
+    @else if $exp < 0 {
+        @for $i from 1 through -$exp {
+            $value: $value / $number;
+        }
+    }
+    @return $value;
+}
+@function math-factorial($value) {
+    @if $value == 0 {
+        @return 1;
+    }
+    $result: 1;
+    @for $index from 1 through $value {
+        $result: $result * $index;
+    }
+    @return $result;
+}
+@function math-summation($iteratee, $input, $initial: 0, $limit: 100) {
+    $sum: 0;
+    @for $index from $initial to $limit {
+        $sum: $sum + call($iteratee, $input, $index);
+    }
+    @return $sum;
+}
+@function math-exp-maclaurin($x, $n) {
+    $result: math-pow($x, $n) / math-factorial($n);
+    @return $result;
+}
+@function math-exp($value) {
+    $result: math-summation(math-exp-maclaurin, $value, 0, 100);
+    @return $result;
+}
+@function math-ln-maclaurin($x, $n) {
+    $result: (math-pow(-1, $n + 1) / $n) * (math-pow($x - 1, $n));
+    @return $result;
+}
+@function math-ln($value) {
+    $ten-exp: 1;
+    $ln-ten: 2.30258509;
+    @while ($value > math-pow(10, $ten-exp)) {
+        $ten-exp: $ten-exp + 1;
+    }
+    $value: $value / math-pow(10, $ten-exp);
+    $result: math-summation(math-ln-maclaurin, $value, 1, 100);
+    @return $result + $ten-exp * $ln-ten;
+}
+
+/* Other */
+
+@mixin clearfix {
+    &:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+/* Color */
+
+@function tint($color, $percentage) {
+    @return mix(white, $color, $percentage);
+}
+@function shade($color, $percentage) {
+    @return mix(black, $color, $percentage);
+}
+@function contrast($color) {
+    @return if(lightness($color) > 75%, black, white);
 }

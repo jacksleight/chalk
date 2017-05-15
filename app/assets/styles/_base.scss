@@ -1,6 +1,6 @@
 /* Header */
 
-#{headers(1, 6)} { 
+h1, h2, h3, h4, h5, h6 { 
 	font-weight: normal;
 	@include colors(3);
 	margin: $gutter 0 0 0;
@@ -32,7 +32,7 @@ h6 {
 
 a { 
 	@include link-color(inherit);
-	@include transition(all $speed ease);
+	transition: all $speed ease;
 	text-decoration: underline;
 	&.positive {
 		@include link-color($color-positive);
@@ -46,7 +46,7 @@ table {
 	width: 100%;
 	margin: $gutter 0 0 0;
 	border-spacing: 0;
-	@include border-radius($radius);
+	border-radius: $radius;
 	th, td { 
 		vertical-align: top;
 		padding: $gutter * 0.35 0 $gutter * 0.35 $gutter * 0.75;
@@ -71,7 +71,7 @@ table {
 		th, td { 
 			border-top: 1px solid;
 			@include colors(null, null, 1);
-			@include transition(all $speed ease);
+			transition: all $speed ease;
 		}
 		tr {
 			&:first-child {

@@ -209,7 +209,7 @@ figure {
 	position: relative;
 	outline-color: white;
 	@include link-color($color-foreground);
-	@include transition(background-color $speed ease, outline-color $speed ease);
+	transition: background-color $speed ease, outline-color $speed ease;
 	figcaption {
 		margin-top: 0;
 		overflow: hidden;
@@ -296,7 +296,7 @@ input,
 select,
 textarea,
 .btn { 
-	@include transition(border $speed linear, background $speed linear);
+	transition: border $speed linear, background $speed linear;
 }
 
 input[type=date],
@@ -333,7 +333,7 @@ select,
 	padding: 0 $input-padding-horiz;
 	border: $input-border-width solid;
 	@include colors(0, 0, $color-input);
-	@include border-radius($radius);
+	border-radius: $radius;
 	outline: 0;
 	-webkit-appearance: none;
 	&[disabled],
@@ -608,7 +608,7 @@ input[type=button],
 	margin: 0;
 	font-weight: normal;
 	border: $input-border-width solid;
-	@include border-radius($radius);
+	border-radius: $radius;
 	outline: 0;
 	cursor: pointer;
 	text-decoration: none !important;
@@ -795,7 +795,7 @@ textarea,
 .btn,
 .input-pseudo {
 	&[disabled], &.disabled {
-		@include experimental(user-select, none);
+		user-select: none;
 		pointer-events: none;
 		cursor: default;
 	}
@@ -826,7 +826,7 @@ textarea,
 		max-height: 300px;
 		overflow-y: auto;
 		overflow-x: hidden;
-		@include box-shadow(0 5px 0 0 transparentize(black, 0.95));
+		box-shadow: 0 5px 0 0 transparentize(black, 0.95);
 	}
 	&:hover .menu {
 		display: block;
@@ -893,7 +893,14 @@ legend {
 		@include flush;
 		@include font-size(-1);
 		h2 {
-			@include force-wrap;
+			white-space: pre;
+			white-space: pre-wrap;
+			white-space: pre-line;
+			white-space: -pre-wrap;
+			white-space: -o-pre-wrap;
+			white-space: -moz-pre-wrap;
+			white-space: -hp-pre-wrap;
+			word-wrap: break-word;
 		}
 		p {
 			margin-top: $gutter * 0.5;
@@ -982,7 +989,8 @@ legend {
 			margin-left: round($gutter * 0.5);
 			padding-left: round($gutter * 0.5);
 			border-left: 1px solid;
-			@include inline-block(top);
+			display: inline-block;
+			vertical-align: top;
 			&:first-child {
 				margin-left: 0;
 				padding-left: 0;	
@@ -1017,8 +1025,8 @@ legend {
 
 .toolbar {
 	@include no-bullets;
-	@include display-flex;
-	@include flex-direction(row);
+	display: flex;
+	flex-direction: row;
 	line-height: $input-height;
 	> * {
 		padding-left: $gutter * 0.25;
@@ -1120,7 +1128,7 @@ legend {
 		}
 		.expandable-toggle {
 			&:before {
-				@include transform(rotate(-90deg) translate(1px, 0));
+				transform: rotate(-90deg) translate(1px, 0);
 			}
 		}
 	}
@@ -1130,7 +1138,8 @@ legend {
 
 .clickable {
 	a {
-		@include hover-link;
+		text-decoration: none;
+		&:hover,
 		&.hover {
 			text-decoration: underline;
 		}
@@ -1192,7 +1201,7 @@ legend {
 			@include colors(null, 2);
 		}
 		&.active {
-			font-weight: bold;
+			font-weight: bold; 
 		}
 	}
 	.badge {
@@ -1220,6 +1229,7 @@ legend {
 					}
 				}
 			}
+			&.active,
 			&.active-path {
 				background-color: white;
 				@include colors(null, null, 3);
@@ -1365,7 +1375,7 @@ legend {
 	left: $gutter * 1.65;
 	right: 0;
 	height: 24px;
-	@include transition(opacity $speed ease);
+	transition: opacity $speed ease;
 	@extend .icon-menu;
 	&:before {
 		@include icon-base();
@@ -1610,7 +1620,7 @@ legend {
 /* Hideable */
 
 .hideable {
-	@include transition(opacity $speed ease);
+	transition: opacity $speed ease;
 	opacity: 1;
 	&.hideable-hidden {
 		opacity: 0;
@@ -1652,7 +1662,10 @@ legend {
 	@include font-size(-2);
 	@include link-color($color-quieter);
 	a {
-		@include hover-link;
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline;
+		}
 	}
 }
 

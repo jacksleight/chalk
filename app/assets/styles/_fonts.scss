@@ -2,29 +2,25 @@
 
 @include font-face(
 	'Open Sans',
-	font-files('OpenSans-Light-webfont.woff', 'OpenSans-Light-webfont.ttf', 'OpenSans-Light-webfont.svg'),
-	'OpenSans-Light-webfont.eot',
+	'OpenSans-Light-webfont',
 	normal,
 	normal
 );
 @include font-face(
 	'Open Sans',
-	font-files('OpenSans-Regular-webfont.woff', 'OpenSans-Regular-webfont.ttf', 'OpenSans-Regular-webfont.svg'),
-	'OpenSans-Regular-webfont.eot',
+	'OpenSans-Regular-webfont',
 	bold,
 	normal
 );
 @include font-face(
 	'Open Sans',
-	font-files('OpenSans-LightItalic-webfont.woff', 'OpenSans-LightItalic-webfont.ttf', 'OpenSans-LightItalic-webfont.svg'),
-	'OpenSans-LightItalic-webfont.eot',
+	'OpenSans-LightItalic-webfont',
 	normal,
 	italic
 );
 @include font-face(
 	'Open Sans',
-	font-files('OpenSans-Italic-webfont.woff', 'OpenSans-Italic-webfont.ttf', 'OpenSans-Italic-webfont.svg'),
-	'OpenSans-Italic-webfont.eot',
+	'OpenSans-Italic-webfont',
 	bold,
 	italic
 );
