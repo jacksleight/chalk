@@ -807,7 +807,6 @@ textarea,
 	display: inline-block;
 	vertical-align: bottom;
 	width: 100%;
-	z-index: 500;
 	.input-pseudo {
 		background-position: 100% 50%;
 		background-repeat: no-repeat;
@@ -827,6 +826,7 @@ textarea,
 		overflow-y: auto;
 		overflow-x: hidden;
 		box-shadow: 0 5px 0 0 transparentize(black, 0.95);
+		z-index: 500;
 	}
 	&:hover .menu {
 		display: block;
@@ -1568,9 +1568,6 @@ legend {
 		background-color: $color-active;
 		border-color: $color-active;
 	}
-}
-.mce-branding-powered-by {
-	display: none !important;
 }
 
 /* Ace */

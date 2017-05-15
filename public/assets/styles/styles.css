@@ -4138,7 +4138,6 @@ textarea.disabled,
   display: inline-block;
   vertical-align: bottom;
   width: 100%;
-  z-index: 500;
 }
 
 .dropdown .input-pseudo {
@@ -4160,6 +4159,7 @@ textarea.disabled,
   overflow-y: auto;
   overflow-x: hidden;
   box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.05);
+  z-index: 500;
 }
 
 .dropdown .menu {
@@ -5259,10 +5259,6 @@ legend {
 .mce-container .mce-grid-border a.mce-active {
   background-color: #FCB941;
   border-color: #FCB941;
-}
-
-.mce-branding-powered-by {
-  display: none !important;
 }
 
 /* Ace */

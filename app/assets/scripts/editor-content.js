@@ -14,6 +14,7 @@
 //= require ../../../bower_components/tinymce/plugins/visualblocks/plugin.min.js
 //= require ../../../bower_components/tinymce/plugins/noneditable/plugin.min.js
 //= require ../../../bower_components/tinymce/plugins/autoresize/plugin.min.js
+//= require ../../../bower_components/tinymce/plugins/fullscreen/plugin.min.js
 
 /* Plugin */
 
@@ -281,7 +282,9 @@ tinyMCE.init({
     ],
     menubar: false,
     convert_urls: false,
+    branding: false,
     plugins:[
+        'fullscreen',
         'noneditable',
         'code',
         'paste',
@@ -300,7 +303,7 @@ tinyMCE.init({
         'bullist', 'numlist', 'table', '|',
         'chalkinsert', 'chalklink', 'unlink', '|',
         'pastetext', '|',
-        'chalksource'].join(' '),
+        'fullscreen', 'chalksource'].join(' '),
     statusbar: false,
     browser_spellcheck: true,
     element_format: 'html',
