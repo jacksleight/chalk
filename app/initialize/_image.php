@@ -52,6 +52,7 @@ $actions = [
 
 return new Image([
     'prefix'         => 'image',
+    'driver'         => $app->chalk->config->imageDriver,
     'baseDir'        => $app->chalk->config->publicDataDir->dir('file'),
     'outputDir'      => $app->chalk->config->publicDataDir->dir('image'),
     'resolver'       => $app->resolver,

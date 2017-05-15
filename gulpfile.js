@@ -29,7 +29,7 @@ var errorHandler = function(error) {
 gulp.task('watch', function() {
     livereload.listen();
     gulp.watch(sourcePath + stylesGlob, ['styles']);
-    gulp.watch(sourcePath + scriptsGlob, ['scripts']);
+    gulp.watch(sourcePath + scriptsGlob, ['scripts-default']);
     gulp.watch(projectPath + phpGlob, function(ev) {
         livereload.reload();
     });

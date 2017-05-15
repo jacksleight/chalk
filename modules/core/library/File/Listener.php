@@ -6,7 +6,7 @@
 
 namespace Chalk\Core\File;
 
-use Chalk\App as Chalk,
+use Chalk\Chalk,
 	Chalk\Core\File,
 	Doctrine\Common\EventSubscriber,
 	Doctrine\ORM\Event\OnFlushEventArgs,

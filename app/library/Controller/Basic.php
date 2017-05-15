@@ -6,7 +6,7 @@
 
 namespace Chalk\Controller;
 
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 use Coast\Controller\Action;
 use Coast\Request;
 use Coast\Response;

@@ -6,7 +6,7 @@
 
 namespace Chalk\Core\Parser\Plugin;
 
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 use Coast\App\Access;
 use Chalk\Parser\Plugin;
 use DOMDocument;

@@ -1,5 +1,5 @@
 <?php
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 $info = Chalk::info($widget);
 $file = $widget->previewFile;
 ?>

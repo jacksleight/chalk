@@ -14,7 +14,6 @@
 			'type'		=> 'input_password',
 			'name'		=> 'password',
 			'label'		=> 'Password',
-			'autofocus'	=> true,
 		)) ?>
 		<button class="btn btn-block btn-focus">Login</button>
 		<p class="login-password">

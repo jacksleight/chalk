@@ -6,7 +6,7 @@
 
 namespace Chalk\Core;
 
-use Chalk\App as Chalk,
+use Chalk\Chalk,
 	Toast\Entity;
 
 abstract class Widget extends Entity

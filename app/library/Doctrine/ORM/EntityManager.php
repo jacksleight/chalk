@@ -6,7 +6,7 @@
 
 namespace Chalk\Doctrine\ORM;
 
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 use Doctrine\Common\EventSubscriber;
 
 class EntityManager extends \Coast\Doctrine\ORM\EntityManager

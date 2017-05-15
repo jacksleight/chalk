@@ -27,7 +27,6 @@
 					'entity'	=> $structure,
 					'name'		=> 'path',
 					'label'		=> 'URL Path Prefix',
-					'autofocus'	=> true,
 				)) ?>
 			</div>
 		</fieldset>

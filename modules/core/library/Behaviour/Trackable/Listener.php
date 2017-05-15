@@ -6,7 +6,7 @@
 
 namespace Chalk\Core\Behaviour\Trackable;
 
-use Chalk\App as Chalk,
+use Chalk\Chalk,
 	Chalk\Core\Behaviour\Trackable,
 	Chalk\Core\User,
 	Doctrine\Common\EventSubscriber,

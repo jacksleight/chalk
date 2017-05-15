@@ -6,7 +6,7 @@
 
 namespace Chalk\Core\Behaviour\Searchable;
 
-use Chalk\App as Chalk,
+use Chalk\Chalk,
     Chalk\Core\Index,
     Chalk\Core\Behaviour\Searchable,
     Doctrine\Common\EventSubscriber,

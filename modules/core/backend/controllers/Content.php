@@ -6,7 +6,7 @@
 
 namespace Chalk\Core\Backend\Controller;
 
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 use Chalk\Controller\Basic;
 use Chalk\Core;
 use Coast\Request;
@@ -127,7 +127,7 @@ abstract class Content extends Basic
         }
 
         $content = $this->em($req->info)->create();
-        $content->status = \Chalk\App::STATUS_PUBLISHED;
+        $content->status = \Chalk\Chalk::STATUS_PUBLISHED;
         $content->fromArray($quick->toArray());
 
         $this->em->persist($content);

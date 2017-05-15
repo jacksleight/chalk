@@ -6,7 +6,7 @@
 
 namespace Chalk\Core;
 
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 use Chalk\Core;
 use Doctrine\Common\Collections\ArrayCollection;
 use Toast\Wrapper;

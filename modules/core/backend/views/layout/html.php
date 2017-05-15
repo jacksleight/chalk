@@ -1,5 +1,5 @@
 <?php
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 
 $mode   = $this->chalk->isDebug() ? '' : '.min';
 $lang   = 'en-GB';

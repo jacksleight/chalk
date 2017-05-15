@@ -1,5 +1,5 @@
 <?php
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 use Chalk\Repository;
 $info = Chalk::info($index->type);
 ?>

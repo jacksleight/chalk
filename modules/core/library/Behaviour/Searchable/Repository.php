@@ -6,7 +6,7 @@
 
 namespace Chalk\Core\Behaviour\Searchable;
 
-use Chalk\App as Chalk,
+use Chalk\Chalk,
     Doctrine\ORM\EntityRepository,
     Doctrine\ORM\QueryBuilder,
     Doctrine\ORM\Query;

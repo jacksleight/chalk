@@ -6,7 +6,7 @@
 
 namespace Chalk\Core\Behaviour\Versionable;
 
-use Chalk\App as Chalk,
+use Chalk\Chalk,
     Chalk\Core\Behaviour\Publishable,
     Doctrine\Common\Collections\ArrayCollection;
 

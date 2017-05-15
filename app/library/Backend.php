@@ -6,7 +6,7 @@
 
 namespace Chalk;
 
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 use Chalk\Event;
 use Chalk\Module;
 use Closure;

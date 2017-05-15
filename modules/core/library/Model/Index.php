@@ -7,7 +7,7 @@
 namespace Chalk\Core\Model;
 
 use Toast\Wrapper;
-use Chalk\App as Chalk;
+use Chalk\Chalk;
 
 class Index extends \Toast\Entity
 {
