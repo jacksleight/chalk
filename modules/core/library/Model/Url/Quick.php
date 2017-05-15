@@ -37,7 +37,11 @@ class Quick extends \Toast\Entity
 		if (func_num_args() > 0) {
 			$this->url  = $url;
             if (isset($this->url)) {
-                $this->name = $this->_resolveTitle($this->url);
+                try {
+                    $this->name = $this->_resolveTitle($this->url);
+                } catch (\Exception $e) {
+                    $this->name = $url->toString();
+                }
             }
 			return $this;
 		}
