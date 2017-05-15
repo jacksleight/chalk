@@ -75,7 +75,11 @@ class Url extends Content
 	{
 		if (isset($url)) {
 			if ($url != $this->url) {
-				$this->urlCanonical = $url->toCanonical();
+				try {
+					$this->urlCanonical = $url->toCanonical();
+				} catch (\Exception $e) {
+					$this->urlCanonical = $url;
+				}
 			}
 			$this->url = $url;
 			if (isset($this->urlCanonical)) {
