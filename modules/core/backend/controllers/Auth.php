@@ -18,7 +18,7 @@ class Auth extends Action
     public function login(Request $req, Response $res)
     {
         $req->view->login = $wrap = $this->em->wrap(
-            $login = new \Chalk\Core\Model\Login()
+            $login = new \Chalk\Core\Backend\Model\Auth\Login()
         );
 
         if (!$req->isPost()) {
@@ -56,7 +56,7 @@ class Auth extends Action
     public function passwordRequest(Request $req, Response $res)
     {
         $req->view->passwordRequest = $wrap = $this->em->wrap(
-            $passwordRequest = new \Chalk\Core\Model\PasswordRequest()
+            $passwordRequest = new \Chalk\Core\Backend\Model\Auth\PasswordRequest()
         );
 
         if (!$req->isPost()) {
@@ -100,7 +100,7 @@ class Auth extends Action
         }
 
         $req->view->passwordReset = $wrap = $this->em->wrap(
-            $passwordReset = new \Chalk\Core\Model\PasswordReset()
+            $passwordReset = new \Chalk\Core\Backend\Model\Auth\PasswordReset()
         );
 
         if (!$req->isPost()) {

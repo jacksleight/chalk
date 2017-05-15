@@ -14,7 +14,6 @@ use Chalk\Core\Behaviour\Searchable;
 use Chalk\Core\Behaviour\Trackable;
 use Chalk\Core\Behaviour\Versionable;
 use Coast\Filter;
-use Toast\Wrapper;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -210,7 +209,7 @@ abstract class Content extends \Toast\Entity implements Publishable, Searchable,
             foreach ($split as $name) {
                 $names[strtolower(\Coast\str_slugify(iconv('utf-8', 'ascii//translit//ignore', $name)))] = trim($name);
             }
-            $tags = Wrapper::$em->__invoke('core_tag')->all([
+            $tags = \Toast\Wrapper::$em->__invoke('core_tag')->all([
                 'slugs' => array_keys($names),
             ]);
             foreach ($tags as $tag) {

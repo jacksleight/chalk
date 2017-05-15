@@ -4,9 +4,9 @@
 	</div>
 	<div class="form-items">
 		<?= $this->partial('general-top') ?>
-		<?php if (!$content->isProtected()) { ?>
+		<?php if (!$entity->isProtected()) { ?>
 			<?= $this->render('/element/form-item', array(
-				'entity'	=> $content,
+				'entity'	=> $entity,
 				'name'		=> 'name',
 				'label'		=> 'Name',
 				'autofocus'	=> true,

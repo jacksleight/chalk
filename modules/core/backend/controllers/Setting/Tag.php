@@ -7,10 +7,10 @@
 namespace Chalk\Core\Backend\Controller\Setting;
 
 use Chalk\Chalk;
-use Chalk\Controller\Crud;
+use Chalk\Core\Backend\Controller\Crud;
 use Coast\Request;
 use Coast\Response;
-use Chalk\Core\Model\Tag\Merge;
+use Chalk\Core\Backend\Model\Tag\Merge;
 
 class Tag extends Crud
 {

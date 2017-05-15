@@ -4,10 +4,9 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-namespace Chalk\Core\Model;
+namespace Chalk\Core\Backend\Model\Index;
 
 use Chalk\Parser;
-use Toast\Wrapper;
 
 class Source extends \Toast\Entity
 {
@@ -45,7 +44,7 @@ class Source extends \Toast\Entity
 	{
 		$value = $this->code;
 		if ($this->lang == 'html') {
-			$value = Wrapper::$chalk->backend->parser->parse($value);
+			$value = \Toast\Wrapper::$chalk->backend->parser->parse($value);
 		} else if ($this->lang == 'json') {
 			$value = json_encode(json_decode($value, true));
 		}

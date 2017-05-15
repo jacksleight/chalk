@@ -1,6 +1,6 @@
 <?= $this->render('/element/form-item', array(
 	'type'		=> 'textarea',
-	'entity'	=> $content,
+	'entity'	=> $entity,
 	'name'		=> 'body',
 	'label'		=> 'Content',
 	'class'		=> 'monospaced editor-content',

@@ -8,7 +8,7 @@ namespace Chalk\Core\Backend\Controller;
 
 use Chalk\Chalk,
 	Chalk\Core,
-	Chalk\Controller\Crud,
+	Chalk\Core\Backend\Controller\Crud,
 	Coast\Request,
 	Coast\Response;
 

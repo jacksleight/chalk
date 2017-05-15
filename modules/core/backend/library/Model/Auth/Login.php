@@ -4,13 +4,15 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-namespace Chalk\Core\Model;
+namespace Chalk\Core\Backend\Model\Auth;
 
 use Coast\Validator;
 
-class PasswordRequest extends \Toast\Entity
+class Login extends \Toast\Entity
 {
 	protected $emailAddress;
+	
+	protected $password;
 
 	protected static function _defineMetadata($class)
 	{
@@ -20,6 +22,9 @@ class PasswordRequest extends \Toast\Entity
 					'type'		=> 'string',
 					'validator'	=> (new Validator)
 						->emailAddress(),
+				),
+				'password' => array(
+					'type'		=> 'string',
 				),
 			),
 		);

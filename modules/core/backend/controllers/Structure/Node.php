@@ -24,7 +24,7 @@ class Node extends Action
 
         $class = "\\{$info->module->class}\\Model\\{$info->local->class}\\Index";
         if (!class_exists($class)) {
-            $class = "\Chalk\Core\Model\Content\Index";
+            $class = "\Chalk\Core\Backend\Model\Content\Index";
         }
         $index = new $class();
 

@@ -7,7 +7,7 @@
 namespace Chalk\Core\Backend\Controller\Setting;
 
 use Chalk\Chalk,
-	Chalk\Controller\Crud,
+	Chalk\Core\Backend\Controller\Crud,
 	Coast\Request,
 	Coast\Response;
 

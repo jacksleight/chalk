@@ -2,16 +2,16 @@
     <?= $this->render('/element/form-input', [
         'type'   => 'input_hidden',
         'entity' => $index,
-        'name'   => 'contentIds',
+        'name'   => 'entityIds',
         'class'  => 'multiselectable-values',
     ], 'core') ?>
     <ul class="thumbs <?= $isUploadable ? 'uploadable-list' : null ?>">
-        <?php foreach ($contents as $content) { ?>
-            <li class="thumbs_i"><?= $this->inner('thumb', ['content' => $content]) ?></li>
+        <?php foreach ($entities as $entity) { ?>
+            <li class="thumbs_i"><?= $this->inner('thumb', ['content' => $entity]) ?></li>
         <?php } ?>     
         <?= str_repeat('<li></li>', 10) ?>
     </ul>
-    <?php if (!count($contents)) { ?>
+    <?php if (!count($entities)) { ?>
         <div class="notice">
             <h2>No <?= $info->plural ?> Found</h2>
             <?php if (isset($index->search) && strrpos($index->search, '*') === false) { ?>

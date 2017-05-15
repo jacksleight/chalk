@@ -9,12 +9,12 @@ $isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 		<a href="<?= !$template ? $this->url([
             'entity' => $info->name,
             'action' => 'edit',
-            'id'     => $content->id,
+            'id'     => $entity->id,
 		]) : '#' ?>">
 	<?php } ?>
 		<?php if (!$template) { ?>
 			<?= $this->render('/behaviour/selectable/checkbox', [
-                'entity'   => $content,
+                'entity'   => $entity,
                 'entities' => isset($index) ? $index->contents : new \Doctrine\Common\Collections\ArrayCollection(),
             ], 'core') ?>
 		<?php } ?>
@@ -24,17 +24,17 @@ $isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 					<span style="height: 0%;"></span>
 				</div>
 			<?php } else { ?>
-				<?php if ($content instanceof \Chalk\Core\File && $content->file->exists() && $content->isImage()) { ?>
-					<?php if ($content->isImageBitmap()) { ?>
-						<div class="image" style="background-image: url('<?= $this->image($content->file, ['size' => '400']) ?>');"></div>
-					<?php } else if ($content->isImageVector()) { ?>
-						<div class="image" style="background-image: url('<?= $this->frontend->url->file($content->file) ?>');"></div>
+				<?php if ($entity instanceof \Chalk\Core\File && $entity->file->exists() && $entity->isImage()) { ?>
+					<?php if ($entity->isImageBitmap()) { ?>
+						<div class="image" style="background-image: url('<?= $this->image($entity->file, ['size' => '400']) ?>');"></div>
+					<?php } else if ($entity->isImageVector()) { ?>
+						<div class="image" style="background-image: url('<?= $this->frontend->url->file($entity->file) ?>');"></div>
 					<?php } ?>
 				<?php } else { ?>
 					<div class="text"><span class="icon-<?= $info->icon ?>"></span></div>
 				<?php } ?>
-				<span class="badge badge-upper badge-<?= $this->app->statusClass($content->status) ?>">
-					<?= $content->status ?>
+				<span class="badge badge-upper badge-<?= $this->app->statusClass($entity->status) ?>">
+					<?= $entity->status ?>
 				</span>
 				<?php if ($covered) { ?>
 					<div class="progress">
@@ -44,12 +44,12 @@ $isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 			<?php } ?>
 		</div>
 		<figcaption>
-			<?= $template ? '{{name}}' : $content->name ?><br>
+			<?= $template ? '{{name}}' : $entity->name ?><br>
 			<small>
 				<?php if ($template) { ?>
 					Waiting…
 				<?php } else { ?>
-					<?= implode(' – ', $content->previewText($info->class != 'Chalk\Core\Content')) ?>
+					<?= implode(' – ', $entity->previewText($info->class != 'Chalk\Core\Content')) ?>
 				<?php } ?>
 			</small>
 		</figcaption>

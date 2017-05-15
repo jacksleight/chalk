@@ -6,7 +6,7 @@
             'entity'    => $index,
             'name'      => 'page',
             'limit'     => $index->limit,
-            'count'     => $contents->count(),
+            'count'     => $entities->count(),
         ], 'core') ?>
     </li>
     <li class="toolbar-gap">

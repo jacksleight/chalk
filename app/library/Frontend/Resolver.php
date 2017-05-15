@@ -9,7 +9,6 @@ namespace Chalk\Frontend;
 use Chalk\Chalk;
 use Closure;
 use Coast\Resolver as CoastResolver;
-use Toast\Entity;
 
 class Resolver extends CoastResolver
 {
@@ -21,7 +20,7 @@ class Resolver extends CoastResolver
         $isEntity = 
             (count($args) == 2 && is_string($args[0]) && is_numeric($args[1])) ||
             (count($args) == 1 && is_array($args[0]) && isset($args[0]['__CLASS__'])) ||
-            (count($args) == 1 && $args[0] instanceof Entity);
+            (count($args) == 1 && $args[0] instanceof \Toast\Entity);
         return $isEntity
             ? call_user_func_array([$this, 'entity'], $args)
             : call_user_func_array(['parent', '__invoke'], $args);

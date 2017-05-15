@@ -15,9 +15,14 @@ $this->params([
     <div class="header">
         <?= $this->partial('tools') ?>
         <?= $this->partial('header') ?>
-        <div class="hanging">
-            <?= $this->partial('filters') ?>
-        </div>
+        <?php 
+        $filters = $this->partial('filters');
+        ?>
+        <?php if (strpos($filters, '</li>') !== false) { ?>
+            <div class="hanging">
+                <?= $filters ?>
+            </div>
+        <?php } ?>
     </div>
     <div class="flex body">
         <?= $this->partial($bodyType) ?>

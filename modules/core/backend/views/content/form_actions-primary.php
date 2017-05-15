@@ -1,5 +1,5 @@
 <ul class="toolbar toolbar-right">
-	<?php if (!$content->isArchived()) { ?>
+	<?php if (!$entity->isArchived()) { ?>
 		<li><button class="btn btn-positive icon-ok">
 			Save <?= $info->singular ?>
 		</button></li>

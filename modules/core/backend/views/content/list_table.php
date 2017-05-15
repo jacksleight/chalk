@@ -36,7 +36,7 @@ foreach ($tableCols as $i => $col) {
                 <?= $this->render('/element/form-input', [
                     'type'   => 'input_hidden',
                     'entity' => $index,
-                    'name'   => 'contentIds',
+                    'name'   => 'entityIds',
                     'class'  => 'multiselectable-values',
                 ], 'core') ?>
             </th>
@@ -50,33 +50,33 @@ foreach ($tableCols as $i => $col) {
         </tr>
     </thead>
     <tbody class="<?= $isUploadable ? 'uploadable-list' : null ?>">
-        <?php if (count($contents)) { ?>
-            <?php foreach ($contents as $content) { ?>
+        <?php if (count($entities)) { ?>
+            <?php foreach ($entities as $entity) { ?>
                 <tr class="selectable <?= $isEditAllowed ? 'clickable' : null ?>">
                     <td class="col-select">
                         <?= $this->render('/behaviour/selectable/checkbox', [
-                            'entity'   => $content,
-                            'entities' => $index->contents,
+                            'entity'   => $entity,
+                            'entities' => $index->entities,
                         ], 'core') ?>
                     </td>
                     <th scope="row">
                         <?php if ($isEditAllowed) { ?>
                             <a href="<?= $this->url([
                                 'action' => 'edit',
-                                'id'     => $content->id,
-                            ]) ?>"><?php } ?><?= $content->name ?><?php if ($isEditAllowed) { ?></a>
+                                'id'     => $entity->id,
+                            ]) ?>"><?php } ?><?= $entity->name ?><?php if ($isEditAllowed) { ?></a>
                         <?php } ?>
                         <br>
-                        <small><?= implode(' – ', $content->previewText($info->class != 'Chalk\Core\Content')) ?></small>
+                        <small><?= implode(' – ', $entity->previewText($info->class != 'Chalk\Core\Content')) ?></small>
                     </th>
                     <?php foreach ($tableCols as $col) { ?>
                         <td class="<?= $col['class'] ?>" style="<?= $col['style'] ?>">
-                            <?= $this->inner("list_table-{$col['partial']}", ['content' => $content] + $col['params']) ?>
+                            <?= $this->inner("list_table-{$col['partial']}", ['content' => $entity] + $col['params']) ?>
                         </td>
                     <?php } ?>
                     <td class="col-right col-badge">
-                        <span class="badge badge-upper badge-<?= $this->app->statusClass($content->status) ?>">
-                            <?= $content->status ?>
+                        <span class="badge badge-upper badge-<?= $this->app->statusClass($entity->status) ?>">
+                            <?= $entity->status ?>
                         </span>
                     </td>
                 </tr>

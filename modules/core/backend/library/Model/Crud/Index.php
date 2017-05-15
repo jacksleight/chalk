@@ -4,21 +4,25 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-namespace Chalk\Core\Model;
+namespace Chalk\Core\Backend\Model\Crud;
 
-use Toast\Wrapper;
 use Chalk\Chalk;
+use	Doctrine\Common\Collections\ArrayCollection;
 
 class Index extends \Toast\Entity
 {
-	protected $page  = 1;
 	protected $limit = 50;
 	protected $sort;
 	protected $search;
-	protected $entities = [];
+
+	protected $entities;
 	protected $entityIds;
+	protected $entityNew;
 	protected $batch;
+
 	protected $remember;
+
+	protected $_entityClass;
 
 	protected static function _defineMetadata($class)
 	{
@@ -51,6 +55,10 @@ class Index extends \Toast\Entity
 					'type'		=> 'string',
 					'nullable'	=> true,
 				),
+				'entityNew' => array(
+					'type'		=> 'string',
+					'nullable'	=> true,
+				),
 				'remember' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
@@ -71,24 +79,40 @@ class Index extends \Toast\Entity
 		);
 	}
 
+	public function __construct($entityClass)
+	{
+		$this->_entityClass = $entityClass;
+        $this->entities = new ArrayCollection();
+	}
+
 	public function entityIds($value = null)
 	{
-		// if (func_num_args() > 0) {
-		// 	$this->contents->clear();
-		// 	$ids = json_decode($value, true);
-		// 	foreach ($ids as $id) {
-		// 		$content = Wrapper::$em->getReference('Chalk\Core\Content', $id);
-		// 		if ($content) {
-		// 			$this->contents->add($content);
-		// 		}
-		// 	}
-		// 	return $this;
-		// }
-		// $ids = [];
-		// foreach ($this->contents as $content) {
-		// 	$ids[] = $content->id;
-		// }
-		// return json_encode($ids);
+		if (func_num_args() > 0) {
+			$this->entities->clear();
+			$ids = json_decode($value, true);
+			foreach ($ids as $id) {
+				$entity = \Toast\Wrapper::$em->getReference($this->_entityClass, $id);
+				if ($entity) {
+					$this->entities->add($entity);
+				}
+			}
+			return $this;
+		}
+		$ids = [];
+		foreach ($this->entities as $entity) {
+			$ids[] = $entity->id;
+		}
+		return json_encode($ids);
+	}
+
+	public function entityNew($value = null)
+	{
+		if (func_num_args() > 0) {
+			$this->entityNew = $value;
+			$this->entityIds(json_encode([$this->entityNew]));
+			return $this;
+		}
+		return $this->entityNew;
 	}
 
 	public function remember()

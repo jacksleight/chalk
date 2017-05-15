@@ -17,9 +17,10 @@ class Setting extends Action
 	public function index(Request $req, Response $res)
 	{
 		$items = $this->navList->children('core_setting');
-		if (count($items)) {
-			$item = current($items);
-			return $res->redirect($item['url']);
-		}
+		if (!count($items)) {
+            throw new \Exception('No route for redirection');
+        }
+		$item = current($items);
+		return $res->redirect($item['url']);
 	}
 }

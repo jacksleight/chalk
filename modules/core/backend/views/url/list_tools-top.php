@@ -1,6 +1,6 @@
 <li>
     <?php
-    $quick = $this->em->wrap(new Chalk\Core\Model\Url\Quick());
+    $quick = $this->em->wrap(new Chalk\Core\Backend\Model\Url\Quick());
     ?>
     <div class="form-group form-group-horizontal" style="width: 320px;">
         <?= $this->render('/element/form-input', array(

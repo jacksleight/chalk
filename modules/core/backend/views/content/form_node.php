@@ -9,7 +9,7 @@
 				'entity'		=> $node,
 				'name'			=> 'name',
 				'label'			=> 'Label',
-				'placeholder'	=> $content->name,
+				'placeholder'	=> $entity->name,
 				'note'			=> 'Text used in navigation and URLs',
 			), 'core') ?>
 			<?= $this->render('/element/form-item', array(

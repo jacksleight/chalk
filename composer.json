@@ -28,6 +28,8 @@
             "Toast\\": "app/toast/",
             "Chalk\\": "app/library/",
             "Chalk\\Core\\": "modules/core/library/",
+            "Chalk\\Core\\Backend\\": "modules/core/backend/library/",
+            "Chalk\\Core\\Frontend\\": "modules/core/frontend/library/",
             "Chalk\\Core\\Backend\\Controller\\": "modules/core/backend/controllers/",
             "Chalk\\Core\\Frontend\\Controller\\": "modules/core/frontend/controllers/"
         }

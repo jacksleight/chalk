@@ -15,11 +15,12 @@ class Index extends Action
 {
 	public function index(Request $req, Response $res)
 	{
-		$items = $this->navList->children('core_primary');
-		if (count($items)) {
-			$item = current($items);
-			return $res->redirect($this->url($item['url'][0], $item['url'][1], true));
-		}
+		$items = $this->navList->children(0);
+		if (!count($items)) {
+            throw new \Exception('No route for redirection');
+        }
+		$item = current($items);
+		return $res->redirect($item['url']);
 	}
 	
 	public function about(Request $req, Response $res)
@@ -52,7 +53,7 @@ class Index extends Action
 	public function source(Request $req, Response $res)
 	{
 	    $req->view->source = $wrap = $this->em->wrap(
-            $source = new \Chalk\Core\Model\Source()
+            $source = new \Chalk\Core\Backend\Model\Index\Source()
         );
 
 	    $wrap->graphFromArray($req->bodyParams());
@@ -73,7 +74,7 @@ class Index extends Action
 
         $class = "\\{$info->module->class}\\Model\\{$info->local->class}\\Index";
         if (!class_exists($class)) {
-            $class = "\Chalk\Core\Model\Content\Index";
+            $class = "\Chalk\Core\Backend\Model\Content\Index";
         }
         $index = new $class();
 

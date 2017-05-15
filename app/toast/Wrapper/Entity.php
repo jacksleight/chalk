@@ -6,9 +6,7 @@
 
 namespace Toast\Wrapper;
 
-use Toast\Wrapper;
-
-class Entity extends Wrapper
+class Entity extends \Toast\Wrapper
 {	
 	public function __construct(\Toast\Entity $object, array $allowed = null, $parent = null, $reference = null)
 	{
@@ -124,7 +122,7 @@ class Entity extends Wrapper
 					break;
 					case 'datetime':
 						try {
-							$value = new \DateTime($value, new \DateTimeZone(Wrapper::$timezone));
+							$value = new \DateTime($value, new \DateTimeZone(\Toast\Wrapper::$timezone));
 							$value->setTimezone(new \DateTimeZone('UTC'));
 						} catch (\Exception $e) {}
 					break;
@@ -136,7 +134,7 @@ class Entity extends Wrapper
 						}
 					break;
 					case 'manyToOne':
-						$value = Wrapper::$em->getReference($md['entity'], $value);
+						$value = \Toast\Wrapper::$em->getReference($md['entity'], $value);
 					break;
 				}
 			}
@@ -149,13 +147,13 @@ class Entity extends Wrapper
 		if (isset($value)) {
 			if (is_scalar($value)) {
 				if ($isEditorContent($value)) {
-					$value = Wrapper::$chalk->backend->parser->reverse($value);
+					$value = \Toast\Wrapper::$chalk->backend->parser->reverse($value);
 				}
 			} else if (is_array($value)) {
 				array_walk_recursive($value, function(&$value) use ($isEditorContent) {
 					if (isset($value) && is_scalar($value)) {
 						if ($isEditorContent($value)) {
-							$value = Wrapper::$chalk->backend->parser->reverse($value);
+							$value = \Toast\Wrapper::$chalk->backend->parser->reverse($value);
 						}
 					}
 				});

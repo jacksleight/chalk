@@ -7,7 +7,6 @@
 namespace Toast;
 
 use Coast\Validator;
-use Toast\Wrapper;
 use ArrayAccess;
 
 class Entity implements ArrayAccess
@@ -31,7 +30,7 @@ class Entity implements ArrayAccess
 	{
 		$class = get_called_class();
 		try {
-			$meta = Wrapper::$em->getClassMetadata($class);
+			$meta = \Toast\Wrapper::$em->getClassMetadata($class);
 		} catch(\Exception $e) {
 			return [];
 		}

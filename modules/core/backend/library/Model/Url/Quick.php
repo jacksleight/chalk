@@ -4,7 +4,7 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-namespace Chalk\Core\Model\Url;
+namespace Chalk\Core\Backend\Model\Url;
 
 use Coast\Validator;
 use Coast\Http;

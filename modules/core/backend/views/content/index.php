@@ -5,11 +5,11 @@
 		
 <form action="<?= $this->url->route() ?>" novalidate>
 	<?php
-	$contents = $this->em($req->info)
+	$entities = $this->em($req->info)
 		->all($index->toArray(), [], Chalk\Repository::FETCH_ALL_PAGED);
 	?>
 	<?= $this->inner("list", [
-		'contents' => $contents,
+		'entities' => $entities,
 	]) ?>
     <?= $this->render('/element/form-input', array(
         'type'          => 'input_hidden',

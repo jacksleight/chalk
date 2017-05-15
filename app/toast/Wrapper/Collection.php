@@ -6,8 +6,6 @@
 
 namespace Toast\Wrapper;
 
-use Toast\Wrapper;
-
 class Collection extends \Toast\Wrapper implements \Iterator, \Countable
 {
 	protected $_md;
@@ -82,7 +80,7 @@ class Collection extends \Toast\Wrapper implements \Iterator, \Countable
 		$values = array();
 		foreach ($array as $value => $bool) {
 			if ($bool) {
-				$values[$value] = Wrapper::$em->getReference($this->_md['entity'], $value);
+				$values[$value] = \Toast\Wrapper::$em->getReference($this->_md['entity'], $value);
 			}
 		}
 		return $values;

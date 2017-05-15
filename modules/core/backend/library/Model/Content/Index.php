@@ -4,16 +4,16 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-namespace Chalk\Core\Model\Content;
+namespace Chalk\Core\Backend\Model\Content;
 
-use Toast\Wrapper;
-use Chalk\Core\Model\Index as CoreIndex;
 use Chalk\Chalk;
+use Chalk\Core\Backend\Model\Crud\Index as CrudIndex;
 
-class Index extends CoreIndex
+class Index extends CrudIndex
 {
 	protected $filters;
 	protected $type;
+	protected $subtypes = [];
 	protected $createDateMin;
 	protected $createDateMax;
 	protected $modifyDateMin;
@@ -24,13 +24,6 @@ class Index extends CoreIndex
 		Chalk::STATUS_DRAFT,
 		Chalk::STATUS_PUBLISHED,
 	];
-	protected $subtypes = [];
-	protected $contents = [];
-	protected $contentIds;
-	protected $contentNew;
-	protected $contentList;
-	protected $entity;
-	protected $batch;
 
 	protected static function _defineMetadata($class)
 	{
@@ -42,23 +35,8 @@ class Index extends CoreIndex
 				'type' => array(
 					'type'		=> 'string',
 				),
-				'sort' => array(
-					'values'	=> [
-						'modifyDate,DESC'	=> 'Updated',
-						'publishDate'		=> 'Published',
-						'status'			=> 'Status',
-					]
-				),
 				'subtypes' => array(
 					'type'		=> 'array',
-					'nullable'	=> true,
-				),
-				'contentIds' => array(
-					'type'		=> 'string',
-					'nullable'	=> true,
-				),
-				'contentNew' => array(
-					'type'		=> 'string',
 					'nullable'	=> true,
 				),
 				'createDateMin' => array(
@@ -130,58 +108,22 @@ class Index extends CoreIndex
 						Chalk::STATUS_ARCHIVED	=> 'Archived',
 					],
 				),
-				'entity' => array(
-					'type'		=> 'text',
-					'nullable'	=> true,
+				'sort' => array(
+					'values'	=> [
+						'modifyDate,DESC'	=> 'Updated',
+						'publishDate'		=> 'Published',
+						'status'			=> 'Status',
+					]
 				),
 				'batch' => array(
-					'type'		=> 'string',
-					'nullable'	=> true,
 					'values'	=> [
 						'publish'	=> 'Publish',
 						'archive'	=> 'Archive',
 						'restore'	=> 'Restore',
-						'delete'	=> 'Delete',
 					],
 				),
-			),
-			'associations' => [
-				'contents' => array(
-					'type'		=> 'oneToMany',
-					'entity'	=> '\Chalk\Core\Content',
-				),
-			]
+			)
 		));
-	}
-
-	public function contentIds($value = null)
-	{
-		if (func_num_args() > 0) {
-			$this->contents->clear();
-			$ids = json_decode($value, true);
-			foreach ($ids as $id) {
-				$content = Wrapper::$em->getReference('Chalk\Core\Content', $id);
-				if ($content) {
-					$this->contents->add($content);
-				}
-			}
-			return $this;
-		}
-		$ids = [];
-		foreach ($this->contents as $content) {
-			$ids[] = $content->id;
-		}
-		return json_encode($ids);
-	}
-
-	public function contentNew($value = null)
-	{
-		if (func_num_args() > 0) {
-			$this->contentNew = $value;
-			$this->contentIds(json_encode([$this->contentNew]));
-			return $this;
-		}
-		return $this->contentNew;
 	}
 
 	public function rememberFields(array $fields = [])
