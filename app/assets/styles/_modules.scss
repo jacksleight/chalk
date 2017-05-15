@@ -372,9 +372,9 @@ input[type=radio] + label:before {
   display: inline-block;
   width: $input-toggle-size;
   height: $input-toggle-size;
+  border: 1px solid;
   vertical-align: -0.5em;
   margin-right: 0.2em;
-  border: 1px solid;
   @include colors(0, 0, $color-input);
   background-position: center;
   background-repeat: no-repeat;
@@ -407,6 +407,21 @@ input[type=radio]:checked + label:before {
 input[type=checkbox]:disabled + label:before,
 input[type=radio]:disabled + label:before {
   background-color: $color-shade;
+}
+.form-item {
+	input[type=checkbox] + label:before,
+	input[type=radio] + label:before {
+  	  display: block;
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	}
+	input[type=checkbox] + label,
+	input[type=radio] + label {
+	  position: relative;
+	  padding-left: $input-toggle-size + 10px;
+	  padding-top: ($input-toggle-size - ($font-size * $line-height)) / 2;
+	}
 }
 select { 
 	optgroup {
@@ -854,7 +869,7 @@ textarea,
     justify-content: flex-start;
     margin-bottom: $gutter * -0.25;
 	li {
-		flex: 1 0 200px;
+		flex: 1 0 250px;
 	}
 	.checkboxes_i {
 		padding: 0 $gutter * 0.25 $gutter * 0.25 0;

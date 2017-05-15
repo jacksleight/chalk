@@ -1,7 +1,7 @@
 <?php $this->outer('/layout/page_settings') ?>
 <?php $this->block('main') ?>
 
-<form action="<?= $this->url->route() ?>" method="post" class="flex-col">
+<form action="<?= $this->url->route() ?>" method="post" class="flex-col" novalidate>
 	<div class="header">
 		<h1>
 			<?php if (!$user->isNew()) { ?>

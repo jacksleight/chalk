@@ -115,6 +115,17 @@ class User extends \Toast\Entity implements Trackable, Searchable
 		);
 	}
 
+	protected function _alterMetadata($name, $value)
+	{
+		if ($name == 'passwordPlain' && $this->isNew()) {
+			$validator = (new Validator)
+				->set();
+			$value['nullable'] = false;
+			$value['validator']->steps($validator->steps(), 0);
+		}
+		return $value;
+	}
+
 	public function passwordPlain($passwordPlain = null)
 	{
 		if (!isset($passwordPlain)) {
