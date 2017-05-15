@@ -2,8 +2,8 @@
 
 /* Partials */
 
-@import '_variables.scss';
 @import '_utilities.scss';
+@import '_variables.scss';
 @import '_icons.scss';
 @import '_fonts.scss';
 @import '_base-shared.scss';
@@ -21,6 +21,10 @@ body[style] {
 
 body > *:first-child {
 	margin-top: 0 !important;
+}
+
+.mce-content-body p, .mce-content-body div, .mce-content-body h1, .mce-content-body h2, .mce-content-body h3, .mce-content-body h4, .mce-content-body h5, .mce-content-body h6 {
+	line-height: inherit;
 }
 
 /* Header */
@@ -80,12 +84,22 @@ div[data-chalk] {
 	@include colors(null, null, $color-input);
 	border-width: 1px 0;
 	padding: 0.5em $gutter;
-	cursor: pointer;
+	cursor: pointer !important;
 	&:hover {
 		@include colors(null, 0.5);
 	}
 	& + & {
 		margin-top: 0;
 		border-top: 0;
+	}
+	[data-mce-caret="before"]:first-child + & {
+		margin-top: 0;
+	}
+	& + [data-mce-caret="after"] ~ .mce-visual-caret {
+		margin-left: -1px;
+	}
+	&[contentEditable=false][data-mce-selected] {
+		outline: 0;
+		@include colors(null, 0.5);
 	}
 }

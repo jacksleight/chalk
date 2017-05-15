@@ -5,11 +5,10 @@
 //= require ../../../bower_components/js-base64/base64.js
 
 //= require ../../../bower_components/jquery/dist/jquery.js
-//= require ../../../bower_components/jquery.ui/ui/core.js
 //= require ../../../bower_components/jquery.ui/ui/widget.js
-//= require ../../../bower_components/jquery.ui/ui/mouse.js
-//= require ../../../bower_components/jquery.ui/ui/sortable.js
-//= require ../../../bower_components/jquery.ui/ui/datepicker.js
+//= require ../../../bower_components/jquery.ui/ui/widgets/mouse.js
+//= require ../../../bower_components/jquery.ui/ui/widgets/sortable.js
+//= require ../../../bower_components/jquery.ui/ui/widgets/datepicker.js
 
 //= require ../../../bower_components/Nestable/jquery.nestable.js
 

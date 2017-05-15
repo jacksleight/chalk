@@ -5261,6 +5261,10 @@ legend {
   border-color: #FCB941;
 }
 
+.mce-branding-powered-by {
+  display: none !important;
+}
+
 /* Ace */
 .ace_editor {
   height: 200px;

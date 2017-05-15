@@ -87,7 +87,7 @@ gulp.task('styles', function() {
     var willchange   = require('postcss-will-change');
     return gulp.src([
         sourcePath + '/styles/styles.scss',
-       // sourcePath + '/styles/editor-content.scss',
+        sourcePath + '/styles/editor-content.scss',
     ], {base: sourcePath})
         .pipe(plumber({errorHandler: errorHandler}))
         .pipe(include({extensions: ['scss', 'css'], hardFail: true}))
