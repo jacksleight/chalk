@@ -13,10 +13,10 @@ $isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 		]) : '#' ?>">
 	<?php } ?>
 		<?php if (!$template) { ?>
-			<?= $this->render('/behaviour/selectable/checkbox', [
+			<?= $this->partial('checkbox', [
                 'entity'   => $entity,
                 'entities' => isset($index) ? $index->contents : new \Doctrine\Common\Collections\ArrayCollection(),
-            ], 'core') ?>
+            ]) ?>
 		<?php } ?>
 		<div class="preview">
 			<?php if ($template) { ?>

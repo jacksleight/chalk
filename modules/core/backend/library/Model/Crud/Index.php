@@ -11,6 +11,7 @@ use	Doctrine\Common\Collections\ArrayCollection;
 
 class Index extends \Toast\Entity
 {
+	protected $page = 1;
 	protected $limit = 50;
 	protected $sort;
 	protected $search;

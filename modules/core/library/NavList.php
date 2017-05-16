@@ -11,8 +11,6 @@ use Coast\Resolver;
 
 class NavList
 {
-    protected $_i = 0;
-
     protected $_items = [
         0 => ['children' => []],
     ];
@@ -24,15 +22,16 @@ class NavList
                 if (isset($this->_items[$name])) {
                     $this->_items[$name] = $item + $this->_items[$name];
                 } else {
+                    $i = count($this->_items[$parent]['children']);
                     $this->_items[$name] = $item + [
-                        'i'            => $this->_i++,
+                        'i'            => $i,
                         'label'        => null,
                         'badge'        => null,
                         'icon'         => null,
                         'url'          => null,
                         'parent'       => $parent,
                         'children'     => [],
-                        'sort'         => 0,
+                        'sort'         => ($i + 1) * 10,
                         'isActive'     => false,
                         'isActivePath' => false,
                     ];

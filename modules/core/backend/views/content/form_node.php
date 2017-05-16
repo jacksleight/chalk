@@ -1,4 +1,4 @@
-<?php if (isset($node)) { ?>
+<?php /* if (isset($node)) { ?>
 	<fieldset class="form-block">
 		<div class="form-legend">
 			<h2>Structure</h2>
@@ -19,4 +19,4 @@
 			), 'core') ?>	
 		</div>
 	</fieldset>
-<?php } ?>
+<?php } */ ?>

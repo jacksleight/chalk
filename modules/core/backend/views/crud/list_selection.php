@@ -1,8 +1,7 @@
 <ul class="toolbar toolbar-right autosubmitable">
+    <?= $this->partial('selection-top') ?>
     <?php if ($isEditAllowed) { ?>
-        <?= $this->partial('selection-top') ?>
         <li class="toolbar-gap">
-            Selected&nbsp;
             <?= $this->render('/element/form-input', [
                 'type'   => 'select',
                 'entity' => $index,
@@ -11,6 +10,6 @@
                 'class'  => 'confirmable',
             ], 'core') ?>
         </li>
-        <?= $this->partial('selection-bottom') ?>
     <?php } ?>
+    <?= $this->partial('selection-bottom') ?>
 </ul>

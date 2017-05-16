@@ -1,4 +1,4 @@
-<?php if (!$content->isNew()) { ?>
+<?php if (!$entity->isNew()) { ?>
     <?php if (!isset($node)) { ?>
         <li><a href="<?= $this->url([
             'action'    => 'edit',

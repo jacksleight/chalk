@@ -9,15 +9,24 @@ $this->params([
 	<fieldset class="header">
 		<?= $this->partial('tools') ?>
 		<?= $this->partial('header') ?>
-		<div class="hanging">
-			<?= $this->partial('meta') ?>
-		</div>
+		<?php 
+        $meta = $this->partial('meta-secondary') . $this->partial('meta-primary');
+        ?>
+        <?php if (strpos($meta, '</li>') !== false) { ?>
+            <div class="hanging">
+                <?= $meta ?>
+            </div>
+        <?php } ?>
 	</fieldset>
 	<div class="flex body">
 		<?= $this->partial('general') ?>
-		<?= $this->partial('publishable') ?>
-		<?= $this->partial('node') ?>
-		<?= $this->partial('developer') ?>
+        <?php if (is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true)) { ?>
+            <?= $this->partial('publishable') ?>
+        <?php } ?>
+        <? // $this->partial('node') ?>
+        <?php if ($req->user->isDeveloper()) { ?>
+            <?= $this->partial('developer') ?>
+        <?php } ?>
 	</div>
 	<fieldset class="footer">
 		<?= $this->partial('actions-primary') ?>

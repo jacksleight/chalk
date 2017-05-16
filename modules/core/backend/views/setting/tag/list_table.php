@@ -4,7 +4,6 @@ $this->params([
         'name' => [
             'label'   => 'Name',
             'partial' => 'name',
-            'sort'    => 1,
         ],
     ] + (isset($tableCols) ? $tableCols : []),
 ]);

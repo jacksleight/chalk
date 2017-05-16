@@ -896,8 +896,8 @@ legend {
 	@include colors(null, null, 1.5);
 	border: solid;
 	border-width: 1px 0 0 0;
-	margin: $gutter * 1 0 0 0;
-	padding: $gutter * 1 0 0 0;
+	margin: $gutter-y-body * 1 0 0 0;
+	padding: $gutter-y-body * 1 0 0 0;
 	position: relative;
 	&:first-child {
 		border-top: 0;

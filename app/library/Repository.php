@@ -29,11 +29,13 @@ class Repository extends EntityRepository
     protected $_limit   = 1;
     protected $_indexBy = null;
 
-    public function create()
+    public function create(array $array = array())
     {
         $args = func_get_args();
         $reflection = new \ReflectionClass($this->getClassName());
-        return $reflection->newInstanceArgs($args);
+        $entity = $reflection->newInstanceArgs($args);
+        $entity->fromArray($array);
+        return $entity;
     }
 
     public function id($id, array $params = array(), array $opts = array())

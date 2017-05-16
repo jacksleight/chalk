@@ -1,6 +1,7 @@
 <?php
 return [
     'extensions' => [
+        'content'           => ['crud'],
         'page'              => ['content'],
         'file'              => ['content'],
         'block'             => ['content'],

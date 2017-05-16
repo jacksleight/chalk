@@ -1,5 +1,20 @@
 <?php
 $this->params([
+    'tableCols' => $tableCols = [
+        'modifyDate' => is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true) ? [
+            'label'   => 'Updated',
+            'class'   => 'col-right col-contract',
+            'partial' => 'date-user',
+            'params'  => ['property' => 'modify'],
+        ] : null,
+        'status' => is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true) ? [
+            'label'   => 'Status',
+            'class'   => 'col-right col-contract',
+            'partial' => 'status',
+        ] : null,
+    ] + (isset($tableCols) ? $tableCols : []),
+]);
+$this->params([
     'tableCols' => $tableCols = isset($tableCols) ? $tableCols : [
         [
             'label'   => 'Name',
@@ -7,15 +22,29 @@ $this->params([
         ],
     ],
 ]);
-foreach ($tableCols as $i => $col) {
-    $tableCols[$i] = $col + [
+$i = 0;
+foreach ($tableCols as $key => $col) {
+    if (!isset($col)) {
+        unset($tableCols[$key]);
+        continue;
+    }
+    $tableCols[$key] = $col + [
+        'i'        => $i,
         'label'    => null,
         'class'    => null,
         'style'    => null,
         'partial'  => null,
+        'func'     => null,
         'params'   => [],
+        'sort'     => ($i + 1) * 10,
     ];
+    $i++;
 }
+uasort($tableCols, function($a, $b) {
+    return $a['sort'] == $b['sort']
+        ? $a['i'] - $b['i']
+        : $a['sort'] - $b['sort'];
+});
 ?>
 
 <table class="multiselectable">
@@ -48,19 +77,24 @@ foreach ($tableCols as $i => $col) {
             <?php foreach ($entities as $entity) { ?>
                 <tr class="selectable <?= $isEditAllowed ? 'clickable' : null ?>">
                     <td class="col-select">
-                        <?= $this->render('/behaviour/selectable/checkbox', [
+                        <?= $this->partial('checkbox', [
                             'entity'   => $entity,
                             'entities' => $index->entities,
-                        ], 'core') ?>
+                        ]) ?>
                     </td>
                     <?php foreach ($tableCols as $col) { ?>
-                        <td class="<?= $col['class'] ?>" style="<?= $col['style'] ?>">
-                            <?php if (isset($col['partial'])) { ?>
-                                <?= $this->inner("list_table-{$col['partial']}", ['entity' => $entity] + $col['params']) ?>
-                            <?php } else if (isset($col['func'])) { ?>
-                                <?= $col['func']($entity, $col['params']) ?>
-                            <?php } ?>
-                        </td>
+                        <?php
+                        if (isset($col['partial'])) {
+                            $html = $this->inner("list_table-{$col['partial']}", ['entity' => $entity] + $col['params']);
+                        } else if (isset($col['func'])) {
+                            $html = $col['func']($entity, $col['params']);
+                        }
+                        ?>
+                        <?php if (strlen($html)) { ?>
+                            <td class="<?= $col['class'] ?>" style="<?= $col['style'] ?>">
+                                <?= $html ?>
+                            </td>
+                        <?php } ?>
                     <?php } ?>
                 </tr>
             <?php } ?>

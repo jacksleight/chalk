@@ -1,5 +1,5 @@
 <?= $this->render('/element/form-item', array(
-    'entity'    => $content,
+    'entity'    => $entity,
     'name'      => 'blocks',
     'label'     => 'Content',
     'type'      => 'array_textarea',
@@ -9,16 +9,16 @@
 ), 'core') ?>
 <?= $this->render('/element/form-item', array(
     'type'      => 'textarea',
-    'entity'    => $content,
+    'entity'    => $entity,
     'name'      => 'summary',
     'label'     => 'Summary',
     'class'     => 'monospaced editor-content',
     'rows'      => 5,
 ), 'core') ?>
-<?php if (!isset($content->data['delegate'])) { ?>
+<?php if (!isset($entity->data['delegate'])) { ?>
     <?= $this->render('/element/form-item', array(
         'type'      => 'select',
-        'entity'    => $content,
+        'entity'    => $entity,
         'name'      => 'layout',
         'label'     => 'Layout',
         'null'      => 'Default',

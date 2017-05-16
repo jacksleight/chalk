@@ -1,7 +1,4 @@
 <fieldset class="form-block">
-	<div class="form-legend">
-		<h2>General</h2>
-	</div>
 	<div class="form-items">
 		<?= $this->render('/element/form-item', array(
 			'entity'	=> $entity,

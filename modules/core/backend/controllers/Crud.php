@@ -73,7 +73,7 @@ abstract class Crud extends Action
     {       
         $entity = isset($req->id)
             ? $this->em($req->info)->id($req->id)
-            : $this->em($req->info)->create();
+            : $this->em($req->info)->create($req->queryParams());
         $req->view->entity = $wrap = $this->em->wrap($entity);
 
         if (!$req->isPost()) {

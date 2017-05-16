@@ -71,9 +71,12 @@ class Url extends Content
 		return $meta;
 	}
 
-	public function url(CoastUrl $url = null)
+	public function url($url = null)
 	{
 		if (isset($url)) {
+			$url = $url instanceof CoastUrl
+				? $url
+				: new CoastUrl($url);
 			if ($url != $this->url) {
 				try {
 					$this->urlCanonical = $url->toCanonical();

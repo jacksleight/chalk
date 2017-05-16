@@ -38,7 +38,7 @@ class Chalk extends CoastApp
         return self::$_isFrontend;
     }
 
-    public static function info($class)
+    public static function info($class, $graceful = false)
     {
         if (is_object($class)) {
             if ($class instanceof \stdClass) {
@@ -48,7 +48,11 @@ class Chalk extends CoastApp
         } else if (strpos($class, '\\') === false) {
             $parts = preg_split('/[_\/]/', $class);
             if (!isset(self::$_map[$parts[0]])) {
-                throw new Exception("Class '{$class}' does not belong to a registered module");
+                if (!$graceful) {
+                    throw new Exception("Class '{$class}' does not belong to a registered module");
+                } else {
+                    return false;
+                }
             }
             $nspace = self::$_map[array_shift($parts)];
             $parts  = array_map('ucfirst', $parts);
@@ -69,7 +73,11 @@ class Chalk extends CoastApp
             }
         }
         if (!isset($module)) {
-            throw new Exception("Class '{$class}' does not belong to a registered module");   
+            if (!$graceful) {
+                throw new Exception("Class '{$class}' does not belong to a registered module");   
+            } else {
+                return false;
+            }
         }
 
         $alias         = [$alias];       

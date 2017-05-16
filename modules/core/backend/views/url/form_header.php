@@ -1,9 +1,9 @@
 <?= $this->partial('header-before') ?>
 <h1>
-    <?php if (!$content->isNew()) { ?>
-        <?= $content->name ?>
+    <?php if (!$entity->isNew()) { ?>
+        <?= $entity->name ?>
     <?php } else { ?>
-        New <?= $content->subtype == 'mailto'
+        New <?= $entity->subtype == 'mailto'
             ? str_replace('URL', 'Email URL', $info->singular)
             : $info->singular ?>
     <?php } ?>
