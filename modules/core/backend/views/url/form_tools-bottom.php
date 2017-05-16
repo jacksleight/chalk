@@ -1,7 +1,7 @@
 <?php if (!$entity->isNew()) { ?>
     <?php if (!isset($node)) { ?>
         <li><a href="<?= $this->url([
-            'action'    => 'edit',
+            'action'    => 'update',
             'id'        => null,
         ]) . $this->url->query([
             'url' => 'mailto:',

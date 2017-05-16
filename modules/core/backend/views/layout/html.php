@@ -35,7 +35,7 @@ $title  = (isset($title)
                 'action'     => 'select',
             ], 'core_index', true),
             'widgetUrl'     => (string) $this->url([
-                'action' => 'edit',
+                'action' => 'update',
                 'entity' => '{entity}',
             ], 'core_widget', true),
             'sourceUrl'     => (string) $this->url([

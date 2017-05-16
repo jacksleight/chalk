@@ -1,18 +1,20 @@
 <?php
 $this->params([
-    'tableCols' => $tableCols = [
-        'modifyDate' => is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true) ? [
+    'tableCols' => $tableCols = (isset($tableCols) ? $tableCols : []) + [
+        'date' => is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true) ? [
             'label'   => 'Updated',
             'class'   => 'col-right col-contract',
             'partial' => 'date-user',
             'params'  => ['property' => 'modify'],
+            'sort'    => 80,
         ] : null,
         'status' => is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true) ? [
             'label'   => 'Status',
             'class'   => 'col-right col-contract',
             'partial' => 'status',
+            'sort'    => 90,
         ] : null,
-    ] + (isset($tableCols) ? $tableCols : []),
+    ],
 ]);
 $this->params([
     'tableCols' => $tableCols = isset($tableCols) ? $tableCols : [
@@ -29,21 +31,18 @@ foreach ($tableCols as $key => $col) {
         continue;
     }
     $tableCols[$key] = $col + [
-        'i'        => $i,
         'label'    => null,
         'class'    => null,
         'style'    => null,
         'partial'  => null,
         'func'     => null,
         'params'   => [],
-        'sort'     => ($i + 1) * 10,
+        'sort'     => null,
     ];
     $i++;
 }
 uasort($tableCols, function($a, $b) {
-    return $a['sort'] == $b['sort']
-        ? $a['i'] - $b['i']
-        : $a['sort'] - $b['sort'];
+    return $a['sort'] - $b['sort'];
 });
 ?>
 
@@ -72,7 +71,7 @@ uasort($tableCols, function($a, $b) {
             <?php } ?>
         </tr>
     </thead>
-    <tbody class="<?= $isUploadable ? 'uploadable-list' : null ?>">
+    <tbody class="uploadable-list">
         <?php if (count($entities)) { ?>
             <?php foreach ($entities as $entity) { ?>
                 <tr class="selectable <?= $isEditAllowed ? 'clickable' : null ?>">
@@ -101,12 +100,7 @@ uasort($tableCols, function($a, $b) {
         <?php } else { ?>
             <tr>
                 <td class="notice" colspan="<?= 3 + count($tableCols) ?>">
-                    <h2>No <?= $info->plural ?> Found</h2>
-                    <?php if (isset($index->search) && strrpos($index->search, '*') === false) { ?>
-                        <p>To search for partial words use an asterisk, eg. "<a href="<?= $this->url->query(['search' => "*{$index->search}*"]) ?>"><?= "*{$index->search}*" ?></a>".</p>
-                    <?php } else if ($isAddAllowed) { ?>
-                        <p>To create a new <?= strtolower($info->singular) ?> click the 'New <?= $info->singular ?>' button above.</p>
-                    <?php } ?>
+                    <?= $this->partial('notice') ?>
                 </td>
             </tr>
         <?php } ?>

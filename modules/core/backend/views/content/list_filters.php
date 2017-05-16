@@ -1,12 +1,12 @@
 <?php
 $this->params([
-    'filterFields' => $filterFields = [
+    'filterFields' => $filterFields = (isset($filterFields) ? $filterFields : []) + [
         'subtype' => [
             'class'   => 'flex-2',
             'partial' => 'subtype',
-            'sort'    => 15,
+            'sort'    => 70,
         ],
-    ] + (isset($filterFields) ? $filterFields : []),
+    ],
 ]);
 ?>
 <?= $this->parent() ?>

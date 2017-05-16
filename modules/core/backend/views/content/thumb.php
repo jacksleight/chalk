@@ -8,7 +8,7 @@ $isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 	<?php if ($isEditAllowed) { ?>
 		<a href="<?= !$template ? $this->url([
             'entity' => $info->name,
-            'action' => 'edit',
+            'action' => 'update',
             'id'     => $entity->id,
 		]) : '#' ?>">
 	<?php } ?>

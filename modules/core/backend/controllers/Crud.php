@@ -29,7 +29,8 @@ abstract class Crud extends Action
 
     public function index(Request $req, Response $res)
     {
-        foreach (class_parents($this) as $parent) {
+        $parents = array_merge([get_class($this)], array_values(class_parents($this)));
+        foreach ($parents as $parent) {
             $check = str_replace('\\Controller\\', '\\Model\\', $parent) . '\\Index';
             if (class_exists($check)) {
                 $class = $check;
@@ -69,11 +70,21 @@ abstract class Crud extends Action
         )));
     }
 
-    public function edit(Request $req, Response $res)
-    {       
+    public function create(Request $req, Response $res)
+    {  
+        $this->forward('update');
+    }
+
+    public function update(Request $req, Response $res)
+    {
         $entity = isset($req->id)
             ? $this->em($req->info)->id($req->id)
             : $this->em($req->info)->create($req->queryParams());
+        if ($entity->isNew()) {
+            $this->_action_create($entity);
+        } else {
+            $this->_action_update($entity);            
+        }
         $req->view->entity = $wrap = $this->em->wrap($entity);
 
         if (!$req->isPost()) {
@@ -119,7 +130,7 @@ abstract class Crud extends Action
         } catch (ForeignKeyConstraintViolationException $e) {
             $this->notify("{$req->info->singular} <strong>{$entity->name}</strong> could not be {$this->_processes[$req->type]} because it is in use", 'negative');
             return $res->redirect($this->url(array(
-                'action' => 'edit',
+                'action' => 'update',
             )));
         }
 
@@ -135,6 +146,12 @@ abstract class Crud extends Action
         $req->param('type', 'delete');
         return $this->forward('process');
     }
+
+    protected function _action_create(\Toast\Entity $entity)
+    {}
+
+    protected function _action_update(\Toast\Entity $entity)
+    {}
 
     protected function _process_delete(\Toast\Entity $entity)
     {

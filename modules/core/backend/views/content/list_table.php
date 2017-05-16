@@ -1,12 +1,12 @@
 <?php
 $this->params([
-    'tableCols' => $tableCols = [
+    'tableCols' => $tableCols = (isset($tableCols) ? $tableCols : []) + [
         'name' => [
             'label'   => 'Name',
             'partial' => 'name',
-            'sort'    => 1,
+            'sort'    => 10,
         ],
-    ] + (isset($tableCols) ? $tableCols : []),
+    ],
 ]);
 ?>
 <?= $this->parent() ?>

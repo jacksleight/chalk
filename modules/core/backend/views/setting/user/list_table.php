@@ -1,14 +1,16 @@
 <?php
 $this->params([
-    'tableCols' => $tableCols = [
+    'tableCols' => $tableCols = (isset($tableCols) ? $tableCols : []) + [
         'enabled' => [
             'label'   => 'Enabled',
             'class'   => 'col-badge',
             'partial' => 'enabled',
+            'sort'    => 0,
         ],
         'name' => [
             'label'   => 'Name',
             'partial' => 'name',
+            'sort'    => 10,
         ],
         'role' => [
             'label'   => 'Role',
@@ -16,8 +18,9 @@ $this->params([
             'func'    => function($entity, $params) {
                 return ucwords($entity->role);
             },
+            'sort'    => 90,
         ],
-    ] + (isset($tableCols) ? $tableCols : []),
+    ],
 ]);
 ?>
 <?= $this->parent() ?>

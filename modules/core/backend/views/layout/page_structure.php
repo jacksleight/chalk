@@ -71,7 +71,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 				<li class="tree-node" data-id="<?= $structure->root['id'] ?>">
 					<a href="<?= $this->url([
 						'structure'	=> $structure->id,
-						'action'	=> 'edit',
+						'action'	=> 'update',
 						'node'		=> $structure->root['id'],
 					], 'core_structure_node') ?>" class="tree-item <?= $structure->root['id'] == $req->node ? 'active' : '' ?> tree-item-<?= $content['status'] ?> <?= $structure->root['isHidden'] ? 'tree-item-hidden' : '' ?>">
 						<?= isset($structure->root['name']) ? $structure->root['name'] : $structure->root['content']['name'] ?>
@@ -101,7 +101,7 @@ $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
 					<li class="tree-node <?= (isset($statuses[$node['id']]) && !$statuses[$node['id']]) && $node['right'] > $node['left'] + 1 ? 'tree-collapsed' : null ?>" data-id="<?= $node['id'] ?>">
 						<a href="<?= $this->url([
 							'structure'	=> $structure->id,
-							'action'	=> 'edit',
+							'action'	=> 'update',
 							'node'		=> $node['id'],
 						], 'core_structure_node') ?>" class="tree-item <?= $node['id'] == $req->node ? 'active' : '' ?> tree-item-<?= $content['status'] ?> <?= $node['isHidden'] ? 'tree-item-hidden' : '' ?>">
 							<?= isset($node['name']) ? $node['name'] : $node['content']['name'] ?>

@@ -10,12 +10,8 @@ use Chalk\Chalk;
 use Chalk\Core;
 use Coast\Request;
 use Coast\Response;
-use Coast\Url;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use FileUpload\FileSystem;
-use FileUpload\FileUpload;
-use FileUpload\PathResolver;
 
 abstract class Content extends Crud
 {

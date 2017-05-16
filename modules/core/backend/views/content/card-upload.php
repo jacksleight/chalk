@@ -1,6 +1,6 @@
 <?php
 $template = isset($template) ? $template : false;
-$covered  = isset($covered) ? $covered : false;
+$covered  = isset($covered)  ? $covered  : false;
 ?>
 <div class="card">
 	<div class="preview">

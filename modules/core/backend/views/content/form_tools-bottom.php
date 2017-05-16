@@ -2,7 +2,7 @@
 	<?php if (isset($node)) { ?>
 		<?php if (is_a($info->class, 'Chalk\Core\Page', true)) { ?>
 			<li><a href="<?= $this->url([
-					'action'	=> 'edit',
+					'action'	=> 'update',
 					'node'		=> null,
 				]) ?><?= $this->url->query([
 					'parent'	=> $node->id,
@@ -12,7 +12,7 @@
 			</a></li>
 			<?php if (isset($node->parent)) { ?>
 				<li><a href="<?= $this->url([
-						'action'	=> 'edit',
+						'action'	=> 'update',
 						'node'		=> null,
 					]) ?><?= $this->url->query([
 						'parent'	=> $node->parent->id,

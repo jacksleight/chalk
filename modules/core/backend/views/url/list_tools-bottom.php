@@ -1,6 +1,6 @@
 <?php if ($isAddAllowed) { ?>
     <li><a href="<?= $this->url([
-        'action' => 'edit',
+        'action' => 'update',
     ]) . $this->url->query([
         'url' => 'mailto:',
     ], true) ?>" class="btn btn-focus icon-add">

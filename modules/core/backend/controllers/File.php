@@ -7,8 +7,13 @@
 namespace Chalk\Core\Backend\Controller;
 
 use Chalk\Chalk;
+use Chalk\Core;
+use Coast\File as CoastFile;
 use Coast\Request;
 use Coast\Response;
+use FileUpload\FileSystem;
+use FileUpload\FileUpload;
+use FileUpload\PathResolver;
 
 class File extends Content
 {
@@ -28,20 +33,20 @@ class File extends Content
         list($uploads, $headers) = $uploader->processAll();
         foreach ($uploads as $upload) {
             if (isset($upload->path)) {
-                $content = isset($req->route['params']['id'])
+                $entity = isset($req->route['params']['id'])
                     ? $this->em($req->info)->id($req->route['params']['id'])
                     : $this->em($req->info)->create();      
-                $view = $content->isNew() ? 'content/thumb' : 'content/card-upload';    
-                if (!$this->em->isPersisted($content)) {
-                    $content->newFile = new \Coast\File($upload->path);
-                    $this->em->persist($content);
+                $view = $entity->isNew() ? 'content/thumb' : 'content/card-upload';    
+                if (!$this->em->isPersisted($entity)) {
+                    $entity->newFile = new CoastFile($upload->path);
+                    $this->em->persist($entity);
                 } else {
-                    $content->move(new \Coast\File($upload->path));
+                    $entity->move(new CoastFile($upload->path));
                 }
                 $this->em->flush();
                 unset($upload->path);
-                $upload->html = $this->view->render($view, [
-                    'content'       => $content,
+                $upload->html = $this->view->render($view, [ 
+                    'entity'        => $entity,
                     'covered'       => true,
                     'isEditAllowed' => (bool) $req->isEditAllowed,
                 ] + (array) $req->view, 'core')->toString();

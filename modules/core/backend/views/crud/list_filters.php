@@ -1,20 +1,23 @@
 <?php
 $this->params([
-    'filterFields' => $filterFields = [
+    'filterFields' => $filterFields = (isset($filterFields) ? $filterFields : []) + [
         'search' => is_a($info->class, 'Chalk\Core\Behaviour\Searchable', true) ? [
             'class'   => 'flex-3',
             'partial' => 'search',
+            'sort'    => 10,
         ] : null,
-        'modifyDateMin' => is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true) ? [
+        'dateMin' => is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true) ? [
             'class'   => 'flex-2',
             'partial' => 'date-min',
             'params'  => ['property' => 'modify', 'placeholder' => 'Updated'],
+            'sort'    => 80,
         ] : null,
         'status' => is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true) ? [
             'class'   => 'flex-2',
             'partial' => 'status',
+            'sort'    => 90,
         ] : null,
-    ] + (isset($filterFields) ? $filterFields : []),
+    ],
 ]);
 $i = 0;
 foreach ($filterFields as $key => $field) {
@@ -23,20 +26,17 @@ foreach ($filterFields as $key => $field) {
         continue;
     }
     $filterFields[$key] = $field + [
-        'i'        => $i,
         'class'    => null,
         'style'    => null,
         'partial'  => null,
         'func'     => null,
         'params'   => [],
-        'sort'     => ($i + 1) * 10,
+        'sort'     => null,
     ];
     $i++;
 }
 uasort($filterFields, function($a, $b) {
-    return $a['sort'] == $b['sort']
-        ? $a['i'] - $b['i']
-        : $a['sort'] - $b['sort'];
+    return $a['sort'] - $b['sort'];
 });
 ?>
 
