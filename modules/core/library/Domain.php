@@ -18,7 +18,7 @@ use Coast\Validator;
  *     uniqueConstraints={@UniqueConstraint(columns={"name"})}
  * )
 */
-class Domain extends \Toast\Entity implements Trackable
+class Domain extends Entity implements Trackable
 {
 	public static $chalkSingular = 'Site';
     public static $chalkPlural   = 'Sites';
@@ -87,4 +87,9 @@ class Domain extends \Toast\Entity implements Trackable
 
 		$this->structures = new ArrayCollection();
 	}
+
+    public function previewName()
+    {
+        return $this->label;
+    }
 }

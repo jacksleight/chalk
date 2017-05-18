@@ -18,7 +18,7 @@ use Coast\Validator;
  *     uniqueConstraints={@UniqueConstraint(columns={"slug"})}
  * )
 */
-class Tag extends \Toast\Entity implements Trackable, Searchable
+class Tag extends Entity implements Trackable, Searchable
 {
 	public static $chalkSingular = 'Tag';
 	public static $chalkPlural   = 'Tags';

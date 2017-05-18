@@ -2,5 +2,5 @@
     type="checkbox"
     id="<?= "_contents[{$entity->id}]" ?>"
     value="<?= $entity->id ?>"
-    <?= $entities->contains($entity) ? 'checked' : null ?>> 
+    <?= in_array($entity->id, $selectedArray) ? 'checked' : null ?>> 
 <label for="<?= "_contents[{$entity->id}]" ?>" class="checkbox"></label>

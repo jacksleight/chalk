@@ -6,16 +6,17 @@
 
 namespace Chalk\Core\Structure;
 
-use Chalk\Core\Content,
-    Chalk\Core\Structure\Node,
-    Coast\Model,
-    Doctrine\Common\Collections\ArrayCollection;
+use Chalk\Core\Entity;
+use Chalk\Core\Content;
+use Chalk\Core\Structure\Node;
+use Coast\Model;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity
  * @Table(indexes={@Index(columns={"left", "right", "depth"})})
 */
-class Node extends \Toast\Entity
+class Node extends Entity
 {
     public static $chalkSingular = 'Node';
     public static $chalkPlural   = 'Nodes';

@@ -114,6 +114,7 @@ class Chalk extends CoastApp
             ],
             'singular'  => class_exists($class) && isset($class::$chalkSingular) ? $class::$chalkSingular : implode('_', $entityLcFirst),
             'plural'    => class_exists($class) && isset($class::$chalkPlural)   ? $class::$chalkPlural   : implode('_', $entityLcFirst),
+            'text'      => class_exists($class) && isset($class::$chalkText)     ? $class::$chalkText     : null,
             'group'     => class_exists($class) && isset($class::$chalkGroup)    ? $class::$chalkGroup    : null,
             'icon'      => class_exists($class) && isset($class::$chalkIcon)     ? $class::$chalkIcon     : null,
         ]);

@@ -7,34 +7,43 @@
 namespace Chalk\Core;
 
 use Chalk\Chalk;
+use Chalk\Core\User;
 use Coast\Resolver;
 
 class NavList
 {
+    protected $_user;
     protected $_items = [
         0 => ['children' => []],
     ];
+
+    public function __construct(User $user)
+    {
+        $this->_user = $user;
+    }
 
     public function item($name, $item = null, $parent = 0)
     {
         if (func_num_args() > 1) {
             if (isset($item)) {
                 if (isset($this->_items[$name])) {
-                    $this->_items[$name] = $item + $this->_items[$name];
+                    $this->_items[$name] = \Coast\array_merge_smart($this->_items[$name], $item);
                 } else {
-                    $i = count($this->_items[$parent]['children']);
-                    $this->_items[$name] = $item + [
-                        'i'            => $i,
+                    $this->_items[$name] = \Coast\array_merge_smart([
                         'label'        => null,
                         'badge'        => null,
                         'icon'         => null,
-                        'url'          => null,
+                        'url'          => [
+                            'params' => [],
+                            'name'   => null,
+                        ],
                         'parent'       => $parent,
                         'children'     => [],
-                        'sort'         => ($i + 1) * 10,
+                        'sort'         => (count($this->_items[$parent]['children']) + 1) * 10,
+                        'isTags'       => false,
                         'isActive'     => false,
                         'isActivePath' => false,
-                    ];
+                    ], $item);
                     $this->_items[$parent]['children'][$name] = &$this->_items[$name];
                 }
             } else {
@@ -61,20 +70,21 @@ class NavList
         return $this->_items;
     }
 
-    public function itemEntity($name, $item = null, $parent = 0, $route = 'core_site')
+    public function itemEntity($name, $item = null, $parent = 0)
     {
         $info = Chalk::info($name);
         $name = $info->name;
         if (func_num_args() > 1) {
             if (isset($item)) {
-                $this->item($name, [
+                $this->item($name, \Coast\array_merge_smart([
+                    'info'  => $info,
                     'label' => $info->plural,
                     'icon'  => $info->icon,
-                    'url'   => [[
+                    'url'   => ['params' => [
                         'group'      => $info->module->name,
                         'controller' => $info->local->name,
-                    ], 'core_site'],
-                ] + $item, $parent);
+                    ]],
+                ], $item), $parent);
             } else {
                 $this->item($name, $item);
             }
@@ -89,10 +99,13 @@ class NavList
             return null;
         }
         $items = $this->_items[$name]['children'];
+        foreach ($items as $name => $item) {
+            if (isset($item['roles']) && !in_array($this->_user->role, $item['roles'])) {
+                unset($items[$name]);
+            }
+        }
         uasort($items, function($a, $b) {
-            return $a['sort'] == $b['sort']
-                ? $a['i'] - $b['i']
-                : $a['sort'] - $b['sort'];
+            return $a['sort'] - $b['sort'];
         });
         return $items;
     }
@@ -104,7 +117,7 @@ class NavList
             if (!isset($item['url'])) {
                 continue;
             }
-            $path = $url->route($item['url'][0], $item['url'][1], true, false);
+            $path = $url->route($item['url']['params'], $item['url']['name'], true, false);
             $this->_items[$name]['url'] = $url->string($path);
             $map[$path->toString()] = $name;
         }

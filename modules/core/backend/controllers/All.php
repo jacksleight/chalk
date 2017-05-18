@@ -18,25 +18,13 @@ class All extends Action
 {
     public function preDispatch(Request $req, Response $res)
     {
+        $session   = $this->session->data('__Chalk\Backend');
+        $req->user = isset($session->user)
+            ? $this->em('Chalk\Core\User')->id($session->user)
+            : null;
+
         $this->app->module = $this->chalk->module($req->group);
         
-        $this->contentList = $this->hook->fire('core_contentList', new InfoList('core_main'));
-        $this->widgetList  = $this->hook->fire('core_widgetList', new InfoList());
-        $this->navList     = $this->hook->fire('core_navList', new NavList());
-        $this->domain      = $this->em('core_domain')->id(1);
-
-        $this->navList->activate($this->url, $req->path());
-        $this->widgetList->sort();
-
-        $session = $this->session->data('__Chalk\Backend');
-        if (!isset($session->user) && $req->controller !== 'auth') {
-            $query = [];
-            if ($req->controller != 'index' || $req->action != 'index') {
-                $query['redirect'] = (string) $req->url()->toPart(Url::PART_PATH, true);
-            }
-            return $res->redirect($this->url([], 'core_login', true) . $this->url->query($query, true));
-        }
-
         $req->data = (object) [];
         $req->view = (object) [];
 
@@ -44,11 +32,21 @@ class All extends Action
             return;
         }
 
-        $req->user = $this->em('Chalk\Core\User')->id($session->user);
         if (!isset($req->user)) {
-            $session->user = null;
-            return $res->redirect($this->url([], 'core_login', true));
+            $query = [];
+            if ($req->controller != 'index' || $req->action != 'index') {
+                $query['redirect'] = (string) $req->url()->toPart(Url::PART_PATH, true);
+            }
+            return $res->redirect($this->url([], 'core_login', true) . $this->url->query($query, true));
         }
+
+        $this->contentList = $this->hook->fire('core_contentList', new InfoList('core_main'));
+        $this->widgetList  = $this->hook->fire('core_widgetList', new InfoList());
+        $this->navList     = $this->hook->fire('core_navList', new NavList($req->user));
+        $this->domain      = $this->em('core_domain')->id(1);
+
+        $this->navList->activate($this->url, $req->path());
+        $this->widgetList->sort();
 
         $this->em->listener('core_trackable')->setUser($req->user);
         

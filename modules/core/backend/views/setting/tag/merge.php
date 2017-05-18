@@ -1,4 +1,4 @@
-<?php $this->outer('/layout/page_settings') ?>
+<?php $this->outer('/layout/page') ?>
 <?php $this->block('main') ?>
 
 <form action="<?= $this->url->route() ?>" method="post" class="flex-col">
@@ -8,7 +8,7 @@
 		</h1>
 	</div>
 	<div class="flex body">
-		<p>This will tag all items tagged with the source tag with the target tag, and then delete the source tag. <strong>This action cannot be undone.</strong></p>
+		<p>This will find all items using the source tag, assign them the target tag, and then delete the source tag. <strong>This action cannot be undone.</strong></p>
 		<fieldset class="form-block">
 			<div class="form-legend">
 				<h2>Tags</h2>

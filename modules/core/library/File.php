@@ -178,4 +178,11 @@ class File extends Content
 			$this->baseName,
 		]);
 	}
+
+	public function previewFile()
+	{
+		return $this->isImage
+			? $this->file
+			: null;
+	}
 }

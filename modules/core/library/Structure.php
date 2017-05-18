@@ -20,7 +20,7 @@ use Chalk\Core\Structure\Node,
  *     uniqueConstraints={@UniqueConstraint(columns={"slug"})}
  * )
 */
-class Structure extends \Toast\Entity implements Trackable
+class Structure extends Entity implements Trackable
 {
 	public static $chalkSingular = 'Structure';
     public static $chalkPlural   = 'Structures';
@@ -100,5 +100,13 @@ class Structure extends \Toast\Entity implements Trackable
             return $this;
         }
         return $this->slug;
+    }
+
+    public function previewText($context = false, $parts = array())
+    {
+        if (isset($this->path)) {
+            $parts[] = "/{$this->path}";
+        }
+        return parent::previewText($context, $parts);
     }
 }

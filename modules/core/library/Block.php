@@ -17,8 +17,9 @@ use Chalk\Core,
 class Block extends Content
 {
 	public static $chalkSingular = 'Block';
-	public static $chalkPlural   = 'Blocks';
-    public static $chalkIcon     = 'box';
+    public static $chalkPlural   = 'Blocks';
+	public static $chalkText     = 'Content that is used across multiple pages';
+    public static $chalkIcon     = 'file-empty';
 
     /**
      * @Column(type="text", nullable=true)

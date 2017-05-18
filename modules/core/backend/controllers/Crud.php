@@ -7,6 +7,7 @@
 namespace Chalk\Core\Backend\Controller;
 
 use Chalk\Chalk;
+use Chalk\Core\Entity;
 use Coast\Controller\Action;
 use Coast\Request;
 use Coast\Response;
@@ -16,8 +17,17 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 abstract class Crud extends Action
 {
     protected $_entityClass;
-    protected $_processes = [
+    protected $_actions = [
         'delete' => 'deleted',
+    ];
+    protected $_sorts = [];
+    protected $_limits = [
+        50  => '50',
+        100 => '100',
+        200 => '200',
+    ];
+    protected $_batches = [
+        'delete' => 'Delete',
     ];
 
     public function preDispatch(Request $req, Response $res)
@@ -25,6 +35,28 @@ abstract class Crud extends Action
         $req->view->info
             = $req->info
             = Chalk::info($this->_entityClass);
+        if (is_a($req->info->class, 'Chalk\Core\Behaviour\Trackable', true)) {
+            $this->_sorts = [
+                'createDate' => 'Created',
+                'modifyDate' => 'Updated',
+            ] + $this->_sorts;
+        }
+        if (is_a($req->info->class, 'Chalk\Core\Behaviour\Publishable', true)) {
+            $this->_actions = [
+                'publish' => 'published',
+                'archive' => 'archived',
+                'restore' => 'restored',
+            ] + $this->_actions;
+            $this->_sorts = [
+                'publishDate' => 'Published',
+                'status'      => 'Status',
+            ] + $this->_sorts;
+            $this->_batches = [
+                'publish'   => 'Publish',
+                'archive'   => 'Archive',
+                'restore'   => 'Restore',
+            ] + $this->_batches;
+        }
     }
 
     public function index(Request $req, Response $res)
@@ -41,33 +73,43 @@ abstract class Crud extends Action
             return;
         }
 
-        $index = new $class($this->_entityClass);
+        $index = new $class(
+            $this->_entityClass,
+            $this->_sorts,
+            $this->_limits,
+            $this->_batches
+        );
         $req->view->index = $wrap = $this->em->wrap($index);
-        $wrap->graphFromArray($req->queryParams());
-
-        if (!isset($index->batch) || !count($index->entities)) {
+        
+        if (!$req->isPost()) {
+            $wrap->graphFromArray($req->queryParams());
             return;
         }
-        if (!isset($this->_processes[$index->batch])) {
-            throw new \Exception("Process '{$index->batch}' is invalid");
+
+        $wrap->graphFromArray($req->bodyParams());
+
+        if (!isset($this->_actions[$index->batch])) {
+            throw new \Exception("Action '{$index->batch}' is invalid");
         }
 
         try {
-            $method = "_process_{$index->batch}";
-            foreach ($index->entities as $entity) {
+            $method = "_{$index->batch}";
+            $entities = $this->em($req->info)->all(['ids' => $index->selectedArray]);
+            foreach ($entities as $entity) {
                 $this->$method($entity);
             }
             $this->em->flush();
         } catch (ForeignKeyConstraintViolationException $e) {
-            $this->notify("{$req->info->singular} <strong>{$entity->name}</strong> cannot be {$this->_processes[$index->batch]} because it is in use", 'negative');
+            $index->batch = null;
+            $this->notify("Some {$req->info->plural} cannot be {$this->_actions[$index->batch]} because they are in use", 'negative');
             return;
         }
 
-        $this->notify("{$req->info->plural} were {$this->_processes[$index->batch]} successfully", 'positive');
+        $this->notify("{$req->info->plural} were {$this->_actions[$index->batch]} successfully", 'positive');
         return $res->redirect($this->url->query(array(
-            'batch'     => null,
-            'entityIds' => null,
-        )));
+            'selected' => null,
+            'batch'    => null,
+        ) + $req->bodyParams()));
     }
 
     public function create(Request $req, Response $res)
@@ -81,9 +123,9 @@ abstract class Crud extends Action
             ? $this->em($req->info)->id($req->id)
             : $this->em($req->info)->create($req->queryParams());
         if ($entity->isNew()) {
-            $this->_action_create($entity);
+            $this->_create($entity);
         } else {
-            $this->_action_update($entity);            
+            $this->_update($entity);            
         }
         $req->view->entity = $wrap = $this->em->wrap($entity);
 
@@ -93,7 +135,7 @@ abstract class Crud extends Action
 
         $wrap->graphFromArray($req->bodyParams());
         if (!$wrap->graphIsValid()) {
-            $this->notify("{$req->info->singular} <strong>{$entity->name}</strong> could not be saved, please check the messages below", 'negative');
+            $this->notify("{$req->info->singular} <strong>{$entity->previewName}</strong> could not be saved, please check the messages below", 'negative');
             return;
         }
 
@@ -101,21 +143,20 @@ abstract class Crud extends Action
             $this->em->persist($entity);
             $this->em->flush();
         } catch (UniqueConstraintViolationException $e) {
-            $this->notify("{$req->info->singular} could not be saved because <strong>{$entity->name}</strong> already exists", 'negative');
+            $this->notify("{$req->info->singular} could not be saved because <strong>{$entity->previewName}</strong> already exists", 'negative');
             return;
         }
 
-        $this->notify("{$req->info->singular} <strong>{$entity->name}</strong> was saved successfully", 'positive');
-        return $res->redirect($this->url(array(
-            'action'    => null,
-            'id'        => null,
-        )));
+        $this->notify("{$req->info->singular} <strong>{$entity->previewName}</strong> was saved successfully", 'positive');
+        return $res->redirect($this->url([
+            'id' => $entity->id,
+        ]));
     }
 
     public function process(Request $req, Response $res)
     {
-        if (!isset($this->_processes[$req->type])) {
-            throw new \Exception("Process '{$index->batch}' is invalid");
+        if (!isset($this->_actions[$req->type])) {
+            throw new \Exception("Action '{$index->batch}' is invalid");
         }
 
         $entity = $this->em($req->info)->find($req->id);
@@ -124,17 +165,17 @@ abstract class Crud extends Action
         }
 
         try {
-            $method = "_process_{$req->type}";
+            $method = "_{$req->type}";
             $this->$method($entity);
             $this->em->flush();
         } catch (ForeignKeyConstraintViolationException $e) {
-            $this->notify("{$req->info->singular} <strong>{$entity->name}</strong> could not be {$this->_processes[$req->type]} because it is in use", 'negative');
+            $this->notify("{$req->info->singular} <strong>{$entity->previewName}</strong> could not be {$this->_actions[$req->type]} because it is in use", 'negative');
             return $res->redirect($this->url(array(
                 'action' => 'update',
             )));
         }
 
-        $this->notify("{$req->info->singular} <strong>{$entity->name}</strong> was {$this->_processes[$req->type]} successfully", 'positive');
+        $this->notify("{$req->info->singular} <strong>{$entity->previewName}</strong> was {$this->_actions[$req->type]} successfully", 'positive');
         return $res->redirect($this->url(array(
             'action'    => null,
             'id'        => null,
@@ -147,13 +188,13 @@ abstract class Crud extends Action
         return $this->forward('process');
     }
 
-    protected function _action_create(\Toast\Entity $entity)
+    protected function _create(Entity $entity)
     {}
 
-    protected function _action_update(\Toast\Entity $entity)
+    protected function _update(Entity $entity)
     {}
 
-    protected function _process_delete(\Toast\Entity $entity)
+    protected function _delete(Entity $entity)
     {
         $this->em->remove($entity);
     }

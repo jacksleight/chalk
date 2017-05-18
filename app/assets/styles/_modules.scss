@@ -441,7 +441,7 @@ select {
 	@media (-webkit-min-device-pixel-ratio: 0) {
 		background-position: 100% 50%;
 		background-repeat: no-repeat;
-		@include image(arrow-select);
+		background-image: url(svg-dynamic(25 9.409, "M0 2.442l2.43-2.442 4.57 4.548 4.57-4.548 2.43 2.442-7 6.967z", tint($color-primary, 50%)));
 		padding-right: 35px;
 	}
 	/* Fix Firefox not vertically centering text */
@@ -595,6 +595,7 @@ textarea {
     background: #ffffff;
     border-top: 0;
     [data-selectable] {
+    	cursor: default;
         padding: 0 $input-padding-horiz;
         height: $input-height-small - ($input-border-width * 2);
         line-height: $input-height-small - ($input-border-width * 2);
@@ -823,10 +824,18 @@ textarea,
 	vertical-align: bottom;
 	width: 100%;
 	.input-pseudo {
-		background-position: 100% 50%;
-		background-repeat: no-repeat;
-		@include image(arrow-select);
-		padding-right: 35px;
+		position: relative;
+		padding-right: ($input-padding-horiz * 2) + 14px;
+		&::after {
+			content: '';
+			position: absolute 50% $input-padding-horiz auto auto;
+			width: 14px;
+			height: 9.409px;
+			margin-top: -4.7045px;
+			background-position: 100% 50%;
+			background-repeat: no-repeat;
+			background-image: url(svg-dynamic(14 9.409, "M0 2.442l2.43-2.442 4.57 4.548 4.57-4.548 2.43 2.442-7 6.967z", tint($color-primary, 50%)));
+		}
 	}
 	.menu {
 		@include colors(null, 0);
@@ -1235,12 +1244,28 @@ legend {
 			}
 			> ul {
 				display: none;
-				padding-bottom: $gutter * 0.25;
+				padding-bottom: $gutter * 0.35;
 				@include font-size(-1);
 				> li {
 					> .item {
 						padding: $gutter * 0.05 $gutter-x-sidebar;
-						padding-left: $gutter-x-sidebar + 23px;
+						padding-left: $gutter-x-sidebar + 24px;
+					}
+				}
+				&.tags {
+					@include font-size(-2);
+					padding-left: $gutter-x-sidebar;
+					padding-right: $gutter-x-sidebar;
+					flex-wrap: wrap;
+					> li {
+						padding: 0 2px 2px 0;
+						> a {
+							text-decoration: none;
+							@include link-color(inherit);
+							@include colors(null, 1.5);
+							padding: 0 4px 1px 5px;
+							display: block;
+						}
 					}
 				}
 			}
@@ -1250,6 +1275,9 @@ legend {
 				@include colors(null, null, 3);
 				> ul {
 					display: block;
+					&.tags {
+						display: flex;
+					}
 				}
 			}
 		}
@@ -1647,9 +1675,6 @@ legend {
 .login {
 	width: 340px;
 	fieldset {
-		border: 1px solid;
-		border-radius: $radius * 2;
-		@include colors(null, null, 2);
 		padding: $gutter;
 	}
 	.form-item {
@@ -1698,4 +1723,13 @@ legend {
 	.footer {
 		background-color: transparent;
 	}
+}
+
+/* Exception */
+
+.exception {
+	overflow: auto;
+	padding: 1em;
+	border: 1px solid;
+	@include colors(null, null, 3);
 }

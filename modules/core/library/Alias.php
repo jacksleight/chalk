@@ -16,6 +16,7 @@ class Alias extends Content
 {
 	public static $chalkSingular = 'Alias';
 	public static $chalkPlural   = 'Aliases';
+    public static $chalkText     = 'Shortcuts that redirect to other pages';
     public static $chalkIcon     = 'alias';
 
     /**

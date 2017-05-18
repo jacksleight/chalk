@@ -3,4 +3,9 @@
 ]) ?>
 <?php $this->block('main') ?>
 
-<h1>Not Found</h1>
+<div class="flex-col">
+    <div class="body flex">
+        <h1>Not Found</h1>
+        <p>Sorry, the page you requested does not exist.</p>
+    </div>
+</div>

@@ -8,6 +8,7 @@ namespace Chalk\Core\Backend\Controller;
 
 use Chalk\Chalk;
 use Chalk\Core;
+use Chalk\Core\Entity;
 use Coast\Request;
 use Coast\Response;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
@@ -15,14 +16,6 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 abstract class Content extends Crud
 {
-    protected $_entityClass;
-    protected $_processes = [
-        'delete'  => 'deleted',
-        'publish' => 'published',
-        'archive' => 'archived',
-        'restore' => 'restored',
-    ];
-
     public function publish(Request $req, Response $res)
     {
         $req->param('type', 'publish');
@@ -41,17 +34,17 @@ abstract class Content extends Crud
         return $this->forward('process');
     }
 
-    protected function _process_publish(\Toast\Entity $entity)
+    protected function _publish(Entity $entity)
     {
         $entity->status = Chalk::STATUS_PUBLISHED;
     }
 
-    protected function _process_archive(\Toast\Entity $entity)
+    protected function _archive(Entity $entity)
     {
         $entity->status = Chalk::STATUS_ARCHIVED;
     }
 
-    protected function _process_restore(\Toast\Entity $entity)
+    protected function _restore(Entity $entity)
     {
         $entity->restore();
     }

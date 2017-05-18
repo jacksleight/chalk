@@ -1,9 +1,6 @@
-<?php
-$path = new Coast\Path($req->path());
-$this->outer("layout/page_{$path->part(1)}", [
+<?php $this->outer('layout/page', [
     'title' => $info->plural,
-], $path->part(0));
-?>
+], 'core') ?>
 <?php $this->block('main') ?>
 		
 <form action="<?= $this->url->route() ?>" novalidate>

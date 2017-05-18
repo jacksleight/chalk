@@ -1,7 +1,7 @@
 <?= $this->partial('header-before') ?>
 <h1>
 	<?php if (!$entity->isNew()) { ?>
-		<?= $entity->name ?>
+		<?= $entity->previewName ?>
 	<?php } else { ?>
 		New <?= $info->singular ?>
 	<?php } ?>

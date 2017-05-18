@@ -99,10 +99,8 @@ pre, code {
 	@include font-size(-1);
 	line-height: 1;
 }
-pre { 
-	margin: $gutter 0 0 0; padding: $gutter;
+pre { ;
 	tab-size: 4;
-	background: $color-shade;
 }
 
 /* Abbreviation */

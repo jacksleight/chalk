@@ -305,7 +305,7 @@ class Module extends ChalkModule
                 $this->path("profile"), [
                     'group'      => $this->name(),
                     'controller' => 'profile',
-                    'action'     => 'edit',
+                    'action'     => 'update',
                 ])
             ->backendRoute(
                 $this->name('site_redirect'),
@@ -399,55 +399,67 @@ class Module extends ChalkModule
             ->backendHookListen($this->name('navList'), function(NavList $list) {
                 $list
                     ->item($this->name('site'), [
-                        'label'     => 'Site Content',
+                        'label'     => 'Site',
                         'icon'      => 'publish',
-                        'url'       => [[], $this->name('site_redirect')],
+                        'url'       => ['name' => $this->name('site_redirect')],
                     ])
                     ->item($this->name('structure'), [
                         'label'     => 'Structures',
                         'icon'      => 'structure',
-                        'url'       => [[], $this->name('structure')],
+                        'url'       => ['name' => $this->name('structure')],
                     ])
                     ->item($this->name('setting'), [
                         'label'     => 'Settings',
                         'icon'      => 'settings',
-                        'url'       => [[], $this->name('setting_redirect')],
+                        'url'       => ['name' => $this->name('setting_redirect')],
                     ]);
                 $list
-                    ->itemEntity($this->name('page'), [], $this->name('site'))
-                    ->itemEntity($this->name('file'), [], $this->name('site'))
-                    ->itemEntity($this->name('url'), [], $this->name('site'))
-                    ->itemEntity($this->name('alias'), [], $this->name('site'))
-                    ->itemEntity($this->name('block'), [], $this->name('site'));
+                    ->itemEntity($this->name('page'), [
+                        'url' => ['name' => $this->name('site')],
+                    ], $this->name('site'))
+                    ->itemEntity($this->name('block'), [
+                        'url' => ['name' => $this->name('site')],
+                    ], $this->name('page'))
+                    ->itemEntity($this->name('file'), [
+                        'url'    => ['name' => $this->name('site')],
+                        'isTags' => true,
+                    ], $this->name('site'))
+                    ->itemEntity($this->name('url'), [
+                        'url' => ['name' => $this->name('site')],
+                    ], $this->name('site'))
+                    ->itemEntity($this->name('alias'), [
+                        'url' => ['name' => $this->name('site')],
+                    ], $this->name('site'));
                 $list
                     ->item($this->name('setting_domain'), [
                         'label' => 'Site',
-                        'icon' => 'publish',
-                        'url'   => [[
+                        'icon'  => 'publish',
+                        'url'   => ['params' => [
                             'controller' => 'setting_domain',
-                        ], $this->name('setting')],
-                    ], $this->name('setting'))
-                    ->item($this->name('setting_user'), [
-                        'label' => 'Users',
-                        'icon' => 'user',
-                        'url'   => [[
-                            'controller' => 'setting_user'
-                        ], $this->name('setting')],
+                        ], 'name' => $this->name('setting')],
                     ], $this->name('setting'))
                     ->item($this->name('setting_structure'), [
-                        'isDeveloper' => true,
+                        'roles' => ['developer'],
                         'label' => 'Structures',
-                        'icon' => 'structure',
-                        'url'   => [[
+                        'icon'  => 'structure',
+                        'url'   => ['params' => [
                             'controller' => 'setting_structure'
-                        ], $this->name('setting')],
+                        ], 'name' => $this->name('setting')],
+                    ], $this->name('setting_domain'))
+                    ->item($this->name('setting_user'), [
+                        'roles' => ['administrator', 'developer'],
+                        'label' => 'Users',
+                        'icon'  => 'user',
+                        'url'   => ['params' => [
+                            'controller' => 'setting_user'
+                        ], 'name' => $this->name('setting')],
                     ], $this->name('setting'))
                     ->item($this->name('setting_tag'), [
                         'label' => 'Tags',
                         'icon'  => 'price-tag',
-                        'url'   => [[
+                        'url'   => ['params' => [
                             'controller' => 'setting_tag'
-                        ], $this->name('setting')],
+                        ], 'name' => $this->name('setting')],
                     ], $this->name('setting'));
                 return $list;
             });

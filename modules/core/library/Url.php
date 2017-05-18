@@ -19,8 +19,8 @@ use Coast\Validator;
 */
 class Url extends Content
 {
-	public static $chalkSingular = 'URL';
-	public static $chalkPlural   = 'URLs';
+	public static $chalkSingular = 'Link';
+	public static $chalkPlural   = 'Links';
 	public static $chalkIcon     = 'link';
 
     /**
@@ -132,7 +132,7 @@ class Url extends Content
 			: $subtype;
 	}
 
-	public function previewText($context = false, $parts = [])
+	public function previewText($context = false, $parts = array())
 	{
 		if ($this->url->scheme() == 'mailto') {
 			$params  = $this->url->queryParams();

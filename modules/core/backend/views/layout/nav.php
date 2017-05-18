@@ -4,7 +4,7 @@ if (!$items) {
 }
 ?>
 <ul class="<?= isset($class) ? $class : null ?>">
-	<?php foreach ($items as $item) { ?>
+	<?php foreach ($items as $name => $item) { ?>
 		<?php
 		if (!isset($item)) {
 			continue;
@@ -35,10 +35,23 @@ if (!$items) {
 					<span class="badge badge-figure badge-pending"><?= $item['badge'] ?></span>
 				<?php } ?>
 			</a>
-			<?php if (count($item['children'])) { ?>
+			<?php if ($item['isTags']) { ?>
+				<?php
+				$tags = $this->em('core_tag')->all();
+				?>
+				<ul class="tags">
+					<?php foreach ($tags as $tag) { ?>
+						<li><a href="<?= $this->url->query(['tags' => $tag->id]) ?>"><?= $tag->name ?></a></li>
+					<?php } ?>
+				</ul>
+			<?php } ?>
+			<?php
+			$children = $this->navList->children($name);
+			?>
+			<?php if (count($children)) { ?>
 				<?= $this->inner('nav', [
 					'class' => null,
-					'items' => $item['children'],
+					'items' => $children,
 				]) ?>
 			<?php } ?>
 		</li>

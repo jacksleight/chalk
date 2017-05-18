@@ -1,7 +1,5 @@
-<?php if (!$req->isAjax()) { ?>
-	<?php $this->outer('/layout/page_content') ?>
-	<?php $this->block('main') ?>
-<?php } ?>
+<?php $this->outer('/layout/page') ?>
+<?php $this->block('main') ?>
 
 <div class="body">
 

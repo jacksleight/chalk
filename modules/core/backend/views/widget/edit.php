@@ -1,7 +1,5 @@
-<?php if (!$req->isAjax()) { ?>
-	<?php $this->outer('/layout/page_content') ?>
-	<?php $this->block('main') ?>
-<?php } ?>
+<?php $this->outer('/layout/page') ?>
+<?php $this->block('main') ?>
 
 <form action="<?= $this->url->route() ?>?mode=<?= $req->mode ?>&amp;post=1" method="post" data-modal-size="800x800" class="flex-col">
 	<div class="header">

@@ -36,7 +36,7 @@ class File extends Content
                 $entity = isset($req->route['params']['id'])
                     ? $this->em($req->info)->id($req->route['params']['id'])
                     : $this->em($req->info)->create();      
-                $view = $entity->isNew() ? 'content/thumb' : 'content/card-upload';    
+                $view = $entity->isNew() ? '/content/list_thumb' : '/element/card-upload';    
                 if (!$this->em->isPersisted($entity)) {
                     $entity->newFile = new CoastFile($upload->path);
                     $this->em->persist($entity);

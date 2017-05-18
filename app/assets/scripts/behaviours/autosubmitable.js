@@ -7,6 +7,9 @@ Chalk.component('.autosubmitable', function(i, el) {
     el.appendChild(button);
 
 	$(inputs).change(function(ev) {
+        button.formMethod = $(this).is('.autosubmitable-post')
+            ? 'post'
+            : 'get';
 		button.click();
 	});
 	

@@ -10,6 +10,7 @@ html, body {
 }
 ::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
 }
 ::-webkit-scrollbar-track {
     background: transparentize($color-primary, 0.9);
@@ -107,13 +108,19 @@ html, body {
 			@include font-size(0);
 		}
 		.input-pseudo {
+			border-left: 0;
+			border-right: 0;
 			border-color: transparent;
 			background-color: transparent;
 			padding-left: $gutter-x;
-			padding-right: $gutter-x;
+			padding-right: $gutter-x + $input-padding-horiz + 14px;
+			&::after {
+				right: $gutter-x;
+			}
 		}
 		.dropdown .menu {
-			border-color: transparent;		
+			border-left: 0;		
+			border-right: 0;		
 		}
 		.menu .item,
 		.btn {
@@ -128,7 +135,10 @@ html, body {
 		.leftbar & {
 			.input-pseudo {
 				padding-left: $gutter-x-sidebar;
-				padding-right: $gutter-x-sidebar;
+				padding-right: $gutter-x-sidebar + $input-padding-horiz + 14px;
+				&::after {
+					right: $gutter-x-sidebar;
+				}
 			}
 			.menu .item,
 			.btn {

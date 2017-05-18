@@ -20,6 +20,6 @@ $this->params([
         data-max-file-size="<?= isset($this->chalk->config->maxFileSize) ? $this->chalk->config->maxFileSize : null ?>"
         multiple>
     <script type="x-tmpl-mustache" class="uploadable-template">
-        <?= $this->inner('/content/thumb', ['template' => true]) ?>
+        <?= $this->inner('/content/list_thumb', ['template' => true]) ?>
     </script>
 </div>

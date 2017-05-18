@@ -12,7 +12,7 @@ use Coast\Validator;
 /**
  * @Entity
 */
-class Setting extends \Toast\Entity
+class Setting extends Entity
 {
 	public static $chalkSingular = 'Setting';
 	public static $chalkPlural   = 'Settings';

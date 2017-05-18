@@ -7,19 +7,11 @@
 namespace Chalk\Core;
 
 use Chalk\Chalk,
-	Toast\Entity;
+	Chalk\Core\Entity;
 
 abstract class Widget extends Entity
 {
     public static $chalkIcon = 'stack';
-
-    public function previewText($parts = [])
-    {   
-        return $parts;
-    }
-
-    public function previewFile()
-    {}
 
     public function renderParams()
     {

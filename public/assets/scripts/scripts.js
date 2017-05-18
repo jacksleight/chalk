@@ -24213,6 +24213,9 @@ Chalk.component('.autosubmitable', function(i, el) {
     el.appendChild(button);
 
 	$(inputs).change(function(ev) {
+        button.formMethod = $(this).is('.autosubmitable-post')
+            ? 'post'
+            : 'get';
 		button.click();
 	});
 	
@@ -24412,7 +24415,7 @@ Chalk.component('.multiselectable', function(i, el) {
 		$(el).find('input[type=checkbox]:not(.multiselectable-all):checked').each(function() {
 			list.push($(this).val());
 		});
-		values.val(JSON.stringify(list));
+		values.val(list.join(','));
 	});
 	
 });

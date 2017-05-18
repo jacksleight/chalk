@@ -108,20 +108,6 @@ class Index extends CrudIndex
 						Chalk::STATUS_ARCHIVED	=> 'Archived',
 					],
 				),
-				'sort' => array(
-					'values'	=> [
-						'modifyDate,DESC'	=> 'Updated',
-						'publishDate'		=> 'Published',
-						'status'			=> 'Status',
-					]
-				),
-				'batch' => array(
-					'values'	=> [
-						'publish'	=> 'Publish',
-						'archive'	=> 'Archive',
-						'restore'	=> 'Restore',
-					],
-				),
 			)
 		));
 	}
@@ -129,6 +115,7 @@ class Index extends CrudIndex
 	public function rememberFields(array $fields = [])
 	{
 		return parent::rememberFields(array_merge([
+			'subtypes',
 			'createDateMin',
 			'createDateMax',
 			'modifyDateMin',
@@ -136,7 +123,6 @@ class Index extends CrudIndex
 			'publishDateMin',
 			'publishDateMax',
 			'statuses',
-			'subtypes',
 		], $fields));
 	}
 }

@@ -6,7 +6,8 @@
 
 namespace Chalk\Core\Backend\Controller\Setting;
 
-use Chalk\Chalk,
+use Chalk\Chalk;
+use Chalk\Core\Entity,
 	Chalk\Core\Backend\Controller\Crud,
 	Coast\Request,
 	Coast\Response;
@@ -14,20 +15,24 @@ use Chalk\Chalk,
 class Domain extends Crud
 {
 	protected $_entityClass = 'Chalk\Core\Domain';
-
-	public function preDispatch(Request $req, Response $res)
-	{
-		parent::preDispatch($req, $res);
-		if (!in_array($req->user->role, ['administrator', 'developer'])) {
-			return $this->forward('forbidden', 'index');
-		}
-	}
+    protected $_actions = [];
+    protected $_batches = [];
 
 	public function index(Request $req, Response $res)
 	{
 		return $res->redirect($this->url([
-			'action' => 'edit',
+			'action' => 'update',
 			'id'     => 1,
 		]));
 	}
+
+    public function delete(Request $req, Response $res)
+    {
+        throw new \Exception('Delete not permitted');
+    }
+
+    protected function _delete(Entity $entity)
+    {
+        throw new \Exception('Delete not permitted');
+    }
 }

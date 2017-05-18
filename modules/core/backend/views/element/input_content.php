@@ -21,8 +21,8 @@ $value = isset($value)
 			: null;
 		?>
 		<?php if ($content) { ?>
-			<?= $this->inner('/content/card', [
-				'content' => $content
+			<?= $this->inner('/element/card', [
+				'entity' => $content
 			]) ?>		
 		<?php } else if (isset($placeholder)) { ?>
 			<span class="placeholder"><?= $placeholder ?></span>

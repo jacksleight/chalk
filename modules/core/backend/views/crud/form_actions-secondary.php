@@ -5,7 +5,7 @@
             <?php if ($entity->isArchived() ) { ?>
                 <li><a href="<?= $this->url([
                     'action'    => 'delete',
-                ]) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-negative btn-out confirmable icon-delete" data-message="Are you sure?<?= "\n" ?>This will delete the <?= strtolower($info->singular) ?> and cannot be undone.">
+                ]) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-negative btn-out confirmable icon-delete" data-message="Are you sure?">
                     Delete <?= $info->singular ?>
                 </a></li>
             <?php } else { ?>
@@ -18,7 +18,7 @@
         <?php } else { ?>
             <li><a href="<?= $this->url([
                 'action'    => 'delete',
-            ]) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-negative btn-out confirmable icon-delete" data-message="Are you sure?<?= "\n" ?>This will delete the <?= strtolower($info->singular) ?> and cannot be undone.">
+            ]) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-negative btn-out confirmable icon-delete" data-message="Are you sure?">
                 Delete <?= $info->singular ?>
             </a></li>
         <?php } ?>

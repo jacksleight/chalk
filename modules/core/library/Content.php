@@ -22,7 +22,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @DiscriminatorColumn(name="type", type="string")
  * @DiscriminatorMap({"content" = "Chalk\Core\Content"})
 */
-abstract class Content extends \Toast\Entity implements Publishable, Searchable, Trackable
+abstract class Content extends Entity implements Publishable, Searchable, Trackable
 {
 	public static $chalkSingular = 'Content';
     public static $chalkPlural   = 'Content';
@@ -153,36 +153,17 @@ abstract class Content extends \Toast\Entity implements Publishable, Searchable,
         return $this->slug;
     }
 
-	public function previewText($context = false, $parts = [])
-	{	
-		$type = $this->typeLabel;
+	public function previewText($context = false, $parts = array())
+	{
 		if (!$parts && isset($this->subtype)) {
 			array_unshift($parts, $this->subtypeLabel);
 		}
-		if (!$context) {
-			array_unshift($parts, $this->typeLabel);
-		}
-		return $parts;
-	}
-
-	public function type()
-	{
-		return Chalk::info($this)->name;
-	}
-
-	public static function staticTypeLabel($type)
-	{
-		return Chalk::info($type)->singular;
+        return parent::previewText($context, $parts);
 	}
 
 	public static function staticSubtypeLabel($subtype)
 	{
 		return $subtype;
-	}
-
-	public function typeLabel()
-	{
-		return static::staticTypeLabel(get_class($this));
 	}
 
 	public function subtypeLabel()

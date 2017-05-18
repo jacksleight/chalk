@@ -17,6 +17,7 @@
 /* Math */
 /* Other */
 /* Color */
+/* SVG */
 /* Fonts */
 /* Colors */
 /* Sizes */
@@ -2172,11 +2173,8 @@ pre, code {
 }
 
 pre {
-  margin: 20px 0 0 0;
-  padding: 20px;
   -moz-tab-size: 4;
   tab-size: 4;
-  background: #fdfdfd;
 }
 
 /* Abbreviation */

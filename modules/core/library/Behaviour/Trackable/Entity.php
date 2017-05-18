@@ -34,13 +34,13 @@ trait Entity
     {
         return isset($this->createUser)
             ? $this->createUser->name
-            : 'Unknown';
+            : 'System';
     }
 
     public function modifyUserName()
     {
         return isset($this->modifyUser)
             ? $this->modifyUser->name
-            : 'Unknown';
+            : 'System';
     }
 }

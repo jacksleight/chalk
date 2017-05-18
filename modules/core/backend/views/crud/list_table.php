@@ -1,6 +1,11 @@
 <?php
 $this->params([
     'tableCols' => $tableCols = (isset($tableCols) ? $tableCols : []) + [
+        'name' => [
+            'label'   => 'Name',
+            'partial' => 'preview',
+            'sort'    => 10,
+        ],
         'date' => is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true) ? [
             'label'   => 'Updated',
             'class'   => 'col-right col-contract',
@@ -10,7 +15,7 @@ $this->params([
         ] : null,
         'status' => is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true) ? [
             'label'   => 'Status',
-            'class'   => 'col-right col-contract',
+            'class'   => 'col-right col-contract col-badge',
             'partial' => 'status',
             'sort'    => 90,
         ] : null,
@@ -60,7 +65,7 @@ uasort($tableCols, function($a, $b) {
                 <?= $this->render('/element/form-input', [
                     'type'   => 'input_hidden',
                     'entity' => $index,
-                    'name'   => 'entityIds',
+                    'name'   => 'selected',
                     'class'  => 'multiselectable-values',
                 ], 'core') ?>
             </th>
@@ -77,8 +82,8 @@ uasort($tableCols, function($a, $b) {
                 <tr class="selectable <?= $isEditAllowed ? 'clickable' : null ?>">
                     <td class="col-select">
                         <?= $this->partial('checkbox', [
-                            'entity'   => $entity,
-                            'entities' => $index->entities,
+                            'entity'        => $entity,
+                            'selectedArray' => $index->selectedArray,
                         ]) ?>
                     </td>
                     <?php foreach ($tableCols as $col) { ?>

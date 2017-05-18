@@ -18,7 +18,7 @@ use Coast\Validator;
  *     uniqueConstraints={@UniqueConstraint(columns={"emailAddress"})}
  * )
 */
-class User extends \Toast\Entity implements Trackable, Searchable
+class User extends Entity implements Trackable, Searchable
 {
 	public static $chalkSingular = 'User';
 	public static $chalkPlural   = 'Users';
@@ -168,5 +168,11 @@ class User extends \Toast\Entity implements Trackable, Searchable
 	public function isAdministrator()
 	{
 		return $this->role == self::ROLE_ADMINISTRATOR || $this->isDeveloper();
+	}
+
+	public function previewText($context = false, $parts = array())
+	{
+		$parts[] = $this->emailAddress;
+		return parent::previewText($context, $parts);
 	}
 }

@@ -17,7 +17,7 @@ use Chalk\Core,
  *     indexes={@Index(columns={"entityType", "entityId"})}
  * )
 */
-class Log extends \Toast\Entity implements Trackable
+class Log extends Entity implements Trackable
 {
     public static $chalkSingular = 'Log';
     public static $chalkPlural   = 'Logs';

@@ -8,6 +8,7 @@ namespace Chalk\Core;
 
 use Chalk\Chalk;
 use Chalk\Core;
+use Chalk\Core\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -18,7 +19,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *     uniqueConstraints={@UniqueConstraint(columns={"entityType", "entityId"})}
  * )
 */
-class Index extends \Toast\Entity
+class Index extends Entity
 {
 	/**
      * @Id
@@ -44,7 +45,7 @@ class Index extends \Toast\Entity
      */
 	protected $content;
 
-    public function __construct(\Toast\Entity $entityObject)
+    public function __construct(Entity $entityObject)
     {
         $this->entityObject = $entityObject;
         $this->entityType   = Chalk::info($this->entityObject)->name;

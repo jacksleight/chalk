@@ -7,11 +7,6 @@ $this->params([
             'partial' => 'enabled',
             'sort'    => 0,
         ],
-        'name' => [
-            'label'   => 'Name',
-            'partial' => 'name',
-            'sort'    => 10,
-        ],
         'role' => [
             'label'   => 'Role',
             'class'   => 'col-right col-contract',

@@ -18,7 +18,7 @@ class Structure extends Crud
 	public function preDispatch(Request $req, Response $res)
 	{
 		parent::preDispatch($req, $res);
-		if (!in_array($req->user->role, ['administrator', 'developer'])) {
+		if (!in_array($req->user->role, ['developer'])) {
 			return $this->forward('forbidden', 'index');
 		}
 	}

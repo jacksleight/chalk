@@ -2,12 +2,13 @@
     <?= $this->partial('selection-top') ?>
     <?php if ($isEditAllowed) { ?>
         <li class="toolbar-gap">
+            Selected&nbsp;
             <?= $this->render('/element/form-input', [
                 'type'   => 'select',
                 'entity' => $index,
                 'name'   => 'batch',
                 'null'   => 'Action',
-                'class'  => 'confirmable',
+                'class'  => 'confirmable autosubmitable-post',
             ], 'core') ?>
         </li>
     <?php } ?>

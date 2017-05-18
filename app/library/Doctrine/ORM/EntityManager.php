@@ -7,6 +7,7 @@
 namespace Chalk\Doctrine\ORM;
 
 use Chalk\Chalk;
+use Chalk\Core\Entity;
 use Doctrine\Common\EventSubscriber;
 
 class EntityManager extends \Coast\Doctrine\ORM\EntityManager
@@ -25,7 +26,7 @@ class EntityManager extends \Coast\Doctrine\ORM\EntityManager
         } elseif ($object instanceof \Doctrine\Common\Collections\Collection) {
             return new \Toast\Wrapper\Collection($object, $allowed, null, null, $md);
         } else {
-            throw new \Exception();
+            throw new \Exception("Invalid toast wrap class '" . get_class($object) . "'");
         }
     }
 

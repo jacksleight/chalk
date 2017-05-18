@@ -1,8 +1,4 @@
-<?php
-use Chalk\Chalk;
-?>
-
-<?php $this->outer('/layout/page_structure', [
+<?php $this->outer('/layout/page', [
     'title'   => isset($node) ? $node->content->name : null,
 ]) ?>
 <?php $this->block('main') ?>
@@ -11,7 +7,7 @@ use Chalk\Chalk;
     <?php
     $structure	= $this->em('Chalk\Core\Structure')->id($req->structure);
     $content	= $node->content;
-    $info	    = Chalk::info($content->getObject());
+    $info	    = Chalk\Chalk::info($content->getObject());
     ?>
     <?php if ($info->class != 'Chalk\Core\Content') { ?>
     	<form action="<?= $this->url->route() ?><?= $this->url->query() ?>" method="post">
