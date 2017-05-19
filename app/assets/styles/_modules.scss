@@ -1253,18 +1253,25 @@ legend {
 					}
 				}
 				&.tags {
-					@include font-size(-2);
+					@include font-size(-1);
 					padding-left: $gutter-x-sidebar;
 					padding-right: $gutter-x-sidebar;
 					flex-wrap: wrap;
 					> li {
-						padding: 0 2px 2px 0;
+						padding: 0 3px 3px 0;
 						> a {
 							text-decoration: none;
 							@include link-color(inherit);
 							@include colors(null, 1.5);
-							padding: 0 4px 1px 5px;
+							padding: 1px 5px;
 							display: block;
+							&:hover {
+								@include colors(null, 3);
+							}
+							&.active {
+								@include colors(null, 12);
+								@include link-color(white);
+							}
 						}
 					}
 				}

@@ -75,10 +75,16 @@ class Content extends Repository
                 ->setParameter('subtypes', $params['subtypes']);
         }
 
-        if (isset($params['tags']) && count($params['tags'])) {
-            $query
-                ->andWhere(":tags MEMBER OF {$this->alias()}.tags")
-                ->setParameter('tags', $params['tags']);
+        if (isset($params['tags'])) {
+
+            if ($params['tags'] == 'none') {
+                $query
+                    ->andWhere("{$this->alias()}.tags IS EMPTY");
+            } else if (count($params['tags'])) {
+                $query
+                    ->andWhere(":tags MEMBER OF {$this->alias()}.tags")
+                    ->setParameter('tags', $params['tags']);
+            }
         }
 
         if (isset($params['createDateMin'])) {

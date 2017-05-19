@@ -65,7 +65,7 @@ uasort($tableCols, function($a, $b) {
                 <?= $this->render('/element/form-input', [
                     'type'   => 'input_hidden',
                     'entity' => $index,
-                    'name'   => 'selected',
+                    'name'   => 'selectedList',
                     'class'  => 'multiselectable-values',
                 ], 'core') ?>
             </th>
@@ -82,8 +82,8 @@ uasort($tableCols, function($a, $b) {
                 <tr class="selectable <?= $isEditAllowed ? 'clickable' : null ?>">
                     <td class="col-select">
                         <?= $this->partial('checkbox', [
-                            'entity'        => $entity,
-                            'selectedArray' => $index->selectedArray,
+                            'entity'   => $entity,
+                            'selected' => $index->selected,
                         ]) ?>
                     </td>
                     <?php foreach ($tableCols as $col) { ?>

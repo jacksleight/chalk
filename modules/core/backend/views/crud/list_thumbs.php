@@ -2,7 +2,7 @@
     <?= $this->render('/element/form-input', [
         'type'   => 'input_hidden',
         'entity' => $index,
-        'name'   => 'selected',
+        'name'   => 'selectedList',
         'class'  => 'multiselectable-values',
     ], 'core') ?>
     <ul class="thumbs uploadable-list">

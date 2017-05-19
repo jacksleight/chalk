@@ -16,8 +16,10 @@ class Index extends \Toast\Entity
 	protected $sort;
 	protected $search;
 	protected $tags;
+	protected $tagsList;
 
 	protected $selected;
+	protected $selectedList;
 	protected $batch;
 
 	protected $remember;
@@ -47,10 +49,18 @@ class Index extends \Toast\Entity
 					'nullable'	=> true,
 				),
 				'tags' => array(
+					'type'		=> 'array',
+					'nullable'	=> true,
+				),
+				'tagsList' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
 				),
 				'selected' => array(
+					'type'		=> 'array',
+					'nullable'	=> true,
+				),
+				'selectedList' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
 				),
@@ -86,14 +96,34 @@ class Index extends \Toast\Entity
 		$this->_batches		= $batches;
 	}
 
-	public function selectedArray(array $selectedArray = null)
+	public function tags(array $tags = null)
 	{
 		if (func_num_args() > 0) {
-			$this->selected = implode(',', $selectedArray);
+			if ($tags == 'none') {
+				$this->tagsList = $tags;
+			} else if (isset($tags)) {
+				$this->tagsList = implode('.', $tags);
+			} else {
+				$this->tagsList = null;
+			}
+		}
+		if ($this->tagsList == 'none') {
+			return $this->tagsList;
+		} else if (isset($this->tagsList)) {
+			return explode('.', $this->tagsList);
+		} else {
+			return null;
+		}
+	}
+
+	public function selected(array $selected = null)
+	{
+		if (func_num_args() > 0) {
+			$this->selectedList = implode('.', $selected);
 			return $this;
 		}
-		return isset($this->selected)
-			? explode(',', $this->selected)
+		return isset($this->selectedList)
+			? explode('.', $this->selectedList)
 			: [];
 	}
 
@@ -102,7 +132,7 @@ class Index extends \Toast\Entity
 		if (func_num_args() > 0) {
 			return $this;
 		}
-		return implode(',', $this->rememberFields());
+		return implode('.', $this->rememberFields());
 	}
 
 	public function rememberFields(array $fields = [])

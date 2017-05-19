@@ -94,7 +94,7 @@ abstract class Crud extends Action
 
         try {
             $method = "_{$index->batch}";
-            $entities = $this->em($req->info)->all(['ids' => $index->selectedArray]);
+            $entities = $this->em($req->info)->all(['ids' => $index->selected]);
             foreach ($entities as $entity) {
                 $this->$method($entity);
             }

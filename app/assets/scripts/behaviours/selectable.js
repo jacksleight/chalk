@@ -66,7 +66,7 @@ Chalk.component('.multiselectable', function(i, el) {
 		$(el).find('input[type=checkbox]:not(.multiselectable-all):checked').each(function() {
 			list.push($(this).val());
 		});
-		values.val(list.join(','));
+		values.val(list.join('.'));
 	});
 	
 });

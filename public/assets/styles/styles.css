@@ -4755,8 +4755,8 @@ legend {
 }
 
 .nav > ul > li > ul.tags {
-  font-size: 12.09829868px;
-  font-size: 0.75614367rem;
+  font-size: 13.91304348px;
+  font-size: 0.86956522rem;
   padding-left: 20px;
   padding-right: 20px;
   -ms-flex-wrap: wrap;
@@ -4764,13 +4764,13 @@ legend {
 }
 
 .nav > ul > li > ul.tags > li {
-  padding: 0 2px 2px 0;
+  padding: 0 3px 3px 0;
 }
 
 .nav > ul > li > ul.tags > li > a {
   text-decoration: none;
   color: inherit;
-  padding: 0 4px 1px 5px;
+  padding: 1px 5px;
   display: block;
 }
 
@@ -4781,6 +4781,28 @@ legend {
 .dark.nav ul > li > ul.tags > li > a,
 .dark .nav > ul > li > ul.tags > li > a {
   background-color: #293137;
+}
+
+.nav > ul > li > ul.tags > li > a:hover {
+  background-color: #dedede;
+}
+
+.dark.nav ul > li > ul.tags > li > a:hover,
+.dark .nav > ul > li > ul.tags > li > a:hover {
+  background-color: #181c20;
+}
+
+.nav > ul > li > ul.tags > li > a.active {
+  color: white;
+}
+
+.nav > ul > li > ul.tags > li > a.active {
+  background-color: #797979;
+}
+
+.dark.nav ul > li > ul.tags > li > a.active,
+.dark .nav > ul > li > ul.tags > li > a.active {
+  background-color: #181c20;
 }
 
 .nav > ul > li.active, .nav > ul > li.active-path {
