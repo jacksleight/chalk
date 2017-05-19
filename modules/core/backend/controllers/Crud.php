@@ -73,13 +73,13 @@ abstract class Crud extends Action
             return;
         }
 
-        $index = new $class(
+        $model = new $class(
             $this->_entityClass,
             $this->_sorts,
             $this->_limits,
             $this->_batches
         );
-        $req->view->index = $wrap = $this->em->wrap($index);
+        $req->view->model = $wrap = $this->em->wrap($model);
         
         if (!$req->isPost()) {
             $wrap->graphFromArray($req->queryParams());
@@ -88,24 +88,24 @@ abstract class Crud extends Action
 
         $wrap->graphFromArray($req->bodyParams());
 
-        if (!isset($this->_actions[$index->batch])) {
-            throw new \Exception("Action '{$index->batch}' is invalid");
+        if (!isset($this->_actions[$model->batch])) {
+            throw new \Exception("Action '{$model->batch}' is invalid");
         }
 
         try {
-            $method = "_{$index->batch}";
-            $entities = $this->em($req->info)->all(['ids' => $index->selected]);
+            $method = "_{$model->batch}";
+            $entities = $this->em($req->info)->all(['ids' => $model->selected]);
             foreach ($entities as $entity) {
                 $this->$method($entity);
             }
             $this->em->flush();
         } catch (ForeignKeyConstraintViolationException $e) {
-            $index->batch = null;
-            $this->notify("Some {$req->info->plural} cannot be {$this->_actions[$index->batch]} because they are in use", 'negative');
+            $model->batch = null;
+            $this->notify("Some {$req->info->plural} cannot be {$this->_actions[$model->batch]} because they are in use", 'negative');
             return;
         }
 
-        $this->notify("{$req->info->plural} were {$this->_actions[$index->batch]} successfully", 'positive');
+        $this->notify("{$req->info->plural} were {$this->_actions[$model->batch]} successfully", 'positive');
         return $res->redirect($this->url->query(array(
             'selected' => null,
             'batch'    => null,
@@ -119,9 +119,24 @@ abstract class Crud extends Action
 
     public function update(Request $req, Response $res)
     {
+        $parents = array_merge([get_class($this)], array_values(class_parents($this)));
+        foreach ($parents as $parent) {
+            $check = str_replace('\\Controller\\', '\\Model\\', $parent) . '\\Update';
+            if (class_exists($check)) {
+                $class = $check;
+                break;
+            }
+        }
+
+        $model = new $class(
+            $this->_entityClass
+        );
+        $req->view->model = $wrap = $this->em->wrap($model);
+        $wrap->graphFromArray($req->bodyParams());
+
         $entity = isset($req->id)
             ? $this->em($req->info)->id($req->id)
-            : $this->em($req->info)->create($req->queryParams());
+            : $this->em($req->info)->create();
         if ($entity->isNew()) {
             $this->_create($entity);
         } else {
@@ -156,7 +171,7 @@ abstract class Crud extends Action
     public function process(Request $req, Response $res)
     {
         if (!isset($this->_actions[$req->type])) {
-            throw new \Exception("Action '{$index->batch}' is invalid");
+            throw new \Exception("Action '{$req->type}' is invalid");
         }
 
         $entity = $this->em($req->info)->find($req->id);

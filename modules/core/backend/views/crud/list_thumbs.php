@@ -1,7 +1,7 @@
 <div class="multiselectable">
     <?= $this->render('/element/form-input', [
         'type'   => 'input_hidden',
-        'entity' => $index,
+        'entity' => $model,
         'name'   => 'selectedList',
         'class'  => 'multiselectable-values',
     ], 'core') ?>

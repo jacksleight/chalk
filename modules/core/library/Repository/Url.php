@@ -12,7 +12,7 @@ class Url extends Content
 {
     protected $_sort = ['createDate', 'DESC'];
     
-    public function build(array $params = array())
+    public function build(array $params = array(), $one = false)
     {
         $query = parent::build($params);
 

@@ -5,7 +5,7 @@
             Selected&nbsp;
             <?= $this->render('/element/form-input', [
                 'type'   => 'select',
-                'entity' => $index,
+                'entity' => $model,
                 'name'   => 'batch',
                 'null'   => 'Action',
                 'class'  => 'confirmable autosubmitable-post',

@@ -7,22 +7,19 @@
 namespace Chalk\Core\Backend\Model\Crud;
 
 use Chalk\Chalk;
+use Chalk\Core\Model;
 use	Doctrine\Common\Collections\ArrayCollection;
 
-class Index extends \Toast\Entity
+class Index extends Model
 {
 	protected $page = 1;
 	protected $limit = 50;
 	protected $sort;
 	protected $search;
-	protected $tags;
-	protected $tagsList;
 
 	protected $selected;
 	protected $selectedList;
 	protected $batch;
-
-	protected $remember;
 
 	protected $_entityClass;
 	protected $_sorts;
@@ -31,7 +28,7 @@ class Index extends \Toast\Entity
 
 	protected static function _defineMetadata($class)
 	{
-		return array(
+		return \Coast\array_merge_smart(parent::_defineMetadata($class), array(
 			'fields' => array(
 				'page' => array(
 					'type'		=> 'integer',
@@ -45,14 +42,6 @@ class Index extends \Toast\Entity
 					'nullable'	=> true,
 				),
 				'search' => array(
-					'type'		=> 'string',
-					'nullable'	=> true,
-				),
-				'tags' => array(
-					'type'		=> 'array',
-					'nullable'	=> true,
-				),
-				'tagsList' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
 				),
@@ -73,7 +62,7 @@ class Index extends \Toast\Entity
 					'nullable'	=> true,
 				),
 			),
-		);
+		));
 	}
 
 	protected function _alterMetadata($name, $value)
@@ -96,26 +85,6 @@ class Index extends \Toast\Entity
 		$this->_batches		= $batches;
 	}
 
-	public function tags(array $tags = null)
-	{
-		if (func_num_args() > 0) {
-			if ($tags == 'none') {
-				$this->tagsList = $tags;
-			} else if (isset($tags)) {
-				$this->tagsList = implode('.', $tags);
-			} else {
-				$this->tagsList = null;
-			}
-		}
-		if ($this->tagsList == 'none') {
-			return $this->tagsList;
-		} else if (isset($this->tagsList)) {
-			return explode('.', $this->tagsList);
-		} else {
-			return null;
-		}
-	}
-
 	public function selected(array $selected = null)
 	{
 		if (func_num_args() > 0) {
@@ -125,14 +94,6 @@ class Index extends \Toast\Entity
 		return isset($this->selectedList)
 			? explode('.', $this->selectedList)
 			: [];
-	}
-
-	public function remember()
-	{
-		if (func_num_args() > 0) {
-			return $this;
-		}
-		return implode('.', $this->rememberFields());
 	}
 
 	public function rememberFields(array $fields = [])

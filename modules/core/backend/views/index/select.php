@@ -9,7 +9,7 @@
 		<button style="display: none;"></button>
 	</div>
 	<?= $this->render("/content/browser", [
-		'index'		=> $index,
+		'index'		=> $model,
 		'filters'	=> $filters,
 	]) ?>
 	<div class="footer">

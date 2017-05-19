@@ -15,7 +15,7 @@ class Structure extends Repository
 {
 	use Publishable\Repository;
 
-    public function build(array $params = array())
+    public function build(array $params = array(), $one = false)
     {
         $query = parent::build($params);
 

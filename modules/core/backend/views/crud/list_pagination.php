@@ -3,9 +3,9 @@
     <li>
         <?= $this->render('/element/form-input', [
             'type'      => 'paginator',
-            'entity'    => $index,
+            'entity'    => $model,
             'name'      => 'page',
-            'limit'     => $index->limit,
+            'limit'     => $model->limit,
             'count'     => $entities->count(),
         ], 'core') ?>
     </li>
@@ -13,7 +13,7 @@
         Show&nbsp;
         <?= $this->render('/element/form-input', [
             'type'   => 'select',
-            'entity' => $index,
+            'entity' => $model,
             'name'   => 'limit',
             'null'   => 'All',
         ], 'core') ?>
@@ -22,7 +22,7 @@
         Sort&nbsp;
         <?= $this->render('/element/form-input', [
             'type'   => 'select',
-            'entity' => $index,
+            'entity' => $model,
             'name'   => 'sort',
             'null'   => 'Default',
         ], 'core') ?>

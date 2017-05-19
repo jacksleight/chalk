@@ -9,12 +9,12 @@ $isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 		<a href="<?= !$template ? $this->url([
             'action' => 'update',
             'id'     => $entity->id,
-		]) . $this->url->query(['tagsList' => $index->tagsList]) : '#' ?>">
+		]) . $this->url->query(['tagsList' => $model->tagsList]) : '#' ?>">
 	<?php } ?>
 		<?php if (!$template && !$covered) { ?>
 			<?= $this->partial('checkbox', [
 				'entity'	=> $entity,
-				'selected'	=> $index->selected,
+				'selected'	=> $model->selected,
             ]) ?>
 		<?php } ?>
 		<div class="preview">

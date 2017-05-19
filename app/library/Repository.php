@@ -40,21 +40,21 @@ class Repository extends EntityRepository
 
     public function id($id, array $params = array(), array $opts = array())
     {
-        $query = $this->build(['ids' => [$id]] + $params);
+        $query = $this->build(['ids' => [$id]] + $params, true);
         $query = $this->prepare($query, $opts);  
         return $this->fetch($query, self::FETCH_ONE_UNIQUE);
     }
 
     public function slug($slug, array $params = array(), array $opts = array())
     {
-        $query = $this->build(['slugs' => [$slug]] + $params);
+        $query = $this->build(['slugs' => [$slug]] + $params, true);
         $query = $this->prepare($query, $opts);  
         return $this->fetch($query, self::FETCH_ONE);
     }
 
     public function one(array $params = array(), array $opts = array(), $mode = self::FETCH_ONE)
     {
-        $query = $this->build($params);
+        $query = $this->build($params, true);
         $query = $this->prepare($query, $opts);  
         return $this->fetch($query, $mode);
     }
@@ -76,7 +76,7 @@ class Repository extends EntityRepository
         return $this->fetch($query);
     }
 
-    public function build(array $params = array())
+    public function build(array $params = array(), $one = false)
     {
         $query = $this->createQueryBuilder($this->alias(), isset($this->_indexBy) ? "{$this->alias()}.{$this->_indexBy}" : null);
 

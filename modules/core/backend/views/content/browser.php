@@ -1,7 +1,7 @@
 <?php
 use Chalk\Chalk;
 use Chalk\Repository;
-$info = Chalk::info($index->type);
+$info = Chalk::info($model->type);
 ?>
 <div class="flex flex-row">
     <div class="leftbar">
@@ -10,7 +10,7 @@ $info = Chalk::info($index->type);
                 <ul>
                     <?php foreach ($filters as $filter) { ?>
                         <li class="<?= $filter->name == $info->name ? 'active' : null ?>"><a href="<?= $this->url([]) . $this->url->query([
-                            'filters' => $index->filters,
+                            'filters' => $model->filters,
                             'type'    => $filter->name,
                         ], true) ?>" class="item <?= $filter->name == $info->name ? 'active' : null ?>">
                             <span class="icon-sidebar icon-<?= $filter->icon ?>"></span>
@@ -23,21 +23,21 @@ $info = Chalk::info($index->type);
     </div>
 	<div class="flex rightbar">
 		<?= $this->render("/{$info->local->path}/list", [
-			'contents'		=> $this->em($info)->all(['types' => $filters] + $index->toArray(), [], Repository::FETCH_ALL_PAGED),
+			'contents'		=> $this->em($info)->all(['types' => $filters] + $model->toArray(), [], Repository::FETCH_ALL_PAGED),
 			'isAddAllowed'	=> false,
 			'isEditAllowed'	=> false,
 			'info'			=> $info,
-			'index'			=> $index,
+			'index'			=> $model,
             'filters'       => $filters,
 		], $info->module->name) ?>
         <?= $this->render('/element/form-input', array(
             'type'          => 'input_hidden',
-            'entity'        => $index,
+            'entity'        => $model,
             'name'          => 'type',
         ), 'core') ?>
         <?= $this->render('/element/form-input', array(
             'type'          => 'input_hidden_array',
-            'entity'        => $index,
+            'entity'        => $model,
             'name'          => 'filters',
         ), 'core') ?>
 	</div>

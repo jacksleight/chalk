@@ -13,7 +13,7 @@ use Chalk\Chalk,
 
 class Log extends Repository
 {
-    public function build(array $params = array())
+    public function build(array $params = array(), $one = false)
     {
         $query = parent::build($params);
 

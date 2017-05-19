@@ -15,7 +15,7 @@ class Tag extends Repository
     
     protected $_sort = ['name', 'ASC'];
 
-    public function build(array $params = array())
+    public function build(array $params = array(), $one = false)
     {
         $query = parent::build($params);
 

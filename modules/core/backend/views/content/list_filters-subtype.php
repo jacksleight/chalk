@@ -12,7 +12,7 @@ if (!count($subtypes)) {
 ?>
 <?= $this->render('/element/form-input', array(
     'type'          => 'dropdown_multiple',
-    'entity'        => $index,
+    'entity'        => $model,
     'name'          => 'subtypes',
     'icon'          => 'icon-subtype',
     'placeholder'   => 'Type',

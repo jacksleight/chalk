@@ -10,7 +10,7 @@ use Chalk\Repository;
 
 class Alias extends Content
 {
-    public function build(array $params = array())
+    public function build(array $params = array(), $one = false)
     {
         $query = parent::build($params);
 

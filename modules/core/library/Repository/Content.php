@@ -20,9 +20,9 @@ class Content extends Repository
 
     protected $_sort = ['name', 'ASC'];
 
-    public function build(array $params = array())
+    public function build(array $params = array(), $one = false)
     {
-        $query = parent::build($params);
+        $query = parent::build($params, $one);
 
         $params = $params + [
             'types'         => null,
@@ -76,14 +76,14 @@ class Content extends Repository
         }
 
         if (isset($params['tags'])) {
-
-            if ($params['tags'] == 'none') {
+            $tags = (array) $params['tags'];
+            if ($tags == ['none']) {
                 $query
                     ->andWhere("{$this->alias()}.tags IS EMPTY");
-            } else if (count($params['tags'])) {
+            } else if (count($tags)) {
                 $query
                     ->andWhere(":tags MEMBER OF {$this->alias()}.tags")
-                    ->setParameter('tags', $params['tags']);
+                    ->setParameter('tags', $tags);
             }
         }
 

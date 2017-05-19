@@ -18,7 +18,7 @@ class Node extends Repository
 
     protected $_sort = 'left';
 
-    public function build(array $params = array())
+    public function build(array $params = array(), $one = false)
     {
         $query = parent::build($params);
 

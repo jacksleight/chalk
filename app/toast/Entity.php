@@ -307,7 +307,7 @@ class Entity implements ArrayAccess
     public function __set($name, $value)
     {
         if ($name[0] == '_') {
-            throw new Model\Exception("Access to '{$name}' is prohibited");  
+            throw new \Exception("Access to '{$name}' is prohibited");  
         }
         $name = \Coast\str_camel($name);
         if (method_exists($this, $name)) {
@@ -320,7 +320,7 @@ class Entity implements ArrayAccess
     public function __get($name)
     {
         if ($name[0] == '_') {
-            throw new Model\Exception("Access to '{$name}' is prohibited");  
+            throw new \Exception("Access to '{$name}' is prohibited");  
         }
         $name = \Coast\str_camel($name);
         if (method_exists($this, $name)) {
@@ -335,7 +335,7 @@ class Entity implements ArrayAccess
     public function __isset($name)
     {
         if ($name[0] == '_') {
-            throw new Model\Exception("Access to '{$name}' is prohibited");  
+            throw new \Exception("Access to '{$name}' is prohibited");  
         }
         $name = \Coast\str_camel($name);
         if (method_exists($this, $name)) {
@@ -350,7 +350,7 @@ class Entity implements ArrayAccess
     public function __unset($name)
     {
         if ($name[0] == '_') {
-            throw new Model\Exception("Access to '{$name}' is prohibited");  
+            throw new \Exception("Access to '{$name}' is prohibited");  
         }
         $name = \Coast\str_camel($name);
         if (property_exists($this, $name)) {
@@ -361,7 +361,7 @@ class Entity implements ArrayAccess
     public function __call($name, array $args)
     {
         if ($name[0] == '_') {
-            throw new Model\Exception("Access to '{$name}' is prohibited");  
+            throw new \Exception("Access to '{$name}' is prohibited");  
         }
         $name = \Coast\str_camel($name);
         if (isset($args[0])) {
