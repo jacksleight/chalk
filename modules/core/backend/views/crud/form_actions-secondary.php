@@ -2,23 +2,23 @@
     <?= $this->partial('actions-secondary-top') ?>
     <?php if ($isDeleteAllowed && !$entity->isNew()) { ?>
         <?php if (is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true)) { ?>
-            <?php if ($entity->isArchived() ) { ?>
-                <li><a href="<?= $this->url([
-                    'action'    => 'delete',
-                ]) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-negative btn-out confirmable icon-delete" data-message="Are you sure?">
-                    Delete <?= $info->singular ?>
-                </a></li>
-            <?php } else { ?>
+            <?php if ($entity->isPublished()) { ?>
                 <li><a href="<?= $this->url([
                     'action'    => 'archive',
-                ]) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-lighter btn-out confirmable icon-archive">
+                ]) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-lighter btn-out icon-archive">
                     Archive <?= $info->singular ?>
+                </a></li>
+            <?php } else if ($entity->isArchived()) { ?>
+                <li><a href="<?= $this->url([
+                    'action'    => 'delete',
+                ]) ?>" class="btn btn-negative btn-out confirmable icon-delete" data-message="Are you sure?">
+                    Delete <?= $info->singular ?>
                 </a></li>
             <?php } ?>
         <?php } else { ?>
             <li><a href="<?= $this->url([
                 'action'    => 'delete',
-            ]) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-negative btn-out confirmable icon-delete" data-message="Are you sure?">
+            ]) ?>" class="btn btn-negative btn-out confirmable icon-delete" data-message="Are you sure?">
                 Delete <?= $info->singular ?>
             </a></li>
         <?php } ?>

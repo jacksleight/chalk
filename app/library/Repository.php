@@ -38,30 +38,30 @@ class Repository extends EntityRepository
         return $entity;
     }
 
-    public function id($id, array $params = array(), array $opts = array())
+    public function id($id, array $params = array(), array $opts = array(), $extra = true)
     {
-        $query = $this->build(['ids' => [$id]] + $params, true);
+        $query = $this->build(['ids' => [$id]] + $params, $extra);
         $query = $this->prepare($query, $opts);  
         return $this->fetch($query, self::FETCH_ONE_UNIQUE);
     }
 
-    public function slug($slug, array $params = array(), array $opts = array())
+    public function slug($slug, array $params = array(), array $opts = array(), $extra = true)
     {
-        $query = $this->build(['slugs' => [$slug]] + $params, true);
+        $query = $this->build(['slugs' => [$slug]] + $params, $extra);
         $query = $this->prepare($query, $opts);  
         return $this->fetch($query, self::FETCH_ONE);
     }
 
-    public function one(array $params = array(), array $opts = array(), $mode = self::FETCH_ONE)
+    public function one(array $params = array(), array $opts = array(), $mode = self::FETCH_ONE, $extra = true)
     {
-        $query = $this->build($params, true);
+        $query = $this->build($params, $extra);
         $query = $this->prepare($query, $opts);  
         return $this->fetch($query, $mode);
     }
 
-    public function all(array $params = array(), array $opts = array(), $mode = self::FETCH_ALL)
+    public function all(array $params = array(), array $opts = array(), $mode = self::FETCH_ALL, $extra = false)
     {   
-        $query = $this->build($params);
+        $query = $this->build($params, $extra);
         $query = $this->prepare($query, $opts);
         return $this->fetch($query, $mode);
     }
@@ -76,7 +76,7 @@ class Repository extends EntityRepository
         return $this->fetch($query);
     }
 
-    public function build(array $params = array(), $one = false)
+    public function build(array $params = array(), $extra = false)
     {
         $query = $this->createQueryBuilder($this->alias(), isset($this->_indexBy) ? "{$this->alias()}.{$this->_indexBy}" : null);
 

@@ -68,6 +68,9 @@ class Module extends ChalkModule
             ]));
 
         $this
+            ->frontendResolver($this->name('domain'), function($domain, $info) {
+                return $this->frontend->url(); 
+            })
             ->frontendResolver($this->name('structure_node'), function($node, $info) {
                 try {
                     return $this->frontend->url->route([], $this->name("structure_node_{$node['id']}"), true);   
@@ -306,6 +309,14 @@ class Module extends ChalkModule
                     'group'      => $this->name(),
                     'controller' => 'profile',
                     'action'     => 'update',
+                ])
+            ->backendRoute(
+                $this->name('frontend'),
+                Router::METHOD_ALL,
+                $this->path("frontend/{entityType}/{entityId}"), [
+                    'group'      => $this->name(),
+                    'controller' => 'index',
+                    'action'     => 'frontend',
                 ])
             ->backendRoute(
                 $this->name('site_redirect'),

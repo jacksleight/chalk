@@ -15,6 +15,7 @@ use Chalk\Frontend\Resolver as FrontendResolver;
 use Chalk\HookManager;
 use Chalk\Parser;
 use Coast\Controller;
+use Coast\Lazy;
 use Coast\Path;
 use Coast\Request;
 use Coast\Resolver;
@@ -44,6 +45,11 @@ Toast\Wrapper::$timezone = $app->config->timezone;
 
 $app->param('backend', $app->lazy(function($vars) {
     $app = $vars['app'];
+    if (!$app->frontend instanceof Lazy && !Chalk::isDual()) {
+        $e = new \Exception('Frontend already loaded');
+        echo "<pre>{$e}</pre>";
+        throw $e;
+    }
     $backend = (new Backend(__DIR__, $app->config->envs))
         ->param('chalk', $app)
         ->param('frontend', $app->frontend)
@@ -69,7 +75,15 @@ $app->param('backend', $app->lazy(function($vars) {
                 $url->queryParam('v', $path->modifyTime()->getTimestamp());
             },
         ]))
+        ->param('frontendResolver', new Resolver([
+            'baseUrl'   => new Url("{$app->config->frontendBaseUrl}"),
+            'baseDir'   => $app->root->dir(),
+            'cacheBust' => function(Url $url, Path $path) {
+                $url->queryParam('v', $path->modifyTime()->getTimestamp());
+            },
+        ]))
         ->param('url', $backend->resolver)
+        ->param('frontendUrl', $backend->frontendResolver)
         ->param('image', $backend->load('_image.php'))
         ->param('hook', new HookManager())
         ->param('em', $app->em)
@@ -106,6 +120,11 @@ $app->param('backend', $app->lazy(function($vars) {
 
 $app->param('frontend', $app->lazy(function($vars) {
     $app = $vars['app'];
+    if (!$app->backend instanceof Lazy && !Chalk::isDual()) {
+        $e = new \Exception('Backend already loaded');
+        echo "<pre>{$e}</pre>";
+        throw $e;
+    }
     $frontend = (new Frontend($app->root->dir(), $app->config->envs))
         ->param('chalk', $app)
         ->param('backend', $app->backend)

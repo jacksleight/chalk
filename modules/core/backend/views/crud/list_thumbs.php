@@ -1,4 +1,5 @@
 <div class="multiselectable">
+    <!-- <input type="checkbox" id="select" class="multiselectable-all"><label for="select"></label> -->
     <?= $this->render('/element/form-input', [
         'type'   => 'input_hidden',
         'entity' => $model,

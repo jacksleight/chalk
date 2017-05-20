@@ -14,14 +14,14 @@ $title  = (isset($title)
     <title><?= $title ?></title>
     <meta name="apple-mobile-web-app-title" content="Foundation">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/styles/styles{$mode}.css") ?>">
+    <link rel="stylesheet" href="<?= $this->frontendUrl->file("vendor/jacksleight/chalk/public/assets/styles/styles{$mode}.css") ?>">
 </head>
 <body class="<?= isset($class) ? $class : '' ?>">
     <?= $this->content('body') ?>
     <script>
         var Chalk = <?= json_encode([
             'baseUrl'       => (string) $this->url->baseUrl(),
-            'rootBaseUrl'   => (string) $this->frontend->url->baseUrl(),
+            'rootBaseUrl'   => (string) $this->frontendUrl->baseUrl(),
             'pingUrl'       => (string) $this->url([
                 'controller' => 'index',
                 'action'     => 'ping',
@@ -48,13 +48,13 @@ $title  = (isset($title)
             'notifications' => $this->notify->notifications(),
             'widgets'       => $this->widgetList->items(),
             'editorContent' => [
-                'src'     => (string) $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/editor-content{$mode}.js"),
+                'src'     => (string) $this->frontendUrl->file("vendor/jacksleight/chalk/public/assets/scripts/editor-content{$mode}.js"),
                 'loaded'  => false,
                 'loading' => false,
                 'queue'   => [],
             ],
             'editorCode' => [
-                'src'     => (string) $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/editor-code{$mode}.js"),
+                'src'     => (string) $this->frontendUrl->file("vendor/jacksleight/chalk/public/assets/scripts/editor-code{$mode}.js"),
                 'loaded'  => false,
                 'loading' => false,
                 'queue'   => [],
@@ -64,7 +64,7 @@ $title  = (isset($title)
         Chalk.domReady = function(a,b,c){b=document,c='addEventListener';b[c]?b[c]('DOMContentLoaded',a):window.attachEvent('onload',a)}
         Chalk.domReady(function() {
             var script = document.createElement('script');
-            script.src = '<?= $this->frontend->url->file("vendor/jacksleight/chalk/public/assets/scripts/scripts{$mode}.js") ?>';
+            script.src = '<?= $this->frontendUrl->file("vendor/jacksleight/chalk/public/assets/scripts/scripts{$mode}.js") ?>';
             document.head.appendChild(script);
         });
     </script>

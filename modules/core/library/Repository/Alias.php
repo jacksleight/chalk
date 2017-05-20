@@ -10,9 +10,9 @@ use Chalk\Repository;
 
 class Alias extends Content
 {
-    public function build(array $params = array(), $one = false)
+    public function build(array $params = array(), $extra = false)
     {
-        $query = parent::build($params);
+        $query = parent::build($params, $extra);
 
         $query
             ->addSelect("ac")

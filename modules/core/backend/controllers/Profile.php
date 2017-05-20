@@ -6,14 +6,18 @@
 
 namespace Chalk\Core\Backend\Controller;
 
-use Chalk\Chalk,
-	Chalk\Core\Backend\Controller\Crud,
-	Coast\Request,
-	Coast\Response;
+use Chalk\Chalk;
+use Chalk\Core\Entity;
+use Chalk\Core\Backend\Model;
+use Chalk\Core\Backend\Controller\Crud;
+use Coast\Request;
+use Coast\Response;
 
 class Profile extends Crud
 {
 	protected $_entityClass = 'Chalk\Core\User';
+    protected $_actions = [];
+    protected $_batches = [];
 
 	public function update(Request $req, Response $res)
 	{
@@ -21,8 +25,13 @@ class Profile extends Crud
 		return parent::update($req, $res);
 	}
 
-	public function delete(Request $req, Response $res)
-	{
-		throw new \Exception();
-	}
+    public function delete(Request $req, Response $res)
+    {
+        throw new \Exception('Delete not permitted');
+    }
+
+    protected function _delete(Request $req, Response $res, Entity $entity, Model $model = null)
+    {
+        throw new \Exception('Delete not permitted');
+    }
 }

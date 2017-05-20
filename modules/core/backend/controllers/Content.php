@@ -9,6 +9,7 @@ namespace Chalk\Core\Backend\Controller;
 use Chalk\Chalk;
 use Chalk\Core;
 use Chalk\Core\Entity;
+use Chalk\Core\Backend\Model;
 use Coast\Request;
 use Coast\Response;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
@@ -34,17 +35,28 @@ abstract class Content extends Crud
         return $this->forward('process');
     }
 
-    protected function _publish(Entity $entity)
+    protected function _create(Request $req, Response $res, Entity $entity, Model $model = null)
+    {
+        parent::_create($req, $res, $entity, $model);
+        if (count($model->tags)) {
+            $tags = $this->em('core_tag')->all(['ids' => $model->tags]);
+            foreach ($tags as $tag) {
+                $entity->tags[] = $tag;
+            }
+        }
+    }
+
+    protected function _publish(Request $req, Response $res, Entity $entity, Model $model = null)
     {
         $entity->status = Chalk::STATUS_PUBLISHED;
     }
 
-    protected function _archive(Entity $entity)
+    protected function _archive(Request $req, Response $res, Entity $entity, Model $model = null)
     {
         $entity->status = Chalk::STATUS_ARCHIVED;
     }
 
-    protected function _restore(Entity $entity)
+    protected function _restore(Request $req, Response $res, Entity $entity, Model $model = null)
     {
         $entity->restore();
     }

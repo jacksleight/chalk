@@ -55,7 +55,7 @@ class Index extends Entity
     public function reindex()
     {
         $content = implode(' ', $this->entityObject->searchableContent);
-        $content = \Toast\Wrapper::$chalk->frontend->parser->parse($content);
+        // $content = \Toast\Wrapper::$chalk->frontend->parser->parse($content);
         $content = strip_tags($content);
         $content = html_entity_decode($content, ENT_COMPAT | ENT_HTML5, 'utf-8');
         $content = mb_strtolower($content, 'utf-8');

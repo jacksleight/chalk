@@ -10,15 +10,17 @@ use Chalk\Repository;
 
 class Domain extends Repository
 {
-    public function build(array $params = array(), $one = false)
+    public function build(array $params = array(), $extra = false)
     {
-        $query = parent::build($params);
+        $query = parent::build($params, $extra);
 
-        $query
-            ->addSelect("s", "n", "c")
-            ->leftJoin("d.structures", "s")
-            ->leftJoin("s.nodes", "n", "WITH", "n.left = 0")
-            ->leftJoin("n.content", "c");
+        if ($extra) {
+            $query
+                ->addSelect("s", "n", "c")
+                ->leftJoin("d.structures", "s")
+                ->leftJoin("s.nodes", "n", "WITH", "n.left = 0")
+                ->leftJoin("n.content", "c");
+        }
 
         return $query;
     }

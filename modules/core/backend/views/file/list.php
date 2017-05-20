@@ -15,6 +15,7 @@ $this->params([
             data-url="<?= $this->url([
             'action' => 'upload',
         ]) . $this->url->query([
+            'tagsList'      => $model->tagsList,
             'isEditAllowed' => (int) $isEditAllowed,
         ], true) ?>"
         data-max-file-size="<?= isset($this->chalk->config->maxFileSize) ? $this->chalk->config->maxFileSize : null ?>"

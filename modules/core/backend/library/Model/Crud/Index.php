@@ -7,7 +7,7 @@
 namespace Chalk\Core\Backend\Model\Crud;
 
 use Chalk\Chalk;
-use Chalk\Core\Model;
+use Chalk\Core\Backend\Model;
 use	Doctrine\Common\Collections\ArrayCollection;
 
 class Index extends Model

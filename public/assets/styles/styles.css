@@ -2740,21 +2740,6 @@ figure figcaption {
   top: 0;
   left: 0;
   z-index: 1;
-  cursor: default;
-}
-
-.thumb input[type=checkbox] + label span {
-  opacity: 0.5;
-  margin: 10px 20px 20px 10px;
-}
-
-.thumb input[type=checkbox] + label span {
-  border-color: white;
-}
-
-.dark.thumb input[type=checkbox] + label span,
-.dark .thumb input[type=checkbox] + label span {
-  border-color: #3b464f;
 }
 
 .thumb a {
@@ -4583,6 +4568,10 @@ legend {
   color: #969a9e;
   line-height: 0.8;
   text-align: right;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .expandable .expandable-toggle:before {
@@ -4590,13 +4579,13 @@ legend {
 }
 
 .expandable.active .expandable-body {
-  padding-bottom: 20px;
+  padding-top: 20px;
   max-height: 500px;
   overflow: visible;
 }
 
 .expandable.active .expandable-toggle:before {
-  transform: rotate(-90deg) translate(1px, 0);
+  transform: rotate(90deg) translate(1px, 0);
 }
 
 /* Clickable */

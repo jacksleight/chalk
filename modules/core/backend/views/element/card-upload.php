@@ -28,7 +28,7 @@ $covered  = isset($covered)  ? $covered  : false;
 		<?php } else { ?>
 			<?= $entity->file->baseName() ?>
 			<?php if (!$template) { ?>
-				<a href="<?= $this->frontend->url->file($entity->file) ?>" target="_blank" class="icon-view"></a>
+				<a href="<?= $this->frontendUrl->file($entity->file) ?>" target="_blank" class="icon-view"></a>
 			<?php } ?>
 			<br>
 			<?php if ($entity->file->exists()) { ?>

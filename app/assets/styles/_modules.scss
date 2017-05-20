@@ -226,12 +226,6 @@ figure {
 		top: 0;
 		left: 0;
 		z-index: 1;
-		cursor: default;
-		span {
-			opacity: 0.5;
-			margin: $gutter * 0.5 $gutter $gutter $gutter * 0.5;
-			@include colors(null, null, 0);
-		}
 	}
 	a {
 		text-decoration: none;
@@ -1140,19 +1134,20 @@ legend {
 		color: $color-quiet;
 		line-height: 0.8;
 		text-align: right;
+		user-select: none;
 		&:before {
 			padding-right: 1px;
 		}
 	}
 	&.active {
 		.expandable-body {
-			padding-bottom: $gutter;
+			padding-top: $gutter;
 			max-height: 500px;
 			overflow: visible;
 		}
 		.expandable-toggle {
 			&:before {
-				transform: rotate(-90deg) translate(1px, 0);
+				transform: rotate(90deg) translate(1px, 0);
 			}
 		}
 	}

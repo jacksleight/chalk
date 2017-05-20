@@ -54,6 +54,11 @@ trait Entity
         return $this->status;
     }
 
+    public function isDraft()
+    {
+        return $this->status == Chalk::STATUS_DRAFT;
+    }
+
     public function isPending()
     {
         return $this->status == Chalk::STATUS_PENDING;
@@ -61,7 +66,7 @@ trait Entity
 
     public function isPublished()
     {
-        return $this->status == Chalk::STATUS_PUBLISHED && $this->publishDate <= new \DateTime('now');
+        return $this->status == Chalk::STATUS_PUBLISHED;
     }
 
     public function isArchived()

@@ -16,9 +16,10 @@ $info = isset($info)
 	</div>
 	<div class="card-inner">
 		<?= $entity->previewName() ?>
-		<?php if ($url = $this->frontend->url($entity)) { ?>
-			<a href="<?= $url ?>" target="_blank" class="icon-view"></a>
-		<?php } ?>
+		<a href="<?= $this->url([
+            'entityType' => $info->name,
+            'entityId'   => $entity->id,
+        ], 'core_frontend', true) ?>" target="_blank" class="icon-view"></a>
 		<br>
 		<small><?= implode(' – ', $entity->previewText()) ?></small>
 	</div>

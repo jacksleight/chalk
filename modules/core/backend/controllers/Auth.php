@@ -46,7 +46,7 @@ class Auth extends Action
 
         // $this->session->regenerate();
         $session = $this->session->data('__Chalk\Backend');
-        $session->user = $user->id;
+        $session->user = $user;
 
         return $res->redirect($req->redirect
             ? $req->redirect

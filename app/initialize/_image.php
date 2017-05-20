@@ -56,6 +56,6 @@ return new Image([
     'baseDir'        => $app->chalk->config->publicDataDir->dir('file'),
     'outputDir'      => $app->chalk->config->publicDataDir->dir('image'),
     'resolver'       => $app->resolver,
-    'outputResolver' => $app->frontend->resolver,
+    'outputResolver' => $app->frontendResolver,
     'actions'        => $actions,
 ]);

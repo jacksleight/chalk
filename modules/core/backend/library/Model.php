@@ -4,12 +4,12 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-namespace Chalk\Core;
+namespace Chalk\Core\Backend;
 
 use Chalk\Chalk;
 use Chalk\Core;
 
-abstract class Model extends \Toast\Entity
+class Model extends \Toast\Entity
 {
     protected $tags;
     protected $tagsList;

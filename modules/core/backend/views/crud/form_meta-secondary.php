@@ -1,21 +1,14 @@
 <ul class="meta meta-right">
 	<?= $this->partial('meta-secondary-top') ?>
+    <?php if (!$entity->isNew()) { ?>
+        <li>
+            <a href="<?= $this->url([
+                'entityType' => $info->name,
+                'entityId'   => $entity->id,
+            ], 'core_frontend', true) ?>" target="_blank" class="icon-view">
+                Open <?= $info->singular ?>
+            </a>
+        </li>
+    <?php } ?>
 	<?= $this->partial('meta-secondary-bottom') ?>
 </ul>
-
-<?php /* <ul class="meta meta-right">
-    <?php if (!$entity->isNew()) { ?>
-        <?php
-        $url = $this->frontend->url($entity->getObject());
-        ?>
-        <?php if ($url) { ?>
-            <li>
-                <a href="<?= $url ?>" target="_blank" class="icon-view">
-                    <?= $entity->status != Chalk::STATUS_PUBLISHED ? 'Preview' : 'View' ?> <?= $entity->subtype == 'mailto'
-                        ? str_replace('Link', 'strongail Link', $info->singular)
-                        : $info->singular ?>
-                </a>
-            </li>
-        <?php } ?>
-    <?php } ?>
-</ul> */ ?>

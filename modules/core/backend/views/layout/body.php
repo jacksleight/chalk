@@ -53,8 +53,8 @@
 			</ul>
 			<ul class="toolbar toolbar-extra toolbar-space">
 				<li>
-					<a href="<?= $this->frontend->url() ?>" target="_blank" class="icon-view">
-						View Site
+					<a href="<?= $this->frontendUrl() ?>" target="_blank" class="icon-view">
+						Open Site
 					</a>
 				</li>
 				<?php
@@ -66,7 +66,7 @@
 			                'controller' => 'index',
 			                'action'     => 'publish',
 			            ], 'core_index', true) ?>?redirect=<?= $this->url([]) ?>" class="confirmable positive">
-			                <span class="badge badge-figure badge-positive"><?= $count ?></span> Publish 
+			                <span class="badge badge-figure badge-positive"><?= $count ?></span> Publish All
 			            </a>
 			        </a>
 			    <?php } ?>

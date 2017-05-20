@@ -25,9 +25,24 @@ class Index extends Action
 	
 	public function about(Request $req, Response $res)
 	{}
-	
-	public function sandbox(Request $req, Response $res)
-	{}
+    
+    public function sandbox(Request $req, Response $res)
+    {}
+    
+    public function frontend(Request $req, Response $res)
+    {
+        Chalk::isDual(true);
+        $entity = $this->em($req->entityType)->id($req->entityId);
+        if (!$entity) {
+            throw new \Exception();
+        }
+        $url = $this->frontend->url($entity);
+        if (!$url) {
+            $req->entity = $entity;
+            return $this->forward('invalid');
+        }
+        return $res->redirect($url);
+    }
 
 	public function prefs(Request $req, Response $res)
 	{
@@ -101,15 +116,26 @@ class Index extends Action
 		$req->data->contents = $contents;
 	}
 
-	public function forbidden(Request $req, Response $res)
-	{
+    public function forbidden(Request $req, Response $res)
+    {
         return $res
             ->status(403)
             ->html($this->view->render('error/forbidden', [
-            	'req' => $req,
-            	'res' => $res,
+                'req' => $req,
+                'res' => $res,
             ], 'core'));
-	}
+    }
+
+    public function invalid(Request $req, Response $res)
+    {
+        return $res
+            ->status(403)
+            ->html($this->view->render('error/invalid', [
+                'req'    => $req,
+                'res'    => $res,
+                'entity' => $req->entity,
+            ], 'core'));
+    }
 	
 	public function ping(Request $req, Response $res)
 	{

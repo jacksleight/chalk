@@ -20,9 +20,9 @@ class Content extends Repository
 
     protected $_sort = ['name', 'ASC'];
 
-    public function build(array $params = array(), $one = false)
+    public function build(array $params = array(), $extra = false)
     {
-        $query = parent::build($params, $one);
+        $query = parent::build($params, $extra);
 
         $params = $params + [
             'types'         => null,
@@ -132,9 +132,11 @@ class Content extends Repository
                 ->setParameter('statuses', $params['statuses']);
         }
 
-        $query
-            ->addSelect("{$this->alias()}_tags")
-            ->leftJoin("{$this->alias()}.tags", "{$this->alias()}_tags");
+        if ($extra) {
+            $query
+                ->addSelect("{$this->alias()}_tags")
+                ->leftJoin("{$this->alias()}.tags", "{$this->alias()}_tags");
+        }
 
         $this->publishable_modify($query, $params);
         $this->searchable_modify($query, $params);

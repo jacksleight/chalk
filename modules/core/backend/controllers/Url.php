@@ -7,8 +7,12 @@
 namespace Chalk\Core\Backend\Controller;
 
 use Chalk\Chalk;
+use Chalk\Core\Backend\Model;
+use Chalk\Core\Entity;
+use Coast\Controller\Action;
 use Coast\Request;
 use Coast\Response;
+use Coast\Url as CoastUrl;
 
 class Url extends Content
 {
@@ -51,5 +55,13 @@ class Url extends Content
 
         $redirect->queryParam('contentNew', $content->id);
         return $res->redirect($redirect);
+    }
+
+    protected function _create(Request $req, Response $res, Entity $entity, Model $model = null)
+    {
+        parent::_create($req, $res, $entity, $model);
+        if (isset($req->url)) {
+            $entity->url = new CoastUrl($req->url);
+        }
     }
 }

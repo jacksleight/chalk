@@ -20,9 +20,6 @@ $this->params([
 	</fieldset>
 	<div class="flex body">
 		<?= $this->partial('general') ?>
-        <?php if (is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true)) { ?>
-            <?= $this->partial('publishable') ?>
-        <?php } ?>
         <? // $this->partial('node') ?>
         <?php if ($req->user->isDeveloper()) { ?>
             <?= $this->partial('developer') ?>

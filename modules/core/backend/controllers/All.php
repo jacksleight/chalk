@@ -19,9 +19,7 @@ class All extends Action
     public function preDispatch(Request $req, Response $res)
     {
         $session   = $this->session->data('__Chalk\Backend');
-        $req->user = isset($session->user)
-            ? $this->em('Chalk\Core\User')->id($session->user)
-            : null;
+        $req->user = isset($session->user) ? $session->user : null;
 
         $this->app->module = $this->chalk->module($req->group);
         
@@ -43,12 +41,12 @@ class All extends Action
         $this->contentList = $this->hook->fire('core_contentList', new InfoList('core_main'));
         $this->widgetList  = $this->hook->fire('core_widgetList', new InfoList());
         $this->navList     = $this->hook->fire('core_navList', new NavList($req->user));
-        $this->domain      = $this->em('core_domain')->id(1);
+        $this->domain      = $this->em('core_domain')->id(1, [], [], false);
 
         $this->navList->activate($this->url, $req->path());
         $this->widgetList->sort();
 
-        $this->em->listener('core_trackable')->setUser($req->user);
+        $this->em->listener('core_trackable')->setUser($this->em->reference('core_user', $req->user->id));
         
         // $name   = "query_" . md5($req->path);
         // $params = $req->queryParams();

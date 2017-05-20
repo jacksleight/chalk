@@ -21,6 +21,7 @@ class Chalk extends CoastApp
     const STATUS_PUBLISHED  = 'published';
     const STATUS_ARCHIVED   = 'archived';
 
+    protected static $_isDual = false;
     protected static $_isFrontend = true;
 
     protected static $_classes = [];
@@ -28,6 +29,15 @@ class Chalk extends CoastApp
 
     protected $_events  = [];
     protected $_modules = [];
+
+    public static function isDual($value = null)
+    {
+        if (func_num_args() > 0) {
+            self::$_isDual = $value;
+            return null;
+        }
+        return self::$_isDual;
+    }
 
     public static function isFrontend($value = null)
     {

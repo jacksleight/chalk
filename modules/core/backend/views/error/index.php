@@ -1,7 +1,7 @@
-<?php $this->outer('/layout/page', [
+<?php $this->outer('/layout/html', [
 	'title'	=> 'Error',
 ]) ?>
-<?php $this->block('main') ?>
+<?php $this->block('body') ?>
 
 <div class="flex-col">
     <div class="body flex">

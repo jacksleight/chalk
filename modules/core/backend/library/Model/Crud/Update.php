@@ -7,8 +7,26 @@
 namespace Chalk\Core\Backend\Model\Crud;
 
 use Chalk\Chalk;
-use Chalk\Core\Model;
+use Chalk\Core\Backend\Model;
 use	Doctrine\Common\Collections\ArrayCollection;
 
-class Index extends Model
-{}
+class Update extends Model
+{
+    public function tagsPlus($tag)
+    {
+        return [$tag];
+    }
+
+    public function tagsMinus($tag)
+    {
+        return $this->tags();
+    }
+
+    public function tagsToggle($tag)
+    {
+        if ($tag == 'none') {
+            return [$tag];
+        }
+        return parent::tagsToggle($tag);
+    }
+}

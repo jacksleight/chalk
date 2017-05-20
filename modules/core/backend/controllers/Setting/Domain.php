@@ -7,10 +7,11 @@
 namespace Chalk\Core\Backend\Controller\Setting;
 
 use Chalk\Chalk;
-use Chalk\Core\Entity,
-	Chalk\Core\Backend\Controller\Crud,
-	Coast\Request,
-	Coast\Response;
+use Chalk\Core\Entity;
+use Chalk\Core\Backend\Model;
+use Chalk\Core\Backend\Controller\Crud;
+use Coast\Request;
+use Coast\Response;
 
 class Domain extends Crud
 {
@@ -31,7 +32,7 @@ class Domain extends Crud
         throw new \Exception('Delete not permitted');
     }
 
-    protected function _delete(Entity $entity)
+    protected function _delete(Request $req, Response $res, Entity $entity, Model $model = null)
     {
         throw new \Exception('Delete not permitted');
     }

@@ -13,7 +13,7 @@ $tags = $this->em('core_tag')->all();
     <?php } ?>
     <li>
         <a href="<?= $item['url'] . $this->url->query([
-            'tagsList' => $model->tagsListToggle('none', true),
+            'tagsList' => $model->tagsListToggle('none'),
         ]) ?>" class="<?= $model->tagsHas('none') ? 'active' : null ?>">
             Untagged
         </a>

@@ -19,6 +19,11 @@ class EntityManager extends \Coast\Doctrine\ORM\EntityManager
         return $this->getRepository(Chalk::info($class)->class);
     }
 
+    public function reference($class, $id)
+    {
+        return $this->getReference(Chalk::info($class)->class, $id);
+    }
+
     public function wrap($object, $allowed = null, array $md = null)
     {
         if ($object instanceof \Toast\Entity) {
