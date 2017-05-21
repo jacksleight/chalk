@@ -14,7 +14,8 @@ class Model extends \Toast\Entity
     protected $tags;
     protected $tagsList;
 
-    protected $remember;
+    protected $remembers;
+    protected $remembersList;
 
     protected $_entityClass;
 
@@ -30,7 +31,11 @@ class Model extends \Toast\Entity
                     'type'      => 'string',
                     'nullable'  => true,
                 ),
-                'remember' => array(
+                'remembers' => array(
+                    'type'      => 'array',
+                    'nullable'  => true,
+                ),
+                'remembersList' => array(
                     'type'      => 'string',
                     'nullable'  => true,
                 ),
@@ -106,16 +111,16 @@ class Model extends \Toast\Entity
         return implode('.', $this->tagsToggle($tag));
     }
 
-    public function remember()
+    public function remembers(array $remembers = [])
+    {
+        return $remembers;
+    }
+
+    public function remembersList()
     {
         if (func_num_args() > 0) {
             return $this;
         }
-        return implode('.', $this->rememberFields());
+        return implode('.', $this->remembers());
     }
-
-    public function rememberFields(array $fields = [])
-    {
-        return $fields;
-    }   
 }

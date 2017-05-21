@@ -43,6 +43,7 @@ class All extends Action
         $this->navList     = $this->hook->fire('core_navList', new NavList($req->user));
         $this->domain      = $this->em('core_domain')->id(1, [], [], false);
 
+
         $this->navList->activate($this->url, $req->path());
         $this->widgetList->sort();
 

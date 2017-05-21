@@ -6,13 +6,11 @@
 
 namespace Chalk\Core;
 
-use Chalk\Core\Structure\Node,
-    Chalk\Core\Behaviour\Trackable,
-    Chalk\Core\Behaviour\Versionable,
-    Chalk\Core\Behaviour\Publishable,
-    Chalk\Core\Behaviour\Loggable,
-	Coast\Model,
-	Doctrine\Common\Collections\ArrayCollection;
+use Chalk\Core\Structure\Node;
+use Chalk\Core\Behaviour\Trackable;
+use Chalk\Core\Behaviour\Publishable;
+use Coast\Model;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity
@@ -26,11 +24,7 @@ class Structure extends Entity implements Trackable
     public static $chalkPlural   = 'Structures';
 	public static $chalkIcon     = 'structure';
     
-    // use Publishable\Entity;
     use Trackable\Entity;
-    // use Versionable\Entity {
-    //     	Versionable\Entity::__construct as __constructVersionable;
-    // 	}
 
 	/**
      * @Id
@@ -72,8 +66,6 @@ class Structure extends Entity implements Trackable
 		$node = new Node();
 		$node->structure = $this;
 		$this->nodes->add($node);
-
-		// $this->__constructVersionable();
 	}
 
 	public function root()

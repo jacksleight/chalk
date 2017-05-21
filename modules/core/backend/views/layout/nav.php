@@ -35,7 +35,7 @@ if (!$items) {
                     <span class="badge badge-figure badge-pending"><?= $item['badge'] ?></span>
                 <?php } ?>
             </a>
-            <?php if ($item['isTags']) { ?>
+            <?php if ($item['isTagable']) { ?>
                 <?= $this->inner('tags', ['item' => $item]) ?>
             <?php } ?>
             <?php

@@ -4,12 +4,12 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-namespace Chalk\Core\Behaviour\Loggable;
+namespace Chalk\Core\Behaviour\Logable;
 
 use Chalk\Chalk,
 	Chalk\Core\Structure\Node,
 	Chalk\Core\Log,
-	Chalk\Core\Behaviour\Loggable,
+	Chalk\Core\Behaviour\Logable,
 	Chalk\Core\Behaviour\Publishable,
 	Doctrine\Common\EventSubscriber,
 	Doctrine\ORM\Event\OnFlushEventArgs,
@@ -58,7 +58,7 @@ class Listener implements EventSubscriber
 			$entities[] = $entity;
 		}
 		foreach ($entities as $i => $entity) {
-			if (!$entity instanceof Loggable) {
+			if (!$entity instanceof Logable) {
 				continue;
 			}
 			$changeSet			= $uow->getEntityChangeSet($entity);
@@ -83,7 +83,7 @@ class Listener implements EventSubscriber
 			$uow->getScheduledEntityDeletions()
 		);
 		foreach ($entities as $i => $entity) {
-			if (!$entity instanceof Loggable) {
+			if (!$entity instanceof Logable) {
 				continue;
 			}
 			$logs = $em->getRepository('Chalk\Core\Log')->all(['entity' => $entity]);

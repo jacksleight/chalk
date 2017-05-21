@@ -7,81 +7,89 @@
 namespace Chalk\Core\Backend\Controller;
 
 use Chalk\Chalk,
-	Chalk\Core\Structure\Node\Iterator,
-	Coast\Controller\Action,
+	Chalk\Core\Backend\Controller\Crud,
 	Coast\Request,
 	Coast\Response;
 
-class Structure extends Action
+class Structure extends Crud
 {
-	public function index(Request $req, Response $res)
+	protected $_entityClass = 'Chalk\Core\Structure';
+
+	public function preDispatch(Request $req, Response $res)
 	{
-		if (!$req->structure) {
-			$domain = $this->em('Chalk\Core\Domain')->one();
-			return $res->redirect($this->url([
-				'structure'	=> $domain->structures->first()->id,
-				'action'	=> 'edit',
-				'node'		=> $domain->structures->first()->root->id,
-			], 'core_structure_node', true));
-		} if (!$req->node) {
-			$structure = $this->em('Chalk\Core\Structure')->id($req->structure);
-			return $res->redirect($this->url([
-				'structure'	=> $structure->id,
-				'action'	=> 'edit',
-				'node'		=> $structure->root->id,
-			], 'core_structure_node', true));
+		parent::preDispatch($req, $res);
+		if (!in_array($req->user->role, ['developer'])) {
+			return $this->forward('forbidden', 'index');
 		}
 	}
 
-	public function reorder(Request $req, Response $res)
-	{
-		if (!$req->isPost()) {
-			throw new \Chalk\Exception("Reorder action only accepts POST requests");
-		}
-		if (!$req->nodeData) {
-			return $res->redirect($this->url(array(
-				'action' => 'index',
-			)));
-		}
+	// public function index(Request $req, Response $res)
+	// {
+	// 	if (!$req->structure) {
+	// 		$domain = $this->em('Chalk\Core\Domain')->one();
+	// 		return $res->redirect($this->url([
+	// 			'structure'	=> $domain->structures->first()->id,
+	// 			'action'	=> 'edit',
+	// 			'node'		=> $domain->structures->first()->root->id,
+	// 		], 'core_structure_node', true));
+	// 	} if (!$req->node) {
+	// 		$structure = $this->em('Chalk\Core\Structure')->id($req->structure);
+	// 		return $res->redirect($this->url([
+	// 			'structure'	=> $structure->id,
+	// 			'action'	=> 'edit',
+	// 			'node'		=> $structure->root->id,
+	// 		], 'core_structure_node', true));
+	// 	}
+	// }
 
-		$data = json_decode($req->nodeData);
-		$structure = $this
-			->em('Chalk\Core\Structure')
-			->id($req->structure);
-		$nodes = $this
-			->em('Chalk\Core\Structure\Node')
-			->all(['structure' => $structure]);
+	// public function reorder(Request $req, Response $res)
+	// {
+	// 	if (!$req->isPost()) {
+	// 		throw new \Chalk\Exception("Reorder action only accepts POST requests");
+	// 	}
+	// 	if (!$req->nodeData) {
+	// 		return $res->redirect($this->url(array(
+	// 			'action' => 'index',
+	// 		)));
+	// 	}
 
-		$map = [];
-		foreach ($nodes as $node) {
-			$map[$node->id] = $node;
-		}		
+	// 	$data = json_decode($req->nodeData);
+	// 	$structure = $this
+	// 		->em('Chalk\Core\Structure')
+	// 		->id($req->structure);
+	// 	$nodes = $this
+	// 		->em('Chalk\Core\Structure\Node')
+	// 		->all(['structure' => $structure]);
 
-		$it = new \RecursiveIteratorIterator(
-			new Iterator($data),
-			\RecursiveIteratorIterator::SELF_FIRST);
-		$stack = [];
-		foreach ($it as $i => $value) {
-			array_splice($stack, $it->getDepth(), count($stack), array($value));
-			$depth  = $it->getDepth();
-			$parent = $depth > 0
-				? $stack[$depth - 1]
-				: $structure->root;
-			$node = $map[$value->id];
-			$node->parent->children->removeElement($node);
-			$node->parent = $map[$parent->id];
-			$node->sort	= $i;
-		}
-		$this->em->flush();
+	// 	$map = [];
+	// 	foreach ($nodes as $node) {
+	// 		$map[$node->id] = $node;
+	// 	}		
 
-		$this->notify("Content was moved successfully", 'positive');
-		if (isset($req->redirect)) {
-			return $res->redirect($req->redirect);
-		} else {
-			return $res->redirect($this->url(array(
-				'action' => 'index',
-			)));
-		}
-	}
+	// 	$it = new \RecursiveIteratorIterator(
+	// 		new Iterator($data),
+	// 		\RecursiveIteratorIterator::SELF_FIRST);
+	// 	$stack = [];
+	// 	foreach ($it as $i => $value) {
+	// 		array_splice($stack, $it->getDepth(), count($stack), array($value));
+	// 		$depth  = $it->getDepth();
+	// 		$parent = $depth > 0
+	// 			? $stack[$depth - 1]
+	// 			: $structure->root;
+	// 		$node = $map[$value->id];
+	// 		$node->parent->children->removeElement($node);
+	// 		$node->parent = $map[$parent->id];
+	// 		$node->sort	= $i;
+	// 	}
+	// 	$this->em->flush();
+
+	// 	$this->notify("Content was moved successfully", 'positive');
+	// 	if (isset($req->redirect)) {
+	// 		return $res->redirect($req->redirect);
+	// 	} else {
+	// 		return $res->redirect($this->url(array(
+	// 			'action' => 'index',
+	// 		)));
+	// 	}
+	// }
 }
-

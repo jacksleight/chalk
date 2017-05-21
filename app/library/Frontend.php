@@ -47,53 +47,53 @@ class Frontend extends \Coast\App
         return $date;
     }
 
-    public function children($node, $isIncluded = false, $depth = null, array $criteria = array())
+    public function children($node, $isIncluded = false, $depth = null, array $params = array())
     {
         if (!isset($node)) {
             throw new \Exception('Node is not set');
         }
         return $this
             ->em('Chalk\Core\Structure\Node')
-            ->children($node, $isIncluded, $depth, $criteria);
+            ->children($node, $isIncluded, $depth, $params);
     }
 
-    public function parents($node, $isIncluded = false, $depth = null, $isReversed = false, array $criteria = array())
+    public function parents($node, $isIncluded = false, $depth = null, $isReversed = false, array $params = array())
     {
         if (!isset($node)) {
             throw new \Exception('Node is not set');
         }
         return $this
             ->em('Chalk\Core\Structure\Node')
-            ->parents($node, $isIncluded, $depth, $isReversed, $criteria);
+            ->parents($node, $isIncluded, $depth, $isReversed, $params);
     }
 
-    public function siblings($node, $isIncluded = false, array $criteria = array())
+    public function siblings($node, $isIncluded = false, array $params = array())
     {
         if (!isset($node)) {
             throw new \Exception('Node is not set');
         }
         return $this
             ->em('Chalk\Core\Structure\Node')
-            ->siblings($node, $isIncluded, $criteria);
+            ->siblings($node, $isIncluded, $params);
     }
 
-    public function tree($node, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
+    public function tree($node, $isIncluded = false, $isMerged = false, $depth = null, array $params = array())
     {
         if (!isset($node)) {
             throw new \Exception('Node is not set');
         }
         return $this
             ->em('Chalk\Core\Structure\Node')
-            ->tree($node, $isIncluded, $isMerged, $depth, $criteria);
+            ->tree($node, $isIncluded, $isMerged, $depth, $params);
     }
 
-    public function treeIterator($node, $isIncluded = false, $isMerged = false, $depth = null, array $criteria = array())
+    public function treeIterator($node, $isIncluded = false, $isMerged = false, $depth = null, array $params = array())
     {
         if (!isset($node)) {
             throw new \Exception('Node is not set');
         }
         return $this
             ->em('Chalk\Core\Structure\Node')
-            ->treeIterator($node, $isIncluded, $isMerged, $depth, $criteria);
+            ->treeIterator($node, $isIncluded, $isMerged, $depth, $params);
     }
 }

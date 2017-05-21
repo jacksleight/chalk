@@ -19,7 +19,7 @@ $this->params([
         <?php } ?>
 	</fieldset>
 	<div class="flex body">
-		<?= $this->partial('general') ?>
+		<?= $this->partial('body') ?>
         <? // $this->partial('node') ?>
         <?php if ($req->user->isDeveloper()) { ?>
             <?= $this->partial('developer') ?>

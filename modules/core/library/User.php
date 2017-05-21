@@ -25,6 +25,7 @@ class User extends Entity implements Trackable, Searchable
 	public static $chalkIcon     = 'user';
 	
     use Trackable\Entity;
+    use Searchable\Entity;
 
 	const ROLE_DEVELOPER		= 'developer';
 	const ROLE_ADMINISTRATOR	= 'administrator';
@@ -152,13 +153,13 @@ class User extends Entity implements Trackable, Searchable
 			: null;
 	}
 	
-	public function searchableContent()
-	{
-		return [
-			$this->name,
-			$this->emailAddress,
-		];
-	}
+    public function searchContent(array $content = [])
+    {
+        return [
+            $this->name,
+            $this->emailAddress,
+        ];
+    }
 		
 	public function isDeveloper()
 	{

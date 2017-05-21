@@ -1,6 +1,6 @@
 <ul class="toolbar toolbar-right">
     <?= $this->partial('actions-primary-top') ?>
-    <?php if (is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true)) { ?>
+    <?php if ($info->is->publishable) { ?>
         <?php if (!$entity->isNew() && $entity->isDraft()) { ?>
             <li><a href="<?= $this->url([
                 'action'    => 'publish',

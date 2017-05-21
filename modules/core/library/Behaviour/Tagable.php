@@ -6,7 +6,5 @@
 
 namespace Chalk\Core\Behaviour;
 
-interface Searchable
-{
-    public function searchContent(array $content = []);
-}
+interface Tagable
+{}

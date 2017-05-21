@@ -96,13 +96,13 @@ class Index extends Model
 			: [];
 	}
 
-	public function rememberFields(array $fields = [])
+	public function remembers(array $remembers = [])
 	{
 		return array_merge([
 			'page',
 			'limit',
 			'sort',
 			'search',
-		], $fields);
+		], $remembers);
 	}
 }

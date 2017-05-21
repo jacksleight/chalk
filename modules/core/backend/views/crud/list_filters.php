@@ -1,18 +1,18 @@
 <?php
 $this->params([
     'filterFields' => $filterFields = (isset($filterFields) ? $filterFields : []) + [
-        'search' => is_a($info->class, 'Chalk\Core\Behaviour\Searchable', true) ? [
+        'search' => $info->is->searchable ? [
             'class'   => 'flex-3',
             'partial' => 'search',
             'sort'    => 10,
         ] : null,
-        'dateMin' => is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true) ? [
+        'dateMin' => $info->is->publishable ? [
             'class'   => 'flex-2',
             'partial' => 'date-min',
             'params'  => ['property' => 'modify', 'placeholder' => 'Updated'],
             'sort'    => 80,
         ] : null,
-        'status' => is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true) ? [
+        'status' => $info->is->publishable ? [
             'class'   => 'flex-2',
             'partial' => 'status',
             'sort'    => 90,

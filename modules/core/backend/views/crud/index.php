@@ -11,11 +11,11 @@
 	<?= $this->inner("list", [
 		'entities' => $entities,
 	]) ?>
-    <?= $this->render('/element/form-input', array(
+    <? /* $this->render('/element/form-input', array(
         'type'   => 'input_hidden',
         'entity' => $model,
-        'name'   => 'remember',
-    ), 'core') ?>
+        'name'   => 'remembersList',
+    ), 'core') */ ?>
     <?= $this->render('/element/form-input', array(
         'type'   => 'input_hidden',
         'entity' => $model,

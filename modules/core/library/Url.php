@@ -143,10 +143,10 @@ class Url extends Content
 		return parent::previewText($context, $parts);
 	}
 	
-	public function searchableContent()
-	{
-		return array_merge(parent::searchableContent(), [
-			$this->url,
-		]);
-	}
+    public function searchContent(array $content = [])
+    {
+        return parent::searchContent(array_merge([
+            $this->url,
+        ], $content));
+    }
 }

@@ -1,3 +1,4 @@
+<?= $this->parent() ?>
 <?= $this->render('/element/form-item', array(
     'entity'    => $entity,
     'name'      => 'blocks',
@@ -7,6 +8,12 @@
     'rows'      => 20,
     'stackable' => $req->user->isDeveloper(),
 ), 'core') ?>
+<?= $this->render('/element/form-item', array(
+    'entity'    => $entity,
+    'name'      => 'image',
+    'label'     => 'Image',
+    'type'      => 'input_content',
+), 'core') ?> 
 <?= $this->render('/element/form-item', array(
     'type'      => 'textarea',
     'entity'    => $entity,

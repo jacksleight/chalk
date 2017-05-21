@@ -1,3 +1,4 @@
+<?= $this->parent() ?>
 <div class="form-item">
     <label>File</label>
     <div class="input-upload">

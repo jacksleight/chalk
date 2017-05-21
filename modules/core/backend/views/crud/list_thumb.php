@@ -30,7 +30,7 @@ $isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 				<?php } else { ?>
 					<div class="text"><span class="icon-<?= $info->icon ?>"></span></div>
 				<?php } ?>
-				<?php if (is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true)) { ?>
+				<?php if ($info->is->publishable) { ?>
 					<span class="badge badge-upper badge-<?= $this->app->statusClass($entity->status) ?>">
 						<?= $entity->status ?>
 					</span>

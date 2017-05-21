@@ -8,11 +8,9 @@ namespace Chalk\Core;
 
 use Chalk\Chalk;
 use Chalk\Backend;
-use Chalk\Core\Behaviour\Loggable\Listener as LoggableListener;
 use Chalk\Core\Behaviour\Publishable\Listener as PublishableListener;
 use Chalk\Core\Behaviour\Searchable\Listener as SearchableListener;
 use Chalk\Core\Behaviour\Trackable\Listener as TrackableListener;
-use Chalk\Core\Behaviour\Versionable\Listener as VersionableListener;
 use Chalk\Core\File\Listener as FileListener;
 use Chalk\Core\Parser\Plugin\Backend as PluginBackend;
 use Chalk\Core\Parser\Plugin\Frontend as PluginFrontend;
@@ -49,8 +47,6 @@ class Module extends ChalkModule
             ->entityListener($this->name('structure_node'), new StructureNodeListener())
             ->entityListener($this->name('publishable'), new PublishableListener())
             ->entityListener($this->name('searchable'), new SearchableListener())
-            // ->entityListener($this->name('loggable'), new LoggableListener())
-            // ->entityListener($this->name('versionable'), new VersionableListener())
             ->entityListener($this->name('trackable'), $trackable = new TrackableListener());
     }
     
@@ -238,14 +234,6 @@ class Module extends ChalkModule
 
         $this
             ->backendRoute(
-                $this->name('null'),
-                Router::METHOD_ALL,
-                "", [
-                    'group'      => $this->name(),
-                    'controller' => 'index',
-                    'action'     => 'index',
-                ])
-            ->backendRoute(
                 $this->name('index'),
                 Router::METHOD_ALL,
                 $this->path("{controller}?/{action}?/{id}?"), [
@@ -253,38 +241,6 @@ class Module extends ChalkModule
                     'controller' => 'index',
                     'action'     => 'index',
                     'id'         => null,
-                ])
-            ->backendRoute(
-                $this->name('about'),
-                Router::METHOD_ALL,
-                $this->path("about"), [
-                    'group'      => $this->name(),
-                    'controller' => 'auth',
-                    'action'     => 'about',
-                ])
-            ->backendRoute(
-                $this->name('sandbox'),
-                Router::METHOD_ALL,
-                $this->path("sandbox"), [
-                    'group'      => $this->name(),
-                    'controller' => 'index',
-                    'action'     => 'sandbox',
-                ])
-            ->backendRoute(
-                $this->name('passwordRequest'),
-                Router::METHOD_ALL,
-                $this->path("password-request"), [
-                    'group'      => $this->name(),
-                    'controller' => 'auth',
-                    'action'     => 'password-request',
-                ])
-            ->backendRoute(
-                $this->name('passwordReset'),
-                Router::METHOD_ALL,
-                $this->path("password-reset/{token}"), [
-                    'group'      => $this->name(),
-                    'controller' => 'auth',
-                    'action'     => 'password-reset',
                 ])
             ->backendRoute(
                 $this->name('login'),
@@ -303,6 +259,22 @@ class Module extends ChalkModule
                     'action'     => 'logout',
                 ])
             ->backendRoute(
+                $this->name('passwordRequest'),
+                Router::METHOD_ALL,
+                $this->path("password-request"), [
+                    'group'      => $this->name(),
+                    'controller' => 'auth',
+                    'action'     => 'password-request',
+                ])
+            ->backendRoute(
+                $this->name('passwordReset'),
+                Router::METHOD_ALL,
+                $this->path("password-reset/{token}"), [
+                    'group'      => $this->name(),
+                    'controller' => 'auth',
+                    'action'     => 'password-reset',
+                ])
+            ->backendRoute(
                 $this->name('profile'),
                 Router::METHOD_ALL,
                 $this->path("profile"), [
@@ -311,29 +283,21 @@ class Module extends ChalkModule
                     'action'     => 'update',
                 ])
             ->backendRoute(
-                $this->name('frontend'),
-                Router::METHOD_ALL,
-                $this->path("frontend/{entityType}/{entityId}"), [
-                    'group'      => $this->name(),
-                    'controller' => 'index',
-                    'action'     => 'frontend',
-                ])
-            ->backendRoute(
-                $this->name('site_redirect'),
+                $this->name('site'),
                 Router::METHOD_ALL,
                 $this->path("site"), [
                     'group'      => $this->name(),
                     'controller' => 'site',
                     'action'     => 'index',
                 ])
-            ->backendRoute(
-                $this->name('site'),
-                Router::METHOD_ALL,
-                $this->path("site/{group}/{controller}/{action}?/{id}?"), [
-                    'group'      => $this->name(),
-                    'action'     => 'index',
-                    'id'         => null,
-                ])
+            // ->backendRoute(
+            //     $this->name('site'),
+            //     Router::METHOD_ALL,
+            //     $this->path("site/{group}/{controller}/{action}?/{id}?"), [
+            //         'group'      => $this->name(),
+            //         'action'     => 'index',
+            //         'id'         => null,
+            //     ])
             ->backendRoute(
                 $this->name('setting_redirect'),
                 Router::METHOD_ALL,
@@ -358,23 +322,39 @@ class Module extends ChalkModule
                     'controller' => 'widget',
                 ])
             ->backendRoute(
-                $this->name('structure'),
+                $this->name('frontend'),
                 Router::METHOD_ALL,
-                $this->path("structure/{action}?/{structure}?"), [
+                $this->path("frontend/{entityType}/{entityId}"), [
                     'group'      => $this->name(),
-                    'controller' => 'structure',
-                    'action'     => 'index',
-                    'structure'  => null,
+                    'controller' => 'index',
+                    'action'     => 'frontend',
                 ])
             ->backendRoute(
-                $this->name('structure_node'),
+                $this->name('about'),
                 Router::METHOD_ALL,
-                $this->path("structure/node/{structure}/{action}?/{node}?"), [
+                $this->path("about"), [
                     'group'      => $this->name(),
-                    'controller' => 'structure_node',
-                    'action'     => 'index',
-                    'node'       => null,
+                    'controller' => 'index',
+                    'action'     => 'about',
                 ]);
+            // ->backendRoute(
+            //     $this->name('structure'),
+            //     Router::METHOD_ALL,
+            //     $this->path("structure/{action}?/{structure}?"), [
+            //         'group'      => $this->name(),
+            //         'controller' => 'structure',
+            //         'action'     => 'index',
+            //         'structure'  => null,
+            //     ])
+            // ->backendRoute(
+            //     $this->name('structure_node'),
+            //     Router::METHOD_ALL,
+            //     $this->path("structure/node/{structure}/{action}?/{node}?"), [
+            //         'group'      => $this->name(),
+            //         'controller' => 'structure_node',
+            //         'action'     => 'index',
+            //         'node'       => null,
+            //     ])
 
         $this
             ->backendHookListen($this->name('contentList'), function(InfoList $list) {
@@ -412,12 +392,7 @@ class Module extends ChalkModule
                     ->item($this->name('site'), [
                         'label'     => 'Site',
                         'icon'      => 'publish',
-                        'url'       => ['name' => $this->name('site_redirect')],
-                    ])
-                    ->item($this->name('structure'), [
-                        'label'     => 'Structures',
-                        'icon'      => 'structure',
-                        'url'       => ['name' => $this->name('structure')],
+                        'url'       => ['name' => $this->name('site')],
                     ])
                     ->item($this->name('setting'), [
                         'label'     => 'Settings',
@@ -425,53 +400,16 @@ class Module extends ChalkModule
                         'url'       => ['name' => $this->name('setting_redirect')],
                     ]);
                 $list
-                    ->itemEntity($this->name('page'), [
-                        'url' => ['name' => $this->name('site')],
-                    ], $this->name('site'))
-                    ->itemEntity($this->name('block'), [
-                        'url' => ['name' => $this->name('site')],
-                    ], $this->name('page'))
-                    ->itemEntity($this->name('file'), [
-                        'url'    => ['name' => $this->name('site')],
-                        'isTags' => true,
-                    ], $this->name('site'))
-                    ->itemEntity($this->name('url'), [
-                        'url' => ['name' => $this->name('site')],
-                    ], $this->name('site'))
-                    ->itemEntity($this->name('alias'), [
-                        'url' => ['name' => $this->name('site')],
-                    ], $this->name('site'));
+                    ->itemEntity($this->name('page'), [], $this->name('site'))
+                    ->itemEntity($this->name('block'), [], $this->name('page'))
+                    ->itemEntity($this->name('file'), [], $this->name('site'))
+                    ->itemEntity($this->name('url'), [], $this->name('site'))
+                    ->itemEntity($this->name('alias'), [], $this->name('site'));
                 $list
-                    ->item($this->name('setting_domain'), [
-                        'label' => 'Site',
-                        'icon'  => 'publish',
-                        'url'   => ['params' => [
-                            'controller' => 'setting_domain',
-                        ], 'name' => $this->name('setting')],
-                    ], $this->name('setting'))
-                    ->item($this->name('setting_structure'), [
-                        'roles' => ['developer'],
-                        'label' => 'Structures',
-                        'icon'  => 'structure',
-                        'url'   => ['params' => [
-                            'controller' => 'setting_structure'
-                        ], 'name' => $this->name('setting')],
-                    ], $this->name('setting_domain'))
-                    ->item($this->name('setting_user'), [
-                        'roles' => ['administrator', 'developer'],
-                        'label' => 'Users',
-                        'icon'  => 'user',
-                        'url'   => ['params' => [
-                            'controller' => 'setting_user'
-                        ], 'name' => $this->name('setting')],
-                    ], $this->name('setting'))
-                    ->item($this->name('setting_tag'), [
-                        'label' => 'Tags',
-                        'icon'  => 'price-tag',
-                        'url'   => ['params' => [
-                            'controller' => 'setting_tag'
-                        ], 'name' => $this->name('setting')],
-                    ], $this->name('setting'));
+                    ->itemEntity($this->name('domain'), [], $this->name('setting'))
+                    ->itemEntity($this->name('structure'), [], $this->name('domain'))
+                    ->itemEntity($this->name('user'), [], $this->name('setting'))
+                    ->itemEntity($this->name('tag'), [], $this->name('setting'));
                 return $list;
             });
     }
@@ -501,25 +439,10 @@ class Module extends ChalkModule
 
     public function publish()
     {
-        // foreach (self::$_publishables as $class) {
-           $entities = $this->em('core_content')->all(['isPublishable' => true]);
-           // if (is_subclass_of($class, 'Chalk\Core\Behaviour\Versionable')) {
-           //     $last = null;
-           //     foreach ($entities as $entity) {
-           //         $entity->status = $entity === $last
-           //         ? Chalk::STATUS_ARCHIVED
-           //         : Chalk::STATUS_PUBLISHED;
-           //         $last = $entity;
-           //     }
-           // } else {
-           //     foreach ($entities as $entity) {
-           //         $entity->status = Chalk::STATUS_PUBLISHED;
-           //     }
-           // }
-           foreach ($entities as $entity) {
-               $entity->status = Chalk::STATUS_PUBLISHED;
-           }
-        // }
+       $entities = $this->em('core_content')->all(['isPublishable' => true]);
+       foreach ($entities as $entity) {
+           $entity->status = Chalk::STATUS_PUBLISHED;
+       }
         $this->em->flush();
     }
 

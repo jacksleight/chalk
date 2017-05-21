@@ -21,9 +21,11 @@ use Coast\Validator;
 class Tag extends Entity implements Trackable, Searchable
 {
 	public static $chalkSingular = 'Tag';
-	public static $chalkPlural   = 'Tags';
+    public static $chalkPlural   = 'Tags';
+	public static $chalkIcon     = 'price-tag';
 	
     use Trackable\Entity;
+    use Searchable\Entity;
 
 	/**
      * @Id
@@ -73,7 +75,7 @@ class Tag extends Entity implements Trackable, Searchable
         return $this->slug;
     }
 
-    public function searchableContent()
+    public function searchContent(array $content = [])
     {
         return [
             $this->name,

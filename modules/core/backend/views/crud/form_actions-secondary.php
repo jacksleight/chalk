@@ -1,7 +1,7 @@
 <ul class="toolbar">
     <?= $this->partial('actions-secondary-top') ?>
     <?php if ($isDeleteAllowed && !$entity->isNew()) { ?>
-        <?php if (is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true)) { ?>
+        <?php if ($info->is->publishable) { ?>
             <?php if ($entity->isPublished()) { ?>
                 <li><a href="<?= $this->url([
                     'action'    => 'archive',

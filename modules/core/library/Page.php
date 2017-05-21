@@ -30,6 +30,12 @@ class Page extends Content
 	protected $summary;
 
     /**
+     * @ManyToOne(targetEntity="\Chalk\Core\File")
+     * @JoinColumn(nullable=true)
+     */
+    protected $image;
+
+    /**
      * @Column(type="json_array")
      */
     protected $blocks = [
@@ -45,12 +51,29 @@ class Page extends Content
             }
         }
     }
-		
-	public function searchableContent()
-	{
-		return array_merge(parent::searchableContent(), [
-			$this->summary,
-			implode(' ', \Coast\array_column($this->blocks, 'value')),
-		]);
-	}
+
+    public function body()
+    {
+        return implode(' ', \Coast\array_column($this->blocks, 'value'));
+    }
+    
+    public function extract($length)
+    {
+        return \Coast\str_trim_words($this->body, $length, '…');
+    }
+    
+    public function description($length)
+    {
+        return isset($this->summary)
+            ? strip_tags($this->summary)
+            : $this->extract($length);
+    }
+
+    public function searchContent(array $content = [])
+    {
+        return parent::searchContent(array_merge([
+            $this->summary,
+            implode(' ', \Coast\array_column($this->blocks, 'value')),
+        ], $content));
+    }
 }

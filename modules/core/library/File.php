@@ -18,6 +18,9 @@ class File extends Content
 	public static $chalkSingular = 'File';
 	public static $chalkPlural   = 'Files';
 	public static $chalkIcon     = 'image';
+	public static $chalkIs       = [
+        'tagable' => true,
+    ];
 
 	protected static $_baseDir;
 	protected static $_mimeTypes = [];
@@ -172,12 +175,12 @@ class File extends Content
 		return in_array($this->subtype, $mimeTypes);
 	}
 
-	public function searchableContent()
-	{
-		return array_merge(parent::searchableContent(), [
-			$this->baseName,
-		]);
-	}
+    public function searchContent(array $content = [])
+    {
+        return parent::searchContent(array_merge([
+            $this->baseName,
+        ], $content));
+    }
 
 	public function previewFile()
 	{

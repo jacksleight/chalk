@@ -6,14 +6,14 @@ $this->params([
             'partial' => 'preview',
             'sort'    => 10,
         ],
-        'date' => is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true) ? [
+        'date' => $info->is->publishable ? [
             'label'   => 'Updated',
             'class'   => 'col-right col-contract',
             'partial' => 'date-user',
             'params'  => ['property' => 'modify'],
             'sort'    => 80,
         ] : null,
-        'status' => is_a($info->class, 'Chalk\Core\Behaviour\Publishable', true) ? [
+        'status' => $info->is->publishable ? [
             'label'   => 'Status',
             'class'   => 'col-right col-contract col-badge',
             'partial' => 'status',

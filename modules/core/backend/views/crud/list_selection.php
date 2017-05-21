@@ -11,6 +11,13 @@
                 'class'  => 'confirmable autosubmitable-post',
             ], 'core') ?>
         </li>
+        <?php if ($info->is->tagable) { ?>
+            <li><button formaction="<?= $this->url([
+                    'action'  => 'manage-tags',
+                ], 'core_index', true) ?>" class="btn btn-out btn-lighter icon-price-tag">
+                    Manage Tags
+            </button></li>
+        <?php } ?>
     <?php } ?>
     <?= $this->partial('selection-bottom') ?>
 </ul>

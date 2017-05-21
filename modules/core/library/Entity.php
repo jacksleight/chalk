@@ -8,11 +8,9 @@ namespace Chalk\Core;
 
 use Chalk\Chalk;
 use Chalk\Core;
-use Chalk\Core\Behaviour\Loggable;
 use Chalk\Core\Behaviour\Publishable;
 use Chalk\Core\Behaviour\Searchable;
 use Chalk\Core\Behaviour\Trackable;
-use Chalk\Core\Behaviour\Versionable;
 use Coast\Filter;
 use Doctrine\Common\Collections\ArrayCollection;
 

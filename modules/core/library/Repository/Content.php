@@ -11,12 +11,14 @@ use Chalk\InfoList;
 use Chalk\Repository;
 use Chalk\Core\Behaviour\Publishable;
 use Chalk\Core\Behaviour\Searchable;
+use Chalk\Core\Behaviour\Tagable;
 use DateTime;
 
 class Content extends Repository
 {
     use Publishable\Repository;
     use Searchable\Repository;
+    use Tagable\Repository;
 
     protected $_sort = ['name', 'ASC'];
 
@@ -27,7 +29,6 @@ class Content extends Repository
         $params = $params + [
             'types'         => null,
             'subtypes'      => null,
-            'tags'          => null,
             'createDateMin' => null,
             'createDateMax' => null,
             'modifyDateMin' => null,
@@ -73,18 +74,6 @@ class Content extends Repository
             $query
                 ->andWhere("{$this->alias()}.subtype IN (:subtypes)")
                 ->setParameter('subtypes', $params['subtypes']);
-        }
-
-        if (isset($params['tags'])) {
-            $tags = (array) $params['tags'];
-            if ($tags == ['none']) {
-                $query
-                    ->andWhere("{$this->alias()}.tags IS EMPTY");
-            } else if (count($tags)) {
-                $query
-                    ->andWhere(":tags MEMBER OF {$this->alias()}.tags")
-                    ->setParameter('tags', $tags);
-            }
         }
 
         if (isset($params['createDateMin'])) {
@@ -138,8 +127,9 @@ class Content extends Repository
                 ->leftJoin("{$this->alias()}.tags", "{$this->alias()}_tags");
         }
 
-        $this->publishable_modify($query, $params);
-        $this->searchable_modify($query, $params);
+        $this->_publishable_modify($query, $params);
+        $this->_searchable_modify($query, $params);
+        $this->_tagable_modify($query, $params);
 
         return $query;
     }

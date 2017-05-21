@@ -15,40 +15,40 @@ use DateTime;
 
 trait Repository
 {
-    public function publishable_modify(QueryBuilder $query, array $criteria = array(), $alias = null)
+    protected function _publishable_modify(QueryBuilder $query, array $params = array(), $alias = null)
     {
         $alias = isset($alias)
             ? $alias
             : $this->alias();
 
-        $criteria = $criteria + [
+        $params = $params + [
             'isPublished'    => Chalk::isFrontend(),
             'isPublishable'  => false,
             'publishDateMin' => null,
             'publishDateMax' => null,
         ];
 
-        if ($criteria['isPublished']) {
+        if ($params['isPublished']) {
             $query->andWhere("{$alias}.status IN (:statuses) AND UTC_TIMESTAMP() >= {$alias}.publishDate");
             $query->setParameter('statuses', [Chalk::STATUS_PUBLISHED]);
         }
-        if ($criteria['isPublishable']) {
+        if ($params['isPublishable']) {
             $query->andWhere("{$alias}.status IN (:statuses)");
             $query->setParameter('statuses', [Chalk::STATUS_DRAFT, Chalk::STATUS_PENDING]);
         }
 
-        if (isset($criteria['publishDateMin'])) {
-            $publishDateMin = $criteria['publishDateMin'] instanceof DateTime
-                ? $criteria['publishDateMin']
-                : new DateTime($criteria['publishDateMin']);
+        if (isset($params['publishDateMin'])) {
+            $publishDateMin = $params['publishDateMin'] instanceof DateTime
+                ? $params['publishDateMin']
+                : new DateTime($params['publishDateMin']);
             $query
                 ->andWhere("{$alias}.publishDate >= :publishDateMin")
                 ->setParameter('publishDateMin', $publishDateMin);
         }
-        if (isset($criteria['publishDateMax'])) {
-            $publishDateMax = $criteria['publishDateMax'] instanceof DateTime
-                ? $criteria['publishDateMax']
-                : new DateTime($criteria['publishDateMax']);
+        if (isset($params['publishDateMax'])) {
+            $publishDateMax = $params['publishDateMax'] instanceof DateTime
+                ? $params['publishDateMax']
+                : new DateTime($params['publishDateMax']);
             $query
                 ->andWhere("{$alias}.publishDate <= :publishDateMax")
                 ->setParameter('publishDateMax', $publishDateMax);

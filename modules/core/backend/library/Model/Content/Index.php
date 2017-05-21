@@ -112,9 +112,9 @@ class Index extends CrudIndex
 		));
 	}
 
-	public function rememberFields(array $fields = [])
+	public function remembers(array $remembers = [])
 	{
-		return parent::rememberFields(array_merge([
+		return parent::remembers(array_merge([
 			'subtypes',
 			'createDateMin',
 			'createDateMax',
@@ -123,7 +123,7 @@ class Index extends CrudIndex
 			'publishDateMin',
 			'publishDateMax',
 			'statuses',
-		], $fields));
+		], $remembers));
 	}
 }
 

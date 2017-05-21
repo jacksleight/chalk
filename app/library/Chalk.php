@@ -122,6 +122,12 @@ class Chalk extends CoastApp
                 'name'  => implode('_', $localLcFirst),
                 'path'  => implode('/', $localLcSplit),
             ],
+            'is' => (class_exists($class) && isset($class::$chalkIs) ? $class::$chalkIs : []) + [
+                'publishable' => class_exists($class) && is_a($class, 'Chalk\Core\Behaviour\Publishable', true),
+                'searchable'  => class_exists($class) && is_a($class, 'Chalk\Core\Behaviour\Searchable', true),
+                'tagable'     => class_exists($class) && is_a($class, 'Chalk\Core\Behaviour\Tagable', true),
+                'trackable'   => class_exists($class) && is_a($class, 'Chalk\Core\Behaviour\Trackable', true),
+            ],
             'singular'  => class_exists($class) && isset($class::$chalkSingular) ? $class::$chalkSingular : implode('_', $entityLcFirst),
             'plural'    => class_exists($class) && isset($class::$chalkPlural)   ? $class::$chalkPlural   : implode('_', $entityLcFirst),
             'text'      => class_exists($class) && isset($class::$chalkText)     ? $class::$chalkText     : null,

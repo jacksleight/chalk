@@ -5,24 +5,13 @@
 	<div class="flex-row topbar dark">
 		<div class="leftbar header">
 			<?php
-			$items = array_merge(
-				$this->navList->children(0),
-				$this->navList->children(0)
-			);
-			foreach ($items as $i => $item) {
-				if ($item['isActivePath']) {
-					$current = $item;
-				}
-			}
+			$items = $this->navList->children();
+			$root  = $this->navList->root();
 			?>
 			<div class="dropdown">
 				<div class="input-pseudo input-extra">
-					<?php if (isset($current)) { ?>
-						<span class="icon-<?= isset($current['icon-block']) ? $current['icon-block'] : $current['icon'] ?>"></span>
-						<?= $current['label'] ?>
-					<?php } else { ?>	
-						Chalk
-					<?php } ?>
+					<span class="icon-<?= isset($root['icon-block']) ? $root['icon-block'] : $root['icon'] ?>"></span>
+					<?= $root['label'] ?>
 				</div>
 				<nav class="menu">
 					<ul>

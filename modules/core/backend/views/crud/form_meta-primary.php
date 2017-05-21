@@ -3,7 +3,7 @@
 	<li class="icon-<?= $info->icon ?>">
 		<?= $info->singular ?>
 	</li>
-    <?php if (is_a($info->class, 'Chalk\Core\Behaviour\Trackable', true) && !$entity->isNew()) { ?>
+    <?php if ($info->is->trackable && !$entity->isNew()) { ?>
         <li class="icon-updated">
             Updated <strong><?= $entity->modifyDate->diffForHumans() ?></strong>
             by <strong><?= $entity->modifyUserName ?></strong>

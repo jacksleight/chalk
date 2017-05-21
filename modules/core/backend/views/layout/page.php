@@ -1,7 +1,8 @@
 <?php if (!$req->isAjax()) { ?>
     <?php
-    $path = new Coast\Path($req->path());
-    $this->outer("layout/page_{$path->part(1)}", [], $path->part(0));
+    $root = $this->navList->root();
+    $info = Chalk\Chalk::info($root['name']);
+    $this->outer("layout/page_{$info->local->name}", [], $info->module->name);
     ?>
     <?php $this->block('main') ?>
     <?= $this->content('main') ?>

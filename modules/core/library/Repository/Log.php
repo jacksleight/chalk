@@ -6,10 +6,10 @@
 
 namespace Chalk\Core\Repository;
 
-use Chalk\Chalk,
-    Chalk\Core,
-    Chalk\Core\Behaviour\Loggable,
-    Chalk\Repository;
+use Chalk\Chalk;
+use Chalk\Core;
+use Chalk\Core\Behaviour\Logable;
+use Chalk\Repository;
 
 class Log extends Repository
 {

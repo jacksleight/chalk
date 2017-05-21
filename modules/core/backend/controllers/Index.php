@@ -25,9 +25,15 @@ class Index extends Action
 	
 	public function about(Request $req, Response $res)
 	{}
-    
-    public function sandbox(Request $req, Response $res)
-    {}
+        
+    public function manageTags(Request $req, Response $res)
+    {
+        var_dump($_GET);
+        var_dump($_POST);
+
+        echo 1;
+        die;
+    }
     
     public function frontend(Request $req, Response $res)
     {

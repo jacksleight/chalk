@@ -24,9 +24,9 @@ $config->setMetadataDriverImpl($config->newDefaultAnnotationDriver());
 $config->setProxyDir($app->config->dataDir->dir('proxy'));
 $config->setProxyNamespace('Chalk\Proxy');
 $config->setAutoGenerateProxyClasses(false);
-$config->setQueryCacheImpl($app->cache->value());
-$config->setResultCacheImpl($app->cache->value());
-$config->setMetadataCacheImpl($app->cache->value());
+$config->setQueryCacheImpl($app->cache);
+$config->setResultCacheImpl($app->cache);
+$config->setMetadataCacheImpl($app->cache);
 Autoloader::register($app->config->dataDir->dir('proxy'), 'Chalk\Proxy');
 
 $evm = new EventManager();

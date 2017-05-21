@@ -28,8 +28,8 @@ $app = (new Chalk(__DIR__, $config->envs))
     ->param('root', $app)
     ->param('config', $config);
 $app
-    ->param('em', $app->lazy('_em.php'))
-    ->param('cache', $app->lazy('_cache.php'))
+    ->param('cache', $app->load('_cache.php'))
+    ->param('em', $app->load('_em.php'))
     ->param('swift', $app->lazy('_swift.php'))
     ->param('hook', new HookManager())
     ->param('session', $app->config->session)

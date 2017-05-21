@@ -1,3 +1,4 @@
+<?= $this->parent() ?>
 <?php if ($entity->subtype == 'MAILTO') { ?>
     <?= $this->render('/element/form-item', array(
         'entity'        => $entity,

@@ -6,5 +6,5 @@
 
 namespace Chalk\Core\Behaviour;
 
-interface Loggable
+interface Logable
 {}

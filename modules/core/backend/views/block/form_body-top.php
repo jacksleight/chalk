@@ -1,3 +1,4 @@
+<?= $this->parent() ?>
 <?= $this->render('/element/form-item', array(
 	'type'		=> 'textarea',
 	'entity'	=> $entity,

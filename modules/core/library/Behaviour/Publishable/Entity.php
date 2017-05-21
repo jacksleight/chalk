@@ -25,7 +25,7 @@ trait Entity
      */
 	protected $archiveDate;
 
-    protected static function _defineMetadata($class)
+    protected static function _publishable_defineMetadata($class)
     {
         return array(
             'fields' => array(
