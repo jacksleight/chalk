@@ -5,13 +5,13 @@
 	<div class="flex-row topbar dark">
 		<div class="leftbar header">
 			<?php
-			$items = $this->navList->children();
-			$root  = $this->navList->root();
+			$items = $this->nav->children('root');
+			$main  = $this->nav->main();
 			?>
 			<div class="dropdown">
 				<div class="input-pseudo input-extra">
-					<span class="icon-<?= isset($root['icon-block']) ? $root['icon-block'] : $root['icon'] ?>"></span>
-					<?= $root['label'] ?>
+					<span class="icon-<?= isset($main['icon-block']) ? $main['icon-block'] : $main['icon'] ?>"></span>
+					<?= $main['label'] ?>
 				</div>
 				<nav class="menu">
 					<ul>
@@ -63,18 +63,7 @@
 			<h1><a href="<?= $this->url([], 'core_about', true) ?>" rel="modal"><?= $this->domain->label ?></a></h1>
 		</div>
 	</div>
-	<div class="flex flex-row bottombar">
-		<div class="flex-col leftbar">
-			<div class="flex">
-				<?= $this->content('sidebar') ?>
-			</div>
-		</div>
-		<div class="flex flex-col rightbar">
-			<div class="flex">
-				<?= $this->content('main') ?>
-			</div>
-		</div>
-	</div>
+	<?= $this->content('main') ?>
 </div>
 <ul class="notifications"></ul>
 

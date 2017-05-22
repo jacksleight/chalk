@@ -10,19 +10,23 @@ use Chalk\Chalk;
 use Chalk\Core;
 
 class Model extends \Toast\Entity
-{
+{    
+    protected $mode;
+
     protected $tags;
     protected $tagsList;
 
     protected $remembers;
     protected $remembersList;
 
-    protected $_entityClass;
-
     protected static function _defineMetadata($class)
     {
         return \Coast\array_merge_smart(parent::_defineMetadata($class), array(
             'fields' => array(
+                'mode' => array(
+                    'type'      => 'string',
+                    'nullable'  => true,
+                ),
                 'tags' => array(
                     'type'      => 'array',
                     'nullable'  => true,
@@ -41,11 +45,6 @@ class Model extends \Toast\Entity
                 ),
             ),
         ));
-    }
-
-    public function __construct($entityClass)
-    {
-        $this->_entityClass = $entityClass;
     }
 
     public function tags(array $tags = null)

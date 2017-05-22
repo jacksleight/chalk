@@ -12,7 +12,7 @@ use Coast\Url;
 use Coast\Request;
 use Coast\Response;
 use Chalk\InfoList;
-use Chalk\Core\NavList;
+use Chalk\Core\Nav;
 
 class All extends Action
 {
@@ -21,7 +21,7 @@ class All extends Action
         $session   = $this->session->data('__Chalk\Backend');
         $req->user = isset($session->user) ? $session->user : null;
 
-        $this->app->module = $this->chalk->module($req->group);
+        $this->app->module = $module = $this->chalk->module($req->group);
         
         $req->data = (object) [];
         $req->view = (object) [];
@@ -38,17 +38,35 @@ class All extends Action
             return $res->redirect($this->url([], 'core_login', true) . $this->url->query($query, true));
         }
 
-        $this->contentList = $this->hook->fire('core_contentList', new InfoList('core_main'));
-        $this->widgetList  = $this->hook->fire('core_widgetList', new InfoList());
-        $this->navList     = $this->hook->fire('core_navList', new NavList($req->user));
         $this->domain      = $this->em('core_domain')->id(1, [], [], false);
 
+        $this->contentList = $this->hook->fire('core_contentList', new InfoList('core_main'));
+        $this->widgetList  = $this->hook->fire('core_widgetList', new InfoList());
+        $this->nav         = $this->hook->fire('core_nav', new Nav($this->url, $req));
+        $this->select      = $this->hook->fire('core_select', new Nav($this->url, $req));
 
-        $this->navList->activate($this->url, $req->path());
         $this->widgetList->sort();
 
         $this->em->listener('core_trackable')->setUser($this->em->reference('core_user', $req->user->id));
         
+        $class = $module->nspace("Backend\\Controller\\" . ucfirst($req->controller));
+        $parents = array_merge(
+            [$class],
+            array_values(class_parents($class))
+        );
+        $class = 'Chalk\Core\Backend\Model';
+        foreach ($parents as $parent) {
+            $check = str_replace('\\Controller\\', '\\Model\\', $parent) . '\\' . ucfirst($req->action);
+            if (class_exists($check)) {
+                $class = $check;
+                break;
+            }
+        }
+        $model = new $class();
+        $model = $this->em->wrap($model);
+        $model->graphFromArray($req->queryParams());
+        $req->view->model = $req->model = $model;
+
         // $name   = "query_" . md5($req->path);
         // $params = $req->queryParams();
         // if (!count($params)) {

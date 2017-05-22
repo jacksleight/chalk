@@ -6,9 +6,10 @@
 
 namespace Chalk\Core\Backend\Model\Tag;
 
+use Chalk\Core\Backend\Model;
 use Coast\Validator;
 
-class Merge extends \Toast\Entity
+class Merge extends Model
 {
 	protected $sourceTag;
 

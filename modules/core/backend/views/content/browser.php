@@ -24,8 +24,6 @@ $info = Chalk::info($model->type);
 	<div class="flex rightbar">
 		<?= $this->render("/{$info->local->path}/list", [
 			'contents'		=> $this->em($info)->all(['types' => $filters] + $model->toArray(), [], Repository::FETCH_ALL_PAGED),
-			'isAddAllowed'	=> false,
-			'isEditAllowed'	=> false,
 			'info'			=> $info,
 			'index'			=> $model,
             'filters'       => $filters,

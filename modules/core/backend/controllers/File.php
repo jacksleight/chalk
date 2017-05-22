@@ -44,9 +44,9 @@ class File extends Content
                     ? $this->em($req->info)->id($req->route['params']['id'])
                     : $this->em($req->info)->create();      
                 if ($entity->isNew()) {
-                    $this->_create($req, $res, $entity, $model);
+                    $this->_create($req, $res, $entity);
                 } else {
-                    $this->_update($req, $res, $entity, $model);
+                    $this->_update($req, $res, $entity);
                 }
                 $view = $entity->isNew() ? '/content/list_thumb' : '/element/card-upload';    
                 if (!$this->em->isPersisted($entity)) {

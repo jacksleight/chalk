@@ -1,6 +1,6 @@
 <ul class="toolbar toolbar-right">
     <?= $this->partial('tools-top') ?>
-    <?php if ($isAddAllowed) { ?>
+    <?php if (in_array('create', $actions)) { ?>
         <ul class="toolbar">
             <li><span class="btn btn-focus icon-upload uploadable-button">
                 Upload <?= $info->plural ?>

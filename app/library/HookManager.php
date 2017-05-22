@@ -7,6 +7,7 @@
 namespace Chalk;
 
 use Closure;
+use Chalk\Hook;
 
 class HookManager
 {
@@ -20,11 +21,16 @@ class HookManager
 
     public function fire($name, $value = null)
     {
-        if (!isset($this->hooks[$name])) {
-            return $value;
+        if ($value instanceof Hook) {
+            $value->preFire();
         }
-        foreach ($this->hooks[$name] as $listener) {
-            $value = $listener($value);
+        if (isset($this->hooks[$name])) {
+            foreach ($this->hooks[$name] as $listener) {
+                $value = $listener($value);
+            }
+        }
+        if ($value instanceof Hook) {
+            $value->postFire();
         }
         return $value;
     }

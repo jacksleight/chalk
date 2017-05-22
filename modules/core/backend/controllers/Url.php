@@ -57,9 +57,9 @@ class Url extends Content
         return $res->redirect($redirect);
     }
 
-    protected function _create(Request $req, Response $res, Entity $entity, Model $model = null)
+    protected function _create(Request $req, Response $res, Entity $entity)
     {
-        parent::_create($req, $res, $entity, $model);
+        parent::_create($req, $res, $entity);
         if (isset($req->url)) {
             $entity->url = new CoastUrl($req->url);
         }

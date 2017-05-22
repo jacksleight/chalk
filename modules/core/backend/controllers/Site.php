@@ -15,7 +15,7 @@ class Site extends Action
 {
 	public function index(Request $req, Response $res)
 	{
-		$items = $this->navList->children('core_site');
+		$items = $this->nav->children('core_site');
         if (!count($items)) {
             throw new \Exception('No route for redirection');
         }

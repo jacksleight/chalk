@@ -9,16 +9,20 @@ if (!$items) {
         if (!isset($item)) {
             continue;
         }
-        if (isset($item['isDeveloper']) && !$req->user->isDeveloper()) {
+        if (isset($item['roles']) && !in_array($req->user->role, $item['roles'])) {
             continue;
         }
         $class  = [
             $item['isActive']     ? 'active' : null,
             $item['isActivePath'] ? 'active-path' : null,
         ];
+        $url = $item['url'];
+        $url->queryParams([
+            'mode' => $req->mode,
+        ]);
         ?>
         <li class="<?= implode(' ', $class) ?>">
-            <a href="<?= $item['url'] ?>" class="item <?= implode(' ', $class) ?>">
+            <a href="<?= $url ?>" class="item <?= implode(' ', $class) ?>">
                 <?php if (isset($item['label'])) { ?>
                     <?php if (isset($item['icon-block'])) { ?>
                         <span class="icon-block icon-<?= $item['icon-block'] ?>">
@@ -36,10 +40,10 @@ if (!$items) {
                 <?php } ?>
             </a>
             <?php if ($item['isTagable']) { ?>
-                <?= $this->inner('tags', ['item' => $item]) ?>
+                <?= $this->inner('tags', ['item' => $item, 'url' => $url]) ?>
             <?php } ?>
             <?php
-            $children = $this->navList->children($name);
+            $children = $this->nav->children($name);
             ?>
             <?php if (count($children)) { ?>
                 <?= $this->inner('nav', [

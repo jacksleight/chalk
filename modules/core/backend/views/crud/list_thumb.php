@@ -1,11 +1,10 @@
 <?php
-$template		= isset($template) ? $template : false;
-$covered		= isset($covered) ? $covered : false;
-$isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
+$template	= isset($template) ? $template : false;
+$covered	= isset($covered) ? $covered : false;
 ?>
 
 <figure class="thumb selectable">
-	<?php if ($isEditAllowed) { ?>
+	<?php if (in_array('update', $actions)) { ?>
 		<a href="<?= !$template ? $this->url([
             'action' => 'update',
             'id'     => $entity->id,
@@ -51,7 +50,7 @@ $isEditAllowed	= isset($isEditAllowed) ? $isEditAllowed : true;
 				<small><?= implode(' – ', $entity->previewText(true)) ?></small>
 			<?php } ?>
 		</figcaption>
-	<?php if ($isEditAllowed) { ?>
+	<?php if (in_array('update', $actions)) { ?>
 		</a>
 	<?php } ?>
 </figure>

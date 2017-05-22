@@ -16,7 +16,7 @@ class Setting extends Action
 {
 	public function index(Request $req, Response $res)
 	{
-		$items = $this->navList->children('core_setting');
+		$items = $this->nav->children('core_setting');
 		if (!count($items)) {
             throw new \Exception('No route for redirection');
         }

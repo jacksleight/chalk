@@ -68,7 +68,7 @@ class Tag extends Entity implements Trackable, Searchable
     {
         if (func_num_args() > 0) {
             $this->slug = isset($slug)
-                ? strtolower(\Coast\str_slugify(iconv('utf-8', 'ascii//translit//ignore', $slug)))
+                ? \Chalk\str_slugify($slug)
                 : $slug;
             return $this;
         }

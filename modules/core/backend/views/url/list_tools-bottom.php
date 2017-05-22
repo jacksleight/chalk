@@ -1,4 +1,4 @@
-<?php if ($isAddAllowed) { ?>
+<?php if (in_array('create', $actions)) { ?>
     <li><a href="<?= $this->url([
         'action' => 'update',
     ]) . $this->url->query([

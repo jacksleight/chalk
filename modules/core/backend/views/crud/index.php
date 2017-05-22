@@ -11,14 +11,9 @@
 	<?= $this->inner("list", [
 		'entities' => $entities,
 	]) ?>
-    <? /* $this->render('/element/form-input', array(
-        'type'   => 'input_hidden',
-        'entity' => $model,
-        'name'   => 'remembersList',
-    ), 'core') */ ?>
-    <?= $this->render('/element/form-input', array(
-        'type'   => 'input_hidden',
-        'entity' => $model,
-        'name'   => 'tagsList',
-    ), 'core') ?>
+    <?= $this->url->queryInputs([
+        'mode'       => $model->mode,
+        'tagsList'   => $model->tagsList,
+        'entityType' => $model->entityType,
+    ], true) ?>
 </form>

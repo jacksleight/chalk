@@ -79,7 +79,7 @@ uasort($tableCols, function($a, $b) {
     <tbody class="uploadable-list">
         <?php if (count($entities)) { ?>
             <?php foreach ($entities as $entity) { ?>
-                <tr class="selectable <?= $isEditAllowed ? 'clickable' : null ?>">
+                <tr class="selectable <?= in_array('update', $actions) ? 'clickable' : null ?>">
                     <td class="col-select">
                         <?= $this->partial('checkbox', [
                             'entity'   => $entity,

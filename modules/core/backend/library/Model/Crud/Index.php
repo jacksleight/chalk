@@ -12,6 +12,8 @@ use	Doctrine\Common\Collections\ArrayCollection;
 
 class Index extends Model
 {
+    protected $entityType;
+
 	protected $page = 1;
 	protected $limit = 50;
 	protected $sort;
@@ -21,7 +23,6 @@ class Index extends Model
 	protected $selectedList;
 	protected $batch;
 
-	protected $_entityClass;
 	protected $_sorts;
 	protected $_limits;
 	protected $_batches;
@@ -30,6 +31,10 @@ class Index extends Model
 	{
 		return \Coast\array_merge_smart(parent::_defineMetadata($class), array(
 			'fields' => array(
+                'entityType' => array(
+                    'type'      => 'string',
+                    'nullable'  => true,
+                ),
 				'page' => array(
 					'type'		=> 'integer',
 				),
@@ -65,6 +70,13 @@ class Index extends Model
 		));
 	}
 
+	public function data($sorts = [], $limits = [], $batches = [])
+	{
+		$this->_sorts		= $sorts;
+		$this->_limits		= $limits;
+		$this->_batches		= $batches;
+	}
+
 	protected function _alterMetadata($name, $value)
 	{
 		if ($name == 'sort') {
@@ -75,14 +87,6 @@ class Index extends Model
 			$value['values'] = $this->_batches;
 		}
 		return $value;
-	}
-
-	public function __construct($entityClass, $sorts = [], $limits = [], $batches = [])
-	{
-		$this->_entityClass	= $entityClass;
-		$this->_sorts		= $sorts;
-		$this->_limits		= $limits;
-		$this->_batches		= $batches;
 	}
 
 	public function selected(array $selected = null)

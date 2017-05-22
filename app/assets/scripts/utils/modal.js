@@ -50,6 +50,13 @@
 							return;
 						} else {
 							close(data);
+							if (data.clear) {
+								$('.selectable input[type=checkbox]').each(function() {
+									if ($(this).prop('checked')) {
+										$(this)[0].click();
+									}
+								});
+							}
 							return;
 						}
 					}
@@ -124,7 +131,19 @@
 
 	$('[rel=modal]').click(function(ev) {
 		ev.preventDefault();
-		Chalk.modal($(ev.target).attr('href'));
+		var target = $(ev.target);
+		if (target.is('a')) {
+			Chalk.modal(target.attr('href'));
+		} else {
+			var form	= target.closest('form');
+			var url		= target.attr('formaction') || form.attr('action');
+			var method	= target.attr('formmethod') || form.attr('method');
+			var data	= form.serialize();
+			Chalk.modal(url, {
+				method: method,
+				data: data
+			});
+		}
 	});
 
 })();

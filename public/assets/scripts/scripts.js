@@ -23863,6 +23863,13 @@ var widget = $.widget;
 							return;
 						} else {
 							close(data);
+							if (data.clear) {
+								$('.selectable input[type=checkbox]').each(function() {
+									if ($(this).prop('checked')) {
+										$(this)[0].click();
+									}
+								});
+							}
 							return;
 						}
 					}
@@ -23937,7 +23944,19 @@ var widget = $.widget;
 
 	$('[rel=modal]').click(function(ev) {
 		ev.preventDefault();
-		Chalk.modal($(ev.target).attr('href'));
+		var target = $(ev.target);
+		if (target.is('a')) {
+			Chalk.modal(target.attr('href'));
+		} else {
+			var form	= target.closest('form');
+			var url		= target.attr('formaction') || form.attr('action');
+			var method	= target.attr('formmethod') || form.attr('method');
+			var data	= form.serialize();
+			Chalk.modal(url, {
+				method: method,
+				data: data
+			});
+		}
 	});
 
 })();
@@ -24063,9 +24082,9 @@ Chalk.component('.input-content', function(i, el) {
 	
 	select.click(function(ev) {
 		Chalk.modal(Chalk.selectUrl + '?' + params, {}, function(res) {
-			if (res.contents) {
-				input.val(res.contents[0].id);
-				holder.html(res.contents[0].card);
+			if (res.entites) {
+				input.val(res.entites[0].id);
+				holder.html(res.entites[0].card);
 				remove.css('display', 'inline-block');
 			}
 		});

@@ -16,7 +16,9 @@ use Coast\Response;
 class Domain extends Crud
 {
 	protected $_entityClass = 'Chalk\Core\Domain';
-    protected $_actions = [];
+    protected $_actions = [
+        'update' => 'updated',    
+    ];
     protected $_batches = [];
 
 	public function index(Request $req, Response $res)
@@ -32,7 +34,7 @@ class Domain extends Crud
         throw new \Exception('Delete not permitted');
     }
 
-    protected function _delete(Request $req, Response $res, Entity $entity, Model $model = null)
+    protected function _delete(Request $req, Response $res, Entity $entity)
     {
         throw new \Exception('Delete not permitted');
     }

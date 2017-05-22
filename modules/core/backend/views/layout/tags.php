@@ -4,7 +4,7 @@ $tags = $this->em('core_tag')->all();
 <ul class="tags">
     <?php foreach ($tags as $tag) { ?>
         <li>
-            <a href="<?= $item['url'] . $this->url->query([
+            <a href="<?= $url->queryParams([
                 'tagsList' => $model->tagsListToggle($tag->id),
             ]) ?>" class="<?= $model->tagsHas($tag->id) ? 'active' : null ?>">
                 <?= $tag->name ?>
@@ -12,7 +12,7 @@ $tags = $this->em('core_tag')->all();
         </li>
     <?php } ?>
     <li>
-        <a href="<?= $item['url'] . $this->url->query([
+        <a href="<?= $url->queryParams([
             'tagsList' => $model->tagsListToggle('none'),
         ]) ?>" class="<?= $model->tagsHas('none') ? 'active' : null ?>">
             Untagged

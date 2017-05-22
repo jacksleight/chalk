@@ -6,23 +6,20 @@
 		<h1>
 			Merge Tags
 		</h1>
+		<small>Find all items using the source tag, assign them the target tag, and then delete the source tag.</small>
 	</div>
 	<div class="flex body">
-		<p>This will find all items using the source tag, assign them the target tag, and then delete the source tag. <strong>This action cannot be undone.</strong></p>
 		<fieldset class="form-block">
-			<div class="form-legend">
-				<h2>Tags</h2>
-			</div>
 			<div class="form-items">
 				<?= $this->render('/element/form-item', array(
-					'entity'	=> $merge,
+					'entity'	=> $model,
 					'name'		=> 'sourceTag',
 					'label'		=> 'Source',
 					'null'		=> 'Select…',
 					'values'	=> $tags = $this->em('core_tag')->all(),
 				)) ?>
 				<?= $this->render('/element/form-item', array(
-					'entity'	=> $merge,
+					'entity'	=> $model,
 					'name'		=> 'targetTag',
 					'label'		=> 'Target',
 					'null'		=> 'Select…',
@@ -34,7 +31,7 @@
 	<fieldset class="footer">
 		<ul class="toolbar toolbar-right">
 			<li>
-				<button class="btn btn-positive icon-ok confirmable">
+				<button class="btn btn-negative icon-ok confirmable">
 					Merge <?= $info->plural ?>
 				</button>
 			</li>

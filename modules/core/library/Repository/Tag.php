@@ -23,4 +23,23 @@ class Tag extends Repository
 
         return $query;
     }
+
+    public function names(array $names)
+    {
+        $map = [];
+        foreach ($names as $name) {
+            $slug = \Chalk\str_slugify($name);
+            $map[$slug] = trim($name);
+        }
+        $tags = $this->all(['slugs' => array_keys($map)]);
+        foreach ($tags as $tag) {
+            unset($map[$tag->slug]);
+        }
+        foreach ($map as $slug => $name) {
+            $tags[] = $this->create([
+                'name' => $name,
+            ]);
+        }
+        return $tags;
+    }
 }

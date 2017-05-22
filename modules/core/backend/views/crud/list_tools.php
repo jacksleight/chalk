@@ -1,6 +1,6 @@
 <ul class="toolbar toolbar-right">
     <?= $this->partial('tools-top') ?>
-    <?php if ($isAddAllowed) { ?>
+    <?php if (in_array('create', $actions)) { ?>
         <li><a href="<?= $this->url([
                 'action'  => 'update',
                 'content' => null,

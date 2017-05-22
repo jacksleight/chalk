@@ -234,6 +234,14 @@ class Module extends ChalkModule
 
         $this
             ->backendRoute(
+                $this->name('null'),
+                Router::METHOD_ALL,
+                "", [
+                    'group'      => $this->name(),
+                    'controller' => 'index',
+                    'action'     => 'index',
+                ])
+            ->backendRoute(
                 $this->name('index'),
                 Router::METHOD_ALL,
                 $this->path("{controller}?/{action}?/{id}?"), [
@@ -283,6 +291,14 @@ class Module extends ChalkModule
                     'action'     => 'update',
                 ])
             ->backendRoute(
+                $this->name('select'),
+                Router::METHOD_ALL,
+                $this->path("select"), [
+                    'group'      => $this->name(),
+                    'controller' => 'index',
+                    'action'     => 'select',
+                ])
+            ->backendRoute(
                 $this->name('site'),
                 Router::METHOD_ALL,
                 $this->path("site"), [
@@ -290,29 +306,13 @@ class Module extends ChalkModule
                     'controller' => 'site',
                     'action'     => 'index',
                 ])
-            // ->backendRoute(
-            //     $this->name('site'),
-            //     Router::METHOD_ALL,
-            //     $this->path("site/{group}/{controller}/{action}?/{id}?"), [
-            //         'group'      => $this->name(),
-            //         'action'     => 'index',
-            //         'id'         => null,
-            //     ])
             ->backendRoute(
-                $this->name('setting_redirect'),
+                $this->name('setting'),
                 Router::METHOD_ALL,
                 $this->path("setting"), [
                     'group'      => $this->name(),
                     'controller' => 'setting',
                     'action'     => 'index',
-                ])
-            ->backendRoute(
-                $this->name('setting'),
-                Router::METHOD_ALL,
-                $this->path("setting/{group}/{controller}?/{action}?/{id}?"), [
-                    'group'      => $this->name(),
-                    'action'     => 'index',
-                    'id'         => null,
                 ])
             ->backendRoute(
                 $this->name('widget'),
@@ -337,24 +337,6 @@ class Module extends ChalkModule
                     'controller' => 'index',
                     'action'     => 'about',
                 ]);
-            // ->backendRoute(
-            //     $this->name('structure'),
-            //     Router::METHOD_ALL,
-            //     $this->path("structure/{action}?/{structure}?"), [
-            //         'group'      => $this->name(),
-            //         'controller' => 'structure',
-            //         'action'     => 'index',
-            //         'structure'  => null,
-            //     ])
-            // ->backendRoute(
-            //     $this->name('structure_node'),
-            //     Router::METHOD_ALL,
-            //     $this->path("structure/node/{structure}/{action}?/{node}?"), [
-            //         'group'      => $this->name(),
-            //         'controller' => 'structure_node',
-            //         'action'     => 'index',
-            //         'node'       => null,
-            //     ])
 
         $this
             ->backendHookListen($this->name('contentList'), function(InfoList $list) {
@@ -387,8 +369,8 @@ class Module extends ChalkModule
             ->backendHookListen($this->name('widgetList'), function(InfoList $list) {
                 return $list;
             })
-            ->backendHookListen($this->name('navList'), function(NavList $list) {
-                $list
+            ->backendHookListen($this->name('nav'), function(Nav $nav) {
+                $nav
                     ->item($this->name('site'), [
                         'label'     => 'Site',
                         'icon'      => 'publish',
@@ -397,20 +379,31 @@ class Module extends ChalkModule
                     ->item($this->name('setting'), [
                         'label'     => 'Settings',
                         'icon'      => 'settings',
-                        'url'       => ['name' => $this->name('setting_redirect')],
+                        'url'       => ['name' => $this->name('setting')],
                     ]);
-                $list
-                    ->itemEntity($this->name('page'), [], $this->name('site'))
-                    ->itemEntity($this->name('block'), [], $this->name('page'))
-                    ->itemEntity($this->name('file'), [], $this->name('site'))
-                    ->itemEntity($this->name('url'), [], $this->name('site'))
-                    ->itemEntity($this->name('alias'), [], $this->name('site'));
-                $list
-                    ->itemEntity($this->name('domain'), [], $this->name('setting'))
-                    ->itemEntity($this->name('structure'), [], $this->name('domain'))
-                    ->itemEntity($this->name('user'), [], $this->name('setting'))
-                    ->itemEntity($this->name('tag'), [], $this->name('setting'));
-                return $list;
+                $nav
+                    ->entity($this->name('page'), [], $this->name('site'))
+                    ->entity($this->name('block'), [], $this->name('page'))
+                    ->entity($this->name('file'), [], $this->name('site'))
+                    ->entity($this->name('url'), [], $this->name('site'))
+                    ->entity($this->name('alias'), [], $this->name('site'));
+                $nav
+                    ->entity($this->name('domain'), [], $this->name('setting'))
+                    ->entity($this->name('structure'), [], $this->name('domain'))
+                    ->entity($this->name('user'), [], $this->name('setting'))
+                    ->entity($this->name('tag'), [], $this->name('setting'));
+                return $nav;
+            })
+            ->backendHookListen($this->name('select'), function(Nav $nav) {
+                $nav
+                    ->entity($this->name('page'), [])
+                    ->entity($this->name('block'), [], $this->name('page'))
+                    ->entity($this->name('file'), [])
+                    ->entity($this->name('url'), [])
+                    ->entity($this->name('alias'), [])
+                    ->entity($this->name('user'), [])
+                    ->entity($this->name('tag'), []);
+                return $nav;
             });
     }
 

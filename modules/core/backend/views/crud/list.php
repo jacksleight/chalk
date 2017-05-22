@@ -1,8 +1,6 @@
 <?php
 $this->params([
     'bodyType'      => $bodyType      = isset($bodyType)      ? $bodyType       : 'table',
-    'isAddAllowed'  => $isAddAllowed  = isset($isAddAllowed)  ? $isAddAllowed   : true,
-    'isEditAllowed' => $isEditAllowed = isset($isEditAllowed) ? $isEditAllowed  : true,
 ]);
 ?>
 

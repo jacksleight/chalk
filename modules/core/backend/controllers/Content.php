@@ -35,10 +35,10 @@ abstract class Content extends Crud
         return $this->forward('process');
     }
 
-    protected function _create(Request $req, Response $res, Entity $entity, Model $model = null)
+    protected function _create(Request $req, Response $res, Entity $entity)
     {
-        parent::_create($req, $res, $entity, $model);
-        if (count($model->tags)) {
+        parent::_create($req, $res, $entity);
+        if (count($req->model->tags)) {
             $tags = $this->em('core_tag')->all(['ids' => $model->tags]);
             foreach ($tags as $tag) {
                 $entity->tags[] = $tag;
@@ -46,17 +46,17 @@ abstract class Content extends Crud
         }
     }
 
-    protected function _publish(Request $req, Response $res, Entity $entity, Model $model = null)
+    protected function _publish(Request $req, Response $res, Entity $entity)
     {
         $entity->status = Chalk::STATUS_PUBLISHED;
     }
 
-    protected function _archive(Request $req, Response $res, Entity $entity, Model $model = null)
+    protected function _archive(Request $req, Response $res, Entity $entity)
     {
         $entity->status = Chalk::STATUS_ARCHIVED;
     }
 
-    protected function _restore(Request $req, Response $res, Entity $entity, Model $model = null)
+    protected function _restore(Request $req, Response $res, Entity $entity)
     {
         $entity->restore();
     }

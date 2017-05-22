@@ -8,9 +8,9 @@ Chalk.component('.input-content', function(i, el) {
 	
 	select.click(function(ev) {
 		Chalk.modal(Chalk.selectUrl + '?' + params, {}, function(res) {
-			if (res.contents) {
-				input.val(res.contents[0].id);
-				holder.html(res.contents[0].card);
+			if (res.entites) {
+				input.val(res.entites[0].id);
+				holder.html(res.entites[0].card);
 				remove.css('display', 'inline-block');
 			}
 		});

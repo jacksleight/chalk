@@ -30,7 +30,7 @@ class Profile extends Crud
         throw new \Exception('Delete not permitted');
     }
 
-    protected function _delete(Request $req, Response $res, Entity $entity, Model $model = null)
+    protected function _delete(Request $req, Response $res, Entity $entity)
     {
         throw new \Exception('Delete not permitted');
     }

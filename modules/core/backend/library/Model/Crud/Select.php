@@ -4,7 +4,11 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-namespace Chalk;
+namespace Chalk\Core\Backend\Model\Crud;
 
-class Event
+use Chalk\Chalk;
+use Chalk\Core\Backend\Model;
+use	Doctrine\Common\Collections\ArrayCollection;
+
+class Select extends Index
 {}

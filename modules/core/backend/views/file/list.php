@@ -1,8 +1,6 @@
 <?php
 $this->params([
     'bodyType'      => $bodyType      = isset($bodyType)      ? $bodyType       : 'thumbs',
-    'isAddAllowed'  => $isAddAllowed  = isset($isAddAllowed)  ? $isAddAllowed   : true,
-    'isEditAllowed' => $isEditAllowed = isset($isEditAllowed) ? $isEditAllowed  : true,
 ]);
 ?>
 
@@ -15,8 +13,7 @@ $this->params([
             data-url="<?= $this->url([
             'action' => 'upload',
         ]) . $this->url->query([
-            'tagsList'      => $model->tagsList,
-            'isEditAllowed' => (int) $isEditAllowed,
+            'tagsList' => $model->tagsList,
         ], true) ?>"
         data-max-file-size="<?= isset($this->chalk->config->maxFileSize) ? $this->chalk->config->maxFileSize : null ?>"
         multiple>

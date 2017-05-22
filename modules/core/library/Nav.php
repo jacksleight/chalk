@@ -7,32 +7,37 @@
 namespace Chalk\Core;
 
 use Chalk\Chalk;
+use Chalk\Hook;
 use Chalk\Core\User;
 use Coast\Resolver;
+use Coast\Request;
 
-class NavList
+class Nav implements Hook
 {
-    protected $_user;
+    protected $_url;
+    protected $_req;
+
+    protected $_main;
     protected $_items = [
-        '0' => [
-            'name'     => '0',
+        'root' => [
+            'name'     => 'root',
             'children' => [],
             'parent'   => null,
         ],
     ];
-    protected $_root;
 
-    public function __construct(User $user)
+    public function __construct(Resolver $url, Request $req)
     {
-        $this->_user = $user;
+        $this->_url = $url;
+        $this->_req = $req;
     }
 
-    public function root()
+    public function main()
     {
-        return $this->_root;
+        return $this->_main;
     }
 
-    public function item($name, $item = null, $parent = '0')
+    public function item($name, $item = null, $parent = 'root')
     {
         if (func_num_args() > 1) {
             if (isset($item)) {
@@ -55,7 +60,7 @@ class NavList
                         'isActive'     => false,
                         'isActivePath' => false,
                     ], $item);
-                    if ($parent != '0') {
+                    if ($parent != 'root') {
                         $this->_items[$name]['parent'] = &$this->_items[$parent];
                     }
                     $this->_items[$parent]['children'][$name] = &$this->_items[$name];
@@ -84,7 +89,7 @@ class NavList
         return $this->_items;
     }
 
-    public function itemEntity($name, $item = null, $parent = '0')
+    public function entity($name, $item = null, $parent = 'root')
     {
         $info = Chalk::info($name);
         if (func_num_args() > 1) {
@@ -106,34 +111,31 @@ class NavList
         return $this->item($name);
     }
 
-    public function children($name = '0')
+    public function children($name)
     {
-        if (!isset($this->_items[$name]['children'])) {
-            return null;
-        }
         $items = $this->_items[$name]['children'];
-        foreach ($items as $name => $item) {
-            if (isset($item['roles']) && !in_array($this->_user->role, $item['roles'])) {
-                unset($items[$name]);
-            }
-        }
         uasort($items, function($a, $b) {
             return $a['sort'] - $b['sort'];
         });
         return $items;
     }
 
-    public function activate(Resolver $url, $active)
+    public function preFire()
+    {}
+
+    public function postFire()
     {
         $map = [];
         foreach ($this->_items as $name => $item) {
             if (!isset($item['url'])) {
                 continue;
             }
-            $path = $url->route($item['url']['params'], $item['url']['name'], true, false);
-            $this->_items[$name]['url'] = $url->string($path);
+            $url  = $this->_url->route($item['url']['params'], $item['url']['name'], true);
+            $path = $this->_url->route($item['url']['params'], $item['url']['name'], true, false);
+            $this->_items[$name]['url'] = $url;
             $map[$path->toString()] = $name;
         }
+        $active = $this->_req->path();
         foreach (array_reverse($map) as $path => $name) {
             if (strpos($active, $path) === 0) {
                 $item = $this->_items[$name];
@@ -144,11 +146,11 @@ class NavList
         do {
             $this->_items[$item['name']]['isActive'] = $i == 0;
             $this->_items[$item['name']]['isActivePath'] = true;
-            $root = $item;
+            $main = $item;
             $item = $item['parent'];
             $i++;
         } while (isset($item));
-        $this->_root = $root;
+        $this->_main = $main;
         return $this;
     }
 }

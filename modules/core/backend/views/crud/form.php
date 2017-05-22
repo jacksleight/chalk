@@ -1,10 +1,3 @@
-<?php
-$this->params([
-    'isAddAllowed'    => $isAddAllowed    = isset($isAddAllowed)    ? $isAddAllowed    : true,
-    'isDeleteAllowed' => $isDeleteAllowed = isset($isDeleteAllowed) ? $isDeleteAllowed : true,
-]);
-?>
-
 <div class="flex-col">
 	<fieldset class="header">
 		<?= $this->partial('tools') ?>
