@@ -1,9 +1,3 @@
-<?php
-$this->params([
-    'bodyType'      => $bodyType      = isset($bodyType)      ? $bodyType       : 'table',
-]);
-?>
-
 <div class="flex-col">
     <div class="header">
         <?= $this->partial('tools') ?>
@@ -18,7 +12,7 @@ $this->params([
         <?php } ?>
     </div>
     <div class="flex body">
-        <?= $this->partial($bodyType) ?>
+        <?= $this->partial($model->layout) ?>
     </div>
     <div class="footer">
         <?= $this->partial('selection') ?>

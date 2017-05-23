@@ -1,6 +1,6 @@
 <ul class="toolbar toolbar-right">
 	<?= $this->partial('tools-top') ?>
-    <?php if (in_array('create', $actions) && !$entity->isNew()) { ?>
+    <?php if (array_intersect(['create'], $actions) && !$entity->isNew()) { ?>
         <li><a href="<?= $this->url([
     			'action'	=> 'update',
     			'id'		=> null,

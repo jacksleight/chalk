@@ -24302,10 +24302,11 @@ Chalk.component('.uploadable', function(i, el) {
 			.text(perc == 100 ? 'Processing…' : perc + '%' + ' Uploaded');
 	}).bind('fileuploaddone', function (e, data) {
 		var result	= data.result.files[0];
-		var replace	= $($.parseHTML('<li class="thumbs_i">' + result.html.trim() + '</li>')[0]);
+		var replace	= $('<div>' + result.html + '</div>');
+		Chalk.initialize(replace);
+		replace = replace.find('li');
 		data.context.replaceWith(replace);
 		data.context = replace;
-		Chalk.initialize(replace);
 		setTimeout(function() {
 			data.context.find('.progress')
 				.addClass('out')

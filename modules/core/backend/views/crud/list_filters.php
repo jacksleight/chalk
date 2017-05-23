@@ -44,7 +44,7 @@ uasort($filterFields, function($a, $b) {
     <?php foreach ($filterFields as $field) { ?>
         <?php
         if (isset($field['partial'])) {
-            $html = $this->inner("list_filters-{$field['partial']}", ['index' => $model] + $field['params']);
+            $html = $this->partial("filters-{$field['partial']}", ['index' => $model] + $field['params']);
         } else if (isset($field['func'])) {
             $html = $field['func']($model, $field['params']);
         }

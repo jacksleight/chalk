@@ -22,6 +22,7 @@ abstract class Crud extends Action
         'create' => 'created',
         'update' => 'updated',
         'delete' => 'deleted',
+        'batch'  => 'batched',
     ];
     protected $_sorts = [];
     protected $_limits = [
@@ -47,9 +48,9 @@ abstract class Crud extends Action
             ] + $this->_actions;
         }
 
-        if ($req->model->mode == 'select') {
+        if (in_array($req->model->mode, ['select-one', 'select-all']) ) {
             $this->_actions = [
-                'select' => 'selected',
+                $req->model->mode => 'selected',
             ];
         }
 
@@ -221,8 +222,36 @@ abstract class Crud extends Action
         return $this->forward('process');
     }
 
+    public function publish(Request $req, Response $res)
+    {
+        $req->param('type', 'publish');
+        return $this->forward('process');
+    }
+
+    public function archive(Request $req, Response $res)
+    {
+        $req->param('type', 'archive');
+        return $this->forward('process');
+    }
+
+    public function restore(Request $req, Response $res)
+    {
+        $req->param('type', 'restore');
+        return $this->forward('process');
+    }
+
     protected function _create(Request $req, Response $res, Entity $entity)
-    {}
+    {
+        parent::_create($req, $res, $entity);
+        if ($req->info->is->tagable) {
+            if (count($req->model->tags)) {
+                $tags = $this->em('core_tag')->all(['ids' => $model->tags]);
+                foreach ($tags as $tag) {
+                    $entity->tags[] = $tag;
+                }
+            }
+        }
+    }
 
     protected function _update(Request $req, Response $res, Entity $entity)
     {}
@@ -230,5 +259,20 @@ abstract class Crud extends Action
     protected function _delete(Request $req, Response $res, Entity $entity)
     {
         $this->em->remove($entity);
+    }
+
+    protected function _publish(Request $req, Response $res, Entity $entity)
+    {
+        $entity->status = Chalk::STATUS_PUBLISHED;
+    }
+
+    protected function _archive(Request $req, Response $res, Entity $entity)
+    {
+        $entity->status = Chalk::STATUS_ARCHIVED;
+    }
+
+    protected function _restore(Request $req, Response $res, Entity $entity)
+    {
+        $entity->restore();
     }
 }

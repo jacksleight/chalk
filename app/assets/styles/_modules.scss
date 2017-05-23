@@ -196,9 +196,23 @@ figure {
     justify-content: flex-start;
 	li {
 		flex: 1 0 200px;
-		figure {
-			margin-top: 0;
+		position: relative;
+		input[type=checkbox] + label {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
 		}
+		&.selected {
+			.preview {
+				.image {
+					filter: grayscale(1);
+				}
+			}
+		}
+	}
+	figure {
+		margin-top: 0;
 	}
 	.thumbs_i {
 		padding: 0 $gutter * 0.75 $gutter * 0.75 0;
@@ -206,9 +220,7 @@ figure {
 }
 
 .thumb {
-	position: relative;
 	outline-color: white;
-	@include link-color($color-foreground);
 	transition: background-color $speed ease, outline-color $speed ease;
 	figcaption {
 		margin-top: 0;
@@ -221,33 +233,11 @@ figure {
 	.badge-out {
 		background-color: white;
 	}
-	input[type=checkbox] + label {
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: 1;
-	}
-	a {
-		text-decoration: none;
-		@include link-color(inherit);
-	}
 	&:hover {
 		input[type=checkbox] + label {
 			span {
 				opacity: 1;
 				@include colors(null, null, $color-input);
-			}
-		}
-	}
-	&.selected {
-		input[type=checkbox] + label {
-			span {
-				opacity: 1;
-			}
-		}
-		.preview {
-			img {
-				-webkit-filter: grayscale(1);
 			}
 		}
 	}

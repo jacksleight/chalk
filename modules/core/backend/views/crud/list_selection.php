@@ -1,6 +1,6 @@
 <ul class="toolbar toolbar-right autosubmitable">
     <?= $this->partial('selection-top') ?>
-    <?php if (in_array('update', $actions)) { ?>
+    <?php if (array_intersect(['batch'], $actions)) { ?>
         <li class="toolbar-gap">
             Selected&nbsp;
             <?= $this->render('/element/form-input', [
@@ -19,7 +19,8 @@
                     Manage Tags
             </button></li>
         <?php } ?>
-    <?php } else if (in_array('select', $actions)) { ?>
+    <?php } ?>
+    <?php if (array_intersect(['select-all'], $actions)) { ?>
         <li><button formaction="<?= $this->url([
             'action' => 'select',
         ]) ?>" class="btn btn-positive icon-ok">

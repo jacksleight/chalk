@@ -2,9 +2,7 @@
 if (!isset($entity)) {
 	return;
 }
-$info = isset($info)
-	? $info
-	: Chalk\Chalk::info($entity);
+$info = isset($info) ? $info : Chalk\Chalk::info($entity);
 ?>
 <div class="card">
 	<div class="preview">

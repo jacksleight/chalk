@@ -17,6 +17,10 @@ use FileUpload\PathResolver;
 
 class File extends Content
 {
+    // protected $_actions = [
+    //     'upload' => 'uploaded',
+    // ];
+
 	protected $_entityClass = 'Chalk\Core\File';
 
     public function upload(Request $req, Response $res)
@@ -24,13 +28,6 @@ class File extends Content
         if (!$req->isPost()) {
             throw new \Chalk\Exception("Upload action only accepts POST requests");
         }
-
-        $modelClass = $this->_modelClass('update');
-        $model = new $modelClass(
-            $this->_entityClass
-        );
-        $req->view->model = $modelWrap = $this->em->wrap($model);
-        $modelWrap->graphFromArray($req->queryParams());
 
         $dir      = $this->chalk->config->dataDir->dir('upload', true);
         $uploader = new FileUpload($_FILES['files'], $req->servers());
@@ -48,7 +45,7 @@ class File extends Content
                 } else {
                     $this->_update($req, $res, $entity);
                 }
-                $view = $entity->isNew() ? '/content/list_thumb' : '/element/card-upload';    
+                $view = $entity->isNew() ? 'file/upload' : 'element/card-upload';    
                 if (!$this->em->isPersisted($entity)) {
                     $entity->newFile = new CoastFile($upload->path);
                     $this->em->persist($entity);
@@ -58,9 +55,8 @@ class File extends Content
                 $this->em->flush();
                 unset($upload->path);
                 $upload->html = $this->view->render($view, [ 
-                    'entity'        => $entity,
-                    'covered'       => true,
-                    'isEditAllowed' => (bool) $req->isEditAllowed,
+                    'entity'  => $entity,
+                    'covered' => true,
                 ] + (array) $req->view, 'core')->toString();
             }
         }

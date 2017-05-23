@@ -8,7 +8,17 @@
     ], 'core') ?>
     <ul class="thumbs uploadable-list">
         <?php foreach ($entities as $entity) { ?>
-            <li class="thumbs_i"><?= $this->partial('thumb', ['entity' => $entity]) ?></li>
+            <li class="thumbs_i <?= array_intersect(['batch', 'select-all'], $actions) ? 'selectable' : null ?> <?= array_intersect(['update', 'select-one'], $actions) ? 'clickable' : null ?>">
+                <?php if (array_intersect(['batch', 'select-all'], $actions)) { ?>
+                    <?= $this->partial('checkbox', [
+                        'entity' => $entity,
+                    ]) ?>
+                <?php } ?>
+                <?= $this->partial('link', [
+                    'entity'  => $entity,
+                    'content' => $this->inner('/element/thumb', ['entity' => $entity], 'core'),
+                ]) ?>
+            </li>
         <?php } ?>     
         <?= str_repeat('<li></li>', 10) ?>
     </ul>

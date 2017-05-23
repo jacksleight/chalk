@@ -2705,9 +2705,21 @@ figure figcaption {
 .thumbs li {
   -ms-flex: 1 0 200px;
   flex: 1 0 200px;
+  position: relative;
 }
 
-.thumbs li figure {
+.thumbs li input[type=checkbox] + label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.thumbs li.selected .preview .image {
+  filter: grayscale(1);
+}
+
+.thumbs figure {
   margin-top: 0;
 }
 
@@ -2716,9 +2728,7 @@ figure figcaption {
 }
 
 .thumb {
-  position: relative;
   outline-color: white;
-  color: #2d353c;
   transition: background-color 0.2s ease, outline-color 0.2s ease;
 }
 
@@ -2735,18 +2745,6 @@ figure figcaption {
   background-color: white;
 }
 
-.thumb input[type=checkbox] + label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-
-.thumb a {
-  text-decoration: none;
-  color: inherit;
-}
-
 .thumb:hover input[type=checkbox] + label span {
   opacity: 1;
 }
@@ -2758,14 +2756,6 @@ figure figcaption {
 .dark.thumb:hover input[type=checkbox] + label span,
 .dark .thumb:hover input[type=checkbox] + label span {
   border-color: #181c20;
-}
-
-.thumb.selected input[type=checkbox] + label span {
-  opacity: 1;
-}
-
-.thumb.selected .preview img {
-  -webkit-filter: grayscale(1);
 }
 
 /* Notice */

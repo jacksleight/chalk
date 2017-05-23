@@ -5,7 +5,7 @@
                 <div class="body">
                     <nav class="nav" role="navigation">
                         <?php
-                        if ($model->mode == 'select') {
+                        if (array_intersect(['select-one', 'select-all'], [$model->mode])) {
                             $items = $this->select->children('root');
                         } else {
                             $items = $this->nav->children($this->nav->main()['name']);
@@ -26,7 +26,7 @@
     </div>
 <? $html = $this->end() ?>
 <?php
-if (isset($model->mode) && $model->mode == 'select') {
+if (array_intersect(['select-one', 'select-all'], [$model->mode])) {
     if ($req->isAjax()) {
         echo $html;
     } else {

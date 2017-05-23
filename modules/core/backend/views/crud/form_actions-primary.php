@@ -1,6 +1,6 @@
 <ul class="toolbar toolbar-right">
     <?= $this->partial('actions-primary-top') ?>
-    <?php if (in_array('update', $actions)) { ?>
+    <?php if (array_intersect(['update'], $actions)) { ?>
         <?php if ($info->is->publishable) { ?>
             <?php if (!$entity->isNew() && $entity->isDraft()) { ?>
                 <li><a href="<?= $this->url([

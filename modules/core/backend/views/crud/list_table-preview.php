@@ -1,11 +1,4 @@
-<?php if (in_array('update', $actions)) { ?>
-    <a href="<?= $this->url([
-        'action' => 'update',
-        'id'     => $entity->id,
-    ]) ?>">
-<?php } ?>
-    <?= $entity->previewName() ?><br>
-    <small><?= implode(' – ', $entity->previewText(true)) ?></small>
-<?php if (in_array('update', $actions)) { ?>
-    </a>
-<?php } ?>
+<?= $this->partial('link', [
+    'entity'  => $entity,
+    'content' => $this->inner('/element/preview-text', ['entity' => $entity], 'core'),
+]) ?>

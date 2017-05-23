@@ -16,48 +16,4 @@ use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 abstract class Content extends Crud
-{
-    public function publish(Request $req, Response $res)
-    {
-        $req->param('type', 'publish');
-        return $this->forward('process');
-    }
-
-    public function archive(Request $req, Response $res)
-    {
-        $req->param('type', 'archive');
-        return $this->forward('process');
-    }
-
-    public function restore(Request $req, Response $res)
-    {
-        $req->param('type', 'restore');
-        return $this->forward('process');
-    }
-
-    protected function _create(Request $req, Response $res, Entity $entity)
-    {
-        parent::_create($req, $res, $entity);
-        if (count($req->model->tags)) {
-            $tags = $this->em('core_tag')->all(['ids' => $model->tags]);
-            foreach ($tags as $tag) {
-                $entity->tags[] = $tag;
-            }
-        }
-    }
-
-    protected function _publish(Request $req, Response $res, Entity $entity)
-    {
-        $entity->status = Chalk::STATUS_PUBLISHED;
-    }
-
-    protected function _archive(Request $req, Response $res, Entity $entity)
-    {
-        $entity->status = Chalk::STATUS_ARCHIVED;
-    }
-
-    protected function _restore(Request $req, Response $res, Entity $entity)
-    {
-        $entity->restore();
-    }
-}
+{}

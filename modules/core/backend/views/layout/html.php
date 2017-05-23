@@ -33,7 +33,8 @@ $title  = (isset($title)
             'selectUrl'     => (string) $this->url([
                 'controller' => 'index',
                 'action'     => 'select',
-            ], 'core_index', true),
+                'type'       => 'all',
+            ], 'core_select', true),
             'widgetUrl'     => (string) $this->url([
                 'action' => 'update',
                 'entity' => '{entity}',

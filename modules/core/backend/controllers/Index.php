@@ -15,7 +15,7 @@ class Index extends Action
 {
     public function index(Request $req, Response $res)
     {
-        $items = $this->nav->children(0);
+        $items = $this->nav->children('root');
         if (!count($items)) {
             throw new \Exception('No route for redirection');
         }
@@ -85,7 +85,7 @@ class Index extends Action
         $item = current($items);
         $url = $item['url'];
         $url->queryParams([
-            'mode' => 'select',
+            'mode' => "select-{$req->type}",
         ]);
         return $res->redirect($url);
     }

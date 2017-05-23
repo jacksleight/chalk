@@ -17,6 +17,7 @@ class Index extends Model
 	protected $page = 1;
 	protected $limit = 50;
 	protected $sort;
+	protected $layout = 'table';
 	protected $search;
 
 	protected $selected;
@@ -43,6 +44,10 @@ class Index extends Model
 					'nullable'	=> true,
 				),
 				'sort' => array(
+					'type'		=> 'string',
+					'nullable'	=> true,
+				),
+				'layout' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
 				),

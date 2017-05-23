@@ -53,22 +53,26 @@ uasort($tableCols, function($a, $b) {
 
 <table class="multiselectable">
     <colgroup>
-        <col class="col-select">
+        <?php if (array_intersect(['batch', 'select-all'], $actions)) { ?>
+            <col class="col-select">
+        <?php } ?>
         <?php foreach ($tableCols as $col) { ?>
             <col class="<?= $col['class'] ?>">        
         <?php } ?>
     </colgroup>
     <thead>
         <tr>
-            <th scope="col" class="col-select">
-                <input type="checkbox" id="select" class="multiselectable-all"><label for="select"></label>
-                <?= $this->render('/element/form-input', [
-                    'type'   => 'input_hidden',
-                    'entity' => $model,
-                    'name'   => 'selectedList',
-                    'class'  => 'multiselectable-values',
-                ], 'core') ?>
-            </th>
+            <?php if (array_intersect(['batch', 'select-all'], $actions)) { ?>
+                <th scope="col" class="col-select">
+                    <input type="checkbox" id="select" class="multiselectable-all"><label for="select"></label>
+                    <?= $this->render('/element/form-input', [
+                        'type'   => 'input_hidden',
+                        'entity' => $model,
+                        'name'   => 'selectedList',
+                        'class'  => 'multiselectable-values',
+                    ], 'core') ?>
+                </th>
+            <?php } ?>
             <?php foreach ($tableCols as $col) { ?>
                 <th scope="col" class="<?= $col['class'] ?>" style="<?= $col['style'] ?>">
                     <?= $col['label'] ?>
@@ -79,17 +83,18 @@ uasort($tableCols, function($a, $b) {
     <tbody class="uploadable-list">
         <?php if (count($entities)) { ?>
             <?php foreach ($entities as $entity) { ?>
-                <tr class="selectable <?= in_array('update', $actions) ? 'clickable' : null ?>">
-                    <td class="col-select">
-                        <?= $this->partial('checkbox', [
-                            'entity'   => $entity,
-                            'selected' => $model->selected,
-                        ]) ?>
-                    </td>
+                <tr class="<?= array_intersect(['batch', 'select-all'], $actions) ? 'selectable' : null ?> <?= array_intersect(['update', 'select-one'], $actions) ? 'clickable' : null ?>">        
+                    <?php if (array_intersect(['batch', 'select-all'], $actions)) { ?>
+                        <td class="col-select">
+                            <?= $this->partial('checkbox', [
+                                'entity' => $entity,
+                            ]) ?>
+                        </td>
+                    <?php } ?>
                     <?php foreach ($tableCols as $col) { ?>
                         <?php
                         if (isset($col['partial'])) {
-                            $html = $this->inner("list_table-{$col['partial']}", ['entity' => $entity] + $col['params']);
+                            $html = $this->partial("table-{$col['partial']}", ['entity' => $entity] + $col['params']);
                         } else if (isset($col['func'])) {
                             $html = $col['func']($entity, $col['params']);
                         }

@@ -1,6 +1,6 @@
 <ul class="toolbar">
     <?= $this->partial('actions-secondary-top') ?>
-    <?php if (in_array('delete', $actions) && !$entity->isNew()) { ?>
+    <?php if (array_intersect(['delete'], $actions) && !$entity->isNew()) { ?>
         <?php if ($info->is->publishable) { ?>
             <?php if ($entity->isPublished()) { ?>
                 <li><a href="<?= $this->url([
