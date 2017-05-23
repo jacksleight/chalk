@@ -24232,9 +24232,8 @@ Chalk.component('.autosubmitable', function(i, el) {
     el.appendChild(button);
 
 	$(inputs).change(function(ev) {
-        button.formMethod = $(this).is('.autosubmitable-post')
-            ? 'post'
-            : 'get';
+        button.formAction = $(this).attr('formaction') || '';
+        button.formMethod = $(this).attr('formmethod') || '';
 		button.click();
 	});
 	
@@ -24258,6 +24257,9 @@ Chalk.component('.clickable', function(i, el) {
 		if ($(ev.target).is('a, input, label')) {
 			return;
 		}
+        ev.stopImmediatePropagation();
+		ev.stopPropagation();
+		ev.preventDefault();
 		target.click();
 	});
 
@@ -24287,7 +24289,7 @@ Chalk.component('.uploadable', function(i, el) {
 		sequentialUploads: true
 	}).bind('fileuploadadd', function (e, data) {
 		var file = data.files[0];
-		data.context = $($.parseHTML('<li class="thumbs_i">' + Mustache.render(template, file).trim() + '</li>')[0]);
+		data.context = $($.parseHTML(Mustache.render(template, file).trim())[0]);
 		list.prepend(data.context);
 		panel.remove();
 	}).bind('fileuploadprocessfail', function (e, data) {

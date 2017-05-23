@@ -17,6 +17,9 @@ Chalk.component('.clickable', function(i, el) {
 		if ($(ev.target).is('a, input, label')) {
 			return;
 		}
+        ev.stopImmediatePropagation();
+		ev.stopPropagation();
+		ev.preventDefault();
 		target.click();
 	});
 

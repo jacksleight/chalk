@@ -89,7 +89,7 @@ class Node extends Repository
                 ->andWhere("n.isHidden = false");
         }
 
-        $this->_publishable_modify($query, $params, 'c');
+        $this->_publishable_modify($query, $params, $extra, 'c');
 
         return $query;
     }

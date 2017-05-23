@@ -8,12 +8,12 @@ namespace Chalk\Core\Backend\Controller;
 
 use Chalk\Chalk;
 use Chalk\Core;
-use Chalk\Core\Entity;
+use Chalk\Core\Entity as CoreEntity;
 use Chalk\Core\Backend\Model;
 use Coast\Request;
 use Coast\Response;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
-abstract class Content extends Crud
+abstract class Content extends Entity
 {}

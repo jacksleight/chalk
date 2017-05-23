@@ -7,13 +7,13 @@
 namespace Chalk\Core\Backend\Controller;
 
 use Chalk\Chalk;
-use Chalk\Core\Backend\Controller\Crud;
+use Chalk\Core\Backend\Controller\Entity;
 use Coast\Request;
 use Coast\Response;
 use Chalk\Core\Backend\Model\Tag\Manage;
 use Chalk\Core\Backend\Model\Tag\Merge;
 
-class Tag extends Crud
+class Tag extends Entity
 {
 	protected $_entityClass = 'Chalk\Core\Tag';
 
@@ -34,7 +34,7 @@ class Tag extends Crud
         }
 
         $tags     = $this->em('core_tag')->names($model->tagNames());
-        $entities = $this->em($model->entityType)->all(['ids' => $model->selected()]);
+        $entities = $this->em($model->selectedType)->all(['ids' => $model->selected()]);
 
         try {
             if ($model->type == 'add') {

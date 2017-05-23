@@ -17,11 +17,15 @@ use FileUpload\PathResolver;
 
 class File extends Content
 {
-    // protected $_actions = [
-    //     'upload' => 'uploaded',
-    // ];
-
 	protected $_entityClass = 'Chalk\Core\File';
+
+    protected function _actions(Request $req)
+    {
+        return [
+            'create' => null,
+            'upload' => 'uploaded',
+        ] + parent::_actions($req);
+    }
 
     public function upload(Request $req, Response $res)
     {

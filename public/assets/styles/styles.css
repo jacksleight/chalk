@@ -2608,7 +2608,7 @@ audio {
 }
 
 .audio .audio-message {
-  background: #fdfdfd;
+  background: #fafafa;
   text-align: center;
   padding: 20px;
 }
@@ -2634,7 +2634,7 @@ video {
 }
 
 .video .video-message {
-  background: #fdfdfd;
+  background: #fafafa;
   font-size: 0;
 }
 
@@ -2987,7 +2987,7 @@ select.readonly,
 .selectize-input div[readonly],
 .selectize-input div.disabled,
 .selectize-input div.readonly {
-  background-color: #fdfdfd;
+  background-color: #fafafa;
 }
 
 input[type=date]:focus:invalid,
@@ -3233,7 +3233,7 @@ input[type=radio]:checked + label:before {
 
 input[type=checkbox]:disabled + label:before,
 input[type=radio]:disabled + label:before {
-  background-color: #fdfdfd;
+  background-color: #fafafa;
 }
 
 .form-item input[type=checkbox] + label:before,
@@ -4723,7 +4723,7 @@ legend {
 
 .nav > ul > li > ul {
   display: none;
-  padding-bottom: 7px;
+  padding-bottom: 5px;
   font-size: 13.91304348px;
   font-size: 0.86956522rem;
 }
@@ -4731,6 +4731,10 @@ legend {
 .nav > ul > li > ul > li > .item {
   padding: 1px 20px;
   padding-left: 44px;
+}
+
+.nav > ul > li > ul + ul {
+  margin-top: -1px;
 }
 
 .nav > ul > li > ul.tags {
@@ -4743,7 +4747,10 @@ legend {
 }
 
 .nav > ul > li > ul.tags > li {
-  padding: 0 3px 3px 0;
+  padding: 0 2px 2px 0;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  text-align: center;
 }
 
 .nav > ul > li > ul.tags > li > a {
@@ -5289,7 +5296,7 @@ legend {
 }
 
 .mce-tinymce.disabled .mce-edit-area {
-  background-color: #fdfdfd;
+  background-color: #fafafa;
 }
 
 .mce-menu .mce-menu-item:hover,

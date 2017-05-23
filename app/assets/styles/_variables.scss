@@ -55,7 +55,7 @@ $color-quiet:			tint($color-foreground, 50%);
 $color-quieter:			tint($color-foreground, 75%);
 $color-loud:			shade($color-foreground, 30%);
 $color-louder:			shade($color-foreground, 20%);
-$color-shade:			tint($color-background, 75%);
+$color-shade:			tint($color-background, 50%);
 $color-divide:			tint($color-foreground, 80%);
 
 $color-input:			4;

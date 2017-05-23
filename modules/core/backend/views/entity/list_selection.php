@@ -4,11 +4,15 @@
         <li class="toolbar-gap">
             Selected&nbsp;
             <?= $this->render('/element/form-input', [
-                'type'   => 'select',
-                'entity' => $model,
-                'name'   => 'batch',
-                'null'   => 'Action',
-                'class'  => 'confirmable autosubmitable-post',
+                'type'       => 'select',
+                'entity'     => $model,
+                'name'       => 'batch',
+                'null'       => 'Action',
+                'class'      => 'confirmable',
+                'formaction' => $this->url([
+                    'action'  => 'batch',
+                ]),
+                'formmethod' => 'post',
             ], 'core') ?>
         </li>
         <?php if ($info->is->tagable) { ?>

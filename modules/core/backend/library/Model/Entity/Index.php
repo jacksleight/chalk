@@ -4,7 +4,7 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-namespace Chalk\Core\Backend\Model\Crud;
+namespace Chalk\Core\Backend\Model\Entity;
 
 use Chalk\Chalk;
 use Chalk\Core\Backend\Model;
@@ -12,16 +12,12 @@ use	Doctrine\Common\Collections\ArrayCollection;
 
 class Index extends Model
 {
-    protected $entityType;
-
 	protected $page = 1;
 	protected $limit = 50;
 	protected $sort;
 	protected $layout = 'table';
 	protected $search;
 
-	protected $selected;
-	protected $selectedList;
 	protected $batch;
 
 	protected $_sorts;
@@ -32,10 +28,6 @@ class Index extends Model
 	{
 		return \Coast\array_merge_smart(parent::_defineMetadata($class), array(
 			'fields' => array(
-                'entityType' => array(
-                    'type'      => 'string',
-                    'nullable'  => true,
-                ),
 				'page' => array(
 					'type'		=> 'integer',
 				),
@@ -52,14 +44,6 @@ class Index extends Model
 					'nullable'	=> true,
 				),
 				'search' => array(
-					'type'		=> 'string',
-					'nullable'	=> true,
-				),
-				'selected' => array(
-					'type'		=> 'array',
-					'nullable'	=> true,
-				),
-				'selectedList' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
 				),
@@ -92,17 +76,6 @@ class Index extends Model
 			$value['values'] = $this->_batches;
 		}
 		return $value;
-	}
-
-	public function selected(array $selected = null)
-	{
-		if (func_num_args() > 0) {
-			$this->selectedList = implode('.', $selected);
-			return $this;
-		}
-		return isset($this->selectedList)
-			? explode('.', $this->selectedList)
-			: [];
 	}
 
 	public function remembers(array $remembers = [])

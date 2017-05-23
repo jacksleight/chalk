@@ -39,11 +39,11 @@
     <?= $this->render('/element/form-input', array(
         'type'   => 'input_hidden',
         'entity' => $model,
-        'name'   => 'entityType',
+        'name'   => 'selectedList',
     ), 'core') ?>
     <?= $this->render('/element/form-input', array(
         'type'   => 'input_hidden',
         'entity' => $model,
-        'name'   => 'selectedList',
+        'name'   => 'selectedType',
     ), 'core') ?>
 </form>

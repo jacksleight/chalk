@@ -293,10 +293,11 @@ class Module extends ChalkModule
             ->backendRoute(
                 $this->name('select'),
                 Router::METHOD_ALL,
-                $this->path("select/{type}"), [
+                $this->path("select/{type}?"), [
                     'group'      => $this->name(),
                     'controller' => 'index',
                     'action'     => 'select',
+                    'type'       => 'one',
                 ])
             ->backendRoute(
                 $this->name('site'),

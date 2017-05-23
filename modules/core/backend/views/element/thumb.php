@@ -1,10 +1,12 @@
 <?php
-if (!isset($entity)) {
-	return;
-}
-$info = isset($info) ? $info : Chalk\Chalk::info($entity);
 $template	= isset($template) ? $template : false;
 $covered	= isset($covered) ? $covered : false;
+if (!$template) {
+	if (!isset($entity)) {
+		return;
+	}
+	$info = isset($info) ? $info : Chalk\Chalk::info($entity);
+}
 ?>
 <figure class="thumb">
 	<div class="preview">

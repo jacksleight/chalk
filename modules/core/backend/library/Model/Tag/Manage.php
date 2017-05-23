@@ -6,10 +6,10 @@
 
 namespace Chalk\Core\Backend\Model\Tag;
 
-use Chalk\Core\Backend\Model\Crud\Index;
+use Chalk\Core\Backend\Model;
 use Coast\Validator;
 
-class Manage extends Index
+class Manage extends Model
 {
     protected $type = 'add';
     protected $tagNames;

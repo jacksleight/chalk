@@ -9,8 +9,9 @@
     <a href="<?= $this->url([
         'action'   => 'select',
     ]) . $this->url->query([
-        'entityType'   => $model->entityType,
+        'mode'         => $model->mode,
         'selectedList' => $entity->id,
+        'selectedType' => $model->selectedType,
     ], true) ?>"><?= $content ?></a>
 <?php } else { ?>
     <?= $content ?>

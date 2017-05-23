@@ -1229,7 +1229,7 @@ legend {
 			}
 			> ul {
 				display: none;
-				padding-bottom: $gutter * 0.35;
+				padding-bottom: $gutter * 0.25;
 				@include font-size(-1);
 				> li {
 					> .item {
@@ -1237,13 +1237,18 @@ legend {
 						padding-left: $gutter-x-sidebar + 24px;
 					}
 				}
+				+ ul {
+					margin-top: -1px;
+				}
 				&.tags {
 					@include font-size(-1);
 					padding-left: $gutter-x-sidebar;
 					padding-right: $gutter-x-sidebar;
 					flex-wrap: wrap;
 					> li {
-						padding: 0 3px 3px 0;
+						padding: 0 2px 2px 0;
+						flex-grow: 1;
+						text-align: center;
 						> a {
 							text-decoration: none;
 							@include link-color(inherit);

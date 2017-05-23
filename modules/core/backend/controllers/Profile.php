@@ -9,11 +9,11 @@ namespace Chalk\Core\Backend\Controller;
 use Chalk\Chalk;
 use Chalk\Core\Entity;
 use Chalk\Core\Backend\Model;
-use Chalk\Core\Backend\Controller\Crud;
+use Chalk\Core\Backend\Controller\Entity;
 use Coast\Request;
 use Coast\Response;
 
-class Profile extends Crud
+class Profile extends Entity
 {
 	protected $_entityClass = 'Chalk\Core\User';
     protected $_actions = [];

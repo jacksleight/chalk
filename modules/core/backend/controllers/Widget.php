@@ -8,11 +8,11 @@ namespace Chalk\Core\Backend\Controller;
 
 use Chalk\Chalk,
 	Chalk\Core,
-	Chalk\Core\Backend\Controller\Crud,
+	Chalk\Core\Backend\Controller\Entity,
 	Coast\Request,
 	Coast\Response;
 
-class Widget extends Crud
+class Widget extends Entity
 {
 	public function preDispatch(Request $req, Response $res)
 	{

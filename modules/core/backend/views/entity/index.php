@@ -12,8 +12,8 @@
 		'entities' => $entities,
 	]) ?>
     <?= $this->url->queryInputs([
-        'mode'       => $model->mode,
-        'tagsList'   => $model->tagsList,
-        'entityType' => $model->entityType,
+        'mode'         => $model->mode,
+        'tagsList'     => $model->tagsList,
+        'selectedType' => $model->selectedType,
     ], true) ?>
 </form>

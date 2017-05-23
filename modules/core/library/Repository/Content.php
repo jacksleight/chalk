@@ -121,15 +121,9 @@ class Content extends Repository
                 ->setParameter('statuses', $params['statuses']);
         }
 
-        if ($extra) {
-            $query
-                ->addSelect("{$this->alias()}_tags")
-                ->leftJoin("{$this->alias()}.tags", "{$this->alias()}_tags");
-        }
-
-        $this->_publishable_modify($query, $params);
-        $this->_searchable_modify($query, $params);
-        $this->_tagable_modify($query, $params);
+        $this->_publishable_modify($query, $params, $extra);
+        $this->_searchable_modify($query, $params, $extra);
+        $this->_tagable_modify($query, $params, $extra);
 
         return $query;
     }

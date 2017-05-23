@@ -8,22 +8,17 @@ namespace Chalk\Core\Backend\Controller;
 
 use Chalk\Chalk;
 use Chalk\Core\Backend\Model;
-use Chalk\Core\Entity;
+use Chalk\Core\Entity as CoreEntity;
 use Coast\Controller\Action;
 use Coast\Request;
 use Coast\Response;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
-abstract class Crud extends Action
+abstract class Entity extends Action
 {
     protected $_entityClass;
-    protected $_actions = [
-        'create' => 'created',
-        'update' => 'updated',
-        'delete' => 'deleted',
-        'batch'  => 'batched',
-    ];
+    protected $_actions;
     protected $_sorts = [];
     protected $_limits = [
         50  => '50',
@@ -39,20 +34,12 @@ abstract class Crud extends Action
         $req->view->info
             = $req->info
             = Chalk::info($this->_entityClass);
+        $req->model->selectedType = $req->info->name;
 
-        if (is_a($req->info->class, 'Chalk\Core\Behaviour\Publishable', true)) {
-            $this->_actions = [
-                'publish' => 'published',
-                'archive' => 'archived',
-                'restore' => 'restored',
-            ] + $this->_actions;
-        }
-
-        if (in_array($req->model->mode, ['select-one', 'select-all']) ) {
-            $this->_actions = [
-                $req->model->mode => 'selected',
-            ];
-        }
+        $this->_actions = \Coast\array_filter_null($this->_actions($req));
+        $req->view->actions
+            = $req->actions
+            = array_keys($this->_actions);
 
         if (is_a($req->info->class, 'Chalk\Core\Behaviour\Trackable', true)) {
             $this->_sorts = [
@@ -71,23 +58,44 @@ abstract class Crud extends Action
                 'restore'   => 'Restore',
             ] + $this->_batches;
         }
+    }
 
-        $req->view->actions
-            = $req->actions
-            = array_keys($this->_actions);
+    protected function _actions(Request $req)
+    {
+        $actions = [
+            'create' => 'created',
+            'update' => 'updated',
+            'delete' => 'deleted',
+            'batch'  => 'batched',
+        ];
+        if (is_a($req->info->class, 'Chalk\Core\Behaviour\Publishable', true)) {
+            $actions = $actions + [
+                'publish' => 'published',
+                'archive' => 'archived',
+                'restore' => 'restored',
+            ];
+        }
+        if (in_array($req->model->mode, ['select-one', 'select-all']) ) {
+            $actions = [
+                $req->model->mode => 'selected',
+            ];
+        }
+        return $actions;
     }
 
     public function index(Request $req, Response $res)
     {
-        $req->model->entityType = $req->info->name;
         $req->model->data(
             $this->_sorts,
             $this->_limits,
             $this->_batches
         );
-        
+    }
+
+    public function batch(Request $req, Response $res)
+    {   
         if (!$req->isPost()) {
-            return;
+            throw new \Chalk\Exception("Batch action only accepts POST requests");
         }
 
         $req->model->graphFromArray($req->bodyParams());
@@ -110,7 +118,9 @@ abstract class Crud extends Action
         }
 
         $this->notify("{$req->info->plural} were {$this->_actions[$req->model->batch]} successfully", 'positive');
-        return $res->redirect($this->url->query(array(
+        return $res->redirect($this->url([
+            'action'   => null,
+        ]) . $this->url->query(array(
             'selected' => null,
             'batch'    => null,
         ) + $req->bodyParams()));
@@ -118,7 +128,7 @@ abstract class Crud extends Action
 
     public function select(Request $req, Response $res)
     {
-        $entities = $this->em($req->model->entityType)->all(['ids' => $req->model->selected()]);
+        $entities = $this->em($req->model->selectedType)->all(['ids' => $req->model->selected()]);
         $data = [];
         foreach ($entities as $entity) {
             $data[] = [
@@ -240,9 +250,8 @@ abstract class Crud extends Action
         return $this->forward('process');
     }
 
-    protected function _create(Request $req, Response $res, Entity $entity)
+    protected function _create(Request $req, Response $res, CoreEntity $entity)
     {
-        parent::_create($req, $res, $entity);
         if ($req->info->is->tagable) {
             if (count($req->model->tags)) {
                 $tags = $this->em('core_tag')->all(['ids' => $model->tags]);
@@ -253,25 +262,25 @@ abstract class Crud extends Action
         }
     }
 
-    protected function _update(Request $req, Response $res, Entity $entity)
+    protected function _update(Request $req, Response $res, CoreEntity $entity)
     {}
 
-    protected function _delete(Request $req, Response $res, Entity $entity)
+    protected function _delete(Request $req, Response $res, CoreEntity $entity)
     {
         $this->em->remove($entity);
     }
 
-    protected function _publish(Request $req, Response $res, Entity $entity)
+    protected function _publish(Request $req, Response $res, CoreEntity $entity)
     {
         $entity->status = Chalk::STATUS_PUBLISHED;
     }
 
-    protected function _archive(Request $req, Response $res, Entity $entity)
+    protected function _archive(Request $req, Response $res, CoreEntity $entity)
     {
         $entity->status = Chalk::STATUS_ARCHIVED;
     }
 
-    protected function _restore(Request $req, Response $res, Entity $entity)
+    protected function _restore(Request $req, Response $res, CoreEntity $entity)
     {
         $entity->restore();
     }

@@ -7,11 +7,11 @@
 namespace Chalk\Core\Backend\Controller;
 
 use Chalk\Chalk,
-	Chalk\Core\Backend\Controller\Crud,
+	Chalk\Core\Backend\Controller\Entity,
 	Coast\Request,
 	Coast\Response;
 
-class User extends Crud
+class User extends Entity
 {
 	protected $_entityClass = 'Chalk\Core\User';
 

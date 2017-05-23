@@ -15,7 +15,7 @@ use DateTime;
 
 trait Repository
 {
-    protected function _tagable_modify(QueryBuilder $query, array $params = array(), $alias = null)
+    protected function _tagable_modify(QueryBuilder $query, array $params = array(), $extra = false, $alias = null)
     {
         $alias = isset($alias)
             ? $alias
@@ -32,9 +32,17 @@ trait Repository
                     ->andWhere("{$alias}.tags IS EMPTY");
             } else if (count($tags)) {
                 $query
-                    ->andWhere(":tags MEMBER OF {$alias}.tags")
-                    ->setParameter('tags', $tags);
+                    ->andWhere("{$this->alias()}_tags.id IN(:tags)")
+                    ->groupBy("{$this->alias()}.id")
+                    ->andHaving("COUNT(DISTINCT {$this->alias()}_tags.id) = :tagsCount")
+                    ->setParameter('tags', $tags)
+                    ->setParameter('tagsCount', count($tags));
             }
+        }
+
+        $query->leftJoin("{$this->alias()}.tags", "{$this->alias()}_tags"); 
+        if ($extra) {
+            $query->addSelect("{$this->alias()}_tags");
         }
 
         return $query;

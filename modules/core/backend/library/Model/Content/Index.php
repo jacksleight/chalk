@@ -7,9 +7,9 @@
 namespace Chalk\Core\Backend\Model\Content;
 
 use Chalk\Chalk;
-use Chalk\Core\Backend\Model\Crud\Index as CrudIndex;
+use Chalk\Core\Backend\Model\Entity\Index as EntityIndex;
 
-class Index extends CrudIndex
+class Index extends EntityIndex
 {
 	protected $filters;
 	protected $type;

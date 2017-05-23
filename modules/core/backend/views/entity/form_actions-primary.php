@@ -17,7 +17,7 @@
                 <li><a href="<?= $this->url([
                     'action' => 'restore',
                 ]) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-positive icon-restore">
-                    Restore <?= $info->singular ?>
+                    Restore to Draft
                 </a></li>
             <?php } ?>
         <?php } else { ?>

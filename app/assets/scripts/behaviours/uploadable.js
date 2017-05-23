@@ -16,7 +16,7 @@ Chalk.component('.uploadable', function(i, el) {
 		sequentialUploads: true
 	}).bind('fileuploadadd', function (e, data) {
 		var file = data.files[0];
-		data.context = $($.parseHTML('<li class="thumbs_i">' + Mustache.render(template, file).trim() + '</li>')[0]);
+		data.context = $($.parseHTML(Mustache.render(template, file).trim())[0]);
 		list.prepend(data.context);
 		panel.remove();
 	}).bind('fileuploadprocessfail', function (e, data) {

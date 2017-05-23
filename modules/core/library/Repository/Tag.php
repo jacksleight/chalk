@@ -19,7 +19,7 @@ class Tag extends Repository
     {
         $query = parent::build($params, $extra);
 
-        $this->_searchable_modify($query, $params);
+        $this->_searchable_modify($query, $params, $extra);
 
         return $query;
     }

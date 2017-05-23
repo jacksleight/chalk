@@ -15,7 +15,7 @@ use DateTime;
 
 trait Repository
 {
-    protected function _publishable_modify(QueryBuilder $query, array $params = array(), $alias = null)
+    protected function _publishable_modify(QueryBuilder $query, array $params = array(), $extra = false, $alias = null)
     {
         $alias = isset($alias)
             ? $alias

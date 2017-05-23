@@ -4,11 +4,11 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-namespace Chalk\Core\Backend\Model\Crud;
+namespace Chalk\Core\Backend\Model\Entity;
 
 use Chalk\Chalk;
 use Chalk\Core\Backend\Model;
 use	Doctrine\Common\Collections\ArrayCollection;
 
-class Select extends Index
+class Select extends Model
 {}

@@ -67,9 +67,6 @@ $validatorSet = $md['validator']->rule('set');
 			'values'	=> $values,
 			'required'	=> !$md['nullable'],
 			'maxlength'	=> isset($md['length']) ? $md['length'] : null,
-			'disabled'	=> isset($disabled)
-				? $disabled
-				: ($entity->getObject() instanceof \Chalk\Core\Behaviour\Publishable && $entity->isArchived()),
 		], $render[1]) ?>
 		<?= isset($after) ? "&nbsp;&nbsp; {$after}" : null ?>
 		<?php

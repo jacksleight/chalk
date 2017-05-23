@@ -1,15 +1,15 @@
 <?php
 return [
     'extensions' => [
-        'content'   => ['crud'],
+        'content'   => ['entity'],
         'page'      => ['content'],
         'file'      => ['content'],
         'block'     => ['content'],
         'alias'     => ['content'],
         'url'       => ['content'],
-        'domain'    => ['crud'],
-        'user'      => ['crud'],
-        'structure' => ['crud'],
-        'tag'       => ['crud'],
+        'domain'    => ['entity'],
+        'user'      => ['entity'],
+        'structure' => ['entity'],
+        'tag'       => ['entity'],
     ],
 ];

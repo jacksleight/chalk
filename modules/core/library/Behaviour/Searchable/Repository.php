@@ -13,7 +13,7 @@ use Chalk\Chalk,
 
 trait Repository
 {
-    protected function _searchable_modify(QueryBuilder $query, array $params = array())
+    protected function _searchable_modify(QueryBuilder $query, $params = array(), $extra = false, $alias = null)
     {
         $alias = isset($alias)
             ? $alias

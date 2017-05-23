@@ -10,7 +10,9 @@ $values = isset($null)
 	<?= isset($disabled) && $disabled ? "disabled" : null ?>
 	<?= isset($readOnly) && $readOnly ? "readonly" : null ?>
 	<?= isset($required) && $required ? "required" : null ?>
-	<?= isset($autofocus) && $autofocus ? "autofocus" : null ?>>
+	<?= isset($autofocus) && $autofocus ? "autofocus" : null ?>
+	<?= isset($formaction) && $formaction ? "formaction=\"{$formaction}\"" : null ?>
+	<?= isset($formmethod) && $formmethod ? "formmethod=\"{$formmethod}\"" : null ?>>
 	<?php foreach ($values as $v => $l) { ?>
 		<option
 			value="<?= $v ?>"

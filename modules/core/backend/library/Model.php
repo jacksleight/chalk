@@ -13,6 +13,10 @@ class Model extends \Toast\Entity
 {    
     protected $mode;
 
+    protected $selected;
+    protected $selectedList;
+    protected $selectedType;
+
     protected $tags;
     protected $tagsList;
 
@@ -24,6 +28,18 @@ class Model extends \Toast\Entity
         return \Coast\array_merge_smart(parent::_defineMetadata($class), array(
             'fields' => array(
                 'mode' => array(
+                    'type'      => 'string',
+                    'nullable'  => true,
+                ),
+                'selected' => array(
+                    'type'      => 'array',
+                    'nullable'  => true,
+                ),
+                'selectedList' => array(
+                    'type'      => 'string',
+                    'nullable'  => true,
+                ),
+                'selectedType' => array(
                     'type'      => 'string',
                     'nullable'  => true,
                 ),
@@ -45,6 +61,17 @@ class Model extends \Toast\Entity
                 ),
             ),
         ));
+    }
+
+    public function selected(array $selected = null)
+    {
+        if (func_num_args() > 0) {
+            $this->selectedList = implode('.', $selected);
+            return $this;
+        }
+        return isset($this->selectedList)
+            ? explode('.', $this->selectedList)
+            : [];
     }
 
     public function tags(array $tags = null)
