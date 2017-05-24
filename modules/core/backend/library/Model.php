@@ -13,6 +13,10 @@ class Model extends \Toast\Entity
 {    
     protected $mode;
 
+    protected $filters;
+    protected $filtersList;
+    protected $filtersInfo;
+
     protected $selected;
     protected $selectedList;
     protected $selectedType;
@@ -29,6 +33,18 @@ class Model extends \Toast\Entity
             'fields' => array(
                 'mode' => array(
                     'type'      => 'string',
+                    'nullable'  => true,
+                ),
+                'filters' => array(
+                    'type'      => 'array',
+                    'nullable'  => true,
+                ),
+                'filtersList' => array(
+                    'type'      => 'string',
+                    'nullable'  => true,
+                ),
+                'filtersInfo' => array(
+                    'type'      => 'object',
                     'nullable'  => true,
                 ),
                 'selected' => array(
@@ -61,6 +77,15 @@ class Model extends \Toast\Entity
                 ),
             ),
         ));
+    }
+
+    public function filters($filters = null)
+    {
+        if (func_num_args() > 0) {
+            $this->filtersList = \Chalk\filters_list_build($filters);
+            return $this;
+        }
+        return \Chalk\filters_list_parse($this->filtersList);
     }
 
     public function selected(array $selected = null)

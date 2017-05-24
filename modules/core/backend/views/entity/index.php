@@ -13,7 +13,8 @@
 	]) ?>
     <?= $this->url->queryInputs([
         'mode'         => $model->mode,
-        'tagsList'     => $model->tagsList,
+        'filtersList'  => $model->filtersList,
         'selectedType' => $model->selectedType,
+        'tagsList'     => $model->tagsList,
     ], true) ?>
 </form>

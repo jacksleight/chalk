@@ -1,5 +1,5 @@
 <?php
-$subtypes = $this->em($info)->subtypes(['types' => isset($filters) ? $filters : null]);
+$subtypes = $this->em($info)->subtypes(['filtersInfo' => $model->filtersInfo]);
 $values   = [];
 $class    = $info->class;
 foreach ($subtypes as $subtype) {

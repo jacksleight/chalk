@@ -4,7 +4,7 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-use Chalk\InfoList;
+use Chalk\Info;
 
 return function($args, $flags, $params) {
 
@@ -66,7 +66,7 @@ return function($args, $flags, $params) {
 		$em->flush();
 		
 		cli\line('Creating default page..');
-		$contentList = $this->backend->hook->fire('core_contentList', new InfoList('core_main'));
+		$contentList = $this->backend->hook->fire('core_contentList', new Info('core_main'));
 		$class = $contentList->first()->class;
 		$page = new $class();
 		$page->fromArray([

@@ -13,6 +13,7 @@
     'name'      => 'image',
     'label'     => 'Image',
     'type'      => 'input_content',
+    'filters'   => 'core_image',
 ), 'core') ?> 
 <?= $this->render('/element/form-item', array(
     'type'      => 'textarea',

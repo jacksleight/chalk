@@ -11,7 +11,7 @@ use Coast\Controller\Action;
 use Coast\Url;
 use Coast\Request;
 use Coast\Response;
-use Chalk\InfoList;
+use Chalk\Info;
 use Chalk\Core\Nav;
 
 class All extends Action
@@ -38,17 +38,11 @@ class All extends Action
             return $res->redirect($this->url([], 'core_login', true) . $this->url->query($query, true));
         }
 
-        $this->domain      = $this->em('core_domain')->id(1, [], [], false);
-
-        $this->contentList = $this->hook->fire('core_contentList', new InfoList('core_main'));
-        $this->widgetList  = $this->hook->fire('core_widgetList', new InfoList());
-        $this->nav         = $this->hook->fire('core_nav', new Nav($this->url, $req));
-        $this->select      = $this->hook->fire('core_select', new Nav($this->url, $req));
-
-        $this->widgetList->sort();
-
+        $this->domain = $this->em('core_domain')->id(1, [], [], false);
         $this->em->listener('core_trackable')->setUser($this->em->reference('core_user', $req->user->id));
-        
+
+        // ========
+       
         $class = $module->nspace("Backend\\Controller\\" . ucfirst($req->controller));
         $parents = array_merge(
             [$class],
@@ -66,6 +60,28 @@ class All extends Action
         $model = $this->em->wrap($model);
         $model->graphFromArray($req->queryParams());
         $req->view->model = $req->model = $model;
+
+        $filters = $model->filters();
+        if (!is_array($filters)) {
+            $filtersInfo = $this->hook->fire("core_info/{$filters}", new \Chalk\Info());
+        } else {
+            $filtersInfo = new \Chalk\Info();
+            foreach ($filters as $name => $subs) {
+                $filtersInfo->item($name, [
+                    'subs' => $subs,
+                ]);
+            }
+        }
+        $model->filtersInfo = $filtersInfo;
+
+        // ========
+
+        $this->nav    = $this->hook->fire('core_nav', new Nav($this->url, $req, $req->user, $filtersInfo));
+        $this->select = $this->hook->fire('core_select', new Nav($this->url, $req, $req->user, $filtersInfo));
+        // $this->widgetList  = $this->hook->fire('core_widgetList', new Info());
+        // $this->widgetList->sort();
+
+        // ========
 
         // $name   = "query_" . md5($req->path);
         // $params = $req->queryParams();

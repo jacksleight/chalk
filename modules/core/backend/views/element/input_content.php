@@ -9,7 +9,9 @@ $value = isset($value)
 	? $value
 	: null;
 ?>
-<div class="input-content" data-params="<?= $this->escape(http_build_query(['filters' => $filters])) ?>">
+<div class="input-content" data-type="one" data-query="<?= $this->escape($this->url->query([
+	'filtersList' => \Chalk\filters_list_build($filters)
+], true, false)) ?>">
 	<div class="input-content-controls">
 		<span class="input-content-remove btn btn-lighter btn-out btn-icon icon-remove"><span>Remove</span></span>
 		<span class="input-content-select btn btn-lighter btn-icon icon-browse"><span>Browse</span></span>

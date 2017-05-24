@@ -7,7 +7,7 @@
 namespace Chalk\Core\Repository;
 
 use Chalk\Chalk;
-use Chalk\InfoList;
+use Chalk\Info;
 use Chalk\Repository;
 use Chalk\Core\Behaviour\Publishable;
 use Chalk\Core\Behaviour\Searchable;
@@ -36,19 +36,19 @@ class Content extends Repository
             'createUsers'   => null,
             'statuses'      => null,
         ];
+
+        if (isset($params['filtersInfo'])) {
+            $types = [];
+            foreach ($params['filtersInfo'] as $info) {
+                $types[$info->class] = $info->subs;
+            }
+            $params['types'] = $types;
+        }
              
         if (isset($params['types']) && count($params['types'])) {
-            if ($params['types'] instanceof InfoList) {
-                $types = [];
-                foreach ($params['types'] as $filter) {
-                    $types[$filter->class] = $filter->subtypes;
-                }
-            } else {
-                $types = $params['types'];
-            }
             $all = [];
-            foreach ($types as $class => $subtypes) {
-                $info = Chalk::info($class);
+            foreach ($types as $name => $subtypes) {
+                $info = Chalk::info($name);
                 $classes = array_merge(
                     [$info->class],
                     $this->_em->getClassMetadata($info->class)->subClasses

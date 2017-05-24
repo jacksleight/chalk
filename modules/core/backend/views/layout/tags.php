@@ -18,4 +18,5 @@ $tags = $this->em('core_tag')->all();
             Untagged
         </a>
     </li>
+    <?= str_repeat('<li></li>', 10) ?>
 </ul>

@@ -26,7 +26,7 @@
 					</ul>
 				</nav>
 			</div>
-			<? $this->inner('nav', [
+			<?php $this->inner('nav', [
 				'items'	=> $items,
 				'class'	=> 'toggles',
 			]) ?>

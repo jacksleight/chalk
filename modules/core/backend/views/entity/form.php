@@ -13,7 +13,7 @@
 	</fieldset>
 	<div class="flex body">
 		<?= $this->partial('body') ?>
-        <? // $this->partial('node') ?>
+        <?php // $this->partial('node') ?>
         <?php if ($req->user->isDeveloper()) { ?>
             <?= $this->partial('developer') ?>
         <?php } ?>

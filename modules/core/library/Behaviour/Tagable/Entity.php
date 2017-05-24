@@ -41,7 +41,7 @@ trait Entity
                 $this->tags->clear();
                 return $this;
             }
-            $split = explode('|', $tagNamesList);
+            $split = explode('~', $tagNamesList);
             $names = [];
             foreach ($split as $name) {
                 $names[\Chalk\str_slugify($name)] = trim($name);
@@ -73,7 +73,7 @@ trait Entity
             }
             return $this;
         }
-        return implode('|', array_map(function($tag) {
+        return implode('~', array_map(function($tag) {
             return $tag->name;
         }, $this->tags->toArray()));
     }

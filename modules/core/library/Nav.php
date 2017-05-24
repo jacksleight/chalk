@@ -9,6 +9,7 @@ namespace Chalk\Core;
 use Chalk\Chalk;
 use Chalk\Hook;
 use Chalk\Core\User;
+use Chalk\Info;
 use Coast\Resolver;
 use Coast\Request;
 
@@ -16,6 +17,8 @@ class Nav implements Hook
 {
     protected $_url;
     protected $_req;
+    protected $_user;
+    protected $_info;
 
     protected $_main;
     protected $_items = [
@@ -26,10 +29,12 @@ class Nav implements Hook
         ],
     ];
 
-    public function __construct(Resolver $url, Request $req)
+    public function __construct(Resolver $url, Request $req, User $user, Info $info)
     {
-        $this->_url = $url;
-        $this->_req = $req;
+        $this->_url  = $url;
+        $this->_req  = $req;
+        $this->_user = $user;
+        $this->_info = $info;
     }
 
     public function main()
@@ -46,6 +51,7 @@ class Nav implements Hook
                 } else {
                     $this->_items[$name] = \Coast\array_merge_smart([
                         'name'         => $name,
+                        'info'         => null,
                         'label'        => null,
                         'badge'        => null,
                         'icon'         => null,
@@ -56,6 +62,7 @@ class Nav implements Hook
                         'parent'       => null,
                         'children'     => [],
                         'sort'         => (count($this->_items[$parent]['children']) + 1) * 10,
+                        'isEnabled'    => true,
                         'isTagable'    => false,
                         'isActive'     => false,
                         'isActivePath' => false,
@@ -113,11 +120,25 @@ class Nav implements Hook
 
     public function children($name)
     {
-        $items = $this->_items[$name]['children'];
-        uasort($items, function($a, $b) {
+        $items = array_values($this->_items[$name]['children']);
+        usort($items, function($a, $b) {
             return $a['sort'] - $b['sort'];
         });
-        return $items;
+        foreach ($items as $i => $item) {
+            $children = $this->children($item['name']);
+            if (!$item['isEnabled']) {
+                unset($items[$i]);
+                if (count($children)) {
+                    array_splice($items, $i, 0, $children);
+                }
+            } else {
+                $items[$i]['children'] = $children;
+            }
+        }
+        return array_combine(
+            array_map(function($v) { return $v['name']; }, $items),
+            $items
+        );
     }
 
     public function preFire()
@@ -127,13 +148,18 @@ class Nav implements Hook
     {
         $map = [];
         foreach ($this->_items as $name => $item) {
-            if (!isset($item['url'])) {
-                continue;
+            if (isset($item['roles']) && !in_array($this->_user->role, $item['roles'])) {
+                $this->_items[$name]['isEnabled'] = false;
             }
-            $url  = $this->_url->route($item['url']['params'], $item['url']['name'], true);
-            $path = $this->_url->route($item['url']['params'], $item['url']['name'], true, false);
-            $this->_items[$name]['url'] = $url;
-            $map[$path->toString()] = $name;
+            if (isset($item['info']) && count($this->_info) && !$this->_info->has($item['info']->name)) {
+                $this->_items[$name]['isEnabled'] = false;
+            }
+            if (isset($item['url'])) {
+                $url  = $this->_url->route($item['url']['params'], $item['url']['name'], true);
+                $path = $this->_url->route($item['url']['params'], $item['url']['name'], true, false);
+                $this->_items[$name]['url'] = $url;
+                $map[$path->toString()] = $name;
+            }
         }
         $active = $this->_req->path();
         foreach (array_reverse($map) as $path => $name) {

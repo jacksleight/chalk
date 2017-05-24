@@ -76,11 +76,14 @@ abstract class Module implements Access
         return $this->_baseDir;
     }
 
-    public function name($name = null)
+    public function name($name = null, $sub = null)
     {
-        return isset($name)
+        $name = isset($name)
             ? $this->_name . '_' . $name
             : $this->_name;
+        return isset($sub)
+            ? "{$name}/{$sub}"
+            : "{$name}";
     }
 
     public function path($path = null)

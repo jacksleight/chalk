@@ -10,34 +10,17 @@ use Chalk\Chalk;
 use Iterator;
 use Countable;
 
-class InfoList implements Iterator, Countable
+class Info implements Iterator, Countable
 {
-    protected $_filter;
-
     protected $_items = [];
 
-    public function __construct($filter = null)
-    {
-        $this->_filter = $filter;
-    }
-
-    public function filter($filter = null)
-    {
-        if (func_num_args() > 0) {
-            $this->_filter = $filter;
-            return $this;
-        }
-        return $this->_filter;  
-    }
-
-    public function item($name, $info = null, $append = false)
+    public function item($name, $info = null)
     {
         if (func_num_args() > 1) {
             if (isset($info)) {
-                $items = [$name => (object) (((array) Chalk::info($name)) + $info + ['subtypes' => []])];
-                $this->_items = $append
-                    ? $items + $this->_items
-                    : $this->_items + $items;
+                $this->_items[$name] = (object) (((array) Chalk::info($name)) + $info + [
+                    'subs' => [],
+                ]);
             } else {
                 unset($this->_items[$name]);
             }
@@ -63,6 +46,11 @@ class InfoList implements Iterator, Countable
             return strcmp("{$a->group} {$a->singular}", "{$b->group} {$b->singular}");
         });
         return $this;
+    }
+    
+    public function has($name)
+    {
+        return isset($this->_items[$name]);
     }
 
     public function rewind()

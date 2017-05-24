@@ -117,12 +117,12 @@ abstract class Entity extends Action
             return;
         }
 
-        $this->notify("{$req->info->plural} were {$this->_actions[$req->model->batch]} successfully", 'positive');
+        $this->notify(count($entities) . " " . strtolower($req->info->plural) . " {$this->_actions[$req->model->batch]} successfully", 'positive');
         return $res->redirect($this->url([
             'action'   => null,
         ]) . $this->url->query(array(
-            'selected' => null,
-            'batch'    => null,
+            'selectedList' => null,
+            'batch'        => null,
         ) + $req->bodyParams()));
     }
 
@@ -177,9 +177,10 @@ abstract class Entity extends Action
             return;
         }
 
-        $this->notify("{$req->info->singular} <strong>{$entity->previewName}</strong> was saved successfully", 'positive');
+        $this->notify("{$req->info->singular} <strong>{$entity->previewName}</strong> saved successfully", 'positive');
         return $res->redirect($this->url([
-            'id' => $entity->id,
+            'action' => 'update',
+            'id'     => $entity->id,
         ]) . $this->url->query([
             'tagsList' => $req->model->tagsList,
         ], true));

@@ -40,11 +40,11 @@ class Manage extends Model
     public function tagNames(array $tagNames = array())
     {
         if (func_num_args() > 0) {
-            $this->tagNamesList = implode('|', $tagNames);
+            $this->tagNamesList = implode('~', $tagNames);
             return $this;
         }
         return isset($this->tagNamesList)
-            ? explode('|', $this->tagNamesList)
+            ? explode('~', $this->tagNamesList)
             : [];
     }
 }

@@ -12,7 +12,7 @@
 			<div class="form-items">
 				<?= $this->render('/element/form-item', array(
 					'entity'	=> $model,
-					'name'		=> 'mode',
+					'name'		=> 'type',
 					'label'		=> 'Add/Remove',
 					'type'		=> 'input_radio',
 				)) ?>

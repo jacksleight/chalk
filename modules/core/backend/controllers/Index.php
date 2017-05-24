@@ -54,7 +54,7 @@ class Index extends Action
     {
         $this->chalk->module('core')->publish();
 
-        $this->notify("Content was published successfully", 'positive');
+        $this->notify("Items published successfully", 'positive');
         if (isset($req->redirect)) {
             return $res->redirect($req->redirect);
         } else {
@@ -85,43 +85,11 @@ class Index extends Action
         $item = current($items);
         $url = $item['url'];
         $url->queryParams([
-            'mode' => "select-{$req->type}",
+            'mode'        => "select-{$req->type}",
+            'filtersList' => $req->model->filtersList,
         ]);
         return $res->redirect($url);
     }
-  //       $filters = $this->chalk->module('core')->contentList($req->filters);
-  //       $info = isset($req->type)
-  //           ? Chalk::info($req->type)
-  //           : $filters->first();
-  //       $req->queryParam('type', $info->name);
-
-  //       $class = "\\{$info->module->class}\\Model\\{$info->local->class}\\Index";
-  //       if (!class_exists($class)) {
-  //           $class = "\Chalk\Core\Backend\Model\Content\Index";
-  //       }
-  //       $index = new $class();
-
-        // $wrap = $this->em->wrap($index);
-        // $wrap->graphFromArray($req->queryParams());
-        // $req->view->index   = $wrap;
-        // $req->view->filters = $filters;
-
-  //       if (!$req->isPost() && !$index->contentNew) {
-  //           return;
-  //       }
-
-        // $wrap->graphFromArray($req->bodyParams());
-        // $contents = [];
-        // foreach ($index->contents as $content) {
-        //  $contents[] = [
-        //      'id'    => $content->id,
-        //      'name'  => $content->name,
-        //      'card'  => $this->view->render('content/card', [
-        //          'content' => $content,
-        //      ], 'core')->toString(),
-        //  ];
-        // }
-        // $req->data->contents = $contents;
 
     public function forbidden(Request $req, Response $res)
     {

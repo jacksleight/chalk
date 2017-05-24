@@ -6,19 +6,14 @@ if (!$items) {
 <ul class="<?= isset($class) ? $class : null ?>">
     <?php foreach ($items as $name => $item) { ?>
         <?php
-        if (!isset($item)) {
-            continue;
-        }
-        if (isset($item['roles']) && !in_array($req->user->role, $item['roles'])) {
-            continue;
-        }
         $class  = [
             $item['isActive']     ? 'active' : null,
             $item['isActivePath'] ? 'active-path' : null,
         ];
         $url = $item['url'];
         $url->queryParams([
-            'mode' => $req->mode,
+            'mode'        => $model->mode,
+            'filtersList' => $model->filtersList,
         ]);
         ?>
         <li class="<?= implode(' ', $class) ?>">
@@ -42,13 +37,10 @@ if (!$items) {
             <?php if ($item['isTagable']) { ?>
                 <?= $this->inner('tags', ['item' => $item, 'url' => $url]) ?>
             <?php } ?>
-            <?php
-            $children = $this->nav->children($name);
-            ?>
-            <?php if (count($children)) { ?>
+            <?php if (count($item['children'])) { ?>
                 <?= $this->inner('nav', [
                     'class' => null,
-                    'items' => $children,
+                    'items' => $item['children'],
                 ]) ?>
             <?php } ?>
         </li>

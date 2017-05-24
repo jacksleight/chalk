@@ -18,7 +18,7 @@ use Chalk\Core\Parser\Plugin\StripEmpty;
 use Chalk\Core\Structure\Node\Listener as StructureNodeListener;
 use Chalk\Event;
 use Chalk\Frontend;
-use Chalk\InfoList;
+use Chalk\Info;
 use Chalk\Module as ChalkModule;
 use Chalk\Parser;
 use Chalk\Repository;
@@ -340,35 +340,58 @@ class Module extends ChalkModule
                 ]);
 
         $this
-            ->backendHookListen($this->name('contentList'), function(InfoList $list) {
-                if ($list->filter() == $this->name('node')) {
-                    $list
-                        ->item($this->name('page'), [])
-                        ->item($this->name('file'), [])
-                        ->item($this->name('url'), [])
-                        ->item($this->name('alias'), []);
-                } else if ($list->filter() == $this->name('link')) {
-                    $list
-                        ->item($this->name('page'), [])
-                        ->item($this->name('file'), [])
-                        ->item($this->name('url'), [])
-                        ->item($this->name('alias'), []);
-                } else if ($list->filter() == $this->name('image')) {
-                    $list
-                        ->item($this->name('file'), [
-                            'subtypes' => [
-                                'image/gif',
-                                'image/jpeg',
-                                'image/png',
-                                'image/webp',
-                                'image/svg+xml',
-                            ],
-                        ]);
-                }
-                return $list;
+            ->backendHookListen($this->name('info', $this->name('link')), function(Info $info) {
+                $info
+                    ->item($this->name('page'), [])
+                    ->item($this->name('file'), [])
+                    ->item($this->name('url'), [])
+                    ->item($this->name('alias'), []);
+                return $info;
             })
-            ->backendHookListen($this->name('widgetList'), function(InfoList $list) {
-                return $list;
+            ->backendHookListen($this->name('info', $this->name('node')), function(Info $info) {
+                $info
+                    ->item($this->name('page'), [])
+                    ->item($this->name('file'), [])
+                    ->item($this->name('url'), [])
+                    ->item($this->name('alias'), []);
+                return $info;
+            })
+            ->backendHookListen($this->name('info', $this->name('image')), function(Info $info) {
+                $info
+                    ->item($this->name('file'), [
+                        'subs' => [
+                            'image/gif',
+                            'image/jpeg',
+                            'image/png',
+                            'image/svg+xml',
+                            'image/webp',
+                        ],
+                    ]);
+                return $info;
+            })
+            ->backendHookListen($this->name('info', $this->name('video')), function(Info $info) {
+                $info
+                    ->item($this->name('file'), [
+                        'subs' => [
+                            'video/mp4',
+                            'video/ogg',
+                            'video/webm',
+                            'video/x-m4v',
+                        ],
+                    ]);
+                return $info;
+            })
+            ->backendHookListen($this->name('info', $this->name('audio')), function(Info $info) {
+                $info
+                    ->item($this->name('file'), [
+                        'subs' => [
+                            'audio/mpeg',
+                            'audio/ogg',
+                            'audio/webm',
+                            'audio/x-wav',
+                        ],
+                    ]);
+                return $info;
             })
             ->backendHookListen($this->name('nav'), function(Nav $nav) {
                 $nav
@@ -390,8 +413,12 @@ class Module extends ChalkModule
                     ->entity($this->name('alias'), [], $this->name('site'));
                 $nav
                     ->entity($this->name('domain'), [], $this->name('setting'))
-                    ->entity($this->name('structure'), [], $this->name('domain'))
-                    ->entity($this->name('user'), [], $this->name('setting'))
+                    ->entity($this->name('structure'), [
+                        'roles' => ['developer'],
+                    ], $this->name('domain'))
+                    ->entity($this->name('user'), [
+                        'roles' => ['administrator', 'developer'],
+                    ], $this->name('setting'))
                     ->entity($this->name('tag'), [], $this->name('setting'));
                 return $nav;
             })
@@ -433,28 +460,28 @@ class Module extends ChalkModule
 
     public function publish()
     {
-       $entities = $this->em('core_content')->all(['isPublishable' => true]);
-       foreach ($entities as $entity) {
-           $entity->status = Chalk::STATUS_PUBLISHED;
-       }
+        $entities = $this->em('core_content')->all(['isPublishable' => true]);
+        foreach ($entities as $entity) {
+            $entity->status = Chalk::STATUS_PUBLISHED;
+        }
         $this->em->flush();
     }
 
-    public function contentList($filters)
-    {
-        if (is_array($filters)) {
-            $infoList = new \Chalk\InfoList();
-            foreach ($filters as $name => $subtypes) {
-                $subtypes = is_array($subtypes)
-                    ? $subtypes
-                    : [];
-                $infoList->item($name, [
-                    'subtypes' => $subtypes,
-                ]);
-            }
-            return $infoList;
-        } else {
-            return $this->backend->hook->fire($this->name('contentList'), new \Chalk\InfoList($filters));
-        }
-    }
+    // public function contentList($filters)
+    // {
+    //     if (is_array($filters)) {
+    //         $infoList = new \Chalk\Info();
+    //         foreach ($filters as $name => $subtypes) {
+    //             $subtypes = is_array($subtypes)
+    //                 ? $subtypes
+    //                 : [];
+    //             $infoList->item($name, [
+    //                 'subtypes' => $subtypes,
+    //             ]);
+    //         }
+    //         return $infoList;
+    //     } else {
+    //         return $this->backend->hook->fire($this->name('contentList'), new \Chalk\Info($filters));
+    //     }
+    // }
 }

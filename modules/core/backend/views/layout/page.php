@@ -1,4 +1,4 @@
-<? $this->start() ?>
+<?php $this->start() ?>
     <div class="flex flex-row bottombar">
         <div class="flex-col leftbar">
             <div class="flex">
@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-<? $html = $this->end() ?>
+<?php $html = $this->end() ?>
 <?php
 if (array_intersect(['select-one', 'select-all'], [$model->mode])) {
     if ($req->isAjax()) {
