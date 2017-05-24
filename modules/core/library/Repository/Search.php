@@ -11,35 +11,35 @@ use Chalk\Chalk,
     Chalk\Core\Behaviour\Searchable,
     Chalk\Repository;
 
-class Index extends Repository
+class Search extends Repository
 {
     public function entities($entities)
     {
         $query = $this->build();
         $wheres = [];
         foreach ($entities as $entity) {
-            $wheres[] = "(i.entityType = '" . Chalk::info($entity)->name . "' AND i.entityId = " . $entity->id . ")";
+            $wheres[] = "(s.entityType = '" . Chalk::info($entity)->name . "' AND s.entityId = " . $entity->id . ")";
         }
         $query->andWhere(implode(' OR ', $wheres));
-        $indexes = $query->getQuery()->execute();
+        $searches = $query->getQuery()->execute();
 
         $map = [];
-        foreach ($indexes as $i => $index) {
-            $map["{$index->entityType}_{$index->entityId}"] = $i;
+        foreach ($searches as $i => $search) {
+            $map["{$search->entityType}_{$search->entityId}"] = $i;
         }
         foreach ($entities as $entity) {
             $key = Chalk::info($entity)->name . '_' . $entity->id;
             if (isset($map[$key])) {
-                $index = $indexes[$map[$key]];
-                $index->entityObject = $entity;
+                $search = $searches[$map[$key]];
+                $search->entityObject = $entity;
             } else {
-                $index = new \Chalk\Core\Index($entity);
-                $this->_em->persist($index);
-                $indexes[] = $index;
+                $search = new \Chalk\Core\Search($entity);
+                $this->_em->persist($search);
+                $searches[] = $search;
             }
         }
 
-        return $indexes;
+        return $searches;
     }
 
     public function search($query, $classes = array())
@@ -53,16 +53,16 @@ class Index extends Repository
         }
 
         $where  = count($classes)
-            ? "AND i.entityType IN(" . implode(', ', $classes) . ")"
+            ? "AND s.entityType IN(" . implode(', ', $classes) . ")"
             : null;
-        $table = Chalk::info('Chalk\Core\Index')->name;
+        $table = Chalk::info('Chalk\Core\Search')->name;
         return $conn->query("
-            SELECT i.entityType, i.entityId,
-                MATCH(i.content) AGAINST ({$query}) AS score
-            FROM {$table} AS i
-            WHERE MATCH(i.content) AGAINST ({$query} IN BOOLEAN MODE)
+            SELECT s.entityType, s.entityId,
+                MATCH(s.content) AGAINST ({$query}) AS score
+            FROM {$table} AS s
+            WHERE MATCH(s.content) AGAINST ({$query} IN BOOLEAN MODE)
                 {$where}
-            ORDER BY score DESC, i.entityId DESC
+            ORDER BY score DESC, s.entityId DESC
         ")->fetchAll();
     }
 }

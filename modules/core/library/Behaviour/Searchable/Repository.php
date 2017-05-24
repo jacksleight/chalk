@@ -29,7 +29,7 @@ trait Repository
                 [$info->class],
                 $this->_em->getClassMetadata($info->class)->subClasses
             );
-            $results = $this->_em->getRepository('Chalk\Core\Index')
+            $results = $this->_em->getRepository('Chalk\Core\Search')
                 ->search($params['search'], $classes);
             $ids = \Coast\array_column($results, 'entityId');
             $query

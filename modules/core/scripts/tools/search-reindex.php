@@ -22,9 +22,10 @@ return function($args, $flags, $params) {
 
 	try {
 
-		cli\line('Clearing index..');
 		$conn = $em->getConnection();
-		$table = Chalk::info('Chalk\Core\Index')->name;
+		$table = Chalk::info('Chalk\Core\Search')->name;
+		
+		cli\line('Clearing index..');
 		$conn->exec("TRUNCATE TABLE {$table}");
 
 		$metas = $em->getMetadataFactory()->getAllMetadata();
@@ -48,7 +49,7 @@ return function($args, $flags, $params) {
 						break;
 					}
 				}
-				$indexes = $em('Chalk\Core\Index')->entities($entities);
+				$indexes = $em('Chalk\Core\Search')->entities($entities);
 				foreach ($indexes as $index) {
 					$index->reindex();
 					$bar->tick();

@@ -19,7 +19,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *     uniqueConstraints={@UniqueConstraint(columns={"entityType", "entityId"})}
  * )
 */
-class Index extends Entity
+class Search extends Entity
 {
 	/**
      * @Id

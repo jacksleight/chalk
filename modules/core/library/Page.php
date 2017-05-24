@@ -31,7 +31,7 @@ class Page extends Content
 
     /**
      * @ManyToOne(targetEntity="\Chalk\Core\File")
-     * @JoinColumn(nullable=true)
+     * @JoinColumn(nullable=true, onDelete="SET NULL")
      */
     protected $image;
 

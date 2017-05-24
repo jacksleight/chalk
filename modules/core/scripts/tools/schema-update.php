@@ -16,7 +16,7 @@ return function($args, $flags, $params) {
 
 	$this->execScript('tools', 'cache-clear');
 
-	$schema	= new \Doctrine\ORM\Tools\SchemaTool($em->value());
+	$schema	= new \Doctrine\ORM\Tools\SchemaTool($em);
 
 	cli\line('Calculating changes..');
 	$stmts = $schema->getUpdateSchemaSql($em->getMetadataFactory()->getAllMetadata(), false);

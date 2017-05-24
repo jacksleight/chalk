@@ -23,7 +23,7 @@ return function($args, $flags, $params) {
 
 	$this->execScript('tools', 'cache-clear');
 
-	$schema	= new \Doctrine\ORM\Tools\SchemaTool($em->value());
+	$schema	= new \Doctrine\ORM\Tools\SchemaTool($em);
 
 	cli\line('Deleting existing files..');
 	if ($this->app->config->dataDir->exists()) {

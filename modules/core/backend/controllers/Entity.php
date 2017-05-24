@@ -254,7 +254,7 @@ abstract class Entity extends Action
     {
         if ($req->info->is->tagable) {
             if (count($req->model->tags)) {
-                $tags = $this->em('core_tag')->all(['ids' => $model->tags]);
+                $tags = $this->em('core_tag')->all(['ids' => $req->model->tags]);
                 foreach ($tags as $tag) {
                     $entity->tags[] = $tag;
                 }

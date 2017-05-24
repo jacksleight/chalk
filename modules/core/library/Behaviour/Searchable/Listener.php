@@ -7,7 +7,7 @@
 namespace Chalk\Core\Behaviour\Searchable;
 
 use Chalk\Chalk,
-    Chalk\Core\Index,
+    Chalk\Core\Search,
     Chalk\Core\Behaviour\Searchable,
     Doctrine\Common\EventSubscriber,
     Doctrine\ORM\Event\OnFlushEventArgs,
@@ -54,10 +54,10 @@ class Listener implements EventSubscriber
             $this->_deletions[] = $entity;
         }
         if (count($this->_deletions)) {
-            $indexes = $em->getRepository('Chalk\Core\Index')
+            $searches = $em->getRepository('Chalk\Core\Search')
                 ->entities($this->_deletions);
-            foreach ($indexes as $index) {
-                $em->remove($index);
+            foreach ($searches as $search) {
+                $em->remove($search);
             }
             $this->_deletions = [];
         }
@@ -71,10 +71,10 @@ class Listener implements EventSubscriber
 
         $em = $args->getEntityManager();
 
-        $indexes = $em->getRepository('Chalk\Core\Index')
+        $searches = $em->getRepository('Chalk\Core\Search')
             ->entities($this->_updates);
-        foreach ($indexes as $index) {
-            $index->reindex();
+        foreach ($searches as $search) {
+            $search->reindex();
         }
         $this->_updates = [];
     
