@@ -6,18 +6,21 @@
 
 namespace Chalk\Core\Backend\Model\Auth;
 
-class PasswordReset extends \Toast\Entity
+use Chalk\Core\Backend\Model;
+use Coast\Validator;
+
+class PasswordReset extends Model
 {
 	protected $password;
 
 	protected static function _defineMetadata($class)
 	{
-		return array(
+        return \Coast\array_merge_smart(parent::_defineMetadata($class), array(
 			'fields' => array(
 				'password' => array(
 					'type'		=> 'string',
 				),
 			),
-		);
+		));
 	}
 }

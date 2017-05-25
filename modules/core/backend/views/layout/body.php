@@ -34,7 +34,7 @@
 		<div class="flex rightbar header">
 			<ul class="toolbar toolbar-extra toolbar-right toolbar-space">
 				<li>
-					<a href="<?= $this->url([], 'core_profile', true) ?>" class="icon-user" rel="modal"> <?= $req->user->name ?></a>
+					<a href="<?= $this->url([], 'core_profile', true) ?>" class="icon-user" rel="modal"> <?= $this->user->name ?></a>
 				</li>
 				<li>
 					<a href="<?= $this->url([], 'core_logout', true) ?>" class="icon-logout"> Logout</a>
@@ -54,7 +54,9 @@
 			            <a href="<?= $this->url([
 			                'controller' => 'index',
 			                'action'     => 'publish',
-			            ], 'core_index', true) ?>?redirect=<?= $this->url([]) ?>" class="confirmable positive">
+			            ], 'core_index', true) . $this->url->query([
+		                    'redirect' => $this->url([]),
+		                ], true) ?>" class="confirmable positive">
 			                <span class="badge badge-figure badge-positive"><?= $count ?></span> Publish All
 			            </a>
 			        </a>

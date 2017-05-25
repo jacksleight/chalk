@@ -14,7 +14,7 @@
 	'name'		=> 'emailAddress',
 	'label'		=> 'Email Address',
 )) ?>
-<?php if ($req->user->isDeveloper()) { ?>
+<?php if ($this->user->isDeveloper()) { ?>
 	<?= $this->render('/element/form-item', array(
 		'entity'	=> $entity,
 		'name'		=> 'structures',

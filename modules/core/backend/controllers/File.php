@@ -19,12 +19,12 @@ class File extends Content
 {
 	protected $_entityClass = 'Chalk\Core\File';
 
-    protected function _actions(Request $req)
+    protected function _actions()
     {
         return [
             'create' => null,
             'upload' => 'uploaded',
-        ] + parent::_actions($req);
+        ] + parent::_actions();
     }
 
     public function upload(Request $req, Response $res)
@@ -42,8 +42,8 @@ class File extends Content
         foreach ($uploads as $upload) {
             if (isset($upload->path)) {
                 $entity = isset($req->route['params']['id'])
-                    ? $this->em($req->info)->id($req->route['params']['id'])
-                    : $this->em($req->info)->create();      
+                    ? $this->em($this->info)->id($req->route['params']['id'])
+                    : $this->em($this->info)->create();      
                 if ($entity->isNew()) {
                     $this->_create($req, $res, $entity);
                 } else {

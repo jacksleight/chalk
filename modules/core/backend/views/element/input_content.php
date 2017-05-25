@@ -1,8 +1,7 @@
 <?php 
-use Chalk\Chalk;
 if (!isset($filters)) {
 	$filters = [
-		Chalk::info($md['entity'])->name => true,
+		Chalk\Chalk::info($md['entity'])->name => true,
 	];
 }
 $value = isset($value)

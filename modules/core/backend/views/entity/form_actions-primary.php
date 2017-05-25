@@ -4,8 +4,10 @@
         <?php if ($info->is->publishable) { ?>
             <?php if (!$entity->isNew() && $entity->isDraft()) { ?>
                 <li><a href="<?= $this->url([
-                    'action'    => 'publish',
-                ]) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-positive btn-lighter btn-out icon-publish">
+                    'action' => 'publish',
+                ]) . $this->url->query([
+                    'redirect' => $this->url([]),
+                ], true) ?>" class="btn btn-positive btn-lighter btn-out icon-publish">
                     Publish <?= $info->singular ?>
                 </a></li>
             <?php } ?>
@@ -16,7 +18,9 @@
             <?php } else { ?>
                 <li><a href="<?= $this->url([
                     'action' => 'restore',
-                ]) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-positive icon-restore">
+                ]) . $this->url->query([
+                    'redirect' => $this->url([]),
+                ], true) ?>" class="btn btn-positive icon-restore">
                     Restore to Draft
                 </a></li>
             <?php } ?>

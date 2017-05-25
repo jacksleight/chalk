@@ -93,7 +93,7 @@ class User extends Entity implements Trackable, Searchable
 
 	protected static function _defineMetadata($class)
 	{
-		return array(
+        return \Coast\array_merge_smart(parent::_defineMetadata($class), array(
 			'fields' => array(
 				'role' => array(
 					'values' => [
@@ -114,7 +114,7 @@ class User extends Entity implements Trackable, Searchable
 						->length(6),
 				),
 			),
-		);
+		));
 	}
 
 	protected function _alterMetadata($name, $value)

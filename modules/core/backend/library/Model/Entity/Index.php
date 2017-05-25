@@ -59,11 +59,11 @@ class Index extends Model
 		));
 	}
 
-	public function data($sorts = [], $limits = [], $batches = [])
+	public function options($sorts = [], $limits = [], $batches = [])
 	{
-		$this->_sorts		= $sorts;
-		$this->_limits		= $limits;
-		$this->_batches		= $batches;
+		$this->_sorts	= $sorts;
+		$this->_limits	= $limits;
+		$this->_batches	= $batches;
 	}
 
 	protected function _alterMetadata($name, $value)

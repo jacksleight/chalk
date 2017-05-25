@@ -4,7 +4,7 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-namespace Chalk\Core;
+namespace Chalk;
 
 use Chalk\Chalk;
 use Chalk\Hook;
@@ -15,8 +15,8 @@ use Coast\Request;
 
 class Nav implements Hook
 {
-    protected $_url;
     protected $_req;
+    protected $_url;
     protected $_user;
     protected $_info;
 
@@ -29,10 +29,10 @@ class Nav implements Hook
         ],
     ];
 
-    public function __construct(Resolver $url, Request $req, User $user, Info $info)
+    public function __construct(Request $req, Resolver $url, User $user, Info $info)
     {
-        $this->_url  = $url;
         $this->_req  = $req;
+        $this->_url  = $url;
         $this->_user = $user;
         $this->_info = $info;
     }

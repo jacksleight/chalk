@@ -11,7 +11,9 @@
         ), 'core') ?>
         <button class="btn btn-focus icon-plus width-3" formmethod="post" formaction="<?= $this->url->route([
             'action' => 'quick',
-        ]) ?>?redirect=<?= $this->url([]) ?><?= $this->url->query() ?>">
+        ]) . $this->url->query([
+            'redirect' => $this->url([]),
+        ]) ?>">
             Add
         </button>
     </div>

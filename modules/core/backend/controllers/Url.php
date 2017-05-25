@@ -29,32 +29,30 @@ class Url extends Content
 
         $wrap->graphFromArray($req->bodyParams());
         if (!$wrap->graphIsValid()) {
-            $this->notify("{$req->info->singular} could not be added, please try again", 'negative');
+            $this->notify("{$this->info->singular} could not be added, please try again", 'negative');
             return $res->redirect($this->url(array(
                 'action' => 'index',
             )));
             return;
         }
 
-        $redirect = new Url($req->redirect);
-
-        $content = $this->em($req->info)->one([
+        $content = $this->em($this->info)->one([
             'url' => $quick->url,
         ]);
         if ($content) {
-            $redirect->queryParam('contentNew', $content->id);
-            return $res->redirect($redirect);
+            $this->model->redirect->queryParam('selectedList', $content->id);
+            return $res->redirect($this->model->redirect);
         }
 
-        $content = $this->em($req->info)->create();
+        $content = $this->em($this->info)->create();
         $content->status = \Chalk\Chalk::STATUS_PUBLISHED;
         $content->fromArray($quick->toArray());
 
         $this->em->persist($content);
         $this->em->flush();
 
-        $redirect->queryParam('contentNew', $content->id);
-        return $res->redirect($redirect);
+        $this->model->redirect->queryParam('selectedList', $content->id);
+        return $res->redirect($this->model->redirect);
     }
 
     protected function _create(Request $req, Response $res, Entity $entity)

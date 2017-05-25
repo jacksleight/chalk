@@ -14,27 +14,23 @@ class Auth extends Action
 {
     public function login(Request $req, Response $res)
     {
-        $req->view->login = $wrap = $this->em->wrap(
-            $login = new \Chalk\Core\Backend\Model\Auth\Login()
-        );
-
         if (!$req->isPost()) {
             return;
         }
 
-        $wrap->graphFromArray($req->bodyParams());
-        if (!$wrap->graphIsValid()) {
+        $this->model->graphFromArray($req->bodyParams());
+        if (!$this->model->graphIsValid()) {
             return;
         }
 
-        $user = $this->em('core_user')->one(['emailAddress' => $login->emailAddress]);
+        $user = $this->em('core_user')->one(['emailAddress' => $this->model->emailAddress]);
         if (!isset($user)) {
-            $login->password = null;
-            $login->addError('emailAddress', 'login');
+            $this->model->password = null;
+            $this->model->addError('emailAddress', 'login');
             return;
-        } else if (!$user->verifyPassword($login->password)) {
-            $login->password = null;
-            $login->addError('emailAddress', 'login');
+        } else if (!$user->verifyPassword($this->model->password)) {
+            $this->model->password = null;
+            $this->model->addError('emailAddress', 'login');
             return;
         }
 
@@ -45,29 +41,27 @@ class Auth extends Action
         $session = $this->session->data('__Chalk\Backend');
         $session->user = $user;
 
-        return $res->redirect($req->redirect
-            ? $req->redirect
-            : $this->url([], 'core_index', true));
+        if (isset($this->model->redirect)) {
+            return $res->redirect($this->model->redirect);
+        } else {
+            return $this->url([], 'core_index', true);
+        } 
     }
 
     public function passwordRequest(Request $req, Response $res)
     {
-        $req->view->passwordRequest = $wrap = $this->em->wrap(
-            $passwordRequest = new \Chalk\Core\Backend\Model\Auth\PasswordRequest()
-        );
-
         if (!$req->isPost()) {
             return;
         }
 
-        $wrap->graphFromArray($req->bodyParams());
-        if (!$wrap->graphIsValid()) {
+        $this->model->graphFromArray($req->bodyParams());
+        if (!$this->model->graphIsValid()) {
             return;
         }
 
-        $user = $this->em('core_user')->one(['emailAddress' => $passwordRequest->emailAddress]);
+        $user = $this->em('core_user')->one(['emailAddress' => $this->model->emailAddress]);
         if (!isset($user)) {
-            $passwordRequest->addError('emailAddress', 'Sorry, that account could not be found');
+            $this->model->addError('emailAddress', 'Sorry, that account could not be found');
             return;
         }
 
@@ -96,20 +90,16 @@ class Auth extends Action
             return $res->redirect($this->url([], 'core_passwordRequest', true));
         }
 
-        $req->view->passwordReset = $wrap = $this->em->wrap(
-            $passwordReset = new \Chalk\Core\Backend\Model\Auth\PasswordReset()
-        );
-
         if (!$req->isPost()) {
             return;
         }
 
-        $wrap->graphFromArray($req->bodyParams());
-        if (!$wrap->graphIsValid()) {
+        $this->model->graphFromArray($req->bodyParams());
+        if (!$this->model->graphIsValid()) {
             return;
         }
 
-        $user->passwordPlain = $passwordReset->password;
+        $user->passwordPlain = $this->model->password;
         $user->token         = null;
         $user->tokenDate     = null;
         $this->em->flush();

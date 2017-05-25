@@ -4,7 +4,7 @@
 <form action="<?= $this->url([]) ?>" class="login" method="post">
 	<fieldset>
 		<?= $this->render('/element/form-item', array(
-			'entity'	=> $passwordReset,
+			'entity'	=> $model,
 			'name'		=> 'password',
 			'type'		=> 'input_password',
 			'label'		=> 'New Password',

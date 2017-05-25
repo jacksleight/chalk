@@ -27,6 +27,8 @@ class Model extends \Toast\Entity
     protected $remembers;
     protected $remembersList;
 
+    protected $redirect;
+
     protected static function _defineMetadata($class)
     {
         return \Coast\array_merge_smart(parent::_defineMetadata($class), array(
@@ -73,6 +75,10 @@ class Model extends \Toast\Entity
                 ),
                 'remembersList' => array(
                     'type'      => 'string',
+                    'nullable'  => true,
+                ),
+                'redirect' => array(
+                    'type'      => 'coast_url',
                     'nullable'  => true,
                 ),
             ),

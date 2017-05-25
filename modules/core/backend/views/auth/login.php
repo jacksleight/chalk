@@ -1,16 +1,18 @@
 <?php $this->outer('/layout/body_simple') ?>
 <?php $this->block('main') ?>
 
-<form action="<?= $this->url([]) ?>?redirect=<?= $req->redirect ?>" class="login" method="post">
+<form action="<?= $this->url([]) . $this->url->query([
+    'redirect' => $model->redirect,
+], true) ?>" class="login" method="post">
 	<fieldset>
 		<?= $this->render('/element/form-item', array(
-			'entity'	=> $login,
+			'entity'	=> $model,
 			'name'		=> 'emailAddress',
 			'label'		=> 'Email Address',
 			'autofocus'	=> true,
 		)) ?>
 		<?= $this->render('/element/form-item', array(
-			'entity'	=> $login,
+			'entity'	=> $model,
 			'type'		=> 'input_password',
 			'name'		=> 'password',
 			'label'		=> 'Password',

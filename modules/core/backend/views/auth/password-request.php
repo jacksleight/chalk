@@ -4,7 +4,7 @@
 <form action="<?= $this->url([]) ?>" class="login" method="post">
 	<fieldset>
 		<?= $this->render('/element/form-item', array(
-			'entity'	=> $passwordRequest,
+			'entity'	=> $model,
 			'name'		=> 'emailAddress',
 			'label'		=> 'Email Address',
 			'autofocus'	=> true,

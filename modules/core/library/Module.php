@@ -19,6 +19,7 @@ use Chalk\Core\Structure\Node\Listener as StructureNodeListener;
 use Chalk\Event;
 use Chalk\Frontend;
 use Chalk\Info;
+use Chalk\Nav;
 use Chalk\Module as ChalkModule;
 use Chalk\Parser;
 use Chalk\Repository;

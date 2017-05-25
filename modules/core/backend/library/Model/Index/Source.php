@@ -6,9 +6,10 @@
 
 namespace Chalk\Core\Backend\Model\Index;
 
+use Chalk\Core\Backend\Model;
 use Chalk\Parser;
 
-class Source extends \Toast\Entity
+class Source extends Model
 {
 	protected $lang;
 
@@ -16,7 +17,7 @@ class Source extends \Toast\Entity
 
 	protected static function _defineMetadata($class)
 	{
-		return array(
+        return \Coast\array_merge_smart(parent::_defineMetadata($class), array(
 			'fields' => array(
 				'lang' => array(
 					'type'	=> 'text',
@@ -25,7 +26,7 @@ class Source extends \Toast\Entity
 					'type'	=> 'text',
 				),
 			),
-		);
+		));
 	}
 
 	public function code($value = null)

@@ -74,7 +74,7 @@ class Tag extends Entity
 
         $modelWrap->graphFromArray($req->bodyParams());
         if (!$modelWrap->graphIsValid()) {
-            $this->notify("{$req->info->plural} could not be merged, please check the messages below", 'negative');
+            $this->notify("{$this->info->plural} could not be merged, please check the messages below", 'negative');
             return;
         }
 
@@ -101,7 +101,7 @@ class Tag extends Entity
         $this->em->remove($sourceTag);
         $this->em->flush();
 
-        $this->notify("{$req->info->plural} were merged successfully", 'positive');
+        $this->notify("{$this->info->plural} were merged successfully", 'positive');
         return $res->redirect($this->url(array(
             'action' => null,
         )));

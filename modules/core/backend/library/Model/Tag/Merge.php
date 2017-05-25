@@ -17,7 +17,7 @@ class Merge extends Model
 
 	protected static function _defineMetadata($class)
 	{
-		return array(
+        return \Coast\array_merge_smart(parent::_defineMetadata($class), array(
 			'associations' => array(
 				'sourceTag' => array(
 					'type'		=> 'manyToOne',
@@ -28,6 +28,6 @@ class Merge extends Model
 					'entity'	=> 'Chalk\Core\Tag',
 				),
 			),
-		);
+		));
 	}
 }

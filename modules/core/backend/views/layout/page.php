@@ -6,7 +6,13 @@
                     <nav class="nav" role="navigation">
                         <?php
                         if (array_intersect(['select-one', 'select-all'], [$model->mode])) {
-                            $items = $this->select->children('root');
+                            $select = $this->hook->fire('core_select', new Chalk\Nav(
+                                $req,
+                                $this->url,
+                                $this->user,
+                                $this->model->filtersInfo
+                            ));
+                            $items = $select->children('root');
                         } else {
                             $items = $this->nav->children($this->nav->main()['name']);
                         }

@@ -10,6 +10,7 @@ use Chalk\Chalk;
 use Coast\Controller\Action;
 use Coast\Request;
 use Coast\Response;
+use Chalk\Nav;
 
 class Index extends Action
 {
@@ -44,7 +45,7 @@ class Index extends Action
     public function prefs(Request $req, Response $res)
     {
         foreach ($req->queryParams() as $name => $value) {
-            $req->user->pref($name, $value);
+            $this->user->pref($name, $value);
         }
         $this->em->flush();
         return true;
@@ -55,10 +56,10 @@ class Index extends Action
         $this->chalk->module('core')->publish();
 
         $this->notify("Items published successfully", 'positive');
-        if (isset($req->redirect)) {
-            return $res->redirect($req->redirect);
+        if (isset($this->model->redirect)) {
+            return $res->redirect($this->model->redirect);
         } else {
-            return $res->redirect($this->url([], 'index', true));
+            return $res->redirect($this->url([], 'core_index', true));
         }       
     }
 
@@ -78,7 +79,14 @@ class Index extends Action
 
     public function select(Request $req, Response $res)
     {
-        $items = $this->select->children('root');
+        $select = $this->hook->fire('core_select', new Nav(
+            $req,
+            $this->url,
+            $this->user,
+            $this->model->filtersInfo
+        ));
+
+        $items = $select->children('root');
         if (!count($items)) {
             throw new \Exception('No route for redirection');
         }
@@ -86,7 +94,7 @@ class Index extends Action
         $url = $item['url'];
         $url->queryParams([
             'mode'        => "select-{$req->type}",
-            'filtersList' => $req->model->filtersList,
+            'filtersList' => $this->model->filtersList,
         ]);
         return $res->redirect($url);
     }

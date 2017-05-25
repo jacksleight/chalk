@@ -7,7 +7,7 @@
 namespace Chalk\Core\Backend\Controller;
 
 use Chalk\Chalk;
-use Chalk\Core\Entity;
+use Chalk\Core\Entity as CoreEntity;
 use Chalk\Core\Backend\Model;
 use Chalk\Core\Backend\Controller\Entity;
 use Coast\Request;
@@ -21,7 +21,7 @@ class Profile extends Entity
 
 	public function update(Request $req, Response $res)
 	{
-		$req->id = $req->user->id;
+		$req->id = $this->user->id;
 		return parent::update($req, $res);
 	}
 
@@ -30,7 +30,7 @@ class Profile extends Entity
         throw new \Exception('Delete not permitted');
     }
 
-    protected function _delete(Request $req, Response $res, Entity $entity)
+    protected function _delete(Request $req, Response $res, CoreEntity $entity)
     {
         throw new \Exception('Delete not permitted');
     }

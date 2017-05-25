@@ -17,13 +17,13 @@ class Widget extends Entity
 	public function preDispatch(Request $req, Response $res)
 	{
 		$req->view->info
-			= $req->info
+			= $this->info
 			= Chalk::info($req->entity);
 	}
 
 	public function edit(Request $req, Response $res)
 	{
-		$class = $req->info->class;
+		$class = $this->info->class;
 		$widget = new $class();
 		$req->view->widget = $wrap = $this->em->wrap($widget);
 		$wrap->graphFromArray($req->bodyParams());
@@ -36,7 +36,7 @@ class Widget extends Entity
 			return;
 		}
 
-		$req->data->entity = $req->info->name;
+		$req->data->entity = $this->info->name;
 		$req->data->params = array_map(function($value) {
 			return is_object($value) ? $value->id : $value;
 		}, $widget->toArray());

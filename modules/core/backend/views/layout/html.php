@@ -1,6 +1,4 @@
 <?php
-use Chalk\Chalk;
-
 $suffix = $this->chalk->isDebug() ? '' : '.min';
 $lang   = 'en-GB';
 $title  = (isset($title) 
@@ -42,8 +40,8 @@ $title  = (isset($title)
                 'controller' => 'index',
                 'action'     => 'source',
             ], 'core_index', true),
-            'contentName'   => Chalk::info('Chalk\Core\Content')->name,
-            'prefs'         => isset($req->user) ? $req->user->prefs() : [],
+            'contentName'   => Chalk\Chalk::info('Chalk\Core\Content')->name,
+            'prefs'         => isset($this->user) ? $this->user->prefs() : [],
             'styles'        => $this->chalk->config->styles,
             'notifications' => $this->notify->notifications(),
             // 'widgets'       => $this->widgetList->items(),

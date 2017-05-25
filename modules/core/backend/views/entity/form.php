@@ -14,7 +14,7 @@
 	<div class="flex body">
 		<?= $this->partial('body') ?>
         <?php // $this->partial('node') ?>
-        <?php if ($req->user->isDeveloper()) { ?>
+        <?php if ($this->user->isDeveloper()) { ?>
             <?= $this->partial('developer') ?>
         <?php } ?>
 	</div>

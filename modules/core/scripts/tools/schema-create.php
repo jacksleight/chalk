@@ -66,9 +66,7 @@ return function($args, $flags, $params) {
 		$em->flush();
 		
 		cli\line('Creating default page..');
-		$contentList = $this->backend->hook->fire('core_contentList', new Info('core_main'));
-		$class = $contentList->first()->class;
-		$page = new $class();
+		$page = new \Chalk\Core\Page();
 		$page->fromArray([
 			'name'			=> 'Site',
 		]);

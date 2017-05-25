@@ -6,9 +6,10 @@
 
 namespace Chalk\Core\Backend\Model\Auth;
 
+use Chalk\Core\Backend\Model;
 use Coast\Validator;
 
-class Login extends \Toast\Entity
+class Login extends Model
 {
 	protected $emailAddress;
 	
@@ -16,7 +17,7 @@ class Login extends \Toast\Entity
 
 	protected static function _defineMetadata($class)
 	{
-		return array(
+        return \Coast\array_merge_smart(parent::_defineMetadata($class), array(
 			'fields' => array(
 				'emailAddress' => array(
 					'type'		=> 'string',
@@ -27,6 +28,6 @@ class Login extends \Toast\Entity
 					'type'		=> 'string',
 				),
 			),
-		);
+		));
 	}
 }

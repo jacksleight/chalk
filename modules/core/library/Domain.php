@@ -28,7 +28,7 @@ class Domain extends Entity implements Trackable
 
 	protected static function _defineMetadata($class)
 	{
-		return array(
+        return \Coast\array_merge_smart(parent::_defineMetadata($class), array(
 			'fields' => array(
 				'name' => array(
 					'validator'	=> (new Validator)
@@ -41,7 +41,7 @@ class Domain extends Entity implements Trackable
 						->count(1),
 				),
 			),
-		);
+		));
 	}
 
 	/**

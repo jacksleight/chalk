@@ -18,49 +18,23 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 abstract class Entity extends Action
 {
     protected $_entityClass;
-    protected $_actions;
-    protected $_sorts = [];
-    protected $_limits = [
-        50  => '50',
-        100 => '100',
-        200 => '200',
-    ];
-    protected $_batches = [
-        'delete' => 'Delete',
-    ];
 
     public function preDispatch(Request $req, Response $res)
     {
-        $req->view->info
-            = $req->info
-            = Chalk::info($this->_entityClass);
-        $req->model->selectedType = $req->info->name;
+        $this->info    = Chalk::info($this->_entityClass);
 
-        $this->_actions = \Coast\array_filter_null($this->_actions($req));
-        $req->view->actions
-            = $req->actions
-            = array_keys($this->_actions);
+        $actions       = \Coast\array_filter_null($this->_actions($req));
+        $this->actions = array_keys($actions);
+        $this->labels  = $actions;
 
-        if (is_a($req->info->class, 'Chalk\Core\Behaviour\Trackable', true)) {
-            $this->_sorts = [
-                'createDate' => 'Created',
-                'modifyDate' => 'Updated',
-            ] + $this->_sorts;
-        }
-        if (is_a($req->info->class, 'Chalk\Core\Behaviour\Publishable', true)) {
-            $this->_sorts = [
-                'publishDate' => 'Published',
-                'status'      => 'Status',
-            ] + $this->_sorts;
-            $this->_batches = [
-                'publish'   => 'Publish',
-                'archive'   => 'Archive',
-                'restore'   => 'Restore',
-            ] + $this->_batches;
-        }
+        $req->view->info    = $this->info;
+        $req->view->actions = $this->actions;
+        $req->view->labels  = $this->labels;
+
+        $this->model->selectedType = $this->info->name;
     }
 
-    protected function _actions(Request $req)
+    protected function _actions()
     {
         $actions = [
             'create' => 'created',
@@ -68,16 +42,16 @@ abstract class Entity extends Action
             'delete' => 'deleted',
             'batch'  => 'batched',
         ];
-        if (is_a($req->info->class, 'Chalk\Core\Behaviour\Publishable', true)) {
+        if ($this->info->is->publishable) {
             $actions = $actions + [
                 'publish' => 'published',
                 'archive' => 'archived',
                 'restore' => 'restored',
             ];
         }
-        if (in_array($req->model->mode, ['select-one', 'select-all']) ) {
+        if (in_array($this->model->mode, ['select-one', 'select-all']) ) {
             $actions = [
-                $req->model->mode => 'selected',
+                $this->model->mode => 'selected',
             ];
         }
         return $actions;
@@ -85,10 +59,37 @@ abstract class Entity extends Action
 
     public function index(Request $req, Response $res)
     {
-        $req->model->data(
-            $this->_sorts,
-            $this->_limits,
-            $this->_batches
+        $sorts = [];
+        $limits = [
+            50  => '50',
+            100 => '100',
+            200 => '200',
+        ];
+        $batches = [
+            'delete' => 'Delete',
+        ];
+        if ($this->info->is->trackable) {
+            $sorts = [
+                'createDate' => 'Created',
+                'modifyDate' => 'Updated',
+            ] + $sorts;
+        }
+        if ($this->info->is->publishable) {
+            $sorts = [
+                'publishDate' => 'Published',
+                'status'      => 'Status',
+            ] + $sorts;
+            $batches = [
+                'publish'   => 'Publish',
+                'archive'   => 'Archive',
+                'restore'   => 'Restore',
+            ] + $batches;
+        }
+
+        $this->model->options(
+            $sorts,
+            $limits,
+            $batches
         );
     }
 
@@ -98,26 +99,26 @@ abstract class Entity extends Action
             throw new \Chalk\Exception("Batch action only accepts POST requests");
         }
 
-        $req->model->graphFromArray($req->bodyParams());
+        $this->model->graphFromArray($req->bodyParams());
 
-        if (!isset($this->_actions[$req->model->batch])) {
-            throw new \Exception("Action '{$req->model->batch}' is invalid");
+        if (!array_intersect([$req->process], $this->actions)) {
+            throw new \Exception("Action '{$this->model->batch}' is invalid");
         }
 
         try {
-            $method = "_{$req->model->batch}";
-            $entities = $this->em($req->info)->all(['ids' => $req->model->selected]);
+            $method = "_{$this->model->batch}";
+            $entities = $this->em($this->info)->all(['ids' => $this->model->selected]);
             foreach ($entities as $entity) {
-                $this->$method($req, $res, $entity, $req->model);
+                $this->$method($req, $res, $entity, $this->model);
             }
             $this->em->flush();
         } catch (ForeignKeyConstraintViolationException $e) {
-            $req->model->batch = null;
-            $this->notify("Some {$req->info->plural} cannot be {$this->_actions[$req->model->batch]} because they are in use", 'negative');
+            $this->model->batch = null;
+            $this->notify("Some {$this->info->plural} cannot be {$this->labels[$this->model->batch]} because they are in use", 'negative');
             return;
         }
 
-        $this->notify(count($entities) . " " . strtolower($req->info->plural) . " {$this->_actions[$req->model->batch]} successfully", 'positive');
+        $this->notify(count($entities) . " " . strtolower($this->info->plural) . " {$this->labels[$this->model->batch]} successfully", 'positive');
         return $res->redirect($this->url([
             'action'   => null,
         ]) . $this->url->query(array(
@@ -128,7 +129,7 @@ abstract class Entity extends Action
 
     public function select(Request $req, Response $res)
     {
-        $entities = $this->em($req->model->selectedType)->all(['ids' => $req->model->selected()]);
+        $entities = $this->em($this->model->selectedType)->all(['ids' => $this->model->selected()]);
         $data = [];
         foreach ($entities as $entity) {
             $data[] = [
@@ -150,112 +151,112 @@ abstract class Entity extends Action
     public function update(Request $req, Response $res)
     {
         $entity = isset($req->id)
-            ? $this->em($req->info)->id($req->id)
-            : $this->em($req->info)->create();
+            ? $this->em($this->info)->id($req->id)
+            : $this->em($this->info)->create();
         if ($entity->isNew()) {
-            $this->_create($req, $res, $entity, $req->model);
+            $this->_create($req, $res, $entity, $this->model);
         } else {
-            $this->_update($req, $res, $entity, $req->model);
+            $this->_update($req, $res, $entity, $this->model);
         }
-        $req->view->entity = $entityWrap = $this->em->wrap($entity);
+        $req->view->entity = $entity = $this->em->wrap($entity);
 
         if (!$req->isPost()) {
             return;
         }
 
-        $entityWrap->graphFromArray($req->bodyParams());
-        if (!$entityWrap->graphIsValid()) {
-            $this->notify("{$req->info->singular} <strong>{$entity->previewName}</strong> could not be saved, please check the messages below", 'negative');
+        $entity->graphFromArray($req->bodyParams());
+        if (!$entity->graphIsValid()) {
+            $this->notify("{$this->info->singular} <strong>{$entity->previewName}</strong> could not be saved, please check the messages below", 'negative');
             return;
         }
 
         try {
-            $this->em->persist($entity);
+            $this->em->persist($entity->getObject());
             $this->em->flush();
         } catch (UniqueConstraintViolationException $e) {
-            $this->notify("{$req->info->singular} could not be saved because <strong>{$entity->previewName}</strong> already exists", 'negative');
+            $this->notify("{$this->info->singular} could not be saved because <strong>{$entity->previewName}</strong> already exists", 'negative');
             return;
         }
 
-        $this->notify("{$req->info->singular} <strong>{$entity->previewName}</strong> saved successfully", 'positive');
+        $this->notify("{$this->info->singular} <strong>{$entity->previewName}</strong> saved successfully", 'positive');
         return $res->redirect($this->url([
             'action' => 'update',
             'id'     => $entity->id,
         ]) . $this->url->query([
-            'tagsList' => $req->model->tagsList,
+            'tagsList' => $this->model->tagsList,
         ], true));
     }
 
     public function process(Request $req, Response $res)
     {
-        if (!isset($this->_actions[$req->type])) {
-            throw new \Exception("Action '{$req->type}' is invalid");
+        if (!array_intersect([$req->process], $this->actions)) {
+            throw new \Exception("Action '{$req->process}' is invalid");
         }
 
-        $entity = $this->em($req->info)->find($req->id);
+        $entity = $this->em($this->info)->find($req->id);
         if (!isset($entity)) {
-            throw new \Exception("Entity '{$req->info->name}' with ID '{$req->id}' does not exist");
+            throw new \Exception("Entity '{$this->info->name}' with ID '{$req->id}' does not exist");
         }
 
         try {
-            $method = "_{$req->type}";
-            $this->$method($req, $res, $entity, $req->model);
+            $method = "_{$req->process}";
+            $this->$method($req, $res, $entity, $this->model);
             $this->em->flush();
         } catch (ForeignKeyConstraintViolationException $e) {
-            $this->notify("{$req->info->singular} <strong>{$entity->previewName}</strong> could not be {$this->_actions[$req->type]} because it is in use", 'negative');
+            $this->notify("{$this->info->singular} <strong>{$entity->previewName}</strong> could not be {$this->labels[$req->process]} because it is in use", 'negative');
             return $res->redirect($this->url(array(
                 'action' => 'update',
             )));
         }
 
-        $this->notify("{$req->info->singular} <strong>{$entity->previewName}</strong> was {$this->_actions[$req->type]} successfully", 'positive');
-        if (isset($req->redirect)) {
-            return $res->redirect($req->redirect);
-        } else if ($req->type == 'delete') {
+        $this->notify("{$this->info->singular} <strong>{$entity->previewName}</strong> was {$this->labels[$req->process]} successfully", 'positive');
+        if (isset($this->model->redirect)) {
+            return $res->redirect($this->model->redirect);
+        } else if ($req->process == 'delete') {
             return $res->redirect($this->url([
                 'action' => null,
                 'id'     => null,
             ]) . $this->url->query([
-                'tagsList' => $req->model->tagsList,
+                'tagsList' => $this->model->tagsList,
             ], true));
         } else {
             return $res->redirect($this->url([
                 'action' => 'update',
             ]) . $this->url->query([
-                'tagsList' => $req->model->tagsList,
+                'tagsList' => $this->model->tagsList,
             ], true));
         }
     }
 
     public function delete(Request $req, Response $res)
     {
-        $req->param('type', 'delete');
+        $req->param('process', 'delete');
         return $this->forward('process');
     }
 
     public function publish(Request $req, Response $res)
     {
-        $req->param('type', 'publish');
+        $req->param('process', 'publish');
         return $this->forward('process');
     }
 
     public function archive(Request $req, Response $res)
     {
-        $req->param('type', 'archive');
+        $req->param('process', 'archive');
         return $this->forward('process');
     }
 
     public function restore(Request $req, Response $res)
     {
-        $req->param('type', 'restore');
+        $req->param('process', 'restore');
         return $this->forward('process');
     }
 
     protected function _create(Request $req, Response $res, CoreEntity $entity)
     {
-        if ($req->info->is->tagable) {
-            if (count($req->model->tags)) {
-                $tags = $this->em('core_tag')->all(['ids' => $req->model->tags]);
+        if ($this->info->is->tagable) {
+            if (count($this->model->tags)) {
+                $tags = $this->em('core_tag')->all(['ids' => $this->model->tags]);
                 foreach ($tags as $tag) {
                     $entity->tags[] = $tag;
                 }

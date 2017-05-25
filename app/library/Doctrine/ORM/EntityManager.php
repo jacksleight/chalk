@@ -19,7 +19,7 @@ class EntityManager extends \Coast\Doctrine\ORM\EntityManager
         return $this->getRepository(Chalk::info($class)->class);
     }
 
-    public function reference($class, $id)
+    public function ref($class, $id)
     {
         return $this->getReference(Chalk::info($class)->class, $id);
     }

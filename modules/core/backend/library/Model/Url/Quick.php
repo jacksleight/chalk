@@ -6,13 +6,14 @@
 
 namespace Chalk\Core\Backend\Model\Url;
 
+use Chalk\Core\Backend\Model;
 use Coast\Validator;
 use Coast\Http;
 use Coast\Url;
 use DOMDocument;
 use DOMXPath;
 
-class Quick extends \Toast\Entity
+class Quick extends Model
 {
 	protected $url;
 
@@ -20,7 +21,7 @@ class Quick extends \Toast\Entity
 
 	protected static function _defineMetadata($class)
 	{
-		return array(
+        return \Coast\array_merge_smart(parent::_defineMetadata($class), array(
 			'fields' => array(
 				'url' => array(
 					'type'		=> 'coast_url',
@@ -29,7 +30,7 @@ class Quick extends \Toast\Entity
 					'type'		=> 'string',
 				),
 			),
-		);
+		));
 	}
 
 	public function url(Url $url = null)

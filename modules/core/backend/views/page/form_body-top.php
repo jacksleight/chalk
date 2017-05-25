@@ -6,7 +6,7 @@
     'type'      => 'array_textarea',
     'class'     => 'monospaced editor-content',
     'rows'      => 20,
-    'stackable' => $req->user->isDeveloper(),
+    'stackable' => $this->user->isDeveloper(),
 ), 'core') ?>
 <?= $this->render('/element/form-item', array(
     'entity'    => $entity,

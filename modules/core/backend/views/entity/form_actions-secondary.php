@@ -5,7 +5,9 @@
             <?php if ($entity->isPublished()) { ?>
                 <li><a href="<?= $this->url([
                     'action'    => 'archive',
-                ]) ?>?redirect=<?= $this->url([]) ?>" class="btn btn-lighter btn-out icon-archive">
+                ]) . $this->url->query([
+                    'redirect' => $this->url([]),
+                ], true) ?>" class="btn btn-lighter btn-out icon-archive">
                     Archive <?= $info->singular ?>
                 </a></li>
             <?php } else if ($entity->isArchived()) { ?>
