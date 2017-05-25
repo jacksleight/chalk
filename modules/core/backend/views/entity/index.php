@@ -2,7 +2,7 @@
     'title' => $info->plural,
 ], 'core') ?>
 <?php $this->block('main') ?>
-		
+	
 <form action="<?= $this->url->route() . $this->url->query([
     'mode'         => $model->mode,
     'filtersList'  => $model->filtersList,

@@ -8,6 +8,7 @@ namespace Chalk\Core;
 
 use Chalk\Chalk;
 use Chalk\Core;
+use Chalk\Entity;
 use Chalk\Core\Behaviour\Publishable;
 use Chalk\Core\Behaviour\Searchable;
 use Chalk\Core\Behaviour\Tagable;
@@ -120,9 +121,9 @@ abstract class Content extends Entity implements Publishable, Searchable, Tagabl
 			
     public function searchContent(array $content = [])
     {
-        return [
+        return array_merge([
             $this->name,
-        ];
+        ], $content);
     }
 
     public function name($name = null)

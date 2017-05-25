@@ -8,8 +8,9 @@ namespace Chalk\Core\Backend;
 
 use Chalk\Chalk;
 use Chalk\Core;
+use Chalk\Model as ChalkModel;
 
-class Model extends \Toast\Entity
+class Model extends ChalkModel
 {    
     protected $mode;
 

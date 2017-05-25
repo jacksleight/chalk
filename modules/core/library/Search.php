@@ -8,8 +8,10 @@ namespace Chalk\Core;
 
 use Chalk\Chalk;
 use Chalk\Core;
-use Chalk\Core\Entity;
+use Chalk\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
+use Chalk\Parser;
+use Chalk\Core\Parser\Plugin\Flatten;
 
 /**
  * @Entity
@@ -54,8 +56,11 @@ class Search extends Entity
 
     public function reindex()
     {
+        $parser = new Parser();
+        $parser->plugin('flatten', new Flatten());
+
         $content = implode(' ', $this->entityObject->searchContent());
-        // $content = \Toast\Wrapper::$chalk->frontend->parser->parse($content);
+        $content = $parser->parse($content);
         $content = strip_tags($content);
         $content = html_entity_decode($content, ENT_COMPAT | ENT_HTML5, 'utf-8');
         $content = mb_strtolower($content, 'utf-8');

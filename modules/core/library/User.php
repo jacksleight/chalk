@@ -7,6 +7,7 @@
 namespace Chalk\Core;
 
 use Chalk\Core;
+use Chalk\Entity;
 use Chalk\Core\Behaviour\Trackable;
 use Chalk\Core\Behaviour\Searchable;
 use Doctrine\Common\Collections\ArrayCollection;

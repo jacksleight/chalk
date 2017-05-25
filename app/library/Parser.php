@@ -74,6 +74,7 @@ class Parser implements Access, Executable
     public function plugin($name, Plugin $plugin = null)
     {
         if (func_num_args() > 0) {
+            $plugin->parser($this);
             if ($plugin instanceof Access) {
                 $plugin->app($this->app());
             }

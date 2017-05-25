@@ -6,10 +6,11 @@
 
 namespace Chalk\Core;
 
-use Chalk\Core,
-    Chalk\Core\Behaviour\Trackable,
-    Chalk\Core\Behaviour\Searchable,
-	Doctrine\Common\Collections\ArrayCollection;
+use Chalk\Core;
+use Chalk\Entity;
+use Chalk\Core\Behaviour\Trackable;
+use Chalk\Core\Behaviour\Searchable;
+use Doctrine\Common\Collections\ArrayCollection;
 use Coast\Validator;
 
 /**

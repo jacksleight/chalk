@@ -6,10 +6,11 @@
 
 namespace Chalk\Core;
 
-use Chalk\Core,
-    Carbon\Carbon,
-    Chalk\Core\Behaviour\Trackable,
-	Doctrine\Common\Collections\ArrayCollection;
+use Chalk\Core;
+use Chalk\Entity;
+use Carbon\Carbon;
+use Chalk\Core\Behaviour\Trackable;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity

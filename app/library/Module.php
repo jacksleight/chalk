@@ -11,7 +11,7 @@ use Chalk\Backend;
 use Chalk\Frontend;
 use Chalk\Module;
 use Chalk\Parser\Plugin;
-use Chalk\Core\Widget;
+use Chalk\Widget;
 use Closure;
 use Coast\App\Access;
 use Coast\Dir;

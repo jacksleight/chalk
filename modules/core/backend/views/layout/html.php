@@ -34,8 +34,11 @@ $title  = (isset($title)
             ], 'core_select', true),
             'widgetUrl'     => (string) $this->url([
                 'action' => 'update',
-                'entity' => '{entity}',
-            ], 'core_widget', true),
+            ], 'core_widget', true) . $this->url->query([
+                'method' => '{method}',
+                'type'   => '{type}',
+                'state'  => '{state}',
+            ], true),
             'sourceUrl'     => (string) $this->url([
                 'controller' => 'index',
                 'action'     => 'source',
@@ -44,7 +47,7 @@ $title  = (isset($title)
             'prefs'         => isset($this->user) ? $this->user->prefs() : [],
             'styles'        => $this->chalk->config->styles,
             'notifications' => $this->notify->notifications(),
-            // 'widgets'       => $this->widgetList->items(),
+            'widgets'       => $this->hook->fire('core_info/core_widget', new Chalk\Info())->sort()->items(),
             'editorContent' => [
                 'src'     => (string) $this->frontendUrl->file("vendor/jacksleight/chalk/public/assets/scripts/editor-content{$suffix}.js"),
                 'loaded'  => false,

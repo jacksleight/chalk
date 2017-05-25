@@ -6,47 +6,51 @@
 
 namespace Chalk\Core\Backend\Controller;
 
-use Chalk\Chalk,
-	Chalk\Core,
-	Chalk\Core\Backend\Controller\Entity,
-	Coast\Request,
-	Coast\Response;
+use Chalk\Chalk;
+use Chalk\Core;
+use Chalk\Core\Backend\Controller\Entity;
+use Coast\Request;
+use Coast\Response;
+use Coast\Controller\Action;
 
-class Widget extends Entity
+class Widget extends Action
 {
 	public function preDispatch(Request $req, Response $res)
 	{
-		$req->view->info
-			= $this->info
-			= Chalk::info($req->entity);
+        $this->info = Chalk::info($this->model->type);
+
+        $req->view->info = $this->info;
 	}
 
-	public function edit(Request $req, Response $res)
+	public function update(Request $req, Response $res)
 	{
-		$class = $this->info->class;
-		$widget = new $class();
-		$req->view->widget = $wrap = $this->em->wrap($widget);
-		$wrap->graphFromArray($req->bodyParams());
+		$class  = $this->info->class;
+		$widget = new $class($this->model->state);
+		$widget = $this->em->wrap($widget);
+
+		$req->view->widget = $widget;
       
-        if (!$req->post) {
+        if ($this->model->method == 'delete') {
+            $req->data->method = 'delete';
+            return;
+        } else if ($this->model->method != 'post') {
+        	$widget->graphFromArray($req->bodyParams());
             return;
         }
 
-		if (!$wrap->isValid()) {
+        $widget->graphFromArray($req->bodyParams());
+		if (!$widget->isValid()) {
 			return;
 		}
 
-		$req->data->entity = $this->info->name;
-		$req->data->params = array_map(function($value) {
-			return is_object($value) ? $value->id : $value;
-		}, $widget->toArray());
-		$req->data->html = $this->view->render('widget/card', [
-			'widget' => $widget,
-		], 'core')->toString();
-	}
-
-	public function delete(Request $req, Response $res)
-	{
-		$req->data->mode = 'delete';
+		$req->data->widget = [
+			'name'   => $this->info->name,
+			'params' => array_map(function($value) {
+				return is_object($value) ? $value->id : $value;
+			}, $widget->toArray()),
+			'html' => $this->view->render('element/card-widget', [
+				'widget' => $widget,
+			], 'core')->toString(),
+		];
 	}
 }

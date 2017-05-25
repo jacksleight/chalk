@@ -9,7 +9,7 @@ namespace Chalk\Core;
 use Chalk\Core\Structure\Node;
 use Chalk\Core\Behaviour\Trackable;
 use Chalk\Core\Behaviour\Publishable;
-use Coast\Model;
+use Chalk\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**

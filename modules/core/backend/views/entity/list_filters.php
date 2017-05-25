@@ -6,12 +6,12 @@ $this->params([
             'partial' => 'search',
             'sort'    => 10,
         ] : null,
-        'dateMin' => $info->is->publishable ? [
-            'class'   => 'flex-2',
-            'partial' => 'date-min',
-            'params'  => ['property' => 'modify', 'placeholder' => 'Updated'],
-            'sort'    => 80,
-        ] : null,
+        // 'dateMin' => $info->is->trackable ? [
+        //     'class'   => 'flex-2',
+        //     'partial' => 'date-min',
+        //     'params'  => ['property' => 'modify', 'placeholder' => 'Updated'],
+        //     'sort'    => 80,
+        // ] : null,
         'status' => $info->is->publishable ? [
             'class'   => 'flex-2',
             'partial' => 'status',

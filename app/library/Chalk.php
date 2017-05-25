@@ -53,6 +53,8 @@ class Chalk extends CoastApp
         if (is_object($class)) {
             if ($class instanceof \stdClass) {
                 return $class;
+            } else if ($class instanceof \Toast\Wrapper\Entity) {
+                $class = $class->getObject();
             }
             $class = get_class($class);
         } else if (strpos($class, '\\') === false) {

@@ -11,7 +11,7 @@ use DOMDocument;
 use DOMXPath;
 use DOMText;
 
-class ReplaceText implements Plugin
+class ReplaceText extends Plugin
 {
     protected $_texts = [];
 

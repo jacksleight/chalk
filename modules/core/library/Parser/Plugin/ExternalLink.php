@@ -11,7 +11,7 @@ use DOMDocument;
 use DOMXPath;
 use DOMText;
 
-class ExternalLink implements Plugin
+class ExternalLink extends Plugin
 {
     protected $_localUrls = [];
 

@@ -13,7 +13,7 @@ use DOMDocument;
 use DOMXPath;
 use DOMText;
 
-class Backend implements Plugin, Access
+class Backend extends Plugin implements Access
 {
     use Access\Implementation;
 
@@ -32,8 +32,8 @@ class Backend implements Plugin, Access
                 $info   = Chalk::info($data['widget']['name']);
                 $class  = $info->class;
                 $widget = $this->em->wrap(new $class())->graphFromArray($data['widget']['params']);
-                $html   = $this->view->render('widget/card', ['widget' => $widget->getObject()], 'core');
-                $temp   = $this->parser->htmlToDoc($html);
+                $html   = $this->view->render('element/card-widget', ['widget' => $widget->getObject()], 'core');
+                $temp   = $this->parser()->htmlToDoc($html);
                 $temps  = $temp->getElementsByTagName('body')->item(0)->childNodes;
                 for ($i = 0; $i < $temps->length; $i++) {
                     $temp = $doc->importNode($temps->item($i), true);

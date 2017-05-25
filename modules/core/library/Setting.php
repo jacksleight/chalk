@@ -7,6 +7,7 @@
 namespace Chalk\Core;
 
 use Chalk\Core;
+use Chalk\Entity;
 use Coast\Validator;
 
 /**

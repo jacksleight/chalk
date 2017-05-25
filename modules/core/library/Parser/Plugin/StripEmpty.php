@@ -11,7 +11,7 @@ use DOMDocument;
 use DOMXPath;
 use DOMText;
 
-class StripEmpty implements Plugin
+class StripEmpty extends Plugin
 {
     protected $_tags = [];
 

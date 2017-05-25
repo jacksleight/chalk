@@ -319,9 +319,10 @@ class Module extends ChalkModule
             ->backendRoute(
                 $this->name('widget'),
                 Router::METHOD_ALL,
-                $this->path("widget/{action}/{entity}"), [
+                $this->path("widget"), [
                     'group'      => $this->name(),
                     'controller' => 'widget',
+                    'action'     => 'update',
                 ])
             ->backendRoute(
                 $this->name('frontend'),

@@ -6,7 +6,7 @@
 
 namespace Chalk\Core\Structure;
 
-use Chalk\Core\Entity;
+use Chalk\Entity;
 use Chalk\Core\Content;
 use Chalk\Core\Structure\Node;
 use Coast\Model;

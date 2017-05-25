@@ -8,7 +8,7 @@ namespace Chalk\Core\Backend\Controller;
 
 use Chalk\Chalk;
 use Chalk\Core;
-use Chalk\Core\Entity as CoreEntity;
+use Chalk\Entity as CoreEntity;
 use Chalk\Core\Backend\Model;
 use Coast\Request;
 use Coast\Response;

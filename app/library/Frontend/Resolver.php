@@ -7,7 +7,7 @@
 namespace Chalk\Frontend;
 
 use Chalk\Chalk;
-use Chalk\Core\Entity;
+use Chalk\Entity;
 use Closure;
 use Coast\Resolver as CoastResolver;
 

@@ -48,11 +48,6 @@ class All extends Action
 
         // ========
 
-        // $this->widgetList  = $this->hook->fire('core_widgetList', new Info());
-        // $this->widgetList->sort();
-
-        // ========
-
         // $name   = "query_" . md5($req->path);
         // $params = $req->queryParams();
         // if (!count($params)) {

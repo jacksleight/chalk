@@ -4,15 +4,9 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-namespace Chalk\Core;
+namespace Chalk;
 
 use Chalk\Chalk;
-use Chalk\Core;
-use Chalk\Core\Behaviour\Publishable;
-use Chalk\Core\Behaviour\Searchable;
-use Chalk\Core\Behaviour\Trackable;
-use Coast\Filter;
-use Doctrine\Common\Collections\ArrayCollection;
 
 abstract class Entity extends \Toast\Entity
 {
@@ -36,9 +30,11 @@ abstract class Entity extends \Toast\Entity
             array_unshift($parts, $this->typeLabel);
         }
         foreach ($parts as $i => $part) {
+            $part = trim(strip_tags($part));
             if (!strlen($part)) {
                 unset($parts[$i]);
             }
+            $parts[$i] = $part;
         }
         return $parts;
     }

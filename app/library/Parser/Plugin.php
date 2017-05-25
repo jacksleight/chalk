@@ -6,12 +6,24 @@
 
 namespace Chalk\Parser;
 
+use Chalk\Parser;
 use DOMDocument;
 use DOMXPath;
 
-interface Plugin
+abstract class Plugin
 {
-    public function parse(DOMDocument $doc, DOMXPath $xpath);
+    protected $_parser;
 
-    public function reverse(DOMDocument $doc, DOMXPath $xpath);
+    public function parser(Parser $parser = null)
+    {
+        if (func_num_args() > 0 && !isset($this->_parser)) {
+            $this->_parser = $parser;
+            return $this;
+        }
+        return $this->_parser;
+    }
+
+    abstract public function parse(DOMDocument $doc, DOMXPath $xpath);
+
+    abstract public function reverse(DOMDocument $doc, DOMXPath $xpath);
 }

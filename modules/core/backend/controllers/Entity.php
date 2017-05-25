@@ -8,7 +8,7 @@ namespace Chalk\Core\Backend\Controller;
 
 use Chalk\Chalk;
 use Chalk\Core\Backend\Model;
-use Chalk\Core\Entity as CoreEntity;
+use Chalk\Entity as CoreEntity;
 use Coast\Controller\Action;
 use Coast\Request;
 use Coast\Response;
@@ -21,7 +21,7 @@ abstract class Entity extends Action
 
     public function preDispatch(Request $req, Response $res)
     {
-        $this->info    = Chalk::info($this->_entityClass);
+        $this->info = Chalk::info($this->_entityClass);
 
         $actions       = \Coast\array_filter_null($this->_actions($req));
         $this->actions = array_keys($actions);
@@ -101,7 +101,7 @@ abstract class Entity extends Action
 
         $this->model->graphFromArray($req->bodyParams());
 
-        if (!array_intersect([$req->process], $this->actions)) {
+        if (!array_intersect([$this->model->batch], $this->actions)) {
             throw new \Exception("Action '{$this->model->batch}' is invalid");
         }
 
@@ -158,7 +158,9 @@ abstract class Entity extends Action
         } else {
             $this->_update($req, $res, $entity, $this->model);
         }
-        $req->view->entity = $entity = $this->em->wrap($entity);
+        $entity = $this->em->wrap($entity);
+
+        $req->view->entity = $entity;
 
         if (!$req->isPost()) {
             return;
@@ -189,8 +191,8 @@ abstract class Entity extends Action
 
     public function process(Request $req, Response $res)
     {
-        if (!array_intersect([$req->process], $this->actions)) {
-            throw new \Exception("Action '{$req->process}' is invalid");
+        if (!array_intersect([$req->action], $this->actions)) {
+            throw new \Exception("Action '{$req->action}' is invalid");
         }
 
         $entity = $this->em($this->info)->find($req->id);
@@ -199,20 +201,20 @@ abstract class Entity extends Action
         }
 
         try {
-            $method = "_{$req->process}";
+            $method = "_{$req->action}";
             $this->$method($req, $res, $entity, $this->model);
             $this->em->flush();
         } catch (ForeignKeyConstraintViolationException $e) {
-            $this->notify("{$this->info->singular} <strong>{$entity->previewName}</strong> could not be {$this->labels[$req->process]} because it is in use", 'negative');
+            $this->notify("{$this->info->singular} <strong>{$entity->previewName}</strong> could not be {$this->labels[$req->action]} because it is in use", 'negative');
             return $res->redirect($this->url(array(
                 'action' => 'update',
             )));
         }
 
-        $this->notify("{$this->info->singular} <strong>{$entity->previewName}</strong> was {$this->labels[$req->process]} successfully", 'positive');
+        $this->notify("{$this->info->singular} <strong>{$entity->previewName}</strong> was {$this->labels[$req->action]} successfully", 'positive');
         if (isset($this->model->redirect)) {
             return $res->redirect($this->model->redirect);
-        } else if ($req->process == 'delete') {
+        } else if ($req->action == 'delete') {
             return $res->redirect($this->url([
                 'action' => null,
                 'id'     => null,
@@ -230,25 +232,25 @@ abstract class Entity extends Action
 
     public function delete(Request $req, Response $res)
     {
-        $req->param('process', 'delete');
+        $req->param('action', 'delete');
         return $this->forward('process');
     }
 
     public function publish(Request $req, Response $res)
     {
-        $req->param('process', 'publish');
+        $req->param('action', 'publish');
         return $this->forward('process');
     }
 
     public function archive(Request $req, Response $res)
     {
-        $req->param('process', 'archive');
+        $req->param('action', 'archive');
         return $this->forward('process');
     }
 
     public function restore(Request $req, Response $res)
     {
-        $req->param('process', 'restore');
+        $req->param('action', 'restore');
         return $this->forward('process');
     }
 

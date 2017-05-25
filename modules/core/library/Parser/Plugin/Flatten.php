@@ -13,7 +13,7 @@ use DOMDocument;
 use DOMXPath;
 use DOMText;
 
-class Frontend extends Plugin implements Access
+class Flatten extends Plugin implements Access
 {
     use Access\Implementation;
 
@@ -27,21 +27,15 @@ class Frontend extends Plugin implements Access
                 if (!$data) {
                     continue;
                 }
-                if (isset($data['content'])) {
-                    $content = $this->em('core_content')->id($data['content']['id']);
-                    $node->setAttribute('href', $this->url($content));
-                } else if (isset($data['widget'])) {
-                    $info         = Chalk::info($data['widget']['name']);
-                    $module       = $this->chalk->module($info->module->name);
-                    $class        = $info->class;
-                    $widget       = (new $class())->fromArray($data['widget']['params']);
-                    $renderView   = $module->widgetRenderView($widget);
-                    $renderParams = $widget->renderParams();
-                    $html         = is_array($renderView)
-                        ? $this->view->render($renderView[0], $renderParams, $renderView[1])
-                        : $this->view->render($renderView, $renderParams);
-                    $temp         = $this->parser()->htmlToDoc($html);
-                    $query        = $temp->getElementsByTagName('body');
+                if (isset($data['widget'])) {
+                    $html = '';
+                    array_walk_recursive($data['widget']['params'], function($v) use (&$html) {
+                        if (is_string($v) && preg_match('/(<\/.?>|\s)/is', $v) ) {
+                            $html .= $v . ' ';
+                        }
+                    });
+                    $temp  = $this->parser()->htmlToDoc($html);
+                    $query = $temp->getElementsByTagName('body');
                     if ($query->length > 0) {
                         $temps = $query->item(0)->childNodes;
                         for ($i = 0; $i < $temps->length; $i++) {

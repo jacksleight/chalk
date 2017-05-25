@@ -1,7 +1,11 @@
-<?php $this->outer('/layout/page') ?>
+<?php $this->outer('layout/page', [
+    'title' => $info->singular,
+], 'core') ?>
 <?php $this->block('main') ?>
 
-<form action="<?= $this->url->route() ?>?mode=<?= $req->mode ?>&amp;post=1" method="post" data-modal-size="800x800" class="flex-col">
+<form action="<?= $this->url([]) . $this->url->query([
+	'method' => 'post',
+]) ?>" method="post" data-modal-size="800x800" class="flex-col">
 	<div class="header">
 		<h1>
 			<?= $info->singular ?>
@@ -20,16 +24,16 @@
 		<ul class="toolbar toolbar-right">
 			<li>
 				<button class="btn btn-positive icon-ok">
-					Update <?= $info->singular ?>
+					Update
 				</button>
 			</li>
 		</ul>
 		<ul class="toolbar">
-			<?php if ($req->mode == 'update') { ?>
-				<li><a href="<?= $this->url([
-					'action'	=> 'delete',
+			<?php if (!$widget->isNew()) { ?>
+				<li><a href="<?= $this->url([]) . $this->url->query([
+					'method' => 'delete',
 				]) ?>" class="btn btn-negative btn-out confirmable icon-delete">
-					Delete <?= $info->singular ?>
+					Delete
 				</a></li>
 			<?php } ?>
 		</ul>
