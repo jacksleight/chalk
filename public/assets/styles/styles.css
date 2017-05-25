@@ -2810,7 +2810,7 @@ input[type=week],
 textarea,
 select,
 .input-pseudo,
-.input-content,
+.input-chalk,
 .input-upload,
 .selectize-input,
 .selectize-input input,
@@ -2849,7 +2849,7 @@ input[type=week],
 textarea,
 select,
 .input-pseudo,
-.input-content,
+.input-chalk,
 .input-upload,
 .selectize-input,
 .selectize-input input,
@@ -2859,7 +2859,7 @@ select,
   border-color: #d2d2d2;
 }
 
-.darkinput[type=date], .darkinput[type=datetime], .darkinput[type=datetime-local], .darkinput[type=email], .darkinput[type=month], .darkinput[type=number], .darkinput[type=password], .darkinput[type=search], .darkinput[type=tel], .darkinput[type=text], .darkinput[type=time], .darkinput[type=url], .darkinput[type=week], .darktextarea, .darkselect, .dark.input-pseudo, .dark.input-content, .dark.input-upload, .dark.selectize-input, .dark.selectize-input input, .dark.selectize-input div,
+.darkinput[type=date], .darkinput[type=datetime], .darkinput[type=datetime-local], .darkinput[type=email], .darkinput[type=month], .darkinput[type=number], .darkinput[type=password], .darkinput[type=search], .darkinput[type=tel], .darkinput[type=text], .darkinput[type=time], .darkinput[type=url], .darkinput[type=week], .darktextarea, .darkselect, .dark.input-pseudo, .dark.input-chalk, .dark.input-upload, .dark.selectize-input, .dark.selectize-input input, .dark.selectize-input div,
 .dark input[type=date],
 .dark
 input[type=datetime],
@@ -2892,7 +2892,7 @@ select,
 .dark
 .input-pseudo,
 .dark
-.input-content,
+.input-chalk,
 .dark
 .input-upload,
 .dark
@@ -2967,10 +2967,10 @@ select.readonly,
 .input-pseudo[readonly],
 .input-pseudo.disabled,
 .input-pseudo.readonly,
-.input-content[disabled],
-.input-content[readonly],
-.input-content.disabled,
-.input-content.readonly,
+.input-chalk[disabled],
+.input-chalk[readonly],
+.input-chalk.disabled,
+.input-chalk.readonly,
 .input-upload[disabled],
 .input-upload[readonly],
 .input-upload.disabled,
@@ -3006,7 +3006,7 @@ input[type=week]:focus:invalid,
 textarea:focus:invalid,
 select:focus:invalid,
 .input-pseudo:focus:invalid,
-.input-content:focus:invalid,
+.input-chalk:focus:invalid,
 .input-upload:focus:invalid,
 .selectize-input:focus:invalid,
 .selectize-input input:focus:invalid,
@@ -3030,7 +3030,7 @@ input[type=week]::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder,
 select::-webkit-input-placeholder,
 .input-pseudo::-webkit-input-placeholder,
-.input-content::-webkit-input-placeholder,
+.input-chalk::-webkit-input-placeholder,
 .input-upload::-webkit-input-placeholder,
 .selectize-input::-webkit-input-placeholder,
 .selectize-input input::-webkit-input-placeholder,
@@ -3054,7 +3054,7 @@ input[type=week]:-moz-placeholder,
 textarea:-moz-placeholder,
 select:-moz-placeholder,
 .input-pseudo:-moz-placeholder,
-.input-content:-moz-placeholder,
+.input-chalk:-moz-placeholder,
 .input-upload:-moz-placeholder,
 .selectize-input:-moz-placeholder,
 .selectize-input input:-moz-placeholder,
@@ -3078,7 +3078,7 @@ input[type=week]::-moz-placeholder,
 textarea::-moz-placeholder,
 select::-moz-placeholder,
 .input-pseudo::-moz-placeholder,
-.input-content::-moz-placeholder,
+.input-chalk::-moz-placeholder,
 .input-upload::-moz-placeholder,
 .selectize-input::-moz-placeholder,
 .selectize-input input::-moz-placeholder,
@@ -3102,7 +3102,7 @@ input[type=week]:-ms-input-placeholder,
 textarea:-ms-input-placeholder,
 select:-ms-input-placeholder,
 .input-pseudo:-ms-input-placeholder,
-.input-content:-ms-input-placeholder,
+.input-chalk:-ms-input-placeholder,
 .input-upload:-ms-input-placeholder,
 .selectize-input:-ms-input-placeholder,
 .selectize-input input:-ms-input-placeholder,
@@ -3126,7 +3126,7 @@ input[type=week]::before,
 textarea::before,
 select::before,
 .input-pseudo::before,
-.input-content::before,
+.input-chalk::before,
 .input-upload::before,
 .selectize-input::before,
 .selectize-input input::before,
@@ -3150,7 +3150,7 @@ input[type=week].input-extra,
 textarea.input-extra,
 select.input-extra,
 .input-pseudo.input-extra,
-.input-content.input-extra,
+.input-chalk.input-extra,
 .input-upload.input-extra,
 .selectize-input.input-extra,
 .selectize-input input.input-extra,
@@ -3322,21 +3322,21 @@ textarea.editor-content, textarea.editor-code {
   color: #cbcdce;
 }
 
-.input-content {
+.input-chalk {
   height: auto;
   padding: 6px;
   line-height: 1.5;
 }
 
-.input-content .input-content-controls {
+.input-chalk .input-chalk-controls {
   float: right;
 }
 
-.input-content .input-content-controls .btn {
+.input-chalk .input-chalk-controls .btn {
   vertical-align: middle;
 }
 
-.input-content .placeholder {
+.input-chalk .placeholder {
   color: #cbcdce;
   height: 48px;
   line-height: 46px;
@@ -3346,20 +3346,20 @@ textarea.editor-content, textarea.editor-code {
   display: inline-block;
 }
 
-.input-content input[type=reset].btn-icon,
-.input-content input[type=submit].btn-icon,
-.input-content input[type=button].btn-icon,
-.input-content .btn.btn-icon {
+.input-chalk input[type=reset].btn-icon,
+.input-chalk input[type=submit].btn-icon,
+.input-chalk input[type=button].btn-icon,
+.input-chalk .btn.btn-icon {
   width: 48px;
   height: 48px;
   line-height: 46px;
   text-align: center;
 }
 
-.input-content input[type=reset].btn-icon:before,
-.input-content input[type=submit].btn-icon:before,
-.input-content input[type=button].btn-icon:before,
-.input-content .btn.btn-icon:before {
+.input-chalk input[type=reset].btn-icon:before,
+.input-chalk input[type=submit].btn-icon:before,
+.input-chalk input[type=button].btn-icon:before,
+.input-chalk .btn.btn-icon:before {
   font-size: 20px;
   padding-right: 0;
 }
@@ -5136,7 +5136,7 @@ legend {
 .form-group.form-group-horizontal select,
 .form-group.form-group-horizontal button,
 .form-group.form-group-horizontal .mce-tinymce,
-.form-group.form-group-horizontal .input-content,
+.form-group.form-group-horizontal .input-chalk,
 .form-group.form-group-horizontal .input-upload,
 .form-group.form-group-horizontal .input-pseudo {
   -ms-flex: 1;
@@ -5148,7 +5148,7 @@ legend {
 .form-group.form-group-horizontal select:first-child,
 .form-group.form-group-horizontal button:first-child,
 .form-group.form-group-horizontal .mce-tinymce:first-child,
-.form-group.form-group-horizontal .input-content:first-child,
+.form-group.form-group-horizontal .input-chalk:first-child,
 .form-group.form-group-horizontal .input-upload:first-child,
 .form-group.form-group-horizontal .input-pseudo:first-child {
   border-left-width: 1px;
@@ -5191,18 +5191,18 @@ legend {
 .form-group.form-group-horizontal .mce-tinymce.width-10,
 .form-group.form-group-horizontal .mce-tinymce.width-11,
 .form-group.form-group-horizontal .mce-tinymce.width-12,
-.form-group.form-group-horizontal .input-content.width-1,
-.form-group.form-group-horizontal .input-content.width-2,
-.form-group.form-group-horizontal .input-content.width-3,
-.form-group.form-group-horizontal .input-content.width-4,
-.form-group.form-group-horizontal .input-content.width-5,
-.form-group.form-group-horizontal .input-content.width-6,
-.form-group.form-group-horizontal .input-content.width-7,
-.form-group.form-group-horizontal .input-content.width-8,
-.form-group.form-group-horizontal .input-content.width-9,
-.form-group.form-group-horizontal .input-content.width-10,
-.form-group.form-group-horizontal .input-content.width-11,
-.form-group.form-group-horizontal .input-content.width-12,
+.form-group.form-group-horizontal .input-chalk.width-1,
+.form-group.form-group-horizontal .input-chalk.width-2,
+.form-group.form-group-horizontal .input-chalk.width-3,
+.form-group.form-group-horizontal .input-chalk.width-4,
+.form-group.form-group-horizontal .input-chalk.width-5,
+.form-group.form-group-horizontal .input-chalk.width-6,
+.form-group.form-group-horizontal .input-chalk.width-7,
+.form-group.form-group-horizontal .input-chalk.width-8,
+.form-group.form-group-horizontal .input-chalk.width-9,
+.form-group.form-group-horizontal .input-chalk.width-10,
+.form-group.form-group-horizontal .input-chalk.width-11,
+.form-group.form-group-horizontal .input-chalk.width-12,
 .form-group.form-group-horizontal .input-upload.width-1,
 .form-group.form-group-horizontal .input-upload.width-2,
 .form-group.form-group-horizontal .input-upload.width-3,
@@ -5236,7 +5236,7 @@ legend {
 .form-group.form-group-vertical textarea,
 .form-group.form-group-vertical button,
 .form-group.form-group-vertical .mce-tinymce.mce-tinymce[style],
-.form-group.form-group-vertical .input-content,
+.form-group.form-group-vertical .input-chalk,
 .form-group.form-group-vertical .input-upload,
 .form-group.form-group-vertical .input-pseudo {
   border-top-width: 0 !important;
@@ -5247,7 +5247,7 @@ legend {
 .form-group.form-group-vertical textarea:first-child,
 .form-group.form-group-vertical button:first-child,
 .form-group.form-group-vertical .mce-tinymce.mce-tinymce[style]:first-child,
-.form-group.form-group-vertical .input-content:first-child,
+.form-group.form-group-vertical .input-chalk:first-child,
 .form-group.form-group-vertical .input-upload:first-child,
 .form-group.form-group-vertical .input-pseudo:first-child {
   border-top-width: 1px !important;

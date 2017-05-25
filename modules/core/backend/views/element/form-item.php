@@ -16,6 +16,7 @@ $types = [
 	'json_array'	=> 'array',
 	'coast_array'	=> 'array',
 	'coast_url'		=> 'input_url',
+	'chalk_entity'	=> 'input_chalk',
 	'manyToOne'		=> 'select',
 	'manyToMany'	=> 'input_checkboxes',
 ];
@@ -35,7 +36,7 @@ if (isset($values[0]) && $values[0] instanceof \Toast\Entity) {
 	$values = $temp;
 }
 $value = $entity->{$name};
-if ($value instanceof \Toast\Wrapper\Entity) {
+if ($value instanceof \Toast\Wrapper\Entity && $md['type'] != 'chalk_entity') {
 	$value = $value->id;
 } else if ($value instanceof \Toast\Wrapper\Collection) {
 	$temp = [];

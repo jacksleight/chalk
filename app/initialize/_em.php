@@ -14,6 +14,13 @@ use Chalk\Listener as Listener;
 
 \Coast\Doctrine\register_dbal_types();
 
+$types = [
+    'chalk_entity' => 'Chalk\Doctrine\DBAL\Types\EntityType',
+];
+foreach ($types as $name => $class) {
+    \Doctrine\DBAL\Types\Type::addType($name, $class);
+}
+
 if (!isset($app->config->database)) {
 	throw new \Chalk\Exception('Database connection details are required');
 }

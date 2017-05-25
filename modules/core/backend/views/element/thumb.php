@@ -16,7 +16,7 @@ if (!$template) {
 			</div>
 		<?php } else { ?>
 			<?php if ($entity->previewFile() !== null && $entity->previewFile()->exists()) { ?>
-				<div class="image" style="background-image: url('<?= $this->image($entity->file, ['size' => '400']) ?>');"></div>
+				<div class="image" style="background-image: url('<?= $this->image($entity->previewFile, ['size' => '400']) ?>');"></div>
 			<?php } else { ?>
 				<div class="text"><span class="icon-<?= $info->icon ?>"></span></div>
 			<?php } ?>

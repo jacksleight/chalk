@@ -133,6 +133,7 @@ abstract class Entity extends Action
         $data = [];
         foreach ($entities as $entity) {
             $data[] = [
+                'type'  => $this->model->selectedType,
                 'id'    => $entity->id,
                 'name'  => $entity->previewName,
                 'card'  => $this->view->render('element/card', [

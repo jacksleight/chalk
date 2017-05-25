@@ -93,7 +93,7 @@ class Index extends Action
         $item = current($items);
         $url = $item['url'];
         $url->queryParams([
-            'mode'        => "select-{$req->type}",
+            'mode'        => "select-{$this->model->mode}",
             'filtersList' => $this->model->filtersList,
         ]);
         return $res->redirect($url);

@@ -33,7 +33,7 @@
 
 //= require elements/notifications.js
 //= require elements/tree.js
-//= require elements/content.js
+//= require elements/input-chalk.js
 //= require elements/editor.js
 //= require elements/tag.js
 //= require elements/date.js

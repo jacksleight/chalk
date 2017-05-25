@@ -14,10 +14,6 @@ class Alias extends Content
     {
         $query = parent::build($params, $extra);
 
-        $query
-            ->addSelect("ac")
-            ->leftJoin("a.content", "ac");
-
         return $query;
     }
 }

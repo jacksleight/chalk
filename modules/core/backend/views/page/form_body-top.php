@@ -12,7 +12,7 @@
     'entity'    => $entity,
     'name'      => 'image',
     'label'     => 'Image',
-    'type'      => 'input_content',
+    'type'      => 'input_chalk',
     'filters'   => 'core_image',
 ), 'core') ?> 
 <?= $this->render('/element/form-item', array(

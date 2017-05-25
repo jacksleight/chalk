@@ -1,9 +1,8 @@
 <?= $this->parent() ?>
 <?= $this->render('/element/form-item', array(
-	'type'		=> 'input_content',
+	'type'		=> 'input_chalk',
 	'entity'	=> $entity,
-	'name'		=> 'content',
-	'label'		=> 'Content',
+	'name'		=> 'link',
+	'label'		=> 'Link',
     'filters'   => 'core_link',
-	'disabled'	=> $entity->isArchived(),
 ), 'core') ?>

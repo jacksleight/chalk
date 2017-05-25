@@ -133,8 +133,13 @@ class Entity extends \Toast\Wrapper
 							$value = new \Coast\Url\Invalid($value);
 						}
 					break;
+					case 'oneToOne':
 					case 'manyToOne':
-						$value = \Toast\Wrapper::$em->getReference($md['entity'], $value);
+						$value = \Toast\Wrapper::$em->ref($md['entity'], $value);
+					break;
+					case 'chalk_entity':
+						$value = json_decode($value);
+						$value = \Toast\Wrapper::$em->ref($value->type, $value->id);
 					break;
 				}
 			}

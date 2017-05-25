@@ -20,8 +20,7 @@ class Alias extends Content
     public static $chalkIcon     = 'alias';
 
     /**
-     * @ManyToOne(targetEntity="\Chalk\Core\Content")
-     * @JoinColumn(nullable=true)
+     * @Column(type="chalk_entity")
      */
-    protected $content;
+    protected $link;
 }

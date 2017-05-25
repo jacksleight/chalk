@@ -24072,19 +24072,23 @@ Chalk.component('.structure', function(i, el) {
     });
     
 });
-Chalk.component('.input-content', function(i, el) {
+Chalk.component('.input-chalk', function(i, el) {
 	
-	var select		= $(el).find('.input-content-select');
-	var remove		= $(el).find('.input-content-remove');
-	var holder		= $(el).find('.input-content-holder');
-	var input		= $(el).find('input[type=hidden]');
-	var type    	= $(el).attr('data-type');
+	var select		= $(el).find('.input-chalk-select');
+	var remove		= $(el).find('.input-chalk-remove');
+	var holder		= $(el).find('.input-chalk-holder');
+	var input		= $(el).find('input');
+	var scope    	= $(el).attr('data-scope');
 	var query    	= $(el).attr('data-query');
 	
 	select.click(function(ev) {
-		Chalk.modal(Chalk.selectUrl + '/' + type + query, {}, function(res) {
+		Chalk.modal(Chalk.selectUrl + query, {}, function(res) {
 			if (res.entites) {
-				input.val(res.entites[0].id);
+				if (scope == 'local') {
+					input.val(res.entites[0].id);
+				} else {
+					input.val(JSON.stringify({type: res.entites[0].type, id: res.entites[0].id}));
+				}
 				holder.html(res.entites[0].card);
 				remove.css('display', 'inline-block');
 			}

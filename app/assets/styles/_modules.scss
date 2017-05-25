@@ -299,7 +299,7 @@ input[type=week],
 textarea,
 select,
 .input-pseudo,
-.input-content,
+.input-chalk,
 .input-upload,
 .selectize-input,
 .selectize-input input,
@@ -463,11 +463,11 @@ textarea {
 		color: $color-quieter;
 	}
 }
-.input-content {
+.input-chalk {
 	height: auto;
 	padding: $input-padding;
 	line-height: $line-height;
-	.input-content-controls {
+	.input-chalk-controls {
 		float: right;
 		.btn {
 			vertical-align: middle;
@@ -1507,7 +1507,7 @@ legend {
 		select,
 		button,
 		.mce-tinymce,
-		.input-content,
+		.input-chalk,
 		.input-upload,
 		.input-pseudo {
 			flex: 1;
@@ -1537,7 +1537,7 @@ legend {
 		textarea,
 		button,
 		.mce-tinymce.mce-tinymce[style],
-		.input-content,
+		.input-chalk,
 		.input-upload,
 		.input-pseudo {
 			border-top-width: 0 !important;
