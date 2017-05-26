@@ -1,4 +1,4 @@
-<?php $this->outer('/layout/page') ?>
+<?php $this->outer('/layout/page_wide') ?>
 <?php $this->block('main') ?>
 
 <form action="<?= $this->url->route() ?>" method="post" class="flex-col" data-modal-size="800x600">

@@ -36,7 +36,7 @@ if (isset($values[0]) && $values[0] instanceof \Toast\Entity) {
 	$values = $temp;
 }
 $value = $entity->{$name};
-if ($value instanceof \Toast\Wrapper\Entity && $md['type'] != 'chalk_entity') {
+if ($value instanceof \Toast\Wrapper\Entity && $type != 'input_chalk') {
 	$value = $value->id;
 } else if ($value instanceof \Toast\Wrapper\Collection) {
 	$temp = [];
@@ -62,6 +62,7 @@ $validatorSet = $md['validator']->rule('set');
 		<?= $this->inner($render[0], [
 			'md'		=> $md,
 			'type'		=> $type,
+			'scope'		=> isset($md['entity']) ? Chalk\Chalk::info($md['entity']) : null,
 			'name'		=> $md['contextName'],
 			'id'		=> uniqid('input-'),
 			'value'		=> $value,

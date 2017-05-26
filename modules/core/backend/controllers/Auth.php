@@ -44,7 +44,7 @@ class Auth extends Action
         if (isset($this->model->redirect)) {
             return $res->redirect($this->model->redirect);
         } else {
-            return $this->url([], 'core_index', true);
+            return $res->redirect($this->url([], 'core_index', true));
         } 
     }
 
@@ -116,4 +116,7 @@ class Auth extends Action
 
         return $res->redirect($this->url([], 'core_login', true));
     }
+    
+    public function jump(Request $req, Response $res)
+    {}
 }

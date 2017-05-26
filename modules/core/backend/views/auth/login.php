@@ -1,4 +1,4 @@
-<?php $this->outer('/layout/body_simple') ?>
+<?php $this->outer('/layout/body_center') ?>
 <?php $this->block('main') ?>
 
 <form action="<?= $this->url([]) . $this->url->query([

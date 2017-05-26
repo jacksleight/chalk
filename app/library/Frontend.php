@@ -12,6 +12,7 @@ use DOMXPath;
 use Coast\Request; 
 use Coast\Response; 
 use Chalk\Chalk;
+use Chalk\Entity;
 use Chalk\Core;
 use Chalk\Core\Structure\Node;
 
@@ -95,5 +96,29 @@ class Frontend extends \Coast\App
         return $this
             ->em('Chalk\Core\Structure\Node')
             ->treeIterator($node, $isIncluded, $isMerged, $depth, $params);
+    }
+
+    public function jump($jump)
+    {
+        $session = $this->session->data('__Chalk\Backend');
+        if (!isset($session->user)) {
+            return;
+        }
+
+        $info = Chalk::info($jump);
+        $url  = $this->backendResolver("core/jump/{$info->name}/" . (is_scalar($jump) ? '0' : $jump['id']));
+
+        $style = [
+            'position: fixed',
+            'bottom: 15px',
+            'right: 15px',
+            'z-index: 999999',
+            'margin: 0',
+            'border: 0',
+            'padding: 0',
+            'width: 38px',
+            'height: 38px',
+        ];
+        return '<iframe src="' . $url . '" style="' . implode('; ', $style) . '" allowtransparency="true"></iframe>';
     }
 }

@@ -655,11 +655,13 @@ input[type=button],
 		width: 38px;
 		white-space: nowrap;
 		text-align: center;
+		padding-left: 0;
+		padding-right: 0;
 		span {
 			display: none;
 		}
 		&:before {
-			margin-right: 0;
+			padding-right: 0;
 		}
 	}
 	&.btn-out {
@@ -691,6 +693,20 @@ input[type=button],
 		&:active,
 		&.active { 
 			@include colors(null, 4, 4);
+		}
+	}
+	&.btn-primary {
+		background-color: $color-primary;
+		border-color: $color-primary;
+		&:hover,
+		&:focus,
+		&:active,
+		&.active { 
+			background-color: shade($color-primary, 15%);
+			border-color: shade($color-primary, 15%);
+		}
+		&.btn-out {
+			color: $color-primary;
 		}
 	}
 	&.btn-focus {

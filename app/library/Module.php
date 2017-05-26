@@ -233,6 +233,13 @@ abstract class Module implements Access
         return $this;
     }
 
+    public function backendResolver($name, Closure $resolver)
+    {
+        $this->backend->url
+            ->resolver($name, $resolver);
+        return $this;
+    }
+
     public function backendHookListen($name, Closure $listener)
     {
         $this->backend->hook

@@ -1,7 +1,7 @@
-<?php $this->outer('/layout/html', [
+<?php $this->outer('/layout/page_wide', [
 	'title'	=> 'Forbidden',
 ]) ?>
-<?php $this->block('body') ?>
+<?php $this->block('main') ?>
 
 <div class="flex-col">
     <div class="body flex">

@@ -4,13 +4,13 @@ Chalk.component('.input-chalk', function(i, el) {
 	var remove		= $(el).find('.input-chalk-remove');
 	var holder		= $(el).find('.input-chalk-holder');
 	var input		= $(el).find('input');
-	var scope    	= $(el).attr('data-scope');
+	var scope    	= $(el).attr('data-scope') || undefined;
 	var query    	= $(el).attr('data-query');
 	
 	select.click(function(ev) {
 		Chalk.modal(Chalk.selectUrl + query, {}, function(res) {
 			if (res.entites) {
-				if (scope == 'local') {
+				if (typeof scope != 'undefined') {
 					input.val(res.entites[0].id);
 				} else {
 					input.val(JSON.stringify({type: res.entites[0].type, id: res.entites[0].id}));

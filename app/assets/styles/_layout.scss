@@ -3,6 +3,9 @@
 html { 
 	@include colors(0, 0);
 	overflow-y: none;
+	&.transparent {
+		background: transparent;
+	}
 }
 html, body {
 	margin: 0;
@@ -304,6 +307,7 @@ html, body {
 	height: $input-height;
 	background-color: $color-active;
 	animation: spin 1s infinite linear;
+	pointer-events: none;
 }
 .modal-content {
 	position: relative;
@@ -315,7 +319,7 @@ html, body {
 }
 .modal-button {
 	position: absolute;
-	top: $gutter * 0.5;
-	right: $gutter * 0.5;
+	top: 0;
+	left: 100%;
 	margin: 0 !important;
 }

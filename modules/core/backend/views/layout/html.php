@@ -6,7 +6,7 @@ $title  = (isset($title)
     : null) . 'Chalk';
 ?>
 <!DOCTYPE html>
-<html class="no-js" lang="<?= $lang ?>">
+<html class="no-js <?= isset($htmlClass) ? $htmlClass : null ?>" lang="<?= $lang ?>">
 <head>
     <meta charset="utf-8">
     <title><?= $title ?></title>
@@ -71,11 +71,11 @@ $title  = (isset($title)
     </script>
     <script type="x-tmpl-mustache" class="modal-template">
         <div class="modal hideable hideable-hidden">
-            <div class="modal-inner hideable hideable-hidden">
-                <div class="modal-content"></div>
+            <div class="modal-inner">
+                <button class="modal-button modal-close hideable hideable-hidden btn btn-block btn-light btn-icon btn-collapse icon-cross" type="button"><span>Close</span></button>
+                <div class="modal-content hideable hideable-hidden"></div>
             </div>
             <div class="modal-loader hideable hideable-hidden"></div>
-            <button class="modal-button modal-close hideable hideable-hidden btn btn-block btn-light btn-icon btn-collapse icon-cross" type="button"><span>Close</span></button>
         </div>
     </script>
     <?= $this->content('foot') ?>

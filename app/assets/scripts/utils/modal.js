@@ -62,7 +62,7 @@
 					}
 					button.removeClass('hideable-hidden');
 					loader.addClass('hideable-hidden');
-					inner.removeClass('hideable-hidden');
+					content.removeClass('hideable-hidden');
 					update(html);
 				});
 		};

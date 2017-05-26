@@ -35,11 +35,32 @@ class Index extends Action
             throw new \Exception();
         }
         $url = $this->frontend->url($entity);
-        if (!$url) {
-            $req->entity = $entity;
-            return $this->forward('invalid');
+        if ($url !== false) {
+            return $res->redirect($url);
         }
-        return $res->redirect($url);
+        $req->view->entity = $entity;
+        $res->status(404);
+    }
+    
+    public function backend(Request $req, Response $res)
+    {
+        if ($req->entityId == 0) {
+            $entity = [
+                '__CLASS__' => Chalk::info($req->entityType)->class,
+                'id'        => 0,
+            ];
+        } else {
+            $entity = $this->em($req->entityType)->id($req->entityId);
+            if (!$entity) {
+                throw new \Exception();
+            }
+        }
+        $url = $this->url($entity);
+        if ($url !== false) {
+            return $res->redirect($url);
+        }
+        $req->view->entity = $entity;
+        $res->status(404);
     }
 
     public function prefs(Request $req, Response $res)
@@ -106,18 +127,7 @@ class Index extends Action
             ->html($this->view->render('error/forbidden', [
                 'req' => $req,
                 'res' => $res,
-            ], 'core'));
-    }
-
-    public function invalid(Request $req, Response $res)
-    {
-        return $res
-            ->status(403)
-            ->html($this->view->render('error/invalid', [
-                'req'    => $req,
-                'res'    => $res,
-                'entity' => $req->entity,
-            ], 'core'));
+            ] + (array) $req->view, 'core'));
     }
     
     public function ping(Request $req, Response $res)

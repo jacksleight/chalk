@@ -1,7 +1,7 @@
-<?php $this->outer('/layout/html', [
-	'title'	=> 'Forbidden',
+<?php $this->outer('/layout/page_wide', [
+	'title'	=> 'Nothing To Display',
 ]) ?>
-<?php $this->block('body') ?>
+<?php $this->block('main') ?>
 
 <?php
 $info = isset($info)

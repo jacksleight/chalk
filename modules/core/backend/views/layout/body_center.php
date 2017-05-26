@@ -1,7 +1,3 @@
-<?php
-use Chalk\Chalk;
-?>
-
 <?php $this->outer('/layout/html') ?>
 <?php $this->block('body') ?>
 
@@ -9,6 +5,6 @@ use Chalk\Chalk;
 <div class="center"><div>
 	<?= $this->content('main') ?>
 	<footer class="copyright" role="contentinfo">
-		<p><a href="<?= $this->url([], 'core_about', true) ?>" rel="modal">Chalk <?= Chalk::VERSION ?></a></p>
+		<p>Chalk <?= Chalk\Chalk::VERSION ?></p>
 	</footer>
 </div></div>

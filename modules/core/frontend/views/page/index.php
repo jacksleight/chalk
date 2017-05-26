@@ -1,5 +1,6 @@
 <?php
 $this->outer('/layouts/html', [
+    'jump'  => $page,
     'title' => $req->node['depth'] > 0 ? $page->name : null,
     'metas' => [
         'description' => $this->strip($page->summary)

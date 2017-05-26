@@ -3666,6 +3666,8 @@ input[type=button].btn-icon,
   width: 38px;
   white-space: nowrap;
   text-align: center;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 input[type=reset].btn-icon span,
@@ -3679,7 +3681,7 @@ input[type=reset].btn-icon:before,
 input[type=submit].btn-icon:before,
 input[type=button].btn-icon:before,
 .btn.btn-icon:before {
-  margin-right: 0;
+  padding-right: 0;
 }
 
 input[type=reset].btn-out,
@@ -3926,6 +3928,38 @@ input[type=button].btn-lightest.active,
 .btn.btn-lightest.active {
   background-color: #181c20;
   border-color: #181c20;
+}
+
+input[type=reset].btn-primary,
+input[type=submit].btn-primary,
+input[type=button].btn-primary,
+.btn.btn-primary {
+  background-color: #2d353c;
+  border-color: #2d353c;
+}
+
+input[type=reset].btn-primary:hover, input[type=reset].btn-primary:focus, input[type=reset].btn-primary:active, input[type=reset].btn-primary.active,
+input[type=submit].btn-primary:hover,
+input[type=submit].btn-primary:focus,
+input[type=submit].btn-primary:active,
+input[type=submit].btn-primary.active,
+input[type=button].btn-primary:hover,
+input[type=button].btn-primary:focus,
+input[type=button].btn-primary:active,
+input[type=button].btn-primary.active,
+.btn.btn-primary:hover,
+.btn.btn-primary:focus,
+.btn.btn-primary:active,
+.btn.btn-primary.active {
+  background-color: #262d33;
+  border-color: #262d33;
+}
+
+input[type=reset].btn-primary.btn-out,
+input[type=submit].btn-primary.btn-out,
+input[type=button].btn-primary.btn-out,
+.btn.btn-primary.btn-out {
+  color: #2d353c;
 }
 
 input[type=reset].btn-focus,
@@ -5804,6 +5838,10 @@ html {
   background-color: #3b464f;
 }
 
+html.transparent {
+  background: transparent;
+}
+
 html, body {
   margin: 0;
   height: 100%;
@@ -6252,6 +6290,7 @@ html, body {
   height: 38px;
   background-color: #FCB941;
   animation: spin 1s infinite linear;
+  pointer-events: none;
 }
 
 .modal-content {
@@ -6276,8 +6315,8 @@ html, body {
 
 .modal-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 0;
+  left: 100%;
   margin: 0 !important;
 }
 

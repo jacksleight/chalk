@@ -1,7 +1,5 @@
-<?php if (!$req->isAjax()) { ?>
-    <?php $this->outer('/layout/body_simple') ?>
-    <?php $this->block('main') ?>
-<?php } ?>
+<?php $this->outer('/layout/page_wide') ?>
+<?php $this->block('main') ?>
 
 <div class="flex-col" data-modal-size="500x500">
     <div class="header">

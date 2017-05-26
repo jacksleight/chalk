@@ -65,29 +65,29 @@ class Module extends ChalkModule
             ]));
 
         $this
-            ->frontendResolver($this->name('domain'), function($domain, $info) {
+            ->frontendResolver($this->name('domain'), function($entity, $info) {
                 return $this->frontend->url(); 
             })
-            ->frontendResolver($this->name('structure_node'), function($node, $info) {
+            ->frontendResolver($this->name('structure_node'), function($entity, $info) {
                 try {
-                    return $this->frontend->url->route([], $this->name("structure_node_{$node['id']}"), true);   
-                } catch (\Coast\Router\Exception $e) {}             
-            })
-            ->frontendResolver($this->name('content'), function($content, $info) {
-                try {
-                    return $this->frontend->url->route([], $this->name("content_{$content['id']}"), true);
+                    return $this->frontend->url->route([], $this->name("structure_node_{$entity['id']}"), true);   
                 } catch (\Coast\Router\Exception $e) {}
             })
-            ->frontendResolver($this->name('url'), function($url, $info) {
-                return $url['url'];
+            ->frontendResolver($this->name('content'), function($entity, $info) {
+                try {
+                    return $this->frontend->url->route([], $this->name("content_{$entity['id']}"), true);
+                } catch (\Coast\Router\Exception $e) {}
             })
-            ->frontendResolver($this->name('file'), function($file, $info) {
-                if (is_array($file)) {
+            ->frontendResolver($this->name('url'), function($entity, $info) {
+                return $entity['url'];
+            })
+            ->frontendResolver($this->name('file'), function($entity, $info) {
+                if (is_array($entity)) {
                     // @todo Remove this once File works with array hydration
-                    $file = $this->em($this->name('file'))->id($file['id']);
+                    $entity = $this->em($this->name('file'))->id($entity['id']);
                 }
                 return $this->frontend->url
-                    ->file($file['file']);
+                    ->file($entity['file']);
             });
 
         if ($this->app->isHttp()) {
@@ -234,6 +234,25 @@ class Module extends ChalkModule
             ->backendParserPlugin($this->name('backend'), new PluginBackend());
 
         $this
+            ->backendResolver(null, function($entity, $info) {
+                try {
+                    if ($entity['id'] == 0) {
+                        $info = Chalk::info($entity['__CLASS__']);
+                        return $this->backend->url->route([
+                            'controller' => $info->local->name,
+                        ], "{$info->module->name}_index", true);
+                    } else {
+                        $info = Chalk::info($entity);
+                        return $this->backend->url->route([
+                            'controller' => $info->local->name,
+                            'action'     => 'update',
+                            'id'         => $entity->id,
+                        ], "{$info->module->name}_index", true);
+                    }
+                } catch (\Coast\Router\Exception $e) {}
+            });
+
+        $this
             ->backendRoute(
                 $this->name('null'),
                 Router::METHOD_ALL,
@@ -330,6 +349,22 @@ class Module extends ChalkModule
                     'group'      => $this->name(),
                     'controller' => 'index',
                     'action'     => 'frontend',
+                ])
+            ->backendRoute(
+                $this->name('backend'),
+                Router::METHOD_ALL,
+                $this->path("backend/{entityType}/{entityId}"), [
+                    'group'      => $this->name(),
+                    'controller' => 'index',
+                    'action'     => 'backend',
+                ])
+            ->backendRoute(
+                $this->name('jump'),
+                Router::METHOD_ALL,
+                $this->path("jump/{entityType}/{entityId}"), [
+                    'group'      => $this->name(),
+                    'controller' => 'auth',
+                    'action'     => 'jump',
                 ])
             ->backendRoute(
                 $this->name('about'),

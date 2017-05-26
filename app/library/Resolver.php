@@ -4,7 +4,7 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-namespace Chalk\Frontend;
+namespace Chalk;
 
 use Chalk\Chalk;
 use Chalk\Entity;
@@ -44,7 +44,7 @@ class Resolver extends CoastResolver
         }
         $info = Chalk::info($class);
         foreach ($this->_resolvers as $resolver) {
-            if (!is_a($class, $resolver[0], true)) {
+            if (isset($resolver[0]) && !is_a($class, $resolver[0], true)) {
                 continue;
             }
             $result = $resolver[1]($entity, $info);
@@ -61,8 +61,10 @@ class Resolver extends CoastResolver
 
     public function resolver($name, Closure $resolver)
     {
-        $info = Chalk::info($name);
-        $this->_resolvers = array_merge([[$info->class, $resolver]], $this->_resolvers);
+        $class = isset($name)
+            ? Chalk::info($name)->class
+            : null;
+        $this->_resolvers = array_merge([[$class, $resolver]], $this->_resolvers);
         return $this;
     }
 }
