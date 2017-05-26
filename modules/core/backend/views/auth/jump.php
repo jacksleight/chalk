@@ -3,4 +3,4 @@
 ]) ?>
 <?php $this->block('body') ?>
 
-<a href="<?= $this->url([], 'core_backend') ?>" class="btn btn-primary btn-icon icon-pencil" target="_blank"><span>Edit in Chalk</span></a>
+<a href="<?= $this->url([], 'core_backend') ?>" class="btn btn-primary btn-icon icon-view" target="_blank"><span>View in Chalk</span></a>

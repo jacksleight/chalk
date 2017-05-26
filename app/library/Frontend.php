@@ -98,15 +98,27 @@ class Frontend extends \Coast\App
             ->treeIterator($node, $isIncluded, $isMerged, $depth, $params);
     }
 
-    public function jump($jump)
+    public function jump($entity, $id = null)
     {
         $session = $this->session->data('__Chalk\Backend');
         if (!isset($session->user)) {
             return;
         }
 
-        $info = Chalk::info($jump);
-        $url  = $this->backendResolver("core/jump/{$info->name}/" . (is_scalar($jump) ? '0' : $jump['id']));
+        if (isset($id)) {
+            $class = $entity;
+        } else if (is_object($entity)) {
+            $class = get_class($entity);
+            $id    = $entity['id'];
+        } else if (is_array($entity)) {
+            $class = $entity['__CLASS__'];
+            $id    = $entity['id'];
+        } else {
+            $class = $entity;
+            $id    = 0;
+        }
+        $info = Chalk::info($class);
+        $url  = $this->backendResolver("core/jump/{$info->name}/{$id}");
 
         $style = [
             'position: fixed',
