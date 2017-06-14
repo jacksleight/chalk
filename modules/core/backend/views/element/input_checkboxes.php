@@ -13,7 +13,7 @@
 				<?= isset($disabled) && $disabled ? "disabled" : null ?>
 				<?= isset($readOnly) && $readOnly ? "readonly" : null ?>
 				<?= in_array($v, $value) ? 'checked' : null ?>
-				<?= isset($class) ? "class=\"{$class}\"" : null ?>> 
+				<?= isset($class) ? "class=\"{$class}\"" : null ?>>
 			<label for="<?= "{$id}[{$this->escape($v)}]" ?>" class="checkbox">
 				<?= $l ?>
 			</label>
@@ -22,5 +22,5 @@
 	<?= str_repeat('<li></li>', 10) ?>
 </ul>
 <?php if (!count($values)) { ?>
-	<small>No options available.</small>
+	<small>No options available</small>
 <?php } ?>

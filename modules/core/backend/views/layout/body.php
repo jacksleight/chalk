@@ -9,7 +9,7 @@
 			$main  = $this->nav->main();
 			?>
 			<div class="dropdown">
-				<div class="input-pseudo input-extra">
+				<div class="input-pseudo input-extra dropdown-toggle">
 					<span class="icon-<?= isset($main['icon-block']) ? $main['icon-block'] : $main['icon'] ?>"></span>
 					<?= $main['label'] ?>
 				</div>

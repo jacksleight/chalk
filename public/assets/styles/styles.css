@@ -3684,24 +3684,6 @@ input[type=button].btn-icon:before,
   padding-right: 0;
 }
 
-input[type=reset].btn-out,
-input[type=submit].btn-out,
-input[type=button].btn-out,
-.btn.btn-out {
-  color: #5f5f5f;
-}
-
-.darkinput[type=reset].btn-out, .darkinput[type=submit].btn-out, .darkinput[type=button].btn-out, .dark.btn.btn-out,
-.dark input[type=reset].btn-out,
-.dark
-input[type=submit].btn-out,
-.dark
-input[type=button].btn-out,
-.dark
-.btn.btn-out {
-  color: #dedede;
-}
-
 input[type=reset].btn-light,
 input[type=submit].btn-light,
 input[type=button].btn-light,
@@ -4090,11 +4072,106 @@ input[type=button].btn-active.btn-out,
   color: #FCB941;
 }
 
+input[type=reset].btn-pseudo,
+input[type=submit].btn-pseudo,
+input[type=button].btn-pseudo,
+.btn.btn-pseudo {
+  background-color: transparent !important;
+}
+
+input[type=reset].btn-pseudo,
+input[type=submit].btn-pseudo,
+input[type=button].btn-pseudo,
+.btn.btn-pseudo {
+  color: #5f5f5f;
+  background-color: #d2d2d2;
+  border-color: #d2d2d2;
+}
+
+.darkinput[type=reset].btn-pseudo, .darkinput[type=submit].btn-pseudo, .darkinput[type=button].btn-pseudo, .dark.btn.btn-pseudo,
+.dark input[type=reset].btn-pseudo,
+.dark
+input[type=submit].btn-pseudo,
+.dark
+input[type=button].btn-pseudo,
+.dark
+.btn.btn-pseudo {
+  color: #dedede;
+  background-color: #181c20;
+  border-color: #181c20;
+}
+
+input[type=reset].btn-pseudo:hover, input[type=reset].btn-pseudo:focus, input[type=reset].btn-pseudo:active, input[type=reset].btn-pseudo.active,
+input[type=submit].btn-pseudo:hover,
+input[type=submit].btn-pseudo:focus,
+input[type=submit].btn-pseudo:active,
+input[type=submit].btn-pseudo.active,
+input[type=button].btn-pseudo:hover,
+input[type=button].btn-pseudo:focus,
+input[type=button].btn-pseudo:active,
+input[type=button].btn-pseudo.active,
+.btn.btn-pseudo:hover,
+.btn.btn-pseudo:focus,
+.btn.btn-pseudo:active,
+.btn.btn-pseudo.active {
+  color: #5f5f5f;
+}
+
+.darkinput[type=reset].btn-pseudo:hover, .darkinput[type=reset].btn-pseudo:focus, .darkinput[type=reset].btn-pseudo:active, .darkinput[type=reset].btn-pseudo.active, .darkinput[type=submit].btn-pseudo:hover, .darkinput[type=submit].btn-pseudo:focus, .darkinput[type=submit].btn-pseudo:active, .darkinput[type=submit].btn-pseudo.active, .darkinput[type=button].btn-pseudo:hover, .darkinput[type=button].btn-pseudo:focus, .darkinput[type=button].btn-pseudo:active, .darkinput[type=button].btn-pseudo.active, .dark.btn.btn-pseudo:hover, .dark.btn.btn-pseudo:focus, .dark.btn.btn-pseudo:active, .dark.btn.btn-pseudo.active,
+.dark input[type=reset].btn-pseudo:hover,
+.dark input[type=reset].btn-pseudo:focus,
+.dark input[type=reset].btn-pseudo:active,
+.dark input[type=reset].btn-pseudo.active,
+.dark
+input[type=submit].btn-pseudo:hover,
+.dark
+input[type=submit].btn-pseudo:focus,
+.dark
+input[type=submit].btn-pseudo:active,
+.dark
+input[type=submit].btn-pseudo.active,
+.dark
+input[type=button].btn-pseudo:hover,
+.dark
+input[type=button].btn-pseudo:focus,
+.dark
+input[type=button].btn-pseudo:active,
+.dark
+input[type=button].btn-pseudo.active,
+.dark
+.btn.btn-pseudo:hover,
+.dark
+.btn.btn-pseudo:focus,
+.dark
+.btn.btn-pseudo:active,
+.dark
+.btn.btn-pseudo.active {
+  color: #dedede;
+}
+
 input[type=reset].btn-out,
 input[type=submit].btn-out,
 input[type=button].btn-out,
 .btn.btn-out {
   background-color: transparent !important;
+}
+
+input[type=reset].btn-out,
+input[type=submit].btn-out,
+input[type=button].btn-out,
+.btn.btn-out {
+  color: #5f5f5f;
+}
+
+.darkinput[type=reset].btn-out, .darkinput[type=submit].btn-out, .darkinput[type=button].btn-out, .dark.btn.btn-out,
+.dark input[type=reset].btn-out,
+.dark
+input[type=submit].btn-out,
+.dark
+input[type=button].btn-out,
+.dark
+.btn.btn-out {
+  color: #dedede;
 }
 
 input[type=reset].btn-out:hover, input[type=reset].btn-out:focus, input[type=reset].btn-out:active, input[type=reset].btn-out.active,
@@ -4172,18 +4249,15 @@ textarea.disabled,
 
 .dropdown {
   position: relative;
-  cursor: default;
-  display: inline-block;
-  vertical-align: bottom;
-  width: 100%;
 }
 
-.dropdown .input-pseudo {
+.dropdown .dropdown-toggle {
   position: relative;
   padding-right: 34px;
+  cursor: pointer;
 }
 
-.dropdown .input-pseudo::after {
+.dropdown .dropdown-toggle::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -4198,12 +4272,28 @@ textarea.disabled,
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9.409'%3E%3Cpath d='M0 2.442l2.43-2.442 4.57 4.548 4.57-4.548 2.43 2.442-7 6.967z' fill='#969a9e'/%3E%3C/svg%3E");
 }
 
+.dropdown .dropdown-toggle.btn-focus::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9.409'%3E%3Cpath d='M0 2.442l2.43-2.442 4.57 4.548 4.57-4.548 2.43 2.442-7 6.967z' fill='white'/%3E%3C/svg%3E");
+}
+
+.dropdown .form-group {
+  margin-top: 0;
+}
+
+.dropdown .dropdown-solo {
+  padding-left: 0;
+}
+
+.dropdown .dropdown-solo span {
+  display: none;
+}
+
 .dropdown .menu {
   margin-top: 0;
   position: absolute;
   top: 100%;
   left: 0;
-  right: 0;
+  min-width: 100%;
   white-space: nowrap;
   display: none;
   max-height: 300px;
@@ -4222,7 +4312,7 @@ textarea.disabled,
   background-color: #3b464f;
 }
 
-.dropdown:hover .menu {
+.dropdown.is-active .menu {
   display: block;
 }
 
@@ -5154,7 +5244,7 @@ legend {
   display: none;
 }
 
-/* Form Name Value */
+/* Form Group */
 .form-group {
   margin: 5px 0 0 0;
 }
@@ -5166,26 +5256,30 @@ legend {
   flex-direction: row;
 }
 
+.form-group.form-group-horizontal input:not(:first-child),
+.form-group.form-group-horizontal select:not(:first-child),
+.form-group.form-group-horizontal textarea:not(:first-child),
+.form-group.form-group-horizontal .mce-tinymce.mce-tinymce[style]:not(:first-child),
+.form-group.form-group-horizontal .input-chalk:not(:first-child),
+.form-group.form-group-horizontal .input-upload:not(:first-child),
+.form-group.form-group-horizontal .input-pseudo:not(:first-child) {
+  border-left-width: 0 !important;
+}
+
+.form-group.form-group-horizontal button:not(:first-child),
+.form-group.form-group-horizontal .btn:not(:first-child) {
+  border-left-color: rgba(255, 255, 255, 0.5) !important;
+}
+
 .form-group.form-group-horizontal input,
 .form-group.form-group-horizontal select,
-.form-group.form-group-horizontal button,
-.form-group.form-group-horizontal .mce-tinymce,
+.form-group.form-group-horizontal textarea,
+.form-group.form-group-horizontal .mce-tinymce.mce-tinymce[style],
 .form-group.form-group-horizontal .input-chalk,
 .form-group.form-group-horizontal .input-upload,
 .form-group.form-group-horizontal .input-pseudo {
   -ms-flex: 1;
   flex: 1;
-  border-left-width: 0;
-}
-
-.form-group.form-group-horizontal input:first-child,
-.form-group.form-group-horizontal select:first-child,
-.form-group.form-group-horizontal button:first-child,
-.form-group.form-group-horizontal .mce-tinymce:first-child,
-.form-group.form-group-horizontal .input-chalk:first-child,
-.form-group.form-group-horizontal .input-upload:first-child,
-.form-group.form-group-horizontal .input-pseudo:first-child {
-  border-left-width: 1px;
 }
 
 .form-group.form-group-horizontal input.width-1, .form-group.form-group-horizontal input.width-2, .form-group.form-group-horizontal input.width-3, .form-group.form-group-horizontal input.width-4, .form-group.form-group-horizontal input.width-5, .form-group.form-group-horizontal input.width-6, .form-group.form-group-horizontal input.width-7, .form-group.form-group-horizontal input.width-8, .form-group.form-group-horizontal input.width-9, .form-group.form-group-horizontal input.width-10, .form-group.form-group-horizontal input.width-11, .form-group.form-group-horizontal input.width-12,
@@ -5201,30 +5295,30 @@ legend {
 .form-group.form-group-horizontal select.width-10,
 .form-group.form-group-horizontal select.width-11,
 .form-group.form-group-horizontal select.width-12,
-.form-group.form-group-horizontal button.width-1,
-.form-group.form-group-horizontal button.width-2,
-.form-group.form-group-horizontal button.width-3,
-.form-group.form-group-horizontal button.width-4,
-.form-group.form-group-horizontal button.width-5,
-.form-group.form-group-horizontal button.width-6,
-.form-group.form-group-horizontal button.width-7,
-.form-group.form-group-horizontal button.width-8,
-.form-group.form-group-horizontal button.width-9,
-.form-group.form-group-horizontal button.width-10,
-.form-group.form-group-horizontal button.width-11,
-.form-group.form-group-horizontal button.width-12,
-.form-group.form-group-horizontal .mce-tinymce.width-1,
-.form-group.form-group-horizontal .mce-tinymce.width-2,
-.form-group.form-group-horizontal .mce-tinymce.width-3,
-.form-group.form-group-horizontal .mce-tinymce.width-4,
-.form-group.form-group-horizontal .mce-tinymce.width-5,
-.form-group.form-group-horizontal .mce-tinymce.width-6,
-.form-group.form-group-horizontal .mce-tinymce.width-7,
-.form-group.form-group-horizontal .mce-tinymce.width-8,
-.form-group.form-group-horizontal .mce-tinymce.width-9,
-.form-group.form-group-horizontal .mce-tinymce.width-10,
-.form-group.form-group-horizontal .mce-tinymce.width-11,
-.form-group.form-group-horizontal .mce-tinymce.width-12,
+.form-group.form-group-horizontal textarea.width-1,
+.form-group.form-group-horizontal textarea.width-2,
+.form-group.form-group-horizontal textarea.width-3,
+.form-group.form-group-horizontal textarea.width-4,
+.form-group.form-group-horizontal textarea.width-5,
+.form-group.form-group-horizontal textarea.width-6,
+.form-group.form-group-horizontal textarea.width-7,
+.form-group.form-group-horizontal textarea.width-8,
+.form-group.form-group-horizontal textarea.width-9,
+.form-group.form-group-horizontal textarea.width-10,
+.form-group.form-group-horizontal textarea.width-11,
+.form-group.form-group-horizontal textarea.width-12,
+.form-group.form-group-horizontal .mce-tinymce.mce-tinymce[style].width-1,
+.form-group.form-group-horizontal .mce-tinymce.mce-tinymce[style].width-2,
+.form-group.form-group-horizontal .mce-tinymce.mce-tinymce[style].width-3,
+.form-group.form-group-horizontal .mce-tinymce.mce-tinymce[style].width-4,
+.form-group.form-group-horizontal .mce-tinymce.mce-tinymce[style].width-5,
+.form-group.form-group-horizontal .mce-tinymce.mce-tinymce[style].width-6,
+.form-group.form-group-horizontal .mce-tinymce.mce-tinymce[style].width-7,
+.form-group.form-group-horizontal .mce-tinymce.mce-tinymce[style].width-8,
+.form-group.form-group-horizontal .mce-tinymce.mce-tinymce[style].width-9,
+.form-group.form-group-horizontal .mce-tinymce.mce-tinymce[style].width-10,
+.form-group.form-group-horizontal .mce-tinymce.mce-tinymce[style].width-11,
+.form-group.form-group-horizontal .mce-tinymce.mce-tinymce[style].width-12,
 .form-group.form-group-horizontal .input-chalk.width-1,
 .form-group.form-group-horizontal .input-chalk.width-2,
 .form-group.form-group-horizontal .input-chalk.width-3,
@@ -5265,26 +5359,16 @@ legend {
   flex: none;
 }
 
-.form-group.form-group-vertical input,
-.form-group.form-group-vertical select,
-.form-group.form-group-vertical textarea,
-.form-group.form-group-vertical button,
-.form-group.form-group-vertical .mce-tinymce.mce-tinymce[style],
-.form-group.form-group-vertical .input-chalk,
-.form-group.form-group-vertical .input-upload,
-.form-group.form-group-vertical .input-pseudo {
+.form-group.form-group-vertical input:not(:first-child),
+.form-group.form-group-vertical select:not(:first-child),
+.form-group.form-group-vertical textarea:not(:first-child),
+.form-group.form-group-vertical button:not(:first-child),
+.form-group.form-group-vertical .btn:not(:first-child),
+.form-group.form-group-vertical .mce-tinymce.mce-tinymce[style]:not(:first-child),
+.form-group.form-group-vertical .input-chalk:not(:first-child),
+.form-group.form-group-vertical .input-upload:not(:first-child),
+.form-group.form-group-vertical .input-pseudo:not(:first-child) {
   border-top-width: 0 !important;
-}
-
-.form-group.form-group-vertical input:first-child,
-.form-group.form-group-vertical select:first-child,
-.form-group.form-group-vertical textarea:first-child,
-.form-group.form-group-vertical button:first-child,
-.form-group.form-group-vertical .mce-tinymce.mce-tinymce[style]:first-child,
-.form-group.form-group-vertical .input-chalk:first-child,
-.form-group.form-group-vertical .input-upload:first-child,
-.form-group.form-group-vertical .input-pseudo:first-child {
-  border-top-width: 1px !important;
 }
 
 /* TinyMCE */

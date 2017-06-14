@@ -37,6 +37,7 @@
 //= require elements/editor.js
 //= require elements/tag.js
 //= require elements/date.js
+//= require elements/dropdown.js
 
 /* Behaviours */
 
