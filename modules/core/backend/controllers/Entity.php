@@ -37,10 +37,11 @@ abstract class Entity extends Action
     protected function _actions()
     {
         $actions = [
-            'create' => 'created',
-            'update' => 'updated',
-            'delete' => 'deleted',
-            'batch'  => 'batched',
+            'create'    => 'created',
+            'update'    => 'updated',
+            'delete'    => 'deleted',
+            'batch'     => 'batched',
+            'duplicate' => 'duplicated',
         ];
         if ($this->info->is->publishable) {
             $actions = $actions + [
@@ -94,7 +95,7 @@ abstract class Entity extends Action
     }
 
     public function batch(Request $req, Response $res)
-    {   
+    {
         if (!$req->isPost()) {
             throw new \Chalk\Exception("Batch action only accepts POST requests");
         }
@@ -145,7 +146,7 @@ abstract class Entity extends Action
     }
 
     public function create(Request $req, Response $res)
-    {  
+    {
         $this->forward('update');
     }
 
@@ -203,7 +204,7 @@ abstract class Entity extends Action
 
         try {
             $method = "_{$req->action}";
-            $this->$method($req, $res, $entity, $this->model);
+            $new = $this->$method($req, $res, $entity, $this->model);
             $this->em->flush();
         } catch (ForeignKeyConstraintViolationException $e) {
             $this->notify("{$this->info->singular} <strong>{$entity->previewName}</strong> could not be {$this->labels[$req->action]} because it is in use", 'negative');
@@ -222,6 +223,13 @@ abstract class Entity extends Action
             ]) . $this->url->query([
                 'tagsList' => $this->model->tagsList,
             ], true));
+        } else if (isset($new)) {
+            return $res->redirect($this->url([
+                'action' => 'update',
+                'id'     => $new->id,
+            ]) . $this->url->query([
+                'tagsList' => $this->model->tagsList,
+            ], true));
         } else {
             return $res->redirect($this->url([
                 'action' => 'update',
@@ -234,6 +242,12 @@ abstract class Entity extends Action
     public function delete(Request $req, Response $res)
     {
         $req->param('action', 'delete');
+        return $this->forward('process');
+    }
+
+    public function duplicate(Request $req, Response $res)
+    {
+        $req->param('action', 'duplicate');
         return $this->forward('process');
     }
 
@@ -273,6 +287,13 @@ abstract class Entity extends Action
     protected function _delete(Request $req, Response $res, CoreEntity $entity)
     {
         $this->em->remove($entity);
+    }
+
+    protected function _duplicate(Request $req, Response $res, CoreEntity $entity)
+    {
+        $entity = $entity->duplicate();
+        $this->em->persist($entity);
+        return $entity;
     }
 
     protected function _publish(Request $req, Response $res, CoreEntity $entity)

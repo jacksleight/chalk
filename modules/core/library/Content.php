@@ -13,6 +13,7 @@ use Chalk\Core\Behaviour\Publishable;
 use Chalk\Core\Behaviour\Searchable;
 use Chalk\Core\Behaviour\Tagable;
 use Chalk\Core\Behaviour\Trackable;
+use Chalk\Core\Behaviour\Duplicateable;
 use Coast\Filter;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -22,7 +23,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @DiscriminatorColumn(name="type", type="string")
  * @DiscriminatorMap({"content" = "Chalk\Core\Content"})
 */
-abstract class Content extends Entity implements Publishable, Searchable, Tagable, Trackable
+abstract class Content extends Entity implements Publishable, Searchable, Tagable, Trackable, Duplicateable
 {
 	public static $chalkSingular = 'Content';
     public static $chalkPlural   = 'Content';
@@ -35,6 +36,7 @@ abstract class Content extends Entity implements Publishable, Searchable, Tagabl
     use Searchable\Entity;
     use Tagable\Entity;
     use Trackable\Entity;
+    use Duplicateable\Entity;
 	
 	/**
      * @Id
@@ -118,7 +120,23 @@ abstract class Content extends Entity implements Publishable, Searchable, Tagabl
             }
         }
     }
-			
+
+    public function duplicate()
+    {
+        $entity = clone $this;
+        $entity->fromArray([
+            'name'        => "{$entity->name} (copy)",
+            'status'      => Chalk::STATUS_DRAFT,
+            'createDate'  => null,
+            'modifyDate'  => null,
+            'createUser'  => null,
+            'modifyUser'  => null,
+            'publishDate' => null,
+            'archiveDate' => null,
+        ]);
+        return $entity;
+    }
+
     public function searchContent(array $content = [])
     {
         return array_merge([

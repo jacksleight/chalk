@@ -4,15 +4,15 @@
  * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
  */
 
-namespace Chalk\Core\Behaviour\Searchable;
+namespace Chalk\Core\Behaviour\Duplicateable;
 
 use Chalk\Chalk;
 use Doctrine\Common\Collections\ArrayCollection;
 
 trait Entity
 {
-    public function searchContent(array $content = array())
+    public function duplicate()
     {
-        return $content;
+        return clone $this;
     }
 }

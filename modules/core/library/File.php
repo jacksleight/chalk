@@ -19,7 +19,8 @@ class File extends Content
 	public static $chalkPlural   = 'Files';
 	public static $chalkIcon     = 'image';
 	public static $chalkIs       = [
-        'tagable' => true,
+		'tagable'		=> true,
+		'duplicateable'	=> false,
     ];
 
 	protected static $_baseDir;

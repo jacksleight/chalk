@@ -8,20 +8,20 @@
                 ]) . $this->url->query([
                     'redirect' => $this->url([]),
                 ], true) ?>" class="btn btn-lighter btn-out icon-archive">
-                    Archive <?= $info->singular ?>
+                    Archive
                 </a></li>
-            <?php } else if ($entity->isArchived()) { ?>
+            <?php } else { ?>
                 <li><a href="<?= $this->url([
                     'action'    => 'delete',
                 ]) ?>" class="btn btn-negative btn-out confirmable icon-delete" data-message="Are you sure?">
-                    Delete <?= $info->singular ?>
+                    Delete
                 </a></li>
             <?php } ?>
         <?php } else { ?>
             <li><a href="<?= $this->url([
                 'action'    => 'delete',
             ]) ?>" class="btn btn-negative btn-out confirmable icon-delete" data-message="Are you sure?">
-                Delete <?= $info->singular ?>
+                Delete
             </a></li>
         <?php } ?>
     <?php } ?>
@@ -32,6 +32,6 @@
     <li><a href="<?= $this->url([
         'action' => 'delete'
     ]) ?>" class="btn btn-lighter btn-out confirmable icon-remove">
-        Remove <?= $info->singular ?> <small>from <strong><?= $structure->name ?></strong></small>
+        Remove <small>from <strong><?= $structure->name ?></strong></small>
     </a></li>
 <?php } */ ?>

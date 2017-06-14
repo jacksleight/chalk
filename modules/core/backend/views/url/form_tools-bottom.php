@@ -6,7 +6,7 @@
         ]) . $this->url->query([
             'url' => 'mailto:',
         ], true) ?>" class="btn btn-focus btn-out icon-add">
-            New <?= str_replace('URL', 'Email URL', $info->singular) ?>
+            New <?= str_replace('Link', 'Email Link', $info->singular) ?>
         </a></li>
     <?php } ?>
 <?php } ?>
