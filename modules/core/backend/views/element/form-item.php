@@ -1,5 +1,8 @@
 <?php
 $md = $entity->getMetadata(\Toast\Entity::MD_PROPERTY, $name);
+$scope = isset($scope)
+	? $scope
+	: (isset($md['entity']) ? $md['entity'] : null);
 $types = [
 	'string'		=> 'input_text',
 	'text'			=> 'textarea',
@@ -62,7 +65,7 @@ $validatorSet = $md['validator']->rule('set');
 		<?= $this->inner($render[0], [
 			'md'		=> $md,
 			'type'		=> $type,
-			'scope'		=> isset($md['entity']) ? Chalk\Chalk::info($md['entity']) : null,
+			'scope'		=> $scope,
 			'name'		=> $md['contextName'],
 			'id'		=> uniqid('input-'),
 			'value'		=> $value,

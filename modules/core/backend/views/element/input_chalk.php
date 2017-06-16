@@ -1,5 +1,8 @@
-<?php 
+<?php
 if (isset($scope)) {
+    if (!is_object($scope)) {
+        $scope = Chalk\Chalk::info($scope);
+    }
     $info = $scope;
     if (isset($value)) {
         if (is_scalar($value)) {

@@ -7,6 +7,7 @@
 namespace Chalk\Core\Behaviour\Publishable;
 
 use Chalk\Chalk;
+use Chalk\Entity as ChalkEntity;
 
 trait Entity
 {
@@ -72,5 +73,14 @@ trait Entity
     public function isArchived()
     {
         return $this->status == Chalk::STATUS_ARCHIVED;
+    }
+
+    protected function _publishable_duplicate(ChalkEntity $entity)
+    {
+        $entity->fromArray([
+            'status'      => Chalk::STATUS_DRAFT,
+            'publishDate' => null,
+            'archiveDate' => null,
+        ]);
     }
 }

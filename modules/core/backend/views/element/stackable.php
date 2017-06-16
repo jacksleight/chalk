@@ -27,6 +27,6 @@
 			<div class="stackable-body">
 				<?= $template ?>
 			</div>
-		</li>    	
+		</li>
     </script>
 </div>

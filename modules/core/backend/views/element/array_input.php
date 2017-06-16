@@ -33,7 +33,7 @@ $items = [];
                 'disabled'    => isset($disabled) ? $disabled : null,
                 'readOnly'    => isset($readOnly) ? $readOnly : null,
             ]) ?>
-        </div>  
+        </div>
     <?php $items[] = $this->end() ?>
 <?php } ?>
 <?php if (isset($stackable) ? $stackable : true) { ?>
@@ -53,7 +53,7 @@ $items = [];
                 'disabled'    => isset($disabled) ? $disabled : null,
                 'readOnly'    => isset($readOnly) ? $readOnly : null,
             ]) ?>
-        </div>  
+        </div>
     <?php $template = $this->end() ?>
     <?= $this->inner('stackable', [
         'items'     => $items,

@@ -6,6 +6,8 @@
 
 namespace Chalk\Core\Behaviour\Trackable;
 
+use Chalk\Entity as ChalkEntity;
+
 trait Entity
 {
     /**
@@ -42,5 +44,15 @@ trait Entity
         return isset($this->modifyUser)
             ? $this->modifyUser->name
             : 'System';
+    }
+
+    protected function _trackable_duplicate(ChalkEntity $entity)
+    {
+        $entity->fromArray([
+            'createDate'  => null,
+            'modifyDate'  => null,
+            'createUser'  => null,
+            'modifyUser'  => null,
+        ]);
     }
 }

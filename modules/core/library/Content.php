@@ -31,30 +31,30 @@ abstract class Content extends Entity implements Publishable, Searchable, Tagabl
 	public static $chalkIs       = [
         'tagable' => false,
     ];
-	
+
     use Publishable\Entity;
     use Searchable\Entity;
     use Tagable\Entity;
     use Trackable\Entity;
     use Duplicateable\Entity;
-	
+
 	/**
      * @Id
      * @Column(type="integer")
      * @GeneratedValue
      */
     protected $id;
-		
+
 	/**
      * @Column(type="string")
      */
 	protected $name;
-		
+
 	/**
      * @Column(type="string")
      */
 	protected $slug;
-			
+
 	/**
      * @Column(type="string", nullable=true)
      */
@@ -66,17 +66,17 @@ abstract class Content extends Entity implements Publishable, Searchable, Tagabl
     protected $data = [];
 
     protected $dataJson;
-	
+
 	/**
      * @OneToMany(targetEntity="\Chalk\Core\Structure\Node", mappedBy="content")
      */
 	protected $nodes;
-		
+
 	/**
      * @Column(type="boolean")
      */
 	protected $isProtected = false;
-	
+
     protected static function _defineMetadata($class)
     {
         return \Coast\array_merge_smart(
@@ -95,7 +95,7 @@ abstract class Content extends Entity implements Publishable, Searchable, Tagabl
     }
 
 	public function __construct()
-	{	
+	{
 		$this->nodes = new ArrayCollection();
 		$this->_tagable_construct();
 	}
@@ -125,15 +125,10 @@ abstract class Content extends Entity implements Publishable, Searchable, Tagabl
     {
         $entity = clone $this;
         $entity->fromArray([
-            'name'        => "{$entity->name} (copy)",
-            'status'      => Chalk::STATUS_DRAFT,
-            'createDate'  => null,
-            'modifyDate'  => null,
-            'createUser'  => null,
-            'modifyUser'  => null,
-            'publishDate' => null,
-            'archiveDate' => null,
+            'name' => "{$entity->name} (copy)",
         ]);
+        $this->_trackable_duplicate($entity);
+        $this->_publishable_duplicate($entity);
         return $entity;
     }
 

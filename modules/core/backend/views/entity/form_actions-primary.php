@@ -8,7 +8,7 @@
                 ]) . $this->url->query([
                     'redirect' => $this->url([]),
                 ], true) ?>" class="btn btn-positive btn-lighter btn-out icon-publish">
-                    Publish <?= $info->singular ?>
+                    Publish
                 </a></li>
             <?php } ?>
             <?php if (!$entity->isArchived()) { ?>

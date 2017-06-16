@@ -8,8 +8,8 @@ $info = isset($info)
     ? $info
     : Chalk\Chalk::info($entity);
 ?>
-<div class="flex-col">
-    <div class="body flex">
+<div class="flex-col flex-center">
+    <div class="body">
         <h1>Nothing To Display</h1>
         <p>This <?= strtolower($info->singular) ?> does not have a page on the site.</p>
     </div>

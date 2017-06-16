@@ -17,20 +17,25 @@ Chalk.component('.stackable', function(i, el) {
 			// }, 1000);
 		}, 1);
 	}
-	var addMulti = function(contents) {
-		$(contents).each(function() {
-			var content = $($.parseHTML(Mustache.render(template, {i: count++}).trim())[0]);
-			var control = content.find('.input-content');
-			control.find('input[type=hidden]').val(this.id);
-			control.find('.input-content-holder').html(this.card);
-			control.find('.input-content-remove').css('display', 'inline-block');
-			items.append(content);
+	var addMulti = function(entities) {
+		$(entities).each(function() {
+			var entity  = this;
+			var wrap	= $($.parseHTML(Mustache.render(template, {i: count++}).trim())[0]);
+			var chalk	= wrap.find('.input-chalk');
+			var remove	= $(chalk).find('.input-chalk-remove');
+			var holder	= $(chalk).find('.input-chalk-holder');
+			var input	= $(chalk).find('input');
+			var scope	= $(chalk).attr('data-scope') || undefined;
+			if (typeof scope != 'undefined') {
+				input.val(entity.id);
+			} else {
+				input.val(JSON.stringify({type: entity.type, id: entity.id}));
+			}
+			holder.html(entity.card);
+			remove.css('display', 'inline-block');
+			items.append(wrap);
 			setTimeout(function() {
-				Chalk.initialize(content);
-				// items.height('auto');
-				// setTimeout(function() {
-				// 	items.height(items.height());
-				// }, 1000);
+				Chalk.initialize(wrap);
 			}, 1);
 		});
 	}
@@ -89,14 +94,18 @@ Chalk.component('.stackable', function(i, el) {
 	});
 	
 	var content = $($.parseHTML(Mustache.render(template, {i: 0}).trim())[0]);
-	var control = content.find('.input-content');
-	if (control.length) {
-		var params = control.attr('data-params');
+	var chalk = content.find('.input-chalk');
+	if (chalk.length) {
+		var query = $(chalk).attr('data-query').replace('mode=one', 'mode=all');
 		addMultiBtn.css('display', 'inline-block');
 		addMultiBtn.click(function(ev) {
-			Chalk.modal(Chalk.selectUrl + '?' + params, {}, function(res) {
-				if (res.contents) {
-					addMulti(res.contents);
+			Chalk.modal(Chalk.selectUrl + query, {}, function(res) {
+				if (res.entites) {
+					addMulti(res.entites);
+					var first = $(el).find('.stackable-item:first-child');
+					if (first.find('.input-chalk input').val() === '') {
+						first.remove();
+					}
 				}
 			});
 		});
