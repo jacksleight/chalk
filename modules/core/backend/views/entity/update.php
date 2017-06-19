@@ -3,6 +3,7 @@
 ], 'core') ?>
 <?php $this->block('main') ?>
 
-<form action="<?= $this->url->route() . $this->url->query() ?>" method="post" data-modal-size="800">
+<form action="<?= $this->url->route() ?>" method="post" data-modal-size="800">
     <?= $this->inner("form") ?>
+    <?= $this->url->queryInputs() ?>
 </form>
