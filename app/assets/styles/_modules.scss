@@ -1495,16 +1495,31 @@ legend {
 		margin: 0;
 	}
 	.stackable-item {
+		width: 100%;
 		border-bottom: $gutter * 0.25 solid white;
-		@include colors(null, 2);
 		position: relative;
 		@include clearfix;
 	}
 	.stackable-controls {
-		float: right;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
 		width: 38px;
+		border: 1px solid;
+		border-left: 0;
+		@include colors(null, 1, 4);
+		.btn {
+			color: #999999;
+			border-color: transparent !important;
+			background-color: transparent !important;
+		}
 		.stackable-move {
 			cursor: move;
+			position: absolute;
+			top: 0;
+			right: 0;
+			z-index: 1;
 		}
 		.stackable-delete {
 			position: absolute;
@@ -1635,6 +1650,9 @@ legend {
 }
 
 .mce-container {
+	&.mce-container {
+		box-sizing: border-box;
+	}
 	&.mce-window {
 		border: 0;
 	}

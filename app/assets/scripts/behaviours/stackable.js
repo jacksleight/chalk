@@ -106,6 +106,7 @@ Chalk.component('.stackable', function(i, el) {
 					if (first.find('.input-chalk input').val() === '') {
 						first.remove();
 					}
+					refresh();
 				}
 			});
 		});

@@ -3,8 +3,8 @@
 		<?php foreach ($items as $i => $item) { ?>
 			<li class="stackable-item">
 				<div class="stackable-controls">
-					<span class="btn btn-icon btn-lighter stackable-move icon-move"><span>Move</span></span>
-					<span class="btn btn-icon btn-lighter stackable-delete icon-delete"><span>Delete</span></span>
+					<span class="btn btn-icon stackable-move icon-move"><span>Move</span></span>
+					<span class="btn btn-icon stackable-delete icon-delete"><span>Delete</span></span>
 				</div>
 				<div class="stackable-body">
 					<?= $item ?>

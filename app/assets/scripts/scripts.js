@@ -5,6 +5,8 @@
 //= require ../../../bower_components/js-base64/base64.js
 
 //= require ../../../bower_components/jquery/dist/jquery.js
+//= require ../../../bower_components/jquery.ui/ui/data.js
+//= require ../../../bower_components/jquery.ui/ui/scroll-parent.js
 //= require ../../../bower_components/jquery.ui/ui/widget.js
 //= require ../../../bower_components/jquery.ui/ui/widgets/mouse.js
 //= require ../../../bower_components/jquery.ui/ui/widgets/sortable.js
