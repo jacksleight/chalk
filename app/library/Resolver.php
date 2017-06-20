@@ -1,7 +1,7 @@
 <?php
 /*
  * Copyright 2017 Jack Sleight <http://jacksleight.com/>
- * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
+ * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md.
  */
 
 namespace Chalk;
@@ -19,9 +19,9 @@ class Resolver extends CoastResolver
     {
         $args = func_get_args();
         $isEntity =
-            ( isset($args[1]) && is_string($args[0]) && is_numeric($args[1])) ||
-            (!isset($args[1]) && is_array($args[0]) && isset($args[0]['__CLASS__'])) ||
-            (!isset($args[1]) && $args[0] instanceof Entity);
+            (isset($args[1]) && is_string($args[0]) && is_numeric($args[1])) ||
+            (isset($args[0]) && !isset($args[1]) && is_array($args[0]) && isset($args[0]['__CLASS__'])) ||
+            (isset($args[0]) && !isset($args[1]) && $args[0] instanceof Entity);
         return $isEntity
             ? call_user_func_array([$this, 'entity'], $args)
             : call_user_func_array(['parent', '__invoke'], $args);

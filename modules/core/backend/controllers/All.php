@@ -20,7 +20,7 @@ class All extends Action
     {
         $session = $this->session->data('__Chalk\Backend');
 
-        $this->module = $this->chalk->module($req->group);
+        $this->module = $this->chalk->module($req->dispatch['group']);
         $this->domain = $this->em('core_domain')->id(1, [], [], false);
         $this->user   = isset($session->user) ? $session->user : null;
         $this->model  = $this->_model($req);
@@ -29,7 +29,7 @@ class All extends Action
         $req->view = (object) [];
         $req->view->model = $this->model;
 
-        if ($req->controller == 'auth') {
+        if ($req->dispatch['controller'] == 'auth') {
             return;
         }
         if (!isset($this->user)) {
@@ -64,8 +64,8 @@ class All extends Action
 
     public function postDispatch(Request $req, Response $res)
     {
-        $controller = strtolower(str_replace('_', '/', $req->controller));
-        $action     = strtolower(str_replace('_', '-', $req->action));
+        $controller = strtolower(str_replace('_', '/', $req->dispatch['controller']));
+        $action     = strtolower(str_replace('_', '-', $req->dispatch['action']));
         $path       = isset($req->view->path)
             ? $req->view->path
             : "{$controller}/{$action}";
@@ -85,12 +85,12 @@ class All extends Action
             ->html($this->view->render($path, [
                 'req' => $req,
                 'res' => $res,
-            ] + (array) $req->view, $req->group));
+            ] + (array) $req->view, $req->dispatch['group']));
     }
 
     protected function _modelClass(Request $req)
     {
-        $parts      = explode('_', $req->controller);
+        $parts      = explode('_', $req->dispatch['controller']);
         $parts      = array_map('\Coast\str_camel_upper', $parts);
         $controller = implode('\\', $parts);
 
@@ -102,7 +102,7 @@ class All extends Action
         );
         foreach ($classes as $class) {
             $class = str_replace('\\Controller\\', '\\Model\\', $class)
-                . '\\' . \Coast\str_camel_upper($req->action);
+                . '\\' . \Coast\str_camel_upper($req->dispatch['action']);
             if (class_exists($class)) {
                 return $class;
                 break;
@@ -119,7 +119,7 @@ class All extends Action
 
         $model->graphFromArray($req->queryParams());
         $model->filtersInfo = $this->_info($model->filters);
-        
+
         return $model;
     }
 
@@ -141,7 +141,7 @@ class All extends Action
     protected function _login(Request $req)
     {
         $query = [];
-        if ($req->controller != 'index' || $req->action != 'index') {
+        if ($req->dispatch['controller'] != 'index' || $req->dispatch['action'] != 'index') {
             $query['redirect'] = $req->url()->toPart(Url::PART_PATH, true)->toString();
         }
         return $this->url([], 'core_login', true) . $this->url->query($query, true);

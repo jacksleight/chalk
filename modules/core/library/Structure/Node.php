@@ -206,6 +206,38 @@ class Node extends Entity
         return $this->content->modifyDate;
     }
 
+    public function createUser()
+    {
+        if (!isset($this->content)) {
+            return;
+        }
+        return $this->content->createUser;
+    }
+
+    public function modifyUser()
+    {
+        if (!isset($this->content)) {
+            return;
+        }
+        return $this->content->modifyUser;
+    }
+
+    public function createUserName()
+    {
+        if (!isset($this->content)) {
+            return;
+        }
+        return $this->content->createUserName;
+    }
+
+    public function modifyUserName()
+    {
+        if (!isset($this->content)) {
+            return;
+        }
+        return $this->content->modifyUserName;
+    }
+
     public function publishDate()
     {
         if (!isset($this->content)) {

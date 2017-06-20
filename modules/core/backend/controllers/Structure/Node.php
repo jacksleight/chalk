@@ -21,6 +21,10 @@ class Node extends Entity
             ? $this->em($this->info)->id($req->id)
             : $this->em($this->info)->create();
         $content = $entity->content;
+
+        $req->param('id', $content->id);
+        $req->param('nodeId', $entity->id);
+
         $route   = $this->url($content, null, true);
         $params  = $route['params'];
         return $this->forward('update', $params['controller'], $params['group']);
