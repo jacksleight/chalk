@@ -12,7 +12,7 @@
         'entities' => $entities,
         'group'    => 'structure',
         'skip'     => 'content',
-		'indent'   => 'depthOffset',
+		'indent'   => 'depthFlat',
 	]) ?>
     <?= $this->url->queryInputs([
         'mode'         => $model->mode,

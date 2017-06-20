@@ -71,12 +71,12 @@ class Module extends ChalkModule
             ->frontendResolver($this->name('structure_node'), function($entity, $info) {
                 try {
                     return $this->frontend->url->route([], $this->name("structure_node_{$entity['id']}"), true);   
-                } catch (\Coast\Router\Exception $e) {}
+                } catch (Router\Exception $e) {}
             })
             ->frontendResolver($this->name('content'), function($entity, $info) {
                 try {
                     return $this->frontend->url->route([], $this->name("content_{$entity['id']}"), true);
-                } catch (\Coast\Router\Exception $e) {}
+                } catch (Router\Exception $e) {}
             })
             ->frontendResolver($this->name('url'), function($entity, $info) {
                 return $entity['url'];
@@ -238,18 +238,24 @@ class Module extends ChalkModule
                 try {
                     if ($entity['id'] == 0) {
                         $info = Chalk::info($entity['__CLASS__']);
-                        return $this->backend->url->route([
-                            'controller' => $info->local->name,
-                        ], "{$info->module->name}_index", true);
+                        return [
+                            'name'   => "{$info->module->name}_index",
+                            'params' => [
+                                'controller' => $info->local->name,
+                            ],
+                        ];
                     } else {
                         $info = Chalk::info($entity);
-                        return $this->backend->url->route([
-                            'controller' => $info->local->name,
-                            'action'     => 'update',
-                            'id'         => $entity->id,
-                        ], "{$info->module->name}_index", true);
+                        return [
+                            'name'   => "{$info->module->name}_index",
+                            'params' => [
+                                'controller' => $info->local->name,
+                                'action'     => 'update',
+                                'id'         => $entity->id,
+                            ],
+                        ];
                     }
-                } catch (\Coast\Router\Exception $e) {}
+                } catch (Router\Exception $e) {}
             });
 
         $this

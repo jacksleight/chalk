@@ -325,10 +325,8 @@ class Entity implements ArrayAccess
         $name = \Coast\str_camel($name);
         if (method_exists($this, $name)) {
             return $this->{$name}();
-        } else if (property_exists($this, $name)) {
-            return $this->{$name};
         } else {
-            return null;
+            return $this->{$name};
         }
     }
 
@@ -340,10 +338,8 @@ class Entity implements ArrayAccess
         $name = \Coast\str_camel($name);
         if (method_exists($this, $name)) {
             return $this->{$name}() !== null;
-        } else if (property_exists($this, $name)) {
-            return $this->{$name} !== null;
         } else {
-            return false;
+            return $this->{$name} !== null;
         }
     }
 

@@ -41,7 +41,7 @@ class Index extends Action
         $req->view->entity = $entity;
         $res->status(404);
     }
-    
+
     public function backend(Request $req, Response $res)
     {
         if ($req->entityId == 0) {

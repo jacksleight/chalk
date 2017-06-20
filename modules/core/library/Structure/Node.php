@@ -226,7 +226,31 @@ class Node extends Entity
         return $this->content->status;
     }
 
-    public function depthOffset()
+    public function isArchived()
+    {
+        if (!isset($this->content)) {
+            return;
+        }
+        return $this->content->isArchived;
+    }
+
+    public function isPublished()
+    {
+        if (!isset($this->content)) {
+            return;
+        }
+        return $this->content->isPublished;
+    }
+
+    public function isDraft()
+    {
+        if (!isset($this->content)) {
+            return;
+        }
+        return $this->content->isDraft;
+    }
+
+    public function depthFlat()
     {
         return max(0, $this->depth - 1);
     }

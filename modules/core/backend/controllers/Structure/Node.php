@@ -14,7 +14,18 @@ use Coast\Response;
 class Node extends Entity
 {
     protected $_entityClass = 'Chalk\Core\Structure\Node';
-    
+
+    public function update(Request $req, Response $res)
+    {
+        $entity = isset($req->id)
+            ? $this->em($this->info)->id($req->id)
+            : $this->em($this->info)->create();
+        $content = $entity->content;
+        $route   = $this->url($content, null, true);
+        $params  = $route['params'];
+        return $this->forward('update', $params['controller'], $params['group']);
+    }
+
     // public function add(Request $req, Response $res)
     // {
     //     $filters = $this->chalk->module('core')->contentList('core_node');
