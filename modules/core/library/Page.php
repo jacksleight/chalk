@@ -17,7 +17,6 @@ class Page extends Content
 {
 	public static $chalkSingular = 'Page';
 	public static $chalkPlural   = 'Pages';
-    // public static $chalkIcon     = 'file';
 
     /**
      * @Column(type="string", nullable=true)

@@ -34,12 +34,12 @@ use DOMXPath;
 class Module extends ChalkModule
 {
     const VERSION = Chalk::VERSION;
-    
+
     public function __construct()
     {
         parent::__construct('core');
     }
-    
+
     public function init()
     {
         $this
@@ -50,7 +50,7 @@ class Module extends ChalkModule
             ->entityListener($this->name('searchable'), new SearchableListener())
             ->entityListener($this->name('trackable'), $trackable = new TrackableListener());
     }
-    
+
     public function frontendInit()
     {
         $this
@@ -66,7 +66,7 @@ class Module extends ChalkModule
 
         $this
             ->frontendResolver($this->name('domain'), function($entity, $info) {
-                return $this->frontend->url(); 
+                return $this->frontend->url();
             })
             ->frontendResolver($this->name('structure_node'), function($entity, $info) {
                 try {
@@ -134,11 +134,11 @@ class Module extends ChalkModule
         $structures = $this->em($this->name('structure'))->all([], [
             'hydrate' => Repository::HYDRATE_ARRAY,
         ]);
-        
+
         $this->frontend->domain = $domain;
         $this->frontend->root   = $domain['structures'][0]['nodes'][0];
         $this->frontend->home   = $domain['structures'][0]['nodes'][0]['content'];
-        
+
         $temp = [];
         foreach ($structures as $structure) {
             $structure['root']        = $structure['nodes'][0];
@@ -222,7 +222,7 @@ class Module extends ChalkModule
         }
         $this->frontend->nodeMap = $nodeMap;
     }
-    
+
     public function backendInit()
     {
         $this
@@ -442,6 +442,7 @@ class Module extends ChalkModule
                         'url'       => ['name' => $this->name('setting')],
                     ]);
                 $nav
+                    ->entity($this->name('structure_node'), [], $this->name('site'))
                     ->entity($this->name('page'), [], $this->name('site'))
                     ->entity($this->name('block'), [], $this->name('page'))
                     ->entity($this->name('file'), [], $this->name('site'))
@@ -489,7 +490,7 @@ class Module extends ChalkModule
                             'controller' => "{$name}",
                             'action'     => 'index',
                         ]);
-                return $primary;      
+                return $primary;
             break;
         }
     }
@@ -502,22 +503,4 @@ class Module extends ChalkModule
         }
         $this->em->flush();
     }
-
-    // public function contentList($filters)
-    // {
-    //     if (is_array($filters)) {
-    //         $infoList = new \Chalk\Info();
-    //         foreach ($filters as $name => $subtypes) {
-    //             $subtypes = is_array($subtypes)
-    //                 ? $subtypes
-    //                 : [];
-    //             $infoList->item($name, [
-    //                 'subtypes' => $subtypes,
-    //             ]);
-    //         }
-    //         return $infoList;
-    //     } else {
-    //         return $this->backend->hook->fire($this->name('contentList'), new \Chalk\Info($filters));
-    //     }
-    // }
 }

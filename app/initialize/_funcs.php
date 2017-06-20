@@ -56,3 +56,15 @@ function filters_list_parse($filtersList)
         return [];
     }
 }
+
+function traverse_name($object, $name) {
+    $parts = explode('->', $name);
+    foreach ($parts as $i => $part) {
+        if ($i < count($parts) - 1) {
+            $object = $object[$part];
+        } else {
+            $name = $part;
+        }
+    }
+    return [$object, $name];
+}

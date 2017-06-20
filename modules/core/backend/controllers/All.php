@@ -90,8 +90,11 @@ class All extends Action
 
     protected function _modelClass(Request $req)
     {
-        $default = "Backend\\Controller\\"
-            . \Coast\str_camel_upper($req->controller);
+        $parts      = explode('_', $req->controller);
+        $parts      = array_map('\Coast\str_camel_upper', $parts);
+        $controller = implode('\\', $parts);
+
+        $default = "Backend\\Controller\\{$controller}";
         $default = $this->module->nspace($default);
         $classes = array_merge(
             [$default],

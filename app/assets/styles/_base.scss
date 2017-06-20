@@ -1,6 +1,6 @@
 /* Header */
 
-h1, h2, h3, h4, h5, h6 { 
+h1, h2, h3, h4, h5, h6 {
 	font-weight: normal;
 	@include colors(3);
 	margin: $gutter 0 0 0;
@@ -13,28 +13,28 @@ h1, h2, h3, h4, h5, h6 {
 		@include font-size(-1);
 	}
 }
-h1 { 
+h1 {
 	@include font-size(4);
 }
-h2 { 
-	@include font-size(3);
-}
-h3 { 
+h2 {
 	@include font-size(2);
 }
-h4 { 
+h3 {
 	@include font-size(1);
 }
-h5 { 
+h4 {
 	@include font-size(0);
 }
-h6 { 
+h5 {
+	@include font-size(0);
+}
+h6 {
 	@include font-size(0);
 }
 
 /* Link */
 
-a { 
+a {
 	@include link-color(inherit);
 	transition: all $speed ease;
 	text-decoration: underline;
@@ -51,6 +51,7 @@ table {
 	margin: $gutter 0 0 0;
 	border-spacing: 0;
 	border-radius: $radius;
+	border-collapse: collapse;
 	th, td { 
 		vertical-align: top;
 		padding: $gutter * 0.35 0 $gutter * 0.35 $gutter * 0.75;
@@ -58,7 +59,7 @@ table {
 			padding-left: 0;
 		}
 	}
-	th { 
+	th {
 		font-weight: normal;
 		text-align: left;
 		&, a {
@@ -66,32 +67,41 @@ table {
 		}
 	}
 	thead {
-		th {
-			padding-top: 0 !important;
+		th, td {
 			font-weight: bold;
+		}
+		&:not(.tgroup) {
+			tr {
+				th, td {
+					border-bottom: 1px solid;
+					@include colors(null, null, 3);
+				}
+			}
+		}
+		&.tgroup {
+			td, th {
+				color: $color-quiet;
+				border-top: 1px solid;
+				@include colors(null, null, 3);
+			}
 		}
 	}
 	tbody {
-		th, td { 
+		th, td {
 			border-top: 1px solid;
 			@include colors(null, null, 1);
 			transition: all $speed ease;
 		}
-		tr {
-			&:first-child {
-				th, td {
-					border-top: 1px solid;
-					@include colors(null, null, 3);
-				}
+	}
+	colgroup + thead {
+		tr:first-child {
+			th, td {
+				border-top: 0 !important;
+				padding-top: 0 !important;
 			}
-			// &:hover { 
-			// 	th, td { 
-			// 		@include colors(null, 0.5);
-			// 	}
-			// }
 		}
 	}
-	caption { 
+	caption {
 		@include font-size(-1);
 		font-style: oblique;
 		text-align: right;
@@ -99,10 +109,10 @@ table {
 		caption-side: bottom;
 	}
 	.col-right {
-		text-align: right;	
+		text-align: right;
 	}
 	.col-center {
-		text-align: center;	
+		text-align: center;
 	}
 	.col-contract {
 		width: 1px;

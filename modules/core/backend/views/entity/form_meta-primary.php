@@ -1,7 +1,7 @@
 <ul class="meta">
 	<?= $this->partial('meta-primary-top') ?>
-	<li class="icon-<?= $info->icon ?>">
-		<?= $info->singular ?>
+	<li class="icon-<?= $entity->typeIcon ?>">
+		<?= $entity->typeLabel ?>
 	</li>
     <?php if ($info->is->trackable && !$entity->isNew()) { ?>
         <li class="icon-updated">

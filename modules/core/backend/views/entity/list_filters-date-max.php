@@ -2,7 +2,7 @@
     'type'          => 'dropdown_single',
     'entity'        => $model,
     'null'          => 'Any',
-    'name'          => "{$property}DateMax",
+    'name'          => "{$name}DateMax",
     'icon'          => 'icon-calendar',
     'placeholder'   => $placeholder,
 ), 'core') ?>

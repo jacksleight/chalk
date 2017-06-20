@@ -10,7 +10,6 @@ use Chalk\Chalk;
 use Chalk\Hook;
 use Chalk\Core\User;
 use Chalk\Info;
-use Coast\Resolver;
 use Coast\Request;
 
 class Nav implements Hook
@@ -29,7 +28,7 @@ class Nav implements Hook
         ],
     ];
 
-    public function __construct(Request $req, Resolver $url, User $user, Info $info)
+    public function __construct(Request $req, \Coast\Resolver $url, User $user, Info $info)
     {
         $this->_req  = $req;
         $this->_url  = $url;
@@ -78,7 +77,7 @@ class Nav implements Hook
                     unset($this->_items[$parent]['children'][$name]);
                 }
             }
-            return $this;   
+            return $this;
         }
         return isset($this->_items[$name])
             ? $this->_items[$name]
@@ -113,7 +112,7 @@ class Nav implements Hook
             } else {
                 $this->item($name, $item);
             }
-            return $this;   
+            return $this;
         }
         return $this->item($name);
     }
@@ -163,7 +162,7 @@ class Nav implements Hook
         }
         $active = $this->_req->path();
         foreach (array_reverse($map) as $path => $name) {
-            if (strpos($active, $path) === 0) {
+            if (preg_match('/^' . preg_quote($path, '/') . '(\/|$)/', $active)) {
                 $item = $this->_items[$name];
                 break;
             }

@@ -10,13 +10,18 @@ use Chalk\Chalk,
     Chalk\Core\Structure,
     Chalk\Repository,
     Chalk\Core\Behaviour\Publishable,
+    Chalk\Core\Behaviour\Searchable,
     Chalk\Core\Structure\Node as StructureNode;
 
 class Node extends Repository
 {
     use Publishable\Repository;
+    use Searchable\Repository;
 
-    protected $_sort = 'left';
+    protected $_sort = [
+        ['structure'],
+        ['left']
+    ];
 
     public function build(array $params = array(), $extra = false)
     {
@@ -63,7 +68,7 @@ class Node extends Repository
                 ->andWhere('n.structure = :structure AND nt.left >= n.left AND nt.left <= n.right')
                 ->andWhere('nt = :node')
                 ->setParameter('structure', $params['parents']['structureId'])
-                ->setParameter('node', $params['parents']['id']);            
+                ->setParameter('node', $params['parents']['id']);
             if (isset($params['depth'])) {
                 $query
                     ->andWhere('n.depth >= :depth')
@@ -90,6 +95,7 @@ class Node extends Repository
         }
 
         $this->_publishable_modify($query, $params, $extra, 'c');
+        $this->_searchable_modify($query, $params, $extra, 'c', 'Chalk\Core\Content');
 
         return $query;
     }

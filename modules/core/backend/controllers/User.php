@@ -6,10 +6,10 @@
 
 namespace Chalk\Core\Backend\Controller;
 
-use Chalk\Chalk,
-	Chalk\Core\Backend\Controller\Entity,
-	Coast\Request,
-	Coast\Response;
+use Chalk\Chalk;
+use Chalk\Core\Backend\Controller\Entity;
+use Coast\Request;
+use Coast\Response;
 
 class User extends Entity
 {

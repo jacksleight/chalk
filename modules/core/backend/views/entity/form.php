@@ -2,7 +2,7 @@
 	<fieldset class="header">
 		<?= $this->partial('tools') ?>
 		<?= $this->partial('header') ?>
-		<?php 
+		<?php
         $meta = $this->partial('meta-secondary') . $this->partial('meta-primary');
         ?>
         <?php if (strpos($meta, '</li>') !== false) { ?>
@@ -13,7 +13,6 @@
 	</fieldset>
 	<div class="flex body">
 		<?= $this->partial('body') ?>
-        <?php // $this->partial('node') ?>
         <?php if ($this->user->isDeveloper()) { ?>
             <?= $this->partial('developer') ?>
         <?php } ?>

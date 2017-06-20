@@ -18,8 +18,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 */
 class Node extends Entity
 {
-    public static $chalkSingular = 'Node';
-    public static $chalkPlural   = 'Nodes';
+    public static $chalkSingular = 'Page';
+    public static $chalkPlural   = 'Pages';
+    public static $chalkIcon     = 'content';
+    public static $chalkIs       = [
+        'searchable'  => true,
+        'publishable' => true,
+    ];
 
     const VALUE_MAX = 2147483647;
 
@@ -174,5 +179,55 @@ class Node extends Entity
         return isset($this->parent)
             ? array_merge($this->parent->parents, [$this])
             : [$this];
+    }
+
+    public function previewName()
+    {
+        if (isset($this->name)) {
+            return $this->name;
+        } else if (isset($this->content)) {
+            return $this->content->previewName;
+        }
+    }
+
+    public function createDate()
+    {
+        if (!isset($this->content)) {
+            return;
+        }
+        return $this->content->createDate;
+    }
+
+    public function modifyDate()
+    {
+        if (!isset($this->content)) {
+            return;
+        }
+        return $this->content->modifyDate;
+    }
+
+    public function publishDate()
+    {
+        if (!isset($this->content)) {
+            return;
+        }
+        return $this->content->publishDate;
+    }
+
+    public function status($status = null)
+    {
+        if (!isset($this->content)) {
+            return;
+        }
+        if (func_num_args() > 0) {
+            $this->content->status = $status;
+            return $this;
+        }
+        return $this->content->status;
+    }
+
+    public function depthOffset()
+    {
+        return max(0, $this->depth - 1);
     }
 }

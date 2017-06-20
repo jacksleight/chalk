@@ -2,7 +2,7 @@
     'type'          => 'dropdown_single',
     'entity'        => $model,
     'null'          => 'Any',
-    'name'          => "{$property}DateMin",
+    'name'          => "{$name}DateMin",
     'icon'          => 'icon-calendar',
     'placeholder'   => $placeholder,
 ), 'core') ?>
