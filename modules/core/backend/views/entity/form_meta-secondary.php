@@ -6,7 +6,7 @@
                 'entityType' => $info->name,
                 'entityId'   => $entity->id,
             ], 'core_frontend', true) ?>" target="_blank" class="icon-view">
-                Open <?= $info->singular ?>
+                Open
             </a>
         </li>
     <?php } ?>

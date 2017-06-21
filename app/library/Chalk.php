@@ -61,7 +61,9 @@ class Chalk extends CoastApp
             $parts = preg_split('/[_\/]/', $class);
             if (!isset(self::$_map[$parts[0]])) {
                 if (!$graceful) {
-                    throw new Exception("Class '{$class}' does not belong to a registered module");
+                    $e = new Exception();
+                    list(, , $line) = explode("\n", $e->__toString());
+                    throw new Exception("Class '{$class}' does not belong to a registered module ({$line})");
                 } else {
                     return false;
                 }

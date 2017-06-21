@@ -1,7 +1,7 @@
 <?php
 /*
  * Copyright 2017 Jack Sleight <http://jacksleight.com/>
- * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
+ * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md.
  */
 
 namespace Chalk;
@@ -18,16 +18,16 @@ class Resolver extends CoastResolver
     public function __invoke()
     {
         $args = func_get_args();
-        $isEntity = 
-            (count($args) == 2 && is_string($args[0]) && is_numeric($args[1])) ||
-            (count($args) == 1 && is_array($args[0]) && isset($args[0]['__CLASS__'])) ||
-            (count($args) == 1 && $args[0] instanceof Entity);
+        $isEntity =
+            (isset($args[1]) && is_string($args[0]) && is_numeric($args[1])) ||
+            (isset($args[0]) && !isset($args[1]) && is_array($args[0]) && isset($args[0]['__CLASS__'])) ||
+            (isset($args[0]) && !isset($args[1]) && $args[0] instanceof Entity);
         return $isEntity
             ? call_user_func_array([$this, 'entity'], $args)
             : call_user_func_array(['parent', '__invoke'], $args);
     }
 
-    public function entity($entity, $id = null)
+    public function entity($entity, $id = null, $route = false)
     {
         if (isset($id)) {
             $entity = [
@@ -49,10 +49,14 @@ class Resolver extends CoastResolver
             }
             $result = $resolver[1]($entity, $info);
             if (isset($result)) {
+                if ($route) {
+                    $route = $this->router->route($result['name']);
+                    $result['params'] += $route['params'];
+                } else {
+                    $result = $this->route($result['params'], $result['name'], true);
+                }
                 if ($result) {
                     return $result;
-                } else {
-                    return false;
                 }
             }
         }

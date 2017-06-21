@@ -11,6 +11,6 @@
         <?= $this->render('/element/expandable', [
             'content'       => $html,
             'buttonLabel'   => 'Advanced',
-        ], 'core') ?>   
+        ], 'core') ?>
     </div>
 </fieldset>

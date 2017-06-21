@@ -10,13 +10,14 @@ $this->params([
             'label'   => 'Updated',
             'class'   => 'col-right col-contract',
             'partial' => 'date-user',
-            'params'  => ['property' => 'modify'],
+            'params'  => ['name' => 'modify'],
             'sort'    => 80,
         ] : null,
         'status' => $info->is->publishable ? [
             'label'   => 'Status',
             'class'   => 'col-right col-contract col-badge',
             'partial' => 'status',
+            'params'  => ['name' => 'status'],
             'sort'    => 90,
         ] : null,
     ],
@@ -51,39 +52,60 @@ uasort($tableCols, function($a, $b) {
 });
 ?>
 
-<table class="multiselectable">
-    <colgroup>
-        <?php if (array_intersect(['batch', 'select-all'], $actions)) { ?>
-            <col class="col-select">
-        <?php } ?>
-        <?php foreach ($tableCols as $col) { ?>
-            <col class="<?= $col['class'] ?>">        
-        <?php } ?>
-    </colgroup>
-    <thead>
-        <tr>
+<?php if (count($entities)) { ?>
+    <table class="multiselectable">
+        <colgroup>
             <?php if (array_intersect(['batch', 'select-all'], $actions)) { ?>
-                <th scope="col" class="col-select">
-                    <input type="checkbox" id="select" class="multiselectable-all"><label for="select"></label>
-                    <?= $this->render('/element/form-input', [
-                        'type'   => 'input_hidden',
-                        'entity' => $model,
-                        'name'   => 'selectedList',
-                        'class'  => 'multiselectable-values',
-                    ], 'core') ?>
-                </th>
+                <col class="col-select">
             <?php } ?>
             <?php foreach ($tableCols as $col) { ?>
-                <th scope="col" class="<?= $col['class'] ?>" style="<?= $col['style'] ?>">
-                    <?= $col['label'] ?>
-                </th>
+                <col class="<?= $col['class'] ?>">
             <?php } ?>
-        </tr>
-    </thead>
-    <tbody class="uploadable-list">
-        <?php if (count($entities)) { ?>
+        </colgroup>
+        <thead>
+            <tr>
+                <?php if (array_intersect(['batch', 'select-all'], $actions)) { ?>
+                    <th scope="col" class="col-select">
+                        <input type="checkbox" id="select" class="multiselectable-all"><label for="select"></label>
+                        <?= $this->render('/element/form-input', [
+                            'type'   => 'input_hidden',
+                            'entity' => $model,
+                            'name'   => 'selectedList',
+                            'class'  => 'multiselectable-values',
+                        ], 'core') ?>
+                    </th>
+                <?php } ?>
+                <?php foreach ($tableCols as $col) { ?>
+                    <th scope="col" class="<?= $col['class'] ?>" style="<?= $col['style'] ?>">
+                        <?= $col['label'] ?>
+                    </th>
+                <?php } ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $currentGroup = null;
+            ?>
             <?php foreach ($entities as $entity) { ?>
-                <tr class="<?= array_intersect(['batch', 'select-all'], $actions) ? 'selectable' : null ?> <?= array_intersect(['update', 'select-one'], $actions) ? 'clickable' : null ?>">        
+                <?php if (isset($group) && $currentGroup !== $entity->{$group}) { ?>
+                    </tbody><thead class="tgroup">
+                    <tr>
+                        <?php if (array_intersect(['batch', 'select-all'], $actions)) { ?>
+                            <th></th>
+                        <?php } ?>
+                        <th colspan="<?= count($tableCols) ?>">
+                            <?= $entity->{$group}->previewName ?>
+                        </th>
+                    </tr>
+                    </thead><tbody>
+                    <?php $currentGroup = $entity->{$group} ?>
+                <?php } ?>
+                <?php
+                if (isset($skip) && !isset($entity->{$skip})) {
+                    continue;
+                }
+                ?>
+                <tr class="<?= array_intersect(['batch', 'select-all'], $actions) ? 'selectable' : null ?> <?= array_intersect(['update', 'select-one'], $actions) ? 'clickable' : null ?>">
                     <?php if (array_intersect(['batch', 'select-all'], $actions)) { ?>
                         <td class="col-select">
                             <?= $this->partial('checkbox', [
@@ -91,6 +113,7 @@ uasort($tableCols, function($a, $b) {
                             ]) ?>
                         </td>
                     <?php } ?>
+                    <?php $c = 0 ?>
                     <?php foreach ($tableCols as $col) { ?>
                         <?php
                         if (isset($col['partial'])) {
@@ -100,19 +123,25 @@ uasort($tableCols, function($a, $b) {
                         }
                         ?>
                         <?php if (strlen($html)) { ?>
-                            <td class="<?= $col['class'] ?>" style="<?= $col['style'] ?>">
+                            <?php
+                            $style = $col['style'];
+                            if ($c == 0 && isset($indent)) {
+                                $padding = $entity->{$indent} * 1;
+                                $style .= "; text-indent: {$padding}em";
+                            }
+                            ?>
+                            <td class="<?= $col['class'] ?>" style="<?= $style ?>">
                                 <?= $html ?>
                             </td>
                         <?php } ?>
+                        <?php $c++ ?>
                     <?php } ?>
                 </tr>
             <?php } ?>
-        <?php } else { ?>
-            <tr>
-                <td class="notice" colspan="<?= 3 + count($tableCols) ?>">
-                    <?= $this->partial('notice') ?>
-                </td>
-            </tr>
-        <?php } ?>
-    </tbody>
-</table>
+        </tbody>
+    </table>
+<?php } else { ?>
+    <div class="notice">
+        <?= $this->partial('notice') ?>
+    </div>
+<?php } ?>

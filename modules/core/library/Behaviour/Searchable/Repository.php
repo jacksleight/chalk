@@ -13,21 +13,23 @@ use Chalk\Chalk,
 
 trait Repository
 {
-    protected function _searchable_modify(QueryBuilder $query, $params = array(), $extra = false, $alias = null)
+    protected function _searchable_modify(QueryBuilder $query, $params = array(), $extra = false, $alias = null, $class = null)
     {
         $alias = isset($alias)
             ? $alias
             : $this->alias();
+        $class = isset($class)
+            ? $class
+            : $this->_class->name;
 
         $params = $params + [
             'search' => null,
         ];
 
         if (isset($params['search'])) {
-            $info = Chalk::info($this->_class->name);
             $classes = array_merge(
-                [$info->class],
-                $this->_em->getClassMetadata($info->class)->subClasses
+                [$class],
+                $this->_em->getClassMetadata($class)->subClasses
             );
             $results = $this->_em->getRepository('Chalk\Core\Search')
                 ->search($params['search'], $classes);

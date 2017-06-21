@@ -1,5 +1,8 @@
-<?php if (isset($entity->{"{$property}Date"})) { ?>
-    <?= $entity->{"{$property}Date"}->diffForHumans() ?>
+<?php
+list($entity, $name) = Chalk\traverse_name($entity, $name);
+?>
+<?php if (isset($entity->{"{$name}Date"})) { ?>
+    <?= $entity->{"{$name}Date"}->diffForHumans() ?>
 <?php } else { ?>
     —
 <?php } ?>

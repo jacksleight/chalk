@@ -1,6 +1,6 @@
 <?php
-$property = isset($property) ? $property : 'status';
+list($entity, $name) = Chalk\traverse_name($entity, $name);
 ?>
-<span class="badge badge-upper badge-<?= $this->app->statusClass($entity->{$property}) ?>">
-    <?= $entity->{$property} ?>
+<span class="badge badge-upper badge-<?= $this->app->statusClass($entity->{$name}) ?>">
+    <?= $entity->{$name} ?>
 </span>

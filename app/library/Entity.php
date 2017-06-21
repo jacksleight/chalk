@@ -15,16 +15,16 @@ abstract class Entity extends \Toast\Entity
     public static $chalkText     = null;
     public static $chalkGroup    = null;
 	public static $chalkIcon     = null;
-    
+
     public function previewName()
     {
         return property_exists($this, 'name')
             ? $this->name
             : null;
     }
-    
+
     public function previewText($context = false, $parts = array())
-    {   
+    {
         $type = $this->typeLabel;
         if (!$context) {
             array_unshift($parts, $this->typeLabel);
@@ -38,13 +38,18 @@ abstract class Entity extends \Toast\Entity
         }
         return $parts;
     }
-    
+
     public function previewFile()
     {}
 
     public function type()
     {
         return Chalk::info($this)->name;
+    }
+
+    public function typeIcon()
+    {
+        return Chalk::info($this)->icon;
     }
 
     public function typeLabel()

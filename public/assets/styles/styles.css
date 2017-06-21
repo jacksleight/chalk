@@ -2012,7 +2012,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   vertical-align: -1px;
-  padding-right: 3px;
+  padding-right: 1px;
 }
 
 /* Icons */
@@ -2102,18 +2102,18 @@ h1 {
 }
 
 h2 {
-  font-size: 24.334px;
-  font-size: 1.520875rem;
-}
-
-h3 {
   font-size: 21.16px;
   font-size: 1.3225rem;
 }
 
-h4 {
+h3 {
   font-size: 18.4px;
   font-size: 1.15rem;
+}
+
+h4 {
+  font-size: 16px;
+  font-size: 1rem;
 }
 
 h5 {
@@ -2144,6 +2144,7 @@ table {
   margin: 20px 0 0 0;
   border-spacing: 0;
   border-radius: 0px;
+  border-collapse: collapse;
 }
 
 table th, table td {
@@ -2164,9 +2165,37 @@ table th, table th a {
   color: #20252a;
 }
 
-table thead th {
-  padding-top: 0 !important;
+table thead th, table thead td {
   font-weight: bold;
+}
+
+table thead:not(.tgroup) tr th, table thead:not(.tgroup) tr td {
+  border-bottom: 1px solid;
+}
+
+table thead:not(.tgroup) tr th, table thead:not(.tgroup) tr td {
+  border-color: #dedede;
+}
+
+.darktable thead:not(.tgroup) tr th, .darktable thead:not(.tgroup) tr td,
+.dark table thead:not(.tgroup) tr th,
+.dark table thead:not(.tgroup) tr td {
+  border-color: #181c20;
+}
+
+table thead.tgroup td, table thead.tgroup th {
+  color: #969a9e;
+  border-top: 1px solid;
+}
+
+table thead.tgroup td, table thead.tgroup th {
+  border-color: #dedede;
+}
+
+.darktable thead.tgroup td, .darktable thead.tgroup th,
+.dark table thead.tgroup td,
+.dark table thead.tgroup th {
+  border-color: #181c20;
 }
 
 table tbody th, table tbody td {
@@ -2184,18 +2213,9 @@ table tbody th, table tbody td {
   border-color: #2f383f;
 }
 
-table tbody tr:first-child th, table tbody tr:first-child td {
-  border-top: 1px solid;
-}
-
-table tbody tr:first-child th, table tbody tr:first-child td {
-  border-color: #dedede;
-}
-
-.darktable tbody tr:first-child th, .darktable tbody tr:first-child td,
-.dark table tbody tr:first-child th,
-.dark table tbody tr:first-child td {
-  border-color: #181c20;
+table colgroup + thead tr:first-child th, table colgroup + thead tr:first-child td {
+  border-top: 0 !important;
+  padding-top: 0 !important;
 }
 
 table caption {
