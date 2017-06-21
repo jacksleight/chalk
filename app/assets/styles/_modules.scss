@@ -1508,9 +1508,8 @@ legend {
 		width: 38px;
 		border: 1px solid;
 		border-left: 0;
-		@include colors(null, 1, 4);
+		@include colors(null, 4, 4);
 		.btn {
-			color: #999999;
 			border-color: transparent !important;
 			background-color: transparent !important;
 		}
