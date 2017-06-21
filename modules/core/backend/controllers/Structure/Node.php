@@ -22,8 +22,8 @@ class Node extends Entity
             : $this->em($this->info)->create();
         $content = $entity->content;
 
-        $req->param('id', $content->id);
-        $req->param('nodeId', $entity->id);
+        $req->pathParam('id', $content->id);
+        $req->queryParam('nodesList', $entity->id);
 
         $route   = $this->url($content, null, true);
         $params  = $route['params'];

@@ -12,6 +12,7 @@ use Chalk\Repository;
 use Chalk\Core\Behaviour\Publishable;
 use Chalk\Core\Behaviour\Searchable;
 use Chalk\Core\Behaviour\Tagable;
+use Chalk\Core\Behaviour\Trackable;
 use DateTime;
 
 class Content extends Repository
@@ -19,6 +20,7 @@ class Content extends Repository
     use Publishable\Repository;
     use Searchable\Repository;
     use Tagable\Repository;
+    use Trackable\Repository;
 
     protected $_sort = ['name', 'ASC'];
 
@@ -27,14 +29,10 @@ class Content extends Repository
         $query = parent::build($params, $extra);
 
         $params = $params + [
-            'types'         => null,
-            'subtypes'      => null,
-            'createDateMin' => null,
-            'createDateMax' => null,
-            'modifyDateMin' => null,
-            'modifyDateMax' => null,
-            'createUsers'   => null,
-            'statuses'      => null,
+            'filtersInfo' => null,
+            'types'       => null,
+            'subtypes'    => null,
+            'nodes'       => null,
         ];
 
         if (isset($params['filtersInfo'])) {
@@ -44,7 +42,7 @@ class Content extends Repository
             }
             $params['types'] = $types;
         }
-             
+
         if (isset($params['types']) && count($params['types'])) {
             $all = [];
             foreach ($types as $name => $subtypes) {
@@ -76,54 +74,18 @@ class Content extends Repository
                 ->setParameter('subtypes', $params['subtypes']);
         }
 
-        if (isset($params['createDateMin'])) {
-            $createDateMin = $params['createDateMin'] instanceof DateTime
-                ? $params['createDateMin']
-                : new DateTime($params['createDateMin']);
+        if (isset($params['nodes']) && count($params['nodes'])) {
             $query
-                ->andWhere("{$this->alias()}.createDate >= :createDateMin")
-                ->setParameter('createDateMin', $createDateMin);
-        }
-        if (isset($params['createDateMax'])) {
-            $createDateMax = $params['createDateMax'] instanceof DateTime
-                ? $params['createDateMax']
-                : new DateTime($params['createDateMax']);
-            $query
-                ->andWhere("{$this->alias()}.createDate <= :createDateMax")
-                ->setParameter('createDateMax', $createDateMax);
-        }
-
-        if (isset($params['modifyDateMin'])) {
-            $modifyDateMin = $params['modifyDateMin'] instanceof DateTime
-                ? $params['modifyDateMin']
-                : new DateTime($params['modifyDateMin']);
-            $query
-                ->andWhere("{$this->alias()}.modifyDate >= :modifyDateMin")
-                ->setParameter('modifyDateMin', $modifyDateMin);
-        }
-        if (isset($params['modifyDateMax'])) {
-            $modifyDateMax = $params['modifyDateMax'] instanceof DateTime
-                ? $params['modifyDateMax']
-                : new DateTime($params['modifyDateMax']);
-            $query
-                ->andWhere("{$this->alias()}.modifyDate <= :modifyDateMax")
-                ->setParameter('modifyDateMax', $modifyDateMax);
-        }
-
-        if (isset($params['createUsers'])) {
-            $query
-                ->andWhere("{$this->alias()}.createUser IN (:createUsers)")
-                ->setParameter('createUsers', $params['createUsers']);
-        }
-        if (isset($params['statuses']) && count($params['statuses'])) {
-            $query
-                ->andWhere("{$this->alias()}.status IN (:statuses)")
-                ->setParameter('statuses', $params['statuses']);
+                ->addSelect("n")
+                ->leftJoin("{$this->alias()}.nodes", "n")
+                ->andWhere(":nodes MEMBER OF {$this->alias()}.nodes")
+                ->setParameter('nodes', $params['nodes']);
         }
 
         $this->_publishable_modify($query, $params, $extra);
         $this->_searchable_modify($query, $params, $extra);
         $this->_tagable_modify($query, $params, $extra);
+        $this->_trackable_modify($query, $params, $extra);
 
         return $query;
     }
@@ -134,7 +96,7 @@ class Content extends Repository
             ->select("{$this->alias()}.subtype AS subtype, COUNT({$this->alias()}) AS total")
             ->groupBy("{$this->alias()}.subtype")
             ->andWhere("{$this->alias()}.subtype IS NOT NULL");
-        
+
         $query = $this->prepare($query, [
             'hydrate' => Repository::HYDRATE_ARRAY
         ] + $opts);

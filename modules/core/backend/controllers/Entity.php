@@ -153,7 +153,7 @@ abstract class Entity extends Action
     public function update(Request $req, Response $res)
     {
         $entity = isset($req->id)
-            ? $this->em($this->info)->id($req->id)
+            ? $this->em($this->info)->id($req->id, $this->model->toArray())
             : $this->em($this->info)->create();
         if ($entity->isNew()) {
             $this->_create($req, $res, $entity, $this->model);

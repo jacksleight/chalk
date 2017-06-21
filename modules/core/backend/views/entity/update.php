@@ -5,5 +5,9 @@
 
 <form action="<?= $this->url->route() ?>" method="post" data-modal-size="800">
     <?= $this->inner("form") ?>
-    <?= $this->url->queryInputs() ?>
+    <?= $this->url->queryInputs([
+        'selectedList' => $model->selectedList,
+        'selectedType' => $model->selectedType,
+        'tagsList'     => $model->tagsList,
+    ], true) ?>
 </form>

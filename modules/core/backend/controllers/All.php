@@ -1,7 +1,7 @@
 <?php
 /*
  * Copyright 2017 Jack Sleight <http://jacksleight.com/>
- * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
+ * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md.
  */
 
 namespace Chalk\Core\Backend\Controller;
@@ -90,13 +90,10 @@ class All extends Action
 
     protected function _modelClass(Request $req)
     {
-        $parts      = explode('_', $req->dispatch['controller']);
-        $parts      = array_map('\Coast\str_camel_upper', $parts);
-        $controller = implode('\\', $parts);
-
-        $default = "Backend\\Controller\\{$controller}";
-        $default = $this->module->nspace($default);
-        $classes = array_merge(
+        $controller = implode('\\', array_map('\Coast\str_camel_upper', explode('/', $req->dispatch['controller'])));
+        $default    = "Backend\\Controller\\{$controller}";
+        $default    = $this->module->nspace($default);
+        $classes    = array_merge(
             [$default],
             array_values(class_parents($default))
         );

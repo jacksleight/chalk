@@ -1,7 +1,7 @@
 <?php
 /*
  * Copyright 2017 Jack Sleight <http://jacksleight.com/>
- * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
+ * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md.
  */
 
 namespace Toast;
@@ -11,31 +11,31 @@ use ArrayAccess;
 
 class Entity implements ArrayAccess
 {
-	const MD_TABLE			= 'MD_TABLE';
-	const MD_INHERITANCE	= 'MD_INHERITANCE';
-	const MD_FIELD_NAMES	= 'MD_FIELD_NAMES';
-	const MD_FIELDS			= 'MD_FIELDS';
-	const MD_ASSOC_NAMES	= 'MD_ASSOC_NAMES';
-	const MD_ASSOCS			= 'MD_ASSOCS';
-	const MD_PROPERTY_NAMES	= 'MD_PROPERTY_NAMES';
-	const MD_PROPERTIES		= 'MD_PROPERTIES';
-	const MD_PROPERTY		= 'MD_PROPERTY';
+    const MD_TABLE          = 'MD_TABLE';
+    const MD_INHERITANCE    = 'MD_INHERITANCE';
+    const MD_FIELD_NAMES    = 'MD_FIELD_NAMES';
+    const MD_FIELDS         = 'MD_FIELDS';
+    const MD_ASSOC_NAMES    = 'MD_ASSOC_NAMES';
+    const MD_ASSOCS         = 'MD_ASSOCS';
+    const MD_PROPERTY_NAMES = 'MD_PROPERTY_NAMES';
+    const MD_PROPERTIES     = 'MD_PROPERTIES';
+    const MD_PROPERTY       = 'MD_PROPERTY';
 
-	protected static $_md;
+    protected static $_md;
 
-	// protected $_validated	= false;
-	protected $_errors		= array();
+    // protected $_validated    = false;
+    protected $_errors      = array();
 
-	protected static function _fetchMetadata()
-	{
-		$class = get_called_class();
-		try {
-			$meta = \Toast\Wrapper::$em->getClassMetadata($class);
-		} catch(\Exception $e) {
-			return [];
-		}
+    protected static function _fetchMetadata()
+    {
+        $class = get_called_class();
+        try {
+            $meta = \Toast\Wrapper::$em->getClassMetadata($class);
+        } catch(\Exception $e) {
+            return [];
+        }
 
-		$types = [
+        $types = [
             1  => 'oneToOne',
             2  => 'manyToOne',
             4  => 'oneToMany',
@@ -62,227 +62,227 @@ class Entity implements ArrayAccess
             ];
         }
         return $md;
-	}
+    }
 
-	protected static function _getMetadata()
-	{
-		$class = get_called_class();
-		if (!isset(self::$_md[$class])) {
-			self::$_md[$class] = static::_parseMetadata(\Coast\array_merge_smart($class::_fetchMetadata($class), $class::_defineMetadata($class)));
-		}
-		return self::$_md[$class];
-	}
+    protected static function _getMetadata()
+    {
+        $class = get_called_class();
+        if (!isset(self::$_md[$class])) {
+            self::$_md[$class] = static::_parseMetadata(\Coast\array_merge_smart($class::_fetchMetadata($class), $class::_defineMetadata($class)));
+        }
+        return self::$_md[$class];
+    }
 
-	protected static function _parseMetadata($md)
-	{	
-		$md = array_merge(array(
-			'fields'		=> array(),
-			'associations'	=> array(),
-			'properties'	=> array(),
-		), $md);
+    protected static function _parseMetadata($md)
+    {
+        $md = array_merge(array(
+            'fields'        => array(),
+            'associations'  => array(),
+            'properties'    => array(),
+        ), $md);
 
-		foreach ($md['fields'] as $name => $field) {
-			$field = \Coast\array_merge_smart(array(
-				'id'		=> false,
-				'type'		=> null,
-				'length'	=> null,
-				'nullable'	=> false,
-				'validator'	=> new Validator(),
-			), $field);
-			$validator = new Validator();
-			if (!$field['id']) {
+        foreach ($md['fields'] as $name => $field) {
+            $field = \Coast\array_merge_smart(array(
+                'id'        => false,
+                'type'      => null,
+                'length'    => null,
+                'nullable'  => false,
+                'validator' => new Validator(),
+            ), $field);
+            $validator = new Validator();
+            if (!$field['id']) {
                 if (!$field['nullable']) {
-                    $validator->set()->break();                    
+                    $validator->set()->break();
                 } else {
                     $validator->break();
                 }
-			}
-			if ($field['type'] == 'integer' || $field['type'] == 'smallint' || $field['type'] == 'bigint') {
-				$validator->integer();
-			} else if ($field['type'] == 'float' || $field['type'] == 'decimal') {
-				$validator->float();
-			} else if ($field['type'] == 'boolean') {
-				$validator->boolean();
-			} else if ($field['type'] == 'array' || $field['type'] == 'simple_array' || $field['type'] == 'json_array') {
-				$validator->array();
-			} else if ($field['type'] == 'string' || $field['type'] == 'text' || $field['type'] == 'guid') {
-				$validator->string();
-			} else if ($field['type'] == 'date') {
-				$validator->object('DateTime');
-			} else if ($field['type'] == 'time') {
-				$validator->object('DateTime');
-			} else if ($field['type'] == 'datetime' || $field['type'] == 'datetimez') {
-				$validator->object('DateTime');
-			}
-			if (isset($field['length'])) {
-				$validator->length(null, $field['length']);
-			}
-			$validator->steps($field['validator']->steps());
-			$field['validator']			= $validator;
-			$md['fields'][$name]		= $field;
-			$md['properties'][$name]	= $md['fields'][$name];
-		}
+            }
+            if ($field['type'] == 'integer' || $field['type'] == 'smallint' || $field['type'] == 'bigint') {
+                $validator->integer();
+            } else if ($field['type'] == 'float' || $field['type'] == 'decimal') {
+                $validator->float();
+            } else if ($field['type'] == 'boolean') {
+                $validator->boolean();
+            } else if ($field['type'] == 'array' || $field['type'] == 'simple_array' || $field['type'] == 'json_array') {
+                $validator->array();
+            } else if ($field['type'] == 'string' || $field['type'] == 'text' || $field['type'] == 'guid') {
+                $validator->string();
+            } else if ($field['type'] == 'date') {
+                $validator->object('DateTime');
+            } else if ($field['type'] == 'time') {
+                $validator->object('DateTime');
+            } else if ($field['type'] == 'datetime' || $field['type'] == 'datetimez') {
+                $validator->object('DateTime');
+            }
+            if (isset($field['length'])) {
+                $validator->length(null, $field['length']);
+            }
+            $validator->steps($field['validator']->steps());
+            $field['validator']         = $validator;
+            $md['fields'][$name]        = $field;
+            $md['properties'][$name]    = $md['fields'][$name];
+        }
 
-		foreach ($md['associations'] as $name => $assoc) {
-			$assoc = \Coast\array_merge_smart(array(
-				'type'		=> null,
-				'entity'	=> null,
-				'nullable'	=> false,
-				'validator'	=> new Validator(),
-			), $assoc);
-			$validator = new Validator();
-			if (!$assoc['nullable'] && $assoc['type'] == 'manyToOne') {
-				$validator->set()->break();
-			}
-			$validator->steps($assoc['validator']->steps());
-			$assoc['validator'] = $validator;
+        foreach ($md['associations'] as $name => $assoc) {
+            $assoc = \Coast\array_merge_smart(array(
+                'type'      => null,
+                'entity'    => null,
+                'nullable'  => false,
+                'validator' => new Validator(),
+            ), $assoc);
+            $validator = new Validator();
+            if (!$assoc['nullable'] && $assoc['type'] == 'manyToOne') {
+                $validator->set()->break();
+            }
+            $validator->steps($assoc['validator']->steps());
+            $assoc['validator'] = $validator;
 
-			$md['associations'][$name]	= $assoc;
-			$md['properties'][$name]	= $md['associations'][$name];
-		}
+            $md['associations'][$name]  = $assoc;
+            $md['properties'][$name]    = $md['associations'][$name];
+        }
 
-		return $md;
-	}
+        return $md;
+    }
 
-	protected static function _defineMetadata($class)
-	{
-		return array();
-	}
-	
-	public function __construct()
-	{	
-		$assocs = $this->getMetadata(self::MD_ASSOCS);
-		foreach ($assocs as $name => $assoc) {
-			if ($assoc['type'] == 'oneToMany' || $assoc['type'] == 'manyToMany') {
-				$this->{$name} = new \Doctrine\Common\Collections\ArrayCollection();
-			}
-		}
-	}
+    protected static function _defineMetadata($class)
+    {
+        return array();
+    }
 
-	public function hasProperty($name)
-	{
-		$md = self::_getMetadata();
-		return isset($md['properties'][$name]);
-	}
+    public function __construct()
+    {
+        $assocs = $this->getMetadata(self::MD_ASSOCS);
+        foreach ($assocs as $name => $assoc) {
+            if ($assoc['type'] == 'oneToMany' || $assoc['type'] == 'manyToMany') {
+                $this->{$name} = new \Doctrine\Common\Collections\ArrayCollection();
+            }
+        }
+    }
 
-	public function getMetadata($type = null, $name = null)
-	{
-		$md = self::_getMetadata();
+    public function hasProperty($name)
+    {
+        $md = self::_getMetadata();
+        return isset($md['properties'][$name]);
+    }
 
-		switch ($type) {
-			case self::MD_TABLE:
-				$md = $md['table'];
-			break;
-			case self::MD_INHERITANCE:
-				$md = $md['inheritance'];
-			break;
-			case self::MD_FIELD_NAMES:
-				$md = array_keys($md['fields']);
-			break;
-			case self::MD_FIELDS:
-				$md = $md['fields'];
-			break;
-			case self::MD_ASSOC_NAMES:
-				$md = array_keys($md['associations']);
-			break;
-			case self::MD_ASSOCS:
-				$md = $md['associations'];
-			break;
-			case self::MD_PROPERTY_NAMES:
-				$md = array_keys($md['properties']);
-			break;
-			case self::MD_PROPERTIES:
-			case self::MD_PROPERTY:
-				$md = $type == self::MD_PROPERTY
-					? array($name => $md['properties'][$name])
-					: $md['properties'];
-				foreach ($md as $key => $value) {
-					$value['name'] = $key;
-					$value['validator'] = clone $value['validator'];
-					$method = '_alterMetadata';
-					$value = method_exists($this, $method)
-						? $this->{$method}($key, $value)
-						: $value;
-					$method = '_alter' . ucfirst($key) . 'Metadata';
-					$value = method_exists($this, $method)
-						? $this->{$method}($value)
-						: $value;
-					$md[$key] = $value;
-				}
-				$md = $type == self::MD_PROPERTY
-					? $md[$name]
-					: $md;
-			break;
-		}
+    public function getMetadata($type = null, $name = null)
+    {
+        $md = self::_getMetadata();
 
-		return $md;
-	}
+        switch ($type) {
+            case self::MD_TABLE:
+                $md = $md['table'];
+            break;
+            case self::MD_INHERITANCE:
+                $md = $md['inheritance'];
+            break;
+            case self::MD_FIELD_NAMES:
+                $md = array_keys($md['fields']);
+            break;
+            case self::MD_FIELDS:
+                $md = $md['fields'];
+            break;
+            case self::MD_ASSOC_NAMES:
+                $md = array_keys($md['associations']);
+            break;
+            case self::MD_ASSOCS:
+                $md = $md['associations'];
+            break;
+            case self::MD_PROPERTY_NAMES:
+                $md = array_keys($md['properties']);
+            break;
+            case self::MD_PROPERTIES:
+            case self::MD_PROPERTY:
+                $md = $type == self::MD_PROPERTY
+                    ? array($name => $md['properties'][$name])
+                    : $md['properties'];
+                foreach ($md as $key => $value) {
+                    $value['name'] = $key;
+                    $value['validator'] = clone $value['validator'];
+                    $method = '_alterMetadata';
+                    $value = method_exists($this, $method)
+                        ? $this->{$method}($key, $value)
+                        : $value;
+                    $method = '_alter' . ucfirst($key) . 'Metadata';
+                    $value = method_exists($this, $method)
+                        ? $this->{$method}($value)
+                        : $value;
+                    $md[$key] = $value;
+                }
+                $md = $type == self::MD_PROPERTY
+                    ? $md[$name]
+                    : $md;
+            break;
+        }
 
-	protected function _validate()
-	{
-		// $this->_validated = false;
-		$this->_errors = array();
+        return $md;
+    }
 
-		$this->_preValidate();
-		
-		$properties = $this->getMetadata(self::MD_PROPERTIES);
-		foreach ($properties as $name => $property) {
-			if ($property['nullable'] && !isset($this->{$name})) {
-				continue;
-			}
-			$validator = $property['validator'];
-			if (!$validator($this->{$name})) {
-				foreach ($validator->errors() as $error) {
-					$this->addError($name, $error[0] . (isset($error[1]) ? "_{$error[1]}" : null), $error[2]);
-				}
-			}
-		}
+    protected function _validate()
+    {
+        // $this->_validated = false;
+        $this->_errors = array();
 
-		$this->_postValidate();
+        $this->_preValidate();
 
-		// $this->_validated = true;
-	}
+        $properties = $this->getMetadata(self::MD_PROPERTIES);
+        foreach ($properties as $name => $property) {
+            if ($property['nullable'] && !isset($this->{$name})) {
+                continue;
+            }
+            $validator = $property['validator'];
+            if (!$validator($this->{$name})) {
+                foreach ($validator->errors() as $error) {
+                    $this->addError($name, $error[0] . (isset($error[1]) ? "_{$error[1]}" : null), $error[2]);
+                }
+            }
+        }
 
-	protected function _preValidate()
-	{}
+        $this->_postValidate();
 
-	protected function _postValidate()
-	{}
+        // $this->_validated = true;
+    }
 
-	public function addError($name, $code, array $params = array())
-	{
-		if (!isset($this->_errors[$name])) {
-			$this->_errors[$name] = array();
-		}
-		return $this->_errors[$name][$code] = $params;
-	}
+    protected function _preValidate()
+    {}
 
-	public function isValid(array $names = null)
-	{
-		// if (!$this->_validated) {
-			$this->_validate();
-		// }
-		return !$this->hasErrors($names);
-	}
+    protected function _postValidate()
+    {}
 
-	public function hasErrors(array $names = null)
-	{
-		return isset($names)
-			? count(\Coast\array_intersect_key($this->_errors, $names)) > 0
-			: count($this->_errors) > 0;
-	}
+    public function addError($name, $code, array $params = array())
+    {
+        if (!isset($this->_errors[$name])) {
+            $this->_errors[$name] = array();
+        }
+        return $this->_errors[$name][$code] = $params;
+    }
 
-	public function getErrors(array $names = null)
-	{
-		return isset($names)
-			? \Coast\array_intersect_key($this->_errors, $names)
-			: $this->_errors;
-	}
+    public function isValid(array $names = null)
+    {
+        // if (!$this->_validated) {
+            $this->_validate();
+        // }
+        return !$this->hasErrors($names);
+    }
 
-	public function isNew()
-	{
-		return !isset($this->id);
-	}
+    public function hasErrors(array $names = null)
+    {
+        return isset($names)
+            ? count(\Coast\array_intersect_key($this->_errors, $names)) > 0
+            : count($this->_errors) > 0;
+    }
+
+    public function getErrors(array $names = null)
+    {
+        return isset($names)
+            ? \Coast\array_intersect_key($this->_errors, $names)
+            : $this->_errors;
+    }
+
+    public function isNew()
+    {
+        return !isset($this->id);
+    }
 
     public function toArray()
     {
@@ -307,57 +307,65 @@ class Entity implements ArrayAccess
     public function __set($name, $value)
     {
         if ($name[0] == '_') {
-            throw new \Exception("Access to '{$name}' is prohibited");  
+            throw new \Exception("Access to '{$name}' is prohibited");
         }
         $name = \Coast\str_camel($name);
         if (method_exists($this, $name)) {
             $this->{$name}($value);
         } else if (property_exists($this, $name)) {
             $this->{$name} = $value;
+        } else {
+            throw new \Exception("Property '{$name}' does not exist");
         }
     }
 
     public function __get($name)
     {
         if ($name[0] == '_') {
-            throw new \Exception("Access to '{$name}' is prohibited");  
+            throw new \Exception("Access to '{$name}' is prohibited");
         }
         $name = \Coast\str_camel($name);
         if (method_exists($this, $name)) {
             return $this->{$name}();
-        } else {
+        } else if (property_exists($this, $name)) {
             return $this->{$name};
+        } else {
+            throw new \Exception("Property '{$name}' does not exist");
         }
     }
 
     public function __isset($name)
     {
         if ($name[0] == '_') {
-            throw new \Exception("Access to '{$name}' is prohibited");  
+            throw new \Exception("Access to '{$name}' is prohibited");
         }
         $name = \Coast\str_camel($name);
         if (method_exists($this, $name)) {
             return $this->{$name}() !== null;
-        } else {
+        } else if (property_exists($this, $name)) {
             return $this->{$name} !== null;
+        } else {
+            throw new \Exception("Property '{$name}' does not exist");
         }
     }
 
     public function __unset($name)
     {
         if ($name[0] == '_') {
-            throw new \Exception("Access to '{$name}' is prohibited");  
+            throw new \Exception("Access to '{$name}' is prohibited");
         }
         $name = \Coast\str_camel($name);
         if (property_exists($this, $name)) {
             $this->{$name} = null;
+        } else {
+            throw new \Exception("Property '{$name}' does not exist");
         }
     }
 
     public function __call($name, array $args)
     {
         if ($name[0] == '_') {
-            throw new \Exception("Access to '{$name}' is prohibited");  
+            throw new \Exception("Access to '{$name}' is prohibited");
         }
         $name = \Coast\str_camel($name);
         if (isset($args[0])) {

@@ -26,6 +26,7 @@ trait Repository
             'isPublishable'  => false,
             'publishDateMin' => null,
             'publishDateMax' => null,
+            'statuses'       => null,
         ];
 
         if ($params['isPublished']) {
@@ -52,6 +53,12 @@ trait Repository
             $query
                 ->andWhere("{$alias}.publishDate <= :publishDateMax")
                 ->setParameter('publishDateMax', $publishDateMax);
+        }
+
+        if (isset($params['statuses']) && count($params['statuses'])) {
+            $query
+                ->andWhere("{$alias}.status IN (:statuses)")
+                ->setParameter('statuses', $params['statuses']);
         }
     }
 
@@ -96,5 +103,5 @@ trait Repository
         $years = array_values($years);
 
         return $years;
-    }  
+    }
 }

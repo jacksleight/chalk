@@ -1,7 +1,7 @@
 <?php
 /*
  * Copyright 2017 Jack Sleight <http://jacksleight.com/>
- * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md. 
+ * This source file is subject to the MIT license that is bundled with this package in the file LICENCE.md.
  */
 
 namespace Chalk\Core\Behaviour\Tagable;
@@ -11,7 +11,7 @@ use Chalk\Core\Tag;
 use Doctrine\Common\Collections\ArrayCollection;
 
 trait Entity
-{    
+{
     /**
      * @ManyToMany(targetEntity="\Chalk\Core\Tag", inversedBy="contents", cascade={"persist"})
      */
@@ -30,7 +30,7 @@ trait Entity
     }
 
     protected function _tagable_construct()
-    {   
+    {
         $this->tags = new ArrayCollection();
     }
 
