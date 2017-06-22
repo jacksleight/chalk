@@ -54,9 +54,9 @@ table {
 	border-collapse: collapse;
 	th, td { 
 		vertical-align: top;
-		padding: $gutter * 0.35 0 $gutter * 0.35 $gutter * 0.75;
-		&:first-child {
-			padding-left: 0;
+		padding: $gutter * 0.35 $gutter * 0.75 $gutter * 0.35 0;
+		&:last-child {
+			padding-right: 0;
 		}
 	}
 	th {

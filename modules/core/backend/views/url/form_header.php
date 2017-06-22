@@ -3,8 +3,8 @@
     <?php if (!$entity->isNew()) { ?>
         <?= $entity->name ?>
     <?php } else { ?>
-        New <?= $entity->subtype == 'mailto'
-            ? str_replace('URL', 'Email URL', $info->singular)
+        New <?= $entity->subtype == 'MAILTO'
+            ? str_replace('Link', 'Email Link', $info->singular)
             : $info->singular ?>
     <?php } ?>
 </h1>

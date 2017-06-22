@@ -78,6 +78,9 @@ $icons: (
 .icon-move:before {
 	transform: rotate(45deg) scale(0.8, 0.8);
 }
+.icon-add:before {
+	transform: scale(0.95, 0.95);
+}
 .icon-user:before {
 	transform: scale(1.2, 1.2);
 }

@@ -1,0 +1,24 @@
+<?php
+$infos = $this->hook->fire('core_info/core_node', new Chalk\Info())->fetch('isPrimary', false);
+?>
+<?php foreach ($infos as $info) { ?>
+    <?php
+    if (isset($info->isExisting)) {
+        continue;
+    }
+    ?>
+    <li><a href="<?= $this->url([
+        'action' => 'update',
+        'id'     => null,
+    ]) . $this->url->query([
+        'nodeType' => $info->name,
+    ], true) ?>" class="item icon-<?= $info->icon ?>">
+        New <?= $info->singular ?>
+    </a></li>
+<?php } ?>
+<li><a href="<?= $this->url([
+    'action' => 'update',
+    'id'     => null,
+]) ?>" class="item icon-browse">
+    Add Existing
+</a></li>

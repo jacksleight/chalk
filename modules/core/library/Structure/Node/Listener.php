@@ -107,7 +107,7 @@ class Listener implements EventSubscriber
                 $node->sort  = $i;
                 $node->depth = $tree->getDepth();
                 $nodes       = $stack;
-                array_shift($nodes);               
+                array_shift($nodes);
                 $parts = array_map(function($node) {
                     return isset($node->slug) ? $node->slug : $node->content->slug;
                 }, $nodes);

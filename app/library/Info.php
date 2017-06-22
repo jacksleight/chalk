@@ -9,8 +9,9 @@ namespace Chalk;
 use Chalk\Chalk;
 use Iterator;
 use Countable;
+use Chalk\Hook;
 
-class Info implements Iterator, Countable
+class Info implements Iterator, Countable, Hook
 {
     protected $_items = [];
 
@@ -26,7 +27,7 @@ class Info implements Iterator, Countable
             }
             return $this;
         }
-        return $this->_items[$name];  
+        return $this->_items[$name];
     }
 
     public function items(array $items = null)
@@ -40,14 +41,6 @@ class Info implements Iterator, Countable
         return $this->_items;
     }
 
-    public function sort()
-    {
-        uasort($this->_items, function($a, $b) {
-            return strcmp("{$a->group} {$a->singular}", "{$b->group} {$b->singular}");
-        });
-        return $this;
-    }
-    
     public function has($name)
     {
         return isset($this->_items[$name]);
@@ -93,5 +86,32 @@ class Info implements Iterator, Countable
     {
         end($this->_items);
         return count($this->_items) ? current($this->_items) : null;
+    }
+
+    public function fetch($flag, $match = true)
+    {
+        $items = [];
+        foreach ($this->_items as $item) {
+            if ($match) {
+                if (isset($item->{$flag}) && $item->{$flag}) {
+                    $items[] = $item;
+                }
+            } else {
+                if (!isset($item->{$flag}) || !$item->{$flag}) {
+                    $items[] = $item;
+                }
+            }
+        }
+        return $items;
+    }
+
+    public function preFire()
+    {}
+
+    public function postFire()
+    {
+        uasort($this->_items, function($a, $b) {
+            return strcmp("{$a->group} {$a->singular}", "{$b->group} {$b->singular}");
+        });
     }
 }

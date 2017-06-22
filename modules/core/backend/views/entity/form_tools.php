@@ -8,12 +8,7 @@
         </a></li>
     <?php } ?>
     <?php if (array_intersect(['create'], $actions) && !$entity->isNew()) { ?>
-        <li><a href="<?= $this->url([
-                'action'    => 'update',
-                'id'        => null,
-            ]) ?>" class="btn btn-focus btn-out icon-add">
-            New <?= $info->singular ?>
-        </a></li>
+        <li><?= $this->inner('new', ['class' => 'btn-out']) ?></li>
     <?php } ?>
 	<?= $this->partial('tools-bottom') ?>
 </ul>

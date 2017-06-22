@@ -15,7 +15,7 @@
         'name'          => 'mailtoBody',
         'label'         => 'Body',
         'rows'          => 6,
-    ), 'core') ?>    
+    ), 'core') ?>
 <?php } else { ?>
     <?= $this->render('/element/form-item', array(
         'entity'        => $entity,

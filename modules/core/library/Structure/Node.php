@@ -181,6 +181,14 @@ class Node extends Entity
             : [$this];
     }
 
+    public function typeIcon()
+    {
+        if (!isset($this->content)) {
+            return;
+        }
+        return $this->content->typeIcon();
+    }
+
     public function previewName()
     {
         if (isset($this->name)) {
@@ -280,6 +288,14 @@ class Node extends Entity
             return;
         }
         return $this->content->isDraft;
+    }
+
+    public function restore()
+    {
+        if (!isset($this->content)) {
+            return;
+        }
+        return $this->content->restore();
     }
 
     public function depthFlat()

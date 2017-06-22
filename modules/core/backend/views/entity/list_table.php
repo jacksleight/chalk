@@ -126,8 +126,8 @@ uasort($tableCols, function($a, $b) {
                             <?php
                             $style = $col['style'];
                             if ($c == 0 && isset($indent)) {
-                                $padding = $entity->{$indent} * 1;
-                                $style .= "; text-indent: {$padding}em";
+                                $padding = $entity->{$indent} * 20;
+                                $style .= "; padding-left: {$padding}px";
                             }
                             ?>
                             <td class="<?= $col['class'] ?>" style="<?= $style ?>">

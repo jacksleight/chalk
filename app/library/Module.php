@@ -151,10 +151,10 @@ abstract class Module implements Access
         return $this;
     }
 
-    public function frontendControllerAll($name, $class = 'All')
+    public function frontendControllerAll($name, $controller = 'all')
     {
         $this->frontend->controller
-            ->all([$class, $name]);
+            ->all([$controller, $name]);
         return $this;
     }
 
@@ -212,10 +212,10 @@ abstract class Module implements Access
         return $this;
     }
 
-    public function backendControllerAll($name, $class = 'All')
+    public function backendControllerAll($name, $controller = 'all')
     {
         $this->backend->controller
-            ->all([$class, $name]);
+            ->all([$controller, $name]);
         return $this;
     }
 

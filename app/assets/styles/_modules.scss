@@ -844,6 +844,9 @@ textarea,
 		&.btn-focus::after {
 			background-image: url(svg-dynamic(14 9.409, "M0 2.442l2.43-2.442 4.57 4.548 4.57-4.548 2.43 2.442-7 6.967z", white));
 		}
+		&.btn-focus.btn-out::after {
+			background-image: url(svg-dynamic(14 9.409, "M0 2.442l2.43-2.442 4.57 4.548 4.57-4.548 2.43 2.442-7 6.967z", $color-focus));
+		}
 	}
 	.form-group {
 		margin-top: 0;
@@ -866,8 +869,12 @@ textarea,
 		max-height: 300px;
 		overflow-y: auto;
 		overflow-x: hidden;
-		box-shadow: 0 5px 0 0 transparentize(black, 0.95);
+		box-shadow: 0 3px 0 0 transparentize(black, 0.95);
 		z-index: 500;
+		&.menu-right {
+			left: auto;
+			right: 0;
+		}
 	}
 	&.is-active .menu {
 		display: block;
@@ -1563,8 +1570,14 @@ legend {
 		}
 		button,
 		.btn {
-			&:not(:first-child) {
-				border-left-color: fade-out(white, 0.5) !important;
+			+ button,
+			+ .btn {
+				&:not(.btn-out) {
+					border-left-color: fade-out(white, 0.5) !important;
+				}
+				&.btn-out {
+					border-left-width: 0 !important
+				}
 			}
 		}
 		input,

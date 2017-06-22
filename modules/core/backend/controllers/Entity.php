@@ -101,6 +101,14 @@ abstract class Entity extends Action
         return $batches;
     }
 
+    protected function _redirect(Request $req, Response $res, ChalkEntity $entity)
+    {
+        return $this->url([
+            'action' => 'update',
+            'id'     => $entity->id,
+        ]);
+    }
+
     protected function _redirectParams(Request $req, Response $res, ChalkEntity $entity)
     {
         $redirectParams = [];
@@ -210,10 +218,10 @@ abstract class Entity extends Action
         }
 
         $this->notify("{$this->info->singular} <strong>{$entity->previewName}</strong> saved successfully", 'positive');
-        return $res->redirect($this->url([
-            'action' => 'update',
-            'id'     => $entity->id,
-        ]) . $this->url->query($this->_redirectParams($req, $res, $entity->getObject()), true));
+        return $res->redirect(
+            $this->_redirect($req, $res, $entity->getObject()) .
+            $this->url->query($this->_redirectParams($req, $res, $entity->getObject()), true)
+        );
     }
 
     public function process(Request $req, Response $res)
@@ -239,22 +247,20 @@ abstract class Entity extends Action
         }
 
         $this->notify("{$this->info->singular} <strong>{$entity->previewName}</strong> was {$this->labels[$req->action]} successfully", 'positive');
-        if (isset($this->model->redirect)) {
-            return $res->redirect($this->model->redirect);
-        } else if ($req->action == 'delete') {
+        if ($req->action == 'delete') {
             return $res->redirect($this->url([
                 'action' => null,
                 'id'     => null,
-            ]) . $this->url->query($this->_redirectParams($req, $res, $entity->getObject()), true));
+            ]) . $this->url->query($this->_redirectParams($req, $res, $entity), true));
         } else if (isset($new)) {
             return $res->redirect($this->url([
                 'action' => 'update',
                 'id'     => $new->id,
-            ]) . $this->url->query($this->_redirectParams($req, $res, $entity->getObject()), true));
+            ]) . $this->url->query($this->_redirectParams($req, $res, $new), true));
         } else {
             return $res->redirect($this->url([
                 'action' => 'update',
-            ]) . $this->url->query($this->_redirectParams($req, $res, $entity->getObject()), true));
+            ]) . $this->url->query($this->_redirectParams($req, $res, $entity), true));
         }
     }
 

@@ -18,6 +18,17 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 abstract class Content extends Entity
 {
+    protected function _redirect(Request $req, Response $res, ChalkEntity $entity)
+    {
+        if (!isset($this->model->node) || !$this->model->nodeUi) {
+            return parent::_redirect($req, $res, $entity);
+        }
+        return $this->url([
+            'action' => 'update',
+            'id'     => $entity->nodes[0]->id,
+        ]);
+    }
+
     protected function _redirectParams(Request $req, Response $res, ChalkEntity $entity)
     {
         $redirectParams = parent::_redirectParams($req, $res, $entity);
@@ -38,7 +49,7 @@ abstract class Content extends Entity
             $node->structure = $parent->structure;
             $node->parent    = $parent;
             $node->content   = $entity;
-            $entity->nodes[] = $node;
+            $entity->nodes->add($node);
         }
     }
 }

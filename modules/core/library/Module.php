@@ -392,8 +392,12 @@ class Module extends ChalkModule
             })
             ->backendHookListen($this->name('info', $this->name('node')), function(Info $info) {
                 $info
-                    ->item($this->name('page'), [])
-                    ->item($this->name('file'), [])
+                    ->item($this->name('page'), [
+                        'isPrimary' => true,
+                    ])
+                    ->item($this->name('file'), [
+                        'isExisting' => true,
+                    ])
                     ->item($this->name('url'), [])
                     ->item($this->name('alias'), []);
                 return $info;
@@ -449,11 +453,9 @@ class Module extends ChalkModule
                     ]);
                 $nav
                     ->entity($this->name('structure_node'), [], $this->name('site'))
-                    ->entity($this->name('page'), [], $this->name('site'))
-                    ->entity($this->name('block'), [], $this->name('page'))
+                    ->entity($this->name('block'), [], $this->name('structure_node'))
                     ->entity($this->name('file'), [], $this->name('site'))
-                    ->entity($this->name('url'), [], $this->name('site'))
-                    ->entity($this->name('alias'), [], $this->name('site'));
+                    ->entity($this->name('url'), [], $this->name('site'));
                 $nav
                     ->entity($this->name('domain'), [], $this->name('setting'))
                     ->entity($this->name('structure'), [

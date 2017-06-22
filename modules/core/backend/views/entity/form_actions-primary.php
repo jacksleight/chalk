@@ -5,9 +5,7 @@
             <?php if (!$entity->isNew() && $entity->isDraft()) { ?>
                 <li><a href="<?= $this->url([
                     'action' => 'publish',
-                ]) . $this->url->query([
-                    'redirect' => $this->url([]),
-                ], true) ?>" class="btn btn-positive btn-lighter btn-out icon-publish">
+                ]) ?>" class="btn btn-positive btn-lighter btn-out icon-publish">
                     Publish
                 </a></li>
             <?php } ?>
@@ -18,9 +16,7 @@
             <?php } else { ?>
                 <li><a href="<?= $this->url([
                     'action' => 'restore',
-                ]) . $this->url->query([
-                    'redirect' => $this->url([]),
-                ], true) ?>" class="btn btn-positive icon-restore">
+                ]) ?>" class="btn btn-positive icon-restore">
                     Restore to Draft
                 </a></li>
             <?php } ?>
