@@ -17,15 +17,25 @@ class Node extends Entity
 
     public function update(Request $req, Response $res)
     {
-        $entity = isset($req->id)
-            ? $this->em($this->info)->id($req->id)
-            : $this->em($this->info)->create();
-        $content = $entity->content;
+        if (isset($req->id)) {
+            $entity = isset($req->id)
+                ? $this->em($this->info)->id($req->id)
+                : $this->em($this->info)->create();
+            $content = $entity->content;
+            $req->pathParam('id', $content->id);
+            $req->queryParam('node', $entity->id);
+            $req->queryParam('nodeUi', true);
+            $route = $this->url($content, null, true);
+        } else {
+            $req->queryParam('node', 1);
+            $req->queryParam('nodeUi', true);
+            $route = $this->url('root_page', 0, true);
+        }
 
-        $req->pathParam('id', $content->id);
-        $req->queryParam('nodesList', $entity->id);
 
-        $route   = $this->url($content, null, true);
+        
+
+        
         $params  = $route['params'];
         return $this->forward('update', $params['controller'], $params['group']);
     }

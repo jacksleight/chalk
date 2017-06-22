@@ -84,7 +84,7 @@ class Node extends Entity
     protected $depth = self::VALUE_MAX;
 
     /**
-     * @ManyToOne(targetEntity="\Chalk\Core\Content", inversedBy="nodes", cascade={"persist"})
+     * @ManyToOne(targetEntity="\Chalk\Core\Content", inversedBy="nodes")
      * @JoinColumn(nullable=true)
      */
     protected $content;

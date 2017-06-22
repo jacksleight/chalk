@@ -3,7 +3,7 @@
 ], 'core') ?>
 <?php $this->block('main') ?>
 
-<form action="<?= $this->url->route() ?>" novalidate>
+<form novalidate>
 	<?php
 	$entities = $this->em($info)
 		->all($model->toArray(), [], Chalk\Repository::FETCH_ALL_PAGED);

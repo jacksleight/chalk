@@ -8,7 +8,7 @@ namespace Chalk\Core\Backend\Controller;
 
 use Chalk\Chalk;
 use Chalk\Core\Backend\Model;
-use Chalk\Entity as CoreEntity;
+use Chalk\Entity as ChalkEntity;
 use Coast\Controller\Action;
 use Coast\Request;
 use Coast\Response;
@@ -58,17 +58,9 @@ abstract class Entity extends Action
         return $actions;
     }
 
-    public function index(Request $req, Response $res)
+    protected function _sorts()
     {
         $sorts = [];
-        $limits = [
-            50  => '50',
-            100 => '100',
-            200 => '200',
-        ];
-        $batches = [
-            'delete' => 'Delete',
-        ];
         if ($this->info->is->trackable) {
             $sorts = [
                 'createDate' => 'Created',
@@ -80,17 +72,52 @@ abstract class Entity extends Action
                 'publishDate' => 'Published',
                 'status'      => 'Status',
             ] + $sorts;
+        }
+        return $sorts;
+    }
+
+    protected function _limits()
+    {
+        $limits = [
+            50  => '50',
+            100 => '100',
+            200 => '200',
+        ];
+        return $limits;
+    }
+
+    protected function _batches()
+    {
+        $batches = [
+            'delete' => 'Delete',
+        ];
+        if ($this->info->is->publishable) {
             $batches = [
                 'publish'   => 'Publish',
                 'archive'   => 'Archive',
                 'restore'   => 'Restore',
             ] + $batches;
         }
+        return $batches;
+    }
 
+    protected function _redirectParams(Request $req, Response $res, ChalkEntity $entity)
+    {
+        $redirectParams = [];
+        if ($this->info->is->tagable) {
+            $redirectParams = [
+                'tagsList' => $this->model->tagsList,
+            ] + $redirectParams;
+        }
+        return $redirectParams;
+    }
+
+    public function index(Request $req, Response $res)
+    {
         $this->model->options(
-            $sorts,
-            $limits,
-            $batches
+            $this->_sorts(),
+            $this->_limits(),
+            $this->_batches()
         );
     }
 
@@ -110,7 +137,7 @@ abstract class Entity extends Action
             $method = "_{$this->model->batch}";
             $entities = $this->em($this->info)->all(['ids' => $this->model->selected]);
             foreach ($entities as $entity) {
-                $this->$method($req, $res, $entity, $this->model);
+                $this->$method($req, $res, $entity);
             }
             $this->em->flush();
         } catch (ForeignKeyConstraintViolationException $e) {
@@ -156,9 +183,9 @@ abstract class Entity extends Action
             ? $this->em($this->info)->id($req->id, $this->model->toArray())
             : $this->em($this->info)->create();
         if ($entity->isNew()) {
-            $this->_create($req, $res, $entity, $this->model);
+            $this->_create($req, $res, $entity);
         } else {
-            $this->_update($req, $res, $entity, $this->model);
+            $this->_update($req, $res, $entity);
         }
         $entity = $this->em->wrap($entity);
 
@@ -186,9 +213,7 @@ abstract class Entity extends Action
         return $res->redirect($this->url([
             'action' => 'update',
             'id'     => $entity->id,
-        ]) . $this->url->query([
-            'tagsList' => $this->model->tagsList,
-        ], true));
+        ]) . $this->url->query($this->_redirectParams($req, $res, $entity->getObject()), true));
     }
 
     public function process(Request $req, Response $res)
@@ -204,7 +229,7 @@ abstract class Entity extends Action
 
         try {
             $method = "_{$req->action}";
-            $new = $this->$method($req, $res, $entity, $this->model);
+            $new = $this->$method($req, $res, $entity);
             $this->em->flush();
         } catch (ForeignKeyConstraintViolationException $e) {
             $this->notify("{$this->info->singular} <strong>{$entity->previewName}</strong> could not be {$this->labels[$req->action]} because it is in use", 'negative');
@@ -220,22 +245,16 @@ abstract class Entity extends Action
             return $res->redirect($this->url([
                 'action' => null,
                 'id'     => null,
-            ]) . $this->url->query([
-                'tagsList' => $this->model->tagsList,
-            ], true));
+            ]) . $this->url->query($this->_redirectParams($req, $res, $entity->getObject()), true));
         } else if (isset($new)) {
             return $res->redirect($this->url([
                 'action' => 'update',
                 'id'     => $new->id,
-            ]) . $this->url->query([
-                'tagsList' => $this->model->tagsList,
-            ], true));
+            ]) . $this->url->query($this->_redirectParams($req, $res, $entity->getObject()), true));
         } else {
             return $res->redirect($this->url([
                 'action' => 'update',
-            ]) . $this->url->query([
-                'tagsList' => $this->model->tagsList,
-            ], true));
+            ]) . $this->url->query($this->_redirectParams($req, $res, $entity->getObject()), true));
         }
     }
 
@@ -269,7 +288,7 @@ abstract class Entity extends Action
         return $this->forward('process');
     }
 
-    protected function _create(Request $req, Response $res, CoreEntity $entity)
+    protected function _create(Request $req, Response $res, ChalkEntity $entity)
     {
         if ($this->info->is->tagable) {
             if (count($this->model->tags)) {
@@ -281,32 +300,32 @@ abstract class Entity extends Action
         }
     }
 
-    protected function _update(Request $req, Response $res, CoreEntity $entity)
+    protected function _update(Request $req, Response $res, ChalkEntity $entity)
     {}
 
-    protected function _delete(Request $req, Response $res, CoreEntity $entity)
+    protected function _delete(Request $req, Response $res, ChalkEntity $entity)
     {
         $this->em->remove($entity);
     }
 
-    protected function _duplicate(Request $req, Response $res, CoreEntity $entity)
+    protected function _duplicate(Request $req, Response $res, ChalkEntity $entity)
     {
         $entity = $entity->duplicate();
         $this->em->persist($entity);
         return $entity;
     }
 
-    protected function _publish(Request $req, Response $res, CoreEntity $entity)
+    protected function _publish(Request $req, Response $res, ChalkEntity $entity)
     {
         $entity->status = Chalk::STATUS_PUBLISHED;
     }
 
-    protected function _archive(Request $req, Response $res, CoreEntity $entity)
+    protected function _archive(Request $req, Response $res, ChalkEntity $entity)
     {
         $entity->status = Chalk::STATUS_ARCHIVED;
     }
 
-    protected function _restore(Request $req, Response $res, CoreEntity $entity)
+    protected function _restore(Request $req, Response $res, ChalkEntity $entity)
     {
         $entity->restore();
     }

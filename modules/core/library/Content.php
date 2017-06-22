@@ -16,6 +16,7 @@ use Chalk\Core\Behaviour\Trackable;
 use Chalk\Core\Behaviour\Duplicateable;
 use Coast\Filter;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * @Entity
@@ -68,7 +69,7 @@ abstract class Content extends Entity implements Publishable, Searchable, Tagabl
     protected $dataJson;
 
 	/**
-     * @OneToMany(targetEntity="\Chalk\Core\Structure\Node", mappedBy="content")
+     * @OneToMany(targetEntity="\Chalk\Core\Structure\Node", mappedBy="content", cascade={"persist", "remove"})
      */
 	protected $nodes;
 
@@ -178,10 +179,21 @@ abstract class Content extends Entity implements Publishable, Searchable, Tagabl
 		return static::staticSubtypeLabel($this->subtype);
 	}
 
-	public function restore()
-	{
-		$this->status = Chalk::STATUS_DRAFT;
-		$this->archiveDate = null;
-		return $this;
-	}
+    public function restore()
+    {
+        $this->status = Chalk::STATUS_DRAFT;
+        $this->archiveDate = null;
+        return $this;
+    }
+
+    public function isNode()
+    {
+        if ($this->nodes instanceof ArrayCollection) {
+            return isset($this->nodes[0]);
+        } else if ($this->nodes instanceof PersistentCollection) {
+            return $this->nodes->isInitialized() && isset($this->nodes[0]);
+        } else {
+            return false;
+        }
+    }
 }

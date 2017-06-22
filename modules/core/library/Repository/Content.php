@@ -32,7 +32,7 @@ class Content extends Repository
             'filtersInfo' => null,
             'types'       => null,
             'subtypes'    => null,
-            'nodes'       => null,
+            // 'node'        => null,
         ];
 
         if (isset($params['filtersInfo'])) {
@@ -74,12 +74,12 @@ class Content extends Repository
                 ->setParameter('subtypes', $params['subtypes']);
         }
 
-        if (isset($params['nodes']) && count($params['nodes'])) {
+        if (isset($params['node']) && count($params['node'])) {
             $query
                 ->addSelect("n")
                 ->leftJoin("{$this->alias()}.nodes", "n")
-                ->andWhere(":nodes MEMBER OF {$this->alias()}.nodes")
-                ->setParameter('nodes', $params['nodes']);
+                ->andWhere(":node MEMBER OF {$this->alias()}.nodes")
+                ->setParameter('node', $params['node']);
         }
 
         $this->_publishable_modify($query, $params, $extra);

@@ -11,7 +11,7 @@ use Chalk\Core;
 use Chalk\Model as ChalkModel;
 
 class Model extends ChalkModel
-{    
+{
     protected $mode;
 
     protected $filters;

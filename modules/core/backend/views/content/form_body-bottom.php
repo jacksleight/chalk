@@ -1,4 +1,4 @@
-<?php if (count($model->nodes)) { ?>
+<?php if ($entity->isNode()) { ?>
     <?= $this->render('/element/form-item', array(
         'entity'        => $entity->nodes[0],
         'name'          => 'isHidden',

@@ -5,7 +5,7 @@
     'type'          => 'input_pseudo',
     'readOnly'      => true,
 ], 'core') ?>
-<?php if (count($model->nodes)) { ?>
+<?php if ($entity->isNode()) { ?>
     <?= $this->render('/element/form-item', [
         'entity'        => $entity->nodes[0],
         'name'          => 'slug',
