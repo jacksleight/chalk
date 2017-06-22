@@ -6,7 +6,7 @@
 <form action="<?= $this->url->route() ?>" novalidate>
 	<?php
 	$entities = $this->em($info)
-		->all($model->toArray());
+        ->all($model->toArray(), [], Chalk\Repository::FETCH_ALL_PAGED);
 	?>
 	<?= $this->inner("list", [
         'entities' => $entities,

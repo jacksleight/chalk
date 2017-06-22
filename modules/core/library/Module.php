@@ -455,7 +455,8 @@ class Module extends ChalkModule
                     ->entity($this->name('structure_node'), [], $this->name('site'))
                     ->entity($this->name('block'), [], $this->name('structure_node'))
                     ->entity($this->name('file'), [], $this->name('site'))
-                    ->entity($this->name('url'), [], $this->name('site'));
+                    ->entity($this->name('url'), [], $this->name('site'))
+                    ->entity($this->name('alias'), [], $this->name('site'));
                 $nav
                     ->entity($this->name('domain'), [], $this->name('setting'))
                     ->entity($this->name('structure'), [

@@ -21,11 +21,7 @@ class Node extends Entity
     public static $chalkSingular = 'Page';
     public static $chalkPlural   = 'Pages';
     public static $chalkIcon     = 'content';
-    public static $chalkIs       = [
-        'searchable'  => true,
-        'publishable' => true,
-    ];
-
+    
     const VALUE_MAX = 2147483647;
 
     /**
