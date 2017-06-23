@@ -24,10 +24,10 @@ trait Repository
         $params = $params + [
             'createDateMin' => null,
             'createDateMax' => null,
-            'modifyDateMin' => null,
-            'modifyDateMax' => null,
+            'updateDateMin' => null,
+            'updateDateMax' => null,
             'createUsers'   => null,
-            'modifyUsers'   => null,
+            'updateUsers'   => null,
         ];
 
         if (isset($params['createDateMin'])) {
@@ -47,21 +47,21 @@ trait Repository
                 ->setParameter('createDateMax', $createDateMax);
         }
 
-        if (isset($params['modifyDateMin'])) {
-            $modifyDateMin = $params['modifyDateMin'] instanceof DateTime
-                ? $params['modifyDateMin']
-                : new DateTime($params['modifyDateMin']);
+        if (isset($params['updateDateMin'])) {
+            $updateDateMin = $params['updateDateMin'] instanceof DateTime
+                ? $params['updateDateMin']
+                : new DateTime($params['updateDateMin']);
             $query
-                ->andWhere("{$alias}.modifyDate >= :modifyDateMin")
-                ->setParameter('modifyDateMin', $modifyDateMin);
+                ->andWhere("{$alias}.updateDate >= :updateDateMin")
+                ->setParameter('updateDateMin', $updateDateMin);
         }
-        if (isset($params['modifyDateMax'])) {
-            $modifyDateMax = $params['modifyDateMax'] instanceof DateTime
-                ? $params['modifyDateMax']
-                : new DateTime($params['modifyDateMax']);
+        if (isset($params['updateDateMax'])) {
+            $updateDateMax = $params['updateDateMax'] instanceof DateTime
+                ? $params['updateDateMax']
+                : new DateTime($params['updateDateMax']);
             $query
-                ->andWhere("{$alias}.modifyDate <= :modifyDateMax")
-                ->setParameter('modifyDateMax', $modifyDateMax);
+                ->andWhere("{$alias}.updateDate <= :updateDateMax")
+                ->setParameter('updateDateMax', $updateDateMax);
         }
 
         if (isset($params['createUsers'])) {
@@ -70,10 +70,10 @@ trait Repository
                 ->setParameter('createUsers', $params['createUsers']);
         }
 
-        if (isset($params['modifyUsers'])) {
+        if (isset($params['updateUsers'])) {
             $query
-                ->andWhere("{$alias}.createUser IN (:modifyUsers)")
-                ->setParameter('modifyUsers', $params['modifyUsers']);
+                ->andWhere("{$alias}.createUser IN (:updateUsers)")
+                ->setParameter('updateUsers', $params['updateUsers']);
         }
     }
 }

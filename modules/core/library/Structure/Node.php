@@ -202,12 +202,12 @@ class Node extends Entity
         return $this->content->createDate;
     }
 
-    public function modifyDate()
+    public function updateDate()
     {
         if (!isset($this->content)) {
             return;
         }
-        return $this->content->modifyDate;
+        return $this->content->updateDate;
     }
 
     public function createUser()
@@ -218,12 +218,12 @@ class Node extends Entity
         return $this->content->createUser;
     }
 
-    public function modifyUser()
+    public function updateUser()
     {
         if (!isset($this->content)) {
             return;
         }
-        return $this->content->modifyUser;
+        return $this->content->updateUser;
     }
 
     public function createUserName()
@@ -234,12 +234,12 @@ class Node extends Entity
         return $this->content->createUserName;
     }
 
-    public function modifyUserName()
+    public function updateUserName()
     {
         if (!isset($this->content)) {
             return;
         }
-        return $this->content->modifyUserName;
+        return $this->content->updateUserName;
     }
 
     public function publishDate()

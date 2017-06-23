@@ -42,8 +42,8 @@ class Listener implements EventSubscriber
 
 		$entity->createDate = new Carbon();
 		$entity->createUser = $this->_user;
-		$entity->modifyDate = new Carbon();
-		$entity->modifyUser = $this->_user;
+		$entity->updateDate = new Carbon();
+		$entity->updateUser = $this->_user;
 	}
 
 	public function preUpdate(LifecycleEventArgs $args)
@@ -54,7 +54,7 @@ class Listener implements EventSubscriber
 			return;
 		}
 
-		$entity->modifyDate = new Carbon();
-		$entity->modifyUser = $this->_user;
+		$entity->updateDate = new Carbon();
+		$entity->updateUser = $this->_user;
 	}
 }

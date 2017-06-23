@@ -117,7 +117,7 @@ class Module extends ChalkModule
                             }
                             $sitemap->urls[] = (new Sitemap\Url())->fromArray([
                                 'url'        => $this->frontend->url($node),
-                                'modifyDate' => $content['modifyDate'],
+                                'updateDate' => $content['updateDate'],
                             ]);
                         }
                     }

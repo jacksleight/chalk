@@ -64,7 +64,7 @@ abstract class Entity extends Action
         if ($this->info->is->trackable) {
             $sorts = [
                 'createDate' => 'Created',
-                'modifyDate' => 'Updated',
+                'updateDate' => 'Updated',
             ] + $sorts;
         }
         if ($this->info->is->publishable) {

@@ -9,7 +9,7 @@ return function($conn, $em) {
     $name = $this->name();
 
     $conn->exec("
-        CREATE TABLE {$name}_setting (
+        CREATE TABLE core_setting (
             name VARCHAR(255) NOT NULL,
             value LONGTEXT DEFAULT NULL,
             PRIMARY KEY(name)
@@ -17,7 +17,7 @@ return function($conn, $em) {
     ");
     
     $conn->exec("
-        ALTER TABLE {$name}_domain
+        ALTER TABLE core_domain
             ADD `label` VARCHAR(255) NOT NULL,
             ADD emailAddress VARCHAR(255) NOT NULL
     ");

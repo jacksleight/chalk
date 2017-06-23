@@ -21,8 +21,8 @@ class Index extends Model
 
 	protected $createDateMin;
 	protected $createDateMax;
-	protected $modifyDateMin;
-	protected $modifyDateMax;
+	protected $updateDateMin;
+	protected $updateDateMax;
 	protected $publishDateMin;
 	protected $publishDateMax;
 	protected $statuses = [
@@ -82,7 +82,7 @@ class Index extends Model
 					'type'		=> 'string',
 					'nullable'	=> true,
 				),
-				'modifyDateMin' => array(
+				'updateDateMin' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
 					'values'	=> [
@@ -98,7 +98,7 @@ class Index extends Model
 						'-1 year'	=> 'Past Year',
 					]
 				),
-				'modifyDateMax' => array(
+				'updateDateMax' => array(
 					'type'		=> 'string',
 					'nullable'	=> true,
 				),
@@ -171,8 +171,8 @@ class Index extends Model
 			'search',
 			'createDateMin',
 			'createDateMax',
-			'modifyDateMin',
-			'modifyDateMax',
+			'updateDateMin',
+			'updateDateMax',
 			'publishDateMin',
 			'publishDateMax',
 			'statuses',

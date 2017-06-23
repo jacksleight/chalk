@@ -24,13 +24,13 @@ trait Entity
     /**
      * @Column(type="datetime", nullable=true)
      */
-    protected $modifyDate;
+    protected $updateDate;
 
     /**
      * @ManyToOne(targetEntity="\Chalk\Core\User")
      * @JoinColumn(onDelete="SET NULL")
      */
-    protected $modifyUser;
+    protected $updateUser;
 
     public function createUserName()
     {
@@ -39,10 +39,10 @@ trait Entity
             : 'System';
     }
 
-    public function modifyUserName()
+    public function updateUserName()
     {
-        return isset($this->modifyUser)
-            ? $this->modifyUser->name
+        return isset($this->updateUser)
+            ? $this->updateUser->name
             : 'System';
     }
 
@@ -50,9 +50,9 @@ trait Entity
     {
         $entity->fromArray([
             'createDate'  => null,
-            'modifyDate'  => null,
+            'updateDate'  => null,
             'createUser'  => null,
-            'modifyUser'  => null,
+            'updateUser'  => null,
         ]);
     }
 }
