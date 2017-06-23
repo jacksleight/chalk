@@ -2,7 +2,7 @@
 <?= $this->render('/element/form-item', array(
 	'type'		=> 'input_chalk',
 	'entity'	=> $entity,
-	'name'		=> 'link',
-	'label'		=> 'Link',
+	'name'		=> 'entity',
+	'label'		=> 'Content',
     'filters'   => 'core_link',
 ), 'core') ?>

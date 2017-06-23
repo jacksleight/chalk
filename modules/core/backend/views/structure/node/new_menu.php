@@ -16,9 +16,9 @@ $infos = $this->hook->fire('core_info/core_node', new Chalk\Info())->fetch('isPr
         New <?= $info->singular ?>
     </a></li>
 <?php } ?>
-<li><a href="<?= $this->url([
-    'action' => 'update',
-    'id'     => null,
-]) ?>" class="item icon-browse">
+<li><a href="<?= $this->url([], 'core_select', true) . $this->url->query([
+    'mode'        => 'all',
+    'filtersList' => '~core_node',
+]) ?>" class="item icon-browse" rel="modal">
     Add Existing
 </a></li>

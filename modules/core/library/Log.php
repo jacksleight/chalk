@@ -26,7 +26,7 @@ class Log extends Entity implements Trackable
     use Trackable\Entity;
 
 	const TYPE_CREATE			= 'create';
-	const TYPE_MODIFY			= 'modify';
+	const TYPE_UPDATE			= 'update';
 	const TYPE_STATUS_PENDING	= 'status_pending';
 	const TYPE_STATUS_PUBLISHED	= 'status_published';
 	const TYPE_STATUS_ARCHIVED	= 'status_archived';
@@ -47,7 +47,7 @@ class Log extends Entity implements Trackable
      * @Column(type="integer")
      */
     protected $entityId;
-    
+
     protected $entityObject;
 
     /**

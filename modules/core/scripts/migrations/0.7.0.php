@@ -20,8 +20,8 @@ return function($conn, $em) {
         "ALTER TABLE core_content DROP FOREIGN KEY FK_ECD2859A7724C6C3",
         "DROP INDEX IDX_ECD2859A7724C6C3 ON core_content",
         "ALTER TABLE `core_content`
-            CHANGE `core_alias_contentId` `core_alias_link` VARCHAR(255) DEFAULT NULL COMMENT '(DC2Type:chalk_entity)'",
-        "UPDATE core_content SET core_alias_link = CONCAT('{\"type\":\"core_content\",\"id\":', core_alias_link, '}') WHERE core_alias_link IS NOT NULL",
+            CHANGE `core_alias_contentId` `core_alias_entity` VARCHAR(255) DEFAULT NULL COMMENT '(DC2Type:chalk_entity)'",
+        "UPDATE core_content SET core_alias_entity = CONCAT('{\"type\":\"core_content\",\"id\":', core_alias_entity, '}') WHERE core_alias_entity IS NOT NULL",
     ]);
 
     array_map([$conn, 'exec'], [

@@ -10,7 +10,7 @@ $this->params([
             'label'   => 'Updated',
             'class'   => 'col-right col-contract',
             'partial' => 'date-user',
-            'params'  => ['name' => 'modify'],
+            'params'  => ['name' => 'update'],
             'sort'    => 80,
         ] : null,
         'status' => $info->is->publishable ? [
