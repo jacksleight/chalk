@@ -12,9 +12,9 @@
                                 $this->user,
                                 $this->model->filtersInfo
                             ));
-                            $items = $select->children('root');
+                            $items = $select->children('root', 1);
                         } else {
-                            $items = $this->nav->children($this->nav->main()['name']);
+                            $items = $this->nav->children($this->nav->main()['name'], 1);
                         }
                         ?>
                         <?= $this->inner('nav', [

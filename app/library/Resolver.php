@@ -9,6 +9,7 @@ namespace Chalk;
 use Chalk\Chalk;
 use Chalk\Entity;
 use Closure;
+use Coast\Url;
 use Coast\Resolver as CoastResolver;
 
 class Resolver extends CoastResolver
@@ -48,7 +49,9 @@ class Resolver extends CoastResolver
                 continue;
             }
             $result = $resolver[1]($entity, $info);
-            if (isset($result)) {
+            if ($result instanceof Url) {
+                return $result;
+            } else if (isset($result)) {
                 if ($route) {
                     $route = $this->router->route($result['name']);
                     $result['params'] += $route['params'];
