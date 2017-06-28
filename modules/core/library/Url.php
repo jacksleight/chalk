@@ -129,8 +129,9 @@ class Url extends Content
 			: $subtype;
 	}
 
-	public function previewText($context = false, $parts = array())
+	public function previewText($context = false)
 	{
+        $parts = parent::previewText($context);
 		if ($this->url->scheme() == 'mailto') {
 			$params  = $this->url->queryParams();
 			$parts[] = $this->url->path();
@@ -140,7 +141,7 @@ class Url extends Content
 		} else {
 			$parts[] = $this->url->toString();
 		}
-		return parent::previewText($context, $parts);
+		return $parts;
 	}
 	
     public function searchContent(array $content = [])

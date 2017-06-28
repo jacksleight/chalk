@@ -119,23 +119,22 @@ class Nav implements Hook
 
     public function children($name, $depth = 0)
     {
+        if ($depth < 0) {
+            return [];
+        }
         $items = array_values($this->_items[$name]['children']);
         usort($items, function($a, $b) {
             return $a['sort'] - $b['sort'];
         });
         foreach ($items as $i => $item) {
-            if ($depth > 0) {
-                $children = $this->children($item['name'], $depth - 1);
-                if (!$item['isEnabled']) {
-                    unset($items[$i]);
-                    if (count($children)) {
-                        array_splice($items, $i, 0, $children);
-                    }
-                } else {
-                    $items[$i]['children'] = $children;
+            $children = $this->children($item['name'], $depth - 1);
+            if (!$item['isEnabled']) {
+                unset($items[$i]);
+                if (count($children)) {
+                    array_splice($items, $i, 0, $children);
                 }
             } else {
-                $items[$i]['children'] = [];
+                $items[$i]['children'] = $children;
             }
         }
         return array_combine(

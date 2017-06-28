@@ -12,7 +12,9 @@
         <?php } ?>
 	</fieldset>
 	<div class="flex body">
-		<?= $this->partial('body') ?>
+        <?= $this->partial('primary') ?>
+        <?= $this->partial('secondary') ?>
+		<?= $this->partial('tertiary') ?>
         <?php if ($this->user->isDeveloper()) { ?>
             <?= $this->partial('developer') ?>
         <?php } ?>

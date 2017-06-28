@@ -172,9 +172,10 @@ class User extends Entity implements Trackable, Searchable
 		return $this->role == self::ROLE_ADMINISTRATOR || $this->isDeveloper();
 	}
 
-	public function previewText($context = false, $parts = array())
+	public function previewText($context = false)
 	{
+        $parts = parent::previewText($context);
 		$parts[] = $this->emailAddress;
-		return parent::previewText($context, $parts);
+		return $parts;
 	}
 }

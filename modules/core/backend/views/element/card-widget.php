@@ -15,6 +15,6 @@ $info = isset($info) ? $info : Chalk\Chalk::info($widget);
 	<div class="card-inner">
 		<?= $widget->previewName() ?>&nbsp;
 		<br>
-		<small><?= implode(' – ', $widget->previewText()) ?>&nbsp;</small>
+		<small><?= $this->strip(implode(' – ', $widget->previewText())) ?>&nbsp;</small>
 	</div>
 </div>

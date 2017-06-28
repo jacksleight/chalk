@@ -161,12 +161,13 @@ abstract class Content extends Entity implements Publishable, Searchable, Tagabl
         return $this->slug;
     }
 
-	public function previewText($context = false, $parts = array())
+	public function previewText($context = false)
 	{
+        $parts = parent::previewText($context);
 		if (!$parts && isset($this->subtype)) {
 			array_unshift($parts, $this->subtypeLabel);
 		}
-        return parent::previewText($context, $parts);
+        return $parts;
 	}
 
 	public static function staticSubtypeLabel($subtype)

@@ -40,19 +40,13 @@ abstract class Widget extends \Toast\Entity
     {
         return Chalk::info(get_class($this))->singular;
     }
-    
-    public function previewText($context = false, $parts = array())
-    {   
-        foreach ($parts as $i => $part) {
-            $part = trim(strip_tags($part));
-            if (!strlen($part)) {
-                unset($parts[$i]);
-            }
-            $parts[$i] = $part;
-        }
+
+    public function previewText($context = false)
+    {
+        $parts = [];
         return $parts;
     }
-    
+
     public function previewFile()
     {}
 

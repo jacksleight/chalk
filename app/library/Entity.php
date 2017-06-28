@@ -23,18 +23,11 @@ abstract class Entity extends \Toast\Entity
             : null;
     }
 
-    public function previewText($context = false, $parts = array())
+    public function previewText($context = false)
     {
-        $type = $this->typeLabel;
+        $parts = [];
         if (!$context) {
             array_unshift($parts, $this->typeLabel);
-        }
-        foreach ($parts as $i => $part) {
-            $part = trim(strip_tags($part));
-            if (!strlen($part)) {
-                unset($parts[$i]);
-            }
-            $parts[$i] = $part;
         }
         return $parts;
     }

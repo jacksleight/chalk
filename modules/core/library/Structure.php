@@ -94,11 +94,12 @@ class Structure extends Entity implements Trackable
         return $this->slug;
     }
 
-    public function previewText($context = false, $parts = array())
+    public function previewText($context = false)
     {
+        $parts = parent::previewText($context);
         if (isset($this->path)) {
             $parts[] = "/{$this->path}";
         }
-        return parent::previewText($context, $parts);
+        return $parts;
     }
 }

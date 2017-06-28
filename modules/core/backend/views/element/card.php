@@ -19,6 +19,6 @@ $info = isset($info) ? $info : Chalk\Chalk::info($entity);
             'entityId'   => $entity->id,
         ], 'core_frontend', true) ?>" target="_blank" class="icon-view"></a>
 		<br>
-		<small><?= implode(' – ', $entity->previewText()) ?></small>
+		<small><?= $this->strip(implode(' – ', $entity->previewText())) ?></small>
 	</div>
 </div>
