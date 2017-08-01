@@ -34,7 +34,7 @@ $covered  = isset($covered)  ? $covered  : false;
 			<?php if ($entity->file->exists()) { ?>
 				<small><?= \Coast\str_size_format($entity->file->size()) ?></small>
 			<?php } else { ?>
-				<span class="error">File not found, please reupload</span>
+				<span class="error">File not found, please upload again</span>
 			<?php } ?>
 		<?php } ?>
 	</div>
