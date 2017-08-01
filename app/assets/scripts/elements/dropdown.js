@@ -1,6 +1,9 @@
 Chalk.component('.dropdown', function(i, el) {
 
     var toggle = $(el).find('.dropdown-toggle');
+    if (!toggle.length) {
+        return;
+    }
     toggle.on('click', function (ev) {
         $(el).toggleClass('is-active');
     });

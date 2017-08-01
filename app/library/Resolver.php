@@ -28,7 +28,7 @@ class Resolver extends CoastResolver
             : call_user_func_array(['parent', '__invoke'], $args);
     }
 
-    public function entity($entity, $id = null, $route = false)
+    public function entity($entity, $id = null, $data = false)
     {
         if (isset($id)) {
             $entity = [
@@ -52,9 +52,8 @@ class Resolver extends CoastResolver
             if ($result instanceof Url) {
                 return $result;
             } else if (isset($result)) {
-                if ($route) {
-                    $route = $this->router->route($result['name']);
-                    $result['params'] += $route['params'];
+                if ($data) {
+                    $result = $this->routeData($result['params'], $result['name'], true);
                 } else {
                     $result = $this->route($result['params'], $result['name'], true);
                 }
