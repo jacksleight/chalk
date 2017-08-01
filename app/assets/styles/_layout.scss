@@ -102,7 +102,7 @@ html, body {
 	padding: $gutter-y $gutter-x;
 	h1 {
 		line-height: $input-height;
-		@include font-size($input-height - 6px);
+		@include font-size(4.5);
 	}
 	&.topbar,
 	.topbar & {

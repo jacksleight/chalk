@@ -2094,10 +2094,11 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
   text-decoration: none;
 }
 
-h1 + small, h2 + small, h3 + small, h4 + small, h5 + small, h6 + small {
+h1 + small:not(:empty), h2 + small:not(:empty), h3 + small:not(:empty), h4 + small:not(:empty), h5 + small:not(:empty), h6 + small:not(:empty) {
   display: block;
   font-size: 13.91304348px;
   font-size: 0.86956522rem;
+  margin-top: -0.25em;
 }
 
 h1 {
@@ -4613,7 +4614,7 @@ legend {
 }
 
 .toolbar > * {
-  padding-left: 5px;
+  padding-left: 4px;
 }
 
 .toolbar > * > *:first-child {
@@ -4979,7 +4980,7 @@ legend {
 }
 
 .sidebar .tree-root {
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
 .tree {
@@ -6122,7 +6123,7 @@ html, body {
 }
 
 .header {
-  padding: 12px 25px;
+  padding: 10px 25px;
 }
 
 .header > *:first-child {
@@ -6142,8 +6143,8 @@ html, body {
 
 .header h1 {
   line-height: 38px;
-  font-size: 32px;
-  font-size: 2rem;
+  font-size: 30.00965779px;
+  font-size: 1.87560361rem;
 }
 
 .header.topbar,
@@ -6247,14 +6248,14 @@ html, body {
 
 .body.leftbar,
 .leftbar .body {
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   padding-left: 0;
   padding-right: 0;
 }
 
 .footer {
-  padding: 12px 25px;
+  padding: 10px 25px;
 }
 
 .footer > *:first-child {
@@ -6288,8 +6289,8 @@ html, body {
 .hanging.hanging {
   margin-left: -25px;
   margin-right: -25px;
-  margin-top: 12px;
-  margin-bottom: -12px;
+  margin-top: 10px;
+  margin-bottom: -10px;
   padding-left: 25px;
   padding-right: 25px;
   border-top: 1px solid;

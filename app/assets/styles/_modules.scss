@@ -1077,7 +1077,7 @@ legend {
 	flex-direction: row;
 	line-height: $input-height;
 	> * {
-		padding-left: $gutter * 0.25;
+		padding-left: $gutter * 0.2;
 		@include flush();
 		&:first-child {
 			padding-left: 0;
