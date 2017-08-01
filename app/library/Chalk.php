@@ -174,7 +174,7 @@ class Chalk extends CoastApp
             $name = self::info($name)->module->name;
         } catch (\Chalk\Exception $e) {
             return null;
-        }            
+        }
         return isset($this->_modules[$name])
             ? $this->_modules[$name]
             : null;

@@ -47,7 +47,7 @@ return function($args, $flags, $params) {
 		foreach ($this->app->modules() as $module) {
 		    $setting = new Chalk\Core\Setting();
 	        $setting->fromArray([
-	            'name'  => "{$module->name()}_version",
+	            'name'  => $module->name('version'),
 	            "value" => $module->version(),
 	        ]);
 	        $em->persist($setting);

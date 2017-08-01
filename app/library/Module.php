@@ -22,6 +22,7 @@ use ReflectionClass;
 
 abstract class Module implements Access
 {
+    const NAME    = null;
     const VERSION = null;
 
     use Access\Implementation;
@@ -34,9 +35,8 @@ abstract class Module implements Access
 
     protected $_scriptsPath = 'scripts';
 
-    public function __construct($name, $options = null, $baseDir = '..')
+    public function __construct($options = null, $baseDir = '..')
     {
-        $this->_name = $name;
         if (!$baseDir instanceof Dir) {
             $reflection = new ReflectionClass(get_class($this));
             $baseDir = (new File($reflection->getFileName()))
@@ -76,21 +76,18 @@ abstract class Module implements Access
         return $this->_baseDir;
     }
 
-    public function name($name = null, $sub = null)
+    public function name($name = null)
     {
-        $name = isset($name)
-            ? $this->_name . '_' . $name
-            : $this->_name;
-        return isset($sub)
-            ? "{$name}/{$sub}"
-            : "{$name}";
+        return isset($name)
+            ? static::NAME . '_' . $name
+            : static::NAME;
     }
 
     public function path($path = null)
     {
         return isset($path)
-            ? $this->_name . '/' . $path
-            : $this->_name;
+            ? static::NAME . '/' . $path
+            : static::NAME;
     }
 
     public function nspace($nspace = null)

@@ -29,12 +29,12 @@ return function($args, $flags, $params) {
 		foreach ($this->app->modules() as $module) {
 
 		    $to = $module->version();
-		    if (isset($settings["{$module->name()}_version"])) {
-		        $setting = $settings["{$module->name()}_version"];
+		    if (isset($settings[$module->name('version')])) {
+		        $setting = $settings[$module->name('version')];
 		    } else {
 		        $setting = new Chalk\Core\Setting();
 		        $setting->fromArray([
-		            'name'  => "{$module->name()}_version",
+		            'name'  => $module->name('version'),
 		            "value" => '0.0.0',
 		        ]);
 		        $em->persist($setting);

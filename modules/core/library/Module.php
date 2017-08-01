@@ -33,58 +33,54 @@ use DOMXPath;
 
 class Module extends ChalkModule
 {
+    const NAME    = 'core';
     const VERSION = Chalk::VERSION;
-
-    public function __construct()
-    {
-        parent::__construct('core');
-    }
 
     public function init()
     {
         $this
-            ->entityDir($this->name())
-            ->entityListener($this->name('file'), new FileListener())
-            ->entityListener($this->name('structure_node'), new StructureNodeListener())
-            ->entityListener($this->name('publishable'), new PublishableListener())
-            ->entityListener($this->name('searchable'), new SearchableListener())
-            ->entityListener($this->name('trackable'), $trackable = new TrackableListener());
+            ->entityDir('core')
+            ->entityListener('core_file', new FileListener())
+            ->entityListener('core_structure_node', new StructureNodeListener())
+            ->entityListener('core_publishable', new PublishableListener())
+            ->entityListener('core_searchable', new SearchableListener())
+            ->entityListener('core_trackable', $trackable = new TrackableListener());
     }
 
     public function frontendInit()
     {
         $this
-            ->frontendControllerAll($this->name())
-            ->frontendControllerNspace($this->name())
-            ->frontendViewDir($this->name());
+            ->frontendControllerAll('core')
+            ->frontendControllerNspace('core')
+            ->frontendViewDir('core');
 
         $this
-            ->frontendParserPlugin($this->name('frontend'), new PluginFrontend())
-            ->frontendParserPlugin($this->name('stripEmpty'), new StripEmpty([
+            ->frontendParserPlugin('core_frontend', new PluginFrontend())
+            ->frontendParserPlugin('core_stripEmpty', new StripEmpty([
                 'tags' => ['p'],
             ]));
 
         $this
-            ->frontendResolver($this->name('domain'), function($entity, $info) {
+            ->frontendResolver('core_domain', function($entity, $info) {
                 return $this->frontend->url();
             })
-            ->frontendResolver($this->name('structure_node'), function($entity, $info) {
+            ->frontendResolver('core_structure_node', function($entity, $info) {
                 try {
-                    return $this->frontend->url->route([], $this->name("structure_node_{$entity['id']}"), true);   
+                    return $this->frontend->url->route([], "core_structure_node_{$entity['id']}", true);   
                 } catch (Router\Exception $e) {}
             })
-            ->frontendResolver($this->name('content'), function($entity, $info) {
+            ->frontendResolver('core_content', function($entity, $info) {
                 try {
-                    return $this->frontend->url->route([], $this->name("content_{$entity['id']}"), true);
+                    return $this->frontend->url->route([], "core_content_{$entity['id']}", true);
                 } catch (Router\Exception $e) {}
             })
-            ->frontendResolver($this->name('url'), function($entity, $info) {
+            ->frontendResolver('core_url', function($entity, $info) {
                 return $entity['url'];
             })
-            ->frontendResolver($this->name('file'), function($entity, $info) {
+            ->frontendResolver('core_file', function($entity, $info) {
                 if (is_array($entity)) {
                     // @todo Remove this once File works with array hydration
-                    $entity = $this->em($this->name('file'))->id($entity['id']);
+                    $entity = $this->em('core_file')->id($entity['id']);
                 }
                 return $this->frontend->url
                     ->file($entity['file']);
@@ -97,17 +93,17 @@ class Module extends ChalkModule
 
         $this
             ->frontendRoute(
-                $this->name('robots'),
+                'core_robots',
                 Router::METHOD_ALL,
                 "robots.txt", [
-                    'group'      => $this->name(),
+                    'group'      => 'core',
                     'controller' => 'index',
                     'action'     => 'robots',
                 ]);
 
-        if ($sitemap = $this->app->module('Chalk\Sitemap')) {
+        if ($this->app->module('sitemap')) {
             $this
-                ->frontendHookListen($sitemap->name('xml'), function(Sitemap $sitemap) {
+                ->frontendHookListen('sitemap_xml', function(Sitemap $sitemap) {
                     foreach ($this->frontend->domain['structures'] as $structure) {
                         $nodes = $this->frontend->children($structure['nodes'][0], true);
                         foreach ($nodes as $node) {
@@ -128,10 +124,10 @@ class Module extends ChalkModule
 
     public function frontendInitDomain()
     {
-        $domain = $this->em($this->name('domain'))->id(1, [], [
+        $domain = $this->em('core_domain')->id(1, [], [
             'hydrate' => Repository::HYDRATE_ARRAY,
         ]);
-        $structures = $this->em($this->name('structure'))->all([], [
+        $structures = $this->em('core_structure')->all([], [
             'hydrate' => Repository::HYDRATE_ARRAY,
         ]);
 
@@ -212,11 +208,11 @@ class Module extends ChalkModule
             }
             $this
                 ->frontendRouteAlias(
-                    $this->name("content_{$content['id']}"),
+                    "core_content_{$content['id']}",
                     $primary
                 )
                 ->frontendRouteAlias(
-                    $this->name("structure_node_{$node['id']}"),
+                    "core_structure_node_{$node['id']}",
                     $primary
                 );
         }
@@ -226,12 +222,12 @@ class Module extends ChalkModule
     public function backendInit()
     {
         $this
-            ->backendControllerAll($this->name())
-            ->backendControllerNspace($this->name())
-            ->backendViewDir($this->name());
+            ->backendControllerAll('core')
+            ->backendControllerNspace('core')
+            ->backendViewDir('core');
 
         $this
-            ->backendParserPlugin($this->name('backend'), new PluginBackend());
+            ->backendParserPlugin('core_backend', new PluginBackend());
 
         $this
             ->backendResolver(null, function($entity, $info) {
@@ -260,151 +256,151 @@ class Module extends ChalkModule
 
         $this
             ->backendRoute(
-                $this->name('null'),
+                'core_null',
                 Router::METHOD_ALL,
                 "", [
-                    'group'      => $this->name(),
+                    'group'      => 'core',
                     'controller' => 'index',
                     'action'     => 'index',
                 ])
             ->backendRoute(
-                $this->name('index'),
+                'core_index',
                 Router::METHOD_ALL,
                 $this->path("{controller}?/{action}?/{id}?"), [
-                    'group'      => $this->name(),
+                    'group'      => 'core',
                     'controller' => 'index',
                     'action'     => 'index',
                     'id'         => null,
                 ])
             ->backendRoute(
-                $this->name('login'),
+                'core_login',
                 Router::METHOD_ALL,
                 $this->path("login"), [
-                    'group'      => $this->name(),
+                    'group'      => 'core',
                     'controller' => 'auth',
                     'action'     => 'login',
                 ])
             ->backendRoute(
-                $this->name('logout'),
+                'core_logout',
                 Router::METHOD_ALL,
                 $this->path("logout"), [
-                    'group'      => $this->name(),
+                    'group'      => 'core',
                     'controller' => 'auth',
                     'action'     => 'logout',
                 ])
             ->backendRoute(
-                $this->name('passwordRequest'),
+                'core_passwordRequest',
                 Router::METHOD_ALL,
                 $this->path("password-request"), [
-                    'group'      => $this->name(),
+                    'group'      => 'core',
                     'controller' => 'auth',
                     'action'     => 'password-request',
                 ])
             ->backendRoute(
-                $this->name('passwordReset'),
+                'core_passwordReset',
                 Router::METHOD_ALL,
                 $this->path("password-reset/{token}"), [
-                    'group'      => $this->name(),
+                    'group'      => 'core',
                     'controller' => 'auth',
                     'action'     => 'password-reset',
                 ])
             ->backendRoute(
-                $this->name('profile'),
+                'core_profile',
                 Router::METHOD_ALL,
                 $this->path("profile"), [
-                    'group'      => $this->name(),
+                    'group'      => 'core',
                     'controller' => 'profile',
                     'action'     => 'update',
                 ])
             ->backendRoute(
-                $this->name('select'),
+                'core_select',
                 Router::METHOD_ALL,
                 $this->path("select/{mode}?"), [
-                    'group'      => $this->name(),
+                    'group'      => 'core',
                     'controller' => 'index',
                     'action'     => 'select',
                 ])
             ->backendRoute(
-                $this->name('site'),
+                'core_site',
                 Router::METHOD_ALL,
                 $this->path("site"), [
-                    'group'      => $this->name(),
+                    'group'      => 'core',
                     'controller' => 'site',
                     'action'     => 'index',
                 ])
             ->backendRoute(
-                $this->name('setting'),
+                'core_setting',
                 Router::METHOD_ALL,
                 $this->path("setting"), [
-                    'group'      => $this->name(),
+                    'group'      => 'core',
                     'controller' => 'setting',
                     'action'     => 'index',
                 ])
             ->backendRoute(
-                $this->name('widget'),
+                'core_widget',
                 Router::METHOD_ALL,
                 $this->path("widget"), [
-                    'group'      => $this->name(),
+                    'group'      => 'core',
                     'controller' => 'widget',
                     'action'     => 'update',
                 ])
             ->backendRoute(
-                $this->name('frontend'),
+                'core_frontend',
                 Router::METHOD_ALL,
                 $this->path("frontend/{entityType}/{entityId}"), [
-                    'group'      => $this->name(),
+                    'group'      => 'core',
                     'controller' => 'index',
                     'action'     => 'frontend',
                 ])
             ->backendRoute(
-                $this->name('backend'),
+                'core_backend',
                 Router::METHOD_ALL,
                 $this->path("backend/{entityType}/{entityId}"), [
-                    'group'      => $this->name(),
+                    'group'      => 'core',
                     'controller' => 'index',
                     'action'     => 'backend',
                 ])
             ->backendRoute(
-                $this->name('jump'),
+                'core_jump',
                 Router::METHOD_ALL,
                 $this->path("jump/{entityType}/{entityId}"), [
-                    'group'      => $this->name(),
+                    'group'      => 'core',
                     'controller' => 'auth',
                     'action'     => 'jump',
                 ])
             ->backendRoute(
-                $this->name('about'),
+                'core_about',
                 Router::METHOD_ALL,
                 $this->path("about"), [
-                    'group'      => $this->name(),
+                    'group'      => 'core',
                     'controller' => 'index',
                     'action'     => 'about',
                 ]);
 
         $this
-            ->backendHookListen($this->name('info', $this->name('link')), function(Info $info) {
+            ->backendHookListen('core_info_link', function(Info $info) {
                 $info
-                    ->item($this->name('page'), [])
-                    ->item($this->name('file'), [])
-                    ->item($this->name('url'), [])
-                    ->item($this->name('alias'), []);
+                    ->item('core_page', [])
+                    ->item('core_file', [])
+                    ->item('core_url', [])
+                    ->item('core_alias', []);
                 return $info;
             })
-            ->backendHookListen($this->name('info', $this->name('node')), function(Info $info) {
+            ->backendHookListen('core_info_node', function(Info $info) {
                 $info
-                    ->item($this->name('page'), [
+                    ->item('core_page', [
                         'isPrimary' => true,
                     ])
-                    ->item($this->name('file'), [
+                    ->item('core_file', [
                         'isExisting' => true,
                     ])
-                    ->item($this->name('url'), [])
-                    ->item($this->name('alias'), []);
+                    ->item('core_url', [])
+                    ->item('core_alias', []);
                 return $info;
             })
-            ->backendHookListen($this->name('info', $this->name('image')), function(Info $info) {
+            ->backendHookListen('core_info_image', function(Info $info) {
                 $info
-                    ->item($this->name('file'), [
+                    ->item('core_file', [
                         'subs' => [
                             'image/gif',
                             'image/jpeg',
@@ -415,9 +411,9 @@ class Module extends ChalkModule
                     ]);
                 return $info;
             })
-            ->backendHookListen($this->name('info', $this->name('video')), function(Info $info) {
+            ->backendHookListen('core_info_video', function(Info $info) {
                 $info
-                    ->item($this->name('file'), [
+                    ->item('core_file', [
                         'subs' => [
                             'video/mp4',
                             'video/ogg',
@@ -427,9 +423,9 @@ class Module extends ChalkModule
                     ]);
                 return $info;
             })
-            ->backendHookListen($this->name('info', $this->name('audio')), function(Info $info) {
+            ->backendHookListen('core_info_audio', function(Info $info) {
                 $info
-                    ->item($this->name('file'), [
+                    ->item('core_file', [
                         'subs' => [
                             'audio/mpeg',
                             'audio/ogg',
@@ -439,44 +435,44 @@ class Module extends ChalkModule
                     ]);
                 return $info;
             })
-            ->backendHookListen($this->name('nav'), function(Nav $nav) {
+            ->backendHookListen('core_nav', function(Nav $nav) {
                 $nav
-                    ->item($this->name('site'), [
+                    ->item('core_site', [
                         'label'     => 'Site',
                         'icon'      => 'publish',
-                        'url'       => ['name' => $this->name('site')],
+                        'url'       => ['name' => 'core_site'],
                     ])
-                    ->item($this->name('setting'), [
+                    ->item('core_setting', [
                         'label'     => 'Settings',
                         'icon'      => 'settings',
-                        'url'       => ['name' => $this->name('setting')],
+                        'url'       => ['name' => 'core_setting'],
                     ]);
                 $nav
-                    ->entity($this->name('structure_node'), [], $this->name('site'))
-                    ->entity($this->name('block'), [], $this->name('structure_node'))
-                    ->entity($this->name('file'), [], $this->name('site'))
-                    ->entity($this->name('url'), [], $this->name('site'))
-                    ->entity($this->name('alias'), [], $this->name('site'));
+                    ->entity('core_structure_node', [], 'core_site')
+                    ->entity('core_block', [], 'core_structure_node')
+                    ->entity('core_file', [], 'core_site')
+                    ->entity('core_url', [], 'core_site')
+                    ->entity('core_alias', [], 'core_site');
                 $nav
-                    ->entity($this->name('domain'), [], $this->name('setting'))
-                    ->entity($this->name('structure'), [
+                    ->entity('core_domain', [], 'core_setting')
+                    ->entity('core_structure', [
                         'roles' => ['developer'],
-                    ], $this->name('domain'))
-                    ->entity($this->name('user'), [
+                    ], 'core_domain')
+                    ->entity('core_user', [
                         'roles' => ['administrator', 'developer'],
-                    ], $this->name('setting'))
-                    ->entity($this->name('tag'), [], $this->name('setting'));
+                    ], 'core_setting')
+                    ->entity('core_tag', [], 'core_setting');
                 return $nav;
             })
             ->backendHookListen($this->name('select'), function(Nav $nav) {
                 $nav
-                    ->entity($this->name('page'), [])
-                    ->entity($this->name('block'), [], $this->name('page'))
-                    ->entity($this->name('file'), [])
-                    ->entity($this->name('url'), [])
-                    ->entity($this->name('alias'), [])
-                    ->entity($this->name('user'), [])
-                    ->entity($this->name('tag'), []);
+                    ->entity('core_page', [])
+                    ->entity('core_block', [], 'core_page')
+                    ->entity('core_file', [])
+                    ->entity('core_url', [])
+                    ->entity('core_alias', [])
+                    ->entity('core_user', [])
+                    ->entity('core_tag', []);
                 return $nav;
             });
     }
@@ -489,7 +485,7 @@ class Module extends ChalkModule
             case 'url':
             case 'alias':
             case 'null':
-                $primary = $this->name("{$name}_{$content['id']}");
+                $primary = "core_{$name}_{$content['id']}";
                 $this
                     ->frontendRoute(
                         "{$primary}",

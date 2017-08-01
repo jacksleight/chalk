@@ -6,8 +6,6 @@
 
 return function($conn, $em) {
 
-    $name = $this->name();
-
     array_map([$conn, 'exec'], [
         "ALTER TABLE core_content
             ADD core_page_imageId INT DEFAULT NULL",

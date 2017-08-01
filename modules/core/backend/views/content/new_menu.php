@@ -1,6 +1,6 @@
 <?php if (isset($entity) && $entity->isNode()) { ?>
     <?php
-    $info = $this->hook->fire('core_info/core_node', new Chalk\Info())->fetch('isPrimary')[0];
+    $info = $this->hook->fire('core_info_node', new Chalk\Info())->fetch('isPrimary')[0];
     ?>
     <li><a href="<?= $this->url([
         'action' => 'update',

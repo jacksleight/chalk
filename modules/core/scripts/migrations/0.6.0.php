@@ -6,8 +6,6 @@
 
 return function($conn, $em) {
 
-    $name = $this->name();
-
     $conn->exec("
         CREATE TABLE core_setting (
             name VARCHAR(255) NOT NULL,

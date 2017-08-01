@@ -47,12 +47,12 @@ return function($args, $flags, $params) {
 		cli\line("Updating version numbers..");
 		$settings = $em('core_setting')->all([]);
 		foreach ($this->app->modules() as $module) {
-		    if (isset($settings["{$module->name()}_version"])) {
-		        $setting = $settings["{$module->name()}_version"];
+		    if (isset($settings[$module->name('version')])) {
+		        $setting = $settings[$module->name('version')];
 		    } else {
 		        $setting = new Chalk\Core\Setting();
 		        $setting->fromArray([
-		            'name'  => "{$module->name()}_version",
+		            'name'  => $module->name('version'),
 		            "value" => $module->version(),
 		        ]);
 		        $em->persist($setting);

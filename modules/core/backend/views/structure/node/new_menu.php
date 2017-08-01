@@ -1,5 +1,5 @@
 <?php
-$infos = $this->hook->fire('core_info/core_node', new Chalk\Info())->fetch('isPrimary', false);
+$infos = $this->hook->fire('core_info_node', new Chalk\Info())->fetch('isPrimary', false);
 ?>
 <?php foreach ($infos as $info) { ?>
     <?php
