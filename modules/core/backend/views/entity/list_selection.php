@@ -25,9 +25,14 @@
         <?php } ?>
     <?php } ?>
     <?php if (array_intersect(['select-all'], $actions)) { ?>
-        <li><button formaction="<?= $this->url([
-            'action' => 'select',
-        ]) ?>" class="btn btn-positive icon-ok">
+        <?php
+        $selectedUrl = isset($model->selectedUrl)
+            ? $model->selectedUrl
+            : $this->url([
+                'action' => 'select',
+            ]);
+        ?>
+        <li><button formaction="<?= $selectedUrl ?>" class="btn btn-positive icon-ok">
             Select Items
         </button></li>
     <?php } ?>

@@ -30,8 +30,6 @@ abstract class Entity extends Action
         $req->view->info    = $this->info;
         $req->view->actions = $this->actions;
         $req->view->labels  = $this->labels;
-
-        $this->model->selectedType = $this->info->name;
     }
 
     protected function _actions()

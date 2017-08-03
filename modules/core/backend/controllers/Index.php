@@ -116,6 +116,7 @@ class Index extends Action
         $url->queryParams([
             'mode'        => "select-{$this->model->mode}",
             'filtersList' => $this->model->filtersList,
+            'selectedUrl' => $this->model->selectedUrl,
         ]);
         return $res->redirect($url);
     }

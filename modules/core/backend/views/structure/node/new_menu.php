@@ -18,7 +18,10 @@ $infos = $this->hook->fire('core_info_node', new Chalk\Info())->fetch('isPrimary
 <?php } ?>
 <li><a href="<?= $this->url([], 'core_select', true) . $this->url->query([
     'mode'        => 'all',
-    'filtersList' => '~core_node',
+    'filtersList' => \Chalk\filters_list_build('core_info_node'),
+    'selectedUrl' => $this->url([
+        'action' => 'existing',
+    ]),
 ]) ?>" class="item icon-browse" rel="modal">
     Add Existing
 </a></li>

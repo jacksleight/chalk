@@ -14,6 +14,7 @@ if (!$items) {
         $url->queryParams([
             'mode'        => $model->mode,
             'filtersList' => $model->filtersList,
+            'selectedUrl' => $model->selectedUrl,
         ]);
         ?>
         <li class="<?= implode(' ', $class) ?>">

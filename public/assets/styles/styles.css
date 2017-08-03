@@ -4741,11 +4741,8 @@ legend {
   text-decoration: none;
 }
 
-.clickable a:hover, .clickable a.hover {
-  text-decoration: underline;
-}
-
-.clickable:hover {
+.clickable:hover, .clickable:focus, .clickable:active {
+  color: #00a6b5;
   cursor: pointer;
 }
 

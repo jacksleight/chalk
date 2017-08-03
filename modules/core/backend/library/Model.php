@@ -21,6 +21,7 @@ class Model extends ChalkModel
     protected $selected;
     protected $selectedList;
     protected $selectedType;
+    protected $selectedUrl;
 
     protected $tags;
     protected $tagsList;
@@ -59,6 +60,10 @@ class Model extends ChalkModel
                     'nullable'  => true,
                 ),
                 'selectedType' => array(
+                    'type'      => 'string',
+                    'nullable'  => true,
+                ),
+                'selectedUrl' => array(
                     'type'      => 'string',
                     'nullable'  => true,
                 ),

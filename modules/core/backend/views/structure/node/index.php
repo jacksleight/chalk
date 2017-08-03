@@ -17,7 +17,7 @@
     <?= $this->url->queryInputs([
         'mode'         => $model->mode,
         'filtersList'  => $model->filtersList,
-        'selectedType' => $model->selectedType,
+        'selectedType' => $info->name,
         'tagsList'     => $model->tagsList,
     ], true) ?>
 </form>

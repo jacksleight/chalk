@@ -1188,12 +1188,11 @@ legend {
 .clickable {
 	a {
 		text-decoration: none;
-		&:hover,
-		&.hover {
-			text-decoration: underline;
-		}
 	}
-	&:hover {
+	&:hover,
+	&:focus,
+	&:active {
+		color: $color-focus;
 		cursor: pointer;
 	}
 }

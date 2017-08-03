@@ -66,7 +66,7 @@ uasort($tableCols, function($a, $b) {
             <tr>
                 <?php if (array_intersect(['batch', 'select-all'], $actions)) { ?>
                     <th scope="col" class="col-select">
-                        <input type="checkbox" id="select" class="multiselectable-all"><label for="select"></label>
+                        <input type="checkbox" id="<?= "__select-" . $uniqid = uniqid(true) ?>" class="multiselectable-all"><label for="<?= "__select-" . $uniqid ?>"></label>
                         <?= $this->render('/element/form-input', [
                             'type'   => 'input_hidden',
                             'entity' => $model,

@@ -6,12 +6,17 @@
         'tagsList' => $model->tagsList,
     ], true) ?>"><?= $content ?></a>
 <?php } else if (array_intersect(['select-one'], $actions)) { ?>
-    <a href="<?= $this->url([
-        'action'   => 'select',
-    ]) . $this->url->query([
+    <?php
+    $selectedUrl = isset($model->selectedUrl)
+        ? $model->selectedUrl
+        : $this->url([
+            'action' => 'select',
+        ]);
+    ?>
+    <a href="<?= $selectedUrl . $this->url->query([
         'mode'         => $model->mode,
         'selectedList' => $entity->id,
-        'selectedType' => $model->selectedType,
+        'selectedType' => $info->name,
     ], true) ?>"><?= $content ?></a>
 <?php } else { ?>
     <?= $content ?>

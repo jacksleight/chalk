@@ -13,8 +13,11 @@ class View extends CoastView
 {
     protected function _render()
     {
+        $prev   = $this->module;
         $render = &$this->_active->renders[0];
-        $this->app->module = $this->chalk->module($render->script->group);
-        return parent::_render();
+        $this->module = $this->chalk->module($render->script->group);
+        $return = parent::_render();
+        $this->module = $prev;
+        return $return;
     }
 }

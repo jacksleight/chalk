@@ -123,7 +123,7 @@ class All extends Action
     protected function _info($data)
     {
         if (!is_array($data)) {
-            $info = $this->hook->fire("core_info/{$data}", new \Chalk\Info());
+            $info = $this->hook->fire($data, new \Chalk\Info());
         } else {
             $info = new \Chalk\Info();
             foreach ($data as $name => $subs) {

@@ -13,7 +13,7 @@
     'name'      => 'image',
     'label'     => 'Image',
     'type'      => 'input_chalk',
-    'filters'   => 'core_image',
+    'filters'   => 'core_info_image',
 ), 'core') ?> 
 <?= $this->render('/element/form-item', array(
     'type'      => 'textarea',

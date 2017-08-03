@@ -10,6 +10,7 @@ use Chalk\Chalk;
 use Chalk\Core\Backend\Controller\Entity;
 use Coast\Request;
 use Coast\Response;
+use Chalk\Core\Structure\Node as StructureNode;
 
 class Node extends Entity
 {
@@ -55,5 +56,27 @@ class Node extends Entity
 
         $params = $route['params'];
         return $this->forward('update', $params['controller'], $params['group']);
+    }
+
+    public function existing(Request $req, Response $res)
+    {
+        $structure = $this->em('core_structure')->one();
+        $parent    = $structure->root;
+
+        $entities = $this->em($this->model->selectedType)->all(['ids' => $this->model->selected]);
+        foreach ($entities as $entity) {
+            $node = new StructureNode();
+            $node->structure = $parent->structure;
+            $node->parent    = $parent;
+            $node->content   = $entity;
+            $node->isHidden  = true;
+            $entity->nodes->add($node);
+            $this->em->persist($node);
+        }
+        $this->em->flush();
+
+        $req->data->redirect = $this->url([
+            'action' => null,
+        ])->toString();
     }
 }

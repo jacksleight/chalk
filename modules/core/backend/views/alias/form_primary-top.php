@@ -4,5 +4,5 @@
 	'entity'	=> $entity,
 	'name'		=> 'entity',
 	'label'		=> 'Content',
-    'filters'   => 'core_link',
+    'filters'   => 'core_info_link',
 ), 'core') ?>
