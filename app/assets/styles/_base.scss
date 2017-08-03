@@ -47,13 +47,13 @@ a {
 
 /* Table */
 
-table { 
+table {
 	width: 100%;
 	margin: $gutter 0 0 0;
 	border-spacing: 0;
 	border-radius: $radius;
 	border-collapse: collapse;
-	th, td { 
+	th, td {
 		vertical-align: top;
 		padding: $gutter * 0.35 $gutter * 0.75 $gutter * 0.35 0;
 		&:last-child {
@@ -146,5 +146,26 @@ table {
 	}
 	br + small {
 		display: block;
+	}
+}
+
+.list-table {
+	* {
+		margin-top: 0;
+	}
+	&-item {
+		border-top: 1px solid;
+		@include colors(null, null, 1);
+		padding: $gutter * 0.35 0;
+	}
+	&-head {
+		font-weight: bold;
+		border-top: 0;
+		padding-top: 0;
+	}
+	&-group {
+		@include colors(null, null, 3);
+		color: $color-quiet;
+		font-weight: bold;
 	}
 }

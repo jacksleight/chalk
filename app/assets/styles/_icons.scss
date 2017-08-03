@@ -47,6 +47,7 @@ $icons: (
 	false:		cross,
 	logout:		exit,
 	move:		enlarge,
+	drag:		menu,
 	ok:			checkmark,
 	publish:	earth,
 	remove:		minus,
@@ -76,7 +77,11 @@ $icons: (
 }
 
 .icon-move:before {
-	transform: rotate(45deg) scale(0.8, 0.8);
+	transform: rotate(45deg) scale(0.7, 0.7);
+}
+.icon-drag:before {
+	transform: scale(1.4);
+	transform-origin: right;
 }
 .icon-add:before {
 	transform: scale(0.95, 0.95);

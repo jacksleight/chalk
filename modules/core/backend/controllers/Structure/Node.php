@@ -58,6 +58,11 @@ class Node extends Entity
         return $this->forward('update', $params['controller'], $params['group']);
     }
 
+    public function sort()
+    {
+
+    }
+
     public function existing(Request $req, Response $res)
     {
         $structure = $this->em('core_structure')->one();

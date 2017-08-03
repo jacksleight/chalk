@@ -789,7 +789,7 @@
   content: "\e9bc";
 }
 
-.icon-menu:before {
+.icon-menu:before, .icon-drag:before {
   content: "\e9bd";
 }
 
@@ -2017,7 +2017,12 @@
 
 /* Icons */
 .icon-move:before {
-  transform: rotate(45deg) scale(0.8, 0.8);
+  transform: rotate(45deg) scale(0.7, 0.7);
+}
+
+.icon-drag:before {
+  transform: scale(1.4);
+  transform-origin: right;
 }
 
 .icon-add:before {

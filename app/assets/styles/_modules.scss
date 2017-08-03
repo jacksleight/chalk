@@ -1320,175 +1320,64 @@ legend {
 	}
 }
 
-/* Tree */
+/* Sortable */
 
-.tree,
-.tree-root {
-	.sidebar & {
-		margin-left: $gutter-x-sidebar * -1;
-		margin-right: $gutter-x-sidebar * -1;
-	}
-}
-.tree-root {
-	.sidebar & {
-		margin-top: $gutter-y;
-	}
-}
-.tree {
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-.tree-list {
-	position: relative;
+.sortable-nested-list {
 	display: block;
-	margin: 0;
-	padding: 0;
+	margin-left: 0;
 	list-style: none;
+	.sortable-nested-list {
+		padding-left: $gutter * 1.5;
+	}
 }
-.tree-list .tree-list {
-	padding-left: $gutter;
-}
-.tree-collapsed .tree-list {
-	display: none;
-}
-.tree-node,
-.tree-empty,
-.tree-placeholder {
+.sortable-nested-item {
 	display: block;
+	margin-left: 0;
 	position: relative;
-	margin: 0;
-	padding: 0;
 }
-.tree-node {
-	&::before {
-		content: '';
-		position: absolute;
-		top: 6px;
-		height: 12px;
-		width: 12px;
-		left: $gutter-x-sidebar;
-		z-index: 1;
-		background-color: transparentize(white, 0.9);
-	}
-	button {
-		position: absolute;
-		z-index: 1;
-		padding: 0;
-		top: 0;
-		left: 0;
-		width: $gutter + $gutter-x-sidebar;
-		z-index: 2;
-		height: 24px;
-		text-align: center;
-		cursor: pointer;
-		border: 0;
-		background-color: transparent !important;
-		outline: 0;
-		&[data-action=expand] span {
-			@extend .icon-plus;
-		}
-		&[data-action=collapse] span {
-			@extend .icon-minus;
-		}
-		span {
-			position: absolute;
-			top: 6px;
-			left: $gutter-x-sidebar;
-			height: 12px;
-			width: 12px;
-			background-color: transparentize(white, 0.2);
-			overflow: hidden;
-			&:before {
-				@include icon-base();
-				padding-right: 0;
-				font-size: 6px;
-				color: $color-primary;
-				vertical-align: 2px;
-			}
-		}
-		&:hover span {
-			background-color: white;
+.sortable-nested-blank {
+	display: none;
+	.sortable-nested-handle {
+		cursor: default;
+		pointer-events: none;
+		&::before {
+			content: 'Empty';
+			color: $color-quiet;
 		}
 	}
-	.tree-item {
-		@include font-size(-2);
-		text-decoration: none;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-		overflow: hidden;
+	&:first-child:last-child {
 		display: block;
-		padding: $gutter * 0.1 $gutter $gutter * 0.2 ($gutter + $gutter-x-sidebar);
-		&:hover,
-		&.active {
-			@include colors(0, 2);
-		}
-		&.active {
-			@include arrow(24px, 1);
-		}
-		&.tree-item-hidden {
-			@include link-color(transparentize(white, 0.6));
-		}
-		&.tree-item-draft,
-		&.tree-item-pending {
-			@include link-color($color-negative);
-			&.tree-item-hidden {
-				@include link-color(transparentize($color-negative, 0.6));
-			}
-		}
-		&.tree-item-archived {
-			text-decoration: line-through;
-		}
-		.tree-move & {
-			padding-right: $gutter * 1.25 + 16px;
-		}
 	}
 }
-.tree-handle {
-	opacity: 0;
-	pointer-events: none;
+.sortable-nested-handle {
 	cursor: move;
-	position: absolute;
-	top: 0;
-	left: $gutter * 1.65;
-	right: 0;
-	height: 24px;
-	transition: opacity $speed ease;
-	@extend .icon-menu;
-	&:before {
-		@include icon-base();
-		position: absolute;
-		top: 0;
-		right: $gutter;
-		opacity: 0.5;
+	position: relative;
+	.icon-drag {
+		float: right;
+		opacity: 0.15;
+		transition: opacity $speed ease;
 	}
 	&:hover {
-		&::before {
-			opacity: 1;
+		> .icon-drag {
+			opacity: 0.5;
 		}
 	}
-	.tree-move & {
-		opacity: 1;
-		pointer-events: auto;
-	}
 }
-.tree-placeholder,
-.tree-empty {
-	background-position: right;
+.sortable-nested-placeholder {
+	display: block;
 	background-color: $color-active;
 }
-.tree-drag {
-	background-color: shade($color-primary, 10%);
+.sortable-nested-drag[style] {
+	display: block;
 	position: absolute;
 	pointer-events: none;
-	z-index: 1000;
-	margin-left: -127px;
-	&[style] {
-		opacity: 0.4 !important
-	}
-	&, a {
-		@include link-color(white);
+	z-index: 10000;
+	@include colors(null, 2);
+	opacity: 0.5 !important;
+	padding-left: $gutter * 0.75;
+	padding-right: $gutter * 0.75;
+	> .sortable-nested-item > .sortable-nested-handle {
+		border-top-color: transparent;
 	}
 }
 

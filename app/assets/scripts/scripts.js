@@ -34,7 +34,6 @@
 /* Elements */
 
 //= require elements/notifications.js
-//= require elements/tree.js
 //= require elements/input-chalk.js
 //= require elements/editor.js
 //= require elements/tag.js
@@ -51,6 +50,7 @@
 //= require behaviours/selectable.js
 //= require behaviours/stackable.js
 //= require behaviours/ajaxable.js
+//= require behaviours/sortable-nested.js
 
 /* Initialize */
 
