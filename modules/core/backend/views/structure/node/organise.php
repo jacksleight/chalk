@@ -21,7 +21,7 @@ foreach ($entities as $entity) {
 <form novalidate data-modal-size="800" class="flex-col">
     <div class="header">
         <h1>
-            Move <?= $info->plural ?>
+            Organise <?= $info->plural ?>
         </h1>
     </div>
     <div class="body flex">

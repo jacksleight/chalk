@@ -1,5 +1,5 @@
 <li><a href="<?= $this->url([
-    'action' => 'sort',
+    'action' => 'organise',
 ]) ?>" rel="modal" class="btn btn-focus btn-out icon-move">
-    Move <?= $info->plural ?>
+    Organise <?= $info->plural ?>
 </a></li>

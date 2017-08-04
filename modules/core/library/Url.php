@@ -133,13 +133,13 @@ class Url extends Content
 	{
         $parts = parent::previewText($context);
 		if ($this->url->scheme() == 'mailto') {
-			$params  = $this->url->queryParams();
-			$parts[] = $this->url->path();
+			$params   = $this->url->queryParams();
+			$parts[0] = $this->url->path();
 			if (isset($params['subject'])) {
 				$parts[] = $params['subject'];
 			}
 		} else {
-			$parts[] = $this->url->toString();
+			$parts[0] = $this->url->toString();
 		}
 		return $parts;
 	}
