@@ -18,8 +18,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 */
 class Node extends Entity
 {
-    public static $chalkSingular = 'Page';
-    public static $chalkPlural   = 'Pages';
+    public static $chalkSingular = 'Content';
+    public static $chalkPlural   = 'Content';
     public static $chalkIcon     = 'structure';
     
     const VALUE_MAX = 2147483647;
