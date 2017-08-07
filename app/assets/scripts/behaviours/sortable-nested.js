@@ -16,7 +16,7 @@ Chalk.component('.sortable-nested', function(i, el) {
             $('.sortable-nested').each(function() {
                 data[$(this).attr('data-id')] = $(this).nestable('serialize');
             });
-            $('.sortable-nested-data').text(JSON.stringify(data));
+            $('.sortable-nested-data').val(JSON.stringify(data));
         }
     })
 

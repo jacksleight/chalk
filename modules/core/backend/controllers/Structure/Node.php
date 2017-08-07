@@ -10,6 +10,7 @@ use Chalk\Chalk;
 use Chalk\Core\Backend\Controller\Entity;
 use Coast\Request;
 use Coast\Response;
+use Chalk\Core\Structure\Node\Iterator;
 use Chalk\Core\Structure\Node as StructureNode;
 
 class Node extends Entity
@@ -58,9 +59,51 @@ class Node extends Entity
         return $this->forward('update', $params['controller'], $params['group']);
     }
 
-    public function organise()
+    public function organise(Request $req, Response $res)
     {
+        if (!$req->isPost()) {
+            return;
+        }
+        if (!$req->nodeData) {
+            $req->nodeData = '[]';
+        }
 
+        $nodes = $this
+            ->em('Chalk\Core\Structure\Node')
+            ->all();
+        $map = [];
+        foreach ($nodes as $node) {
+            $map[$node->id] = $node;
+        }
+
+        $nodeData = json_decode($req->nodeData);
+        foreach ($nodeData as $root => $data) {
+            $root = $this
+                ->em('Chalk\Core\Structure\Node')
+                ->id($root);
+            $it = new \RecursiveIteratorIterator(
+                new Iterator($data),
+                \RecursiveIteratorIterator::SELF_FIRST);
+            $stack = [];
+            foreach ($it as $i => $value) {
+                if (!isset($value->id)) {
+                    continue;
+                }
+                array_splice($stack, $it->getDepth(), count($stack), array($value));
+                $depth  = $it->getDepth();
+                $parent = $depth > 0
+                    ? $stack[$depth - 1]
+                    : $root;
+                $node = $map[$value->id];
+                $node->parent->children->removeElement($node);
+                $node->parent = $map[$parent->id];
+                $node->sort = $i;
+            }
+        }
+        $this->em->flush();
+
+        $this->notify("Content was saved successfully", 'positive');
+        $req->data->reload = true;
     }
 
     public function existing(Request $req, Response $res)

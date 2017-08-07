@@ -18,7 +18,7 @@ foreach ($entities as $entity) {
 }
 ?>
 
-<form novalidate data-modal-size="800" class="flex-col">
+<form action="<?= $this->url([]) ?>" novalidate data-modal-size="800" class="flex-col" method="post">
     <div class="header">
         <h1>
             Organise
@@ -76,12 +76,12 @@ foreach ($entities as $entity) {
                 </div>
             <?php } ?>
         </div>
-        <div class="sortable-nested-data"></div>
+        <input type="hidden" name="nodeData" class="sortable-nested-data">
     </div>
     <div class="footer">
         <ul class="toolbar toolbar-right">
             <li>
-                <button class="btn btn-positive icon-ok confirmable">
+                <button class="btn btn-positive icon-ok">
                     Save Changes
                 </button>
             </li>
