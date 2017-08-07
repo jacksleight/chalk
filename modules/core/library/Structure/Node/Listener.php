@@ -104,7 +104,7 @@ class Listener implements EventSubscriber
                     $reverse->right = $j++;
                 }
                 $node->left  = $j++;
-                $node->sort  = $i;
+                $node->sort  = $i * 10;
                 $node->depth = $tree->getDepth();
                 $nodes       = $stack;
                 array_shift($nodes);

@@ -158,18 +158,6 @@ class Node extends Entity
         return $this->parent;
     }
 
-    public function __clone()
-    {
-        if (isset($this->children)) {
-            $this->children = clone $this->children;
-            foreach ($this->children as $child) {
-                $this->children->removeElement($child);
-                $child = clone $child;
-                $child->parent($this);
-            }
-        }
-    }
-
     public function parents()
     {
         return isset($this->parent)

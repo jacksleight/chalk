@@ -228,7 +228,7 @@ abstract class Entity extends Action
             throw new \Exception("Action '{$req->action}' is invalid");
         }
 
-        $entity = $this->em($this->info)->find($req->id);
+        $entity = $this->em($this->info)->id($req->id);
         if (!isset($entity)) {
             throw new \Exception("Entity '{$this->info->name}' with ID '{$req->id}' does not exist");
         }

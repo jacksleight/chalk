@@ -12,6 +12,7 @@ use Coast\Request;
 use Coast\Response;
 use Chalk\Core\Structure\Node\Iterator;
 use Chalk\Core\Structure\Node as StructureNode;
+use Chalk\Entity as ChalkEntity;
 
 class Node extends Entity
 {
@@ -97,7 +98,7 @@ class Node extends Entity
                 $node = $map[$value->id];
                 $node->parent->children->removeElement($node);
                 $node->parent = $map[$parent->id];
-                $node->sort = $i;
+                $node->sort = $i * 10;
             }
         }
         $this->em->flush();
@@ -126,5 +127,22 @@ class Node extends Entity
         $req->data->redirect = $this->url([
             'action' => null,
         ])->toString();
+    }
+
+    protected function _duplicate(Request $req, Response $res, ChalkEntity $entity)
+    {
+        $content = $entity->content->duplicate();
+
+        $node = new StructureNode();
+        $node->structure = $this->em('core_structure')->id($entity->structure->id);
+        $node->parent    = $this->em('core_structure_node')->id($entity->parent->id);
+        $node->content   = $content;
+        $node->sort      = $entity->sort + 1;
+        $content->nodes->add($node);
+
+        $this->em->persist($content);
+        $this->em->persist($node);
+
+        return $node;
     }
 }
