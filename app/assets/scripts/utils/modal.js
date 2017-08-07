@@ -48,6 +48,9 @@
 						if (data.redirect) {
 							window.location.href = data.redirect;
 							return;
+						} else if (data.reload) {
+							window.location.reload();
+							return;
 						} else {
 							close(data);
 							if (data.clear) {

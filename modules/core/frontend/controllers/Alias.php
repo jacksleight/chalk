@@ -30,6 +30,6 @@ class Alias extends Action
 
 	public function index(Request $req, Response $res)
 	{
-        return $res->redirect($this->url($req->alias->content));
+        return $res->redirect($this->url($req->alias->entity));
     }
 }

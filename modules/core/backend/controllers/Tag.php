@@ -60,11 +60,11 @@ class Tag extends Entity
         }
 
         $this->notify("Tags were saved successfully", 'positive');
-        $req->data->clear = true;
+        $req->data->reload = true;
     }
 
     public function merge(Request $req, Response $res)
-    {       
+    {
         $model = new Merge();
         $req->view->model = $modelWrap = $this->em->wrap($model);
 

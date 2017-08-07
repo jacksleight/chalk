@@ -3,7 +3,7 @@
     <?php if ($info->is->duplicateable) { ?>
         <li><a href="<?= $this->url([
                 'action'    => 'duplicate',
-            ]) ?>" class="btn btn-focus btn-out icon-copy">
+            ]) ?>" class="btn btn-focus btn-out icon-copy confirmable">
             Duplicate
         </a></li>
     <?php } ?>

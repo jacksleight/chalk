@@ -12,6 +12,7 @@ use Chalk\Entity;
 use Coast\Controller\Action;
 use Coast\Request;
 use Coast\Response;
+use Chalk\Core\Backend\Model\Url\Quick;
 use Coast\Url as CoastUrl;
 
 class Url extends Content
@@ -23,12 +24,12 @@ class Url extends Content
         if (!$req->isPost()) {
             throw new \Chalk\Exception("Quick action only accepts POST requests");
         }
-        
-        $quick = new \Chalk\Core\Backend\Model\Url\Quick();
-        $wrap  = $this->em->wrap($quick);
 
-        $wrap->graphFromArray($req->bodyParams());
-        if (!$wrap->graphIsValid()) {
+        $model = new Quick();
+        $req->view->model = $modelWrap = $this->em->wrap($model);
+
+        $modelWrap->graphFromArray($req->bodyParams());
+        if (!$modelWrap->graphIsValid()) {
             $this->notify("{$this->info->singular} could not be added, please try again", 'negative');
             return $res->redirect($this->url(array(
                 'action' => 'index',
@@ -37,7 +38,7 @@ class Url extends Content
         }
 
         $content = $this->em($this->info)->one([
-            'url' => $quick->url,
+            'url' => $model->url,
         ]);
         if ($content) {
             $this->model->redirect->queryParam('selectedList', $content->id);
@@ -46,7 +47,10 @@ class Url extends Content
 
         $content = $this->em($this->info)->create();
         $content->status = \Chalk\Chalk::STATUS_PUBLISHED;
-        $content->fromArray($quick->toArray());
+        $content->fromArray([
+            'name' => $model->name,
+            'url'  => $model->url,
+        ]);
 
         $this->em->persist($content);
         $this->em->flush();

@@ -83,7 +83,7 @@ class Module extends ChalkModule
                     $entity = $this->em('core_file')->id($entity['id']);
                 }
                 return $this->frontend->url
-                    ->file($entity['file']);
+                    ->file($entity['file'], true, true, false);
             });
 
         if ($this->app->isHttp()) {
@@ -155,7 +155,8 @@ class Module extends ChalkModule
                 n.parentId,
                 c.id AS content_id,
                 c.type AS content_type,
-                c.data AS content_data
+                c.data AS content_data,
+                'Chalk\\\Core\\\Structure\\\Node' as __CLASS__
             FROM core_structure_node AS n
                 INNER JOIN core_structure AS s ON s.id = n.structureId
                 INNER JOIN core_domain__core_structure AS d ON d.core_structureId = s.id

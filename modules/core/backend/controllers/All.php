@@ -71,7 +71,7 @@ class All extends Action
             : "{$controller}/{$action}";
 
         $isJson   = $req->isAjax() && count((array) $req->data);
-        $isNotify = $req->isAjax() && !isset($req->data->redirect);
+        $isNotify = $req->isAjax() && !isset($req->data->redirect) && !isset($req->data->reload);
 
         if ($isNotify) {
             $req->data->notifications = $this->notify->notifications();

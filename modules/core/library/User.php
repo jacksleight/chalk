@@ -80,7 +80,7 @@ class User extends Entity implements Trackable, Searchable
 	/**
      * @Column(type="string")
      */
-	protected $role = 'contributor';
+	protected $role = 'editor';
 	
 	/**
      * @Column(type="json_array")

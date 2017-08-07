@@ -1,9 +1,11 @@
-<?= $this->render('/element/form-item', array(
-	'entity'	=> $entity,
-	'name'		=> 'name',
-	'label'		=> 'Name',
-	'autofocus'	=> true,
-), 'core') ?>
+<?php if (!$entity->isProtected || $this->user->isDeveloper()) { ?>
+    <?= $this->render('/element/form-item', array(
+    	'entity'	=> $entity,
+    	'name'		=> 'name',
+    	'label'		=> 'Name',
+        'autofocus' => true,
+    ), 'core') ?>
+<?php } ?>
 <?php if ($entity->isNode()) { ?>
     <?= $this->render('/element/form-item', array(
         'entity'        => $entity->nodes[0],
