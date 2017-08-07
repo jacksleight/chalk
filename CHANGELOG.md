@@ -265,3 +265,17 @@
 
 * **Fixes**
 	* Bug fixes
+
+### 0.7.0
+
+* **Features**
+	* Content tagging
+	* Jump to/from content
+	* Duplicate content
+* **Improvements**
+	* Layout updates
+	* Unified content and structure UI
+	* Enable fullscreen on content edtior
+	* New CRUD system, global linking
+* **Fixes**
+	* Bug fixes
