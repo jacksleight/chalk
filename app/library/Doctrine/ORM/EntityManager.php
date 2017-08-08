@@ -62,26 +62,35 @@ class EntityManager extends \Coast\Doctrine\ORM\EntityManager
         if (!isset($classes)) {
             $classes = ['__ROOT__' => null];
         } else if (!is_array($classes)) {
-            $classes = ['__ROOT__' => $classes];        
+            $classes = ['__ROOT__' => $classes];
         }
 
         $map = [];
         foreach ($items as $i => &$item) {
             foreach ($classes as $key => $class) {
+                if (is_numeric($key)) {
+                    $key   = $class;
+                    $class = true;
+                }
                 if ($key == '__ROOT__') {
                     $value = &$item;
                 } else {
                     $value = &$item[$key];
                 }
-                if (!isset($value)) {
+                if (!isset($value) || strlen($value) == 0) {
+                    $value = null;
                     continue;
                 }
-                if (isset($class)) {
+                if (is_string($class)) {
                     $class = $class;
                     $id    = $value;
                 } else if (is_array($value)) {
                     $class = $value['__CLASS__'];
                     $id    = $value['id'];
+                } else if ($class === true) {
+                    $json  = json_decode($value);
+                    $class = $json->type;
+                    $id    = $json->id;
                 }
                 if (!isset($map[$class][$id])) {
                     $map[$class][$id] = [];
@@ -118,11 +127,11 @@ class EntityManager extends \Coast\Doctrine\ORM\EntityManager
         foreach ($items as $i => &$item) {
             foreach ($filters as $key) {
                 if ($key == '__ROOT__') {
-                    if (!isset($item)) {
+                    if (!isset($item) || strlen($item) == 0) {
                         unset($items[$i]);
                     }
                 } else {
-                    if (!isset($item[$key])) {
+                    if (!isset($item[$key]) || strlen($item[$key]) == 0) {
                         unset($items[$i]);
                     }
                 }
