@@ -18,11 +18,6 @@ function is_image(\Coast\File $file)
     return in_array($file->extName(), $exts);
 }
 
-function str_slugify($string)
-{
-    return strtolower(\Coast\str_slugify(iconv('utf-8', 'ascii//translit//ignore', $string)));
-}
-
 function filters_list_build($filters)
 {
     if (!isset($filters)) {

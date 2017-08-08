@@ -44,7 +44,7 @@ trait Entity
             $split = explode('~', $tagNamesList);
             $names = [];
             foreach ($split as $name) {
-                $names[\Chalk\str_slugify($name)] = trim($name);
+                $names[\Coast\str_slugify($name)] = trim($name);
             }
             $tags = \Toast\Wrapper::$em->__invoke('core_tag')->all([
                 'slugs' => array_keys($names),

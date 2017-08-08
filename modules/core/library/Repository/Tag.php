@@ -28,7 +28,7 @@ class Tag extends Repository
     {
         $map = [];
         foreach ($names as $name) {
-            $slug = \Chalk\str_slugify($name);
+            $slug = \Coast\str_slugify($name);
             $map[$slug] = trim($name);
         }
         $tags = $this->all(['slugs' => array_keys($map)]);

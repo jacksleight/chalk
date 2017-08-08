@@ -154,7 +154,7 @@ abstract class Content extends Entity implements Publishable, Searchable, Tagabl
     {
         if (func_num_args() > 0) {
             $this->slug = isset($slug)
-                ? \Chalk\str_slugify($slug)
+                ? \Coast\str_slugify($slug)
                 : $slug;
             return $this;
         }
