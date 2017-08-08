@@ -1,4 +1,9 @@
 <?php
+if (!isset($value)) {
+    $value = null;
+} else if (strlen($value) == 0) {
+    $value = null;
+}
 if (isset($scope)) {
     if (!is_object($scope)) {
         $scope = Chalk\Chalk::info($scope);
