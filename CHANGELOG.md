@@ -279,3 +279,8 @@
 	* New CRUD system, global linking
 * **Fixes**
 	* Bug fixes
+
+### 0.7.1
+
+* **Fixes**
+	* Bug fixes
