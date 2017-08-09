@@ -14,7 +14,6 @@
         <input
             class="input-upload-input"
             type="file"
-            name="files[]"
                 data-url="<?= $this->url([
                 'action' => 'upload',
             ]) ?>"

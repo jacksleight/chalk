@@ -4,7 +4,6 @@
         <input
             class="uploadable-input"
             type="file"
-            name="files[]"
                 data-url="<?= $this->url([
                 'action' => 'upload',
             ]) . $this->url->query([

@@ -18,14 +18,6 @@ class Node extends Entity
 {
     protected $_entityClass = 'Chalk\Core\Structure\Node';
 
-    public function preDispatch(Request $req, Response $res)
-    {
-        parent::preDispatch($req, $res);
-        $this->info->is->publishable = true;
-        $this->info->is->searchable  = true;
-        $this->info->is->trackable   = true;
-    }
-
     protected function _sorts()
     {
         return [];

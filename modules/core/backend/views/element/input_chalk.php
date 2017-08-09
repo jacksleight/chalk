@@ -1,7 +1,7 @@
 <?php
 if (!isset($value)) {
     $value = null;
-} else if (strlen($value) == 0) {
+} else if (is_string($value) && strlen($value) == 0) {
     $value = null;
 }
 if (isset($scope)) {
