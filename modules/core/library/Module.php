@@ -381,7 +381,7 @@ class Module extends ChalkModule
         $this
             ->backendHookListen('core_info_link', function(Info $info) {
                 $info
-                    ->item('core_page', [])
+                    ->item('core_structure_node', [])
                     ->item('core_file', [])
                     ->item('core_url', [])
                     ->item('core_alias', []);
@@ -465,10 +465,11 @@ class Module extends ChalkModule
                     ->entity('core_tag', [], 'core_setting');
                 return $nav;
             })
-            ->backendHookListen($this->name('select'), function(Nav $nav) {
+            ->backendHookListen('core_select', function(Nav $nav) {
                 $nav
+                    ->entity('core_structure_node', [])
+                    ->entity('core_block', [], 'core_structure_node')
                     ->entity('core_page', [])
-                    ->entity('core_block', [], 'core_page')
                     ->entity('core_file', [])
                     ->entity('core_url', [])
                     ->entity('core_alias', [])

@@ -8,6 +8,7 @@ namespace Chalk\Core\Backend\Controller\Structure;
 
 use Chalk\Chalk;
 use Chalk\Core\Backend\Controller\Entity;
+use Chalk\Core\Page;
 use Coast\Request;
 use Coast\Response;
 use Chalk\Core\Structure\Node\Iterator;
@@ -50,6 +51,26 @@ class Node extends Entity
 
         $params = $route['params'];
         return $this->forward('update', $params['controller'], $params['group']);
+    }
+
+    public function select(Request $req, Response $res)
+    {
+        $nodes    = $this->em($this->model->selectedType)->all(['ids' => $this->model->selected()]);
+        $ids      = array_map(function($v) { return $v->content->id; }, $nodes);
+        $entities = $this->em('core_content')->all(['ids' => $ids]);
+
+        $data = [];
+        foreach ($entities as $entity) {
+            $data[] = [
+                'type'  => Chalk::info($entity)->name,
+                'id'    => $entity->id,
+                'name'  => $entity->previewName,
+                'card'  => $this->view->render('element/card', [
+                    'entity' => $entity,
+                ], 'core')->toString(),
+            ];
+        }
+        $req->data->entites = $data;
     }
 
     public function organise(Request $req, Response $res)
@@ -136,5 +157,15 @@ class Node extends Entity
         $this->em->persist($node);
 
         return $node;
+    }
+
+    protected function _delete(Request $req, Response $res, ChalkEntity $entity)
+    {
+        $content = $entity->content;
+
+        $this->em->remove($entity);
+        if ($content instanceof Page) {
+            $this->em->remove($content);
+        }
     }
 }

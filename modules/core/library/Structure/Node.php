@@ -18,15 +18,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 */
 class Node extends Entity
 {
-    public static $chalkSingular = 'Content';
-    public static $chalkPlural   = 'Content';
+    public static $chalkSingular = 'Pages';
+    public static $chalkPlural   = 'Pages';
     public static $chalkIcon     = 'structure';
     public static $chalkIs       = [
         'publishable' => true,
         'searchable'  => true,
         'trackable'   => true,
     ];
-    
+
     const VALUE_MAX = 2147483647;
 
     /**

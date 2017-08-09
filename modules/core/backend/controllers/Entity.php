@@ -167,7 +167,7 @@ abstract class Entity extends Action
         $data = [];
         foreach ($entities as $entity) {
             $data[] = [
-                'type'  => $this->model->selectedType,
+                'type'  => Chalk::info($entity)->name,
                 'id'    => $entity->id,
                 'name'  => $entity->previewName,
                 'card'  => $this->view->render('element/card', [
@@ -200,7 +200,7 @@ abstract class Entity extends Action
         if (!$req->isPost()) {
             return;
         }
-
+        
         $entity->graphFromArray($req->bodyParams());
         if (!$entity->graphIsValid()) {
             $this->notify("{$this->info->singular} <strong>{$entity->previewName}</strong> could not be saved, please check the messages below", 'negative');
