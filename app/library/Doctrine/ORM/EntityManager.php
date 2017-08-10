@@ -127,11 +127,11 @@ class EntityManager extends \Coast\Doctrine\ORM\EntityManager
         foreach ($items as $i => &$item) {
             foreach ($filters as $key) {
                 if ($key == '__ROOT__') {
-                    if (!isset($item) || strlen($item) == 0) {
+                    if (!isset($item) || (is_string($item) && strlen($item) == 0)) {
                         unset($items[$i]);
                     }
                 } else {
-                    if (!isset($item[$key]) || strlen($item[$key]) == 0) {
+                    if (!isset($item[$key]) || (is_string($item[$key]) && strlen($item[$key]) == 0)) {
                         unset($items[$i]);
                     }
                 }
