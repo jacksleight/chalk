@@ -27,7 +27,7 @@ abstract class Entity extends \Toast\Entity
     {
         $parts = [];
         if (!$context) {
-            array_unshift($parts, $this->typeLabel);
+            $parts[] = $this->typeLabel;
         }
         return $parts;
     }
