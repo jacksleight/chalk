@@ -178,7 +178,7 @@ class Repository extends EntityRepository
                 return (new Paginator($query))->getIterator()->current();
             } else {
                 return $query->getOneOrNullResult();
-            }         
+            }
         } else if ($mode == self::FETCH_ONE_UNIQUE) {
             return $query->getOneOrNullResult();
         }
@@ -186,7 +186,7 @@ class Repository extends EntityRepository
 
     public function alias()
     {
-        $class = get_class($this);
+        $class = $this->getClassName();
         $class = substr($class, strrpos($class, '\\') + 1);
         return strtolower($class[0]);
     }

@@ -45,8 +45,11 @@ class Content extends Repository
 
         if (isset($params['types']) && count($params['types'])) {
             $all = [];
-            foreach ($types as $name => $subtypes) {
-                $info = Chalk::info($name);
+            foreach ($params['types'] as $type => $subtypes) {
+                $info = Chalk::info($type);
+                if (!is_a($info->class, $this->getClassName(), true) ) {
+                    continue;
+                }
                 $classes = array_merge(
                     [$info->class],
                     $this->_em->getClassMetadata($info->class)->subClasses
