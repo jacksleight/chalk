@@ -289,3 +289,8 @@
 
 * **Fixes**
 	* Bug fixes
+
+### 0.7.3
+
+* **Fixes**
+	* Bug fixes
