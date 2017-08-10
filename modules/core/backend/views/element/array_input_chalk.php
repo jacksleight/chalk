@@ -5,9 +5,9 @@ $items = [];
     <?php $this->start() ?>
         <div class="form-group form-group-vertical">
             <?= $this->render('element/input_chalk', [
-                'name'    => "{$md['contextName']}[{$i}][value]",
-                'id'      => "_{$md['contextName']}[{$i}][value]",
-                'value'   => $item['value'],
+                'name'    => "{$md['contextName']}[{$i}]",
+                'id'      => "_{$md['contextName']}[{$i}]",
+                'value'   => $item,
                 'scope'   => isset($scope) ? $scope : null,
                 'filters' => isset($filters) ? $filters : null,
             ], 'core') ?>
@@ -18,8 +18,8 @@ $items = [];
     <?php $this->start() ?>
         <div class="form-group form-group-vertical">
             <?= $this->render('element/input_chalk', [
-                'name'    => "{$md['contextName']}[{{i}}][value]",
-                'id'      => "_{$md['contextName']}[{{i}}][value]",
+                'name'    => "{$md['contextName']}[{{i}}]",
+                'id'      => "_{$md['contextName']}[{{i}}]",
                 'value'   => null,
                 'scope'   => isset($scope) ? $scope : null,
                 'filters' => isset($filters) ? $filters : null,
