@@ -5363,12 +5363,15 @@ legend {
 }
 
 .mce-menu .mce-menu-item:hover,
+.mce-menu .mce-menu-item.mce-active,
 .mce-menu .mce-menu-item.mce-selected,
 .mce-menu .mce-menu-item:focus {
   background: #00a6b5;
 }
 
 .mce-menu .mce-menu-item:hover[style], .mce-menu .mce-menu-item:hover *[style],
+.mce-menu .mce-menu-item.mce-active[style],
+.mce-menu .mce-menu-item.mce-active *[style],
 .mce-menu .mce-menu-item.mce-selected[style],
 .mce-menu .mce-menu-item.mce-selected *[style],
 .mce-menu .mce-menu-item:focus[style],

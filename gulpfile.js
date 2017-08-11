@@ -30,6 +30,8 @@ gulp.task('watch', function() {
     livereload.listen();
     gulp.watch(sourcePath + stylesGlob, ['styles']);
     gulp.watch(sourcePath + scriptsGlob, ['scripts-default']);
+    gulp.watch(sourcePath + '/scripts/editor-content.js', ['scripts-editor-content']);
+    gulp.watch(sourcePath + '/scripts/editor-code.js', ['scripts-editor-code']);
     gulp.watch(projectPath + phpGlob, function(ev) {
         livereload.reload();
     });

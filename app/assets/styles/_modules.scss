@@ -1537,6 +1537,7 @@ legend {
 
 .mce-menu {
 	.mce-menu-item:hover,
+	.mce-menu-item.mce-active,
 	.mce-menu-item.mce-selected,
 	.mce-menu-item:focus {
 		background: $color-focus;

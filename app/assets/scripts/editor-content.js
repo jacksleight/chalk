@@ -313,6 +313,14 @@ tinyMCE.init({
     browser_spellcheck: true,
     element_format: 'html',
     autoresize_max_height: 1000,
+    preview_styles: false,
+    table_advtab: false,
+    table_row_advtab: false,
+    table_cell_advtab: false,
+    table_appearance_options: false,
+    table_class_list: [
+        {title: 'None', value: ''},
+    ],
     paste_retain_style_properties: 'none',
     paste_word_valid_elements: [
         '-strong/b', '-em/i',
