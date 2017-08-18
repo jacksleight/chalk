@@ -1,6 +1,6 @@
 <ul class="toolbar toolbar-right">
-	<?= $this->partial('tools-top') ?>
-    <?php if ($info->is->duplicateable) { ?>
+    <?= $this->partial('tools-top') ?>
+    <?php if ($info->is->duplicateable && !$entity->isNew()) { ?>
         <li><a href="<?= $this->url([
                 'action'    => 'duplicate',
             ]) ?>" class="btn btn-focus btn-out icon-copy confirmable">
@@ -10,5 +10,5 @@
     <?php if (array_intersect(['create'], $actions) && !$entity->isNew()) { ?>
         <li><?= $this->inner('new', ['class' => 'btn-out']) ?></li>
     <?php } ?>
-	<?= $this->partial('tools-bottom') ?>
+    <?= $this->partial('tools-bottom') ?>
 </ul>
