@@ -286,11 +286,8 @@ if (Chalk.styles) {
         selector = style.selector || '',
         block    = style.block    || '',
         inline   = style.inline   || '',
-        classes  = style.classes.split(' ')
-        for (var j = 0; j < classes.length; j++) {
-            css.push(selector + ' ' + (block || inline) + '.' + classes[j] + ' { ' + style.css + ' }');
-        }
-
+        classes  = style.classes.split(' ');
+        css.push(selector + ' ' + (block || inline) + '.' + classes.join('.') + ' { ' + style.css + ' }');
     }
     css = css.join(' ');
 }
