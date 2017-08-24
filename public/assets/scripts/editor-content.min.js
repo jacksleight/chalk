@@ -346,6 +346,7 @@ tinyMCE.init({
     element_format: 'html',
     autoresize_max_height: 1000,
     preview_styles: false,
+    table_grid: false,
     table_advtab: false,
     table_row_advtab: false,
     table_cell_advtab: false,
