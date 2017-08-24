@@ -2422,6 +2422,18 @@ table th, table td {
   border-color: #d2d2d2 !important;
 }
 
+table thead th, table thead td,
+table tfoot th,
+table tfoot td {
+  font-weight: bold;
+  border-color: #a5a5a5 !important;
+}
+
+/* Img */
+img {
+  max-width: 100%;
+}
+
 /* Widget */
 div[data-chalk] {
   margin: 20px 0 0 0;

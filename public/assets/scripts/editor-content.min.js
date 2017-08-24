@@ -224,6 +224,17 @@ var assetsUrl   = Chalk.rootBaseUrl + 'vendor/jacksleight/chalk/public/assets';
 tinyMCE.baseURL = assetsUrl + '/tinymce';
 
 var css = '';
+var classList = {
+    table: [
+        {title: 'None', value: ''},
+    ],
+    tableRow: [
+        {title: 'None', value: ''},
+    ],
+    tableCell: [
+        {title: 'None', value: ''},
+    ],
+};
 var styles = [
     {title: "Header", items: [
         {title: "Header 1", format: "h1"},
@@ -248,8 +259,15 @@ var styles = [
         {title: "Code", format: "code"}
     ]}
 ];
+if (Chalk.classes) {
+    for (var group in Chalk.classes) {
+        items = Chalk.classes[group];
+        for (var i = 0; i < items.length; i++) {
+            classList[group].push(items[i]);
+        }
+    }
+}
 if (Chalk.styles) {
-
     var groups = {}, group, style;
     for (var i = 0; i < styles.length; i++) {
         group = styles[i];
@@ -278,7 +296,6 @@ if (Chalk.styles) {
     }
     styles.push(styles.splice(2, 1)[0]);
     styles.push(styles.splice(2, 1)[0]);
-
     var css = [], selector, block, inline, classes;
     for (var i = 0; i < Chalk.styles.length; i++) {
         style    = Chalk.styles[i];
@@ -292,7 +309,6 @@ if (Chalk.styles) {
 
     }
     css = css.join(' ');
-
 }
 
 tinyMCE.init({
@@ -334,9 +350,9 @@ tinyMCE.init({
     table_row_advtab: false,
     table_cell_advtab: false,
     table_appearance_options: false,
-    table_class_list: [
-        {title: 'None', value: ''},
-    ],
+    table_class_list: classList.table,
+    table_row_class_list: classList.tableRow,
+    table_cell_class_list: classList.tableCell,
     paste_retain_style_properties: 'none',
     paste_word_valid_elements: [
         '-strong/b', '-em/i',

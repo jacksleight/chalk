@@ -46,6 +46,7 @@ $title  = (isset($title)
             'contentName'   => Chalk\Chalk::info('Chalk\Core\Content')->name,
             'prefs'         => isset($this->user) ? $this->user->prefs() : [],
             'styles'        => $this->chalk->config->styles,
+            'classes'       => $this->chalk->config->classes,
             'notifications' => $this->notify->notifications(),
             'widgets'       => $this->hook->fire('core_info_widget', new Chalk\Info())->items(),
             'editorContent' => [
