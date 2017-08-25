@@ -3,14 +3,14 @@
 ], 'core') ?>
 <?php $this->block('main') ?>
 
-<form novalidate>
-	<?php
-	$entities = $this->em($info)
-		->all($model->toArray(), [], Chalk\Repository::FETCH_ALL_PAGED);
-	?>
-	<?= $this->inner("list", [
-		'entities' => $entities,
-	]) ?>
+<form action="<?= $this->url([]) ?>" novalidate>
+    <?php
+    $entities = $this->em($info)
+        ->all($model->toArray(), [], Chalk\Repository::FETCH_ALL_PAGED);
+    ?>
+    <?= $this->inner("list", [
+        'entities' => $entities,
+    ]) ?>
     <?= $this->url->queryInputs([
         'mode'         => $model->mode,
         'filtersList'  => $model->filtersList,
