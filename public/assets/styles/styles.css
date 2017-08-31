@@ -2033,6 +2033,12 @@
   transform: scale(1.2, 1.2);
 }
 
+.icon-fw {
+  width: 1.2em;
+  display: inline-block;
+  text-align: center;
+}
+
 /* Fonts */
 @font-face {
   font-family: "Open Sans";

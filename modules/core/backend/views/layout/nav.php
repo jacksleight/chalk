@@ -25,7 +25,7 @@ if (!$items) {
                             <span class="icon-block-text"><?= $item['label'] ?></span>
                         </span>
                     <?php } else if (isset($item['icon'])) { ?>
-                        <span class="icon-<?= $item['icon'] ?>"></span>
+                        <span class="icon-fw icon-<?= $item['icon'] ?>"></span>
                         <?= $item['label'] ?>
                     <?php } else { ?>
                         <?= $item['label'] ?>

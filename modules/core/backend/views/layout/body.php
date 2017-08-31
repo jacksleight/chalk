@@ -10,7 +10,7 @@
 			?>
 			<div class="dropdown">
 				<div class="input-pseudo input-extra dropdown-toggle">
-					<span class="icon-<?= isset($main['icon-block']) ? $main['icon-block'] : $main['icon'] ?>"></span>
+					<span class="icon-fw icon-<?= isset($main['icon-block']) ? $main['icon-block'] : $main['icon'] ?>"></span>
 					<?= $main['label'] ?>
 				</div>
 				<nav class="menu">
@@ -18,7 +18,7 @@
 						<?php foreach ($items as $item) { ?>
 							<li>
 								<a href="<?= $item['url'] ?>" class="item">
-									<span class="icon-<?= isset($item['icon-block']) ? $item['icon-block'] : $item['icon'] ?>"></span>
+									<span class="icon-fw icon-<?= isset($item['icon-block']) ? $item['icon-block'] : $item['icon'] ?>"></span>
 									<?= $item['label'] ?>
 								</a>
 							</li>
