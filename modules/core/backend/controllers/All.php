@@ -20,7 +20,7 @@ class All extends Action
     {
         $session = $this->session->data('__Chalk\Backend');
 
-        $this->module = $this->chalk->module($req->dispatch['group']);
+        $this->module = $this->chalk->module(\Coast\str_camel_lower($req->dispatch['group']));
         $this->domain = $this->em('core_domain')->id(1, [], [], false);
         $this->user   = isset($session->user) ? $session->user : null;
         $this->model  = $this->_model($req);
@@ -65,7 +65,8 @@ class All extends Action
     public function postDispatch(Request $req, Response $res)
     {
         $controller = strtolower(str_replace('_', '/', $req->dispatch['controller']));
-        $action     = strtolower(str_replace('_', '-', $req->dispatch['action']));
+        $action     = $req->dispatch['action'];
+        $group      = \Coast\str_camel_lower($req->dispatch['group']);
         $path       = isset($req->view->path)
             ? $req->view->path
             : "{$controller}/{$action}";
@@ -85,7 +86,7 @@ class All extends Action
             ->html($this->view->render($path, [
                 'req' => $req,
                 'res' => $res,
-            ] + (array) $req->view, $req->dispatch['group']));
+            ] + (array) $req->view, $group));
     }
 
     protected function _modelClass(Request $req)

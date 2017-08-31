@@ -78,32 +78,34 @@ abstract class Module implements Access
 
     public function name($name = null)
     {
+        $base = static::NAME;
         return isset($name)
-            ? static::NAME . '_' . $name
-            : static::NAME;
+            ? $base . '_' . $name
+            : $base;
     }
 
     public function path($path = null)
     {
+        $base = strtolower(\Coast\str_camel_split(static::NAME, '-'));
         return isset($path)
-            ? static::NAME . '/' . $path
-            : static::NAME;
+            ? $base . '/' . $path
+            : $base;
     }
 
     public function nspace($nspace = null)
     {
-        $class = get_class($this);
-        $class = substr($class, 0, strrpos($class, '\\'));
+        $base = substr($c = get_class($this), 0, strrpos($c, '\\'));
         return isset($nspace)
-            ? $class . '\\' . $nspace
-            : $class;
+            ? $base . '\\' . $nspace
+            : $base;
     }
 
     public function dir($path = null, $create = false)
     {
+        $base = $this->_baseDir;
         return isset($path)
-            ? $this->_baseDir->dir($path, $create)
-            : $this->_baseDir;
+            ? $base->dir($path, $create)
+            : $base;
     }
 
     public function file($path)
@@ -247,7 +249,7 @@ abstract class Module implements Access
     public function backendRoute($name, $method = Router::METHOD_ALL, $path, $params)
     {
         $this->backend->router
-            ->route($name, $method, $path, $params);
+            ->route($name, $method, $path, ['group' => $this->path()] + $params);
         return $this;
     }
 
