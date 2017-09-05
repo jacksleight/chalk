@@ -164,7 +164,7 @@ class Node extends Entity
         $content = $entity->content;
 
         $this->em->remove($entity);
-        if ($content instanceof Page) {
+        if ($content instanceof Page && count($content->nodes) == 1) {
             $this->em->remove($content);
         }
     }
