@@ -442,11 +442,13 @@ class Module extends ChalkModule
                         'label'     => 'Site',
                         'icon'      => 'publish',
                         'url'       => ['name' => 'core_site'],
+                        'sort'      => 10,
                     ])
                     ->item('core_setting', [
                         'label'     => 'Settings',
                         'icon'      => 'settings',
                         'url'       => ['name' => 'core_setting'],
+                        'sort'      => 90,
                     ]);
                 $nav
                     ->entity('core_structure_node', [], 'core_site')
