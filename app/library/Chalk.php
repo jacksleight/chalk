@@ -14,7 +14,7 @@ use Coast\Response;
 
 class Chalk extends CoastApp
 {
-    const VERSION           = '0.7.5';
+    const VERSION           = '0.7.6';
 
     const STATUS_DRAFT      = 'draft';
     const STATUS_PENDING    = 'pending';
