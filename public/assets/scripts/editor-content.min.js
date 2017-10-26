@@ -48,17 +48,18 @@ tinymce.PluginManager.add('chalk', function(editor, url) {
             if (!res) {
                 return;
             }
-            var content = res.contents[0];
+            var entity = res.entities[0];
             var attrs = {
                 href: '#',
                 'data-chalk': JSON.stringify({
-                    content: {
-                        id: content.id
+                    entity: {
+                        type: entity.type,
+                        id: entity.id
                     }
                 })
             };
             if (!text.length) {
-                text = content.name;
+                text = entity.name;
             }
             if (!richSelection) {
                 editor.insertContent(dom.createHTML('a', attrs, dom.encode(text)));

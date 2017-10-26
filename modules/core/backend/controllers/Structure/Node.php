@@ -70,7 +70,7 @@ class Node extends Entity
                 ], 'core')->toString(),
             ];
         }
-        $req->data->entites = $data;
+        $req->data->entities = $data;
     }
 
     public function organise(Request $req, Response $res)

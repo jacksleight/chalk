@@ -9,13 +9,13 @@ Chalk.component('.input-chalk', function(i, el) {
 	
 	select.click(function(ev) {
 		Chalk.modal(Chalk.selectUrl + query, {}, function(res) {
-			if (res.entites) {
+			if (res.entities) {
 				if (typeof scope != 'undefined') {
-					input.val(res.entites[0].id);
+					input.val(res.entities[0].id);
 				} else {
-					input.val(JSON.stringify({type: res.entites[0].type, id: res.entites[0].id}));
+					input.val(JSON.stringify({type: res.entities[0].type, id: res.entities[0].id}));
 				}
-				holder.html(res.entites[0].card);
+				holder.html(res.entities[0].card);
 				remove.css('display', 'inline-block');
 			}
 		});

@@ -27,9 +27,12 @@ class Frontend extends Plugin implements Access
                 if (!$data) {
                     continue;
                 }
-                if (isset($data['content'])) {
+                if (isset($data['content'])) { // @compat
                     $content = $this->em('core_content')->id($data['content']['id']);
                     $node->setAttribute('href', $this->url($content));
+                } else if (isset($data['entity'])) {
+                    $entity = $this->em($data['entity']['type'])->id($data['entity']['id']);
+                    $node->setAttribute('href', $this->url($entity));
                 } else if (isset($data['widget'])) {
                     $info         = Chalk::info($data['widget']['name']);
                     $module       = $this->chalk->module($info->module->name);
