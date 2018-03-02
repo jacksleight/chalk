@@ -42,12 +42,14 @@ class Collection extends \Toast\Wrapper implements \Iterator, \Countable
 			$array = $this->_mapBooleanList($array);
 			foreach ($this->toArray() as $name => $value) {
 				if (!isset($array[$value->id])) {
-					$inverse = $this->_md['inverse'];
 					$this->_object->removeElement($value);
-					if ($this->_md['type'] == 'manyToMany') {
-						$value->{$inverse}->removeElement($this->_object);
-					} else {
-						$value->{$inverse} = null;
+					if (isset($this->_md['inverse'])) {
+						$inverse = $this->_md['inverse'];
+						if ($this->_md['type'] == 'manyToMany') {
+							$value->{$inverse}->removeElement($this->_object);
+						} else {
+							$value->{$inverse} = null;
+						}
 					}
 				}
 			}
