@@ -175,7 +175,7 @@ abstract class Entity extends Action
                 ], 'core')->toString(),
             ];
         }
-        $req->data->entites = $data;
+        $req->data->entities = $data;
     }
 
     public function create(Request $req, Response $res)

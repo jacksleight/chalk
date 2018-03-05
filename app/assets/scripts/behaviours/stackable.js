@@ -97,8 +97,8 @@ Chalk.component('.stackable', function(i, el) {
 		addMultiBtn.css('display', 'inline-block');
 		addMultiBtn.click(function(ev) {
 			Chalk.modal(Chalk.selectUrl + query, {}, function(res) {
-				if (res.entites) {
-					addMulti(res.entites);
+				if (res.entities) {
+					addMulti(res.entities);
 					var first = $(el).find('.stackable-item:first-child');
 					if (first.find('.input-chalk input').val() === '') {
 						first.remove();
