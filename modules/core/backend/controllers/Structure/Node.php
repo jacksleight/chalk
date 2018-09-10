@@ -148,7 +148,7 @@ class Node extends Entity
 
         $node = new StructureNode();
         $node->structure = $this->em('core_structure')->id($entity->structure->id);
-        $node->parent    = $this->em('core_structure_node')->id($entity->parent->id);
+        $node->parent    = isset($entity->parent) ? $this->em('core_structure_node')->id($entity->parent->id) : $entity;
         $node->content   = $content;
         $node->sort      = $entity->sort + 1;
         $content->nodes->add($node);
