@@ -22,7 +22,7 @@ class Url extends Content
              
         if (isset($params['url'])) {
             $query
-                ->andWhere("u.url = :url")
+                ->andWhere("{$this->alias()}.url = :url")
                 ->setParameter('url', $params['url']);
         }
 
