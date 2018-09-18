@@ -2039,6 +2039,12 @@
   text-align: center;
 }
 
+.icon-small {
+  font-size: 13.91304348px;
+  font-size: 0.86956522rem;
+  color: #969a9e;
+}
+
 /* Fonts */
 @font-face {
   font-family: "Open Sans";
@@ -2280,6 +2286,13 @@ table .col-select input[type=checkbox] + label:before {
   height: 26px;
   background-size: 16px;
   margin: 0;
+}
+
+table .row-sub th, table .row-sub td {
+  border-top: 0;
+  padding-top: 0;
+  font-size: 13.91304348px;
+  font-size: 0.86956522rem;
 }
 
 table small {

@@ -14,9 +14,14 @@ $info = isset($info) ? $info : Chalk\Chalk::info($entity);
 	</div>
 	<div class="card-inner">
 		<?= $entity->previewName() ?>
+		<? if (isset($sub)) { ?>
+			<i class="icon-arrow-right2 icon-small"></i>
+			<?= $this->render('/element/sub-text', ['sub' => $sub]) ?>
+		<? } ?>
 		<a href="<?= $this->url([
             'entityType' => $info->name,
             'entityId'   => $entity->id,
+            'entitySub'  => isset($sub) ? Chalk\Chalk::subToString($sub) : null,
         ], 'core_frontend', true) ?>" target="_blank" class="icon-view"></a>
 		<br>
 		<small><?= $this->strip(implode(' – ', $entity->previewText())) ?></small>
