@@ -1,14 +1,17 @@
 <?php
 $items = [];
 ?>
+<?= $this->inner('input_hidden', [
+    'name'  => "{$md['contextName']}[]",
+    'value' => '',
+]) ?>
 <?php foreach ($value as $i => $item) { ?>
     <?php $this->start() ?>
         <div class="form-group form-group-vertical">
-            <?= $this->render('element/input_chalk', [
+            <?= $this->render('element/input_chalk-ref', [
                 'name'    => "{$md['contextName']}[{$i}]",
                 'id'      => "_{$md['contextName']}[{$i}]",
                 'value'   => $item,
-                'scope'   => isset($scope) ? $scope : null,
                 'filters' => isset($filters) ? $filters : null,
             ], 'core') ?>
         </div>
@@ -17,11 +20,10 @@ $items = [];
 <? if (isset($stackable) ? $stackable : true) { ?>
     <?php $this->start() ?>
         <div class="form-group form-group-vertical">
-            <?= $this->render('element/input_chalk', [
+            <?= $this->render('element/input_chalk-ref', [
                 'name'    => "{$md['contextName']}[{{i}}]",
                 'id'      => "_{$md['contextName']}[{{i}}]",
                 'value'   => null,
-                'scope'   => isset($scope) ? $scope : null,
                 'filters' => isset($filters) ? $filters : null,
             ], 'core') ?>
         </div>

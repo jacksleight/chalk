@@ -89,18 +89,6 @@ abstract class Wrapper implements \ArrayAccess
 	
 	abstract public function graphFromArray(array $array);
 
-	protected function _isBooleanList(array $array)
-	{
-		foreach ($array as $name => $value) {
-			if (!is_numeric($value) || ($value != 0 && $value != 1)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	abstract protected function _mapBooleanList(array $array);
-
 	public function __call($method, $args)
 	{
 		return call_user_func_array(array($this->_object, $method), $args);

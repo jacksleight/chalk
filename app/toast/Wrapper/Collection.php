@@ -26,11 +26,11 @@ class Collection extends \Toast\Wrapper implements \Iterator, \Countable
 		$history[] = $this->_object;
 
 		$array = array();
-		foreach ($this as $name => $get) {
+		foreach ($this as $key => $get) {
 			if (in_array($get->getObject(), $history, true)) {
 				continue;
 			}
-			$array[$name] = $get->_traverse($function, $history);
+			$array[$key] = $get->_traverse($function, $history);
 		}
 
 		return $array;
@@ -38,10 +38,10 @@ class Collection extends \Toast\Wrapper implements \Iterator, \Countable
 
 	public function graphFromArray(array $array)
 	{
-		if ($this->_isBooleanList($array)) {
-			$array = $this->_mapBooleanList($array);
-			foreach ($this->toArray() as $name => $value) {
-				if (!isset($array[$value->id])) {
+		if ($this->_isIdList($array)) {
+			$array = $this->_mapIdList($array);
+			foreach ($this->_object->toArray() as $key => $value) {
+				if (!in_array($value, $array, true)) {
 					$this->_object->removeElement($value);
 					if (isset($this->_md['inverse'])) {
 						$inverse = $this->_md['inverse'];
@@ -53,7 +53,7 @@ class Collection extends \Toast\Wrapper implements \Iterator, \Countable
 					}
 				}
 			}
-			foreach ($array as $name => $value) {
+			foreach ($array as $key => $value) {
 				if (!$this->contains($value)) {
 					$this->add($value);
 				}
@@ -61,31 +61,39 @@ class Collection extends \Toast\Wrapper implements \Iterator, \Countable
 			return $this;
 		}
 
-		foreach ($array as $name => $value) {
+		foreach ($array as $key => $value) {
 			if (is_array($value)) {
-				if (!$this->__isset($name)) {
-				//	$class = $this->_md['entity'];
-				//	$this->__set($name, new $class());
-					continue;
+				if ($this->__isset($key)) {
+					$this->__get($key)->graphFromArray($value);
 				}
-				$this->__get($name)->graphFromArray($value);
 			} else {
-				$this->__set($name, $value);
+				$this->__set($key, $value);
 			}		
 		}
 
 		return $this;
 	}
 
-	protected function _mapBooleanList(array $array)
+	protected function _isIdList(array $array)
 	{
-		$values = array();
-		foreach ($array as $value => $bool) {
-			if ($bool) {
-				$values[$value] = \Toast\Wrapper::$em->getReference($this->_md['entity'], $value);
+		foreach ($array as $value) {
+			if (!is_scalar($value)) {
+				return false;
 			}
 		}
-		return $values;
+		return true;
+	}
+
+	protected function _mapIdList(array $array)
+	{
+		foreach ($array as $key => $value) {
+			if (!is_numeric($value)) {
+				unset($array[$key]);
+				continue;
+			}
+			$array[$key] = \Toast\Wrapper::$em->getReference($this->_md['entity'], $value);
+		}
+		return $array;
 	}
 
 	public function first()
@@ -100,29 +108,29 @@ class Collection extends \Toast\Wrapper implements \Iterator, \Countable
 		return $this->__get($this->_object->key());
 	}
 	
-	public function __set($name, $value)
+	public function __set($key, $value)
 	{
-		$this->_object->set($name, $value);
+		$this->_object->set($key, $value);
 	}
 
-	public function __get($name)
+	public function __get($key)
 	{
-		$value = $this->_object->get($name);
+		$value = $this->_object->get($key);
 		if ($value instanceof \Toast\Entity) {
-			return new \Toast\Wrapper\Entity($value, $this->_allowed, $this, $name);
+			return new \Toast\Wrapper\Entity($value, $this->_allowed, $this, $key);
 		} else {
 			return $value;
 		}
 	}
 
-	public function __unset($name)
+	public function __unset($key)
 	{
-		$this->_object->remove($name);
+		$this->_object->remove($key);
 	}
 
-	public function __isset($name)
+	public function __isset($key)
 	{
-		return $this->_object->containsKey($name);
+		return $this->_object->containsKey($key);
 	}
 
 	public function rewind()

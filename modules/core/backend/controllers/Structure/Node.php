@@ -64,7 +64,7 @@ class Node extends Entity
             $data[] = [
                 'type'  => Chalk::info($entity)->name,
                 'id'    => $entity->id,
-                'sub'   => $sub = $this->model->selectedSub,
+                'sub'   => $sub = [$this->model->selectedSub],
                 'card'  => $this->view->render('element/card', [
                     'entity' => $entity,
                     'sub'    => $entity->sub($sub),

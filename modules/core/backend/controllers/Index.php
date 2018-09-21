@@ -109,7 +109,7 @@ class Index extends Action
 
         $items = $select->children('root');
         if (!count($items)) {
-            throw new \Exception('No route for redirection');
+            throw new \Exception('No chalk_select entities match provided filter');
         }
         $item = current($items);
         $url = $item['url'];

@@ -2169,7 +2169,8 @@ blockquote {
   border-left: 1px solid #d5d7d8;
 }
 
-blockquote > *:first-child {
+blockquote > *:first-child,
+blockquote > input[type=hidden]:first-child + * {
   margin-top: 0 !important;
 }
 

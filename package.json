@@ -20,5 +20,8 @@
     "postcss-vmin": "^2.0.0",
     "postcss-will-change": "~1.0.0",
     "run-sequence": "^1.2.1"
+  },
+  "scripts": {
+    "gulp": "node ./node_modules/gulp/bin/gulp.js"
   }
 }

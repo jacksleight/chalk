@@ -27,7 +27,8 @@
 /* Flush */
 
 @mixin flush { 
-	> *:first-child	{
+	> *:first-child,
+	> input[type=hidden]:first-child + * {
 		margin-top: 0 !important;
 	}
 }

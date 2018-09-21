@@ -55,15 +55,11 @@ abstract class Entity extends \Toast\Entity
         return Chalk::info($type)->singular;
     }
 
-    public function sub($match)
+    public function sub($id)
     {
-        if (is_string($match)) {
-            $match = Chalk::subToArray($match);
-        }
-        $subs = $this->subs();
-        foreach ($subs as $sub) {
-            if ($sub['type'] == $match['type'] && $sub['id'] == $match['id']) {
-                return $sub + $match;
+        foreach ($this->subs() as $key => $sub) {
+            if ($key == $id[0]) {
+                return $sub;
             }
         }
     }

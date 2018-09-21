@@ -4,21 +4,24 @@ Chalk.component('.input-chalk', function(i, el) {
 	var remove		= $(el).find('.input-chalk-remove');
 	var holder		= $(el).find('.input-chalk-holder');
 	var input		= $(el).find('input');
-	var scope    	= $(el).attr('data-scope') || undefined;
+	var mode    	= $(el).attr('data-mode');
 	var query    	= $(el).attr('data-query');
 	
 	select.click(function(ev) {
 		Chalk.modal(Chalk.selectUrl + query, {}, function(res) {
 			if (res.entities) {
-				if (typeof scope != 'undefined') {
-					input.val(res.entities[0].id);
-				} else {
-					input.val(JSON.stringify({
+				var value;
+				if (mode === 'entity') {
+					value = res.entities[0].id;
+				} else if (mode === 'ref') {
+					value = JSON.stringify({
 						type: res.entities[0].type,
 						id: res.entities[0].id,
 						sub: res.entities[0].sub,
-					}));
+					});
 				}
+				input.val(value);
+				input.attr('disabled', false);
 				holder.html(res.entities[0].card);
 				remove.css('display', 'inline-block');
 			}
@@ -26,6 +29,7 @@ Chalk.component('.input-chalk', function(i, el) {
 	});
 	remove.click(function(ev) {
 		input.val('');
+		input.attr('disabled', true);
 		holder.html('<span class="placeholder">Nothing Selected</span>');
 		remove.hide();
 	});

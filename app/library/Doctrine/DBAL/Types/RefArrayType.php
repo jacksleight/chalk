@@ -9,18 +9,17 @@ namespace Chalk\Doctrine\DBAL\Types;
 use Chalk\Chalk;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
-class EntityType extends \Doctrine\DBAL\Types\JsonType
+class RefArrayType extends \Doctrine\DBAL\Types\JsonArrayType
 {
-    const ENTITY = 'chalk_entity';
+    const REF_ARRAY = 'chalk_ref_array';
 
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
+        $value = parent::convertToPHPValue($value, $platform);
         if (isset($value)) {
-            $value = json_decode($value, true) + [
-                'type' => null,
-                'id'   => null,
-                'sub'  => null,
-            ];
+            foreach ($value as $key => $ref) {
+                $value[$key] = Chalk::ref($ref);
+            }
         }
         return $value;
     }
@@ -28,13 +27,11 @@ class EntityType extends \Doctrine\DBAL\Types\JsonType
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if (isset($value)) {
-            $value = json_encode($value + [
-                'type' => null,
-                'id'   => null,
-                'sub'  => null,
-            ]);
+            foreach ($value as $key => $ref) {
+                $value[$key] = Chalk::ref($ref);
+            }
         }
-        return $value;
+        return parent::convertToDatabaseValue($value, $platform);
     }
 
     public function requiresSQLCommentHint(AbstractPlatform $platform)
@@ -44,6 +41,6 @@ class EntityType extends \Doctrine\DBAL\Types\JsonType
 
     public function getName()
     {
-        return self::ENTITY;
+        return self::REF_ARRAY;
     }
 }

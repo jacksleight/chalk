@@ -25,12 +25,19 @@ Chalk.component('.stackable', function(i, el) {
 			var remove	= $(chalk).find('.input-chalk-remove');
 			var holder	= $(chalk).find('.input-chalk-holder');
 			var input	= $(chalk).find('input');
-			var scope	= $(chalk).attr('data-scope') || undefined;
-			if (typeof scope != 'undefined') {
-				input.val(entity.id);
-			} else {
-				input.val(JSON.stringify({type: entity.type, id: entity.id}));
+			var mode	= $(chalk).attr('data-mode');
+			var value;
+			if (mode === 'entity') {
+				value = entity.id;
+			} else if (mode === 'ref') {
+				value = JSON.stringify({
+					type: entity.type,
+					id: entity.id,
+					sub: entity.sub,
+				});
 			}
+			input.val(value);
+			input.attr('disabled', false);
 			holder.html(entity.card);
 			remove.css('display', 'inline-block');
 			items.append(wrap);

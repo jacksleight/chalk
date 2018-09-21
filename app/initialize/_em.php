@@ -15,7 +15,9 @@ use Chalk\Listener as Listener;
 \Coast\Doctrine\register_dbal_types();
 
 $types = [
-    'chalk_entity' => 'Chalk\Doctrine\DBAL\Types\EntityType',
+    'chalk_entity'    => 'Chalk\Doctrine\DBAL\Types\EntityType', // @todo Remove this fallback support sometime
+    'chalk_ref'       => 'Chalk\Doctrine\DBAL\Types\RefType',
+    'chalk_ref_array' => 'Chalk\Doctrine\DBAL\Types\RefArrayType',
 ];
 foreach ($types as $name => $class) {
     \Doctrine\DBAL\Types\Type::addType($name, $class);

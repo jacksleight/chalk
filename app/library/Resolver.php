@@ -41,9 +41,9 @@ class Resolver extends CoastResolver
                 'id'        => $id,
             ];
         }
-        if (isset($sub) && is_string($sub)) {
-            $sub = Chalk::subToArray($sub);
-        }
+        // if (isset($sub) && is_string($sub)) { // @todo
+        //     $sub = Chalk::subToArray($sub);
+        // }
         foreach ($this->_resolvers as $resolver) {
             if (isset($resolver[0]) && !is_a($info->class, $resolver[0], true)) {
                 continue;

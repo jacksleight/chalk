@@ -6,6 +6,7 @@
 
 namespace Chalk;
 
+use Coast;
 use Coast\App as CoastApp;
 use Chalk\Module;
 use Chalk\Event;
@@ -146,23 +147,45 @@ class Chalk extends CoastApp
         ]);
     }
 
-    public static function subToString($sub)
+    public static function ref($value, $string = false)
     {
-        $parts = array_merge(
-            [$sub['type'], $sub['id']],
-            isset($sub['args']) ? $sub['args'] : []
-        );
-        return implode('_', $parts);
-    }
-
-    public static function subToArray($value)
-    {
-        $parts = explode('_', $value);
-        return [
-            'type' => array_shift($parts),
-            'id'   => array_shift($parts),
-            'args' => $parts
-        ];
+        if (is_object($value)) {
+            $value = [
+                'type' => self::info($value)->name,
+                'id'   => $value->id,
+                'sub'  => null
+            ];
+        } else if (is_array($value) && isset($value['__CLASS__'])) {
+            $value = [
+                'type' => self::info($value)->name,
+                'id'   => $value['id'],
+                'sub'  => null
+            ];
+        } else if (is_array($value) && isset($value['type'])) {
+            $value = $value + [
+                'type' => null,
+                'id'   => null,
+                'sub'  => null
+            ];
+        } else if (is_string($value)) {
+            $value = array_combine(
+                ['type', 'id', 'sub'],
+                explode('/', $value) + [null, null, null]
+            );
+        } else {
+            throw new Exception("Ref is not valid");
+        }
+        if (is_string($value['sub'])) {
+            $value['sub'] = explode('_', $value['sub']);
+        }
+        if ($string) {
+            $value = implode('/', Coast\array_filter_null([
+                $value['type'],
+                $value['id'],
+                isset($value['sub']) ? implode('_', $value['sub']) : null,
+            ]));
+        }
+        return $value;
     }
 
     public function isDebug()

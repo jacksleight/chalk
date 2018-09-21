@@ -20,7 +20,7 @@ class Alias extends Content
     public static $chalkIcon     = 'alias';
 
     /**
-     * @Column(type="chalk_entity")
+     * @Column(type="chalk_ref")
      */
     protected $entity;
 }

@@ -79,17 +79,6 @@ class Entity extends \Toast\Wrapper
 		return $this;
 	}
 
-	protected function _mapBooleanList(array $array)
-	{
-		$values = array();
-		foreach ($array as $value => $bool) {
-			if ($bool) {
-				$values[] = $value;
-			}
-		}
-		return $values;
-	}
-
 	public function __set($name, $value)
 	{
 		if (isset($this->_allowed) && !in_array($name, $this->_allowed)) {
@@ -116,9 +105,7 @@ class Entity extends \Toast\Wrapper
 					case 'time':
 						try {
 							$value = new \DateTime($value);
-						} catch (\Exception $e) {
-							$value = new \Toast\DateTime\Invalid($value);
-						}
+						} catch (\Exception $e) {}
 					break;
 					case 'datetime':
 						try {
@@ -133,17 +120,30 @@ class Entity extends \Toast\Wrapper
 							$value = new \Coast\Url\Invalid($value);
 						}
 					break;
+					case 'chalk_entity':
+					case 'chalk_ref':
+						$value = json_decode($value, true);
+					break;
 					case 'oneToOne':
 					case 'manyToOne':
 						$value = \Toast\Wrapper::$em->ref($md['entity'], $value);
 					break;
-					case 'chalk_entity':
-						$value = json_decode($value, true);
-					break;
 				}
 			}
-		} else if ($name != 'filters' && is_array($value) && $this->_isBooleanList($value)) {
-			$value = $this->_mapBooleanList($value);
+		}
+		if (is_array($value) && count($value) && is_string(current($value))) {
+			$md = $this->getMetadata(\Toast\Entity::MD_PROPERTY, $name);
+			switch ($md['type']) {
+				case 'chalk_ref_array':
+					foreach ($value as $key => $ref) {
+						if (strlen($ref) == 0) {
+							unset($value[$key]);
+							continue;
+						}
+						$value[$key] = json_decode($ref, true);
+					}
+				break;
+			}
 		}
 		$isEditorContent = function($value) {
 			return strpos($value, 'mceNonEditable') !== false && strpos($value, 'data-chalk') !== false;
