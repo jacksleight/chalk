@@ -20,8 +20,11 @@ class EntityType extends \Doctrine\DBAL\Types\Type
     public function convertToPHPValue($value, \Doctrine\DBAL\Platforms\AbstractPlatform $platform)
     {
         if (isset($value)) {
-            $value = json_decode($value);
-            $value = \Toast\Wrapper::$em->ref($value->type, $value->id);
+            $value = json_decode($value, true) + [
+                'type' => null,
+                'id'   => null,
+                'sub'  => null,
+            ];
         }
         return $value;
     }
@@ -29,8 +32,11 @@ class EntityType extends \Doctrine\DBAL\Types\Type
     public function convertToDatabaseValue($value, \Doctrine\DBAL\Platforms\AbstractPlatform $platform)
     {
         if (isset($value)) {
-            $info  = Chalk::info($value);
-            $value = json_encode(['type' => $info->name, 'id' => $value->id]);
+            $value = json_encode($value + [
+                'type' => null,
+                'id'   => null,
+                'sub'  => null,
+            ]);
         }
         return $value;
     }

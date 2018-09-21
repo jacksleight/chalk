@@ -34,7 +34,7 @@ class Index extends Action
         if (!$entity) {
             throw new \Exception();
         }
-        $url = $this->frontend->url($entity);
+        $url = $this->frontend->url($entity, $req->entitySub);
         if ($url !== false) {
             return $res->redirect($url);
         }

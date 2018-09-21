@@ -137,6 +137,25 @@ uasort($tableCols, function($a, $b) {
                         <?php $c++ ?>
                     <?php } ?>
                 </tr>
+                <?php if (array_intersect(['select-one'], $actions) && $model->filters == 'core_info_link') { ?>
+                    <? foreach ($entity->subs() as $sub) { ?>
+                        <tr class="clickable row-sub">
+                            <?php
+                            if (isset($indent)) {
+                                $padding = $entity->{$indent} + 1 * 20;
+                                $style .= "; padding-left: {$padding}px";
+                            }
+                            ?>
+                            <td colspan="<?= count($tableCols) ?>" style="<?= $style ?>">
+                                <?= $this->partial('link', [
+                                    'content' => $this->render('/element/sub-text', ['sub' => $sub, 'icon' => true]),
+                                    'entity'  => $entity,
+                                    'sub'     => $sub,
+                                ]) ?>
+                            </td>
+                        </tr>
+                    <? } ?>
+                <? } ?>
             <?php } ?>
         </tbody>
     </table>

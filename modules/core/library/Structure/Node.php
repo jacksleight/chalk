@@ -287,6 +287,14 @@ class Node extends Entity
         return $this->content->restore();
     }
 
+    public function subs()
+    {
+        if (!isset($this->content)) {
+            return;
+        }
+        return $this->content->subs();
+    }
+
     public function depthFlat()
     {
         return max(0, $this->depth - 1);

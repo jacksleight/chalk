@@ -57,7 +57,12 @@ class Chalk extends CoastApp
                 $class = $class->getObject();
             }
             $class = get_class($class);
-        } else if (strpos($class, '\\') === false) {
+        } else if (is_array($class) && isset($class['__CLASS__'])) {
+            $class = $class['__CLASS__'];
+        } else if (is_array($class) && isset($class['type'])) {
+            $class = $class['type'];
+        }
+        if (strpos($class, '\\') === false) {
             $parts = preg_split('/[_\/]/', $class);
             if (!isset(self::$_map[$parts[0]])) {
                 if (!$graceful) {
@@ -139,6 +144,25 @@ class Chalk extends CoastApp
             'group'     => class_exists($class) && isset($class::$chalkGroup)    ? $class::$chalkGroup    : null,
             'icon'      => class_exists($class) && isset($class::$chalkIcon)     ? $class::$chalkIcon     : null,
         ]);
+    }
+
+    public static function subToString($sub)
+    {
+        $parts = array_merge(
+            [$sub['type'], $sub['id']],
+            isset($sub['args']) ? $sub['args'] : []
+        );
+        return implode('_', $parts);
+    }
+
+    public static function subToArray($value)
+    {
+        $parts = explode('_', $value);
+        return [
+            'type' => array_shift($parts),
+            'id'   => array_shift($parts),
+            'args' => $parts
+        ];
     }
 
     public function isDebug()

@@ -95,3 +95,7 @@ $icons: (
 	display: inline-block;
 	text-align: center;
 }
+.icon-small {
+	@include font-size(-1);
+	color: $color-quiet;
+}

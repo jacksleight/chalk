@@ -138,8 +138,7 @@ class Entity extends \Toast\Wrapper
 						$value = \Toast\Wrapper::$em->ref($md['entity'], $value);
 					break;
 					case 'chalk_entity':
-						$value = json_decode($value);
-						$value = \Toast\Wrapper::$em->ref($value->type, $value->id);
+						$value = json_decode($value, true);
 					break;
 				}
 			}

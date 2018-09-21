@@ -21,44 +21,44 @@ class Resolver extends CoastResolver
         $args = func_get_args();
         $isEntity =
             (isset($args[1]) && is_string($args[0]) && is_numeric($args[1])) ||
-            (isset($args[0]) && !isset($args[1]) && is_array($args[0]) && isset($args[0]['__CLASS__'])) ||
-            (isset($args[0]) && !isset($args[1]) && $args[0] instanceof Entity);
+            (isset($args[0]) && is_array($args[0]) && isset($args[0]['__CLASS__'])) ||
+            (isset($args[0]) && $args[0] instanceof Entity);
         return $isEntity
             ? call_user_func_array([$this, 'entity'], $args)
             : call_user_func_array(['parent', '__invoke'], $args);
     }
 
-    public function entity($entity, $id = null, $data = false)
+    public function entity($type, $id = null, $sub = null, $data = false)
     {
-        if (isset($id)) {
+        $info = Chalk::info($type);
+        if (!is_string($type)) {
+            $entity = $type;
+            $data   = $sub;
+            $sub    = $id;
+        } else {
             $entity = [
-                '__CLASS__' => Chalk::info($entity)->class,
+                '__CLASS__' => $info->class,
                 'id'        => $id,
             ];
         }
-        if (is_object($entity)) {
-            $class = get_class($entity);
-        } else if (is_array($entity)) {
-            $class = $entity['__CLASS__'];
-        } else {
-            throw new \Chalk\Exception('Unknown class');
+        if (isset($sub) && is_string($sub)) {
+            $sub = Chalk::subToArray($sub);
         }
-        $info = Chalk::info($class);
         foreach ($this->_resolvers as $resolver) {
-            if (isset($resolver[0]) && !is_a($class, $resolver[0], true)) {
+            if (isset($resolver[0]) && !is_a($info->class, $resolver[0], true)) {
                 continue;
             }
-            $result = $resolver[1]($entity, $info);
-            if ($result instanceof Url) {
-                return $result;
-            } else if (isset($result)) {
-                if ($data) {
-                    $result = $this->routeData($result['params'], $result['name'], true);
-                } else {
-                    $result = $this->route($result['params'], $result['name'], true);
+            $url = $resolver[1]($entity, $sub, $info);
+            if ($url instanceof Url) {
+                if (isset($sub) && $sub['type'] == 'fragment') {
+                    $url->fragment($sub['id']);
                 }
-                if ($result) {
-                    return $result;
+                return $url;
+            } else if (isset($url)) {
+                $method = $data ? 'routeData' : 'route';
+                $url = $this->{$method}($url['params'], $url['name'], true);
+                if ($url) {
+                    return $url;
                 }
             }
         }

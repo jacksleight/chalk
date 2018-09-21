@@ -2039,6 +2039,12 @@
   text-align: center;
 }
 
+.icon-small {
+  font-size: 13.91304348px;
+  font-size: 0.86956522rem;
+  color: #969a9e;
+}
+
 /* Fonts */
 @font-face {
   font-family: "Open Sans";

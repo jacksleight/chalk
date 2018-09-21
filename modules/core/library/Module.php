@@ -348,7 +348,7 @@ class Module extends ChalkModule
             ->backendRoute(
                 'core_frontend',
                 Router::METHOD_ALL,
-                $this->path("frontend/{entityType}/{entityId}"), [
+                $this->path("frontend/{entityType}/{entityId}/{entitySub}?"), [
                     'group'      => 'core',
                     'controller' => 'index',
                     'action'     => 'frontend',

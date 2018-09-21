@@ -169,9 +169,10 @@ abstract class Entity extends Action
             $data[] = [
                 'type'  => Chalk::info($entity)->name,
                 'id'    => $entity->id,
-                'name'  => $entity->previewName,
+                'sub'   => $sub = $this->model->selectedSub,
                 'card'  => $this->view->render('element/card', [
                     'entity' => $entity,
+                    'sub'    => $entity->sub($sub),
                 ], 'core')->toString(),
             ];
         }

@@ -141,6 +141,13 @@ table {
 			margin: 0;
 		}
 	}
+	.row-sub {
+		th, td {
+			border-top: 0;
+			padding-top: 0;
+			@include font-size(-1);
+		}
+	}
 	small {
 		@include font-size(-2);
 	}

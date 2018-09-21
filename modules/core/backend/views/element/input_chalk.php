@@ -1,36 +1,28 @@
 <?php
-if (!isset($value)) {
-    $value = null;
-} else if (is_string($value) && strlen($value) == 0) {
+if (!isset($value) || (is_string($value) && strlen($value) == 0)) {
     $value = null;
 }
+$info   = null;
+$entity = null;
+$sub    = null;
 if (isset($scope)) {
-    if (!is_object($scope)) {
-        $scope = Chalk\Chalk::info($scope);
-    }
-    $info = $scope;
+    $info = Chalk\Chalk::info($scope);
     if (isset($value)) {
-        if (is_scalar($value)) {
-            $value = $this->em($info)->id($value);
-        } else {
-            // scoped object, dont need to do anything
-        }
+        $entity = is_scalar($value)
+            ? $this->em($info)->id($value)
+            : $value;
     }
     if (!isset($filters)) {
-        $filters = [
-            $scope->name => [],
-        ];
+        $filters = [$scope->name => []];
     }
 } else {
     if (isset($value)) {
-        if (is_scalar($value)) {
+        if (is_string($value)) {
             $value = json_decode($value, true);
-            $info  = Chalk\Chalk::info($value['type']);
-            $value = $this->em($info)->id($value['id']);
-        } else {
-            $info  = Chalk\Chalk::info($value);
-            $value = $this->em($info)->id($value->id);
         }
+        $info   = Chalk\Chalk::info($value);
+        $entity = $this->em($info)->id($value['id']);
+        $sub    = $entity->sub($value['sub']);
     }
 }
 $filters = isset($filters)
@@ -48,7 +40,8 @@ $filters = isset($filters)
     <div class="input-chalk-holder">
         <?php if (isset($value)) { ?>
             <?= $this->inner('/element/card', [
-                'entity' => $value
+                'entity' => $entity,
+                'sub'    => $sub,
             ]) ?>
         <?php } else if (isset($placeholder)) { ?>
             <span class="placeholder"><?= $placeholder ?></span>
@@ -60,8 +53,8 @@ $filters = isset($filters)
         <?= $this->inner('input', [
             'type'  => 'hidden',
             'value' => isset($scope)
-                ? $value->id
-                : json_encode(['type' => $info->name, 'id' => $value->id]),
+                ? $entity->id
+                : json_encode($value),
         ]) ?>
     <?php } else { ?>
         <?= $this->inner('input', [

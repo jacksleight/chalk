@@ -24113,7 +24113,11 @@ Chalk.component('.input-chalk', function(i, el) {
 				if (typeof scope != 'undefined') {
 					input.val(res.entities[0].id);
 				} else {
-					input.val(JSON.stringify({type: res.entities[0].type, id: res.entities[0].id}));
+					input.val(JSON.stringify({
+						type: res.entities[0].type,
+						id: res.entities[0].id,
+						sub: res.entities[0].sub,
+					}));
 				}
 				holder.html(res.entities[0].card);
 				remove.css('display', 'inline-block');
