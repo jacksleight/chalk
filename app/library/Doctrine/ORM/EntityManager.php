@@ -77,7 +77,7 @@ class EntityManager extends \Coast\Doctrine\ORM\EntityManager
                 } else {
                     $value = &$item[$key];
                 }
-                if (!isset($value) || strlen($value) == 0) {
+                if (!isset($value) || (is_string($value) && strlen($value) == 0)) {
                     $value = null;
                     continue;
                 }
