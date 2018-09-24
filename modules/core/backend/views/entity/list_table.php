@@ -138,7 +138,7 @@ uasort($tableCols, function($a, $b) {
                     <?php } ?>
                 </tr>
                 <?php if (array_intersect(['select-one'], $actions) && $model->filters == 'core_info_link') { ?>
-                    <? foreach ($entity->subs() as $id => $sub) { ?>
+                    <? foreach ($entity->subs() as $sub) { ?>
                         <tr class="clickable row-sub">
                             <?php
                             if (isset($indent)) {
@@ -150,7 +150,7 @@ uasort($tableCols, function($a, $b) {
                                 <?= $this->partial('link', [
                                     'content' => $this->render('/element/sub-text', ['sub' => $sub, 'icon' => true]),
                                     'entity'  => $entity,
-                                    'sub'     => $id,
+                                    'sub'     => $sub,
                                 ]) ?>
                             </td>
                         </tr>

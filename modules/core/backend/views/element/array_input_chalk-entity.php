@@ -34,6 +34,7 @@ $items = [];
         'items'    => $items,
         'template' => $template,
         'fixed'    => true,
+        'sortable' => false,
     ], 'core') ?>
 <? } else { ?>
     <?= implode(null, $items) ?>

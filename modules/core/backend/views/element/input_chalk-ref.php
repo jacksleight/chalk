@@ -31,7 +31,7 @@ $filters = isset($filters)
     <?= $this->inner('input', [
         'type'  => 'hidden',
         'value' => isset($value)
-            ? json_encode($value)
+            ? Chalk\Chalk::ref($value, true)
             : null,
         'disabled' => !isset($value),
     ]) ?>

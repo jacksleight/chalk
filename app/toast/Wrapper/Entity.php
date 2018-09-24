@@ -6,6 +6,8 @@
 
 namespace Toast\Wrapper;
 
+use Chalk\Chalk;
+
 class Entity extends \Toast\Wrapper
 {	
 	public function __construct(\Toast\Entity $object, array $allowed = null, $parent = null, $reference = null)
@@ -120,13 +122,12 @@ class Entity extends \Toast\Wrapper
 							$value = new \Coast\Url\Invalid($value);
 						}
 					break;
-					case 'chalk_entity':
 					case 'chalk_ref':
-						$value = json_decode($value, true);
+						$value = Chalk::ref($value);
 					break;
 					case 'oneToOne':
 					case 'manyToOne':
-						$value = \Toast\Wrapper::$em->ref($md['entity'], $value);
+						$value = \Toast\Wrapper::$em->proxy($md['entity'], $value);
 					break;
 				}
 			}
@@ -140,7 +141,7 @@ class Entity extends \Toast\Wrapper
 							unset($value[$key]);
 							continue;
 						}
-						$value[$key] = json_decode($ref, true);
+						$value[$key] = Chalk::ref($ref);
 					}
 				break;
 			}

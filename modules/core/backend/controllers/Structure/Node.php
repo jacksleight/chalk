@@ -59,19 +59,22 @@ class Node extends Entity
         $ids      = array_map(function($v) { return $v->content->id; }, $nodes);
         $entities = $this->em('core_content')->all(['ids' => $ids]);
 
-        $data = [];
+        $items = [];
         foreach ($entities as $entity) {
-            $data[] = [
-                'type'  => Chalk::info($entity)->name,
-                'id'    => $entity->id,
-                'sub'   => $sub = [$this->model->selectedSub],
-                'card'  => $this->view->render('element/card', [
-                    'entity' => $entity,
-                    'sub'    => $entity->sub($sub),
+            $ref = Chalk::ref([
+                'type' => Chalk::info($entity)->name,
+                'id'   => $entity->id,
+                'sub'  => Chalk::sub($this->model->selectedSub),
+            ]);
+            $items[] = [
+                'ref'       => $ref,
+                'refString' => Chalk::ref($ref, true),
+                'card'      => $this->view->render('element/card', [
+                    'ref' => $ref,
                 ], 'core')->toString(),
             ];
         }
-        $req->data->entities = $data;
+        $req->data->items = $items;
     }
 
     public function organise(Request $req, Response $res)

@@ -164,19 +164,22 @@ abstract class Entity extends Action
     public function select(Request $req, Response $res)
     {
         $entities = $this->em($this->model->selectedType)->all(['ids' => $this->model->selected()]);
-        $data = [];
+        $items = [];
         foreach ($entities as $entity) {
-            $data[] = [
-                'type'  => Chalk::info($entity)->name,
-                'id'    => $entity->id,
-                'sub'   => $sub = [$this->model->selectedSub],
-                'card'  => $this->view->render('element/card', [
-                    'entity' => $entity,
-                    'sub'    => $entity->sub($sub),
+            $ref = Chalk::ref([
+                'type' => Chalk::info($entity)->name,
+                'id'   => $entity->id,
+                'sub'  => Chalk::sub($this->model->selectedSub),
+            ]);
+            $items[] = [
+                'ref'       => $ref,
+                'refString' => Chalk::ref($ref, true),
+                'card'      => $this->view->render('element/card', [
+                    'ref' => $ref,
                 ], 'core')->toString(),
             ];
         }
-        $req->data->entities = $data;
+        $req->data->items = $items;
     }
 
     public function create(Request $req, Response $res)

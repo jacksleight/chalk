@@ -3,10 +3,10 @@
 ], 'core') ?>
 <?php $this->block('main') ?>
 
-<? foreach ($req->data->entities as $entity) { ?>
+<? foreach ($req->data->items as $item) { ?>
     <?php
-    echo $entity['card'];
-    unset($entity['card']);
-    var_dump($entity);
+    echo $item['card'];
+    unset($item['card']);
+    var_dump($item);
     ?>
 <? } ?>

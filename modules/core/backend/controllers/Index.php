@@ -30,11 +30,12 @@ class Index extends Action
     public function frontend(Request $req, Response $res)
     {
         Chalk::isDual(true);
-        $entity = $this->em($req->entityType)->id($req->entityId);
+        $ref = Chalk::ref($req->ref);
+        $entity = $this->em($ref['type'])->id($ref['id']);
         if (!$entity) {
             throw new \Exception();
         }
-        $url = $this->frontend->url($entity, $req->entitySub);
+        $url = $this->frontend->url($entity, $ref['sub']);
         if ($url !== false) {
             return $res->redirect($url);
         }
@@ -44,13 +45,14 @@ class Index extends Action
 
     public function backend(Request $req, Response $res)
     {
-        if ($req->entityId == 0) {
+        $ref = Chalk::ref($req->ref);
+        if ($ref['id'] == 0) {
             $entity = [
-                '__CLASS__' => Chalk::info($req->entityType)->class,
+                '__CLASS__' => Chalk::info($ref['type'])->class,
                 'id'        => 0,
             ];
         } else {
-            $entity = $this->em($req->entityType)->id($req->entityId);
+            $entity = $this->em($ref['type'])->id($ref['id']);
             if (!$entity) {
                 throw new \Exception();
             }

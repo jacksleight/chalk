@@ -19,7 +19,7 @@ class EntityManager extends \Coast\Doctrine\ORM\EntityManager
         return $this->getRepository(Chalk::info($class)->class);
     }
 
-    public function ref($class, $id)
+    public function proxy($class, $id)
     {
         return $this->getReference(Chalk::info($class)->class, $id);
     }
@@ -57,87 +57,45 @@ class EntityManager extends \Coast\Doctrine\ORM\EntityManager
             : null;
     }
 
-    public function objects(array $items, $classes = null, $filters = null, array $opts = array())
+    public function refs($items, $keys = null, array $opts = array())
     {
-        if (!isset($classes)) {
-            $classes = ['__ROOT__' => null];
-        } else if (!is_array($classes)) {
-            $classes = ['__ROOT__' => $classes];
+        if (!isset($keys)) {
+            $keys = ['__ROOT__'];
         }
-
         $map = [];
-        foreach ($items as $i => &$item) {
-            foreach ($classes as $key => $class) {
-                if (is_numeric($key)) {
-                    $key   = $class;
-                    $class = true;
-                }
+        foreach ($keys as $key) {
+            foreach ($items as &$item) {
                 if ($key == '__ROOT__') {
-                    $value = &$item;
+                    $ref = &$item;
                 } else {
-                    $value = &$item[$key];
+                    $ref = &$item[$key];
                 }
-                if (!isset($value) || (is_string($value) && strlen($value) == 0)) {
-                    $value = null;
-                    continue;
-                }
-                if (is_string($class)) {
-                    $class = $class;
-                    $id    = $value;
-                } else if (is_array($value)) {
-                    $class = $value['__CLASS__'];
-                    $id    = $value['id'];
-                } else if ($class === true) {
-                    $json  = json_decode($value);
-                    $class = $json->type;
-                    $id    = $json->id;
-                }
-                if (!isset($map[$class][$id])) {
-                    $map[$class][$id] = [];
-                }
-                $map[$class][$id][] = &$value;
+                $ref = Chalk::ref($ref);
+                $map[$ref['type']][$ref['id']][] = &$ref;
             }
         }
-
-        foreach ($map as $class => $ids) {
-            $entities = $this->__invoke($class)->all([
+        foreach ($map as $type => $ids) {
+            $entities = $this->__invoke($type)->all([
                 'ids' => array_keys($ids),
             ], $opts);
             foreach ($entities as $entity) {
                 foreach ($ids[$entity['id']] as &$ref) {
-                    $ref = $entity;
-                }
-            }
-            foreach ($ids as $id => &$refs) {
-                foreach ($refs as &$ref) {
-                    if (is_object($ref)) {
-                        continue;
-                    }
-                    $ref = null;
+                    $ref[0] = $entity;
                 }
             }
         }
-
-        if (!isset($filters)) {
-            return $items;
-        } else if ($filters === true) {
-            $filters = ['__ROOT__'];
-        }
-
-        foreach ($items as $i => &$item) {
-            foreach ($filters as $key) {
-                if ($key == '__ROOT__') {
-                    if (!isset($item) || (is_string($item) && strlen($item) == 0)) {
-                        unset($items[$i]);
-                    }
-                } else {
-                    if (!isset($item[$key]) || (is_string($item[$key]) && strlen($item[$key]) == 0)) {
-                        unset($items[$i]);
-                    }
-                }
-            }
-        }
-
         return $items;
+    }
+
+    public function ref($ref, array $opts = array())
+    {
+        return $this->refs([$ref], null, $opts)[0];
+    }
+
+    public function objects(array $items, $classes = null, $filters = null, array $opts = array())
+    {
+        echo 'FIX EM->OBJECTS';
+        die;
+        return $this->refs($items, $classes, $opts);
     }
 }

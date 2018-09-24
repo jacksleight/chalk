@@ -356,7 +356,7 @@ class Module extends ChalkModule
             ->backendRoute(
                 'core_backend',
                 Router::METHOD_ALL,
-                $this->path("backend/{entityType}/{entityId}"), [
+                $this->path("backend/{ref:.*}"), [
                     'group'      => 'core',
                     'controller' => 'index',
                     'action'     => 'backend',
@@ -364,7 +364,7 @@ class Module extends ChalkModule
             ->backendRoute(
                 'core_jump',
                 Router::METHOD_ALL,
-                $this->path("jump/{entityType}/{entityId}"), [
+                $this->path("jump/{ref:.*}"), [
                     'group'      => 'core',
                     'controller' => 'auth',
                     'action'     => 'jump',

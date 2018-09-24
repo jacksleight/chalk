@@ -8,8 +8,9 @@ namespace Chalk\Doctrine\DBAL\Types;
 
 use Chalk\Chalk;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Types\SimpleArrayType;
 
-class RefArrayType extends \Doctrine\DBAL\Types\JsonArrayType
+class RefArrayType extends SimpleArrayType
 {
     const REF_ARRAY = 'chalk_ref_array';
 
@@ -28,7 +29,7 @@ class RefArrayType extends \Doctrine\DBAL\Types\JsonArrayType
     {
         if (isset($value)) {
             foreach ($value as $key => $ref) {
-                $value[$key] = Chalk::ref($ref);
+                $value[$key] = Chalk::ref($ref, true);
             }
         }
         return parent::convertToDatabaseValue($value, $platform);

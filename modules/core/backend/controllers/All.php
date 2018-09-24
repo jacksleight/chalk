@@ -43,7 +43,7 @@ class All extends Action
             $this->model->filtersInfo
         ));
 
-        $userRef = $this->em->ref('core_user', $this->user->id);
+        $userRef = $this->em->proxy('core_user', $this->user->id);
         $this->em->listener('core_trackable')->setUser($userRef);
 
         // ========

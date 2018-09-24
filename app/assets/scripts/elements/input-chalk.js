@@ -9,20 +9,19 @@ Chalk.component('.input-chalk', function(i, el) {
 	
 	select.click(function(ev) {
 		Chalk.modal(Chalk.selectUrl + query, {}, function(res) {
-			if (res.entities) {
+			console.log(res);
+			
+			if (res.items) {
+				var item = res.items[0];
 				var value;
 				if (mode === 'entity') {
-					value = res.entities[0].id;
+					value = item.ref.id;
 				} else if (mode === 'ref') {
-					value = JSON.stringify({
-						type: res.entities[0].type,
-						id: res.entities[0].id,
-						sub: res.entities[0].sub,
-					});
+					value = item.refString;
 				}
 				input.val(value);
 				input.attr('disabled', false);
-				holder.html(res.entities[0].card);
+				holder.html(item.card);
 				remove.css('display', 'inline-block');
 			}
 		});

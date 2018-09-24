@@ -17,7 +17,7 @@
         'mode'         => $model->mode,
         'selectedList' => $entity->id,
         'selectedType' => $info->name,
-        'selectedSub'  => isset($sub) ? $sub : null,
+        'selectedSub'  => isset($sub) ? Chalk\Chalk::sub($sub, true) : null,
     ], true) ?>"><?= $content ?></a>
 <?php } else { ?>
     <?= $content ?>

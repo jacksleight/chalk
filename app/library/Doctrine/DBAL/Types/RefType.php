@@ -8,8 +8,9 @@ namespace Chalk\Doctrine\DBAL\Types;
 
 use Chalk\Chalk;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Types\StringType;
 
-class RefType extends \Doctrine\DBAL\Types\JsonType
+class RefType extends StringType
 {
     const REF = 'chalk_ref';
 
@@ -25,7 +26,7 @@ class RefType extends \Doctrine\DBAL\Types\JsonType
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if (isset($value)) {
-            $value = Chalk::ref($value);
+            $value = Chalk::ref($value, true);
         }
         return parent::convertToDatabaseValue($value, $platform);
     }

@@ -149,6 +149,9 @@ class Chalk extends CoastApp
 
     public static function ref($value, $string = false)
     {
+        if (!isset($value)) {
+            return $value;
+        }
         if (is_object($value)) {
             $value = [
                 'type' => self::info($value)->name,
@@ -175,15 +178,46 @@ class Chalk extends CoastApp
         } else {
             throw new Exception("Ref is not valid");
         }
-        if (is_string($value['sub'])) {
-            $value['sub'] = explode('_', $value['sub']);
+        if (isset($value['sub'])) {
+            $value['sub'] = self::sub($value['sub']);
         }
         if ($string) {
             $value = implode('/', Coast\array_filter_null([
                 $value['type'],
                 $value['id'],
-                isset($value['sub']) ? implode('_', $value['sub']) : null,
+                isset($value['sub']) ? self::sub($value['sub'], true) : null,
             ]));
+        }
+        return $value;
+    }
+
+    public static function sub($value, $string = false)
+    {
+        if (!isset($value)) {
+            return $value;
+        }
+        if (is_array($value)) {
+            $value = $value + [
+                'type' => null,
+                'id'   => null,
+                'args' => []
+            ];
+        } else if (is_string($value)) {
+            $parts = explode('_', $value);
+            $value = [
+                'type' => array_shift($parts),
+                'id'   => array_shift($parts),
+                'args' => $parts
+            ];
+        } else {
+            throw new Exception("Sub is not valid");
+        }
+        if ($string) {
+            $parts = array_merge(
+                [$value['type'], $value['id']],
+                isset($value['args']) ? $value['args'] : []
+            );
+            $value = implode('_', $parts);
         }
         return $value;
     }

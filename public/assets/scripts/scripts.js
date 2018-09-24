@@ -24171,20 +24171,19 @@ Chalk.component('.input-chalk', function(i, el) {
 	
 	select.click(function(ev) {
 		Chalk.modal(Chalk.selectUrl + query, {}, function(res) {
-			if (res.entities) {
+			console.log(res);
+			
+			if (res.items) {
+				var item = res.items[0];
 				var value;
 				if (mode === 'entity') {
-					value = res.entities[0].id;
+					value = item.ref.id;
 				} else if (mode === 'ref') {
-					value = JSON.stringify({
-						type: res.entities[0].type,
-						id: res.entities[0].id,
-						sub: res.entities[0].sub,
-					});
+					value = item.refString;
 				}
 				input.val(value);
 				input.attr('disabled', false);
-				holder.html(res.entities[0].card);
+				holder.html(item.card);
 				remove.css('display', 'inline-block');
 			}
 		});
@@ -24565,6 +24564,7 @@ Chalk.component('.stackable', function(i, el) {
 	var addBtn		= $(el).find('.stackable-add');
 	var addMultiBtn	= $(el).find('.stackable-add-multiple');
 	var template	= $(el).find('.stackable-template').html();
+	var sortable	= $(el).attr('data-sortable') === 'true';
 	var count		= items.children().length;
 
 	var add = function() {
@@ -24578,28 +24578,24 @@ Chalk.component('.stackable', function(i, el) {
 			// }, 1000);
 		}, 1);
 	}
-	var addMulti = function(entities) {
-		$(entities).each(function() {
-			var entity  = this;
-			var wrap	= $($.parseHTML(Mustache.render(template, {i: count++}).trim())[0]);
-			var chalk	= wrap.find('.input-chalk');
-			var remove	= $(chalk).find('.input-chalk-remove');
-			var holder	= $(chalk).find('.input-chalk-holder');
-			var input	= $(chalk).find('input');
-			var mode	= $(chalk).attr('data-mode');
+	var addMulti = function(multiItems) {
+		$(multiItems).each(function() {
+			var multiItem = this;
+			var wrap      = $($.parseHTML(Mustache.render(template, {i: count++}).trim())[0]);
+			var chalk     = wrap.find('.input-chalk');
+			var remove    = $(chalk).find('.input-chalk-remove');
+			var holder    = $(chalk).find('.input-chalk-holder');
+			var input     = $(chalk).find('input');
+			var mode      = $(chalk).attr('data-mode');
 			var value;
 			if (mode === 'entity') {
-				value = entity.id;
+				value = multiItem.ref.id;
 			} else if (mode === 'ref') {
-				value = JSON.stringify({
-					type: entity.type,
-					id: entity.id,
-					sub: entity.sub,
-				});
+				value = multiItem.refString;
 			}
 			input.val(value);
 			input.attr('disabled', false);
-			holder.html(entity.card);
+			holder.html(multiItem.card);
 			remove.css('display', 'inline-block');
 			items.append(wrap);
 			setTimeout(function() {
@@ -24630,33 +24626,35 @@ Chalk.component('.stackable', function(i, el) {
 		del($(this).closest('.stackable-item'));
 	});
 	
-	items.sortable({
-		handle: '.stackable-move',
-		placeholder: 'stackable-placeholder',
-		helper: function() {
-			return $('<div class="stackable-helper">');
-		},
-		forcePlaceholderSize: true,
-		forceHelperSize: true,
-		axis: 'y',
-		create: function(ev, ui) {
-			// items.height('auto');
-			// setTimeout(function() {
-			// 	items.height(items.height());
-			// }, 1000);
-		},
-		start: function(ev, ui) {
-			$(ui.item).find('.editor-content').each(function () {
-				tinymce.execCommand('mceRemoveEditor', false, $(this).attr('id'));
-			});
-		},
-		stop: function(ev, ui) {
-			$(ui.item).find('.editor-content').each(function () {
-				tinymce.execCommand('mceAddEditor', true, $(this).attr('id'));
-			});
-			refresh();
-		}
-	});
+	if (sortable) {		
+		items.sortable({
+			handle: '.stackable-move',
+			placeholder: 'stackable-placeholder',
+			helper: function() {
+				return $('<div class="stackable-helper">');
+			},
+			forcePlaceholderSize: true,
+			forceHelperSize: true,
+			axis: 'y',
+			create: function(ev, ui) {
+				// items.height('auto');
+				// setTimeout(function() {
+				// 	items.height(items.height());
+				// }, 1000);
+			},
+			start: function(ev, ui) {
+				$(ui.item).find('.editor-content').each(function () {
+					tinymce.execCommand('mceRemoveEditor', false, $(this).attr('id'));
+				});
+			},
+			stop: function(ev, ui) {
+				$(ui.item).find('.editor-content').each(function () {
+					tinymce.execCommand('mceAddEditor', true, $(this).attr('id'));
+				});
+				refresh();
+			}
+		});
+	}
 	
 	var content = $($.parseHTML(Mustache.render(template, {i: 0}).trim())[0]);
 	var chalk = content.find('.input-chalk');
@@ -24665,8 +24663,8 @@ Chalk.component('.stackable', function(i, el) {
 		addMultiBtn.css('display', 'inline-block');
 		addMultiBtn.click(function(ev) {
 			Chalk.modal(Chalk.selectUrl + query, {}, function(res) {
-				if (res.entities) {
-					addMulti(res.entities);
+				if (res.items) {
+					addMulti(res.items);
 					var first = $(el).find('.stackable-item:first-child');
 					if (first.find('.input-chalk input').val() === '') {
 						first.remove();

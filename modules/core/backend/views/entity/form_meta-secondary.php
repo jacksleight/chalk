@@ -3,8 +3,7 @@
     <?php if (!$entity->isNew()) { ?>
         <li>
             <a href="<?= $this->url([
-                'entityType' => $info->name,
-                'entityId'   => $entity->id,
+				'ref' => Chalk\Chalk::ref($entity, true),
             ], 'core_frontend', true) ?>" target="_blank" class="icon-view">
                 Open
             </a>
