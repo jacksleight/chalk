@@ -314,3 +314,8 @@
 
 * **Fixes**
 	* Bug fixes
+
+### 0.7.8
+
+* **Fixes**
+	* Bug fixes
