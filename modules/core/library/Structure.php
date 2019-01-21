@@ -50,6 +50,7 @@ class Structure extends Entity implements Trackable
 	
 	/**
      * @OneToMany(targetEntity="\Chalk\Core\Structure\Node", mappedBy="structure", cascade={"persist"})
+     * @OrderBy({"left" = "ASC"})
      */
 	protected $nodes;
 	

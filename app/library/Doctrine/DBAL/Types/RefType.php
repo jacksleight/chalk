@@ -7,6 +7,7 @@
 namespace Chalk\Doctrine\DBAL\Types;
 
 use Chalk\Chalk;
+use Chalk\Ref;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\StringType;
 
@@ -18,7 +19,7 @@ class RefType extends StringType
     {
         $value = parent::convertToPHPValue($value, $platform);
         if (isset($value)) {
-            $value = Chalk::ref($value);
+            $value = new Ref($value);
         }
         return $value;
     }
@@ -26,7 +27,7 @@ class RefType extends StringType
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if (isset($value)) {
-            $value = Chalk::ref($value, true);
+            $value = $value->toString();
         }
         return parent::convertToDatabaseValue($value, $platform);
     }

@@ -7,6 +7,7 @@
 namespace Chalk;
 
 use Chalk\Chalk;
+use Chalk\Ref;
 use Chalk\Entity;
 use Closure;
 use Coast\Url;
@@ -19,13 +20,36 @@ class Resolver extends CoastResolver
     public function __invoke()
     {
         $args = func_get_args();
-        $isEntity =
-            (isset($args[1]) && is_string($args[0]) && is_numeric($args[1])) ||
+        if (
+            (isset($args[0]) && $args[0] instanceof Ref)
+        ) {
+            return call_user_func_array([$this, 'ref'], $args);
+        }
+        if (
             (isset($args[0]) && is_array($args[0]) && isset($args[0]['__CLASS__'])) ||
-            (isset($args[0]) && $args[0] instanceof Entity);
-        return $isEntity
-            ? call_user_func_array([$this, 'entity'], $args)
-            : call_user_func_array(['parent', '__invoke'], $args);
+            (isset($args[0]) && $args[0] instanceof Entity)
+        ) {
+            return call_user_func_array([$this, 'entity'], $args);
+        }
+        return call_user_func_array(['parent', '__invoke'], $args);
+    }
+
+    public function ref(Ref $ref)
+    {
+        $info = Chalk::info($ref->type);
+        foreach ($this->_resolvers as $resolver) {
+            if (isset($resolver[0]) && !is_a($info->class, $resolver[0], true)) {
+                continue;
+            }
+            $url = $resolver[1]($ref, $info);
+            if (isset($url)) {
+                if (isset($ref->sub) && $ref->sub['type'] == 'fragment') {
+                    $url->fragment($ref->sub['id']);
+                }
+                return $url;
+            }
+        }
+        return false;
     }
 
     public function entity($type, $id = null, $sub = null, $data = false)
