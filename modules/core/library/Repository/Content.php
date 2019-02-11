@@ -77,7 +77,7 @@ class Content extends Repository
                 ->setParameter('subtypes', $params['subtypes']);
         }
 
-        if (isset($params['node']) && count($params['node'])) {
+        if (isset($params['node']) && (!is_array($params['node']) || count($params['node']))) {
             $query
                 ->addSelect("n")
                 ->leftJoin("{$this->alias()}.nodes", "n")
