@@ -61,7 +61,9 @@ $app->param('backend', $app->lazy(function($vars) {
         ->param('notify', new Notifier())
         ->param('controller', new Controller([
             'inflector' => function($value, $type) {
-                if ($type == 'controller') {
+                if ($type == 'action') {
+                    return \Coast\str_camel_lower($value);
+                } else if ($type == 'controller') {
                     return str_replace('_', '/', $value);
                 }
                 return $value;
@@ -138,7 +140,9 @@ $app->param('frontend', $app->lazy(function($vars) {
     $frontend
         ->param('controller', new Controller([
             'inflector' => function($value, $type) {
-                if ($type == 'controller') {
+                if ($type == 'action') {
+                    return \Coast\str_camel_lower($value);
+                } else if ($type == 'controller') {
                     return str_replace('_', '/', $value);
                 }
                 return $value;
