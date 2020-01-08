@@ -119,14 +119,18 @@ class Repository extends EntityRepository
                 ->andWhere("{$this->alias()}.id IN (:ids)")
                 ->setParameter('ids', $params['ids']);
             if (!isset($params['sort'])) {
-                $query->orderBy("FIELD({$this->alias()}.id, :ids)");
+                $query
+                    ->addSelect("FIELD({$this->alias()}.id, :ids) AS HIDDEN idSort")
+                    ->orderBy("idSort");
             }
         } else if (isset($params['slugs'])) {
             $query
                 ->andWhere("{$this->alias()}.slug IN (:slugs)")
                 ->setParameter('slugs', $params['slugs']);
             if (!isset($params['sort'])) {
-                $query->orderBy("FIELD({$this->alias()}.slug, :slugs)");
+                $query
+                    ->addSelect("FIELD({$this->alias()}.slug, :slugs) AS HIDDEN slugSort")
+                    ->orderBy("slugSort");
             }
         }
         

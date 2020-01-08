@@ -39,6 +39,8 @@ Autoloader::register($app->config->dataDir->dir('proxy'), 'Chalk\Proxy');
 $config->addCustomStringFunction('MATCH', 'DoctrineExtensions\Query\Mysql\MatchAgainst');
 $config->addCustomStringFunction('FIELD', 'DoctrineExtensions\Query\Mysql\Field');
 $config->addCustomDateTimeFunction('UTC_TIMESTAMP', 'DoctrineExtensions\Query\Mysql\UtcTimestamp');
+$config->addCustomDateTimeFunction('DATE_FORMAT', 'DoctrineExtensions\Query\Mysql\DateFormat');
+$config->addCustomStringFunction('IF', 'DoctrineExtensions\Query\Mysql\IfElse');
 
 $evm = new EventManager();
 $evm->addEventSubscriber(new Listener());
