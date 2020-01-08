@@ -9,16 +9,16 @@
         {"name": "Jack Sleight", "email": "jacksleight@gmail.com"}
     ],
     "require": {
-        "php": ">=5.5.0",
-        "doctrine/orm": "2.5.*",
-        "swiftmailer/swiftmailer": "5.4.*",
-        "intervention/image": "2.3.*",
-        "gargron/fileupload": "1.1.*",
+        "php": ">=7.1.0",
+        "doctrine/orm": "2.7.*",
+        "swiftmailer/swiftmailer": "6.2.*",
+        "intervention/image": "2.5.*",
+        "gargron/fileupload": "1.5.*",
         "nesbot/carbon": "2.*",
         "jacksleight/coast": "0.8.*",
         "jacksleight/coast-doctrine": "0.8.*",
         "beberlei/doctrineextensions": "^1.2",
-        "wp-cli/php-cli-tools": "0.10.*"
+        "wp-cli/php-cli-tools": "0.11.*"
     },
     "require-dev": {
         "php-console/php-console": "3.*"
