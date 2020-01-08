@@ -36,6 +36,10 @@ $config->setResultCacheImpl($app->cache);
 $config->setMetadataCacheImpl($app->cache);
 Autoloader::register($app->config->dataDir->dir('proxy'), 'Chalk\Proxy');
 
+$config->addCustomStringFunction('MATCH', 'DoctrineExtensions\Query\Mysql\MatchAgainst');
+$config->addCustomStringFunction('FIELD', 'DoctrineExtensions\Query\Mysql\Field');
+$config->addCustomDateTimeFunction('UTC_TIMESTAMP', 'DoctrineExtensions\Query\Mysql\UtcTimestamp');
+
 $evm = new EventManager();
 $evm->addEventSubscriber(new Listener());
 
