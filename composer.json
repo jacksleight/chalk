@@ -14,9 +14,10 @@
         "swiftmailer/swiftmailer": "5.4.*",
         "intervention/image": "2.3.*",
         "gargron/fileupload": "1.1.*",
-        "nesbot/carbon": "1.*",
-        "jacksleight/coast": "0.7.*",
-        "jacksleight/coast-doctrine": "0.6.*",
+        "nesbot/carbon": "2.*",
+        "jacksleight/coast": "0.8.*",
+        "jacksleight/coast-doctrine": "0.8.*",
+        "beberlei/doctrineextensions": "^1.2",
         "wp-cli/php-cli-tools": "0.10.*"
     },
     "require-dev": {
