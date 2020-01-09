@@ -84,17 +84,17 @@ class Parser implements Access, Executable
         $this->_plugins[$name];
     }
 
-    public function parse($html)
+    public function parse($html, $params = array())
     {
-        return $this->_run($html, 'parse');
+        return $this->_run($html, 'parse', $params);
     }
 
-    public function reverse($html)
+    public function reverse($html, $params = array())
     {
-        return $this->_run($html, 'reverse');
+        return $this->_run($html, 'reverse', $params);
     }
 
-    protected function _run($html, $method)
+    protected function _run($html, $method, $params = array())
     {
         if (!$html) {
             return $html;
@@ -118,7 +118,7 @@ class Parser implements Access, Executable
         }
 
         foreach ($this->_plugins as $plugin) {
-            call_user_func([$plugin, $method], $doc, $xpath);
+            call_user_func([$plugin, $method], $doc, $xpath, $params);
         }
 
         if ($partial) {
@@ -142,6 +142,9 @@ class Parser implements Access, Executable
         if (strpos($res->header('content-type'), 'text/html') !== 0) {
             return;
         }
-        $res->body($this->parse($res->body()));
+        $res->body($this->parse($res->body(), [
+            'req' => $req,
+            'res' => $res,
+        ]));
     }
 }

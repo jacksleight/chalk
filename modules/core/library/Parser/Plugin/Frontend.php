@@ -17,7 +17,7 @@ class Frontend extends Plugin implements Access
 {
     use Access\Implementation;
 
-    public function parse(DOMDocument $doc, DOMXPath $xpath)
+    public function parse(DOMDocument $doc, DOMXPath $xpath, $params = array())
     {
         $nodes = $xpath->query('//*[@data-chalk]');
         while ($nodes->length) {
@@ -39,7 +39,7 @@ class Frontend extends Plugin implements Access
                     $class        = $info->class;
                     $widget       = (new $class())->fromArray($data['widget']['params']);
                     $renderView   = $module->widgetRenderView($widget);
-                    $renderParams = $widget->renderParams();
+                    $renderParams = $widget->renderParams() + $params;
                     $html         = is_array($renderView)
                         ? $this->view->render($renderView[0], $renderParams, $renderView[1])
                         : $this->view->render($renderView, $renderParams);
