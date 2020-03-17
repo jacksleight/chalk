@@ -329,7 +329,7 @@
 
 * Update dependencies
 
-### 0.8.1
+### 0.8.2
 
 * **Fixes**
 	* Bug fixes
