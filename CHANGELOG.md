@@ -324,3 +324,8 @@
 
 * **Fixes**
 	* Bug fixes
+	* Bug fixes
+
+### 0.8.0
+
+* Update dependencies

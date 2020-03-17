@@ -2,10 +2,14 @@
 list($entity, $name) = Chalk\traverse_name($entity, $name);
 ?>
 <?php if (isset($entity->{"{$name}Date"})) { ?>
+    <?php
+    $value = $entity->{"{$name}Date"};
+    $value->setTimezone(new \DateTimeZone($this->chalk->config->timezone));
+    ?>
     <? if (isset($format)) { ?>
-        <?= $entity->{"{$name}Date"}->format($format) ?>
+        <?= $value->format($format) ?>
     <? } else { ?>
-        <?= $entity->{"{$name}Date"}->diffForHumans() ?>
+        <?= $value->diffForHumans() ?>
     <? } ?>
 <?php } else { ?>
     —

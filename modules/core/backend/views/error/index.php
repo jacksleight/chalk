@@ -1,4 +1,4 @@
-<?php $this->outer('/layout/page_wide', [
+<?php $this->outer('/layout/body_error', [
 	'title'	=> 'Error',
 ]) ?>
 <?php $this->block('main') ?>

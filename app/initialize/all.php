@@ -59,7 +59,16 @@ $app->param('backend', $app->lazy(function($vars) {
             'isTidy' => true,
         ]))
         ->param('notify', new Notifier())
-        ->param('controller', new Controller())
+        ->param('controller', new Controller([
+            'inflector' => function($value, $type) {
+                if ($type == 'action') {
+                    return \Coast\str_camel_lower($value);
+                } else if ($type == 'controller') {
+                    return str_replace('_', '/', $value);
+                }
+                return $value;
+            }
+        ]))
         ->param('router', new Router([
             'target'  => $backend->controller,
             'params'  => [
@@ -129,7 +138,16 @@ $app->param('frontend', $app->lazy(function($vars) {
         ->param('backend', $app->backend)
         ->param('session', $app->session);
     $frontend
-        ->param('controller', new Controller())
+        ->param('controller', new Controller([
+            'inflector' => function($value, $type) {
+                if ($type == 'action') {
+                    return \Coast\str_camel_lower($value);
+                } else if ($type == 'controller') {
+                    return str_replace('_', '/', $value);
+                }
+                return $value;
+            }
+        ]))
         ->param('router', new Router([
             'target'  => $frontend->controller,
         ]))

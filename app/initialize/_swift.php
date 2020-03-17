@@ -5,10 +5,10 @@
  */
 
 $config = $app->config->mail;
-if ($config['driver'] == 'mail') {
-    $transport = Swift_MailTransport::newInstance();
+if ($config['driver'] == 'sendmail') {
+    $transport = new Swift_SendmailTransport();
 } else if ($config['driver'] == 'smtp') {
-    $transport = Swift_SmtpTransport::newInstance($config['host'], $config['port']);
+    $transport = new Swift_SmtpTransport($config['host'], $config['port']);
     if (isset($config['encryption'])) {
         $transport->setEncryption($config['encryption']);
     }
@@ -20,4 +20,4 @@ if ($config['driver'] == 'mail') {
     }
 }
 
-return Swift_Mailer::newInstance($transport);
+return new Swift_Mailer($transport);

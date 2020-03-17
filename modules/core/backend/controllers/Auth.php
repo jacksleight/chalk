@@ -69,7 +69,7 @@ class Auth extends Action
         $user->tokenDate = new \DateTime('+24 hour');
         $this->em->flush();
 
-        $this->swift->send(\Swift_Message::newInstance()
+        $this->swift->send((new \Swift_Message())
             ->setSubject("{$this->domain->label} Password Reset")
             ->setTo($user->emailAddress)
             ->setFrom($this->domain->emailAddress)
