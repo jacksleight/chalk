@@ -328,3 +328,8 @@
 ### 0.8.0
 
 * Update dependencies
+
+### 0.8.1
+
+* **Fixes**
+	* Bug fixes
