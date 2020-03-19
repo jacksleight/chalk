@@ -70,6 +70,19 @@
   margin-left: 0;
 }
 
+/* String */
+
+@function str-replace($string, $search, $replace: '') {
+    $string:  inspect($string);
+    $search:  inspect($search);
+    $replace: inspect($replace);
+    $index:   str-index($string, $search);
+    @if $index {
+        @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
+    @return $string;
+}
+
 /* Inline Block */
 
 @mixin inline-blocks($selector, $x: null, $y: null, $font-size: 0) {
@@ -293,5 +306,6 @@
 @function svg-dynamic($size, $path, $fill) {
     $width:  nth($size, 1);
     $height: nth($size, 2);
-    @return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='#{$width}' height='#{$height}'%3E%3Cpath d='#{$path}' fill='#{$fill}'/%3E%3C/svg%3E";
+    $fill:   str-replace($fill, '#', '%23');
+    @return 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="#{$width}" height="#{$height}"%3E%3Cpath d="#{$path}" fill="#{$fill}" /%3E%3C/svg%3E';
 }

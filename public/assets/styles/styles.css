@@ -3,6 +3,7 @@
 /* Image */
 /* Flush */
 /* Text */
+/* String */
 /* Inline Block */
 /* Ratio */
 .ratio, .preview::before {
@@ -3350,7 +3351,7 @@ select optgroup option {
   select {
     background-position: 100% 50%;
     background-repeat: no-repeat;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='25' height='9.409'%3E%3Cpath d='M0 2.442l2.43-2.442 4.57 4.548 4.57-4.548 2.43 2.442-7 6.967z' fill='#969a9e'/%3E%3C/svg%3E");
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="25" height="9.409"%3E%3Cpath d="M0 2.442l2.43-2.442 4.57 4.548 4.57-4.548 2.43 2.442-7 6.967z" fill="%23969a9e" /%3E%3C/svg%3E');
     padding-right: 35px;
   }
 }
@@ -4343,15 +4344,15 @@ textarea.disabled,
   margin-top: -4.7045px;
   background-position: 100% 50%;
   background-repeat: no-repeat;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9.409'%3E%3Cpath d='M0 2.442l2.43-2.442 4.57 4.548 4.57-4.548 2.43 2.442-7 6.967z' fill='#969a9e'/%3E%3C/svg%3E");
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="14" height="9.409"%3E%3Cpath d="M0 2.442l2.43-2.442 4.57 4.548 4.57-4.548 2.43 2.442-7 6.967z" fill="%23969a9e" /%3E%3C/svg%3E');
 }
 
 .dropdown .dropdown-toggle.btn-focus::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9.409'%3E%3Cpath d='M0 2.442l2.43-2.442 4.57 4.548 4.57-4.548 2.43 2.442-7 6.967z' fill='white'/%3E%3C/svg%3E");
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="14" height="9.409"%3E%3Cpath d="M0 2.442l2.43-2.442 4.57 4.548 4.57-4.548 2.43 2.442-7 6.967z" fill="white" /%3E%3C/svg%3E');
 }
 
 .dropdown .dropdown-toggle.btn-focus.btn-out::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9.409'%3E%3Cpath d='M0 2.442l2.43-2.442 4.57 4.548 4.57-4.548 2.43 2.442-7 6.967z' fill='#00a6b5'/%3E%3C/svg%3E");
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="14" height="9.409"%3E%3Cpath d="M0 2.442l2.43-2.442 4.57 4.548 4.57-4.548 2.43 2.442-7 6.967z" fill="%2300a6b5" /%3E%3C/svg%3E');
 }
 
 .dropdown .form-group {
