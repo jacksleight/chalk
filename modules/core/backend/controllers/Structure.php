@@ -18,7 +18,7 @@ class Structure extends Entity
 	public function preDispatch(Request $req, Response $res)
 	{
 		parent::preDispatch($req, $res);
-		if (!in_array($this->user->role, ['developer'])) {
+		if ($req->param('controller') === 'structure' && !in_array($this->user->role, ['developer'])) {
 			return $this->forward('forbidden', 'index');
 		}
 	}
