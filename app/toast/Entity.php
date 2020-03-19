@@ -315,7 +315,7 @@ class Entity implements ArrayAccess
         } else if (property_exists($this, $name)) {
             $this->{$name} = $value;
         } else {
-            throw new \Exception("Property '{$name}' does not exist");
+            // throw new \Exception("Property '{$name}' does not exist");
         }
     }
 
@@ -330,7 +330,7 @@ class Entity implements ArrayAccess
         } else if (property_exists($this, $name)) {
             return $this->{$name};
         } else {
-            throw new \Exception("Property '{$name}' does not exist");
+            // throw new \Exception("Property '{$name}' does not exist");
         }
     }
 
@@ -345,7 +345,7 @@ class Entity implements ArrayAccess
         } else if (property_exists($this, $name)) {
             return $this->{$name} !== null;
         } else {
-            throw new \Exception("Property '{$name}' does not exist");
+            // throw new \Exception("Property '{$name}' does not exist");
         }
     }
 
@@ -358,7 +358,7 @@ class Entity implements ArrayAccess
         if (property_exists($this, $name)) {
             $this->{$name} = null;
         } else {
-            throw new \Exception("Property '{$name}' does not exist");
+            // // throw new \Exception("Property '{$name}' does not exist");
         }
     }
 
