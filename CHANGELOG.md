@@ -333,3 +333,13 @@
 
 * **Fixes**
 	* Bug fixes
+
+### 0.8.3
+
+* **Fixes**
+	* Bug fixes
+
+### 0.8.4
+
+* **Fixes**
+	* Bug fixes
