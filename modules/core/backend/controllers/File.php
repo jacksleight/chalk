@@ -40,7 +40,7 @@ class File extends Content
 
         list($uploads, $headers) = $uploader->processAll();
         foreach ($uploads as $upload) {
-            if (isset($upload->path)) {
+            if ($upload->completed) {
                 $entity = isset($req->route['params']['id'])
                     ? $this->em($this->info)->id($req->route['params']['id'])
                     : $this->em($this->info)->create();      
@@ -51,13 +51,13 @@ class File extends Content
                 }
                 $view = $entity->isNew() ? 'file/upload' : 'element/card-upload';    
                 if (!$this->em->isPersisted($entity)) {
-                    $entity->newFile = new CoastFile($upload->path);
+                    $entity->newFile = new CoastFile($upload->getPathname());
                     $this->em->persist($entity);
                 } else {
-                    $entity->move(new CoastFile($upload->path));
+                    $entity->move(new CoastFile($upload->getPathname()));
                 }
                 $this->em->flush();
-                unset($upload->path);
+                $upload->completed = null;
                 $upload->html = $this->view->render($view, [ 
                     'entity'  => $entity,
                     'covered' => true,
