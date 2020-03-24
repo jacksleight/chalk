@@ -36,8 +36,10 @@ trait Repository
             $ids = \Coast\array_column($results, 'entityId');
             $query
                 ->andWhere("{$alias}.id IN (:ids)")
-                ->orderBy("FIELD({$alias}.id, :ids)")
                 ->setParameter('ids', $ids);
+            if (count($ids)) {
+                $query->orderBy("FIELD({$alias}.id, " . implode(', ', $ids) . ")");
+            }
         }
     }
 }

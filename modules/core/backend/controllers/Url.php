@@ -38,7 +38,7 @@ class Url extends Content
         }
 
         $content = $this->em($this->info)->one([
-            'url' => $model->url,
+            'url' => $model->url->toString(),
         ]);
         if ($content) {
             $this->model->redirect->queryParam('selectedList', $content->id);
