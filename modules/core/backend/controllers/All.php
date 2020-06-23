@@ -64,7 +64,7 @@ class All extends Action
 
     public function postDispatch(Request $req, Response $res)
     {
-        $controller = strtolower($req->dispatch['controller']);
+        $controller = str_replace('_', '/', $req->dispatch['controller']);
         $action     = strtolower(\Coast\str_camel_split($req->dispatch['action'], '-'));
         $group      = \Coast\str_camel_lower($req->dispatch['group']);
         $path       = isset($req->view->path)

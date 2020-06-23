@@ -65,6 +65,8 @@ $app->param('backend', $app->lazy(function($vars) {
                     return \Coast\str_camel_lower($value);
                 } else if ($type == 'controller') {
                     return str_replace('_', '/', $value);
+                } else if ($type == 'group') {
+                    return \Coast\str_camel_lower($value);
                 }
                 return $value;
             }
