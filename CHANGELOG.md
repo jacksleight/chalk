@@ -348,3 +348,8 @@
 
 * **Fixes**
 	* Bug fixes
+
+### 0.8.6
+
+* **Fixes**
+	* Bug fixes
