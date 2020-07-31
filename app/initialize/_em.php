@@ -31,9 +31,11 @@ $config->setMetadataDriverImpl($config->newDefaultAnnotationDriver());
 $config->setProxyDir($app->config->dataDir->dir('proxy'));
 $config->setProxyNamespace('Chalk\Proxy');
 $config->setAutoGenerateProxyClasses(false);
-$config->setQueryCacheImpl($app->cache);
-$config->setResultCacheImpl($app->cache);
 $config->setMetadataCacheImpl($app->cache);
+$config->setQueryCacheImpl($app->cache);
+if (isset($app->config->resultCache)) {
+	$config->setResultCacheImpl($app->config->resultCache);
+}
 Autoloader::register($app->config->dataDir->dir('proxy'), 'Chalk\Proxy');
 
 $config->addCustomStringFunction('MATCH', 'DoctrineExtensions\Query\Mysql\MatchAgainst');
