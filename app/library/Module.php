@@ -285,6 +285,12 @@ abstract class Module implements Access
         return true;
     }
 
+    public function widgetObject($info, $state = null)
+    {
+        $class = $info->class;
+        return new $class($state);
+    }
+
     public function widgetEditView(Widget $widget)
     {
         $info = Chalk::info($widget);

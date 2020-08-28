@@ -19,7 +19,7 @@ class Info implements Iterator, Countable, Hook
     {
         if (func_num_args() > 1) {
             if (isset($info)) {
-                $this->_items[$name] = (object) (((array) Chalk::info($name)) + $info + [
+                $this->_items[$name] = (object) ($info + ((array) Chalk::info($name)) + [
                     'subs' => [],
                 ]);
             } else {

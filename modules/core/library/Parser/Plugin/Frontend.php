@@ -36,12 +36,12 @@ class Frontend extends Plugin implements Access
                 } else if (isset($data['widget'])) {
                     $info         = Chalk::info($data['widget']['name']);
                     $module       = $this->chalk->module($info->module->name);
-                    $class        = $info->class;
-                    $widget       = (new $class())->fromArray($data['widget']['params']);
-                    $renderView   = $module->widgetRenderView($widget);
-                    $renderParams = $widget->renderParams() + $params;
+                    $widget       = $module->widgetObject($info);
+                    $widget       = $this->em->wrap($widget)->graphFromArray($data['widget']['params']);
+                    $renderView   = $module->widgetRenderView($widget->getObject());
+                    $renderParams = $widget->getObject()->renderParams() + ['widget' => $widget->getObject()] + $params;
                     $html         = is_array($renderView)
-                        ? $this->view->render($renderView[0], $renderParams, $renderView[1])
+                        ? $this->view->render($renderView[0], $renderView[1] + $renderParams, $renderView[2])
                         : $this->view->render($renderView, $renderParams);
                     $temp         = $this->parser()->htmlToDoc($html);
                     $query        = $temp->getElementsByTagName('body');

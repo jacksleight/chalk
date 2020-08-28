@@ -1,5 +1,5 @@
 <?php $this->outer('layout/page', [
-    'title' => $info->singular,
+    'title' => $widget->previewName(),
 ], 'core') ?>
 <?php $this->block('main') ?>
 
@@ -8,7 +8,7 @@
 ]) ?>" method="post" data-modal-size="800x800" class="flex-col">
 	<div class="header">
 		<h1>
-			<?= $info->singular ?>
+			<?= $widget->previewName() ?>
 		</h1>
 	</div>
 	<div class="body flex">
@@ -17,7 +17,7 @@
 		$editView = $module->widgetEditView($widget->getObject());
 		?>
 		<?= is_array($editView)
-			? $this->inner($editView[0], [], $editView[1])
+			? $this->inner($editView[0], $editView[1], $editView[2])
 			: $this->inner($editView) ?>
 	</div>
 	<div class="footer">

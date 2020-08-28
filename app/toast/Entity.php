@@ -168,7 +168,11 @@ class Entity implements ArrayAccess
     public function getMetadata($type = null, $name = null)
     {
         $md = self::_getMetadata();
+        return $this->filterMetadata($md, $type, $name);
+    }
 
+    public function filterMetadata($md, $type = null, $name = null)
+    {
         switch ($type) {
             case self::MD_TABLE:
                 $md = $md['table'];
@@ -312,11 +316,16 @@ class Entity implements ArrayAccess
         $name = \Coast\str_camel($name);
         if (method_exists($this, $name)) {
             $this->{$name}($value);
-        } else if (property_exists($this, $name)) {
-            $this->{$name} = $value;
         } else {
-            // throw new \Exception("Property '{$name}' does not exist");
+            $this->{$name} = $value;
         }
+        // if (method_exists($this, $name)) {
+        //     $this->{$name}($value);
+        // } else if (property_exists($this, $name)) {
+        //     $this->{$name} = $value;
+        // } else {
+        //     // throw new \Exception("Property '{$name}' does not exist");
+        // }
     }
 
     public function __get($name)

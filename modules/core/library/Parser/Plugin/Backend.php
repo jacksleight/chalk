@@ -30,8 +30,9 @@ class Backend extends Plugin implements Access
                     $node->removeChild($node->firstChild);
                 }
                 $info   = Chalk::info($data['widget']['name']);
-                $class  = $info->class;
-                $widget = $this->em->wrap(new $class())->graphFromArray($data['widget']['params']);
+                $module = $this->app->chalk->module($info->module->name);
+                $widget = $module->widgetObject($info);
+                $widget = $this->em->wrap($widget)->graphFromArray($data['widget']['params']);
                 $html   = $this->view->render('element/card-widget', ['widget' => $widget->getObject()], 'core');
                 $temp   = $this->parser()->htmlToDoc($html);
                 $temps  = $temp->getElementsByTagName('body')->item(0)->childNodes;

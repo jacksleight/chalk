@@ -24,8 +24,8 @@ class Widget extends Action
 
 	public function update(Request $req, Response $res)
 	{
-		$class  = $this->info->class;
-		$widget = new $class($this->model->state);
+		$module = $this->app->chalk->module($this->info->module->name);
+		$widget = $module->widgetObject($this->info, $this->model->state);
 		$widget = $this->em->wrap($widget);
 
 		$req->view->widget = $widget;

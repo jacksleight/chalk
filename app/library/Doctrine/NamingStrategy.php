@@ -13,7 +13,11 @@ class NamingStrategy implements DoctrineNamingStrategy
 {
     public function classToTableName($class)
     {
-        return Chalk::info($class)->name;
+        try {
+            return Chalk::info($class)->name;
+        } catch (\Throwable $th) {
+            return false;
+        }
     }
 
     public function propertyToColumnName($property, $class = null)
