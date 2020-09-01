@@ -316,16 +316,11 @@ class Entity implements ArrayAccess
         $name = \Coast\str_camel($name);
         if (method_exists($this, $name)) {
             $this->{$name}($value);
-        } else {
+        } else if (property_exists($this, $name)) {
             $this->{$name} = $value;
+        } else {
+            // throw new \Exception("Property '{$name}' does not exist");
         }
-        // if (method_exists($this, $name)) {
-        //     $this->{$name}($value);
-        // } else if (property_exists($this, $name)) {
-        //     $this->{$name} = $value;
-        // } else {
-        //     // throw new \Exception("Property '{$name}' does not exist");
-        // }
     }
 
     public function __get($name)

@@ -96,9 +96,9 @@ class Entity extends \Toast\Wrapper
 			$class = get_class($this->_object);
 			throw new \Exception("Property '{$name}' is protected on entity '{$class}'");
 		}
-		// if (!$this->hasProperty($name)) {
-		// 	return;
-		// }
+		if (!$this->hasProperty($name)) {
+			return;
+		}
 		if (is_scalar($value)) {
 			$value = trim($value);
 			if (strlen($value) == 0) {
